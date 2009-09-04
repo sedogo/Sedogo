@@ -3,7 +3,7 @@
 // Date: 04/09/09
 // --------------------------------------------------------------
 // Description:
-//   Profile page
+//   Profile
 // --------------------------------------------------------------
 // Dependencies:
 //   None
@@ -26,9 +26,6 @@ using Sedogo.BusinessObjects;
 
 public partial class profile : System.Web.UI.Page
 {
-    //===============================================================
-    // Function: Page_Load
-    //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -43,8 +40,11 @@ public partial class profile : System.Web.UI.Page
 
             profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
             profileImage.ToolTip = user.fullName + "'s profile picture";
-            //<img src="images/profile/megan.jpg" title="Megan L" alt="Megan's profile picture" class="profile" />
 
+            messageCountLink.Text = "You have 0 new messages";
+            inviteCountLink.Text = "You have 0 new invites";
+            alertCountLink.Text = "You have 0 alerts";
+            groupCountLink.Text = "You belong to 0 groups";
 
 
         }

@@ -35,6 +35,8 @@ CREATE Procedure spAddUser
 	@FirstName					nvarchar(200),
 	@LastName					nvarchar(200),
 	@Gender						nchar(1),
+	@HomeTown					nvarchar(200),
+	@Birthday					datetime,
 	@CountryID					int,
 	@LanguageID					int,
 	@CreatedDate				datetime,
@@ -51,6 +53,8 @@ BEGIN
 		FirstName,
 		LastName,
 		Gender,
+		HomeTown,
+		Birthday,
 		Deleted,
 		CountryID,
 		LanguageID,
@@ -71,6 +75,8 @@ BEGIN
 		@FirstName,
 		@LastName,
 		@Gender,
+		@HomeTown,
+		@Birthday,
 		0,
 		@CountryID,
 		@LanguageID,
@@ -114,6 +120,7 @@ CREATE Procedure spSelectUserDetails
 AS
 BEGIN
 	SELECT GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
+		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
 		CountryID, LanguageID,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -143,6 +150,7 @@ CREATE Procedure spSelectUserList
 AS
 BEGIN
 	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
+		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
@@ -173,6 +181,8 @@ CREATE Procedure spUpdateUser
 	@EmailAddress					nvarchar(200),
 	@FirstName						nvarchar(200),
 	@LastName						nvarchar(200),
+	@HomeTown						nvarchar(200),
+	@Birthday						datetime,
 	@Gender							nchar(1),
 	@CountryID						int,
 	@LanguageID						int,
@@ -185,6 +195,8 @@ BEGIN
 	SET EmailAddress			= @EmailAddress,
 		FirstName				= @FirstName,
 		LastName				= @LastName,
+		HomeTown				= @HomeTown,
+		Birthday				= @Birthday,
 		Gender					= @Gender,
 		CountryID				= @CountryID,
 		LanguageID				= @LanguageID,
@@ -196,6 +208,42 @@ END
 GO
 
 GRANT EXEC ON spUpdateUser TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spUpdateUserProfilePic
+// Description:
+//   Update user profile picture
+//=============================================================*/
+PRINT 'Creating spUpdateUserProfilePic...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spUpdateUserProfilePic')
+BEGIN
+	DROP Procedure spUpdateUserProfilePic
+END
+GO
+
+CREATE Procedure spUpdateUserProfilePic
+	@UserID							int,
+	@ProfilePicFilename				nvarchar(200),
+	@ProfilePicThumbnail			nvarchar(200),
+	@ProfilePicPreview				nvarchar(200),
+	@LastUpdatedDate				datetime,
+	@LastUpdatedByFullName			nvarchar(200)
+AS
+BEGIN
+	UPDATE Users
+	SET ProfilePicFilename		= @ProfilePicFilename,
+		ProfilePicThumbnail		= @ProfilePicThumbnail,
+		ProfilePicPreview		= @ProfilePicPreview,
+		LastUpdatedDate			= @LastUpdatedDate,
+		LastUpdatedByFullName	= @LastUpdatedByFullName
+	WHERE UserID = @UserID
+END
+GO
+
+GRANT EXEC ON spUpdateUserProfilePic TO sedogoUser
 GO
  
 /*===============================================================

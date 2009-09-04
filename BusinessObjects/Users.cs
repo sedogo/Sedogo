@@ -54,6 +54,11 @@ namespace Sedogo.BusinessObjects
         private string      m_emailAddress = "";
         private string      m_firstName = "";
         private string      m_lastName = "";
+        private string      m_homeTown = "";
+        private DateTime    m_birthday = DateTime.MinValue;
+        private string      m_profilePicFilename = "";
+        private string      m_profilePicThumbnail = "";
+        private string      m_profilePicPreview = "";
         private string      m_gender = "U";
         private Boolean     m_deleted = false;
         private DateTime    m_deletedDate = DateTime.MinValue;
@@ -97,6 +102,31 @@ namespace Sedogo.BusinessObjects
         public string fullName
         {
             get { return m_firstName + " " + m_lastName; }
+        }
+        public string homeTown
+        {
+            get { return m_homeTown; }
+            set { m_homeTown = value; }
+        }
+        public DateTime birthday
+        {
+            get { return m_birthday; }
+            set { m_birthday = value; }
+        }
+        public string profilePicFilename
+        {
+            get { return m_profilePicFilename; }
+            set { m_profilePicFilename = value; }
+        }
+        public string profilePicThumbnail
+        {
+            get { return m_profilePicThumbnail; }
+            set { m_profilePicThumbnail = value; }
+        }
+        public string profilePicPreview
+        {
+            get { return m_profilePicPreview; }
+            set { m_profilePicPreview = value; }
         }
         public string gender
         {
@@ -213,6 +243,26 @@ namespace Sedogo.BusinessObjects
                 {
                     m_lastName = (string)rdr["LastName"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("HomeTown")))
+                {
+                    m_homeTown = (string)rdr["HomeTown"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Birthday")))
+                {
+                    m_birthday = (DateTime)rdr["Birthday"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicFilename")))
+                {
+                    m_profilePicFilename = (string)rdr["ProfilePicFilename"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
+                {
+                    m_profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicPreview")))
+                {
+                    m_profilePicPreview = (string)rdr["ProfilePicPreview"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
                 {
                     m_gender = (string)rdr["Gender"];
@@ -302,6 +352,15 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = m_emailAddress;
                 cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 200).Value = m_firstName;
                 cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 200).Value = m_lastName;
+                cmd.Parameters.Add("@HomeTown", SqlDbType.NVarChar, 200).Value = m_homeTown;
+                if (m_birthday == DateTime.MinValue)
+                {
+                    cmd.Parameters.Add("@Birthday", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@Birthday", SqlDbType.DateTime).Value = m_birthday;
+                }
                 cmd.Parameters.Add("@Gender", SqlDbType.NChar, 1).Value = m_gender;
                 cmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = m_countryID;
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
@@ -350,6 +409,15 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = m_emailAddress;
                 cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 200).Value = m_firstName;
                 cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 200).Value = m_lastName;
+                cmd.Parameters.Add("@HomeTown", SqlDbType.NVarChar, 200).Value = m_homeTown;
+                if (m_birthday == DateTime.MinValue)
+                {
+                    cmd.Parameters.Add("@Birthday", SqlDbType.DateTime).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@Birthday", SqlDbType.DateTime).Value = m_birthday;
+                }
                 cmd.Parameters.Add("@Gender", SqlDbType.NChar, 1).Value = m_gender;
                 cmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = m_countryID;
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
@@ -363,6 +431,40 @@ namespace Sedogo.BusinessObjects
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("SedogoUser", "Update", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: UpdateUserProfilePic
+        //===============================================================
+        public void UpdateUserProfilePic()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spUpdateUserProfilePic", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
+                cmd.Parameters.Add("@ProfilePicFilename", SqlDbType.NVarChar, 200).Value = m_profilePicFilename;
+                cmd.Parameters.Add("@ProfilePicThumbnail", SqlDbType.NVarChar, 200).Value = m_profilePicThumbnail;
+                cmd.Parameters.Add("@ProfilePicPreview", SqlDbType.NVarChar, 200).Value = m_profilePicPreview;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoUser", "UpdateUserProfilePic", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally

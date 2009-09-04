@@ -36,6 +36,30 @@ public partial class register : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            for( int day = 1 ; day <= 31 ; day++ )
+            {
+                dateOfBirthDay.Items.Add(new ListItem(day.ToString(),day.ToString()));
+            }
+            for( int month = 1 ; month <= 12 ; month++ )
+            {
+                dateOfBirthMonth.Items.Add(new ListItem(month.ToString(),month.ToString()));
+            }
+            for (int year = 1900; year <= DateTime.Now.Year ; year++)
+            {
+                dateOfBirthYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
+            }
+            dateOfBirthDay.Items.Insert(0, new ListItem("", ""));
+            dateOfBirthMonth.Items.Insert(0, new ListItem("", ""));
+            dateOfBirthYear.Items.Insert(0, new ListItem("", ""));
+            hiddenDateOfBirth.Attributes.Add("style", "display:none");
+            dateOfBirthDay.Attributes.Add("onchange", "setHiddenDateField()");
+            dateOfBirthMonth.Attributes.Add("onchange", "setHiddenDateField()");
+            dateOfBirthYear.Attributes.Add("onchange", "setHiddenDateField()");
+
+            dateOfBirthDay.SelectedValue = "";
+            dateOfBirthMonth.SelectedValue = "";
+            dateOfBirthYear.SelectedValue = "";
+
             SetFocus(firstNameTextBox);
         }
     }
@@ -71,7 +95,7 @@ public partial class register : System.Web.UI.Page
             {
                 newUser.gender = "F";
             }
-            //homeTownTextBox
+            newUser.homeTown = homeTownTextBox.Text;
             newUser.Add();
 
             newUser.UpdatePassword(userPassword);

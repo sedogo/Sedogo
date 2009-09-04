@@ -88,7 +88,7 @@ public partial class login : System.Web.UI.Page
                 //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
                 FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
-                string url = "./loginRedirect.aspx";
+                string url = "./profileRedirect.aspx";
                 Response.Redirect(url);
             }
             // This counts as a successful login, however force a password change

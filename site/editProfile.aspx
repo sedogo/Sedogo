@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="register.aspx.cs" Inherits="register" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="editProfile.aspx.cs" Inherits="editProfile" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -8,11 +8,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="expires" content="0"/>
+	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>Sign up : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>FAQ : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -28,7 +28,7 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
-
+	
 <script language="JavaScript" type="text/javascript">
 function setHiddenDateField()
 {
@@ -47,15 +47,15 @@ function setHiddenDateField()
     }
 }
 </script>
-
+	
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" target="_top">
     <div>
     
 	    <div id="modal">
-            <h1>sign-up</h1>
-            <p>Enter your details below to start using Sedogo immediately</p>
+            <h1>edit profile</h1>
+            <p>Review and change your details below then submit to save</p>
             <fieldset>
                 <ol>
                     <li>
@@ -111,32 +111,8 @@ function setHiddenDateField()
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </li>
                     <li>
-                        <label for="">Password</label>
-                        <asp:TextBox runat="server"
-                            ID="passwordTextBox1" Width="200px" TextMode="Password" MaxLength="30" />
-                            <asp:RequiredFieldValidator ID="passwordTextBox1Validator" runat="server"
-                            ControlToValidate="passwordTextBox1" ErrorMessage="A password is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="passwordTextBox1Validator2" runat="server"
-                            ControlToValidate="passwordTextBox1" Display="Dynamic"
-                            ErrorMessage="Password must be over 6 characters long." 
-                            ValidationExpression="[^\s]{6,30}" />
-                    </li>
-                    <li>
-                        <label for="">Re-type password</label>
-                        <asp:TextBox runat="server"
-                            ID="passwordTextBox2" Width="200px" TextMode="Password" MaxLength="30" />
-                            <asp:RequiredFieldValidator ID="passwordTextBox2Validator" runat="server"
-                            ControlToValidate="passwordTextBox1" ErrorMessage="Please verify your password" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:CompareValidator id="passwordTextBox2Validator2" runat="server" 
-                            ErrorMessage="The two passwords do not match" 
-                            ControlToValidate="passwordTextBox1" Display="Dynamic" 
-                            ControlToCompare="passwordTextBox2"></asp:CompareValidator>
-                    </li>
-                    <li>
                         <label for=""></label>
-                        <asp:Button id="registerUserButton" runat="server" OnClick="registerUserButton_click" Text="Register" />
+                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Save" />
                     </li>
                 </ol>
             </fieldset>

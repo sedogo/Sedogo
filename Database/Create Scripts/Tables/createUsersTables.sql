@@ -36,6 +36,12 @@ CREATE TABLE Users
 	LastName						nvarchar(200)		NULL,
 	Gender							nchar(1)			NOT NULL,
 
+	HomeTown						nvarchar(200)		NULL,
+	Birthday						datetime		    NULL,
+	ProfilePicFilename				nvarchar(200)		NULL,
+	ProfilePicThumbnail				nvarchar(200)		NULL,
+	ProfilePicPreview				nvarchar(200)		NULL,
+
 	Deleted							bit				    NOT NULL,
 	DeletedDate						datetime		    NULL,
 

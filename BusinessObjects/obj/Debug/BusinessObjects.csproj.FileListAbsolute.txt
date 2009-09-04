@@ -1,0 +1,5 @@
+C:\Development\Sedogo\BusinessObjects\obj\Debug\ResolveAssemblyReference.cache
+C:\Development\Sedogo\BusinessObjects\bin\Debug\BusinessObjects.dll
+C:\Development\Sedogo\BusinessObjects\bin\Debug\BusinessObjects.pdb
+C:\Development\Sedogo\BusinessObjects\obj\Debug\BusinessObjects.dll
+C:\Development\Sedogo\BusinessObjects\obj\Debug\BusinessObjects.pdb

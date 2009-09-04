@@ -1,0 +1,9 @@
+.x-axis-tracker 
+{
+	filter: alpha(opacity = 60);
+}
+#account-options li,
+#account-options li.help 
+{
+	padding: 0 8px 0 10px;
+}

@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="expires" content="never" />
+
+		<title>Profile : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+		<meta name="copyright" content="" />
+		<meta name="robots" content="" />
+		<meta name="MSSmartTagsPreventParsing" content="true" />
+
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta http-equiv="Cleartype" content="Cleartype" />
+
+		<link rel="stylesheet" href="css/main.css" />
+		<!--[if gte IE 6]>
+			<link rel="stylesheet" href="css/main_lte-ie-6.css" />
+		<![endif]-->
+
+		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="js/ui.dialog.js"></script>
+		<script type="text/javascript" src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="js/jquery.livequery.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				//Set widths and left positions of timelines based on info held in database (hard-coded for now)
+				$("#1").css("width","500px").css("left","100px");
+				$("#2").css("width","200px").css("left","20px");
+				$("#3").css("width","420px").css("left","60px");
+				$("#4").css("width","200px").css("left","200px");
+				$("#5").css("width","200px").css("left","800px");
+				$("#6").css("width","300px").css("left","280px");
+				$("#7").css("width","640px").css("left","80px");
+				$("#8").css("width","180px").css("left","680px");
+				$("#9").css("width","180px").css("left","680px");
+				$("#10").css("width","480px").css("left","800px");
+				$("#11").css("width","200px").css("left","0px");
+				$("#12").css("width","340px").css("left","100px");
+				$("#13").css("width","380px").css("left","120px");
+				$("#14").css("width","200px").css("left","200px");
+				$("#15").css("width","180px").css("left","680px");
+			});
+		</script>
+
+	</head>
+
+
+	<body>
+		<div id="container">
+			<ul id="account-options">
+				<li class="login"><a href="log-in.htm" title="Login" class="modal">Login</a></li>
+				<li class="sign-up"><a href="sign-up.htm" title="Sign up" class="modal">Sign up</a></li>
+				<li class="help"><a href="help.htm" title="Help" class="modal">Help</a></li>
+			</ul>
+			<div class="one-col">
+				<a href="index.htm" title="sedogo : home"><img src="img/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
+				<p class="strapline">
+					Create your future timeline.<br />
+					Connect, track and interact with like minded people
+				</p>
+			</div>
+			<div class="three-col">
+				<form class="search" method="post" action="profile.htm">
+					<label for="what" class="what">what are you going to do?</label>
+					<input type="text" value="e.g. climb Everest" id="what" />
+					<ol>
+						<li>
+							<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
+						</li>
+						<li>
+							<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
+						</li>
+					</ol>
+					<input type="image" src="img/go.gif" title="go" value="go" class="go" />
+					<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+				</form>
+			</div>
+			<div id="timelines">
+				<div id="tools">
+					<ul class="timeline-options">
+						<li class="first"><a href="#" title="View all" id="view-all">View all</a></li>
+						<li class="last"><a href="#" title="Show categories" id="show-categories">Show categories</a></li>
+					</ul>
+					<div id="category-selector-container">
+						<ul id="category-selector">
+							<li class="category-btn-1"><a href="#" title="Personal">Personal</a></li>
+							<li class="category-btn-2"><a href="#" title="Travel">Travel</a></li>
+							<li class="category-btn-3"><a href="#" title="Friends">Friends</a></li>
+							<li class="category-btn-4"><a href="#" title="Family">Family</a></li>
+							<li class="category-btn-5"><a href="#" title="General">General</a></li>
+							<li class="category-btn-6"><a href="#" title="Health">Health</a></li>
+							<li class="category-btn-7"><a href="#" title="Money">Money</a></li>
+							<li class="category-btn-8"><a href="#" title="Education">Education</a></li>
+							<li class="category-btn-9"><a href="#" title="Hobbies">Hobbies</a></li>
+							<li class="category-btn-10"><a href="#" title="Culture">Culture</a></li>
+							<li class="category-btn-11"><a href="#" title="Charity">Charity</a></li>
+							<li class="category-btn-12"><a href="#" title="Green">Green</a></li>
+							<li class="category-btn-13"><a href="#" title="Misc">Misc</a></li>
+						</ul>
+					</div>
+					<div id="buttons">
+						<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="img/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="img/right.gif" title="Scroll right" alt="Left arrow" /></a>
+						&nbsp;&nbsp;
+						<a href="#" title="Zoom in" class="plus" id="zoom-in"><img src="img/plus.gif" title="Zoom in" alt="Zoom in icon" /></a><a href="#" title="Zoom out" class="minus" id="zoom-out"><img src="img/minus.gif" title="Zoom out" alt="Zoom out icon" /></a>
+					</div>
+				</div>		
+				<div class="tl-container">
+					<ul class="tl-scale"></ul>
+					<div class="x-axis-tracker"></div>
+					<div class="row-master-container">
+						<div class="row-container category-2">
+							<div class="row">
+								<div class="tl" id="1">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="2">Camping with kids this summer</div>
+							</div>			
+							<div class="row">
+								<div class="tl" id="3">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-4">
+							<div class="row">
+								<div class="tl" id="4">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-5">
+							<div class="row">
+								<div class="tl" id="5">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-6">
+							<div class="row">
+								<div class="tl" id="6">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-8">
+							<div class="row">
+								<div class="tl" id="7">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="8">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-10">
+							<div class="row">
+								<div class="tl" id="9">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="10">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="11">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-12">
+							<div class="row">
+								<div class="tl" id="12">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="13">Camping with kids this summer</div>
+							</div>
+						</div>
+						<div class="row-container category-13">
+							<div class="row">
+								<div class="tl" id="14">Camping with kids this summer</div>
+							</div>
+							<div class="row">
+								<div class="tl" id="15">Camping with kids this summer</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="other-content">
+				<div class="one-col">
+					<img src="img/profile/megan.jpg" title="Megan L" alt="Megan's profile picture" class="profile" />
+					<p class="profile-name">Megan L <br /><a href="edit-profile.htm" title="Edit profile" class="modal">Edit profile</a></p>
+					<p class="profile-intro">Lorem ipsum dolor sit amit consectetur adipiscing elit.</p>
+					<div class="alerts">
+						<h3>Messages</h3>
+						<p><a href="message.htm" title="" class="modal">You have 3 new messages</a></p>
+						<p><a href="invite.htm" title="" class="modal">You have 2 new invites</a></p>
+						<h3>Alerts</h3>
+						<p><a href="alert.htm" title="" class="modal">You have 3 alerts</a></p>
+						<h3>Groups</h3>
+						<p><a href="group.htm" title="" class="modal">You belong to 11 groups</a></p>
+						<h3>Latest events added</h3>
+						<p><a href="event-detail.htm" title="" class="modal">Go to the zoo</a></p>
+						<p><a href="event-detail.htm" title="" class="modal">Go to Barcelona</a></p>
+						<p><a href="event-detail.htm" title="" class="modal">Eat ice cream for a week</a></p>
+						<h3>Latest searches</h3>
+						<p><a href="" title="">Climb a mountain</a></p>
+						<p><a href="" title="">Ride a motorbike</a></p>
+						<p><a href="" title="">Go to the theatre</a></p>
+						<h3>Most popular searches</h3>
+						<p><a href="" title="">Inspiration</a></p>
+						<p><a href="" title="">Relevant to user</a></p>
+						<p><a href="" title="">Pay off mortgage</a></p>
+						<p><a href="" title="">Get a job</a></p>
+					</div>
+				</div>
+				<div class="one-col">
+					<p class="extra-buttons"><a href="#" title="add todo" class="button-sml">add todo</a> <a href="#" title="view archive" class="button-sml">view archive</a></p>
+					<div class="events">
+						<h2>This month</h2>
+						<p>Today 30/07/2009</p>
+						<div class="event highlight-group-2">
+							<h3>Move to the country</h3>
+							<p class="warning">This event is overdue <a href="event-edit.htm" title="Reschedule?" class="modal">Reschedule?</a></p>
+						</div>
+						<p>This week</p>
+						<div class="event">
+							<h3>See Hamlet</h3>
+							<p class="warning">Note to self: book tickets</p>
+						</div>
+						<p>This month</p>
+						<div class="event">
+							<h3>Stay at Emma & Roy's Cyprus</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+							<p class="warning">Message <a href="" title="From Emma">From Emma</a></p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis lacus sed est tincidunt aliquet blandit nec orci.</p>
+							<p><a href="event-detail.htm" title="" class="modal">More info</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="one-col">
+					<p class="extra-buttons"></p>
+					<div class="events">
+						<h2>Next 5 yrs</h2>
+						<p>This year</p>
+						<div class="event highlight-group-2">
+							<h3>Take the kids rock-pooling</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event highlight-group-2">
+							<h3>Camping with the kids</h3>
+							<p class="warning">Reminder: book a camp site</p>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event highlight-group-6">
+							<h3>Old Newquay gang weekend</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<p>Next 2 years</p>
+						<div class="event highlight-group-12">
+							<h3>Weekend in Majorca</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event highlight-group-3">
+							<h3>Fix up violin practice!</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<p>Next 3 years</p>
+						<p>Next 4 years</p>
+						<div class="event">
+							<h3>Hang-gliding refresher</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<p>Next 5 years</p>
+						<div class="event">
+							<h3>Weekend in New York</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event">
+							<h3>Stay overnight with children in a mountain hut in the Alps</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event">
+							<h3>Refresher motorbike course</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="one-col-end">
+					<p class="extra-buttons"></p>
+					<div class="events">
+						<h2>5 yrs +</h2>
+						<p>5-10 years</p>
+						<div class="event">
+							<h3>Take the children on a cultural experience trip</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<p>10-20 years</p>
+						<div class="event">
+							<h3>Pay off mortgage</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<div class="event">
+							<h3>Go to New Zealand</h3>
+							<p><a href="event-detail.htm" title="" class="modal">View</a> <a href="event-edit.htm" title="" class="modal">Edit</a></p>
+						</div>
+						<p>20+ years</p>
+					</div>
+				</div>
+			</div>
+			<div id="footer">
+				<ul>
+					<li class="first">&copy; Sedogo</li>
+					<li><a href="about.htm" title="About" class="modal">About</a></li>
+					<li><a href="faq.htm" title="FAQ" class="modal">FAQ</a></li>
+					<li class="last"><a href="feedback.htm" title="Feedback" class="modal">Feedback</a></li>
+				</ul>				
+			</div>
+		</div>
+        <div id="modal-container">
+            <iframe></iframe>
+        </div>
+        <div id="modal-background"></div>
+	</body>
+</html>

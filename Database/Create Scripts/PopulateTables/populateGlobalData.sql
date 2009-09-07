@@ -54,4 +54,16 @@ EXECUTE spGlobalDataAddStringValue
 	@KeyName					= 'SiteBaseURL',
 	@Value						= ''
 
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'FileStoreFolder',
+	@Value						= 'C:\Filestore\sedogo'
+
+EXECUTE spGlobalDataAddIntegerValue
+	@KeyName					= 'ThumbnailSize',
+	@Value						= 50
+
+EXECUTE spGlobalDataAddIntegerValue
+	@KeyName					= 'PreviewSize',
+	@Value						= 200
+
 GO 

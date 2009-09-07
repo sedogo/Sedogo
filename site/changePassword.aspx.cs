@@ -27,7 +27,7 @@ using System.Text;
 using System.Globalization;
 using Sedogo.BusinessObjects;
 
-public partial class changePassword : System.Web.UI.Page
+public partial class changePassword : SedogoPage
 {
     //===============================================================
     // Function: Page_Load

@@ -27,7 +27,7 @@ using System.Text;
 using System.Globalization;
 using Sedogo.BusinessObjects;
 
-public partial class editProfile : System.Web.UI.Page
+public partial class editProfile : SedogoPage
 {
     //===============================================================
     // Function: Page_Load

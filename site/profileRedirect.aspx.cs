@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class profileRedirect : System.Web.UI.Page
+public partial class profileRedirect : SedogoPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

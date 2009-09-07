@@ -109,7 +109,8 @@
 				<asp:Image ID="profileImage" runat="server" CssClass="profile" />
 				<p class="profile-name"><asp:Label id="userNameLabel" runat="server" /><br />
 				<a href="editProfile.aspx" title="Edit profile" class="modal">Edit profile</a><br />
-				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a></p>
+				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
+				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro">Lorem ipsum dolor sit amit consectetur adipiscing elit.</p>
 				<div class="alerts">
 					<h3>Messages</h3>
@@ -125,12 +126,15 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"><a href="#" title="add todo" class="button-sml">add todo</a> <a href="#" title="view archive" class="button-sml">view archive</a></p>
+				<p class="extra-buttons"><a href="addEvent.aspx" title="add todo" class="modal">add todo</a> <a href="#" title="view archive" class="button-sml">view archive</a></p>
 				<div class="events">
 					<h2>This month</h2>
-					<p>Today 30/07/2009</p>
+					<p>Today <asp:Label ID="todaysDateLabel" runat="server" /></p>
+					<asp:PlaceHolder ID="todayEventsPlaceHolder" runat="server" />
 					<p>This week</p>
+					<asp:PlaceHolder ID="thisWeekEventsPlaceHolder" runat="server" />
 					<p>This month</p>
+					<asp:PlaceHolder ID="thisMonthEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
 			<div class="one-col">

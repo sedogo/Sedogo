@@ -119,14 +119,17 @@ END
 GO
 
 CREATE Procedure spSelectEventList
-	@UserID			int
+	@UserID			int,
+	@StartDate		datetime,
+	@EndDate		datetime
 AS
 BEGIN
 	SELECT EventID, EventName, StartDate, EndDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
-	AND UserID = @UserID
+	AND StartDate >= @StartDate
+	AND EndDate <= @EndDate
 	ORDER BY StartDate
 END
 GO

@@ -121,7 +121,7 @@ AS
 BEGIN
 	SELECT GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
-		CountryID, LanguageID,
+		CountryID, LanguageID, 
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users

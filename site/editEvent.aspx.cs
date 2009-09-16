@@ -1,14 +1,14 @@
 ﻿//===============================================================
-// Filename: addEvent.aspx.cs
-// Date: 07/09/09
+// Filename: editEvent.aspx.cs
+// Date: 08/09/09
 // --------------------------------------------------------------
 // Description:
-//   Add event
+//   Edit event
 // --------------------------------------------------------------
 // Dependencies:
 //   None
 // --------------------------------------------------------------
-// Original author: PRD 07/09/09
+// Original author: PRD 08/09/09
 // Revision history:
 //===============================================================
 
@@ -26,15 +26,17 @@ using System.Text;
 using System.Globalization;
 using Sedogo.BusinessObjects;
 
-public partial class addEvent : SedogoPage
+public partial class editEvent : System.Web.UI.Page
 {
     //===============================================================
     // Function: Page_Load
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if( !IsPostBack )
         {
+            int eventID = int.Parse(Request.QueryString["EID"]);
+
             for (int day = 1; day <= 31; day++)
             {
                 startDateDay.Items.Add(new ListItem(day.ToString(), day.ToString()));
@@ -57,7 +59,13 @@ public partial class addEvent : SedogoPage
             startDateMonth.SelectedValue = DateTime.Now.Month.ToString();
             startDateYear.SelectedValue = DateTime.Now.Year.ToString();
 
-            categoryDropDownList.SelectedValue = "1";
+            SedogoEvent sedogoEvent = new SedogoEvent("", eventID);
+
+            eventNameTextBox.Text = sedogoEvent.eventName;
+            startDateDay.SelectedValue = sedogoEvent.startDate.Day.ToString();
+            startDateMonth.SelectedValue = sedogoEvent.startDate.Month.ToString();
+            startDateYear.SelectedValue = sedogoEvent.startDate.Year.ToString();
+            categoryDropDownList.SelectedValue = sedogoEvent.categoryID.ToString();
 
             SetFocus(eventNameTextBox);
         }
@@ -68,17 +76,20 @@ public partial class addEvent : SedogoPage
     //===============================================================
     protected void saveChangesButton_click(object sender, EventArgs e)
     {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        SedogoEvent sedogoEvent = new SedogoEvent("", eventID);
+
         string eventName = eventNameTextBox.Text;
 
         DateTime startDate = new DateTime(int.Parse(startDateYear.SelectedValue),
             int.Parse(startDateMonth.SelectedValue), int.Parse(startDateDay.SelectedValue));
 
-        SedogoEvent sedogoEvent = new SedogoEvent("");
         sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
         sedogoEvent.eventName = eventName;
         sedogoEvent.startDate = startDate;
         sedogoEvent.categoryID = int.Parse(categoryDropDownList.SelectedValue);
-        sedogoEvent.Add();
+        sedogoEvent.Update();
 
         Response.Redirect("profileRedirect.aspx");
     }

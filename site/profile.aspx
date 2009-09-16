@@ -36,6 +36,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			//Set widths and left positions of timelines based on info held in database (hard-coded for now)
+			<asp:Literal id="timelineItems1" runat="server" />
 		});
 	</script>
 </head>
@@ -101,6 +102,7 @@
 				<ul class="tl-scale"></ul>
 				<div class="x-axis-tracker"></div>
 				<div class="row-master-container">
+			        <asp:Literal id="timelineItems2" runat="server" />
 				</div>
 			</div>
 		</div>
@@ -126,8 +128,14 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"><a href="addEvent.aspx" title="add todo" class="modal">add todo</a> <a href="#" title="view archive" class="button-sml">view archive</a></p>
+				<p class="extra-buttons">
+				<a href="addEvent.aspx" title="add todo" class="button-sml modal">add todo</a>
+				<asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
+				    OnClick="click_viewArchiveLink" />
+				</p>
 				<div class="events">
+					<h2>Overdue</h2>
+					<asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
 					<h2>This month</h2>
 					<p>Today <asp:Label ID="todaysDateLabel" runat="server" /></p>
 					<asp:PlaceHolder ID="todayEventsPlaceHolder" runat="server" />
@@ -142,10 +150,15 @@
 				<div class="events">
 					<h2>Next 5 yrs</h2>
 					<p>This year</p>
+					<asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
 					<p>Next 2 years</p>
+					<asp:PlaceHolder ID="next2YearsEventsPlaceHolder" runat="server" />
 					<p>Next 3 years</p>
+					<asp:PlaceHolder ID="next3YearsEventsPlaceHolder" runat="server" />
 					<p>Next 4 years</p>
+					<asp:PlaceHolder ID="next4YearsEventsPlaceHolder" runat="server" />
 					<p>Next 5 years</p>
+					<asp:PlaceHolder ID="next5YearsEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
 			<div class="one-col-end">
@@ -153,8 +166,11 @@
 				<div class="events">
 					<h2>5 yrs +</h2>
 					<p>5-10 years</p>
+					<asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
 					<p>10-20 years</p>
+					<asp:PlaceHolder ID="next20YearsEventsPlaceHolder" runat="server" />
 					<p>20+ years</p>
+					<asp:PlaceHolder ID="next100YearsEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
 		</div>

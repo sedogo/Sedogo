@@ -42,6 +42,33 @@ public partial class _default : System.Web.UI.Page
                     Session["ResetPassword"] = null;
                 }
             }
+
+            HttpCookie emailCookie = Request.Cookies["SedogoLoginEmailAddress"]; 
+            HttpCookie passwordCookie = Request.Cookies["SedogoLoginPassword"];
+            // Check to make sure the cookie exists
+            if (emailCookie != null && passwordCookie != null)
+            {
+                string loginEmailAddress = emailCookie.Value.ToString();
+                string loginPassword = passwordCookie.Value.ToString();
+
+                SedogoUser user = new SedogoUser("");
+                loginResults checkResult;
+                checkResult = user.VerifyLogin(loginEmailAddress, loginPassword, false, true, "default.aspx cookie");
+
+                if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
+                {
+                    Session.Add("loggedInUserID", user.userID);
+                    Session.Add("loggedInUserFirstName", user.firstName);
+                    Session.Add("loggedInUserLastName", user.lastName);
+                    Session.Add("loggedInUserEmailAddress", user.emailAddress);
+
+                    if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
+                    {
+                        string url = "./profile.aspx";
+                        Response.Redirect(url);
+                    }
+                }            
+            }
         }
     }
 }

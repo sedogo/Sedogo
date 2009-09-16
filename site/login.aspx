@@ -59,6 +59,10 @@
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
+                        <label for="">Remember me</label>
+                        <asp:CheckBox ID="rememberMeCheckbox" runat="server" />
+                    </li>
+                    <li>
                         <label for=""></label>
                         <asp:Button runat="server" ID="loginButton" text="Login" OnClick="loginButton_Click" /><br />
                         <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgot password?" 

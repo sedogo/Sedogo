@@ -84,25 +84,15 @@ public partial class _default : System.Web.UI.Page
 
             if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
             {
-                //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
                 FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
                 string url = "~/admin/main.aspx";
                 Response.Redirect(url);
             }
-            // This counts as a successful login, however force a password change
-            //if (checkResult == loginResults.passwordExpired)
-            //{
-            //    FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
-            //    Response.Redirect("./myProfile/forceChangePassword.aspx");
-            //}
         }
-        //else
-        //{
         if (checkResult == loginResults.loginFailed)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Username or password is not correct\");", true);
         }
-        //}
     }
 }

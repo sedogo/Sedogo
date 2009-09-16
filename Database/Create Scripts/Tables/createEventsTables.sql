@@ -32,8 +32,15 @@ CREATE TABLE Events
 	UserID							int					NOT NULL,
 	EventName						nvarchar(200)		NOT NULL,
 	StartDate						datetime		    NOT NULL,
-	EndDate							datetime		    NOT NULL,
+	--EndDate						datetime		    NOT NULL,
+	--EventDuration					nvarchar(20)		NOT NULL,
+	EventAchieved					bit					NOT NULL,
 	Deleted							bit					NOT NULL,
+	CategoryID						int					NULL,
+	
+	EventPicFilename				nvarchar(200)		NULL,
+	EventPicThumbnail				nvarchar(200)		NULL,
+	EventPicPreview					nvarchar(200)		NULL,
 	
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,

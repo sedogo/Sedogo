@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent" %>
-<%@ OutputCache Location="None" VaryByParam="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="editEvent.aspx.cs" Inherits="editEvent" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,11 +7,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache"/>
-	<meta http-equiv="expires" content="0"/>
-	<meta http-equiv="pragma" content="no-cache"/>
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="pragma" content="no-cache">
 
-	<title>FAQ : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -28,34 +27,14 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
-	
-<script language="JavaScript" type="text/javascript">
-function setHiddenStartDateField()
-{
-	var form = document.forms[0];
-	var d = form.startDateDay.options[form.startDateDay.selectedIndex].value;
-	var m = form.startDateMonth.options[form.startDateMonth.selectedIndex].value;
-	var y = form.startDateYear.options[form.startDateYear.selectedIndex].value;
-	
-	if( d == "" && m == "" && y == "" )
-	{
-        form.hiddenStartDate.value = "";
-	}
-	else
-	{
-        form.hiddenStartDate.value = d + "/" + m + "/" + y;
-    }
-}
-</script>
-	
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    
+
 	    <div id="modal">
-            <h1>add event</h1>
-            <p>Add event</p>
+            <h1>edit event</h1>
+            <p>Edit event</p>
             <fieldset>
                 <ol>
                     <li>

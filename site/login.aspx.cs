@@ -50,6 +50,7 @@ public partial class login : System.Web.UI.Page
     {
         string loginEmailAddress = emailAddress.Text;
         string loginPassword = userPassword.Text;
+        Boolean rememberMe = rememberMeCheckbox.Checked;
 
         HttpCookie cookie = new HttpCookie("SedogoLoginEmailAddress");
         // Set the cookies value
@@ -61,6 +62,24 @@ public partial class login : System.Web.UI.Page
 
         // Add the cookie
         Response.Cookies.Add(cookie);
+
+        if (rememberMe == true)
+        {
+            HttpCookie passwordCookie = new HttpCookie("SedogoLoginPassword");
+            // Set the cookies value
+            passwordCookie.Value = loginPassword;
+
+            // Set the cookie to expire in 1 year
+            passwordCookie.Expires = dtNow.AddYears(1);
+
+            // Add the cookie
+            Response.Cookies.Add(passwordCookie);
+        }
+        else
+        {
+            // Delete the password cookie
+            Response.Cookies.Remove("SedogoLoginPassword");
+        }
 
         SedogoUser user = new SedogoUser("");
         loginResults checkResult;
@@ -86,7 +105,7 @@ public partial class login : System.Web.UI.Page
             if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
             {
                 //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
-                FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
+                //FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
                 string url = "./profileRedirect.aspx";
                 Response.Redirect(url);

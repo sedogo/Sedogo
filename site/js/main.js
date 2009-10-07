@@ -261,3 +261,11 @@ $(document).ready(function() {
         $("#category-selector-container").fadeOut();
     });
 });
+
+
+
+function openModal(modalURL) {
+	$("#modal-container iframe").attr("src", modalURL);
+	$("#modal-container, #modal-background").fadeIn();
+	return false;
+};

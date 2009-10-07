@@ -30,8 +30,19 @@ public partial class logout : System.Web.UI.Page
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        FormsAuthentication.SignOut();
+        DateTime dtNow = DateTime.Now;
+
+        HttpCookie passwordCookie = new HttpCookie("SedogoLoginPassword");
+        
+        // Set the cookies value
+        passwordCookie.Value = "";
+
+        // Set the cookie to expire in 1 year
+        passwordCookie.Expires = dtNow.AddYears(1);
+
+        // Add the cookie
+        Response.Cookies.Add(passwordCookie);
+
         Session.Abandon();
-        Response.Redirect("default.aspx");
     }
 }

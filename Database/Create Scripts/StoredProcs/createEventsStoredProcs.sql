@@ -32,8 +32,13 @@ GO
 CREATE Procedure spAddEvent
 	@UserID						int,
 	@EventName					nvarchar(200),
+	@DateType					nchar(1),
 	@StartDate					datetime,
+	@RangeStartDate				datetime,
+	@RangeEndDate				datetime,
+	@BeforeBirthday				int,
 	@CategoryID					int,
+	@PrivateEvent				bit,
 	@CreatedDate				datetime,
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
@@ -45,8 +50,13 @@ BEGIN
 	(
 		UserID,
 		EventName,
+		DateType,
 		StartDate,
+		RangeStartDate,
+		RangeEndDate,
+		BeforeBirthday,
 		CategoryID,
+		PrivateEvent,
 		EventAchieved,
 		Deleted,
 		CreatedDate,
@@ -58,8 +68,13 @@ BEGIN
 	(
 		@UserID,
 		@EventName,
+		@DateType,
 		@StartDate,
+		@RangeStartDate,
+		@RangeEndDate,
+		@BeforeBirthday,
 		@CategoryID,
+		@PrivateEvent,
 		0,		-- EventAchieved
 		0,		-- Deleted
 		@CreatedDate,
@@ -96,7 +111,8 @@ CREATE Procedure spSelectEventDetails
 	@EventID			int
 AS
 BEGIN
-	SELECT UserID, EventName, StartDate, CategoryID, EventAchieved, Deleted,
+	SELECT UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, Deleted, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
@@ -125,12 +141,14 @@ CREATE Procedure spSelectFullEventList
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
 	AND EventAchieved = 0
+	AND UserID = @UserID
 	ORDER BY StartDate
 END
 GO
@@ -156,12 +174,14 @@ CREATE Procedure spSelectFullEventListByCategory
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
 	AND EventAchieved = 0
+	AND UserID = @UserID
 	ORDER BY CategoryID
 END
 GO
@@ -189,7 +209,8 @@ CREATE Procedure spSelectEventList
 	@EndDate		datetime
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
@@ -197,6 +218,7 @@ BEGIN
 	AND EventAchieved = 0
 	AND StartDate >= @StartDate
 	AND StartDate <= @EndDate
+	AND UserID = @UserID
 	ORDER BY StartDate
 END
 GO
@@ -222,11 +244,13 @@ CREATE Procedure spSelectFullEventListIncludingAchieved
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
+	AND UserID = @UserID
 	ORDER BY StartDate
 END
 GO
@@ -252,11 +276,13 @@ CREATE Procedure spSelectFullEventListIncludingAchievedByCategory
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
+	AND UserID = @UserID
 	ORDER BY CategoryID
 END
 GO
@@ -284,13 +310,15 @@ CREATE Procedure spSelectEventListIncludingAchieved
 	@EndDate		datetime
 AS
 BEGIN
-	SELECT EventID, EventName, StartDate, CategoryID, EventAchieved,
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
 	AND StartDate >= @StartDate
 	AND StartDate <= @EndDate
+	AND UserID = @UserID
 	ORDER BY StartDate
 END
 GO
@@ -315,8 +343,13 @@ GO
 CREATE Procedure spUpdateEvent
 	@EventID						int,
 	@EventName						nvarchar(200),
+	@DateType						nchar(1),
 	@StartDate						datetime,
+	@RangeStartDate					datetime,
+	@RangeEndDate					datetime,
+	@BeforeBirthday					int,
 	@CategoryID						int,
+	@PrivateEvent					bit,
 	@EventAchieved					bit,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)
@@ -324,8 +357,13 @@ AS
 BEGIN
 	UPDATE Events
 	SET EventName				= @EventName,
+		DateType				= @DateType,
 		StartDate				= @StartDate,
+		RangeStartDate			= @RangeStartDate,
+		RangeEndDate			= @RangeEndDate,
+		BeforeBirthday			= @BeforeBirthday,
 		CategoryID				= @CategoryID,
+		PrivateEvent			= @PrivateEvent,
 		EventAchieved			= @EventAchieved,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName
@@ -397,6 +435,225 @@ END
 GO
 
 GRANT EXEC ON spDeleteEvent TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spAddEventComment
+// Description:
+//   Add an event comment to the database
+//=============================================================*/
+PRINT 'Creating spAddEventComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddEventComment')
+	BEGIN
+		DROP Procedure spAddEventComment
+	END
+GO
+
+CREATE Procedure spAddEventComment
+	@EventID				int,
+	@PostedByUserID			int,
+	@CommentText			nvarchar(max),
+	@CreatedDate			datetime,
+	@CreatedByFullName		nvarchar(200),
+	@LastUpdatedDate		datetime,
+	@LastUpdatedByFullName	nvarchar(200),
+	@EventCommentID			int OUTPUT
+AS
+BEGIN
+	INSERT INTO EventComments
+	(
+		EventID,
+		PostedByUserID,
+		CommentText,
+		Deleted,
+		CreatedDate,
+		CreatedByFullName,
+		LastUpdatedDate,
+		LastUpdatedByFullName
+	)
+	VALUES
+	(
+		@EventID,
+		@PostedByUserID,
+		@CommentText,
+		0,		-- Deleted
+		@CreatedDate,
+		@CreatedByFullName,
+		@LastUpdatedDate,
+		@LastUpdatedByFullName
+	)
+	
+	SET @EventCommentID = @@IDENTITY
+END
+GO
+
+GRANT EXEC ON spAddEventComment TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectEventCommentDetails
+// Description:
+//   Gets event comment details
+// --------------------------------------------------------------
+// Parameters
+//	 @EventCommentID			int
+//=============================================================*/
+PRINT 'Creating spSelectEventCommentDetails...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventCommentDetails')
+BEGIN
+	DROP Procedure spSelectEventCommentDetails
+END
+GO
+
+CREATE Procedure spSelectEventCommentDetails
+	@EventCommentID			int
+AS
+BEGIN
+	SELECT EventID, PostedByUserID, CommentText, Deleted,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM EventComments
+	WHERE EventCommentID = @EventCommentID
+END
+GO
+
+GRANT EXEC ON spSelectEventCommentDetails TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectEventCommentsList
+// Description:
+//   Selects the events comments
+//=============================================================*/
+PRINT 'Creating spSelectEventCommentsList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventCommentsList')
+BEGIN
+	DROP Procedure spSelectEventCommentsList
+END
+GO
+
+CREATE Procedure spSelectEventCommentsList
+	@EventID		int
+AS
+BEGIN
+	SELECT C.EventCommentID, C.PostedByUserID, C.CommentText, 
+		C.CreatedDate, C.CreatedByFullName, C.LastUpdatedDate, C.LastUpdatedByFullName,
+		U.FirstName, U.LastName, U.EmailAddress
+	FROM EventComments C
+	JOIN Users U
+	ON C.PostedByUserID = U.UserID
+	WHERE C.Deleted = 0
+	AND C.EventID = @EventID
+	ORDER BY C.CreatedDate DESC
+END
+GO
+
+GRANT EXEC ON spSelectEventCommentsList TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spUpdateEventComment
+// Description:
+//   Update event comment
+//=============================================================*/
+PRINT 'Creating spUpdateEventComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spUpdateEventComment')
+BEGIN
+	DROP Procedure spUpdateEventComment
+END
+GO
+
+CREATE Procedure spUpdateEventComment
+	@EventCommentID				int,
+	@CommentText				nvarchar(max),
+	@LastUpdatedDate			datetime,
+	@LastUpdatedByFullName		nvarchar(200)
+AS
+BEGIN
+	UPDATE EventComments
+	SET CommentText				= @CommentText,
+		LastUpdatedDate			= @LastUpdatedDate,
+		LastUpdatedByFullName	= @LastUpdatedByFullName
+	WHERE EventCommentID = @EventCommentID
+END
+GO
+
+GRANT EXEC ON spUpdateEventComment TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spDeleteEventComment
+// Description:
+//   Delete event comment
+//=============================================================*/
+PRINT 'Creating spDeleteEventComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteEventComment')
+BEGIN
+	DROP Procedure spDeleteEventComment
+END
+GO
+
+CREATE Procedure spDeleteEventComment
+	@EventCommentID				int,
+	@LastUpdatedDate			datetime,
+	@LastUpdatedByFullName		nvarchar(200)
+AS
+BEGIN
+	UPDATE EventComments
+	SET Deleted					= 1,
+		LastUpdatedDate			= @LastUpdatedDate,
+		LastUpdatedByFullName	= @LastUpdatedByFullName
+	WHERE EventCommentID = @EventCommentID
+END
+GO
+
+GRANT EXEC ON spDeleteEventComment TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSearchEvents
+// Description:
+//   Search events
+//=============================================================*/
+PRINT 'Creating spSearchEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSearchEvents')
+BEGIN
+	DROP Procedure spSearchEvents
+END
+GO
+
+CREATE Procedure spSearchEvents
+	@UserID			int,
+	@SearchText		nvarchar(1000)
+AS
+BEGIN
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM Events
+	WHERE Deleted = 0
+	AND EventAchieved = 0
+	AND PrivateEvent = 0
+	AND UserID <> @UserID			-- Do not return events belonging to the searching user
+	AND ( (@SearchText = '') 
+	 OR (UPPER(EventName) LIKE '%'+UPPER(@SearchText)+'%') ) 
+	ORDER BY StartDate
+END
+GO
+
+GRANT EXEC ON spSearchEvents TO sedogoUser
 GO
 
 PRINT '== Finished createEventsStoredProcs.sql =='

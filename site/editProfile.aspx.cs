@@ -57,7 +57,8 @@ public partial class editProfile : SedogoPage
             dateOfBirthMonth.Attributes.Add("onchange", "setHiddenDateField()");
             dateOfBirthYear.Attributes.Add("onchange", "setHiddenDateField()");
 
-            SedogoUser user = new SedogoUser("", int.Parse(Session["loggedInUserID"].ToString()));
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
+                int.Parse(Session["loggedInUserID"].ToString()));
 
             firstNameTextBox.Text = user.firstName;
             lastNameTextBox.Text = user.lastName;
@@ -90,7 +91,20 @@ public partial class editProfile : SedogoPage
         string emailAddress = emailAddressTextBox.Text;
         emailAddress = emailAddress.Trim().ToLower();
 
-        SedogoUser user = new SedogoUser("", int.Parse(Session["loggedInUserID"].ToString()));
+        DateTime dateOfBirth;
+        if (dateOfBirthYear.SelectedIndex > 0 && dateOfBirthMonth.SelectedIndex > 0 
+            && dateOfBirthDay.SelectedIndex > 0)
+        {
+            dateOfBirth = new DateTime(int.Parse(dateOfBirthYear.SelectedValue), 
+                int.Parse(dateOfBirthMonth.SelectedValue), int.Parse(dateOfBirthDay.SelectedValue) );
+        }
+        else
+        {
+            dateOfBirth = DateTime.MinValue;
+        }
+
+        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
+            int.Parse(Session["loggedInUserID"].ToString()));
 
         user.firstName = firstNameTextBox.Text;
         user.lastName = lastNameTextBox.Text;
@@ -104,7 +118,16 @@ public partial class editProfile : SedogoPage
             user.gender = "F";
         }
         user.homeTown = homeTownTextBox.Text;
+        if (dateOfBirth > DateTime.MinValue)
+        {
+            user.birthday = dateOfBirth;
+        }
         user.Update();
+
+        Session["loggedInUserFirstName"] = user.firstName;
+        Session["loggedInUserLastName"] = user.lastName;
+        Session["loggedInUserEmailAddress"] = user.emailAddress;
+        Session["loggedInUserFullName"] = user.firstName + " " + user.lastName;
 
         Response.Redirect("profile.aspx");
     }

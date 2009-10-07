@@ -27,6 +27,58 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+	
+<script language="JavaScript" type="text/javascript">
+function setHiddenStartDateField()
+{
+	var form = document.forms[0];
+	var d = form.startDateDay.options[form.startDateDay.selectedIndex].value;
+	var m = form.startDateMonth.options[form.startDateMonth.selectedIndex].value;
+	var y = form.startDateYear.options[form.startDateYear.selectedIndex].value;
+	
+	if( d == "" && m == "" && y == "" )
+	{
+        form.hiddenStartDate.value = "";
+	}
+	else
+	{
+        form.hiddenStartDate.value = d + "/" + m + "/" + y;
+    }
+}
+function setHiddenRangeStartDateField()
+{
+	var form = document.forms[0];
+	var d = form.dateRangeStartDay.options[form.dateRangeStartDay.selectedIndex].value;
+	var m = form.dateRangeStartMonth.options[form.dateRangeStartMonth.selectedIndex].value;
+	var y = form.dateRangeStartYear.options[form.dateRangeStartYear.selectedIndex].value;
+	
+	if( d == "" && m == "" && y == "" )
+	{
+        form.hiddenDateRangeStartDate.value = "";
+	}
+	else
+	{
+        form.hiddenDateRangeStartDate.value = d + "/" + m + "/" + y;
+    }
+}
+function setHiddenRangeEndDateField()
+{
+	var form = document.forms[0];
+	var d = form.dateRangeEndDay.options[form.dateRangeEndDay.selectedIndex].value;
+	var m = form.dateRangeEndMonth.options[form.dateRangeEndMonth.selectedIndex].value;
+	var y = form.dateRangeEndYear.options[form.dateRangeEndYear.selectedIndex].value;
+	
+	if( d == "" && m == "" && y == "" )
+	{
+        form.hiddenDateRangeEndDate.value = "";
+	}
+	else
+	{
+        form.hiddenDateRangeEndDate.value = d + "/" + m + "/" + y;
+    }
+}
+</script>
+	
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,6 +98,15 @@
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
+                        <label for="">When?</label>
+                        <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
+                            OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
+                            <asp:ListItem Text="Specific date" Value="D" />
+                            <asp:ListItem Text="Date range" Value="R" />
+                            <asp:ListItem Text="Before age" Value="A" />
+                        </asp:DropDownList>
+                    </li>
+                    <li id="startDateLI" runat="server">
                         <label for="">Start date</label>
                         <asp:DropDownList ID="startDateDay" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="startDateMonth" runat="server">
@@ -53,8 +114,39 @@
                         </asp:DropDownList>
                         <asp:TextBox ID="hiddenStartDate" runat="server" />
                         <asp:CompareValidator ID="startDateValidator" runat="server"
-                           ControlToValidate="hiddenStartDate" ErrorMessage="Select a start date"
+                           ControlToValidate="hiddenStartDate" ErrorMessage="Enter a valid start date"
                            Operator="DataTypeCheck" Type="Date" />
+                    </li>
+                    <li id="dateRangeLI1" runat="server">
+                        <label for="">Start date</label>
+                        <asp:DropDownList ID="dateRangeStartDay" runat="server">
+                        </asp:DropDownList><asp:DropDownList ID="dateRangeStartMonth" runat="server">
+                        </asp:DropDownList><asp:DropDownList ID="dateRangeStartYear" runat="server">
+                        </asp:DropDownList>
+                        <asp:TextBox ID="hiddenDateRangeStartDate" runat="server" />
+                        <asp:CompareValidator ID="hiddenDateRangeStartDateValidator" runat="server"
+                           ControlToValidate="hiddenDateRangeStartDate" ErrorMessage="Enter a valid start date"
+                           Operator="DataTypeCheck" Type="Date" />
+                    </li>
+                    <li id="dateRangeLI2" runat="server">
+                        <label for="">To date</label>
+                        <asp:DropDownList ID="dateRangeEndDay" runat="server">
+                        </asp:DropDownList><asp:DropDownList ID="dateRangeEndMonth" runat="server">
+                        </asp:DropDownList><asp:DropDownList ID="dateRangeEndYear" runat="server">
+                        </asp:DropDownList>
+                        <asp:TextBox ID="hiddenDateRangeEndDate" runat="server" />
+                        <asp:CompareValidator ID="hiddenDateRangeEndDateValidator" runat="server"
+                           ControlToValidate="hiddenDateRangeEndDate" ErrorMessage="Enter a valid end date"
+                           Operator="DataTypeCheck" Type="Date" />
+                    </li>
+                    <li id="birthdayLI" runat="server">
+                        <label for="">Birthday</label>
+                        <asp:DropDownList ID="birthdayDropDownList" runat="server">
+                        </asp:DropDownList>
+                    </li>
+                    <li>
+                        <label for="">Private event</label>
+                        <asp:CheckBox ID="privateEventCheckbox" runat="server" />
                     </li>
                     <li>
                         <label for="">Category</label>

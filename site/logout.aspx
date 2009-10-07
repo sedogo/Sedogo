@@ -7,10 +7,10 @@
 <head runat="server">
     <title>Home : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
 </head>
-<body>
+<body onload="window.location = 'default.aspx'">
     <form id="form1" runat="server">
     <div>
-    
+        Logging out...
     </div>
     </form>
 </body>

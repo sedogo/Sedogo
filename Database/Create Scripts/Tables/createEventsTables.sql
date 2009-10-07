@@ -31,12 +31,18 @@ CREATE TABLE Events
 	EventID							int					NOT NULL PRIMARY KEY IDENTITY,
 	UserID							int					NOT NULL,
 	EventName						nvarchar(200)		NOT NULL,
-	StartDate						datetime		    NOT NULL,
-	--EndDate						datetime		    NOT NULL,
-	--EventDuration					nvarchar(20)		NOT NULL,
+	
+	DateType						nchar(1)			NOT NULL,
+	
+	StartDate						datetime		    NULL,
+	RangeStartDate					datetime		    NULL,
+	RangeEndDate					datetime		    NULL,
+	BeforeBirthday					int					NULL,
+	
 	EventAchieved					bit					NOT NULL,
 	Deleted							bit					NOT NULL,
 	CategoryID						int					NULL,
+	PrivateEvent					bit					NOT NULL,
 	
 	EventPicFilename				nvarchar(200)		NULL,
 	EventPicThumbnail				nvarchar(200)		NULL,
@@ -84,6 +90,71 @@ CREATE TABLE TrackedEvents
 GO
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TrackedEvents TO sedogoUser
+GO
+
+/*===============================================================
+// Table: EventComments
+//=============================================================*/
+
+PRINT 'Creating EventComments...'
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'U' AND name = 'EventComments')
+	BEGIN
+		DROP Table EventComments
+	END
+GO
+
+CREATE TABLE EventComments
+(
+	EventCommentID					int					NOT NULL PRIMARY KEY IDENTITY,
+	EventID							int					NOT NULL,
+	PostedByUserID					int					NOT NULL,
+	
+	CommentText						nvarchar(max)		NULL,
+	Deleted							bit					NOT NULL,
+	
+	CreatedDate						datetime		    NOT NULL,
+	CreatedByFullName				nvarchar(200)	    NOT NULL,
+	LastUpdatedDate					datetime		    NOT NULL,
+	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
+)
+GO
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON EventComments TO sedogoUser
+GO
+
+/*===============================================================
+// Table: Messages
+//=============================================================*/
+
+PRINT 'Creating Messages...'
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'U' AND name = 'Messages')
+	BEGIN
+		DROP Table Messages
+	END
+GO
+
+CREATE TABLE Messages
+(
+	MessageID						int					NOT NULL PRIMARY KEY IDENTITY,
+	EventID							int					NULL,		-- Null incase we add non-event messages
+	UserID							int					NOT NULL,
+	PostedByUserID					int					NOT NULL,
+	
+	MessageText						nvarchar(max)		NULL,
+	
+	MessageRead						bit					NOT NULL,
+	Deleted							bit					NOT NULL,
+	
+	CreatedDate						datetime		    NOT NULL,
+	CreatedByFullName				nvarchar(200)	    NOT NULL,
+	LastUpdatedDate					datetime		    NOT NULL,
+	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
+)
+GO
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON Messages TO sedogoUser
 GO
 
 PRINT '== Finished createEventsTables.sql =='

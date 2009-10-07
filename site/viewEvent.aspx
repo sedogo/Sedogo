@@ -57,13 +57,13 @@ function setHiddenStartDateField()
                 <asp:Image ID="eventImage" runat="server" />
                 <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
                     Text="Upload image" /></p>
-                <h3>Messages</h3>
+                <h3 ID="messagesHeader" runat="server">Messages</h3>
                 <p><asp:HyperLink ID="messagesLink" runat="server" /></p>
-                <h3>Invites</h3>
+                <h3 ID="invitesHeader" runat="server">Invites</h3>
                 <p><asp:HyperLink ID="invitesLink" runat="server" /></a></p>
-                <h3>Alerts</h3>
+                <h3 ID="alertsHeader" runat="server">Alerts</h3>
                 <p><asp:HyperLink ID="alertsLink" runat="server" /><a href="" title=""></a></p>
-                <h3>Tracking</h3>
+                <h3 ID="trackingHeader" runat="server">Tracking</h3>
                 <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
             </div>
             <div class="left-col">
@@ -73,12 +73,13 @@ function setHiddenStartDateField()
 		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="achieved" 
 		                ToolTip="achieved" OnClick="click_achievedEventLink" />
 		        </p>
-		        <h3>25/06/09</h3>
-		        <p>Cras libero diam, vehicula id tristique eget, accumsan non justo. Maecenas sit amet ipsum velit. Sed lacinia urna a sapien elementum dignissim. Donec facilisis ipsum in lacus condimentum dictum. Donec eleifend euismod libero id pharetra. Curabitur id dapibus tellus. Pellentesque tincidunt ultricies elit in vulputate. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque imperdiet venenatis justo ac tincidunt.</p>
-		        <p><a href="" title="send a message">send a message</a> <a href="" title="post a comment">post a comment</a></p>
-		        <h3>25/06/09</h3>
-		        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec mauris libero, eget commodo ligula. Nunc ac erat dolor. Cras libero diam, vehicula id tristique eget, accumsan non justo. Maecenas sit amet ipsum velit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque imperdiet venenatis justo ac tincidunt.</p>
-		        <p><a href="" title="send a message">send a message</a> <a href="" title="post a comment">post a comment</a></p>
+		        
+		        <p><asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
+		            Text="send a message" OnClick="sendMessageButton_click" /> <asp:LinkButton 
+		            ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
+		            OnClick="postCommentButton_click" /></p>
+		        
+		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 		    </div>
 		</div>
     

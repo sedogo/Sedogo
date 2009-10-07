@@ -61,6 +61,7 @@ public partial class _default : System.Web.UI.Page
                     Session.Add("loggedInUserFirstName", user.firstName);
                     Session.Add("loggedInUserLastName", user.lastName);
                     Session.Add("loggedInUserEmailAddress", user.emailAddress);
+                    Session.Add("loggedInUserFullName", user.firstName + " " + user.lastName);
 
                     if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
                     {

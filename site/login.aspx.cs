@@ -78,7 +78,15 @@ public partial class login : System.Web.UI.Page
         else
         {
             // Delete the password cookie
-            Response.Cookies.Remove("SedogoLoginPassword");
+            HttpCookie passwordCookie = new HttpCookie("SedogoLoginPassword");
+            // Set the cookies value
+            passwordCookie.Value = "";
+
+            // Set the cookie to expire in 1 year
+            passwordCookie.Expires = dtNow.AddYears(1);
+
+            // Add the cookie
+            Response.Cookies.Add(passwordCookie);
         }
 
         SedogoUser user = new SedogoUser("");
@@ -101,6 +109,7 @@ public partial class login : System.Web.UI.Page
             Session.Add("loggedInUserFirstName", user.firstName);
             Session.Add("loggedInUserLastName", user.lastName);
             Session.Add("loggedInUserEmailAddress", user.emailAddress);
+            Session.Add("loggedInUserFullName", user.firstName + " " + user.lastName);
 
             if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
             {

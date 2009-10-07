@@ -25,6 +25,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Net.Mail;
 using System.Text;
+using System.Globalization;
 using Sedogo.BusinessObjects;
 
 public partial class register : System.Web.UI.Page
@@ -42,7 +43,8 @@ public partial class register : System.Web.UI.Page
             }
             for( int month = 1 ; month <= 12 ; month++ )
             {
-                dateOfBirthMonth.Items.Add(new ListItem(month.ToString(),month.ToString()));
+                DateTime loopDate = new DateTime(DateTime.Now.Year, month, 1);
+                dateOfBirthMonth.Items.Add(new ListItem(loopDate.ToString("MMMM", CultureInfo.InvariantCulture), month.ToString()));
             }
             for (int year = 1900; year <= DateTime.Now.Year ; year++)
             {
@@ -84,6 +86,19 @@ public partial class register : System.Web.UI.Page
         {
             // Create the user
             SedogoUser newUser = new SedogoUser("");
+
+            DateTime dateOfBirth;
+            if (dateOfBirthYear.SelectedIndex > 0 && dateOfBirthMonth.SelectedIndex > 0
+                && dateOfBirthDay.SelectedIndex > 0)
+            {
+                dateOfBirth = new DateTime(int.Parse(dateOfBirthYear.SelectedValue),
+                    int.Parse(dateOfBirthMonth.SelectedValue), int.Parse(dateOfBirthDay.SelectedValue));
+            }
+            else
+            {
+                dateOfBirth = DateTime.MinValue;
+            }
+
             newUser.firstName = firstNameTextBox.Text;
             newUser.lastName = lastNameTextBox.Text;
             newUser.emailAddress = emailAddress;
@@ -96,6 +111,10 @@ public partial class register : System.Web.UI.Page
                 newUser.gender = "F";
             }
             newUser.homeTown = homeTownTextBox.Text;
+            if (dateOfBirth > DateTime.MinValue)
+            {
+                newUser.birthday = dateOfBirth;
+            }
             newUser.Add();
 
             newUser.UpdatePassword(userPassword);

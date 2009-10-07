@@ -32,6 +32,7 @@ sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createUsersStoredProcs.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createGlobalDataStoredProcs.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createEventsStoredProcs.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createAdministratorsStoredProcs.sql >> %logFileName%
+sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createMessagesStoredProcs.sql >> %logFileName%
 
 ECHO Populating tables...
 echo . >> %logFileName%

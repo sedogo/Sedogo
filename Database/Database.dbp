@@ -19,6 +19,7 @@ Begin DataProject = "Database"
          Script = "createCountryStoredProcs.sql"
          Script = "createEventsStoredProcs.sql"
          Script = "createGlobalDataStoredProcs.sql"
+         Script = "createMessagesStoredProcs.sql"
          Script = "createUsersStoredProcs.sql"
       End
       Begin Folder = "Tables"

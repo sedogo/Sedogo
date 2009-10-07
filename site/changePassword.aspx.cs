@@ -48,7 +48,8 @@ public partial class changePassword : SedogoPage
         string currentPassword = currentPasswordTextBox.Text.Trim();
         string userPassword = passwordTextBox1.Text.Trim();
 
-        SedogoUser user = new SedogoUser("", int.Parse(Session["loggedInUserID"].ToString()));
+        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
+            int.Parse(Session["loggedInUserID"].ToString()));
         loginResults checkResult;
         checkResult = user.VerifyLogin((string)Session["loggedInUserEmailAddress"], currentPassword, false, true, "changePassword.aspx");
         if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))

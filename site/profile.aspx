@@ -34,13 +34,47 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function(){
-			//Set widths and left positions of timelines based on info held in database (hard-coded for now)
-			<asp:Literal id="timelineItems1" runat="server" />
-		});
-	</script>
+	$(document).ready(function(){
+		//Set widths and left positions of timelines based on info held in database (hard-coded for now)
+		<asp:Literal id="timelineItems1" runat="server" />
+	});
+    function breakout_of_frame()
+    {
+      if (top.location != location)
+      {
+        top.location.href = document.location.href ;
+      }
+    }
+    function getElementID( name )
+    {
+	    var form = document.forms[0];
+        var nID = -1;
+        for( i=0 ; i < form.elements.length ; i++ )
+        {
+            if( form.elements[i].name == name )
+            {
+                nID = i;
+            }
+        }
+        return nID;
+    }
+    function searchClick()
+    {
+	    //var form = document.forms[0];
+	    //alert(form.aim[1].checked);
+	    //if( form.aim[1].checked == "true" )
+	    //{
+	    //    location.href = "addEvent.aspx";
+        //    return false;
+	    //}
+	    //else
+	    //{
+	        return true;
+        //}
+    }
+    </script>
 </head>
-<body>
+<body onload="breakout_of_frame()">
     <form id="form1" runat="server">
     <div>
     
@@ -57,16 +91,17 @@
 		</div>
 		<div class="three-col">
 			<label for="what" class="what">what are you going to do?</label>
-			<input type="text" value="e.g. climb Everest" id="what" />
+			<asp:TextBox ID="what" runat="server" Text="e.g. climb Everest" MaxLength="1000" />
+			<asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
+			    ImageUrl="images/go.gif" ToolTip="go" CssClass="go" OnClientClick="return searchClick();" />
 			<ol>
 				<li>
 					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
 				</li>
 				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
+					<input type="radio" name="aim" class="radio" id="add-to" disabled="disabled" /> <label for="add-to" class="radio-label">add to your todo list</label>
 				</li>
 			</ol>
-			<input type="image" src="images/go.gif" title="go" value="go" class="go" />
 			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
 		</div>
 		<div id="timelines">
@@ -171,6 +206,8 @@
 					<asp:PlaceHolder ID="next20YearsEventsPlaceHolder" runat="server" />
 					<p>20+ years</p>
 					<asp:PlaceHolder ID="next100YearsEventsPlaceHolder" runat="server" />
+					<h2>Not scheduled</h2>
+					<asp:PlaceHolder ID="notScheduledEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
 		</div>

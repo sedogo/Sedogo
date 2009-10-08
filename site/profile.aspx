@@ -33,6 +33,70 @@
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+
+	<script type="text/javascript">
+		Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
+		Timeline_urlPrefix = 'js/timeline/timeline_js/';
+		Timeline_parameters = 'bundle=true';
+	</script>
+	<script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var tl;
+
+		function onLoad() {
+			var eventSource = new Timeline.DefaultEventSource();
+			var bandInfos = [
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "85%",
+					intervalUnit: Timeline.DateTime.MONTH,
+					intervalPixels: 50,
+					eventSource: eventSource,
+					zoomIndex: 10,
+					zoomSteps: new Array(
+						{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
+						{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
+						{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+					)
+				}),
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "15%",
+					intervalUnit: Timeline.DateTime.YEAR,
+					intervalPixels: 100,
+					showEventText: false,
+					trackHeight: 0.5,
+					trackGap: 0.2,
+					eventSource: eventSource,
+					overview: true
+				})
+			];
+			bandInfos[1].syncWith = 0;
+			bandInfos[1].highlight = true;
+
+			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+			Timeline.loadXML("example1.xml", function(xml, url) { eventSource.loadXML(xml, url); });
+		}
+
+		var resizeTimerID = null;
+		function onResize() {
+			if (resizeTimerID == null) {
+				resizeTimerID = window.setTimeout(function() {
+					resizeTimerID = null;
+					tl.layout();
+				}, 500);
+			}
+		}
+	</script>
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		//Set widths and left positions of timelines based on info held in database (hard-coded for now)
@@ -74,7 +138,7 @@
     }
     </script>
 </head>
-<body onload="breakout_of_frame()">
+<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
     <div>
     
@@ -134,11 +198,10 @@
 				</div>
 			</div>		
 			<div class="tl-container">
-				<ul class="tl-scale"></ul>
-				<div class="x-axis-tracker"></div>
-				<div class="row-master-container">
-			        <asp:Literal id="timelineItems2" runat="server" />
-				</div>
+				<div id="my-timeline" style="height: 360px"></div>
+				<noscript>
+					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
+				</noscript>
 			</div>
 		</div>
 		<div id="other-content">

@@ -198,7 +198,7 @@
 				</div>
 			</div>		
 			<div class="tl-container">
-				<div id="my-timeline" style="height: 360px"></div>
+				<div id="my-timeline" style="height: 360px;"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>

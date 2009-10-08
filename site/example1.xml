@@ -1,0 +1,139 @@
+<data>
+	<event
+        start="May 28 2009 09:00:00 GMT"
+        end="Jun 15 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#cd3301"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Jan 01 2010 09:00:00 GMT"
+        end="Jun 15 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#ff0b0b"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Aug 01 2010 09:00:00 GMT"
+        end="Aug 15 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#ff6801"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Feb 22 2010 19:00:00 GMT"
+        end="Nov 09 2012 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#ff8500"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Jul 01 2010 09:00:00 GMT"
+        end="Dec 01 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#d5b21a"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Jul 16 2010 09:00:00 GMT"
+        end="Aug 18 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        color="#8dc406"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Aug 28 2009 09:00:00 GMT"
+        end="Sep 15 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#5b980c"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Oct 28 2009 09:00:00 GMT"
+        end="Sep 28 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#079abc"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Nov 04 2009 09:00:00 GMT"
+        end="Dec 04 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#5ab6cd"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Feb 27 2009 09:00:00 GMT"
+        end="Jul 19 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#8a67c1"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="May 28 2009 09:00:00 GMT"
+        end="Aug 21 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#e54ecf"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Feb 4 2009 09:00:00 GMT"
+        end="Jun 05 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#a5369c"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+	<event
+        start="Mar 4 2009 09:00:00 GMT"
+        end="Dec 15 2010 09:00:00 GMT"
+        isDuration="true"
+        title="Going camping with the kids"
+        image="http://simile.mit.edu/images/csail-logo.gif"
+        color="#a32672"
+        >
+		Teaser text about going camping with the kids.&lt;br /&gt; &lt;a href="" title=""&gt;Full details&lt;/a&gt; &lt;a href="" title=""&gt;Edit event&lt;/a&gt; &lt;br /&gt;
+	</event>
+
+</data>

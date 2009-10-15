@@ -33,6 +33,7 @@
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
 	<script type="text/javascript">
 		Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
@@ -83,7 +84,8 @@
 			bandInfos[1].highlight = true;
 
 			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-			Timeline.loadXML("example1.xml", function(xml, url) { eventSource.loadXML(xml, url); });
+			var url = "<asp:Literal id="timelineURL" runat="server" />";
+			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
 		}
 
 		var resizeTimerID = null;
@@ -124,18 +126,32 @@
     }
     function searchClick()
     {
-	    //var form = document.forms[0];
-	    //alert(form.aim[1].checked);
-	    //if( form.aim[1].checked == "true" )
-	    //{
-	    //    location.href = "addEvent.aspx";
-        //    return false;
-	    //}
-	    //else
-	    //{
-	        return true;
-        //}
+	    var form = document.forms[0];
+        var searchString = form.what.value;
+	    if( form.aim[1].checked == true )
+	    {
+	        doAddEvent(searchString);
+	    }
+	    else
+	    {
+	        if( isEmpty(searchString) || searchString.length < 4 )
+	        {
+	            alert("Please enter a longer search string");
+	        }
+	        else
+	        {
+	            location.href = "search.aspx?Search=" + searchString;
+	        }
+        }
     }
+    function doAddEvent(searchString)
+    {
+        openModal("addEvent.aspx?Name=" + searchString);
+    }    
+    function openEvent(eventID)
+    {
+        openModal("viewEvent.aspx?EID=" + eventID);
+    }    
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
@@ -156,14 +172,13 @@
 		<div class="three-col">
 			<label for="what" class="what">what are you going to do?</label>
 			<asp:TextBox ID="what" runat="server" Text="e.g. climb Everest" MaxLength="1000" />
-			<asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
-			    ImageUrl="images/go.gif" ToolTip="go" CssClass="go" OnClientClick="return searchClick();" />
+			<a href="javascript:searchClick()"><img src="images/go.gif" alt="go" class="go" /></a>
 			<ol>
 				<li>
 					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
 				</li>
 				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" disabled="disabled" /> <label for="add-to" class="radio-label">add to your todo list</label>
+					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
 				</li>
 			</ol>
 			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
@@ -232,14 +247,14 @@
 				    OnClick="click_viewArchiveLink" />
 				</p>
 				<div class="events">
-					<h2>Overdue</h2>
-					<asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
 					<h2>This month</h2>
-					<p>Today <asp:Label ID="todaysDateLabel" runat="server" /></p>
+					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
+					<asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
+					<asp:Label ID="todaysDateLabel" runat="server" />
 					<asp:PlaceHolder ID="todayEventsPlaceHolder" runat="server" />
-					<p>This week</p>
+					<asp:Label ID="thisWeekTitleLabel" runat="server" Text="This week" />
 					<asp:PlaceHolder ID="thisWeekEventsPlaceHolder" runat="server" />
-					<p>This month</p>
+					<asp:Label ID="thisMonthTitleLabel" runat="server" Text="This month" />
 					<asp:PlaceHolder ID="thisMonthEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
@@ -247,15 +262,15 @@
 				<p class="extra-buttons"></p>
 				<div class="events">
 					<h2>Next 5 yrs</h2>
-					<p>This year</p>
+					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
 					<asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
-					<p>Next 2 years</p>
+					<asp:Label ID="next2YearsTitleLabel" runat="server" Text="Next 2 years" />
 					<asp:PlaceHolder ID="next2YearsEventsPlaceHolder" runat="server" />
-					<p>Next 3 years</p>
+					<asp:Label ID="next3YearsTitleLabel" runat="server" Text="Next 3 years" />
 					<asp:PlaceHolder ID="next3YearsEventsPlaceHolder" runat="server" />
-					<p>Next 4 years</p>
+					<asp:Label ID="next4YearsTitleLabel" runat="server" Text="Next 4 years" />
 					<asp:PlaceHolder ID="next4YearsEventsPlaceHolder" runat="server" />
-					<p>Next 5 years</p>
+					<asp:Label ID="next5YearsTitleLabel" runat="server" Text="Next 5 years" />
 					<asp:PlaceHolder ID="next5YearsEventsPlaceHolder" runat="server" />
 				</div>
 			</div>
@@ -263,13 +278,13 @@
 				<p class="extra-buttons"></p>
 				<div class="events">
 					<h2>5 yrs +</h2>
-					<p>5-10 years</p>
+					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />
 					<asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
-					<p>10-20 years</p>
+					<asp:Label ID="tenToTwentyYearsTitleLabel" runat="server" Text="10-20 years" />
 					<asp:PlaceHolder ID="next20YearsEventsPlaceHolder" runat="server" />
-					<p>20+ years</p>
+					<asp:Label ID="twentyPlusYearsTitleLabel" runat="server" Text="20+ years" />
 					<asp:PlaceHolder ID="next100YearsEventsPlaceHolder" runat="server" />
-					<h2>Not scheduled</h2>
+					<asp:Label ID="unknownDateTitleLabel" runat="server" Text="Unknown" />
 					<asp:PlaceHolder ID="notScheduledEventsPlaceHolder" runat="server" />
 				</div>
 			</div>

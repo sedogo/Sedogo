@@ -101,6 +101,11 @@ public partial class addEvent : SedogoPage
             dateRangeLI2.Visible = false;
             birthdayLI.Visible = false;
 
+            if( Request.QueryString["Name"] != null )
+            {
+                eventNameTextBox.Text = Request.QueryString["Name"].ToString();
+            }
+
             SetFocus(eventNameTextBox);
         }
     }

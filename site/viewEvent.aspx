@@ -28,25 +28,6 @@
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
 	
-<script language="JavaScript" type="text/javascript">
-function setHiddenStartDateField()
-{
-	var form = document.forms[0];
-	var d = form.startDateDay.options[form.startDateDay.selectedIndex].value;
-	var m = form.startDateMonth.options[form.startDateMonth.selectedIndex].value;
-	var y = form.startDateYear.options[form.startDateYear.selectedIndex].value;
-	
-	if( d == "" && m == "" && y == "" )
-	{
-        form.hiddenStartDate.value = "";
-	}
-	else
-	{
-        form.hiddenStartDate.value = d + "/" + m + "/" + y;
-    }
-}
-</script>
-	
 </head>
 <body>
     <form id="form1" runat="server">
@@ -57,10 +38,12 @@ function setHiddenStartDateField()
                 <asp:Image ID="eventImage" runat="server" />
                 <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
                     Text="Upload image" /></p>
+                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this event"
+                    OnClick="trackThisEventLink_click" /></p>
                 <h3 ID="messagesHeader" runat="server">Messages</h3>
                 <p><asp:HyperLink ID="messagesLink" runat="server" /></p>
                 <h3 ID="invitesHeader" runat="server">Invites</h3>
-                <p><asp:HyperLink ID="invitesLink" runat="server" /></a></p>
+                <p><asp:HyperLink ID="invitesLink" runat="server" /></p>
                 <h3 ID="alertsHeader" runat="server">Alerts</h3>
                 <p><asp:HyperLink ID="alertsLink" runat="server" /><a href="" title=""></a></p>
                 <h3 ID="trackingHeader" runat="server">Tracking</h3>
@@ -68,6 +51,8 @@ function setHiddenStartDateField()
             </div>
             <div class="left-col">
 		        <h1 style="">Edit: <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <p><i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
+		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 		        <p>
 		            <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
 		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="achieved" 

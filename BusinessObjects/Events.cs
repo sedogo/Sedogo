@@ -702,4 +702,214 @@ namespace Sedogo.BusinessObjects
             }
         }
     }
+
+    //===============================================================
+    // Class: TrackedEvent
+    //===============================================================
+    public class TrackedEvent
+    {
+        private int         m_trackedEventID = -1;
+        private int         m_eventID = -1;
+        private int         m_userID = -1;
+        private DateTime    m_createdDate = DateTime.MinValue;
+        private DateTime    m_lastUpdatedDate = DateTime.MinValue;
+
+        private string      m_loggedInUser = "";
+
+        public int trackedEventID
+        {
+            get { return m_trackedEventID; }
+        }
+        public int eventID
+        {
+            get { return m_eventID; }
+            set { m_eventID = value; }
+        }
+        public int userID
+        {
+            get { return m_userID; }
+            set { m_userID = value; }
+        }
+        public DateTime createdDate
+        {
+            get { return m_createdDate; }
+        }
+        public DateTime lastUpdatedDate
+        {
+            get { return m_lastUpdatedDate; }
+        }
+
+        //===============================================================
+        // Function: TrackedEvent (Constructor)
+        //===============================================================
+        public TrackedEvent(string loggedInUser)
+        {
+            m_loggedInUser = loggedInUser;
+        }
+
+        //===============================================================
+        // Function: TrackedEvent (Constructor)
+        //===============================================================
+        public TrackedEvent(string loggedInUser, int trackedEventID)
+        {
+            m_loggedInUser = loggedInUser;
+            m_trackedEventID = trackedEventID;
+
+            ReadTrackedEventDetails();
+        }
+
+        //===============================================================
+        // Function: ReadTrackedEventDetails
+        //===============================================================
+        public void ReadTrackedEventDetails()
+        {
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackedEventDetails";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@TrackedEventID";
+                param.Value = m_trackedEventID;
+                cmd.Parameters.Add(param);
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
+                {
+                    m_eventID = int.Parse(rdr["EventID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                {
+                    m_userID = int.Parse(rdr["UserID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
+                {
+                    m_createdDate = (DateTime)rdr["CreatedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedDate")))
+                {
+                    m_lastUpdatedDate = (DateTime)rdr["LastUpdatedDate"];
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "ReadTrackedEventDetails", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Add
+        //===============================================================
+        public void Add()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spAddTrackedEvent", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+
+                SqlParameter paramTrackedEventID = cmd.CreateParameter();
+                paramTrackedEventID.ParameterName = "@TrackedEventID";
+                paramTrackedEventID.SqlDbType = SqlDbType.Int;
+                paramTrackedEventID.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramTrackedEventID);
+
+                cmd.ExecuteNonQuery();
+                m_trackedEventID = (int)paramTrackedEventID.Value;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "Add", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Delete
+        //===============================================================
+        public void Delete()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spDeleteTrackedEvent", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@TrackedEventID", SqlDbType.Int).Value = m_trackedEventID;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "Delete", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: GetTrackedEventID
+        //===============================================================
+        public static int GetTrackedEventID(int eventID, int userID)
+        {
+            int trackedEventID = -1;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackedEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows == true)
+                {
+                    rdr.Read();
+                    trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetTrackedEventID", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackedEventID;
+        }
+    }
 }

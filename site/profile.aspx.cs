@@ -66,6 +66,8 @@ public partial class profile : SedogoPage
             groupCountLink.Text = "You belong to 0 groups";
 
             PopulateEvents(user);
+
+            timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
         }
     }
 
@@ -104,14 +106,24 @@ public partial class profile : SedogoPage
         DateTime todayPlus20Years = todayStart.AddYears(20);
         DateTime todayPlus100Years = todayStart.AddYears(100);
 
-        todaysDateLabel.Text = todayStart.ToString("dd/MM/yyyy");
+        todaysDateLabel.Text = "Today: " + todayStart.ToString("dd/MM/yyyy");
 
-        StringBuilder timelineItems1String = new StringBuilder();
-        StringBuilder timelineItems2String = new StringBuilder();
-        int timelineItemNumber = 1;
-        int currentCategoryID = 0;
-
-        decimal timelineScale = 1M;  // pixels per day on the timeline
+        //StringBuilder timelineItems1String = new StringBuilder();
+        //StringBuilder timelineItems2String = new StringBuilder();
+        //int currentCategoryID = 0;
+        int numOverdueEvents = 0;
+        int numTodayEvents = 0;
+        int numThisWeekEvents = 0;
+        int numThisMonthEvents = 0;
+        int numThisYearEvents = 0;
+        int numNext2YearsEvents = 0;
+        int numNext3YearsEvents = 0;
+        int numNext4YearsEvents = 0;
+        int numNext5YearsEvents = 0;
+        int numNext10YearsEvents = 0;
+        int numNext20YearsEvents = 0;
+        int numNext100YearsEvents = 0;
+        int numNotScheduledEvents = 0;
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -141,8 +153,8 @@ public partial class profile : SedogoPage
                 Boolean privateEvent = false;
                 Boolean eventAchieved = false;
 
-                DateTime timelineStartDate = DateTime.MinValue;
-                DateTime timelineEndDate = DateTime.MinValue;
+                //DateTime timelineStartDate = DateTime.MinValue;
+                //DateTime timelineEndDate = DateTime.MinValue;
 
                 int eventID = int.Parse(rdr["EventID"].ToString());
                 string eventName = (string)rdr["EventName"];
@@ -173,43 +185,75 @@ public partial class profile : SedogoPage
                 }
                 privateEvent = (Boolean)rdr["PrivateEvent"];
 
+                string dateString = "";
                 if (dateType == "D")
                 {
                     // Event occurs on a specific date
+                    dateString = startDate.ToString("dd/MM/yyyy");
 
-                    timelineStartDate = startDate;
-                    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
+                    //timelineStartDate = startDate;
+                    //timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
                 }
                 if (dateType == "R")
                 {
                     // Event occurs in a date range - use the start date
+                    dateString = rangeStartDate.ToString("dd/MM/yyyy") + " to " + rangeEndDate.ToString("dd/MM/yyyy");
 
-                    timelineStartDate = rangeStartDate;
-                    timelineEndDate = rangeEndDate;
+                    //timelineStartDate = rangeStartDate;
+                    //timelineEndDate = rangeEndDate;
 
-                    TimeSpan ts = timelineEndDate - timelineStartDate;
-                    if (ts.Days < 28)
-                    {
-                        timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                    }
+                    //TimeSpan ts = timelineEndDate - timelineStartDate;
+                    //if (ts.Days < 28)
+                    //{
+                    //    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
+                    //}
 
                     startDate = rangeStartDate;
                 }
                 if (dateType == "A")
                 {
                     // Event occurs before birthday
+                    string dateSuffix = "";
+                    switch (beforeBirthday)
+                    {
+                        case 1: case 21: case 31: case 41: case 51: case 61: case 71: case 81: case 91: case 101:
+                            dateSuffix = "st";
+                            break;
+                        case 2: case 22: case 32: case 42: case 52: case 62: case 72: case 82: case 92: case 102:
+                            dateSuffix = "nd";
+                            break;
+                        case 3: case 23: case 33: case 43: case 53: case 63: case 73: case 83: case 93: case 103:
+                            dateSuffix = "rd";
+                            break;
+                        case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                        case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+                        case 24: case 25: case 26: case 27: case 28: case 29: case 30:
+                        case 34: case 35: case 36: case 37: case 38: case 39: case 40:
+                        case 44: case 45: case 46: case 47: case 48: case 49: case 50:
+                        case 54: case 55: case 56: case 57: case 58: case 59: case 60:
+                        case 64: case 65: case 66: case 67: case 68: case 69: case 70:
+                        case 74: case 75: case 76: case 77: case 78: case 79: case 80:
+                        case 84: case 85: case 86: case 87: case 88: case 89: case 90:
+                        case 94: case 95: case 96: case 97: case 98: case 99: case 100:
+                        case 104: case 105: case 106: case 107: case 108: case 109: case 110:
+                            dateSuffix = "th";
+                            break;
+                        default:
+                            break;
+                    }
+                    dateString = "Before " + beforeBirthday.ToString() + dateSuffix + " birthday";
 
-                    timelineStartDate = DateTime.Now;
+                    //timelineStartDate = DateTime.Now;
                     if (user.birthday > DateTime.MinValue)
                     {
-                        timelineEndDate = user.birthday.AddYears(beforeBirthday);
+                        DateTime birthdayEndDate = user.birthday.AddYears(beforeBirthday);
 
-                        TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthday);
+                        TimeSpan ts = birthdayEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthday);
                         if (ts.Days < 0)
                         {
                             // Birthday was in the past
-                            timelineStartDate = DateTime.Now;
-                            timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+                            //timelineStartDate = DateTime.Now;
+                            //timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
 
                             // Set start date so event is correctly placed below
                             startDate = DateTime.Now.AddDays(ts.Days);
@@ -217,19 +261,19 @@ public partial class profile : SedogoPage
                         else if (ts.Days >= 0 && ts.Days < 28)
                         {
                             // Birthday is within 28 days - extend the timeline a bit
-                            timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+                            //timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
 
-                            startDate = timelineStartDate;
+                            //startDate = timelineStartDate;
                         }
                         else
                         {
-                            startDate = timelineStartDate;
+                            //startDate = timelineStartDate;
                         }
                     }
-                    else
-                    {
-                        timelineEndDate = DateTime.Now.AddDays(28);
-                    }
+                    //else
+                    //{
+                   //     timelineEndDate = DateTime.Now.AddDays(28);
+                    //}
                 }
 
                 StringBuilder eventString = new StringBuilder();
@@ -249,10 +293,11 @@ public partial class profile : SedogoPage
                     eventString.AppendLine("<img src=\"./images/icons/16-security-lock.png\" alt=\"Private event\" />");
                 }
                 eventString.Append("</h3>");
-                eventString.AppendLine("<p><a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
+                eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
                 //eventString.AppendLine("<p class=\"warning\">Note to self: book tickets</p>");
                 eventString.AppendLine("</div>");
 
+                /*
                 TimeSpan startTS = timelineStartDate - DateTime.Now;
                 if (startTS.Days < 0)
                 {
@@ -284,67 +329,148 @@ public partial class profile : SedogoPage
                 timelineItems2String.AppendLine("</div>");
 
                 timelineItemNumber++;
+                */
 
                 // Use the timeline start date as this has been adjusted above
                 if (startDate < todayStart && startDate != DateTime.MinValue)
                 {
                     overdueEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numOverdueEvents++;
                 }
                 if (startDate >= todayStart && startDate < todayPlus1Day)
                 {
                     todayEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numTodayEvents++;
                 }
                 if (startDate >= todayPlus1Day && startDate < todayPlus7Days)
                 {
                     thisWeekEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisWeekEvents++;
                 }
                 if (startDate >= todayPlus7Days && startDate < todayPlus1Month)
                 {
                     thisMonthEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisMonthEvents++;
                 }
                 if (startDate >= todayPlus1Month && startDate < todayPlus1Year)
                 {
                     nextYearEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisYearEvents++;
                 }
                 if (startDate >= todayPlus1Year && startDate < todayPlus2Years)
                 {
                     next2YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext2YearsEvents++;
                 }
                 if (startDate >= todayPlus2Years && startDate < todayPlus3Years)
                 {
                     next3YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext3YearsEvents++;
                 }
                 if (startDate >= todayPlus3Years && startDate < todayPlus4Years)
                 {
                     next4YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext4YearsEvents++;
                 }
                 if (startDate >= todayPlus4Years && startDate < todayPlus5Years)
                 {
                     next5YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext5YearsEvents++;
                 }
                 if (startDate >= todayPlus5Years && startDate < todayPlus10Years)
                 {
                     next10YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext10YearsEvents++;
                 }
                 if (startDate >= todayPlus10Years && startDate < todayPlus20Years)
                 {
                     next20YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext20YearsEvents++;
                 }
                 if (startDate >= todayPlus20Years && startDate < todayPlus100Years)
                 {
                     next100YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext100YearsEvents++;
                 }
                 if (startDate == DateTime.MinValue)
                 {
                     notScheduledEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNotScheduledEvents++;
                 }
 
-                currentCategoryID = categoryID;
+                //currentCategoryID = categoryID;
             }
             rdr.Close();
-            if( currentCategoryID != 0 )
+            //if( currentCategoryID != 0 )
+            //{
+            //    timelineItems2String.AppendLine("</div>");
+            //}
+
+			overdueTitleLabel.Visible = true;
+			todaysDateLabel.Visible = true;
+			thisWeekTitleLabel.Visible = true;
+			thisMonthTitleLabel.Visible = true;
+			thisYearTitleLabel.Visible = true;
+			next2YearsTitleLabel.Visible = true;
+			next3YearsTitleLabel.Visible = true;
+			next4YearsTitleLabel.Visible = true;
+			next5YearsTitleLabel.Visible = true;
+			fiveToTenYearsTitleLabel.Visible = true;
+			tenToTwentyYearsTitleLabel.Visible = true;
+			twentyPlusYearsTitleLabel.Visible = true;
+			unknownDateTitleLabel.Visible = true;
+
+            if( numOverdueEvents == 0 )
             {
-                timelineItems2String.AppendLine("</div>");
+			    overdueTitleLabel.Visible = false;
+            }
+            if( numTodayEvents == 0 )
+            {
+			    todaysDateLabel.Visible = false;
+            }
+            if( numThisWeekEvents == 0 )
+            {
+			    thisWeekTitleLabel.Visible = false;
+            }
+            if( numThisMonthEvents == 0 )
+            {
+			    thisMonthTitleLabel.Visible = false;
+            }
+            if( numThisYearEvents == 0 )
+            {
+			    thisYearTitleLabel.Visible = false;
+            }
+            if( numNext2YearsEvents == 0 )
+            {
+			    next2YearsTitleLabel.Visible = false;
+            }
+            if( numNext3YearsEvents == 0 )
+            {
+			    next3YearsTitleLabel.Visible = false;
+            }
+            if (numNext4YearsEvents == 0)
+            {
+			    next4YearsTitleLabel.Visible = false;
+            }
+            if (numNext5YearsEvents == 0)
+            {
+			    next5YearsTitleLabel.Visible = false;
+            }
+            if (numNext10YearsEvents == 0)
+            {
+			    fiveToTenYearsTitleLabel.Visible = false;
+            }
+            if (numNext20YearsEvents == 0)
+            {
+			    tenToTwentyYearsTitleLabel.Visible = false;
+            }
+            if (numNext100YearsEvents == 0)
+            {
+			    twentyPlusYearsTitleLabel.Visible = false;
+            }
+            if (numNotScheduledEvents == 0)
+            {
+			    unknownDateTitleLabel.Visible = false;
             }
         }
         catch (Exception ex)
@@ -356,32 +482,8 @@ public partial class profile : SedogoPage
             conn.Close();
         }
 
-        timelineItems1.Text = timelineItems1String.ToString();
-        timelineItems2.Text = timelineItems2String.ToString();
-    }
-
-    //===============================================================
-    // Function: searchButton_click
-    //===============================================================
-    protected void searchButton_click(object sender, EventArgs e)
-    {
-        string searchText = what.Text;
-
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-        {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-        }
-        else
-        {
-            if (searchText.Length > 3)
-            {
-                Response.Redirect("search.aspx?Search=" + searchText.ToString());
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-            }
-        }
+        //timelineItems1.Text = timelineItems1String.ToString();
+        //timelineItems2.Text = timelineItems2String.ToString();
     }
 
     //===============================================================

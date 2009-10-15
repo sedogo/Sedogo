@@ -43,7 +43,7 @@ function setHiddenStartDateField()
 	}
 	else
 	{
-        form.hiddenStartDate.value = d + "/" + m + "/" + y;
+        form.hiddenStartDate.value = m + "/" + d + "/" + y;
     }
 }
 function setHiddenRangeStartDateField()
@@ -59,7 +59,7 @@ function setHiddenRangeStartDateField()
 	}
 	else
 	{
-        form.hiddenDateRangeStartDate.value = d + "/" + m + "/" + y;
+        form.hiddenDateRangeStartDate.value = m + "/" + d + "/" + y;
     }
 }
 function setHiddenRangeEndDateField()
@@ -75,7 +75,7 @@ function setHiddenRangeEndDateField()
 	}
 	else
 	{
-        form.hiddenDateRangeEndDate.value = d + "/" + m + "/" + y;
+        form.hiddenDateRangeEndDate.value = m + "/" + d + "/" + y;
     }
 }
 </script>

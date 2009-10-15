@@ -48,6 +48,8 @@ public partial class search : SedogoPage
             what.Text = searchText;
 
             PopulateEvents(user, searchText);
+
+            timelineURL.Text = "timelineSearchXML.aspx?G=" + Guid.NewGuid().ToString() + "&Search=" + searchText;
         }
     }
 
@@ -57,18 +59,36 @@ public partial class search : SedogoPage
     protected void PopulateEvents(SedogoUser user, string searchText)
     {
         int userID = int.Parse(Session["loggedInUserID"].ToString());
-        Boolean viewArchivedEvents = false;
-        if (Session["ViewArchivedEvents"] != null)
-        {
-            viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
-        }
 
-        StringBuilder timelineItems1String = new StringBuilder();
-        StringBuilder timelineItems2String = new StringBuilder();
-        int timelineItemNumber = 1;
-        int currentCategoryID = 0;
+        DateTime todayStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
+            0, 0, 0);
+        DateTime todayPlus1Day = todayStart.AddDays(1);
+        DateTime todayPlus7Days = todayStart.AddDays(7);
+        DateTime todayPlus1Month = todayStart.AddMonths(1);
+        DateTime todayPlus1Year = todayStart.AddYears(1);
+        DateTime todayPlus2Years = todayStart.AddYears(2);
+        DateTime todayPlus3Years = todayStart.AddYears(3);
+        DateTime todayPlus4Years = todayStart.AddYears(4);
+        DateTime todayPlus5Years = todayStart.AddYears(5);
+        DateTime todayPlus10Years = todayStart.AddYears(10);
+        DateTime todayPlus20Years = todayStart.AddYears(20);
+        DateTime todayPlus100Years = todayStart.AddYears(100);
 
-        decimal timelineScale = 1M;  // pixels per day on the timeline
+        todaysDateLabel.Text = "Today: " + todayStart.ToString("dd/MM/yyyy");
+
+        int numOverdueEvents = 0;
+        int numTodayEvents = 0;
+        int numThisWeekEvents = 0;
+        int numThisMonthEvents = 0;
+        int numThisYearEvents = 0;
+        int numNext2YearsEvents = 0;
+        int numNext3YearsEvents = 0;
+        int numNext4YearsEvents = 0;
+        int numNext5YearsEvents = 0;
+        int numNext10YearsEvents = 0;
+        int numNext20YearsEvents = 0;
+        int numNext100YearsEvents = 0;
+        int numNotScheduledEvents = 0;
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -89,9 +109,12 @@ public partial class search : SedogoPage
                 DateTime rangeStartDate = DateTime.MinValue;
                 DateTime rangeEndDate = DateTime.MinValue;
                 int beforeBirthday = -1;
-
-                DateTime timelineStartDate = DateTime.MinValue;
-                DateTime timelineEndDate = DateTime.MinValue;
+                string emailAddress = "";
+                string firstName = "";
+                string lastName = "";
+                string gender = "M";
+                string homeTown = "";
+                string profilePicThumbnail = "";
 
                 int eventID = int.Parse(rdr["EventID"].ToString());
                 string eventName = (string)rdr["EventName"];
@@ -111,7 +134,6 @@ public partial class search : SedogoPage
                 {
                     rangeEndDate = (DateTime)rdr["RangeEndDate"];
                 }
-                Boolean eventAchieved = (Boolean)rdr["EventAchieved"];
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CategoryID")))
                 {
                     categoryID = int.Parse(rdr["CategoryID"].ToString());
@@ -120,41 +142,34 @@ public partial class search : SedogoPage
                 {
                     beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
                 }
-
-                if (dateType == "D")
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
                 {
-                    timelineStartDate = startDate;
-                    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
+                    emailAddress = (string)rdr["EmailAddress"];
                 }
-                if (dateType == "R")
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
                 {
-                    timelineStartDate = rangeStartDate;
-                    timelineEndDate = rangeEndDate;
-
-                    TimeSpan ts = timelineEndDate - timelineStartDate;
-                    if (ts.Days < 28)
-                    {
-                        timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                    }
+                    firstName = (string)rdr["FirstName"];
                 }
-                if (dateType == "A")
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
                 {
-                    timelineStartDate = DateTime.Now;
-                    if (user.birthday > DateTime.MinValue)
-                    {
-                        timelineEndDate = user.birthday;
-
-                        TimeSpan ts = timelineEndDate - timelineStartDate;
-                        if (ts.Days < 28)
-                        {
-                            timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                        }
-                    }
-                    else
-                    {
-                        timelineEndDate = DateTime.Now.AddDays(28);
-                    }
+                    lastName = (string)rdr["LastName"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
+                {
+                    gender = (string)rdr["Gender"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("HomeTown")))
+                {
+                    homeTown = (string)rdr["HomeTown"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
+                {
+                    profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                }
+
+                string dateString = "";
+                MiscUtils.GetDateStringStartDate(user, dateType, rangeStartDate,
+                    rangeEndDate, beforeBirthday, ref dateString, ref startDate);
 
                 StringBuilder eventString = new StringBuilder();
                 eventString.Append("<div class=\"event");
@@ -164,54 +179,146 @@ public partial class search : SedogoPage
                 }
                 eventString.AppendLine("\">");
                 eventString.AppendLine("<h3>" + eventName);
-                if (eventAchieved == true)
-                {
-                    eventString.Append(" (achieved)");
-                }
                 eventString.Append("</h3>");
-                eventString.AppendLine("<p><a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
+                eventString.AppendLine("<p><i>" + firstName + " " + lastName + "</i></p>");
+                eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
                 //eventString.AppendLine("<p class=\"warning\">Note to self: book tickets</p>");
                 eventString.AppendLine("</div>");
 
-                TimeSpan startTS = timelineStartDate - DateTime.Now;
-                if (startTS.Days < 0)
+                // Use the timeline start date as this has been adjusted above
+                if (startDate < todayStart && startDate != DateTime.MinValue)
                 {
-                    startTS = new TimeSpan(0);
+                    overdueEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numOverdueEvents++;
                 }
-                TimeSpan durationTS = timelineEndDate - timelineStartDate;
-                if (durationTS.Days < 0)
+                if (startDate >= todayStart && startDate < todayPlus1Day)
                 {
-                    startTS = new TimeSpan(0);
+                    todayEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numTodayEvents++;
                 }
-                int lineWidth = (int)decimal.Truncate((durationTS.Days * timelineScale));
-                int lineLeftOffset = (int)decimal.Truncate((startTS.Days * timelineScale));
-
-                timelineItems1String.AppendLine("$(\"#" + timelineItemNumber.ToString()
-                    + "\").css(\"width\",\"" + lineWidth.ToString()
-                    + "px\").css(\"left\",\"" + lineLeftOffset.ToString() + "px\");");
-
-                if (currentCategoryID != categoryID)
+                if (startDate >= todayPlus1Day && startDate < todayPlus7Days)
                 {
-                    if (currentCategoryID != 0)
-                    {
-                        timelineItems2String.AppendLine("</div>");
-                    }
-                    timelineItems2String.AppendLine("<div class=\"row-container category-" + categoryID.ToString() + "\">");
+                    thisWeekEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisWeekEvents++;
                 }
-                timelineItems2String.AppendLine("<div class=\"row\">");
-                timelineItems2String.AppendLine("<div class=\"tl\" id=\"" + timelineItemNumber.ToString() + "\">" + eventName + "</div>");
-                timelineItems2String.AppendLine("</div>");
-
-                timelineItemNumber++;
-
-                searchResultsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-
-                currentCategoryID = categoryID;
+                if (startDate >= todayPlus7Days && startDate < todayPlus1Month)
+                {
+                    thisMonthEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisMonthEvents++;
+                }
+                if (startDate >= todayPlus1Month && startDate < todayPlus1Year)
+                {
+                    nextYearEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numThisYearEvents++;
+                }
+                if (startDate >= todayPlus1Year && startDate < todayPlus2Years)
+                {
+                    next2YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext2YearsEvents++;
+                }
+                if (startDate >= todayPlus2Years && startDate < todayPlus3Years)
+                {
+                    next3YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext3YearsEvents++;
+                }
+                if (startDate >= todayPlus3Years && startDate < todayPlus4Years)
+                {
+                    next4YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext4YearsEvents++;
+                }
+                if (startDate >= todayPlus4Years && startDate < todayPlus5Years)
+                {
+                    next5YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext5YearsEvents++;
+                }
+                if (startDate >= todayPlus5Years && startDate < todayPlus10Years)
+                {
+                    next10YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext10YearsEvents++;
+                }
+                if (startDate >= todayPlus10Years && startDate < todayPlus20Years)
+                {
+                    next20YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext20YearsEvents++;
+                }
+                if (startDate >= todayPlus20Years && startDate < todayPlus100Years)
+                {
+                    next100YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNext100YearsEvents++;
+                }
+                if (startDate == DateTime.MinValue)
+                {
+                    notScheduledEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                    numNotScheduledEvents++;
+                }
             }
             rdr.Close();
-            if (currentCategoryID != 0)
+
+            overdueTitleLabel.Visible = true;
+            todaysDateLabel.Visible = true;
+            thisWeekTitleLabel.Visible = true;
+            thisMonthTitleLabel.Visible = true;
+            thisYearTitleLabel.Visible = true;
+            next2YearsTitleLabel.Visible = true;
+            next3YearsTitleLabel.Visible = true;
+            next4YearsTitleLabel.Visible = true;
+            next5YearsTitleLabel.Visible = true;
+            fiveToTenYearsTitleLabel.Visible = true;
+            tenToTwentyYearsTitleLabel.Visible = true;
+            twentyPlusYearsTitleLabel.Visible = true;
+            unknownDateTitleLabel.Visible = true;
+
+            if (numOverdueEvents == 0)
             {
-                timelineItems2String.AppendLine("</div>");
+                overdueTitleLabel.Visible = false;
+            }
+            if (numTodayEvents == 0)
+            {
+                todaysDateLabel.Visible = false;
+            }
+            if (numThisWeekEvents == 0)
+            {
+                thisWeekTitleLabel.Visible = false;
+            }
+            if (numThisMonthEvents == 0)
+            {
+                thisMonthTitleLabel.Visible = false;
+            }
+            if (numThisYearEvents == 0)
+            {
+                thisYearTitleLabel.Visible = false;
+            }
+            if (numNext2YearsEvents == 0)
+            {
+                next2YearsTitleLabel.Visible = false;
+            }
+            if (numNext3YearsEvents == 0)
+            {
+                next3YearsTitleLabel.Visible = false;
+            }
+            if (numNext4YearsEvents == 0)
+            {
+                next4YearsTitleLabel.Visible = false;
+            }
+            if (numNext5YearsEvents == 0)
+            {
+                next5YearsTitleLabel.Visible = false;
+            }
+            if (numNext10YearsEvents == 0)
+            {
+                fiveToTenYearsTitleLabel.Visible = false;
+            }
+            if (numNext20YearsEvents == 0)
+            {
+                tenToTwentyYearsTitleLabel.Visible = false;
+            }
+            if (numNext100YearsEvents == 0)
+            {
+                twentyPlusYearsTitleLabel.Visible = false;
+            }
+            if (numNotScheduledEvents == 0)
+            {
+                unknownDateTitleLabel.Visible = false;
             }
         }
         catch (Exception ex)
@@ -222,9 +329,6 @@ public partial class search : SedogoPage
         {
             conn.Close();
         }
-
-        timelineItems1.Text = timelineItems1String.ToString();
-        timelineItems2.Text = timelineItems2String.ToString();
     }
 
     //===============================================================

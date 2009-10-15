@@ -638,22 +638,227 @@ CREATE Procedure spSearchEvents
 	@SearchText		nvarchar(1000)
 AS
 BEGIN
-	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, EventAchieved, PrivateEvent,
-		EventPicFilename, EventPicThumbnail, EventPicPreview,
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
-	FROM Events
-	WHERE Deleted = 0
-	AND EventAchieved = 0
-	AND PrivateEvent = 0
-	AND UserID <> @UserID			-- Do not return events belonging to the searching user
+	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.EventAchieved, E.PrivateEvent,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+	FROM Events E
+	JOIN Users U
+	ON E.UserID = U.UserID
+	WHERE E.Deleted = 0
+	AND E.EventAchieved = 0
+	AND E.PrivateEvent = 0
+	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
 	AND ( (@SearchText = '') 
-	 OR (UPPER(EventName) LIKE '%'+UPPER(@SearchText)+'%') ) 
-	ORDER BY StartDate
+	 OR (UPPER(E.EventName) LIKE '%'+UPPER(@SearchText)+'%') ) 
+	ORDER BY E.StartDate
 END
 GO
 
 GRANT EXEC ON spSearchEvents TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spAddTrackedEvent
+// Description:
+//   Add a tracked event 
+//=============================================================*/
+PRINT 'Creating spAddTrackedEvent...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddTrackedEvent')
+	BEGIN
+		DROP Procedure spAddTrackedEvent
+	END
+GO
+
+CREATE Procedure spAddTrackedEvent
+	@EventID				int,
+	@UserID					int,
+	@CreatedDate			datetime,
+	@LastUpdatedDate		datetime,
+	@TrackedEventID			int OUTPUT
+AS
+BEGIN
+	INSERT INTO TrackedEvents
+	(
+		EventID,
+		UserID,
+		CreatedDate,
+		LastUpdatedDate
+	)
+	VALUES
+	(
+		@EventID,
+		@UserID,
+		@CreatedDate,
+		@LastUpdatedDate
+	)
+	
+	SET @TrackedEventID = @@IDENTITY
+END
+GO
+
+GRANT EXEC ON spAddTrackedEvent TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectTrackedEventDetails
+// Description:
+//   Gets tracked event details
+// --------------------------------------------------------------
+// Parameters
+//	 @TrackedEventID			int
+//=============================================================*/
+PRINT 'Creating spSelectTrackedEventDetails...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectTrackedEventDetails')
+BEGIN
+	DROP Procedure spSelectTrackedEventDetails
+END
+GO
+
+CREATE Procedure spSelectTrackedEventDetails
+	@TrackedEventID			int
+AS
+BEGIN
+	SELECT EventID, UserID,
+		CreatedDate, LastUpdatedDate
+	FROM TrackedEvents
+	WHERE TrackedEventID = @TrackedEventID
+END
+GO
+
+GRANT EXEC ON spSelectTrackedEventDetails TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectTrackedEventListByUserID
+// Description:
+//   Selects the tracked events list
+//=============================================================*/
+PRINT 'Creating spSelectTrackedEventListByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectTrackedEventListByUserID')
+BEGIN
+	DROP Procedure spSelectTrackedEventListByUserID
+END
+GO
+
+CREATE Procedure spSelectTrackedEventListByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, T.LastUpdatedDate,
+		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.EventAchieved, E.CategoryID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	WHERE T.UserID = @UserID
+	AND E.Deleted = 0
+	ORDER BY E.EventName DESC
+	
+END
+GO
+
+GRANT EXEC ON spSelectTrackedEventListByUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectTrackingUsersByEventID
+// Description:
+//   Selects the list of users tracking an event
+//=============================================================*/
+PRINT 'Creating spSelectTrackingUsersByEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectTrackingUsersByEventID')
+BEGIN
+	DROP Procedure spSelectTrackingUsersByEventID
+END
+GO
+
+CREATE Procedure spSelectTrackingUsersByEventID
+	@EventID		int
+AS
+BEGIN
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, T.LastUpdatedDate,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.Birthday,
+		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview
+	FROM TrackedEvents T
+	JOIN Users U
+	ON T.UserID = U.UserID
+	WHERE T.EventID = @EventID
+	AND U.Deleted = 0
+	ORDER BY U.LastName DESC
+	
+END
+GO
+
+GRANT EXEC ON spSelectTrackingUsersByEventID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spDeleteTrackedEvent
+// Description:
+//   Delete tracked event
+//=============================================================*/
+PRINT 'Creating spDeleteTrackedEvent...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteTrackedEvent')
+BEGIN
+	DROP Procedure spDeleteTrackedEvent
+END
+GO
+
+CREATE Procedure spDeleteTrackedEvent
+	@TrackedEventID				int
+AS
+BEGIN
+	DELETE TrackedEvents
+	WHERE TrackedEventID = @TrackedEventID
+
+END
+GO
+
+GRANT EXEC ON spDeleteTrackedEvent TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectTrackedEventID
+// Description:
+//   
+// --------------------------------------------------------------
+// Parameters
+//	 @TrackedEventID			int
+//=============================================================*/
+PRINT 'Creating spSelectTrackedEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectTrackedEventID')
+BEGIN
+	DROP Procedure spSelectTrackedEventID
+END
+GO
+
+CREATE Procedure spSelectTrackedEventID
+	@EventID			int,
+	@UserID				int
+AS
+BEGIN
+	SELECT TrackedEventID
+	FROM TrackedEvents
+	WHERE EventID = @EventID
+	AND UserID = @UserID
+END
+GO
+
+GRANT EXEC ON spSelectTrackedEventID TO sedogoUser
 GO
 
 PRINT '== Finished createEventsStoredProcs.sql =='

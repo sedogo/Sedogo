@@ -49,12 +49,22 @@ public partial class viewEvent : SedogoPage
                 invitesLink.Visible = false;
                 alertsHeader.Visible = false;
                 alertsLink.Visible = false;
-                trackingHeader.Visible = false;
-                trackingLinksPlaceholder.Visible = false;
+                //trackingHeader.Visible = false;
+                //trackingLinksPlaceholder.Visible = false;
 
                 editEventLink.Visible = false;
                 achievedEventLink.Visible = false;
                 uploadEventImage.Visible = false;
+
+                if (TrackedEvent.GetTrackedEventID(eventID, userID) < 0)
+                {
+                    trackThisEventLink.Visible = true;
+                }
+                else
+                {
+                    // Event is already being tracked
+                    trackThisEventLink.Visible = false;
+                }
             }
             else
             {
@@ -65,8 +75,8 @@ public partial class viewEvent : SedogoPage
                 invitesLink.Visible = true;
                 alertsHeader.Visible = true;
                 alertsLink.Visible = true;
-                trackingHeader.Visible = true;
-                trackingLinksPlaceholder.Visible = true;
+                //trackingHeader.Visible = true;
+                //trackingLinksPlaceholder.Visible = true;
 
                 editEventLink.Visible = true;
                 achievedEventLink.Visible = true;
@@ -84,10 +94,20 @@ public partial class viewEvent : SedogoPage
                 }
                 invitesLink.Text = "you have 0 new invites";
                 //alertsLink.Text = "book a campsite";
-                //trackingLinksPlaceholder
-            }
 
+                trackThisEventLink.Visible = false;
+            }
+            PopulateTrackingList(eventID);
+
+            SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+            
             eventTitleLabel.Text = sedogoEvent.eventName;
+            eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
+            eventDateLabel.Text = dateString;
 
             if (sedogoEvent.eventPicPreview == "")
             {
@@ -170,6 +190,56 @@ public partial class viewEvent : SedogoPage
     }
 
     //===============================================================
+    // Function: PopulateTrackingList
+    //===============================================================
+    private void PopulateTrackingList(int eventID)
+    {
+        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        try
+        {
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "spSelectTrackingUsersByEventID";
+            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+            DbDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
+                //int userID = int.Parse(rdr["UserID"].ToString());
+                string firstName = (string)rdr["FirstName"];
+                string lastName = (string)rdr["LastName"];
+                //string gender = (string)rdr["Gender"];
+                //string homeTown = (string)rdr["HomeTown"];
+                //string emailAddress = (string)rdr["EmailAddress"];
+                string profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                //string profilePicPreview = (string)rdr["ProfilePicPreview"];
+
+                string profileImagePath = "./images/profile/blankProfile.jpg";
+                if (profilePicThumbnail != "")
+                {
+                    profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                }
+
+                string outputText = "<p><img src=\"" + profileImagePath + "\" />" 
+                    + firstName + " " + lastName + "<p>";
+
+                trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+            }
+            rdr.Close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
+        }
+    }
+
+    //===============================================================
     // Function: click_achievedEventLink
     //===============================================================
     protected void click_achievedEventLink(object sender, EventArgs e)
@@ -211,5 +281,23 @@ public partial class viewEvent : SedogoPage
         int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("postComment.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: trackThisEventLink_click
+    //===============================================================
+    protected void trackThisEventLink_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString());
+        trackedEvent.eventID = eventID;
+        trackedEvent.userID = userID;
+        trackedEvent.Add();
+
+        trackThisEventLink.Visible = false;
+
+        PopulateTrackingList(eventID);
     }
 }

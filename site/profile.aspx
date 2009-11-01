@@ -97,12 +97,18 @@
 				}, 500);
 			}
 		}
+		
+   //(function() {  
+   //Timeline.DefaultEventSource.Event.prototype.fillInfoBubble = function (elmt, theme, labeller) {  
+    //alert("test");
+    //labeller.closeBubble();
+   //};  
+   //})();  
+   		
 	</script>
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		//Set widths and left positions of timelines based on info held in database (hard-coded for now)
-		<asp:Literal id="timelineItems1" runat="server" />
 	});
     function breakout_of_frame()
     {
@@ -140,7 +146,7 @@
 	        }
 	        else
 	        {
-	            location.href = "search.aspx?Search=" + searchString;
+	            location.href = "search2.aspx?Search=" + searchString;
 	        }
         }
     }
@@ -163,7 +169,7 @@
 		    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 		</ul>
 		<div class="one-col">
-			<a href="default.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
+			<a href="profile.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 			<p class="strapline">
 				Create your future timeline.<br />
 				Connect, track and interact with like minded people
@@ -206,11 +212,7 @@
 						<li class="category-btn-13"><a href="#" title="Misc">Misc</a></li>
 					</ul>
 				</div>
-				<div id="buttons">
-					<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>
-					&nbsp;&nbsp;
-					<a href="#" title="Zoom in" class="plus" id="zoom-in"><img src="images/plus.gif" title="Zoom in" alt="Zoom in icon" /></a><a href="#" title="Zoom out" class="minus" id="zoom-out"><img src="images/minus.gif" title="Zoom out" alt="Zoom out icon" /></a>
-				</div>
+				<div id="buttons"></div>
 			</div>		
 			<div class="tl-container">
 				<div id="my-timeline" style="height: 360px;"></div>
@@ -226,18 +228,23 @@
 				<a href="editProfile.aspx" title="Edit profile" class="modal">Edit profile</a><br />
 				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
-				<p class="profile-intro">Lorem ipsum dolor sit amit consectetur adipiscing elit.</p>
+				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<div class="alerts">
 					<h3>Messages</h3>
 					<p><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></p>
 					<p><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Alerts</h3>
 					<p><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></p>
+					<h3>Tracking</h3>
+					<p><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Groups</h3>
 					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Latest events added</h3>
+					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>
+					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
 					<h3>Most popular searches</h3>
+					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
 				</div>
 			</div>
 			<div class="one-col">

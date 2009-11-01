@@ -16,7 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -57,6 +58,26 @@ public partial class editProfile : SedogoPage
             dateOfBirthMonth.Attributes.Add("onchange", "setHiddenDateField()");
             dateOfBirthYear.Attributes.Add("onchange", "setHiddenDateField()");
 
+            try
+            {
+                SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+
+                SqlCommand cmd = new SqlCommand("spSelectTimezoneList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                timezoneDropDownList.DataSource = ds;
+                timezoneDropDownList.DataBind();
+
+                timezoneDropDownList.SelectedValue = "1";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
                 int.Parse(Session["loggedInUserID"].ToString()));
 
@@ -78,6 +99,8 @@ public partial class editProfile : SedogoPage
                 dateOfBirthMonth.SelectedValue = user.birthday.Month.ToString();
                 dateOfBirthYear.SelectedValue = user.birthday.Year.ToString();
             }
+            headlineTextBox.Text = user.profileText;
+            timezoneDropDownList.SelectedValue = user.timezoneID.ToString();
 
             SetFocus(firstNameTextBox);
         }
@@ -122,6 +145,8 @@ public partial class editProfile : SedogoPage
         {
             user.birthday = dateOfBirth;
         }
+        user.profileText = headlineTextBox.Text;
+        user.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         user.Update();
 
         Session["loggedInUserFirstName"] = user.firstName;

@@ -27,7 +27,6 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
-	
 </head>
 <body>
     <form id="form1" runat="server">
@@ -36,33 +35,40 @@
         <div id="event-detail">
             <div class="right-col">
                 <asp:Image ID="eventImage" runat="server" />
+                <div class="buttons">
                 <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
-                    Text="Upload image" /></p>
+                    Text="Upload image" CssClass="button-sml" /></p>
+                </div>
                 <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this event"
                     OnClick="trackThisEventLink_click" /></p>
-                <h3 ID="messagesHeader" runat="server">Messages</h3>
-                <p><asp:HyperLink ID="messagesLink" runat="server" /></p>
+                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create an event like this for me"
+                    OnClick="createSimilarEventLink_click" CssClass="button-sml" /></p>
+                <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
+                <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                 <h3 ID="invitesHeader" runat="server">Invites</h3>
-                <p><asp:HyperLink ID="invitesLink" runat="server" /></p>
+                <p><asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" /></p>
                 <h3 ID="alertsHeader" runat="server">Alerts</h3>
-                <p><asp:HyperLink ID="alertsLink" runat="server" /><a href="" title=""></a></p>
+                <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" /></p>
                 <h3 ID="trackingHeader" runat="server">Tracking</h3>
                 <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
+                <div class="buttons"><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message" 
+                    OnClick="click_messageTrackingUsersLink" CssClass="button-sml" /></div>
             </div>
             <div class="left-col">
 		        <h1 style="">Edit: <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
-		        <p><i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
+		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
+		        <p>Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+		        <i>Owner: <asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 		        <p>
 		            <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
 		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="achieved" 
 		                ToolTip="achieved" OnClick="click_achievedEventLink" />
-		        </p>
-		        
-		        <p><asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
-		            Text="send a message" OnClick="sendMessageButton_click" /> <asp:LinkButton 
-		            ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
-		            OnClick="postCommentButton_click" /></p>
+		            <asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
+		                Text="send a message" OnClick="sendMessageButton_click" CssClass="button-sml" />
+		            <asp:LinkButton 
+		                ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
+		                OnClick="postCommentButton_click" CssClass="button-sml" /></p>
 		        
 		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 		    </div>

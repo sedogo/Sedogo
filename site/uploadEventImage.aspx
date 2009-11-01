@@ -32,6 +32,10 @@
     <form id="form1" runat="server">
     <div>
 
+        <asp:ValidationSummary runat="server" ID="validationSummary" 
+            ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+            HeaderText="Please review the following errors:" />
+
 	    <div id="modal">
             <h1>upload event picture</h1>
             <p>Text to be added</p>
@@ -46,8 +50,12 @@
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for=""></label>
-                        <asp:Button id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" Text="Upload picture" />
+                        <div class="buttons">
+                        <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
+                            Text="Upload picture" CssClass="button-sml" />
+                        <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
+                            Text="Back to event details" CssClass="button-sml" CausesValidation="false" />
+                        </div>
                     </li>
                 </ol>
             </fieldset>

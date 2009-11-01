@@ -65,6 +65,7 @@ public partial class viewEvent : SedogoPage
                     // Event is already being tracked
                     trackThisEventLink.Visible = false;
                 }
+                createSimilarEventLink.Visible = true;
             }
             else
             {
@@ -81,8 +82,11 @@ public partial class viewEvent : SedogoPage
                 editEventLink.Visible = true;
                 achievedEventLink.Visible = true;
                 uploadEventImage.Visible = true;
+                createSimilarEventLink.Visible = false;
 
                 int messageCount = Message.GetMessageCountForEvent(eventID);
+                int inviteCount = EventInvite.GetInviteCount(eventID);
+                int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
 
                 if (messageCount == 1)
                 {
@@ -92,8 +96,22 @@ public partial class viewEvent : SedogoPage
                 {
                     messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
                 }
-                invitesLink.Text = "you have 0 new invites";
-                //alertsLink.Text = "book a campsite";
+                if (inviteCount == 1)
+                {
+                    invitesLink.Text = "you have " + inviteCount.ToString() + " invitation";
+                }
+                else
+                {
+                    invitesLink.Text = "you have " + inviteCount.ToString() + " invitations";
+                }
+                if (alertsCount == 1)
+                {
+                    alertsLink.Text = "you have " + alertsCount.ToString() + " alert";
+                }
+                else
+                {
+                    alertsLink.Text = "you have " + alertsCount.ToString() + " alerts";
+                }
 
                 trackThisEventLink.Visible = false;
             }
@@ -108,6 +126,8 @@ public partial class viewEvent : SedogoPage
             eventTitleLabel.Text = sedogoEvent.eventName;
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
             eventDateLabel.Text = dateString;
+            eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
+            eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
 
             if (sedogoEvent.eventPicPreview == "")
             {
@@ -206,6 +226,8 @@ public partial class viewEvent : SedogoPage
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
+                string profilePicThumbnail = "";
+
                 //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
                 //int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
@@ -213,7 +235,10 @@ public partial class viewEvent : SedogoPage
                 //string gender = (string)rdr["Gender"];
                 //string homeTown = (string)rdr["HomeTown"];
                 //string emailAddress = (string)rdr["EmailAddress"];
-                string profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
+                {
+                    profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                }
                 //string profilePicPreview = (string)rdr["ProfilePicPreview"];
 
                 string profileImagePath = "./images/profile/blankProfile.jpg";
@@ -299,5 +324,63 @@ public partial class viewEvent : SedogoPage
         trackThisEventLink.Visible = false;
 
         PopulateTrackingList(eventID);
+    }
+
+    //===============================================================
+    // Function: click_inviteUsersLink
+    //===============================================================
+    protected void click_inviteUsersLink(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("eventInvites.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: click_alertsLink
+    //===============================================================
+    protected void click_alertsLink(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("eventAlerts.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: createSimilarEventLink_click
+    //===============================================================
+    protected void createSimilarEventLink_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoEvent viewedEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        SedogoEvent newEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString());
+        newEvent.beforeBirthday = 1;
+        newEvent.categoryID = viewedEvent.categoryID;
+        newEvent.dateType = viewedEvent.dateType;
+        newEvent.eventDescription = viewedEvent.eventDescription;
+        newEvent.eventVenue = viewedEvent.eventVenue;
+        newEvent.eventName = viewedEvent.eventName;
+        newEvent.mustDo = viewedEvent.mustDo;
+        newEvent.rangeEndDate = viewedEvent.rangeEndDate;
+        newEvent.rangeStartDate = viewedEvent.rangeStartDate;
+        newEvent.startDate = viewedEvent.startDate;
+        newEvent.userID = userID;
+        newEvent.createdFromEventID = viewedEvent.eventID;
+        newEvent.Add();
+
+        Response.Redirect("viewEvent.aspx?EID=" + newEvent.eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: click_messageTrackingUsersLink
+    //===============================================================
+    protected void click_messageTrackingUsersLink(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("sendMessageToTrackers.aspx?EID=" + eventID.ToString());
     }
 }

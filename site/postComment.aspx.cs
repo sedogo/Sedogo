@@ -62,4 +62,14 @@ public partial class postComment : SedogoPage
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+    }
 }

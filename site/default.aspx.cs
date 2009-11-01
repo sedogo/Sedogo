@@ -43,6 +43,17 @@ public partial class _default : System.Web.UI.Page
                 }
             }
 
+            Session["EventInviteGUID"] = "";
+            Session["EventInviteUserID"] = -1;
+            if (Request.QueryString["EIG"] != null)
+            {
+                Session["EventInviteGUID"] = (string)Request.QueryString["EIG"];
+            }
+            if (Request.QueryString["UID"] != null)
+            {
+                Session["EventInviteUserID"] = int.Parse(Request.QueryString["UID"].ToString());
+            }
+
             HttpCookie emailCookie = Request.Cookies["SedogoLoginEmailAddress"]; 
             HttpCookie passwordCookie = Request.Cookies["SedogoLoginPassword"];
             // Check to make sure the cookie exists
@@ -70,6 +81,53 @@ public partial class _default : System.Web.UI.Page
                     }
                 }            
             }
+
+            PopulateEvents();
+
+            timelineURL.Text = "timelineHomePageXML.aspx?G=" + Guid.NewGuid().ToString();
+
+            if ((string)Session["EventInviteGUID"] != "")
+            {
+                if ((int)Session["EventInviteUserID"] > 0)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"register.aspx\");", true);
+                }
+            }
         }
+    }
+
+    //===============================================================
+    // Function: searchButton_click
+    //===============================================================
+    protected void searchButton_click(object sender, EventArgs e)
+    {
+        string searchText = what.Text;
+
+        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
+        }
+        else
+        {
+            if (searchText.Length > 3)
+            {
+                Response.Redirect("search.aspx?Search=" + searchText.ToString());
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+            }
+        }
+    }
+
+    //===============================================================
+    // Function: PopulateEvents
+    //===============================================================
+    protected void PopulateEvents()
+    {
     }
 }

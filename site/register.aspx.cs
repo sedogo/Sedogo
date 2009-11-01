@@ -16,7 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Linq;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -61,6 +62,26 @@ public partial class register : System.Web.UI.Page
             dateOfBirthDay.SelectedValue = "";
             dateOfBirthMonth.SelectedValue = "";
             dateOfBirthYear.SelectedValue = "";
+
+            try
+            {
+                SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+
+                SqlCommand cmd = new SqlCommand("spSelectTimezoneList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                timezoneDropDownList.DataSource = ds;
+                timezoneDropDownList.DataBind();
+
+                timezoneDropDownList.SelectedValue = "1";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             SetFocus(firstNameTextBox);
         }
@@ -115,6 +136,7 @@ public partial class register : System.Web.UI.Page
             {
                 newUser.birthday = dateOfBirth;
             }
+            newUser.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
             newUser.Add();
 
             newUser.UpdatePassword(userPassword);

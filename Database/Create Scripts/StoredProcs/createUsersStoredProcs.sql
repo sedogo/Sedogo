@@ -39,6 +39,8 @@ CREATE Procedure spAddUser
 	@Birthday					datetime,
 	@CountryID					int,
 	@LanguageID					int,
+	@TimezoneID					int,
+	@ProfileText				nvarchar(200),
 	@CreatedDate				datetime,
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
@@ -58,6 +60,8 @@ BEGIN
 		Deleted,
 		CountryID,
 		LanguageID,
+		TimezoneID,
+		ProfileText,
 		LoginEnabled,
 		UserPassword,
 		FailedLoginCount,
@@ -80,6 +84,8 @@ BEGIN
 		0,
 		@CountryID,
 		@LanguageID,
+		@TimezoneID,
+		@ProfileText,
 		0,		-- LoginEnabled
 		'',		-- UserPassword
 		0,		-- FailedLoginCount
@@ -121,7 +127,7 @@ AS
 BEGIN
 	SELECT GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
-		CountryID, LanguageID, 
+		ProfileText, CountryID, LanguageID, TimezoneID,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
@@ -150,7 +156,8 @@ CREATE Procedure spSelectUserList
 AS
 BEGIN
 	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
-		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
+		HomeTown, Birthday, ProfileText, TimezoneID,
+		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
@@ -184,8 +191,10 @@ CREATE Procedure spUpdateUser
 	@HomeTown						nvarchar(200),
 	@Birthday						datetime,
 	@Gender							nchar(1),
+	@ProfileText					nvarchar(200),
 	@CountryID						int,
 	@LanguageID						int,
+	@TimezoneID						int,
 	@LoginEnabled					bit,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)
@@ -200,6 +209,8 @@ BEGIN
 		Gender					= @Gender,
 		CountryID				= @CountryID,
 		LanguageID				= @LanguageID,
+		TimezoneID				= @TimezoneID,
+		ProfileText				= @ProfileText,
 		LoginEnabled			= @LoginEnabled,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName

@@ -99,6 +99,15 @@ function setHiddenDateField()
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
+                        <label for="">Timezone</label>
+                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
+                            DataTextField="Description" DataValueField="TimezoneID">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
+                        ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
                         <label for="">Email address</label>
                         <asp:TextBox runat="server"
                             ID="emailAddressTextBox" Width="200px" MaxLength="200" />

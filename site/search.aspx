@@ -101,8 +101,6 @@
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		//Set widths and left positions of timelines based on info held in database (hard-coded for now)
-		<asp:Literal id="timelineItems1" runat="server" />
 	});
     function breakout_of_frame()
     {
@@ -140,7 +138,7 @@
 	        }
 	        else
 	        {
-	            location.href = "search.aspx?Search=" + searchString;
+	            location.href = "search2.aspx?Search=" + searchString;
 	        }
         }
     }
@@ -159,7 +157,7 @@
 		    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 		</ul>
 		<div class="one-col">
-			<a href="default.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
+			<a href="profile.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 			<p class="strapline">
 				Create your future timeline.<br />
 				Connect, track and interact with like minded people
@@ -179,6 +177,12 @@
 				</li>
 			</ol>
 			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+		</div>
+		<div id="noSearchResultsDiv" runat="server">
+		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
+		</div>
+		<div id="moreThan50ResultsDiv" runat="server">
+		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
 		</div>
 		<div id="timelines">
 			<div id="tools">
@@ -203,11 +207,7 @@
 						<li class="category-btn-13"><a href="#" title="Misc">Misc</a></li>
 					</ul>
 				</div>
-				<div id="buttons">
-					<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>
-					&nbsp;&nbsp;
-					<a href="#" title="Zoom in" class="plus" id="zoom-in"><img src="images/plus.gif" title="Zoom in" alt="Zoom in icon" /></a><a href="#" title="Zoom out" class="minus" id="zoom-out"><img src="images/minus.gif" title="Zoom out" alt="Zoom out icon" /></a>
-				</div>
+				<div id="buttons"></div>
 			</div>		
 			<div class="tl-container">
 				<div id="my-timeline" style="height: 360px;"></div>

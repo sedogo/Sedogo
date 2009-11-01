@@ -34,21 +34,75 @@
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-	<script type="text/javascript">
-	    $(document).ready(function() {
-			//Set widths and left positions of timelines based on info held in database (hard-coded for now)
-			$("#1").css("width","300px").css("left","100px");
-			$("#2").css("width","200px").css("left","20px");
-			$("#3").css("width","420px").css("left","60px");
-			$("#4").css("width","200px").css("left","200px");
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
-			//Show selected on page load
-			$(".category-2").css("display","block");
-			$(".category-4").css("display","block");
-			$(".category-12").css("display","block");
-		});
+	<script type="text/javascript">
+		Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
+		Timeline_urlPrefix = 'js/timeline/timeline_js/';
+		Timeline_parameters = 'bundle=true';
 	</script>
-    <script language="JavaScript" type="text/javascript">
+	<script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var tl;
+
+		function onLoad() {
+			var eventSource = new Timeline.DefaultEventSource();
+			var bandInfos = [
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "85%",
+					intervalUnit: Timeline.DateTime.MONTH,
+					intervalPixels: 50,
+					eventSource: eventSource,
+					zoomIndex: 10,
+					zoomSteps: new Array(
+						{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
+						{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
+						{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
+						{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
+						{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+					)
+				}),
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "15%",
+					intervalUnit: Timeline.DateTime.YEAR,
+					intervalPixels: 100,
+					showEventText: false,
+					trackHeight: 0.5,
+					trackGap: 0.2,
+					eventSource: eventSource,
+					overview: true
+				})
+			];
+			bandInfos[1].syncWith = 0;
+			bandInfos[1].highlight = true;
+
+			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+			var url = "<asp:Literal id="timelineURL" runat="server" />";
+			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
+		}
+
+		var resizeTimerID = null;
+		function onResize() {
+			if (resizeTimerID == null) {
+				resizeTimerID = window.setTimeout(function() {
+					resizeTimerID = null;
+					tl.layout();
+				}, 500);
+			}
+		}
+	</script>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+	});
     function breakout_of_frame()
     {
       if (top.location != location)
@@ -56,10 +110,39 @@
         top.location.href = document.location.href ;
       }
     }
+    function getElementID( name )
+    {
+	    var form = document.forms[0];
+        var nID = -1;
+        for( i=0 ; i < form.elements.length ; i++ )
+        {
+            if( form.elements[i].name == name )
+            {
+                nID = i;
+            }
+        }
+        return nID;
+    }
+    function searchClick()
+    {
+	    var form = document.forms[0];
+        var searchString = form.what.value;
+        if( isEmpty(searchString) || searchString.length < 4 )
+        {
+            alert("Please enter a longer search string");
+        }
+        else
+        {
+            location.href = "search2.aspx?Search=" + searchString;
+        }
+    }
+    function loginRedirect(eventID)
+    {
+        openModal("login.aspx?EID=" + eventID);
+    }    
     </script>
-
 </head>
-<body onload="breakout_of_frame()">
+<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
     <div>
     
@@ -75,56 +158,43 @@
 				</p>
 			</div>
 			<div class="two-col">
-				<label for="what" class="what">what are you going to do?</label>
-				<input type="text" value="e.g. climb Everest" id="what" />
-				<ol>
-					<li>
-						<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
-					</li>
-					<li>
-						<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
-					</li>
-				</ol>
-				<input type="image" src="images/go.gif" title="go" value="go" class="go" />
-				<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+			    <label for="what" class="what">what are you going to do?</label>
+			    <asp:TextBox ID="what" runat="server" />
+			    <asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
+			        ImageUrl="images/go.gif" ToolTip="go" CssClass="go" />
+			    <p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
 			</div>
-			<div id="timelines">
-				<div id="tools">
-					<ul class="timeline-options">
-						<li class="first"><a href="#" title="Max">Max</a></li>
-						<li><a href="#" title="Min">Min</a></li>
-						<li class="last"><a href="#" title="Off">Off</a></li>
-					</ul>
-					<div id="buttons">
-						<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>
-						&nbsp;&nbsp;
-						<a href="#" title="Zoom in" class="plus" id="zoom-in"><img src="images/plus.gif" title="Zoom in" alt="Zoom in icon" /></a><a href="#" title="Zoom out" class="minus" id="zoom-out"><img src="images/minus.gif" title="Zoom out" alt="Zoom out icon" /></a>
-					</div>
-				</div>		
-				<div class="tl-container">
-					<ul class="tl-scale"></ul>
-					<div class="x-axis-tracker"></div>
-					<div class="row-master-container">
-						<div class="row-container category-2">
-							<div class="row">
-								<div class="tl" id="1">Camping with kids this summer</div>
-							</div>
-							<div class="row">
-								<div class="tl" id="2">Camping with kids this summer</div>
-							</div>			
-						</div>
-						<div class="row-container category-4">
-							<div class="row">
-								<div class="tl" id="3">Camping with kids this summer</div>
-							</div>
-						</div>
-						<div class="row-container category-12">
-							<div class="row">
-								<div class="tl" id="4">Camping with kids this summer</div>
-							</div>
-						</div>
-					</div>
-				</div>
+	        <div id="timelines">
+		        <div id="tools">
+			        <ul class="timeline-options">
+				        <li class="first"><a href="#" title="View all" id="view-all">View all</a></li>
+				        <li class="last"><a href="#" title="Show categories" id="show-categories">Show categories</a></li>
+			        </ul>
+			        <div id="category-selector-container">
+				        <ul id="category-selector">
+					        <li class="category-btn-1"><a href="#" title="Personal">Personal</a></li>
+					        <li class="category-btn-2"><a href="#" title="Travel">Travel</a></li>
+					        <li class="category-btn-3"><a href="#" title="Friends">Friends</a></li>
+					        <li class="category-btn-4"><a href="#" title="Family">Family</a></li>
+					        <li class="category-btn-5"><a href="#" title="General">General</a></li>
+					        <li class="category-btn-6"><a href="#" title="Health">Health</a></li>
+					        <li class="category-btn-7"><a href="#" title="Money">Money</a></li>
+					        <li class="category-btn-8"><a href="#" title="Education">Education</a></li>
+					        <li class="category-btn-9"><a href="#" title="Hobbies">Hobbies</a></li>
+					        <li class="category-btn-10"><a href="#" title="Culture">Culture</a></li>
+					        <li class="category-btn-11"><a href="#" title="Charity">Charity</a></li>
+					        <li class="category-btn-12"><a href="#" title="Green">Green</a></li>
+					        <li class="category-btn-13"><a href="#" title="Misc">Misc</a></li>
+				        </ul>
+			        </div>
+			        <div id="buttons"></div>
+		        </div>		
+		        <div class="tl-container">
+			        <div id="my-timeline" style="height: 360px;"></div>
+			        <noscript>
+				        This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
+			        </noscript>
+		        </div>
 			</div>
 			<div id="other-content">
 				<div class="one-col">

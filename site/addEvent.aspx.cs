@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -37,6 +39,7 @@ public partial class addEvent : SedogoPage
         {
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
                 int.Parse(Session["loggedInUserID"].ToString()));
+            int userAgeYears = DateTime.Now.Year - user.birthday.Year;
 
             for (int day = 1; day <= 31; day++)
             {
@@ -57,7 +60,7 @@ public partial class addEvent : SedogoPage
                 dateRangeStartYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
                 dateRangeEndYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
             }
-            for (int age = 1; age <= 100; age++)
+            for (int age = userAgeYears; age <= 100; age++)
             {
                 birthdayDropDownList.Items.Add(new ListItem(age.ToString(), age.ToString()));
 
@@ -101,12 +104,45 @@ public partial class addEvent : SedogoPage
             dateRangeLI2.Visible = false;
             birthdayLI.Visible = false;
 
+            try
+            {
+                SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+
+                SqlCommand cmd = new SqlCommand("spSelectTimezoneList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                timezoneDropDownList.DataSource = ds;
+                timezoneDropDownList.DataBind();
+
+                timezoneDropDownList.SelectedValue = user.timezoneID.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
             if( Request.QueryString["Name"] != null )
             {
                 eventNameTextBox.Text = Request.QueryString["Name"].ToString();
             }
 
             SetFocus(eventNameTextBox);
+
+            if ((string)Application["DateFormat"] == "dmy")
+            {
+                dateString1.Text = "d + \"/\" + m + \"/\" + y";
+                dateString2.Text = "d + \"/\" + m + \"/\" + y";
+                dateString3.Text = "d + \"/\" + m + \"/\" + y";
+            }
+            else
+            {
+                dateString1.Text = "m + \"/\" + d + \"/\" + y";
+                dateString2.Text = "m + \"/\" + d + \"/\" + y";
+                dateString3.Text = "m + \"/\" + d + \"/\" + y";
+            }
         }
     }
 
@@ -148,6 +184,7 @@ public partial class addEvent : SedogoPage
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString());
         sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
         sedogoEvent.eventName = eventName;
+        sedogoEvent.eventDescription = eventDescriptionTextBox.Text;
         if( dateTypeDropDownList.SelectedValue == "D" )
         {
             DateTime startDate = new DateTime(int.Parse(startDateYear.SelectedValue),
@@ -171,8 +208,18 @@ public partial class addEvent : SedogoPage
         sedogoEvent.dateType = dateTypeDropDownList.SelectedValue;
         sedogoEvent.categoryID = int.Parse(categoryDropDownList.SelectedValue);
         sedogoEvent.privateEvent = privateEventCheckbox.Checked;
+        sedogoEvent.mustDo = mustDoCheckBox.Checked;
+        sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Add();
 
+        Response.Redirect("viewEvent.aspx?EID=" + sedogoEvent.eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
         Response.Redirect("profileRedirect.aspx");
     }
 }

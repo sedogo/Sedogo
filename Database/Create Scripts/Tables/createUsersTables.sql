@@ -41,12 +41,14 @@ CREATE TABLE Users
 	ProfilePicFilename				nvarchar(200)		NULL,
 	ProfilePicThumbnail				nvarchar(200)		NULL,
 	ProfilePicPreview				nvarchar(200)		NULL,
+	ProfileText						nvarchar(200)		NULL,
 
 	Deleted							bit				    NOT NULL,
 	DeletedDate						datetime		    NULL,
 
 	CountryID						int				    NOT NULL,
 	LanguageID						int				    NOT NULL,
+	TimezoneID						int				    NOT NULL,
 
 	LoginEnabled					bit				    NOT NULL,
 	UserPassword					nvarchar(200)		NULL,
@@ -95,6 +97,30 @@ GO
 
 CREATE INDEX IX_UserLoginHistory_UserID
     ON UserLoginHistory ( UserID ); 
+GO
+
+/*===============================================================
+// Table: Timezones
+//=============================================================*/
+
+PRINT 'Creating Timezones...'
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'U' AND name = 'Timezones')
+	BEGIN
+		DROP Table Timezones
+	END
+GO
+
+CREATE TABLE Timezones
+(
+	TimezoneID							int					NOT NULL PRIMARY KEY IDENTITY,
+	ShortCode			                nvarchar(10)		NOT NULL,
+	Description			                nvarchar(200)		NOT NULL,
+	GMTOffset							int					NOT NULL
+)
+GO
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON Timezones TO sedogoUser
 GO
 
 PRINT '== Finished createUsersTables.sql =='

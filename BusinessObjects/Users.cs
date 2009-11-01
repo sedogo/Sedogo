@@ -64,9 +64,11 @@ namespace Sedogo.BusinessObjects
         private DateTime    m_deletedDate = DateTime.MinValue;
         private int         m_countryID = -1;
         private int         m_languageID = -1;
+        private int         m_timezoneID = -1;
         private Boolean     m_loginEnabled = false;
         private string      m_userPassword = "";
         private int         m_failedLoginCount = 0;
+        private string      m_profileText = "";
         private DateTime    m_passwordExpiryDate = DateTime.MinValue;
         private DateTime    m_lastLoginDate = DateTime.MinValue;
         private DateTime    m_createdDate = DateTime.MinValue;
@@ -151,6 +153,11 @@ namespace Sedogo.BusinessObjects
             get { return m_languageID; }
             set { m_languageID = value; }
         }
+        public int timezoneID
+        {
+            get { return m_timezoneID; }
+            set { m_timezoneID = value; }
+        }
         public Boolean loginEnabled
         {
             get { return m_loginEnabled; }
@@ -163,6 +170,11 @@ namespace Sedogo.BusinessObjects
         public int failedLoginCount
         {
             get { return m_failedLoginCount; }
+        }
+        public string profileText
+        {
+            get { return m_profileText; }
+            set { m_profileText = value; }
         }
         public DateTime passwordExpiryDate
         {
@@ -283,6 +295,14 @@ namespace Sedogo.BusinessObjects
                 {
                     m_languageID = int.Parse(rdr["LanguageID"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("TimezoneID")))
+                {
+                    m_timezoneID = int.Parse(rdr["TimezoneID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfileText")))
+                {
+                    m_profileText = (string)rdr["ProfileText"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("LoginEnabled")))
                 {
                     m_loginEnabled = (Boolean)rdr["LoginEnabled"];
@@ -364,6 +384,8 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@Gender", SqlDbType.NChar, 1).Value = m_gender;
                 cmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = m_countryID;
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
+                cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
+                cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -421,7 +443,9 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@Gender", SqlDbType.NChar, 1).Value = m_gender;
                 cmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = m_countryID;
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
+                cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
                 cmd.Parameters.Add("@LoginEnabled", SqlDbType.Bit).Value = m_loginEnabled;
+                cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
 

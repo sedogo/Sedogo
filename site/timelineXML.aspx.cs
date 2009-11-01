@@ -235,7 +235,7 @@ public partial class timelineXML : System.Web.UI.Page
                 writer.WriteAttributeString("title", eventName);
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 writer.WriteAttributeString("color", timelineColour);
-                writer.WriteString(eventName + "&lt;br /&gt; " + linkURL + " &lt;br /&gt;");
+                writer.WriteString(linkURL + " &lt;br /&gt;");
                 writer.WriteEndElement();
             }
             rdr.Close();

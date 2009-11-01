@@ -66,4 +66,8 @@ EXECUTE spGlobalDataAddIntegerValue
 	@KeyName					= 'PreviewSize',
 	@Value						= 200
 
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'DateFormat',
+	@Value						= 'dmy'
+
 GO 

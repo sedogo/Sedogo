@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -37,8 +39,15 @@ public partial class editEvent : SedogoPage
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
 
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
                 int.Parse(Session["loggedInUserID"].ToString()));
+            int userAgeYears = DateTime.Now.Year - user.birthday.Year;
+            if (sedogoEvent.dateType == "A" && sedogoEvent.beforeBirthday < userAgeYears)
+            {
+                userAgeYears = sedogoEvent.beforeBirthday;
+            }
 
             for (int day = 1; day <= 31; day++)
             {
@@ -59,7 +68,7 @@ public partial class editEvent : SedogoPage
                 dateRangeStartYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
                 dateRangeEndYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
             }
-            for (int age = 1; age <= 100; age++)
+            for (int age = userAgeYears; age <= 100; age++)
             {
                 birthdayDropDownList.Items.Add(new ListItem(age.ToString(), age.ToString()));
             }
@@ -97,9 +106,29 @@ public partial class editEvent : SedogoPage
             dateRangeLI2.Visible = false;
             birthdayLI.Visible = false;
 
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            try
+            {
+                SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+
+                SqlCommand cmd = new SqlCommand("spSelectTimezoneList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                timezoneDropDownList.DataSource = ds;
+                timezoneDropDownList.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             eventNameTextBox.Text = sedogoEvent.eventName;
+            eventDescriptionTextBox.Text = sedogoEvent.eventDescription;
+            eventVenueTextBox.Text = sedogoEvent.eventVenue;
+            mustDoCheckBox.Checked = sedogoEvent.mustDo;
+            timezoneDropDownList.SelectedValue = sedogoEvent.timezoneID.ToString();
 
             if (sedogoEvent.dateType == "D")
             {
@@ -128,6 +157,19 @@ public partial class editEvent : SedogoPage
 
             ShowHideDates(sedogoEvent.dateType);
             SetFocus(eventNameTextBox);
+
+            if ((string)Application["DateFormat"] == "dmy")
+            {
+                dateString1.Text = "d + \"/\" + m + \"/\" + y";
+                dateString2.Text = "d + \"/\" + m + \"/\" + y";
+                dateString3.Text = "d + \"/\" + m + \"/\" + y";
+            }
+            else
+            {
+                dateString1.Text = "m + \"/\" + d + \"/\" + y";
+                dateString2.Text = "m + \"/\" + d + \"/\" + y";
+                dateString3.Text = "m + \"/\" + d + \"/\" + y";
+            }
         }
     }
 
@@ -180,6 +222,9 @@ public partial class editEvent : SedogoPage
 
         sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
         sedogoEvent.eventName = eventName;
+        sedogoEvent.eventDescription = eventDescriptionTextBox.Text;
+        sedogoEvent.eventVenue = eventVenueTextBox.Text;
+
         if (dateTypeDropDownList.SelectedValue == "D")
         {
             DateTime startDate = new DateTime(int.Parse(startDateYear.SelectedValue),
@@ -203,8 +248,20 @@ public partial class editEvent : SedogoPage
         sedogoEvent.dateType = dateTypeDropDownList.SelectedValue;
         sedogoEvent.categoryID = int.Parse(categoryDropDownList.SelectedValue);
         sedogoEvent.privateEvent = privateEventCheckbox.Checked;
+        sedogoEvent.mustDo = mustDoCheckBox.Checked;
+        sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Update();
 
         Response.Redirect("profileRedirect.aspx");
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 }

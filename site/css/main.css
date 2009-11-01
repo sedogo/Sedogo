@@ -44,7 +44,6 @@ h3
 	margin-top: 30px
 }
 
-
 #container 
 {
 	width: 976px;
@@ -806,4 +805,23 @@ img.profile
     width: 160px;
     float: left;
     display: block
+}
+
+.buttons
+{
+    margin: 5px 0 0 0;
+}
+
+.errorMessage
+{
+	display:block;
+	clear:both;
+	border:solid 1px red;
+	margin:20px 0px 0px 0px;
+	text-align:center; 
+	color:red; 
+	background-color:Yellow; 
+	border-color:Black; 
+	border-width:1px; 
+	border-style:solid;
 }

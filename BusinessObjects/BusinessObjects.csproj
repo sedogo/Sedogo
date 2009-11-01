@@ -54,9 +54,12 @@
     <Compile Include="Administrators.cs" />
     <Compile Include="Countries.cs" />
     <Compile Include="ErrorLog.cs" />
+    <Compile Include="EventAlerts.cs" />
+    <Compile Include="EventInvites.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="GlobalData.cs" />
     <Compile Include="GlobalSettings.cs" />
+    <Compile Include="History.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MiscUtils.cs" />

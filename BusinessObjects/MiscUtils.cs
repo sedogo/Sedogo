@@ -19,6 +19,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Text.RegularExpressions;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -152,9 +153,9 @@ namespace Sedogo.BusinessObjects
                     destPreviewFilename);
 
                 SedogoEvent sedogoEvent = new SedogoEvent("", eventID);
-                sedogoEvent.eventPicFilename = filename;
-                sedogoEvent.eventPicPreview = previewFileName;
-                sedogoEvent.eventPicThumbnail = thumbnailFileName;
+                sedogoEvent.eventPicFilename = Path.GetFileName(destFilename);
+                sedogoEvent.eventPicPreview = Path.GetFileName(destPreviewFilename);
+                sedogoEvent.eventPicThumbnail = Path.GetFileName(destThumbnailFilename);
                 sedogoEvent.UpdateEventPic();
 
                 returnStatus = 0;
@@ -184,17 +185,17 @@ namespace Sedogo.BusinessObjects
                 thumbnailFilename = "";
                 previewFilename = "";
 
-                if (filename.IndexOf(".gif") > 0)
+                if (filename.ToLower().IndexOf(".gif") > 0)
                 {
                     imageFmt = ImageFormat.Gif;
                     ripMethod = "Image";
                 }
-                if (filename.IndexOf(".jpg") > 0)
+                if (filename.ToLower().IndexOf(".jpg") > 0)
                 {
                     imageFmt = ImageFormat.Jpeg;
                     ripMethod = "Image";
                 }
-                if (filename.IndexOf(".bmp") > 0)
+                if (filename.ToLower().IndexOf(".bmp") > 0)
                 {
                     imageFmt = ImageFormat.Bmp;
                     ripMethod = "Image";
@@ -346,6 +347,36 @@ namespace Sedogo.BusinessObjects
                         //startDate = timelineStartDate;
                     }
                 }
+            }
+        }
+
+        //===============================================================
+        // Function: IsValidEmailAddress
+        // Description:
+        //===============================================================
+        public static Boolean IsValidEmailAddress(string emailAddress)
+        {
+            if (emailAddress == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Regex.IsMatch(emailAddress, @"
+^
+[-a-zA-Z0-9][-.a-zA-Z0-9]*
+@
+[-.a-zA-Z0-9]+
+(\.[-.a-zA-Z0-9]+)*
+\.
+(
+com|edu|info|gov|int|mil|net|org|biz|
+name|museum|coop|aero|pro
+|
+[a-zA-Z]{2}
+)
+$",
+                RegexOptions.IgnorePatternWhitespace);
             }
         }
     }

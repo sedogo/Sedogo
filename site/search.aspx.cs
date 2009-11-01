@@ -49,7 +49,7 @@ public partial class search : SedogoPage
 
             PopulateEvents(user, searchText);
 
-            timelineURL.Text = "timelineSearchXML.aspx?G=" + Guid.NewGuid().ToString() + "&Search=" + searchText;
+            timelineURL.Text = "timelineSearchXML.aspx?Search=" + searchText;
         }
     }
 
@@ -90,6 +90,12 @@ public partial class search : SedogoPage
         int numNext100YearsEvents = 0;
         int numNotScheduledEvents = 0;
 
+        SearchHistory searchHistory = new SearchHistory("");
+        searchHistory.searchDate = DateTime.Now;
+        searchHistory.searchText = searchText;
+        searchHistory.userID = userID;
+        int rowCount = 0;
+
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -101,158 +107,203 @@ public partial class search : SedogoPage
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
             cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;
             DbDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            if (rdr.HasRows == true)
             {
-                int categoryID = 1;
-                string dateType = "D";
-                DateTime startDate = DateTime.MinValue;
-                DateTime rangeStartDate = DateTime.MinValue;
-                DateTime rangeEndDate = DateTime.MinValue;
-                int beforeBirthday = -1;
-                string emailAddress = "";
-                string firstName = "";
-                string lastName = "";
-                string gender = "M";
-                string homeTown = "";
-                string profilePicThumbnail = "";
+                noSearchResultsDiv.Visible = false;
 
-                int eventID = int.Parse(rdr["EventID"].ToString());
-                string eventName = (string)rdr["EventName"];
-                if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
+                while (rdr.Read())
                 {
-                    dateType = (string)rdr["DateType"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("StartDate")))
-                {
-                    startDate = (DateTime)rdr["StartDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("RangeStartDate")))
-                {
-                    rangeStartDate = (DateTime)rdr["RangeStartDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("RangeEndDate")))
-                {
-                    rangeEndDate = (DateTime)rdr["RangeEndDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("CategoryID")))
-                {
-                    categoryID = int.Parse(rdr["CategoryID"].ToString());
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("BeforeBirthday")))
-                {
-                    beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
-                {
-                    emailAddress = (string)rdr["EmailAddress"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
-                {
-                    firstName = (string)rdr["FirstName"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
-                {
-                    lastName = (string)rdr["LastName"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
-                {
-                    gender = (string)rdr["Gender"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("HomeTown")))
-                {
-                    homeTown = (string)rdr["HomeTown"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
-                {
-                    profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
-                }
+                    if (rowCount <= 50)
+                    {
+                        int categoryID = 1;
+                        string dateType = "D";
+                        DateTime startDate = DateTime.MinValue;
+                        DateTime rangeStartDate = DateTime.MinValue;
+                        DateTime rangeEndDate = DateTime.MinValue;
+                        int beforeBirthday = -1;
+                        string emailAddress = "";
+                        string firstName = "";
+                        string lastName = "";
+                        string gender = "M";
+                        string homeTown = "";
+                        string profilePicThumbnail = "";
+                        string eventPicThumbnail = "";
 
-                string dateString = "";
-                MiscUtils.GetDateStringStartDate(user, dateType, rangeStartDate,
-                    rangeEndDate, beforeBirthday, ref dateString, ref startDate);
+                        int eventID = int.Parse(rdr["EventID"].ToString());
+                        string eventName = (string)rdr["EventName"];
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
+                        {
+                            dateType = (string)rdr["DateType"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("StartDate")))
+                        {
+                            startDate = (DateTime)rdr["StartDate"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("RangeStartDate")))
+                        {
+                            rangeStartDate = (DateTime)rdr["RangeStartDate"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("RangeEndDate")))
+                        {
+                            rangeEndDate = (DateTime)rdr["RangeEndDate"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("CategoryID")))
+                        {
+                            categoryID = int.Parse(rdr["CategoryID"].ToString());
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("BeforeBirthday")))
+                        {
+                            beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
+                        {
+                            emailAddress = (string)rdr["EmailAddress"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
+                        {
+                            firstName = (string)rdr["FirstName"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
+                        {
+                            lastName = (string)rdr["LastName"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
+                        {
+                            gender = (string)rdr["Gender"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("HomeTown")))
+                        {
+                            homeTown = (string)rdr["HomeTown"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
+                        {
+                            profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicThumbnail")))
+                        {
+                            eventPicThumbnail = (string)rdr["EventPicThumbnail"];
+                        }
 
-                StringBuilder eventString = new StringBuilder();
-                eventString.Append("<div class=\"event");
-                if (categoryID > 0)
-                {
-                    eventString.Append(" highlight-group-" + categoryID.ToString());
-                }
-                eventString.AppendLine("\">");
-                eventString.AppendLine("<h3>" + eventName);
-                eventString.Append("</h3>");
-                eventString.AppendLine("<p><i>" + firstName + " " + lastName + "</i></p>");
-                eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
-                //eventString.AppendLine("<p class=\"warning\">Note to self: book tickets</p>");
-                eventString.AppendLine("</div>");
+                        string dateString = "";
+                        MiscUtils.GetDateStringStartDate(user, dateType, rangeStartDate,
+                            rangeEndDate, beforeBirthday, ref dateString, ref startDate);
 
-                // Use the timeline start date as this has been adjusted above
-                if (startDate < todayStart && startDate != DateTime.MinValue)
-                {
-                    overdueEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numOverdueEvents++;
+                        StringBuilder eventString = new StringBuilder();
+                        eventString.Append("<div class=\"event");
+                        //if (categoryID > 0)  // Show border colour on event
+                        //{
+                        //    eventString.Append(" highlight-group-" + categoryID.ToString());
+                        //}
+                        eventString.AppendLine("\">");
+                        eventString.AppendLine("<table width=\"100%\"><tr>");
+                        eventString.AppendLine("<td>");
+                        eventString.AppendLine("<h3>" + eventName);
+                        eventString.Append("</h3>");
+                        eventString.AppendLine("<p><i>" + firstName + " " + lastName + "</i></p>");
+                        eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
+                        eventString.AppendLine("</td>");
+                        eventString.AppendLine("<td align=\"right\">");
+                        if (eventPicThumbnail == "")
+                        {
+                            eventString.AppendLine("<img src=\"./images/eventThumbnailBlank.png\" />");
+                        }
+                        else
+                        {
+                            eventString.AppendLine("<img src=\"./assets/eventPics/" + eventPicThumbnail + "\" />");
+                        }
+                        eventString.AppendLine("</td>");
+                        eventString.AppendLine("</tr></table>");
+                        eventString.AppendLine("</div>");
+
+                        // Use the timeline start date as this has been adjusted above
+                        if (startDate < todayStart && startDate != DateTime.MinValue)
+                        {
+                            overdueEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numOverdueEvents++;
+                        }
+                        if (startDate >= todayStart && startDate < todayPlus1Day)
+                        {
+                            todayEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numTodayEvents++;
+                        }
+                        if (startDate >= todayPlus1Day && startDate < todayPlus7Days)
+                        {
+                            thisWeekEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numThisWeekEvents++;
+                        }
+                        if (startDate >= todayPlus7Days && startDate < todayPlus1Month)
+                        {
+                            thisMonthEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numThisMonthEvents++;
+                        }
+                        if (startDate >= todayPlus1Month && startDate < todayPlus1Year)
+                        {
+                            nextYearEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numThisYearEvents++;
+                        }
+                        if (startDate >= todayPlus1Year && startDate < todayPlus2Years)
+                        {
+                            next2YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext2YearsEvents++;
+                        }
+                        if (startDate >= todayPlus2Years && startDate < todayPlus3Years)
+                        {
+                            next3YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext3YearsEvents++;
+                        }
+                        if (startDate >= todayPlus3Years && startDate < todayPlus4Years)
+                        {
+                            next4YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext4YearsEvents++;
+                        }
+                        if (startDate >= todayPlus4Years && startDate < todayPlus5Years)
+                        {
+                            next5YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext5YearsEvents++;
+                        }
+                        if (startDate >= todayPlus5Years && startDate < todayPlus10Years)
+                        {
+                            next10YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext10YearsEvents++;
+                        }
+                        if (startDate >= todayPlus10Years && startDate < todayPlus20Years)
+                        {
+                            next20YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext20YearsEvents++;
+                        }
+                        if (startDate >= todayPlus20Years && startDate < todayPlus100Years)
+                        {
+                            next100YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNext100YearsEvents++;
+                        }
+                        if (startDate == DateTime.MinValue)
+                        {
+                            notScheduledEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
+                            numNotScheduledEvents++;
+                        }
+                    }
+                    rowCount++;
                 }
-                if (startDate >= todayStart && startDate < todayPlus1Day)
+                rdr.Close();
+
+                if (rowCount >= 50)
                 {
-                    todayEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numTodayEvents++;
+                    moreThan50ResultsDiv.Visible = true;
                 }
-                if (startDate >= todayPlus1Day && startDate < todayPlus7Days)
+                else
                 {
-                    thisWeekEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numThisWeekEvents++;
-                }
-                if (startDate >= todayPlus7Days && startDate < todayPlus1Month)
-                {
-                    thisMonthEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numThisMonthEvents++;
-                }
-                if (startDate >= todayPlus1Month && startDate < todayPlus1Year)
-                {
-                    nextYearEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numThisYearEvents++;
-                }
-                if (startDate >= todayPlus1Year && startDate < todayPlus2Years)
-                {
-                    next2YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext2YearsEvents++;
-                }
-                if (startDate >= todayPlus2Years && startDate < todayPlus3Years)
-                {
-                    next3YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext3YearsEvents++;
-                }
-                if (startDate >= todayPlus3Years && startDate < todayPlus4Years)
-                {
-                    next4YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext4YearsEvents++;
-                }
-                if (startDate >= todayPlus4Years && startDate < todayPlus5Years)
-                {
-                    next5YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext5YearsEvents++;
-                }
-                if (startDate >= todayPlus5Years && startDate < todayPlus10Years)
-                {
-                    next10YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext10YearsEvents++;
-                }
-                if (startDate >= todayPlus10Years && startDate < todayPlus20Years)
-                {
-                    next20YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext20YearsEvents++;
-                }
-                if (startDate >= todayPlus20Years && startDate < todayPlus100Years)
-                {
-                    next100YearsEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNext100YearsEvents++;
-                }
-                if (startDate == DateTime.MinValue)
-                {
-                    notScheduledEventsPlaceHolder.Controls.Add(new LiteralControl(eventString.ToString()));
-                    numNotScheduledEvents++;
+                    moreThan50ResultsDiv.Visible = false;
                 }
             }
-            rdr.Close();
+            else
+            {
+                moreThan50ResultsDiv.Visible = false;
+                noSearchResultsDiv.Visible = true;
+                rowCount = 0;
+            }
+
+            searchHistory.searchHits = rowCount;
+            searchHistory.Add();
 
             overdueTitleLabel.Visible = true;
             todaysDateLabel.Visible = true;

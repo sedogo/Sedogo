@@ -33,6 +33,10 @@
         Application.Add("BuildNumber", strBuildNumber);
         Application.Add("BuildDate", strBuildDate);
 
+        GlobalData gd = new GlobalData("");
+        string dateFormat = gd.GetStringValue("DateFormat");
+        Application.Add("DateFormat", dateFormat);
+        
         ErrorLog errorLog = new ErrorLog();
         errorLog.WriteLog("Global_asax", "Application_Start", "Application start", logMessageLevel.infoMessage);
 

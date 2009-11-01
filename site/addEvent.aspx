@@ -43,7 +43,7 @@ function setHiddenStartDateField()
 	}
 	else
 	{
-        form.hiddenStartDate.value = m + "/" + d + "/" + y;
+        form.hiddenStartDate.value = <asp:Literal id="dateString1" runat="server" />;
     }
 }
 function setHiddenRangeStartDateField()
@@ -59,7 +59,7 @@ function setHiddenRangeStartDateField()
 	}
 	else
 	{
-        form.hiddenDateRangeStartDate.value = m + "/" + d + "/" + y;
+        form.hiddenDateRangeStartDate.value = <asp:Literal id="dateString2" runat="server" />;
     }
 }
 function setHiddenRangeEndDateField()
@@ -75,7 +75,7 @@ function setHiddenRangeEndDateField()
 	}
 	else
 	{
-        form.hiddenDateRangeEndDate.value = m + "/" + d + "/" + y;
+        form.hiddenDateRangeEndDate.value = <asp:Literal id="dateString3" runat="server" />;
     }
 }
 </script>
@@ -84,6 +84,10 @@ function setHiddenRangeEndDateField()
 <body>
     <form id="form1" runat="server">
     <div>
+    
+        <asp:ValidationSummary runat="server" ID="validationSummary" 
+            ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+            HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
             <h1>add event</h1>
@@ -98,6 +102,11 @@ function setHiddenRangeEndDateField()
                             <asp:RequiredFieldValidator ID="eventNameTextBoxValidator" runat="server"
                             ControlToValidate="eventNameTextBox" ErrorMessage="An event name is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
+                        <label for="">Event description</label>
+                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
+                            ID="eventDescriptionTextBox" Width="200px" />
                     </li>
                     <li>
                         <label for="">What type of thing?</label>
@@ -165,12 +174,30 @@ function setHiddenRangeEndDateField()
                         </asp:DropDownList>
                     </li>
                     <li>
+                        <label for="">Timezone</label>
+                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
+                            DataTextField="Description" DataValueField="TimezoneID">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
+                        ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
                         <label for="">Private event</label>
                         <asp:CheckBox ID="privateEventCheckbox" runat="server" />
                     </li>
                     <li>
-                        <label for=""></label>
-                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Save" />
+                        <label for="">Must do</label>
+                        <asp:CheckBox ID="mustDoCheckBox" runat="server" />
+                    </li>
+                    <li>
+                        <div class="buttons">
+                        <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
+                            Text="Save" CssClass="button-sml" />
+		                <asp:LinkButton 
+		                    ID="backButton" runat="server" ToolTip="save" Text="Back to event details" 
+		                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+	                    </div>
                     </li>
                 </ol>
             </fieldset>

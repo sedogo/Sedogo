@@ -39,7 +39,12 @@ namespace Sedogo.BusinessObjects
         private DateTime    m_rangeEndDate = DateTime.MinValue;
         private int         m_beforeBirthday = -1;
         private int         m_categoryID = 1;
+        private int         m_timezoneID = 1;
         private Boolean     m_privateEvent = false;
+        private int         m_createdFromEventID = 1;
+        private string      m_eventDescription = "";
+        private string      m_eventVenue = "";
+        private Boolean     m_mustDo = false;
         private Boolean     m_deleted = false;
         private Boolean     m_eventAchieved = false;
         private string      m_eventPicFilename = "";
@@ -96,10 +101,35 @@ namespace Sedogo.BusinessObjects
             get { return m_categoryID; }
             set { m_categoryID = value; }
         }
+        public int timezoneID
+        {
+            get { return m_timezoneID; }
+            set { m_timezoneID = value; }
+        }
         public Boolean privateEvent
         {
             get { return m_privateEvent; }
             set { m_privateEvent = value; }
+        }
+        public int createdFromEventID
+        {
+            get { return m_createdFromEventID; }
+            set { m_createdFromEventID = value; }
+        }
+        public string eventDescription
+        {
+            get { return m_eventDescription; }
+            set { m_eventDescription = value; }
+        }
+        public string eventVenue
+        {
+            get { return m_eventVenue; }
+            set { m_eventVenue = value; }
+        }
+        public Boolean mustDo
+        {
+            get { return m_mustDo; }
+            set { m_mustDo = value; }
         }
         public Boolean eventAchieved
         {
@@ -212,9 +242,17 @@ namespace Sedogo.BusinessObjects
                 {
                     m_categoryID = int.Parse(rdr["CategoryID"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("TimezoneID")))
+                {
+                    m_timezoneID = int.Parse(rdr["TimezoneID"].ToString());
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("PrivateEvent")))
                 {
                     m_privateEvent = (Boolean)rdr["PrivateEvent"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedFromEventID")))
+                {
+                    m_createdFromEventID = int.Parse(rdr["CreatedFromEventID"].ToString());
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventAchieved")))
                 {
@@ -223,6 +261,18 @@ namespace Sedogo.BusinessObjects
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
                 {
                     m_deleted = (Boolean)rdr["Deleted"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventDescription")))
+                {
+                    m_eventDescription = (string)rdr["EventDescription"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventVenue")))
+                {
+                    m_eventVenue = (string)rdr["EventVenue"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("MustDo")))
+                {
+                    m_mustDo = (Boolean)rdr["MustDo"];
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicFilename")))
                 {
@@ -308,7 +358,12 @@ namespace Sedogo.BusinessObjects
                 }
                 cmd.Parameters.Add("@BeforeBirthday", SqlDbType.Int).Value = m_beforeBirthday;
                 cmd.Parameters.Add("@CategoryID", SqlDbType.Int).Value = m_categoryID;
+                cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
                 cmd.Parameters.Add("@PrivateEvent", SqlDbType.Bit).Value = m_privateEvent;
+                cmd.Parameters.Add("@CreatedFromEventID", SqlDbType.Int).Value = m_createdFromEventID;
+                cmd.Parameters.Add("@EventDescription", SqlDbType.NVarChar, -1).Value = m_eventDescription;
+                cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, -1).Value = m_eventVenue;
+                cmd.Parameters.Add("@MustDo", SqlDbType.Bit).Value = m_mustDo;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -377,8 +432,13 @@ namespace Sedogo.BusinessObjects
                 }
                 cmd.Parameters.Add("@BeforeBirthday", SqlDbType.Int).Value = m_beforeBirthday;
                 cmd.Parameters.Add("@CategoryID", SqlDbType.Int).Value = m_categoryID;
+                cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
                 cmd.Parameters.Add("@PrivateEvent", SqlDbType.Bit).Value = m_privateEvent;
+                cmd.Parameters.Add("@CreatedFromEventID", SqlDbType.Int).Value = m_createdFromEventID;
                 cmd.Parameters.Add("@EventAchieved", SqlDbType.Bit).Value = m_eventAchieved;
+                cmd.Parameters.Add("@EventDescription", SqlDbType.NVarChar, -1).Value = m_eventDescription;
+                cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, -1).Value = m_eventVenue;
+                cmd.Parameters.Add("@MustDo", SqlDbType.Bit).Value = m_mustDo;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
 
@@ -455,6 +515,41 @@ namespace Sedogo.BusinessObjects
             {
                 conn.Close();
             }
+        }
+
+        //===============================================================
+        // Function: GetTrackingUserCount
+        //===============================================================
+        public static int GetTrackingUserCount(int eventID)
+        {
+            int trackingUserCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackingUserCountByEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                trackingUserCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackingUserCount;
         }
     }
 
@@ -910,6 +1005,41 @@ namespace Sedogo.BusinessObjects
             }
 
             return trackedEventID;
+        }
+
+        //===============================================================
+        // Function: GetTrackedEventCount
+        //===============================================================
+        public static int GetTrackedEventCount(int userID)
+        {
+            int trackedEventCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackedEventCountByUserID";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                trackedEventCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetTrackedEventCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackedEventCount;
         }
     }
 }

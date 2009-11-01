@@ -48,8 +48,12 @@
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for=""></label>
-                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Save" />
+		                <asp:LinkButton 
+		                    ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+		                    OnClick="saveChangesButton_click" CssClass="button-sml" />
+		                <asp:LinkButton 
+		                    ID="backButton" runat="server" ToolTip="save" Text="Back to event details" 
+		                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
                     </li>
                 </ol>
             </fieldset>

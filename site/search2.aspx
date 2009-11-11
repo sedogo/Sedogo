@@ -110,7 +110,8 @@
 			bandInfos[3].syncWith = 1;
 			bandInfos[4].syncWith = 1;
 			bandInfos[5].syncWith = 1;
-			bandInfos[1].highlight = true;
+			bandInfos[2].highlight = true;
+			bandInfos[5].highlight = true;
 
 			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 			var url = "<asp:Literal id="timelineURL" runat="server" />";

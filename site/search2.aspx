@@ -107,7 +107,6 @@
 				})
 			];
 			bandInfos[2].syncWith = 1;
-			bandInfos[3].syncWith = 1;
 			bandInfos[4].syncWith = 1;
 			bandInfos[5].syncWith = 1;
 			bandInfos[2].highlight = true;

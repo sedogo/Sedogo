@@ -254,17 +254,17 @@
 				<div id="buttons"></div>
 			</div>		
 			<div class="tl-container">
-				<div id="my-timeline" style="height: 250px;"></div>
+				<div id="my-timeline" style="height: 500px;"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
 			</div>
-			<div class="tl-container">
+			<!--div class="tl-container">
 				<div id="search-timeline" style="height: 250px;"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
-			</div>
+			</div-->
 		</div>
 		<div id="other-content">
 

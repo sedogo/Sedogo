@@ -47,10 +47,14 @@
 
 		function onLoad() {
 			var eventSource = new Timeline.DefaultEventSource();
+			var eventSourceSearch = new Timeline.DefaultEventSource();
 			var bandInfos = [
 				Timeline.createBandInfo({
+					width: "5%"
+				}),
+				Timeline.createBandInfo({
 					date: "Oct 08 2009 00:00:00 GMT",
-					width: "85%",
+					width: "38%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
 					eventSource: eventSource,
@@ -71,7 +75,7 @@
 				}),
 				Timeline.createBandInfo({
 					date: "Oct 08 2009 00:00:00 GMT",
-					width: "15%",
+					width: "7%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
 					showEventText: false,
@@ -79,56 +83,41 @@
 					trackGap: 0.2,
 					eventSource: eventSource,
 					overview: true
+				}),
+				Timeline.createBandInfo({
+					width: "5%"
+				}),
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "38%",
+					intervalUnit: Timeline.DateTime.MONTH,
+					intervalPixels: 50,
+					eventSource: eventSourceSearch
+				}),
+				Timeline.createBandInfo({
+					date: "Oct 08 2009 00:00:00 GMT",
+					width: "7%",
+					intervalUnit: Timeline.DateTime.YEAR,
+					intervalPixels: 100,
+					showEventText: false,
+					trackHeight: 0.5,
+					trackGap: 0.2,
+					eventSource: eventSourceSearch,
+					overview: true
 				})
 			];
-			bandInfos[1].syncWith = 0;
+			bandInfos[2].syncWith = 1;
+			bandInfos[3].syncWith = 1;
+			bandInfos[4].syncWith = 1;
+			bandInfos[5].syncWith = 1;
 			bandInfos[1].highlight = true;
 
 			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 			var url = "<asp:Literal id="timelineURL" runat="server" />";
 			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
             
-			var eventSource2 = new Timeline.DefaultEventSource();
-			var bandInfos2 = [
-				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
-					width: "85%",
-					intervalUnit: Timeline.DateTime.MONTH,
-					intervalPixels: 50,
-					eventSource: eventSource2,
-					zoomIndex: 10,
-					zoomSteps: new Array(
-						{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
-					)
-				}),
-				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
-					width: "15%",
-					intervalUnit: Timeline.DateTime.YEAR,
-					intervalPixels: 100,
-					showEventText: false,
-					trackHeight: 0.5,
-					trackGap: 0.2,
-					eventSource: eventSource2,
-					overview: true
-				})
-			];
-			bandInfos2[1].syncWith = 0;
-			bandInfos2[1].highlight = true;
-
-			t2 = Timeline.create(document.getElementById("search-timeline"), bandInfos2);
 			var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
-			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSource2.loadXML(xml2, urlSearch); });
+			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
 		}
 
 		var resizeTimerID = null;
@@ -259,12 +248,6 @@
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
 			</div>
-			<!--div class="tl-container">
-				<div id="search-timeline" style="height: 250px;"></div>
-				<noscript>
-					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
-				</noscript>
-			</div-->
 		</div>
 		<div id="other-content">
 

@@ -10,7 +10,7 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta http-equiv="expires" content="never" />
 
-	<title>Home : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Search : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -159,8 +159,8 @@
 		<div class="one-col">
 			<a href="profile.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 			<p class="strapline">
-				Create your future timeline.<br />
-				Connect, track and interact with like minded people
+			    Create your future and connect<br />
+			    with others to make it happen
 			</p>
 		</div>
 		<div class="three-col">

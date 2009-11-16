@@ -218,13 +218,24 @@ CREATE Procedure spSelectUnreadMessageList
 	@UserID		int
 AS
 BEGIN
-	SELECT MessageID, EventID, PostedByUserID, MessageText, 
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
-	FROM Messages
-	WHERE Deleted = 0
-	AND MessageRead = 0
-	AND UserID = @UserID
-	ORDER BY CreatedDate DESC
+	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, 
+		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType,
+		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.ProfileText
+	FROM Messages M
+	JOIN Events E
+	ON M.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE M.Deleted = 0
+	AND M.MessageRead = 0
+	AND M.UserID = @UserID
+	AND E.Deleted = 0
+	ORDER BY M.CreatedDate DESC
 END
 GO
 

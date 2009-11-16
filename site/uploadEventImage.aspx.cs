@@ -34,6 +34,21 @@ public partial class uploadEventImage : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
+        eventNameLabel.Text = sedogoEvent.eventName;
+
+        SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
+        string dateString = "";
+        DateTime startDate = sedogoEvent.startDate;
+        MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+            sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+        eventDateLabel.Text = dateString;
+        eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
+
         SetFocus(eventPicFileUpload);
     }
 

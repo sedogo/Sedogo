@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>FAQ : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Add to do : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -90,7 +90,7 @@ function setHiddenRangeEndDateField()
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>add event</h1>
+            <h1>add to do</h1>
             <fieldset>
                 <ol>
                     <li>
@@ -104,7 +104,7 @@ function setHiddenRangeEndDateField()
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">Event description</label>
+                        <label for="">To do description</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="eventDescriptionTextBox" Width="200px" />
                     </li>
@@ -183,7 +183,7 @@ function setHiddenRangeEndDateField()
                         </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">Private event</label>
+                        <label for="">Private to do</label>
                         <asp:CheckBox ID="privateEventCheckbox" runat="server" />
                     </li>
                     <li>

@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>Log in : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Log in : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -62,16 +62,18 @@
                         <label for="">Remember me</label>
                         <asp:CheckBox ID="rememberMeCheckbox" runat="server" />
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button runat="server" ID="loginButton" text="Login" OnClick="loginButton_Click" /><br />
-                        <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgot password?" 
-                            OnClick="forgotPasswordButton_click" CssClass="dialogValueText"
-                            CausesValidation="false" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
+    
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="loginButton" runat="server" ToolTip="Login" Text="Login" 
+                OnClick="loginButton_Click" CssClass="button-sml" />
+            <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="forgotten password?" 
+                OnClick="forgotPasswordButton_click"
+                CausesValidation="false" CssClass="button-sml" />
+        </div>
     
     </div>
     </form>

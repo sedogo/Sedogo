@@ -112,6 +112,10 @@
             <asp:HyperLink ID="addUserLink" NavigateUrl="~/admin/addUser.aspx" runat="server" 
                 Text="Create user" />
         </div>
+        <div class="FooterButton">
+            <asp:HyperLink ID="adminMenuLink" NavigateUrl="~/admin/main.aspx" runat="server" 
+                Text="Back to admin menu" />
+        </div>
     
     </div>
 

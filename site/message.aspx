@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Help : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Messages : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -44,8 +44,19 @@
                 OnItemCommand="messagesRepeater_ItemCommand">
                 <ItemTemplate>
                 
-                    <p><%# DataBinder.Eval(Container.DataItem, "MessageID") %></p>
-                    <p><asp:Literal ID="messageLabel" runat="server" /></p>
+                    <table>
+                        <tr>
+                            <td>
+                                <asp:Image id="eventPicThumbnailImage" runat="server" />
+                            </td>
+                            <td>
+                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                <i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                <asp:Literal ID="messageLabel" runat="server" /></p>
+                            </td>
+                        </tr>
+                    </table>
+                    
                     <p><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
                         Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
                     <br />

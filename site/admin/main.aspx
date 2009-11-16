@@ -8,12 +8,13 @@
 
     <asp:LinkButton ID="logoutLink" runat="server" OnClick="logoutLink_click" />
     
-    <asp:Label ID="loggedInAsLabel" runat="server" /><br /><br />
+    Logged in as: <asp:Label ID="loggedInAsLabel" runat="server" /><br />&nbsp;<br />
     
-    Admin menu
+    Admin menu<br />&nbsp;<br />
     
     <asp:LinkButton ID="administratorsLink" runat="server" Text="Administrators" OnClick="administratorsLink_click" /><br />
     <asp:LinkButton ID="usersLink" runat="server" Text="Users" OnClick="usersLink_click" /><br />
+    <asp:LinkButton ID="timezonesLink" runat="server" Text="Timezones" OnClick="timezonesLink_click" /><br />
 
 </asp:Content>
 

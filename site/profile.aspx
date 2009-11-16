@@ -10,7 +10,7 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta http-equiv="expires" content="never" />
 
-	<title>Home : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Home : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -158,6 +158,31 @@
     {
         openModal("viewEvent.aspx?EID=" + eventID);
     }    
+    function checkEnter(e)
+    {
+        var characterCode;
+        if(e && e.which) // NN4 specific code
+        {
+            e = e;
+            characterCode = e.which;
+        }
+        else
+        {
+            e = event;
+            characterCode = e.keyCode; // IE specific code
+        }
+        if (characterCode == 13) //// Enter key is 13
+        {
+            e.returnValue=false;
+            e.cancelBubble = true;
+            searchClick();
+            //document.getElementById(btn).click();
+        }
+        else
+        {
+            return false;
+        }
+    }
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
@@ -171,8 +196,7 @@
 		<div class="one-col">
 			<a href="profile.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 			<p class="strapline">
-				Create your future timeline.<br />
-				Connect, track and interact with like minded people
+			    Create your future and connect<br />with others to make it happen
 			</p>
 		</div>
 		<div class="three-col">
@@ -239,7 +263,7 @@
 					<p><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Groups</h3>
 					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Latest events added</h3>
+					<h3>Latest to do's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>
 					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>

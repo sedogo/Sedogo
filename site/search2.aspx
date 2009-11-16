@@ -43,11 +43,11 @@
 	<script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var tl;
-		var t2;
 
 		function onLoad() {
 			var eventSource = new Timeline.DefaultEventSource();
 			var eventSourceSearch = new Timeline.DefaultEventSource();
+
 			var bandInfos = [
 				Timeline.createBandInfo({
 					width: "5%"
@@ -115,7 +115,6 @@
 			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 			var url = "<asp:Literal id="timelineURL" runat="server" />";
 			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
-            
 			var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
 			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
 		}
@@ -126,7 +125,6 @@
 				resizeTimerID = window.setTimeout(function() {
 					resizeTimerID = null;
 					tl.layout();
-					t2.layout();
 				}, 500);
 			}
 		}
@@ -192,8 +190,8 @@
 		<div class="one-col">
 			<a href="profile.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 			<p class="strapline">
-				Create your future timeline.<br />
-				Connect, track and interact with like minded people
+			    Create your future and connect<br />
+			    with others to make it happen
 			</p>
 		</div>
 		<div class="three-col">
@@ -209,7 +207,7 @@
 					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
 				</li>
 			</ol>
-			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p><br />
 		</div>
 		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
@@ -251,9 +249,30 @@
 		</div>
 		<div id="other-content">
 
-		    <p class="advanced-search"><a href="profile.aspx" title="return to profile">return to profile</a></p>
-			
 			<div class="one-col">
+				<asp:Image ID="profileImage" runat="server" CssClass="profile" />
+				<p class="profile-name"><asp:Label id="userNameLabel" runat="server" /><br />
+				<a href="editProfile.aspx" title="Edit profile" class="modal">Edit profile</a><br />
+				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
+				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
+				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
+				<div class="alerts">
+					<h3>Messages</h3>
+					<p><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></p>
+					<p><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></p>
+					<h3>Alerts</h3>
+					<p><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></p>
+					<h3>Tracking</h3>
+					<p><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></p>
+					<h3>Groups</h3>
+					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
+					<h3>Latest to dos added</h3>
+					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
+					<h3>Latest searches</h3>
+					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
+					<h3>Most popular searches</h3>
+					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
+				</div>
 			</div>
 			<div class="one-col">
 				<p class="extra-buttons"></p>

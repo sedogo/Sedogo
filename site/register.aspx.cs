@@ -83,6 +83,15 @@ public partial class register : System.Web.UI.Page
                 throw ex;
             }
 
+            if ((string)Application["DateFormat"] == "dmy")
+            {
+                dateString1.Text = "d + \"/\" + m + \"/\" + y";
+            }
+            else
+            {
+                dateString1.Text = "m + \"/\" + d + \"/\" + y";
+            }
+
             SetFocus(firstNameTextBox);
         }
     }

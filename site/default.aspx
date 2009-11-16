@@ -153,8 +153,7 @@
 			<div class="one-col">
 				<a href="default.aspx" title="sedogo : home"><img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
 				<p class="strapline">
-					Create your future timeline.<br />
-					Connect, track and interact with like minded people
+					Create your future and connect<br />with others to make it happen
 				</p>
 			</div>
 			<div class="two-col">

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="eventInvites.aspx.cs" Inherits="eventInvites" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="eventInvites.aspx.cs" Inherits="eventInvites" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>To do invites : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -38,7 +38,7 @@
                 <asp:PlaceHolder ID="currentInvitesPlaceholder" runat="server" />
             </div>
             <div class="left-col">
-		        <h1 style="">Event: <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		        <i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
@@ -65,7 +65,7 @@
                 <div class="buttons">
                 <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites"
                     OnClick="sendInvitesLink_click" CssClass="button-sml" />
-	            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to event details" 
+	            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to to do details" 
 	                ToolTip="back to event details" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
                 </p>
                 </div>

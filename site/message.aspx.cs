@@ -92,6 +92,23 @@ public partial class message : SedogoPage
         {
             DataRowView row = e.Item.DataItem as DataRowView;
 
+            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
+            eventNameLabel.Text = row["EventName"].ToString();
+
+            Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
+            userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
+
+            Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
+            string eventPicThumbnail = row["eventPicThumbnail"].ToString();
+            if (eventPicThumbnail == "")
+            {
+                eventPicThumbnailImage.ImageUrl = "./images/eventThumbnailBlank.png";
+            }
+            else
+            {
+                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+            }
+
             Literal messageLabel = e.Item.FindControl("messageLabel") as Literal;
             messageLabel.Text = row["MessageText"].ToString();
         }

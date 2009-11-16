@@ -104,7 +104,7 @@ public partial class eventAlerts : SedogoPage
                     string alertText = (string)rdr["AlertText"];
                     DateTime createdDate = (DateTime)rdr["CreatedDate"];
 
-                    string outputText = "<h3>" + alertDate.ToString("dd/MM/yyyy") + "</h3><p>";
+                    string outputText = "<h3>" + alertDate.ToString("ddd d MMMM yyyy") + "</h3><p>";
                     outputText = outputText + "<i>" + alertText.Replace("\n","<br/>") + "</i>";
                     outputText = outputText + " (<a href=\"eventAlerts.aspx?EID=" + eventID.ToString()
                         + "&A=Delete&EAID=" + eventAlertID.ToString() + "\">Clear alert</a>)";
@@ -162,5 +162,46 @@ public partial class eventAlerts : SedogoPage
         int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: alertDatePickList_changed
+    //===============================================================
+    protected void alertDatePickList_changed(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        if (alertDatePickList.SelectedValue == "1D")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddDays(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddDays(1);
+        }
+        if( alertDatePickList.SelectedValue == "1W" )
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddDays(7);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddDays(7);
+        }
+        if( alertDatePickList.SelectedValue == "1M" )
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(1);
+        }
+        if (alertDatePickList.SelectedValue == "3M")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(3);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(3);
+        }
+        if (alertDatePickList.SelectedValue == "6M")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(6);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(6);
+        }
+        if (alertDatePickList.SelectedValue == "1Y")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddYears(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddYears(1);
+        }
+
+        PopulateAlerts(eventID);
     }
 }

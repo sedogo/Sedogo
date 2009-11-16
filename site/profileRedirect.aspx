@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>Home : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Redirect : Sedogo : Create your future and connect with others to make it happen</title>
     
     <script language="JavaScript" type="text/javascript">
     function breakout_of_frame()

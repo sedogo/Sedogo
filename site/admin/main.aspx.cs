@@ -50,4 +50,12 @@ public partial class admin_main : System.Web.UI.Page
     {
         Response.Redirect("usersList.aspx");
     }
+
+    //===============================================================
+    // Function: timezonesLink_click
+    //===============================================================
+    protected void timezonesLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("timezonesList.aspx");
+    }
 }

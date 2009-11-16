@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>To do alerts : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -60,63 +60,81 @@ function popupCalendarAlertDate(image)
                 <asp:PlaceHolder ID="currentAlertsPlaceholder" runat="server" />
             </div>
             <div class="left-col">
-		        <h1 style="">Event: <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		        <i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 		        <p>
 		            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to event details" 
-		                ToolTip="back to event details" OnClick="click_backToEventDetailsLink" />
+		                ToolTip="back to to do details" OnClick="click_backToEventDetailsLink" />
 		        </p>
 
                 <p><b>Add new alert:</b></p>
 
-                <table border="0" cellspacing="0" cellpadding="0">
+                <table>
                     <tr>
-                        <td><ComponentArt:Calendar ID="PickerAlertDate" 
-                            runat="server" 
-                            ClientSideOnSelectionChanged="PickerAlertDate_OnChange"
-                            ControlType="Picker" 
-                            PickerCssClass="picker" 
-                            ImagesBaseUrl="./images/calendarImages/"
-                            PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
-                            PopUpExpandControlId="calendarButton">
-                        </ComponentArt:Calendar>
-                        <ComponentArt:Calendar ID="CalendarAlertDate" 
-                            runat="server" 
-                            CalendarCssClass="calendar"
-                            TitleCssClass="title" 
-                            ControlType="Calendar"
-                            DayCssClass="day" 
-                            DayHeaderCssClass="dayheader" 
-                            DayHoverCssClass="dayhover" 
-                            DayNameFormat="FirstTwoLetters"
-                            ImagesBaseUrl="./images/calendarImages/"
-                            MonthCssClass="month"
-                            NextImageUrl="cal_nextMonth.gif"
-                            NextPrevCssClass="nextprev" 
-                            OtherMonthDayCssClass="othermonthday" 
-                            PrevImageUrl="cal_prevMonth.gif" 
-                            SelectedDayCssClass="selectedday" 
-                            SelectMonthCssClass="selector"
-                            SelectMonthText="&curren;" 
-                            SelectWeekCssClass="selector"
-                            SelectWeekText="&raquo;" 
-                            SwapDuration="300"
-                            SwapSlide="Linear"
-                            ClientSideOnSelectionChanged="CalendarAlertDate_OnChange" 
-                            PopUp="Custom" 
-                            PopUpExpandControlId="calendarButton">
-                        </ComponentArt:Calendar></td>
-                        <td><img alt="Click for pop-up calendar" 
-                            id="Img4" 
-                            onclick="popupCalendarAlertDate(this)" 
-                            class="calendar_button" 
-                            src="./images/calendarImages/btn_calendar.gif" 
-                            width="25" height="22" /></td>
+                        <td>
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td><ComponentArt:Calendar ID="PickerAlertDate" 
+                                        runat="server" 
+                                        ClientSideOnSelectionChanged="PickerAlertDate_OnChange"
+                                        ControlType="Picker" 
+                                        PickerCssClass="picker" 
+                                        ImagesBaseUrl="./images/calendarImages/"
+                                        PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                        PopUpExpandControlId="calendarButton">
+                                    </ComponentArt:Calendar>
+                                    <ComponentArt:Calendar ID="CalendarAlertDate" 
+                                        runat="server" 
+                                        CalendarCssClass="calendar"
+                                        TitleCssClass="title" 
+                                        ControlType="Calendar"
+                                        DayCssClass="day" 
+                                        DayHeaderCssClass="dayheader" 
+                                        DayHoverCssClass="dayhover" 
+                                        DayNameFormat="FirstTwoLetters"
+                                        ImagesBaseUrl="./images/calendarImages/"
+                                        MonthCssClass="month"
+                                        NextImageUrl="cal_nextMonth.gif"
+                                        NextPrevCssClass="nextprev" 
+                                        OtherMonthDayCssClass="othermonthday" 
+                                        PrevImageUrl="cal_prevMonth.gif" 
+                                        SelectedDayCssClass="selectedday" 
+                                        SelectMonthCssClass="selector"
+                                        SelectMonthText="&curren;" 
+                                        SelectWeekCssClass="selector"
+                                        SelectWeekText="&raquo;" 
+                                        SwapDuration="300"
+                                        SwapSlide="Linear"
+                                        ClientSideOnSelectionChanged="CalendarAlertDate_OnChange" 
+                                        PopUp="Custom" 
+                                        PopUpExpandControlId="calendarButton">
+                                    </ComponentArt:Calendar></td>
+                                    <td><img alt="Click for pop-up calendar" 
+                                        id="Img4" 
+                                        onclick="popupCalendarAlertDate(this)" 
+                                        class="calendar_button" 
+                                        src="./images/calendarImages/btn_calendar.gif" 
+                                        width="25" height="22" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="alertDatePickList" runat="server"
+                                AutoPostBack="true" OnSelectedIndexChanged="alertDatePickList_changed">
+                                <asp:ListItem Text="" Value="" />
+                                <asp:ListItem Text="1 day" Value="1D" />
+                                <asp:ListItem Text="1 week" Value="1W" />
+                                <asp:ListItem Text="1 month" Value="1M" />
+                                <asp:ListItem Text="3 months" Value="3M" />
+                                <asp:ListItem Text="6 months" Value="6M" />
+                                <asp:ListItem Text="1 year" Value="1Y" />
+                            </asp:DropDownList>
+                        </td>
                     </tr>
                 </table>
-
+                
                 <asp:TextBox ID="newAlertTextBox" runat="server" TextMode="MultiLine"
                     Width="300px" Rows="6" />
 

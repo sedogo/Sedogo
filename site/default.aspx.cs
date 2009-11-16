@@ -113,7 +113,7 @@ public partial class _default : System.Web.UI.Page
         }
         else
         {
-            if (searchText.Length > 3)
+            if (searchText.Length > 2)
             {
                 Response.Redirect("search.aspx?Search=" + searchText.ToString());
             }

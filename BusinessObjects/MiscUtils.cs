@@ -278,12 +278,12 @@ namespace Sedogo.BusinessObjects
             if (dateType == "D")
             {
                 // Event occurs on a specific date
-                dateString = startDate.ToString("dd/MM/yyyy");
+                dateString = startDate.ToString("ddd d MMMM yyyy");
             }
             if (dateType == "R")
             {
                 // Event occurs in a date range - use the start date
-                dateString = rangeStartDate.ToString("dd/MM/yyyy") + " to " + rangeEndDate.ToString("dd/MM/yyyy");
+                dateString = rangeStartDate.ToString("ddd d MMMM yyyy") + " to " + rangeEndDate.ToString("ddd d MMMM yyyy");
 
                 startDate = rangeStartDate;
             }

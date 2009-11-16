@@ -74,7 +74,7 @@ public partial class search : SedogoPage
         DateTime todayPlus20Years = todayStart.AddYears(20);
         DateTime todayPlus100Years = todayStart.AddYears(100);
 
-        todaysDateLabel.Text = "Today: " + todayStart.ToString("dd/MM/yyyy");
+        todaysDateLabel.Text = "Today: " + todayStart.ToString("ddd d MMMM yyyy");
 
         int numOverdueEvents = 0;
         int numTodayEvents = 0;
@@ -395,7 +395,7 @@ public partial class search : SedogoPage
         }
         else
         {
-            if (searchText.Length > 3)
+            if (searchText.Length > 2)
             {
                 Response.Redirect("search.aspx?Search=" + searchText.ToString());
             }

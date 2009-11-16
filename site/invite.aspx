@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Invites : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -50,8 +50,9 @@
                                 <asp:Image id="eventPicThumbnailImage" runat="server" />
                             </td>
                             <td>
-                                <p><asp:Literal ID="eventNameLabel" runat="server" /></p>
-                                <p><i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
+                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                <asp:Literal ID="eventDateLabel" runat="server" /><br />
+                                <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
                             </td>
                         </tr>
                     </table>

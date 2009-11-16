@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Sign up : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Sign up : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -43,15 +43,23 @@ function setHiddenDateField()
 	}
 	else
 	{
-        form.hiddenDateOfBirth.value = d + "/" + m + "/" + y;
+        form.hiddenDateOfBirth.value = <asp:Literal id="dateString1" runat="server" />;
     }
 }
+function termsClientValidation(source, args)
+{
+     args.IsValid = document.all["termsCheckbox"].checked;
+} 
 </script>
 
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
+    
+        <asp:ValidationSummary runat="server" ID="validationSummary" 
+            ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+            HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
             <h1>sign-up</h1>
@@ -81,6 +89,9 @@ function setHiddenDateField()
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthYear" runat="server">
                         </asp:DropDownList>
                         <asp:TextBox ID="hiddenDateOfBirth" runat="server" />
+                        <asp:RequiredFieldValidator ID="dateOfBirthValidator2" runat="server"
+                            ControlToValidate="hiddenDateOfBirth" ErrorMessage="A date of birth is required" 
+                            Display="Dynamic"></asp:RequiredFieldValidator>
                         <asp:CompareValidator ID="dateOfBirthValidator" runat="server"
                            ControlToValidate="hiddenDateOfBirth" ErrorMessage="Select a valid date"
                            Operator="DataTypeCheck" Type="Date" />
@@ -144,12 +155,21 @@ function setHiddenDateField()
                             ControlToCompare="passwordTextBox2"></asp:CompareValidator>
                     </li>
                     <li>
-                        <label for=""></label>
-                        <asp:Button id="registerUserButton" runat="server" OnClick="registerUserButton_click" Text="Register" />
+                        <label for=""><asp:HyperLink ID="termsLink" NavigateUrl="terms.aspx" Target="_blank" 
+                            Text="Terms and conditions" ToolTip="Terms and conditions" runat="server" /></label>
+                        <asp:Checkbox runat="server" ID="termsCheckbox"  />
+                        <asp:CustomValidator runat="server" ErrorMessage="You must accept the terms and conditions" 
+                            ClientValidationFunction="termsClientValidation" ID="termsCheckboxValidator" /> 
                     </li>
                 </ol>
             </fieldset>
 		</div>
+    
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="registerUserButton" runat="server" Text="Register" 
+                OnClick="registerUserButton_click" CssClass="button-sml" />
+        </div>
     
     </div>
     </form>

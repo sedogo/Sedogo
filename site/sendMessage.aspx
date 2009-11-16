@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Send message : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -34,28 +34,35 @@
     
 	    <div id="modal">
             <h1>send message</h1>
+
+            <p><asp:Label ID="eventNameLabel" runat="server" /><br />
+            <asp:Label ID="eventDateLabel" runat="server" /><br />
+            Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+            &nbsp;<br />
+            Send message to <asp:Label ID="messageToLabel" runat="server" /></p>
+                        
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Event name</label>
-                        <asp:Label ID="eventNameLabel" runat="server" />
-                    </li>
-                    <li>
-                        <label for="">Message</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
                             ID="messageTextBox" Width="400px" />
                             <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
                             ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Save" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
     
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                OnClick="saveChangesButton_click" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="backButton" runat="server" ToolTip="save" Text="Back to to do details" 
+                OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+        </div>    
+
     </div>
     </form>
 </body>

@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Help : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Tracking : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -33,10 +33,10 @@
     <div>
     
 	    <div id="modal">
-            <h1>events</h1>
+            <h1>to dos</h1>
 
             <div id="noTrackedEventsDiv" runat="server">
-            <p>You are not tracking any events.</p>
+            <p>You are not tracking any to dos.</p>
             </div>
             
             <div id="trackedEventsDiv" runat="server">
@@ -51,7 +51,7 @@
                             <td>
                                 <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
                                 <asp:HyperLink ID="eventHyperlink" runat="server" Text="View event details" /><br />
-                                <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
+                                <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
                             </td>
                         </tr>
                     </table>

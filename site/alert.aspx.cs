@@ -101,7 +101,7 @@ public partial class alert : SedogoPage
             alertTextLabel.Text = alertText;
 
             DateTime alertDate = (DateTime)row["AlertDate"];
-            string alertDateText = alertDate.ToString("dd/MM/yyyy");
+            string alertDateText = alertDate.ToString("ddd d MMMM yyyy");
             Literal alertDateLabel = e.Item.FindControl("alertDateLabel") as Literal;
             alertDateLabel.Text = alertDateText;
 

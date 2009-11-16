@@ -56,14 +56,29 @@ public partial class viewEvent : SedogoPage
                 achievedEventLink.Visible = false;
                 uploadEventImage.Visible = false;
 
-                if (TrackedEvent.GetTrackedEventID(eventID, userID) < 0)
+                int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
+                if (trackedEventID < 0)
                 {
                     trackThisEventLink.Visible = true;
+                    joinThisEventLink.Visible = true;
+                    joinThisEventLabel.Visible = false;
                 }
                 else
                 {
                     // Event is already being tracked
                     trackThisEventLink.Visible = false;
+
+                    TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
+                    if (trackedEvent.showOnTimeline == true)
+                    {
+                        joinThisEventLink.Visible = false;
+                        joinThisEventLabel.Visible = true;
+                    }
+                    else
+                    {
+                        joinThisEventLink.Visible = true;
+                        joinThisEventLabel.Visible = false;
+                    }
                 }
                 createSimilarEventLink.Visible = true;
             }
@@ -114,6 +129,8 @@ public partial class viewEvent : SedogoPage
                 }
 
                 trackThisEventLink.Visible = false;
+                joinThisEventLink.Visible = false;  // You cannot join your own event
+                joinThisEventLabel.Visible = false;
             }
             PopulateTrackingList(eventID);
 
@@ -125,6 +142,7 @@ public partial class viewEvent : SedogoPage
             
             eventTitleLabel.Text = sedogoEvent.eventName;
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
+            eventOwnersNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + eventOwner.userID.ToString();
             eventDateLabel.Text = dateString;
             eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
             eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
@@ -191,7 +209,7 @@ public partial class viewEvent : SedogoPage
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
 
-                string outputText = "<h3>" + createdDate.ToString("dd/MM/yyyy") + "</h3><p>"
+                string outputText = "<h3>" + createdDate.ToString("ddd d MMMM yyyy") + "</h3><p>"
                     + commentText.Replace("\n", "<br/>")
                     + "<br/><i>Posted by: " + postedByUsername + "</i></p>";
 
@@ -214,6 +232,8 @@ public partial class viewEvent : SedogoPage
     //===============================================================
     private void PopulateTrackingList(int eventID)
     {
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
+
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -229,7 +249,7 @@ public partial class viewEvent : SedogoPage
                 string profilePicThumbnail = "";
 
                 //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
-                //int userID = int.Parse(rdr["UserID"].ToString());
+                int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
                 //string gender = (string)rdr["Gender"];
@@ -247,8 +267,9 @@ public partial class viewEvent : SedogoPage
                     profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<p><img src=\"" + profileImagePath + "\" />" 
-                    + firstName + " " + lastName + "<p>";
+                string outputText = "<p><img src=\"" + profileImagePath + "\" />"
+                    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                    + firstName + " " + lastName + "</a><p>";
 
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
             }
@@ -382,5 +403,33 @@ public partial class viewEvent : SedogoPage
         int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("sendMessageToTrackers.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: joinThisEventLink_click
+    //===============================================================
+    protected void joinThisEventLink_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
+
+        if (trackedEventID > 0)
+        {
+            TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
+            trackedEvent.showOnTimeline = true;
+            trackedEvent.Update();
+        }
+        else
+        {
+            TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString());
+            trackedEvent.eventID = eventID;
+            trackedEvent.userID = userID;
+            trackedEvent.showOnTimeline = true;
+            trackedEvent.Add();
+        }
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 }

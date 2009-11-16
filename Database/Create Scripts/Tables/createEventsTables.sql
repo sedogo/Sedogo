@@ -88,6 +88,7 @@ CREATE TABLE TrackedEvents
 	TrackedEventID					int					NOT NULL PRIMARY KEY IDENTITY,
 	EventID							int					NOT NULL,
 	UserID							int					NOT NULL,
+	ShowOnTimeline					bit					NOT NULL,
 	
 	CreatedDate						datetime		    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL

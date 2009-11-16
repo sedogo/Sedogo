@@ -92,8 +92,20 @@ public partial class invite : SedogoPage
         {
             DataRowView row = e.Item.DataItem as DataRowView;
 
+            int eventID = int.Parse(row["EventID"].ToString());
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
+            SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
             Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
             eventNameLabel.Text = row["EventName"].ToString();
+
+            Literal eventDateLabel = e.Item.FindControl("eventDateLabel") as Literal;
+            eventDateLabel.Text = dateString;
 
             Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
             userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
@@ -135,6 +147,8 @@ public partial class invite : SedogoPage
             eventInvite.inviteAccepted = true;
             eventInvite.inviteAcceptedDate = DateTime.Now;
             eventInvite.Update();
+
+            Response.Redirect("viewEvent.aspx?EID=" + eventInvite.eventID.ToString());
         }
         if (e.CommandName == "declineButton")
         {

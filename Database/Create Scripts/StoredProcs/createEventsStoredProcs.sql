@@ -201,6 +201,22 @@ BEGIN
 	WHERE Deleted = 0
 	AND EventAchieved = 0
 	AND UserID = @UserID
+	
+	UNION 
+	
+	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.EventDescription, E.EventVenue, E.MustDo,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName
+	FROM Events E
+	JOIN TrackedEvents T
+	ON E.EventID = T.EventID
+	WHERE E.Deleted = 0
+	AND E.EventAchieved = 0
+	AND T.UserID = @UserID
+	AND T.ShowOnTimeline = 1
+	
 	ORDER BY CategoryID
 END
 GO
@@ -305,7 +321,24 @@ BEGIN
 	FROM Events
 	WHERE Deleted = 0
 	AND UserID = @UserID
+	
+	UNION 
+	
+	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.EventDescription, E.EventVenue, E.MustDo,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName
+	FROM Events E
+	JOIN TrackedEvents T
+	ON E.EventID = T.EventID
+	WHERE E.Deleted = 0
+	AND E.EventAchieved = 0
+	AND T.UserID = @UserID
+	AND T.ShowOnTimeline = 1
+	
 	ORDER BY CategoryID
+
 END
 GO
 
@@ -748,6 +781,7 @@ GO
 CREATE Procedure spAddTrackedEvent
 	@EventID				int,
 	@UserID					int,
+	@ShowOnTimeline			bit,
 	@CreatedDate			datetime,
 	@LastUpdatedDate		datetime,
 	@TrackedEventID			int OUTPUT
@@ -757,6 +791,7 @@ BEGIN
 	(
 		EventID,
 		UserID,
+		ShowOnTimeline,
 		CreatedDate,
 		LastUpdatedDate
 	)
@@ -764,6 +799,7 @@ BEGIN
 	(
 		@EventID,
 		@UserID,
+		@ShowOnTimeline,
 		@CreatedDate,
 		@LastUpdatedDate
 	)
@@ -796,7 +832,7 @@ CREATE Procedure spSelectTrackedEventDetails
 	@TrackedEventID			int
 AS
 BEGIN
-	SELECT EventID, UserID,
+	SELECT EventID, UserID, ShowOnTimeline,
 		CreatedDate, LastUpdatedDate
 	FROM TrackedEvents
 	WHERE TrackedEventID = @TrackedEventID
@@ -824,7 +860,7 @@ CREATE Procedure spSelectTrackedEventListByUserID
 	@UserID		int
 AS
 BEGIN
-	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, T.LastUpdatedDate,
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, T.CreatedDate, T.LastUpdatedDate,
 		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.EventAchieved, E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.FirstName, U.LastName, U.EmailAddress
@@ -861,7 +897,7 @@ CREATE Procedure spSelectTrackingUsersByEventID
 	@EventID		int
 AS
 BEGIN
-	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, T.LastUpdatedDate,
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, T.CreatedDate, T.LastUpdatedDate,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.Birthday,
 		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview
 	FROM TrackedEvents T
@@ -906,6 +942,37 @@ END
 GO
 
 GRANT EXEC ON spSelectTrackingUserCountByEventID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spUpdateTrackedEvent
+// Description:
+//   Delete tracked event
+//=============================================================*/
+PRINT 'Creating spUpdateTrackedEvent...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spUpdateTrackedEvent')
+BEGIN
+	DROP Procedure spUpdateTrackedEvent
+END
+GO
+
+CREATE Procedure spUpdateTrackedEvent
+	@TrackedEventID				int,
+	@ShowOnTimeline				bit,
+	@LastUpdatedDate			datetime
+AS
+BEGIN
+	UPDATE TrackedEvents
+	SET ShowOnTimeline	= @ShowOnTimeline,
+		LastUpdatedDate = @LastUpdatedDate
+	WHERE TrackedEventID = @TrackedEventID
+
+END
+GO
+
+GRANT EXEC ON spUpdateTrackedEvent TO sedogoUser
 GO
 
 /*===============================================================
@@ -1346,7 +1413,10 @@ BEGIN
 	JOIN Users U
 	ON U.UserID = E.UserID
 	WHERE I.Deleted = 0
+	AND E.Deleted = 0
 	AND I.UserID = @UserID
+	AND I.InviteAccepted = 0
+	AND I.InviteDeclined = 0
 	ORDER BY I.CreatedDate
 	
 END

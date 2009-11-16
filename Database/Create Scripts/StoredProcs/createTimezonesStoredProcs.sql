@@ -112,6 +112,67 @@ GO
 GRANT EXEC ON spSelectTimezoneList TO sedogoUser
 GO
 
+/*===============================================================
+// Function: spUpdateTimezone
+// Description:
+//   Update timezone
+//=============================================================*/
+PRINT 'Creating spUpdateTimezone...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spUpdateTimezone')
+BEGIN
+	DROP Procedure spUpdateTimezone
+END
+GO
+
+CREATE Procedure spUpdateTimezone
+	@TimezoneID				int,
+	@ShortCode			    nvarchar(10),
+	@Description			nvarchar(200),
+	@GMTOffset				int
+AS
+BEGIN
+	UPDATE Timezones
+	SET ShortCode		= @ShortCode,
+		Description		= @Description,
+		GMTOffset		= @GMTOffset
+	WHERE TimezoneID = @TimezoneID
+END
+GO
+
+GRANT EXEC ON spUpdateTimezone TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spDeleteTimezone
+// Description:
+//   Delete timezone
+//=============================================================*/
+PRINT 'Creating spDeleteTimezone...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteTimezone')
+BEGIN
+	DROP Procedure spDeleteTimezone
+END
+GO
+
+CREATE Procedure spDeleteTimezone
+	@TimezoneID				int,
+	@ShortCode			    nvarchar(10),
+	@Description			nvarchar(200),
+	@GMTOffset				int
+AS
+BEGIN
+	DELETE Timezones
+	WHERE TimezoneID = @TimezoneID
+END
+GO
+
+GRANT EXEC ON spDeleteTimezone TO sedogoUser
+GO
+
 PRINT '== Finished createTiemzoneStoredProcs.sql =='
 GO
  

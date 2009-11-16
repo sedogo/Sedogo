@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Send message to trackers : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -56,7 +56,7 @@
                 <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
                     Text="Send message" CssClass="button-sml" />
                 <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
-                    Text="Back to event details" CssClass="button-sml" CausesValidation="false" />
+                    Text="Back to to do details" CssClass="button-sml" CausesValidation="false" />
                 </div>
                 
 		    </div>

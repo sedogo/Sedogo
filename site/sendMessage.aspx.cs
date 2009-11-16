@@ -41,6 +41,16 @@ public partial class sendMessage : SedogoPage
 
             eventNameLabel.Text = sedogoEvent.eventName;
 
+            SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+            messageToLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
+            eventDateLabel.Text = dateString;
+            eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
+
             SetFocus(messageTextBox);
         }
     }
@@ -62,6 +72,16 @@ public partial class sendMessage : SedogoPage
         message.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
         message.messageText = messageText;
         message.Add();
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }

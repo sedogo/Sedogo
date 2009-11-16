@@ -87,11 +87,11 @@ public partial class profile : SedogoPage
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             if (trackedEventCount == 1)
             {
-                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " event";
+                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " to do";
             }
             else
             {
-                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " events";
+                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " to dos";
             }
 
             PopulateEvents(user);
@@ -105,6 +105,8 @@ public partial class profile : SedogoPage
                 Session["EventInviteGUID"] = "";
                 Session["EventInviteUserID"] = "";
             }
+
+            what.Attributes.Add("onKeyPress", "checkEnter(event)");
         }
     }
 
@@ -143,7 +145,7 @@ public partial class profile : SedogoPage
         DateTime todayPlus20Years = todayStart.AddYears(20);
         DateTime todayPlus100Years = todayStart.AddYears(100);
 
-        todaysDateLabel.Text = "Today: " + todayStart.ToString("dd/MM/yyyy");
+        todaysDateLabel.Text = "Today: " + todayStart.ToString("ddd d MMMM yyyy");
 
         //StringBuilder timelineItems1String = new StringBuilder();
         //StringBuilder timelineItems2String = new StringBuilder();
@@ -228,12 +230,12 @@ public partial class profile : SedogoPage
                 if (dateType == "D")
                 {
                     // Event occurs on a specific date
-                    dateString = startDate.ToString("dd/MM/yyyy");
+                    dateString = startDate.ToString("ddd d MMMM yyyy");
                 }
                 if (dateType == "R")
                 {
                     // Event occurs in a date range - use the start date
-                    dateString = rangeStartDate.ToString("dd/MM/yyyy") + " to " + rangeEndDate.ToString("dd/MM/yyyy");
+                    dateString = rangeStartDate.ToString("ddd d MMMM yyyy") + " to " + rangeEndDate.ToString("ddd d MMMM yyyy");
 
                     startDate = rangeStartDate;
                 }
@@ -277,6 +279,9 @@ public partial class profile : SedogoPage
                     }
                 }
 
+                int eventAlertCount = EventAlert.GetEventAlertCountPending(eventID);
+                int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
+
                 StringBuilder eventString = new StringBuilder();
                 eventString.Append("<div class=\"event");
                 //if( categoryID > 0 )  // Show border colour on event
@@ -286,18 +291,21 @@ public partial class profile : SedogoPage
                 eventString.AppendLine("\">");
                 eventString.AppendLine("<table width=\"100%\"><tr>");
                 eventString.AppendLine("<td>");
-                eventString.AppendLine("<h3>" + eventName);
+                eventString.AppendLine("<h3>");
                 if( eventAchieved == true )
                 {
                     eventString.Append(" (achieved)");
                 }
                 if (privateEvent == true)
                 {
-                    eventString.AppendLine("<img src=\"./images/icons/16-security-lock.png\" alt=\"Private event\" />");
+                    eventString.AppendLine("<img src=\"./images/privateIcon.jpg\" alt=\"Private event\" />");
                 }
-                eventString.Append("</h3>");
+                if (eventAlertCount > 0)
+                {
+                    eventString.AppendLine("<img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
+                }
+                eventString.Append(eventName + "</h3>");
 
-                int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
                 eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this event.</p>");
 
                 eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");

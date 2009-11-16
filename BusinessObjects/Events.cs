@@ -806,6 +806,7 @@ namespace Sedogo.BusinessObjects
         private int         m_trackedEventID = -1;
         private int         m_eventID = -1;
         private int         m_userID = -1;
+        private Boolean     m_showOnTimeline = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
 
@@ -824,6 +825,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_userID; }
             set { m_userID = value; }
+        }
+        public Boolean showOnTimeline
+        {
+            get { return m_showOnTimeline; }
+            set { m_showOnTimeline = value; }
         }
         public DateTime createdDate
         {
@@ -880,6 +886,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_userID = int.Parse(rdr["UserID"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ShowOnTimeline")))
+                {
+                    m_showOnTimeline = (Boolean)rdr["ShowOnTimeline"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
                 {
                     m_createdDate = (DateTime)rdr["CreatedDate"];
@@ -917,6 +927,7 @@ namespace Sedogo.BusinessObjects
 
                 cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
+                cmd.Parameters.Add("@ShowOnTimeline", SqlDbType.Bit).Value = m_showOnTimeline;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -933,6 +944,35 @@ namespace Sedogo.BusinessObjects
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("TrackedEvent", "Add", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Update
+        //===============================================================
+        public void Update()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spUpdateTrackedEvent", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@TrackedEventID", SqlDbType.Int).Value = m_trackedEventID;
+                cmd.Parameters.Add("@ShowOnTimeline", SqlDbType.Bit).Value = m_showOnTimeline;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "Update", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally

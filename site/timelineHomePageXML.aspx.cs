@@ -130,11 +130,11 @@ public partial class timelineHomePageXML : System.Web.UI.Page
                     timelineStartDate = rangeStartDate;
                     timelineEndDate = rangeEndDate;
 
-                    //TimeSpan ts = timelineEndDate - timelineStartDate;
-                    //if (ts.Days < 28)
-                    //{
-                    //    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                    //}
+                    TimeSpan ts = timelineEndDate - timelineStartDate;
+                    if (ts.Days < 28)
+                    {
+                        timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+                    }
 
                     startDate = rangeStartDate;
                 }

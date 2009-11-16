@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>FAQ : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Edit profile : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -123,6 +123,19 @@ function setHiddenDateField()
                             runat="server" ControlToValidate="emailAddressTextBox" 
                             ErrorMessage="The email address is not valid" Display="Dynamic"
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                    </li>
+                    <li>
+                        <label for="">Confirm email address</label>
+                        <asp:TextBox runat="server"
+                            ID="confirmEmailAddressTextBox" Width="200px" MaxLength="200" />
+                            <asp:RequiredFieldValidator ID="confirmEmailAddressTextBoxValidator" runat="server"
+                            ControlToValidate="confirmEmailAddressTextBox" ErrorMessage="Please confirm the email address" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                            <asp:CompareValidator id="confirmEmailAddressTextBoxValidator2" 
+                            runat="server" ControlToValidate="confirmEmailAddressTextBox" 
+                            ControlToCompare="emailAddressTextBox"
+                            ErrorMessage="The two email addresses do not match" Display="Dynamic"
+                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:CompareValidator>
                     </li>
                     <li>
                         <label for=""></label>

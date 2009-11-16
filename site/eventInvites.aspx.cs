@@ -152,7 +152,7 @@ public partial class eventInvites : SedogoPage
             }
             else
             {
-                string outputText = "<p>&nbsp;<br/>There are no invitations for this event</p>";
+                string outputText = "<p>&nbsp;<br/>There are no invitations for this to do</p>";
 
                 currentInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
             }
@@ -195,13 +195,13 @@ public partial class eventInvites : SedogoPage
         if (currentEvent.dateType == "D")
         {
             // Date
-            dateString = "on " + currentEvent.startDate.ToString("dd/MM/yyyy");
+            dateString = "on " + currentEvent.startDate.ToString("ddd d MMMM yyyy");
         }
         if (currentEvent.dateType == "R")
         {
             // Range
-            dateString = "between " + currentEvent.rangeStartDate.ToString("dd/MM/yyyy");
-            dateString = "and " + currentEvent.rangeEndDate.ToString("dd/MM/yyyy");
+            dateString = "between " + currentEvent.rangeStartDate.ToString("ddd d MMMM yyyy");
+            dateString = "and " + currentEvent.rangeEndDate.ToString("ddd d MMMM yyyy");
         }
         if (currentEvent.dateType == "A")
         {
@@ -378,29 +378,27 @@ public partial class eventInvites : SedogoPage
                         inviteURL = inviteURL + "&UID=" + sedogoUserID.ToString();
 
                         emailBodyCopy.AppendLine("What: " + currentEvent.eventName + "<br/>");
-                        emailBodyCopy.AppendLine("Where: <venue>" + "<br/>");
-                        emailBodyCopy.AppendLine("When: " + dateString + "<br/>");
-                        emailBodyCopy.AppendLine("Join in<br/>");
-                        emailBodyCopy.AppendLine("<Megan> has created this future goal on sedogo.com and wants you to join in.<br/>");
+                        emailBodyCopy.AppendLine("Where: " + currentEvent.eventVenue + "<br/>");
+                        emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
+                        emailBodyCopy.AppendLine(currentUser.firstName + " has created this future to do on sedogo.com and wants you to join in.<br/>");
                         emailBodyCopy.AppendLine("To be part of this event, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
-                        emailBodyCopy.AppendLine("To see who else is part of making this goal happen, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
-                        emailBodyCopy.AppendLine("Regards,<br/>");
-                        emailBodyCopy.AppendLine("The Sedogo Team<br/>");
+                        emailBodyCopy.AppendLine("To see who else is part of making this to do happen, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
+                        emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
+                        emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
                         emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
-                        emailBodyCopy.AppendLine("Sedogo helps you create future goals and connection with others to make them happen.<br/>");
+                        emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
                     }
                     else
                     {
                         emailBodyCopy.AppendLine("What: " + currentEvent.eventName + "<br/>");
-                        emailBodyCopy.AppendLine("Where: <venue>" + "<br/>");
-                        emailBodyCopy.AppendLine("When: " + dateString + "<br/>");
-                        emailBodyCopy.AppendLine("Join in<br/>");
-                        emailBodyCopy.AppendLine("<Megan> has created this future goal on sedogo.com and wants you to join in.<br/>");
+                        emailBodyCopy.AppendLine("Where: " + currentEvent.eventVenue + "<br/>");
+                        emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
+                        emailBodyCopy.AppendLine(currentUser.firstName + " has created this future to do on sedogo.com and wants you to join in.<br/>");
                         emailBodyCopy.AppendLine("To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.<br/>");
-                        emailBodyCopy.AppendLine("Regards,<br/>");
-                        emailBodyCopy.AppendLine("The Sedogo Team<br/>");
+                        emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
+                        emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
                         emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
-                        emailBodyCopy.AppendLine("Sedogo helps you create future goals and connection with others to make them happen.<br/>");
+                        emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
                     }
 
                     string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";

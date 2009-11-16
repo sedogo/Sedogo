@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>View event : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -38,11 +38,11 @@
                 <div class="buttons">
                 <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
                     Text="Upload image" CssClass="button-sml" /></p>
-                </div>
-                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this event"
+                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this to do"
                     OnClick="trackThisEventLink_click" /></p>
-                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create an event like this for me"
+                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create an to do like this for me"
                     OnClick="createSimilarEventLink_click" CssClass="button-sml" /></p>
+                </div>
                 <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                 <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                 <h3 ID="invitesHeader" runat="server">Invites</h3>
@@ -55,20 +55,23 @@
                     OnClick="click_messageTrackingUsersLink" CssClass="button-sml" /></div>
             </div>
             <div class="left-col">
-		        <h1 style="">Edit: <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		        <p>Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-		        <i>Owner: <asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
+		        <i>Owner: <asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 		        <p>
 		            <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
-		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="achieved" 
+		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="done" 
 		                ToolTip="achieved" OnClick="click_achievedEventLink" />
 		            <asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
 		                Text="send a message" OnClick="sendMessageButton_click" CssClass="button-sml" />
 		            <asp:LinkButton 
 		                ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
-		                OnClick="postCommentButton_click" CssClass="button-sml" /></p>
+		                OnClick="postCommentButton_click" CssClass="button-sml" />
+                    <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this to do"
+                        OnClick="joinThisEventLink_click" CssClass="button-sml" />
+                        <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" /></p>
 		        
 		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 		    </div>

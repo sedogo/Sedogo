@@ -1,5 +1,5 @@
 ﻿//===============================================================
-// Filename: profile.aspx.cs
+// Filename: timelineXML.aspx.cs
 // Date: 15/10/09
 // --------------------------------------------------------------
 // Description:
@@ -137,11 +137,11 @@ public partial class timelineXML : System.Web.UI.Page
                     timelineStartDate = rangeStartDate;
                     timelineEndDate = rangeEndDate;
 
-                    //TimeSpan ts = timelineEndDate - timelineStartDate;
-                    //if (ts.Days < 28)
-                    //{
-                    //    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                    //}
+                    TimeSpan ts = timelineEndDate - timelineStartDate;
+                    if (ts.Days < 28)
+                    {
+                        timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+                    }
 
                     startDate = rangeStartDate;
                 }

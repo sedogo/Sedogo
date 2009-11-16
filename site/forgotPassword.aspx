@@ -12,7 +12,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Sign up : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Forgot password : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />

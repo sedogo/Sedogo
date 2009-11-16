@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="pragma" content="no-cache">
 
-	<title>Edit event title & details : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Post comment : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -37,7 +37,7 @@
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Event name</label>
+                        <label for="">To do name</label>
                         <asp:Label ID="eventNameLabel" runat="server" />
                     </li>
                     <li>
@@ -47,18 +47,18 @@
                             ControlToValidate="commentTextBox" ErrorMessage="A comment is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
-                    <li>
-		                <asp:LinkButton 
-		                    ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-		                    OnClick="saveChangesButton_click" CssClass="button-sml" />
-		                <asp:LinkButton 
-		                    ID="backButton" runat="server" ToolTip="save" Text="Back to event details" 
-		                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
-    
+
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                OnClick="saveChangesButton_click" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="backButton" runat="server" ToolTip="save" Text="Back to to do details" 
+                OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+        </div>    
     </div>
     </form>
 </body>

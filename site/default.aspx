@@ -49,7 +49,7 @@
 			var eventSource = new Timeline.DefaultEventSource();
 			var bandInfos = [
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 					width: "85%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -70,7 +70,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 					width: "15%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -127,19 +127,23 @@
     {
 	    var form = document.forms[0];
         var searchString = form.what.value;
-        if( isEmpty(searchString) || searchString.length < 4 )
+        if( isEmpty(searchString) || searchString.length < 3 )
         {
             alert("Please enter a longer search string");
         }
         else
         {
-            location.href = "search2.aspx?Search=" + searchString;
+            location.href = "search.aspx?Search=" + searchString;
         }
     }
     function loginRedirect(eventID)
     {
         openModal("login.aspx?EID=" + eventID);
-    }    
+    }
+    function openEvent(eventID) 
+    {
+        openModal("viewEvent.aspx?EID=" + eventID);
+    }
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">

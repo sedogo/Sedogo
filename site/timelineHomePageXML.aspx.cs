@@ -1,5 +1,5 @@
 ﻿//===============================================================
-// Filename: timelineSearchXML.aspx.cs
+// Filename: timelineHomePageXML.aspx.cs
 // Date: 15/10/09
 // --------------------------------------------------------------
 // Description:
@@ -228,7 +228,8 @@ public partial class timelineHomePageXML : System.Web.UI.Page
                         break;
                 }
 
-                string linkURL = "&lt;a href=\"javascript:loginRedirect(" + eventID.ToString() + ")\" title=\"\"&gt;Login to view event details&lt;/a&gt;";
+                //string linkURL = "&lt;a href=\"javascript:loginRedirect(" + eventID.ToString() + ")\" title=\"\"&gt;View event details&lt;/a&gt;";
+                string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));

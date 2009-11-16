@@ -72,6 +72,15 @@
                     <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this to do"
                         OnClick="joinThisEventLink_click" CssClass="button-sml" />
                         <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" /></p>
+		            <asp:LinkButton 
+		                ID="deleteEventButton" runat="server" ToolTip="delete event" Text="delete event" 
+		                OnClick="deleteEventButton_click" CssClass="button-sml" />
+		        
+		        <div id="loginRegisterPanel" runat="server">
+		        <p>You must be logged in to view the full details or to post comments on this event.<br />
+		        <a href="login.aspx">Click here to login</a><br />
+		        or <a href="register.aspx">click here to register</a> if you are a new user</p>
+		        </div>
 		        
 		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 		    </div>

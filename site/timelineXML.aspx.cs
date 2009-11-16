@@ -54,199 +54,208 @@ public partial class timelineXML : System.Web.UI.Page
     //===============================================================
     private void CreateXMLContent(XmlTextWriter writer)
     {
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-        Boolean viewArchivedEvents = false;
-        if (Session["ViewArchivedEvents"] != null)
+        int userID = -1;
+        if (Session["loggedInUserID"] != null)
         {
-            viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
+            userID = int.Parse(Session["loggedInUserID"].ToString());
         }
 
-        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        try
+        // Don't do anything on this page is user is null
+        if (userID > 0)
         {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            if (viewArchivedEvents == true)
+            Boolean viewArchivedEvents = false;
+            if (Session["ViewArchivedEvents"] != null)
             {
-                cmd.CommandText = "spSelectFullEventListIncludingAchievedByCategory";
+                viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
             }
-            else
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            try
             {
-                cmd.CommandText = "spSelectFullEventListByCategory";
-            }
-            cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
-            DbDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                int categoryID = 1;
-                string dateType = "D";
-                DateTime startDate = DateTime.MinValue;
-                DateTime rangeStartDate = DateTime.MinValue;
-                DateTime rangeEndDate = DateTime.MinValue;
-                int beforeBirthday = -1;
-                Boolean privateEvent = false;
-                Boolean eventAchieved = false;
+                conn.Open();
 
-                DateTime timelineStartDate = DateTime.MinValue;
-                DateTime timelineEndDate = DateTime.MinValue;
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                if (viewArchivedEvents == true)
+                {
+                    cmd.CommandText = "spSelectFullEventListIncludingAchievedByCategory";
+                }
+                else
+                {
+                    cmd.CommandText = "spSelectFullEventListByCategory";
+                }
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    int categoryID = 1;
+                    string dateType = "D";
+                    DateTime startDate = DateTime.MinValue;
+                    DateTime rangeStartDate = DateTime.MinValue;
+                    DateTime rangeEndDate = DateTime.MinValue;
+                    int beforeBirthday = -1;
+                    Boolean privateEvent = false;
+                    Boolean eventAchieved = false;
 
-                int eventID = int.Parse(rdr["EventID"].ToString());
-                string eventName = (string)rdr["EventName"];
-                if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
-                {
-                    dateType = (string)rdr["DateType"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("StartDate")))
-                {
-                    startDate = (DateTime)rdr["StartDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("RangeStartDate")))
-                {
-                    rangeStartDate = (DateTime)rdr["RangeStartDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("RangeEndDate")))
-                {
-                    rangeEndDate = (DateTime)rdr["RangeEndDate"];
-                }
-                eventAchieved = (Boolean)rdr["EventAchieved"];
-                if (!rdr.IsDBNull(rdr.GetOrdinal("CategoryID")))
-                {
-                    categoryID = int.Parse(rdr["CategoryID"].ToString());
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("BeforeBirthday")))
-                {
-                    beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
-                }
-                privateEvent = (Boolean)rdr["PrivateEvent"];
+                    DateTime timelineStartDate = DateTime.MinValue;
+                    DateTime timelineEndDate = DateTime.MinValue;
 
-                if (dateType == "D")
-                {
-                    // Event occurs on a specific date
-
-                    timelineStartDate = startDate;
-                    timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
-                }
-                if (dateType == "R")
-                {
-                    // Event occurs in a date range - use the start date
-
-                    timelineStartDate = rangeStartDate;
-                    timelineEndDate = rangeEndDate;
-
-                    TimeSpan ts = timelineEndDate - timelineStartDate;
-                    if (ts.Days < 28)
+                    int eventID = int.Parse(rdr["EventID"].ToString());
+                    string eventName = (string)rdr["EventName"];
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
                     {
-                        timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+                        dateType = (string)rdr["DateType"];
                     }
-
-                    startDate = rangeStartDate;
-                }
-                if (dateType == "A")
-                {
-                    // Event occurs before birthday
-
-                    timelineStartDate = DateTime.Now;
-                    if (user.birthday > DateTime.MinValue)
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("StartDate")))
                     {
-                        timelineEndDate = user.birthday.AddYears(beforeBirthday);
+                        startDate = (DateTime)rdr["StartDate"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("RangeStartDate")))
+                    {
+                        rangeStartDate = (DateTime)rdr["RangeStartDate"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("RangeEndDate")))
+                    {
+                        rangeEndDate = (DateTime)rdr["RangeEndDate"];
+                    }
+                    eventAchieved = (Boolean)rdr["EventAchieved"];
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("CategoryID")))
+                    {
+                        categoryID = int.Parse(rdr["CategoryID"].ToString());
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("BeforeBirthday")))
+                    {
+                        beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
+                    }
+                    privateEvent = (Boolean)rdr["PrivateEvent"];
 
-                        TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthday);
-                        if (ts.Days < 0)
+                    if (dateType == "D")
+                    {
+                        // Event occurs on a specific date
+
+                        timelineStartDate = startDate;
+                        timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
+                    }
+                    if (dateType == "R")
+                    {
+                        // Event occurs in a date range - use the start date
+
+                        timelineStartDate = rangeStartDate;
+                        timelineEndDate = rangeEndDate;
+
+                        TimeSpan ts = timelineEndDate - timelineStartDate;
+                        if (ts.Days < 28)
                         {
-                            // Birthday was in the past
-                            timelineStartDate = DateTime.Now;
                             timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
-
-                            // Set start date so event is correctly placed below
-                            startDate = DateTime.Now.AddDays(ts.Days);
                         }
-                        else if (ts.Days >= 0 && ts.Days < 28)
-                        {
-                            // Birthday is within 28 days - extend the timeline a bit
-                            timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
 
-                            startDate = timelineStartDate;
+                        startDate = rangeStartDate;
+                    }
+                    if (dateType == "A")
+                    {
+                        // Event occurs before birthday
+
+                        timelineStartDate = DateTime.Now;
+                        if (user.birthday > DateTime.MinValue)
+                        {
+                            timelineEndDate = user.birthday.AddYears(beforeBirthday);
+
+                            TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthday);
+                            if (ts.Days < 0)
+                            {
+                                // Birthday was in the past
+                                timelineStartDate = DateTime.Now;
+                                timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+
+                                // Set start date so event is correctly placed below
+                                startDate = DateTime.Now.AddDays(ts.Days);
+                            }
+                            else if (ts.Days >= 0 && ts.Days < 28)
+                            {
+                                // Birthday is within 28 days - extend the timeline a bit
+                                timelineEndDate = timelineStartDate.AddDays(28);        // Add 28 days so it shows up
+
+                                startDate = timelineStartDate;
+                            }
+                            else
+                            {
+                                startDate = timelineStartDate;
+                            }
                         }
                         else
                         {
-                            startDate = timelineStartDate;
+                            timelineEndDate = DateTime.Now.AddDays(28);
                         }
                     }
-                    else
+
+                    string timelineColour = "#cd3301";
+                    switch (categoryID)
                     {
-                        timelineEndDate = DateTime.Now.AddDays(28);
+                        case 1:
+                            timelineColour = "#cd3301";
+                            break;
+                        case 2:
+                            timelineColour = "#ff0b0b";
+                            break;
+                        case 3:
+                            timelineColour = "#ff6801";
+                            break;
+                        case 4:
+                            timelineColour = "#ff8500";
+                            break;
+                        case 5:
+                            timelineColour = "#d5b21a";
+                            break;
+                        case 6:
+                            timelineColour = "#8dc406";
+                            break;
+                        case 7:
+                            timelineColour = "#5b980c";
+                            break;
+                        case 8:
+                            timelineColour = "#079abc";
+                            break;
+                        case 9:
+                            timelineColour = "#5ab6cd";
+                            break;
+                        case 10:
+                            timelineColour = "#8a67c1";
+                            break;
+                        case 11:
+                            timelineColour = "#e54ecf";
+                            break;
+                        case 12:
+                            timelineColour = "#a5369c";
+                            break;
+                        case 13:
+                            timelineColour = "#a32672";
+                            break;
                     }
-                }
+                    //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
+                    string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 
-                string timelineColour = "#cd3301";
-                switch (categoryID)
-                {
-                    case 1:
-                        timelineColour = "#cd3301";
-                        break;
-                    case 2:
-                        timelineColour = "#ff0b0b";
-                        break;
-                    case 3:
-                        timelineColour = "#ff6801";
-                        break;
-                    case 4:
-                        timelineColour = "#ff8500";
-                        break;
-                    case 5:
-                        timelineColour = "#d5b21a";
-                        break;
-                    case 6:
-                        timelineColour = "#8dc406";
-                        break;
-                    case 7:
-                        timelineColour = "#5b980c";
-                        break;
-                    case 8:
-                        timelineColour = "#079abc";
-                        break;
-                    case 9:
-                        timelineColour = "#5ab6cd";
-                        break;
-                    case 10:
-                        timelineColour = "#8a67c1";
-                        break;
-                    case 11:
-                        timelineColour = "#e54ecf";
-                        break;
-                    case 12:
-                        timelineColour = "#a5369c";
-                        break;
-                    case 13:
-                        timelineColour = "#a32672";
-                        break;
+                    writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
+                    writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
+                    writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
+                    writer.WriteAttributeString("isDuration", "true");
+                    writer.WriteAttributeString("title", eventName);
+                    //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
+                    writer.WriteAttributeString("color", timelineColour);
+                    writer.WriteString(linkURL + " &lt;br /&gt;");
+                    writer.WriteEndElement();
                 }
-                //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
-                string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
-
-                writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
-                writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
-                writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
-                writer.WriteAttributeString("isDuration", "true");
-                writer.WriteAttributeString("title", eventName);
-                //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
-                writer.WriteAttributeString("color", timelineColour);
-                writer.WriteString(linkURL + " &lt;br /&gt;");
-                writer.WriteEndElement();
+                rdr.Close();
             }
-            rdr.Close();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            conn.Close();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

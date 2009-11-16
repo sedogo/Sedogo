@@ -84,6 +84,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 int beforeBirthday = -1;
                 Boolean privateEvent = false;
                 Boolean eventAchieved = false;
+                int eventUserID = -1;
 
                 DateTime timelineStartDate = DateTime.MinValue;
                 DateTime timelineEndDate = DateTime.MinValue;
@@ -116,6 +117,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                     beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
                 }
                 privateEvent = (Boolean)rdr["PrivateEvent"];
+                if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                {
+                    eventUserID = int.Parse(rdr["UserID"].ToString());
+                }
 
                 if (dateType == "D")
                 {
@@ -142,9 +147,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 if (dateType == "A")
                 {
                     // Event occurs before birthday
+                    SedogoUser eventUser = new SedogoUser("", eventUserID);
 
                     timelineStartDate = DateTime.Now;
-                    if (user.birthday > DateTime.MinValue)
+                    if (eventUser.birthday > DateTime.MinValue)
                     {
                         timelineEndDate = user.birthday.AddYears(beforeBirthday);
 

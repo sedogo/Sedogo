@@ -55,31 +55,31 @@ public partial class profile : SedogoPage
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {
-                messageCountLink.Text = "You have " + messageCount.ToString() + " new message";
+                messageCountLink.Text = messageCount.ToString() + " new message";
             }
             else
             {
-                messageCountLink.Text = "You have " + messageCount.ToString() + " new messages";
+                messageCountLink.Text = messageCount.ToString() + " new messages";
             }
 
             int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
             if (pendingInviteCount == 1)
             {
-                inviteCountLink.Text = "You have " + pendingInviteCount.ToString() + " new invite";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " new invite";
             }
             else
             {
-                inviteCountLink.Text = "You have " + pendingInviteCount.ToString() + " new invites";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " new invites";
             }
 
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = "You have " + pendingAlertCount.ToString() + " alert";
+                alertCountLink.Text = pendingAlertCount.ToString() + " alert";
             }
             else
             {
-                alertCountLink.Text = "You have " + pendingAlertCount.ToString() + " alerts";
+                alertCountLink.Text = pendingAlertCount.ToString() + " alerts";
             }
 
             groupCountLink.Text = "You belong to 0 groups";
@@ -87,11 +87,11 @@ public partial class profile : SedogoPage
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             if (trackedEventCount == 1)
             {
-                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " to do";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to do";
             }
             else
             {
-                trackingCountLink.Text = "You are tracking " + trackedEventCount.ToString() + " to dos";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to dos";
             }
 
             PopulateEvents(user);
@@ -107,6 +107,11 @@ public partial class profile : SedogoPage
             }
 
             what.Attributes.Add("onKeyPress", "checkEnter(event)");
+
+            DateTime timelineStartDate = DateTime.Now.AddMonths(8);
+
+            timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
         }
     }
 

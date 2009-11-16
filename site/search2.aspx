@@ -53,7 +53,7 @@
 					width: "5%"
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 					width: "38%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -74,7 +74,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 					width: "7%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -88,14 +88,14 @@
 					width: "5%"
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate3" runat="server" />",
 					width: "38%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
 					eventSource: eventSourceSearch
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate4" runat="server" />",
 					width: "7%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -163,7 +163,7 @@
 	    }
 	    else
 	    {
-	        if( isEmpty(searchString) || searchString.length < 4 )
+	        if( isEmpty(searchString) || searchString.length < 3 )
 	        {
 	            alert("Please enter a longer search string");
 	        }
@@ -257,13 +257,6 @@
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<div class="alerts">
-					<h3>Messages</h3>
-					<p><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></p>
-					<p><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Alerts</h3>
-					<p><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Tracking</h3>
-					<p><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Groups</h3>
 					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Latest to dos added</h3>
@@ -289,7 +282,11 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+					<asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" />
+				</p>
 				<div class="events">
 					<h2>Next 5 yrs</h2>
 					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
@@ -305,7 +302,11 @@
 				</div>
 			</div>
 			<div class="one-col-end">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+					<asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" />
+				</p>
 				<div class="events">
 					<h2>5 yrs +</h2>
 					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />

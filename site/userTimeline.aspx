@@ -49,7 +49,7 @@
 			var eventSource = new Timeline.DefaultEventSource();
 			var bandInfos = [
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 					width: "85%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -70,7 +70,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 					width: "15%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -91,7 +91,7 @@
 			var eventSource2 = new Timeline.DefaultEventSource();
 			var bandInfos2 = [
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate3" runat="server" />",
 					width: "85%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -112,7 +112,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate4" runat="server" />",
 					width: "15%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -176,7 +176,7 @@
 	    }
 	    else
 	    {
-	        if( isEmpty(searchString) || searchString.length < 4 )
+	        if( isEmpty(searchString) || searchString.length < 3 )
 	        {
 	            alert("Please enter a longer search string");
 	        }

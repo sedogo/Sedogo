@@ -75,6 +75,9 @@
                 CausesValidation="false" CssClass="button-sml" />
         </div>
     
+        <p>&nbsp;<br />If you don't have a Sedogo account and wish to 
+            register, <a href="register.aspx">please click here</a></p>
+    
     </div>
     </form>
 </body>

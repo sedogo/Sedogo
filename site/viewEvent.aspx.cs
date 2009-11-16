@@ -26,7 +26,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
 
-public partial class viewEvent : SedogoPage
+public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPage because this would not allow anonymous users
 {
     //===============================================================
     // Function: Page_Load
@@ -36,103 +36,157 @@ public partial class viewEvent : SedogoPage
         if (!IsPostBack)
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
-            int userID = int.Parse(Session["loggedInUserID"].ToString());
-
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-
-            if( sedogoEvent.userID != userID )
+            int userID = -1;
+            string loggedInUserName = "";
+            if (Session["loggedInUserID"] != null)
             {
-                // Viewing someone elses event
+                userID = int.Parse(Session["loggedInUserID"].ToString());
+                loggedInUserName = Session["loggedInUserFullName"].ToString();
+            }
+
+            SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
+
+            if (userID > 0)
+            {
+                if (sedogoEvent.userID != userID)
+                {
+                    // Viewing someone elses event
+                    messagesHeader.Visible = false;
+                    messagesLink.Visible = false;
+                    invitesHeader.Visible = false;
+                    invitesLink.Visible = false;
+                    alertsHeader.Visible = false;
+                    alertsLink.Visible = false;
+                    //trackingHeader.Visible = false;
+                    //trackingLinksPlaceholder.Visible = false;
+                    deleteEventButton.Visible = false;
+
+                    editEventLink.Visible = false;
+                    achievedEventLink.Visible = false;
+                    uploadEventImage.Visible = false;
+
+                    int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
+                    if (trackedEventID < 0)
+                    {
+                        trackThisEventLink.Visible = true;
+                        joinThisEventLink.Visible = true;
+                        joinThisEventLabel.Visible = false;
+                    }
+                    else
+                    {
+                        // Event is already being tracked
+                        trackThisEventLink.Visible = false;
+
+                        TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
+                        if (trackedEvent.showOnTimeline == true)
+                        {
+                            joinThisEventLink.Visible = false;
+                            joinThisEventLabel.Visible = true;
+                        }
+                        else
+                        {
+                            joinThisEventLink.Visible = true;
+                            joinThisEventLabel.Visible = false;
+                        }
+                    }
+                    createSimilarEventLink.Visible = true;
+                }
+                else
+                {
+                    // Viewing own event
+                    messagesHeader.Visible = true;
+                    messagesLink.Visible = true;
+                    invitesHeader.Visible = true;
+                    invitesLink.Visible = true;
+                    alertsHeader.Visible = true;
+                    alertsLink.Visible = true;
+                    //trackingHeader.Visible = true;
+                    //trackingLinksPlaceholder.Visible = true;
+                    deleteEventButton.Visible = true;
+                    deleteEventButton.Attributes.Add("onclick", "if(confirm('Are you sure you want to delete this event?')){}else{return false}");
+
+                    editEventLink.Visible = true;
+                    achievedEventLink.Visible = true;
+                    uploadEventImage.Visible = true;
+                    createSimilarEventLink.Visible = false;
+
+                    int messageCount = Message.GetMessageCountForEvent(eventID);
+                    int inviteCount = EventInvite.GetInviteCount(eventID);
+                    int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
+
+                    if (messageCount == 1)
+                    {
+                        messagesLink.Text = "You have " + messageCount.ToString() + " new message";
+                    }
+                    else
+                    {
+                        messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
+                    }
+                    if (inviteCount == 1)
+                    {
+                        invitesLink.Text = "you have " + inviteCount.ToString() + " invitation";
+                    }
+                    else
+                    {
+                        invitesLink.Text = "you have " + inviteCount.ToString() + " invitations";
+                    }
+                    if (alertsCount == 1)
+                    {
+                        alertsLink.Text = "you have " + alertsCount.ToString() + " alert";
+                    }
+                    else
+                    {
+                        alertsLink.Text = "you have " + alertsCount.ToString() + " alerts";
+                    }
+
+                    trackThisEventLink.Visible = false;
+                    joinThisEventLink.Visible = false;  // You cannot join your own event
+                    joinThisEventLabel.Visible = false;
+                }
+                PopulateTrackingList(eventID);
+
+                if (userID == sedogoEvent.userID)
+                {
+                    sendMessageButton.Visible = false;
+                }
+                else
+                {
+                    sendMessageButton.Visible = true;
+                }
+
+                loginRegisterPanel.Visible = false;
+            }
+            else
+            {
+                // Setup the window for a user who is not registered/logged in
+
                 messagesHeader.Visible = false;
                 messagesLink.Visible = false;
                 invitesHeader.Visible = false;
                 invitesLink.Visible = false;
                 alertsHeader.Visible = false;
                 alertsLink.Visible = false;
-                //trackingHeader.Visible = false;
-                //trackingLinksPlaceholder.Visible = false;
+                //trackingHeader.Visible = true;
+                //trackingLinksPlaceholder.Visible = true;
+                deleteEventButton.Visible = false;
 
                 editEventLink.Visible = false;
                 achievedEventLink.Visible = false;
                 uploadEventImage.Visible = false;
-
-                int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
-                if (trackedEventID < 0)
-                {
-                    trackThisEventLink.Visible = true;
-                    joinThisEventLink.Visible = true;
-                    joinThisEventLabel.Visible = false;
-                }
-                else
-                {
-                    // Event is already being tracked
-                    trackThisEventLink.Visible = false;
-
-                    TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
-                    if (trackedEvent.showOnTimeline == true)
-                    {
-                        joinThisEventLink.Visible = false;
-                        joinThisEventLabel.Visible = true;
-                    }
-                    else
-                    {
-                        joinThisEventLink.Visible = true;
-                        joinThisEventLabel.Visible = false;
-                    }
-                }
-                createSimilarEventLink.Visible = true;
-            }
-            else
-            {
-                // Viewing own event
-                messagesHeader.Visible = true;
-                messagesLink.Visible = true;
-                invitesHeader.Visible = true;
-                invitesLink.Visible = true;
-                alertsHeader.Visible = true;
-                alertsLink.Visible = true;
-                //trackingHeader.Visible = true;
-                //trackingLinksPlaceholder.Visible = true;
-
-                editEventLink.Visible = true;
-                achievedEventLink.Visible = true;
-                uploadEventImage.Visible = true;
                 createSimilarEventLink.Visible = false;
 
-                int messageCount = Message.GetMessageCountForEvent(eventID);
-                int inviteCount = EventInvite.GetInviteCount(eventID);
-                int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
-
-                if (messageCount == 1)
-                {
-                    messagesLink.Text = "You have " + messageCount.ToString() + " new message";
-                }
-                else
-                {
-                    messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
-                }
-                if (inviteCount == 1)
-                {
-                    invitesLink.Text = "you have " + inviteCount.ToString() + " invitation";
-                }
-                else
-                {
-                    invitesLink.Text = "you have " + inviteCount.ToString() + " invitations";
-                }
-                if (alertsCount == 1)
-                {
-                    alertsLink.Text = "you have " + alertsCount.ToString() + " alert";
-                }
-                else
-                {
-                    alertsLink.Text = "you have " + alertsCount.ToString() + " alerts";
-                }
-
                 trackThisEventLink.Visible = false;
-                joinThisEventLink.Visible = false;  // You cannot join your own event
+                joinThisEventLink.Visible = false;
                 joinThisEventLabel.Visible = false;
+
+                messageTrackingUsersLink.Visible = false;
+                sendMessageButton.Visible = false;
+                postCommentButton.Visible = false;
+                eventOwnersNameLabel.Enabled = false;
+                eventOwnersNameLabel.NavigateUrl = "#";
+
+                loginRegisterPanel.Visible = true;
             }
-            PopulateTrackingList(eventID);
 
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
             string dateString = "";
@@ -165,15 +219,6 @@ public partial class viewEvent : SedogoPage
             else
             {
                 achievedEventLink.Text = "achieved";
-            }
-
-            if (userID == sedogoEvent.userID)
-            {
-                sendMessageButton.Visible = false;
-            }
-            else
-            {
-                sendMessageButton.Visible = true;
             }
 
             PopulateComments(eventID);
@@ -431,5 +476,19 @@ public partial class viewEvent : SedogoPage
         }
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: deleteEventButton_click
+    //===============================================================
+    protected void deleteEventButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        sedogoEvent.Delete();
+
+        Response.Redirect("profileRedirect.aspx");
     }
 }

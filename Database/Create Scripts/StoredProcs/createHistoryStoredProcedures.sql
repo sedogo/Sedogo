@@ -162,7 +162,7 @@ GO
 CREATE Procedure spSelectSearchHistoryPopularTop5
 AS
 BEGIN
-	SELECT SearchText, COUNT(SearchHistoryID) AS SearchCount
+	SELECT TOP 5 SearchText, COUNT(SearchHistoryID) AS SearchCount
 	FROM SearchHistory
 	GROUP BY SearchText
 	ORDER BY SearchCount DESC

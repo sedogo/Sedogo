@@ -127,6 +127,13 @@ public partial class userTimeline : SedogoPage
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
             searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
+
+            DateTime timelineStartDate = DateTime.Now.AddMonths(8);
+
+            timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+            timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
         }
     }
 
@@ -266,13 +273,8 @@ public partial class userTimeline : SedogoPage
                         string dateSuffix = "";
                         switch (beforeBirthday)
                         {
-                            case 1:
-                            case 21:
-                            case 31:
-                            case 41:
-                            case 51:
-                            case 61:
-                            case 71:
+                            case 1: case 21: case 31: case 41: case 51:
+                            case 61: case 71:
                             case 81:
                             case 91:
                             case 101:

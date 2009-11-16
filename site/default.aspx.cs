@@ -97,6 +97,11 @@ public partial class _default : System.Web.UI.Page
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"register.aspx\");", true);
                 }
             }
+
+            DateTime timelineStartDate = DateTime.Now.AddMonths(8);
+
+            timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
         }
     }
 

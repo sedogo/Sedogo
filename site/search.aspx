@@ -48,7 +48,7 @@
 			var eventSource = new Timeline.DefaultEventSource();
 			var bandInfos = [
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 					width: "85%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -69,7 +69,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 					width: "15%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
@@ -132,7 +132,7 @@
 	    }
 	    else
 	    {
-	        if( isEmpty(searchString) || searchString.length < 4 )
+	        if( isEmpty(searchString) || searchString.length < 3 )
 	        {
 	            alert("Please enter a longer search string");
 	        }
@@ -178,10 +178,10 @@
 			</ol>
 			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
 		</div>
-		<div id="noSearchResultsDiv" runat="server">
+		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
 		</div>
-		<div id="moreThan50ResultsDiv" runat="server">
+		<div id="moreThan50ResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
 		</div>
 		<div id="timelines">
@@ -218,53 +218,15 @@
 		</div>
 		<div id="other-content">
 
-		    <p class="advanced-search"><a href="profile.aspx" title="return to profile">return to profile</a></p>
+		    <p class="advanced-search"><a href="profile.aspx" title="return to home page">return to home page</a></p>
 			
 			<div class="one-col">
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
-				<div class="events">
-					<h2>This month</h2>
-					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
-					<asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
-					<asp:Label ID="todaysDateLabel" runat="server" />
-					<asp:PlaceHolder ID="todayEventsPlaceHolder" runat="server" />
-					<asp:Label ID="thisWeekTitleLabel" runat="server" Text="This week" />
-					<asp:PlaceHolder ID="thisWeekEventsPlaceHolder" runat="server" />
-					<asp:Label ID="thisMonthTitleLabel" runat="server" Text="This month" />
-					<asp:PlaceHolder ID="thisMonthEventsPlaceHolder" runat="server" />
-				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
-				<div class="events">
-					<h2>Next 5 yrs</h2>
-					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
-					<asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
-					<asp:Label ID="next2YearsTitleLabel" runat="server" Text="Next 2 years" />
-					<asp:PlaceHolder ID="next2YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="next3YearsTitleLabel" runat="server" Text="Next 3 years" />
-					<asp:PlaceHolder ID="next3YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="next4YearsTitleLabel" runat="server" Text="Next 4 years" />
-					<asp:PlaceHolder ID="next4YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="next5YearsTitleLabel" runat="server" Text="Next 5 years" />
-					<asp:PlaceHolder ID="next5YearsEventsPlaceHolder" runat="server" />
-				</div>
 			</div>
 			<div class="one-col-end">
-				<p class="extra-buttons"></p>
-				<div class="events">
-					<h2>5 yrs +</h2>
-					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />
-					<asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="tenToTwentyYearsTitleLabel" runat="server" Text="10-20 years" />
-					<asp:PlaceHolder ID="next20YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="twentyPlusYearsTitleLabel" runat="server" Text="20+ years" />
-					<asp:PlaceHolder ID="next100YearsEventsPlaceHolder" runat="server" />
-					<asp:Label ID="unknownDateTitleLabel" runat="server" Text="Unknown" />
-					<asp:PlaceHolder ID="notScheduledEventsPlaceHolder" runat="server" />
-				</div>
 			</div>
 			
 		</div>

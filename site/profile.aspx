@@ -48,7 +48,7 @@
 			var eventSource = new Timeline.DefaultEventSource();
 			var bandInfos = [
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "Oct 08 2008 00:00:00 GMT",
 					width: "85%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
@@ -69,7 +69,7 @@
 					)
 				}),
 				Timeline.createBandInfo({
-					date: "Oct 08 2009 00:00:00 GMT",
+					date: "Oct 08 2008 00:00:00 GMT",
 					width: "15%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,

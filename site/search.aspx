@@ -164,7 +164,7 @@
 			</p>
 		</div>
 		<div class="three-col">
-			<label for="what" class="what">what are you going to do?</label>
+			<label for="what" class="what">what is your goal?</label>
 			<asp:TextBox ID="what" runat="server" />
 			<asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
 			    ImageUrl="images/go.gif" ToolTip="go" CssClass="go" />
@@ -173,10 +173,10 @@
 					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
 				</li>
 				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
+					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your goal list</label>
 				</li>
 			</ol>
-			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+			<p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="button-sml modal">advanced search</a></p>
 		</div>
 		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>

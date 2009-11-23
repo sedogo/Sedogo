@@ -30,9 +30,6 @@ using Sedogo.BusinessObjects;
 
 public partial class timelineXML : System.Web.UI.Page
 {
-    private StringBuilder xmlContent;
-    //private XmlDocument xmlDoc;
-
     //===============================================================
     // Function: Page_Load
     //===============================================================

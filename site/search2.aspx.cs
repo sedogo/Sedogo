@@ -42,6 +42,25 @@ public partial class search2 : SedogoPage
             {
                 searchText = (string)Request.QueryString["Search"];
             }
+            string eventNameText = "";
+            if (Request.QueryString["EvName"] != null)
+            {
+                eventNameText = (string)Request.QueryString["EvName"];
+            }
+            string eventVenue = "";
+            if (Request.QueryString["EvVenue"] != null)
+            {
+                eventVenue = (string)Request.QueryString["EvVenue"];
+            }
+            string eventOwnerName = "";
+            if (Request.QueryString["EvOwner"] != null)
+            {
+                eventOwnerName = (string)Request.QueryString["EvOwner"];
+            }
+
+            eventNameTextBox.Text = eventNameText;
+            venueTextBox.Text = eventVenue;
+            eventOwnerNameTextBox.Text = eventOwnerName;
 
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             userNameLabel.Text = user.fullName;
@@ -92,11 +111,11 @@ public partial class search2 : SedogoPage
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             if (trackedEventCount == 1)
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to do";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goal";
             }
             else
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to dos";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goals";
             }
 
             PopulateLatestSearches();
@@ -106,7 +125,29 @@ public partial class search2 : SedogoPage
             PopulateEvents(user, searchText);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
-            searchTimelineURL.Text = "timelineSearch2XML.aspx?Search=" + searchText;
+            searchTimelineURL.Text = "timelineSearch2XML.aspx?G=" + Guid.NewGuid().ToString();
+            searchTimelineURL.Text += "&Search=" + searchText;
+            searchTimelineURL.Text += "&EvName=" + eventNameText;
+            searchTimelineURL.Text += "&EvVenue=" + eventVenue;
+            searchTimelineURL.Text += "&EvOwner=" + eventOwnerName;
+
+            int searchCount = GetSearchResultCount(searchText, eventNameText, eventVenue, eventOwnerName);
+            if (searchCount >= 50)
+            {
+                moreThan50ResultsDiv.Visible = true;
+            }
+            else
+            {
+                moreThan50ResultsDiv.Visible = false;
+            }
+            if (searchCount == 0)
+            {
+                noSearchResultsDiv.Visible = true;
+            }
+            else
+            {
+                noSearchResultsDiv.Visible = false;
+            }
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);
 
@@ -187,8 +228,6 @@ public partial class search2 : SedogoPage
             DbDataReader rdr = cmd.ExecuteReader();
             if (rdr.HasRows == true)
             {
-                noSearchResultsDiv.Visible = false;
-
                 while (rdr.Read())
                 {
                     int categoryID = 1;
@@ -253,122 +292,26 @@ public partial class search2 : SedogoPage
                         string dateSuffix = "";
                         switch (beforeBirthday)
                         {
-                            case 1:
-                            case 21:
-                            case 31:
-                            case 41:
-                            case 51:
-                            case 61:
-                            case 71:
-                            case 81:
-                            case 91:
-                            case 101:
+                            case 1: case 21: case 31: case 41: case 51: case 61: case 71: case 81: case 91: case 101:
                                 dateSuffix = "st";
                                 break;
-                            case 2:
-                            case 22:
-                            case 32:
-                            case 42:
-                            case 52:
-                            case 62:
-                            case 72:
-                            case 82:
-                            case 92:
-                            case 102:
+                            case 2: case 22: case 32: case 42: case 52: case 62: case 72: case 82: case 92: case 102:
                                 dateSuffix = "nd";
                                 break;
-                            case 3:
-                            case 23:
-                            case 33:
-                            case 43:
-                            case 53:
-                            case 63:
-                            case 73:
-                            case 83:
-                            case 93:
-                            case 103:
+                            case 3: case 23: case 33: case 43: case 53: case 63: case 73: case 83: case 93: case 103:
                                 dateSuffix = "rd";
                                 break;
-                            case 4:
-                            case 5:
-                            case 6:
-                            case 7:
-                            case 8:
-                            case 9:
-                            case 10:
-                            case 11:
-                            case 12:
-                            case 13:
-                            case 14:
-                            case 15:
-                            case 16:
-                            case 17:
-                            case 18:
-                            case 19:
-                            case 20:
-                            case 24:
-                            case 25:
-                            case 26:
-                            case 27:
-                            case 28:
-                            case 29:
-                            case 30:
-                            case 34:
-                            case 35:
-                            case 36:
-                            case 37:
-                            case 38:
-                            case 39:
-                            case 40:
-                            case 44:
-                            case 45:
-                            case 46:
-                            case 47:
-                            case 48:
-                            case 49:
-                            case 50:
-                            case 54:
-                            case 55:
-                            case 56:
-                            case 57:
-                            case 58:
-                            case 59:
-                            case 60:
-                            case 64:
-                            case 65:
-                            case 66:
-                            case 67:
-                            case 68:
-                            case 69:
-                            case 70:
-                            case 74:
-                            case 75:
-                            case 76:
-                            case 77:
-                            case 78:
-                            case 79:
-                            case 80:
-                            case 84:
-                            case 85:
-                            case 86:
-                            case 87:
-                            case 88:
-                            case 89:
-                            case 90:
-                            case 94:
-                            case 95:
-                            case 96:
-                            case 97:
-                            case 98:
-                            case 99:
-                            case 100:
-                            case 104:
-                            case 105:
-                            case 106:
-                            case 107:
-                            case 108:
-                            case 109:
-                            case 110:
+                            case 4: case 5: case 6: case 7: case 8: case 9: case 10:
+                            case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18: case 19: case 20:
+                            case 24: case 25: case 26: case 27: case 28: case 29: case 30:
+                            case 34: case 35: case 36: case 37: case 38: case 39: case 40:
+                            case 44: case 45: case 46: case 47: case 48: case 49: case 50:
+                            case 54: case 55: case 56: case 57: case 58: case 59: case 60:
+                            case 64: case 65: case 66: case 67: case 68: case 69: case 70:
+                            case 74: case 75: case 76: case 77: case 78: case 79: case 80:
+                            case 84: case 85: case 86: case 87: case 88: case 89: case 90:
+                            case 94: case 95: case 96: case 97: case 98: case 99: case 100:
+                            case 104: case 105: case 106: case 107: case 108: case 109: case 110:
                                 dateSuffix = "th";
                                 break;
                             default:
@@ -402,7 +345,7 @@ public partial class search2 : SedogoPage
                     }
                     if (privateEvent == true)
                     {
-                        eventString.AppendLine("<img src=\"./images/privateIcon.jpg\" alt=\"Private to do\" />");
+                        eventString.AppendLine("<img src=\"./images/privateIcon.jpg\" alt=\"Private goal\" />");
                     }
                     if (eventAlertCount > 0)
                     {
@@ -410,7 +353,7 @@ public partial class search2 : SedogoPage
                     }
                     eventString.Append(eventName + "</h3>");
 
-                    eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this to do.</p>");
+                    eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this goal.</p>");
 
                     eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
 
@@ -496,20 +439,9 @@ public partial class search2 : SedogoPage
                     }
                 }
                 rdr.Close();
-
-                if (rowCount >= 50)
-                {
-                    moreThan50ResultsDiv.Visible = true;
-                }
-                else
-                {
-                    moreThan50ResultsDiv.Visible = false;
-                }
             }
             else
             {
-                moreThan50ResultsDiv.Visible = false;
-                noSearchResultsDiv.Visible = true;
                 rowCount = 0;
             }
 
@@ -618,6 +550,23 @@ public partial class search2 : SedogoPage
     }
 
     //===============================================================
+    // Function: advSearchButton_click
+    //===============================================================
+    protected void advSearchButton_click(object sender, EventArgs e)
+    {
+        string eventName = eventNameTextBox.Text;
+        string venue = venueTextBox.Text;
+        string eventOwnerName = eventOwnerNameTextBox.Text;
+
+        string url = "search2.aspx";
+        url = url + "?EvName=" + eventName;
+        url = url + "&EvVenue=" + venue;
+        url = url + "&EvOwner=" + eventOwnerName;
+
+        Response.Redirect(url);
+    }
+
+    //===============================================================
     // Function: PopulateLatestSearches
     //===============================================================
     private void PopulateLatestSearches()
@@ -698,5 +647,55 @@ public partial class search2 : SedogoPage
         {
             conn.Close();
         }
+    }
+
+    //===============================================================
+    // Function: GetSearchResultCount
+    //===============================================================
+    private int GetSearchResultCount(string searchText, string eventNameText, 
+        string eventVenue, string eventOwnerName)
+    {
+        int searchCount = 0;
+
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        try
+        {
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            if (searchText != "")
+            {
+                cmd.CommandText = "spSearchEvents";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;
+            }
+            else
+            {
+                cmd.CommandText = "spSearchEventsAdvanced";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 1000).Value = eventNameText;
+                cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, 1000).Value = eventVenue;
+                cmd.Parameters.Add("@OwnerName", SqlDbType.NVarChar, 1000).Value = eventOwnerName;
+            }
+            DbDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                searchCount++;
+            }
+            rdr.Close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return searchCount;
     }
 }

@@ -43,8 +43,14 @@ public partial class _default : System.Web.UI.Page
                 }
             }
 
+            Session["EventID"] = "";
             Session["EventInviteGUID"] = "";
             Session["EventInviteUserID"] = -1;
+            Session["DefaultRedirect"] = "";
+            if (Request.QueryString["EID"] != null)
+            {
+                Session["EventID"] = (string)Request.QueryString["EID"];
+            }
             if (Request.QueryString["EIG"] != null)
             {
                 Session["EventInviteGUID"] = (string)Request.QueryString["EIG"];
@@ -52,6 +58,10 @@ public partial class _default : System.Web.UI.Page
             if (Request.QueryString["UID"] != null)
             {
                 Session["EventInviteUserID"] = int.Parse(Request.QueryString["UID"].ToString());
+            }
+            if (Request.QueryString["Redir"] != null)
+            {
+                Session["DefaultRedirect"] = Request.QueryString["Redir"].ToString();
             }
 
             HttpCookie emailCookie = Request.Cookies["SedogoLoginEmailAddress"]; 
@@ -96,6 +106,10 @@ public partial class _default : System.Web.UI.Page
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"register.aspx\");", true);
                 }
+            }
+            if ((string)Session["DefaultRedirect"] != "")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
             }
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);

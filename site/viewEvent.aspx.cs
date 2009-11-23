@@ -43,6 +43,19 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 userID = int.Parse(Session["loggedInUserID"].ToString());
                 loggedInUserName = Session["loggedInUserFullName"].ToString();
             }
+            string action = "";
+            if( Request.QueryString["A"] != null )
+            {
+                action = (string)Request.QueryString["A"];
+            }
+
+            if (action == "RemoveTracker")
+            {
+                int trackedEventID = int.Parse(Request.QueryString["TEID"].ToString());
+
+                TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
+                trackedEvent.Delete();
+            }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
 
@@ -279,6 +292,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     {
         int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -293,7 +308,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 string profilePicThumbnail = "";
 
-                //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
+                int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
                 int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
@@ -312,9 +327,19 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<p><img src=\"" + profileImagePath + "\" />"
+                string outputText = "<table><tr><td><img src=\"" + profileImagePath + "\" /></td>"
+                    + "<td valign=\"bottom\">"
                     + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
-                    + firstName + " " + lastName + "</a><p>";
+                    + firstName + " " + lastName + "</a>";
+                if (loggedInUserID == sedogoEvent.userID)
+                {
+                    // This is my event!
+                    outputText = outputText + "<br/><a href=\"viewEvent.aspx?A=RemoveTracker&EID="
+                        + eventID.ToString()
+                        + "&TEID=" + trackedEventID.ToString() + "\">"
+                        + "(Remove)</a>";
+                }
+                outputText = outputText + "</td></tr></table>";
 
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
             }
@@ -340,6 +365,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         sedogoEvent.eventAchieved = !sedogoEvent.eventAchieved;
         sedogoEvent.Update();
+
+        sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
     }
@@ -386,6 +413,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         trackedEvent.eventID = eventID;
         trackedEvent.userID = userID;
         trackedEvent.Add();
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        sedogoEvent.SendEventUpdateEmail();
 
         trackThisEventLink.Visible = false;
 
@@ -473,6 +503,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             trackedEvent.userID = userID;
             trackedEvent.showOnTimeline = true;
             trackedEvent.Add();
+
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            sedogoEvent.SendEventUpdateEmail();
         }
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
@@ -488,6 +521,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         sedogoEvent.Delete();
+
+        sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
     }

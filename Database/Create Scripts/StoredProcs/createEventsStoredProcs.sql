@@ -216,6 +216,7 @@ BEGIN
 	AND E.EventAchieved = 0
 	AND T.UserID = @UserID
 	AND T.ShowOnTimeline = 1
+	AND T.JoinPending = 0 
 	
 	ORDER BY CategoryID
 END
@@ -336,6 +337,7 @@ BEGIN
 	AND E.EventAchieved = 0
 	AND T.UserID = @UserID
 	AND T.ShowOnTimeline = 1
+	AND T.JoinPending = 0
 	
 	ORDER BY CategoryID
 
@@ -727,6 +729,50 @@ GRANT EXEC ON spSearchEvents TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSearchEventsAdvanced
+// Description:
+//   Search events
+//=============================================================*/
+PRINT 'Creating spSearchEventsAdvanced...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSearchEventsAdvanced')
+BEGIN
+	DROP Procedure spSearchEventsAdvanced
+END
+GO
+
+CREATE Procedure spSearchEventsAdvanced
+	@UserID			int,
+	@EventName		nvarchar(1000),
+	@EventVenue		nvarchar(1000),
+	@OwnerName		nvarchar(1000)
+AS
+BEGIN
+	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.EventVenue,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+	FROM Events E
+	JOIN Users U
+	ON E.UserID = U.UserID
+	WHERE E.Deleted = 0
+	AND E.EventAchieved = 0
+	AND E.PrivateEvent = 0
+	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
+	AND ( (UPPER(E.EventName) LIKE '%'+UPPER(@EventName)+'%')
+	 AND (UPPER(ISNULL(E.EventVenue,'')) LIKE '%'+UPPER(@EventVenue)+'%')
+	 AND (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@OwnerName)+'%') ) 
+	ORDER BY E.StartDate
+END
+GO
+
+GRANT EXEC ON spSearchEventsAdvanced TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectHomePageEvents
 // Description:
 //   Search events
@@ -782,6 +828,7 @@ CREATE Procedure spAddTrackedEvent
 	@EventID				int,
 	@UserID					int,
 	@ShowOnTimeline			bit,
+	@JoinPending			bit,
 	@CreatedDate			datetime,
 	@LastUpdatedDate		datetime,
 	@TrackedEventID			int OUTPUT
@@ -792,6 +839,7 @@ BEGIN
 		EventID,
 		UserID,
 		ShowOnTimeline,
+		JoinPending,
 		CreatedDate,
 		LastUpdatedDate
 	)
@@ -800,6 +848,7 @@ BEGIN
 		@EventID,
 		@UserID,
 		@ShowOnTimeline,
+		@JoinPending,
 		@CreatedDate,
 		@LastUpdatedDate
 	)
@@ -832,7 +881,7 @@ CREATE Procedure spSelectTrackedEventDetails
 	@TrackedEventID			int
 AS
 BEGIN
-	SELECT EventID, UserID, ShowOnTimeline,
+	SELECT EventID, UserID, ShowOnTimeline, JoinPending,
 		CreatedDate, LastUpdatedDate
 	FROM TrackedEvents
 	WHERE TrackedEventID = @TrackedEventID
@@ -860,7 +909,8 @@ CREATE Procedure spSelectTrackedEventListByUserID
 	@UserID		int
 AS
 BEGIN
-	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, T.CreatedDate, T.LastUpdatedDate,
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
+		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.EventAchieved, E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.FirstName, U.LastName, U.EmailAddress
@@ -897,7 +947,8 @@ CREATE Procedure spSelectTrackingUsersByEventID
 	@EventID		int
 AS
 BEGIN
-	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, T.CreatedDate, T.LastUpdatedDate,
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
+		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.Birthday,
 		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview
 	FROM TrackedEvents T
@@ -961,12 +1012,14 @@ GO
 CREATE Procedure spUpdateTrackedEvent
 	@TrackedEventID				int,
 	@ShowOnTimeline				bit,
+	@JoinPending				bit
 	@LastUpdatedDate			datetime
 AS
 BEGIN
 	UPDATE TrackedEvents
-	SET ShowOnTimeline	= @ShowOnTimeline,
-		LastUpdatedDate = @LastUpdatedDate
+	SET ShowOnTimeline		= @ShowOnTimeline,
+		JoinPending			= @JoinPending,
+		LastUpdatedDate		= @LastUpdatedDate
 	WHERE TrackedEventID = @TrackedEventID
 
 END

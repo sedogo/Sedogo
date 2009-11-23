@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="postComment.aspx.cs" Inherits="postComment" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="postComment.aspx.cs" Inherits="postComment" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,9 +7,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<title>Post comment : Sedogo : Create your future and connect with others to make it happen</title>
 
@@ -37,7 +37,7 @@
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">To do name</label>
+                        <label for="">Goal name</label>
                         <asp:Label ID="eventNameLabel" runat="server" />
                     </li>
                     <li>
@@ -56,7 +56,7 @@
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                 OnClick="saveChangesButton_click" CssClass="button-sml" />
             <asp:LinkButton 
-                ID="backButton" runat="server" ToolTip="save" Text="Back to to do details" 
+                ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
                 OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
         </div>    
     </div>

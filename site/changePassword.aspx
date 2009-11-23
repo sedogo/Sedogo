@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="changePassword.aspx.cs" Inherits="changePassword" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="changePassword.aspx.cs" Inherits="changePassword" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -70,13 +70,15 @@
                             ControlToValidate="passwordTextBox1" Display="Dynamic" 
                             ControlToCompare="passwordTextBox2"></asp:CompareValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Register" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
+    
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Change password" 
+                OnClick="saveChangesButton_click" CssClass="button-sml" />
+        </div>    
     
     </div>
     </form>

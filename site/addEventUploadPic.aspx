@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadEventImage.aspx.cs" Inherits="uploadEventImage" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEventUploadPic.aspx.cs" Inherits="addEventUploadPic" %>
+<%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,11 +8,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache" />
-	<meta http-equiv="expires" content="0" />
-	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="cache-control" content="no-cache"/>
+	<meta http-equiv="expires" content="0"/>
+	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>Upload event image : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Create goal : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -27,23 +28,19 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    
         <asp:ValidationSummary runat="server" ID="validationSummary" 
             ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
             HeaderText="Please review the following errors:" />
-
+    
 	    <div id="modal">
-            <h1>upload picture</h1>
-
-            <p><asp:Label ID="eventNameLabel" runat="server" /><br />
-            <asp:Label ID="eventDateLabel" runat="server" /><br />
-            Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-            &nbsp;<br />
-            </p>
+            <h1>Do you want to add a picture with <asp:Label ID="eventNameLabel" runat="server" /></h1>
 
             <fieldset>
                 <ol>
@@ -55,18 +52,18 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
-                    <li>
-                        <div class="buttons">
-                        <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
-                            Text="Upload picture" CssClass="button-sml" />
-                        <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
-                            Text="Back to event details" CssClass="button-sml" CausesValidation="false" />
-                        </div>
-                    </li>
                 </ol>
             </fieldset>
 		</div>
     
+        <div class="buttons">
+            <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
+                Text="Add image" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="skipUploadButton" runat="server" ToolTip="Skip" Text="Skip" 
+                OnClick="skipUploadButton_click" CssClass="button-sml" CausesValidation="false" />
+        </div>
+
     </div>
     </form>
 </body>

@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadProfilePic.aspx.cs" Inherits="uploadProfilePic" %>
-<%@ OutputCache Location="None" VaryByParam="None" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sendUserMessage.aspx.cs" Inherits="sendUserMessage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,7 +11,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Upload profile picture : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Messages : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -34,26 +33,30 @@
     <div>
     
 	    <div id="modal">
-            <h1>upload profile picture</h1>
-            <p>Text to be added</p>
+            <h1>send message</h1>
+
+            <p>Send message to <asp:Label ID="messageToLabel" runat="server" /><br />
+            Regarding goal: <asp:Label ID="eventNameLabel" runat="server" /></p>
+                        
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Select file</label>
-                        <asp:FileUpload ID="profilePicFileUpload" runat="server" />
-                        <asp:RequiredFieldValidator ID="profilePicFileUploadValidator" runat="server"
-                            ControlToValidate="profilePicFileUpload" ErrorMessage="A file is required"
-                            Display="None" SetFocusOnError="true">
+                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
+                            ID="messageTextBox" Width="400px" />
+                            <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
+                            ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="uploadProfilePicButton" runat="server" OnClick="uploadProfilePicButton_click" Text="Upload picture" />
                     </li>
                 </ol>
             </fieldset>
 		</div>
     
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                OnClick="saveChangesButton_click" CssClass="button-sml" />
+        </div>    
+
     </div>
     </form>
 </body>

@@ -953,9 +953,10 @@ namespace Sedogo.BusinessObjects
             string c2 = Convert.ToChar(random.Next(97, 122)).ToString().ToUpper();
             string c3 = Convert.ToChar(random.Next(97, 122)).ToString();
             string c4 = Convert.ToChar(random.Next(97, 122)).ToString();
-            string p1 = Convert.ToChar(random.Next(58, 64)).ToString();
+            string c5 = Convert.ToChar(random.Next(97, 122)).ToString();
+            //string p1 = Convert.ToChar(random.Next(58, 64)).ToString();
 
-            newPassword = c1 + c2 + p1 + num1 + num2 + c3 + c4 + num3 + num4;
+            newPassword = c1 + c2 + c3 + num1 + num2 + c4 + c5 + num3 + num4;
 
             // Save the new password to the DB
             UpdatePassword(newPassword);

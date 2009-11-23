@@ -75,7 +75,7 @@ function setHiddenDateField()
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">Headline</label>
+                        <label for="">Introduction</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="headlineTextBox" Width="200px" MaxLength="200" />
                     </li>
@@ -137,13 +137,15 @@ function setHiddenDateField()
                             ErrorMessage="The two email addresses do not match" Display="Dynamic"
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:CompareValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" Text="Save" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
+    
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                OnClick="saveChangesButton_click" CssClass="button-sml" />
+        </div>
     
     </div>
     </form>

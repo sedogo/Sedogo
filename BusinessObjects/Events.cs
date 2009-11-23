@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
+using System.Net.Mail;
 
 namespace Sedogo.BusinessObjects
 {
@@ -518,6 +519,93 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
+        // Function: SendEventUpdateEmail
+        //===============================================================
+        public void SendEventUpdateEmail()
+        {
+            StringBuilder emailBodyCopy = new StringBuilder();
+            GlobalData gd = new GlobalData("");
+
+            string dateString = "";
+            DateTime startDate = m_startDate;
+            SedogoUser eventOwner = new SedogoUser(m_loggedInUser, m_userID);
+            MiscUtils.GetDateStringStartDate(eventOwner, m_dateType, m_rangeStartDate,
+                m_rangeEndDate, m_beforeBirthday, ref dateString, ref startDate);
+
+            string inviteURL = gd.GetStringValue("SiteBaseURL");
+            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+
+            emailBodyCopy.AppendLine("The following event has been updated:<br/>");
+            emailBodyCopy.AppendLine("What: " + m_eventName + "<br/>");
+            emailBodyCopy.AppendLine("Where: " + m_eventVenue + "<br/>");
+            emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("To view this event, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
+            emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
+
+            string emailSubject = m_eventName + " on " + dateString + " has been updated";
+
+            string SMTPServer = gd.GetStringValue("SMTPServer");
+            string mailFromAddress = gd.GetStringValue("MailFromAddress");
+            string mailFromUsername = gd.GetStringValue("MailFromUsername");
+            string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackingUsersByEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
+                    int userID = int.Parse(rdr["UserID"].ToString());
+                    string firstName = (string)rdr["FirstName"];
+                    string lastName = (string)rdr["LastName"];
+                    //string gender = (string)rdr["Gender"];
+                    //string homeTown = (string)rdr["HomeTown"];
+                    string emailAddress = (string)rdr["EmailAddress"];
+
+                    try
+                    {
+                        MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                        message.ReplyTo = new MailAddress(mailFromAddress);
+
+                        message.Subject = emailSubject;
+                        message.Body = emailBodyCopy.ToString();
+                        message.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = SMTPServer;
+                        if (mailFromPassword != "")
+                        {
+                            // If the password is blank, assume mail relay is permitted
+                            smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                        }
+                        smtp.Send(message);
+                    }
+                    catch { }
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEvent", "SendEventUpdateEmail", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
         // Function: GetTrackingUserCount
         //===============================================================
         public static int GetTrackingUserCount(int eventID)
@@ -807,6 +895,7 @@ namespace Sedogo.BusinessObjects
         private int         m_eventID = -1;
         private int         m_userID = -1;
         private Boolean     m_showOnTimeline = false;
+        private Boolean     m_joinPending = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
 
@@ -830,6 +919,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_showOnTimeline; }
             set { m_showOnTimeline = value; }
+        }
+        public Boolean joinPending
+        {
+            get { return m_joinPending; }
+            set { m_joinPending = value; }
         }
         public DateTime createdDate
         {
@@ -890,6 +984,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_showOnTimeline = (Boolean)rdr["ShowOnTimeline"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("JoinPending")))
+                {
+                    m_joinPending = (Boolean)rdr["JoinPending"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
                 {
                     m_createdDate = (DateTime)rdr["CreatedDate"];
@@ -928,6 +1026,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
                 cmd.Parameters.Add("@ShowOnTimeline", SqlDbType.Bit).Value = m_showOnTimeline;
+                cmd.Parameters.Add("@JoinPending", SqlDbType.Bit).Value = m_joinPending;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
 
@@ -966,6 +1065,7 @@ namespace Sedogo.BusinessObjects
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@TrackedEventID", SqlDbType.Int).Value = m_trackedEventID;
                 cmd.Parameters.Add("@ShowOnTimeline", SqlDbType.Bit).Value = m_showOnTimeline;
+                cmd.Parameters.Add("@JoinPending", SqlDbType.Bit).Value = m_joinPending;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.ExecuteNonQuery();
             }

@@ -122,11 +122,11 @@ input#what
 .advanced-search,
 .advanced-search a
 {
-	color: #0cf;
+	/*color: #0cf;*/
 }
 .advanced-search a:hover
 {
-	color: #000;
+	/*color: #000;*/
 }
 .search ol li 
 {

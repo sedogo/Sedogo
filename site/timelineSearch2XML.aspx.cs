@@ -30,8 +30,6 @@ using Sedogo.BusinessObjects;
 
 public partial class timelineSearch2XML : System.Web.UI.Page
 {
-    private StringBuilder xmlContent;
-
     //===============================================================
     // Function: Page_Load
     //===============================================================
@@ -42,12 +40,27 @@ public partial class timelineSearch2XML : System.Web.UI.Page
         {
             searchText = (string)Request.QueryString["Search"];
         }
+        string eventNameText = "";
+        if (Request.QueryString["EvName"] != null)
+        {
+            eventNameText = (string)Request.QueryString["EvName"];
+        }
+        string eventVenue = "";
+        if (Request.QueryString["EvVenue"] != null)
+        {
+            eventVenue = (string)Request.QueryString["EvVenue"];
+        }
+        string eventOwnerName = "";
+        if (Request.QueryString["EvOwner"] != null)
+        {
+            eventOwnerName = (string)Request.QueryString["EvOwner"];
+        }
 
         XmlTextWriter writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
         writer.WriteStartDocument();
         writer.WriteStartElement("data");
 
-        CreateXMLContent(writer, searchText);
+        CreateXMLContent(writer, searchText, eventNameText, eventVenue, eventOwnerName);
 
         writer.WriteEndElement();
         writer.WriteEndDocument();
@@ -57,7 +70,8 @@ public partial class timelineSearch2XML : System.Web.UI.Page
     //===============================================================
     // Function: CreateXMLContent
     //===============================================================
-    private void CreateXMLContent(XmlTextWriter writer, string searchText)
+    private void CreateXMLContent(XmlTextWriter writer, string searchText,
+        string eventNameText, string eventVenue, string eventOwnerName)
     {
         int userID = int.Parse(Session["loggedInUserID"].ToString());
 
@@ -70,9 +84,20 @@ public partial class timelineSearch2XML : System.Web.UI.Page
 
             SqlCommand cmd = new SqlCommand("", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSearchEvents";
-            cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
-            cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;
+            if (searchText != "")
+            {
+                cmd.CommandText = "spSearchEvents";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;
+            }
+            else
+            {
+                cmd.CommandText = "spSearchEventsAdvanced";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 1000).Value = eventNameText;
+                cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, 1000).Value = eventVenue;
+                cmd.Parameters.Add("@OwnerName", SqlDbType.NVarChar, 1000).Value = eventOwnerName;
+            }
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {

@@ -87,11 +87,11 @@ public partial class profile : SedogoPage
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             if (trackedEventCount == 1)
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to do";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goal";
             }
             else
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " to dos";
+                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goals";
             }
 
             PopulateEvents(user);
@@ -99,11 +99,16 @@ public partial class profile : SedogoPage
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
 
-            if (Session["EventInviteGUID"] != "")
+            if (Session["EventInviteGUID"] != null)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
-                Session["EventInviteGUID"] = "";
-                Session["EventInviteUserID"] = "";
+                string inviteGUID = Session["EventInviteGUID"].ToString();
+
+                if (inviteGUID != "")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
+                    Session["EventInviteGUID"] = "";
+                    Session["EventInviteUserID"] = "";
+                }
             }
 
             what.Attributes.Add("onKeyPress", "checkEnter(event)");
@@ -112,6 +117,20 @@ public partial class profile : SedogoPage
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+
+            if (Session["DefaultRedirect"] != null && Session["DefaultRedirect"].ToString() != "")
+            {
+                string redir = (string)Session["DefaultRedirect"];
+                if (redir == "Messages")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"message.aspx\");", true);
+                }
+                Session["DefaultRedirect"] = "";
+            }
+            if (Session["EventID"] != null && Session["EventID"].ToString() != "")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"viewEvent.aspx?EID=" + Session["EventID"].ToString() + "\");", true);
+            }
         }
     }
 

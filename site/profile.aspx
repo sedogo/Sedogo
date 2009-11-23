@@ -200,7 +200,7 @@
 			</p>
 		</div>
 		<div class="three-col">
-			<label for="what" class="what">what are you going to do?</label>
+			<label for="what" class="what">what is your goal?</label>
 			<asp:TextBox ID="what" runat="server" Text="e.g. climb Everest" MaxLength="1000" />
 			<a href="javascript:searchClick()"><img src="images/go.gif" alt="go" class="go" /></a>
 			<ol>
@@ -208,10 +208,10 @@
 					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
 				</li>
 				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
+					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your goal list</label>
 				</li>
 			</ol>
-			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+			<p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="button-sml modal">advanced search</a></p>
 		</div>
 		<div id="timelines">
 			<div id="tools">
@@ -256,7 +256,7 @@
 				<div class="alerts">
 					<h3>Groups</h3>
 					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Latest to do's added</h3>
+					<h3>Latest goal's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>
 					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
@@ -266,7 +266,7 @@
 			</div>
 			<div class="one-col">
 				<p class="extra-buttons">
-				    <a href="addEvent.aspx" title="add todo" class="button-sml modal">add todo</a>
+				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">add goal</a>
 				    <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
 				        OnClick="click_viewArchiveLink" />
 				</p>

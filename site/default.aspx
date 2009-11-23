@@ -161,11 +161,11 @@
 				</p>
 			</div>
 			<div class="two-col">
-			    <label for="what" class="what">what are you going to do?</label>
+			    <label for="what" class="what">what is your goal?</label>
 			    <asp:TextBox ID="what" runat="server" />
 			    <asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
 			        ImageUrl="images/go.gif" ToolTip="go" CssClass="go" />
-			    <p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p>
+			    <p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="button-sml modal">advanced search</a></p>
 			</div>
 	        <div id="timelines">
 		        <div id="tools">
@@ -205,16 +205,16 @@
 				</div>
 				<div class="one-col">
 					<h2>how does it work?</h2>
-					<p class="teaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis lacus sed est tincidunt aliquet blandit nec orci.</p>
+					<p class="teaser">Sedogo lets you create your own timeline of future goals and connect with others to make them happen.</p>
 					<p><a href="tour.aspx" title="take a tour" class="button modal">take a tour</a></p>
 				</div>
 				<div class="one-col">
 					<h2>join in today</h2>
-					<p class="teaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis lacus sed est tincidunt aliquet blandit nec orci.</p>
+					<p class="teaser">Start creating personal goals right now. Registering is fast, easy and free!</p>
 				</div>
 				<div class="one-col-end">
 					<h2>get inspired</h2>
-					<p class="teaser">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis lacus sed est tincidunt aliquet blandit nec orci.</p>
+					<p class="teaser">Need help getting started? How about a few ideas on what you might want to achieve?</p>
 				</div>
 			</div>
 			<div id="footer">

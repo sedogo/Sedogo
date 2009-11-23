@@ -7,9 +7,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<title>View event : Sedogo : Create your future and connect with others to make it happen</title>
 
@@ -38,9 +38,9 @@
                 <div class="buttons">
                 <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
                     Text="Upload image" CssClass="button-sml" /></p>
-                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this to do"
+                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this goal"
                     OnClick="trackThisEventLink_click" /></p>
-                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create an to do like this for me"
+                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create a goal like this for me"
                     OnClick="createSimilarEventLink_click" CssClass="button-sml" /></p>
                 </div>
                 <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
@@ -69,11 +69,11 @@
 		            <asp:LinkButton 
 		                ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
 		                OnClick="postCommentButton_click" CssClass="button-sml" />
-                    <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this to do"
+                    <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
                         OnClick="joinThisEventLink_click" CssClass="button-sml" />
                         <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" /></p>
 		            <asp:LinkButton 
-		                ID="deleteEventButton" runat="server" ToolTip="delete event" Text="delete event" 
+		                ID="deleteEventButton" runat="server" ToolTip="delete goal" Text="delete goal" 
 		                OnClick="deleteEventButton_click" CssClass="button-sml" />
 		        
 		        <div id="loginRegisterPanel" runat="server">

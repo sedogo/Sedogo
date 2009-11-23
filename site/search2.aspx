@@ -195,7 +195,7 @@
 			</p>
 		</div>
 		<div class="three-col">
-			<label for="what" class="what">what are you going to do?</label>
+			<label for="what" class="what">what is your goal?</label>
 			<asp:TextBox ID="what" runat="server" />
 			<asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
 			    ImageUrl="images/go.gif" ToolTip="go" CssClass="go" />
@@ -204,16 +204,35 @@
 					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
 				</li>
 				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your todo list</label>
+					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your goal list</label>
 				</li>
 			</ol>
-			<p class="advanced-search"><a href="#" title="advanced search">advanced search</a></p><br />
 		</div>
 		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
 		</div>
 		<div id="moreThan50ResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
+		</div>
+		<div id="advSearchCriteria">
+		    Refine your search:<br />
+		    
+            <label for="">Goal name</label>
+            <asp:TextBox runat="server"
+                ID="eventNameTextBox" Width="200px" MaxLength="200" /><br />
+
+            <label for="">Venue</label>
+            <asp:TextBox runat="server"
+                ID="venueTextBox" Width="200px" MaxLength="200" /><br />
+
+            <label for="">Goal owner name</label>
+            <asp:TextBox runat="server"
+                ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" />
+                
+            <asp:LinkButton 
+                ID="advSearchButton" runat="server" Text="Search" 
+                OnClick="advSearchButton_click" CssClass="button-sml" />
+                
 		</div>
 		<div id="timelines">
 			<div id="tools">
@@ -259,7 +278,7 @@
 				<div class="alerts">
 					<h3>Groups</h3>
 					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Latest to dos added</h3>
+					<h3>Latest goals added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>
 					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>

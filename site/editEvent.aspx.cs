@@ -123,26 +123,31 @@ public partial class editEvent : SedogoPage
     protected void dateTypeDropDownList_changed(object sender, EventArgs e)
     {
         string dateType = dateTypeDropDownList.SelectedValue;
-        if( dateTypeDropDownList.SelectedValue == "5" )
+
+        ShowHideDates(dateTypeDropDownList.SelectedValue);
+    }
+
+    //===============================================================
+    // Function: datePickList_changed
+    //===============================================================
+    protected void datePickList_changed(object sender, EventArgs e)
+    {
+        if (datePickList.SelectedValue == "5")
         {
-            dateType = "D";
             CalendarStartDate.SelectedDate = DateTime.Now.AddYears(5);
             PickerStartDate.SelectedDate = DateTime.Now.AddYears(5);
         }
-        if( dateTypeDropDownList.SelectedValue == "10" )
+        if (datePickList.SelectedValue == "10")
         {
-            dateType = "D";
             CalendarStartDate.SelectedDate = DateTime.Now.AddYears(10);
             PickerStartDate.SelectedDate = DateTime.Now.AddYears(10);
         }
-        if( dateTypeDropDownList.SelectedValue == "20" )
+        if (datePickList.SelectedValue == "20")
         {
-            dateType = "D";
             CalendarStartDate.SelectedDate = DateTime.Now.AddYears(20);
             PickerStartDate.SelectedDate = DateTime.Now.AddYears(20);
         }
-
-        ShowHideDates(dateTypeDropDownList.SelectedValue);
+        datePickList.SelectedValue = "";
     }
 
     //===============================================================
@@ -208,6 +213,8 @@ public partial class editEvent : SedogoPage
         sedogoEvent.mustDo = mustDoCheckBox.Checked;
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Update();
+
+        sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
     }

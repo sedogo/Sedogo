@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent" %>
+<%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -12,7 +13,7 @@
 	<meta http-equiv="expires" content="0"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>Add to do : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Create goal : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -30,53 +31,53 @@
 	<![endif]-->
 	
 <script language="JavaScript" type="text/javascript">
-function setHiddenStartDateField()
+function PickerStartDate_OnChange()
 {
-	var form = document.forms[0];
-	var d = form.startDateDay.options[form.startDateDay.selectedIndex].value;
-	var m = form.startDateMonth.options[form.startDateMonth.selectedIndex].value;
-	var y = form.startDateYear.options[form.startDateYear.selectedIndex].value;
-	
-	if( d == "" && m == "" && y == "" )
-	{
-        form.hiddenStartDate.value = "";
-	}
-	else
-	{
-        form.hiddenStartDate.value = <asp:Literal id="dateString1" runat="server" />;
-    }
+    <%= CalendarStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
 }
-function setHiddenRangeStartDateField()
+function CalendarStartDate_OnChange()
 {
-	var form = document.forms[0];
-	var d = form.dateRangeStartDay.options[form.dateRangeStartDay.selectedIndex].value;
-	var m = form.dateRangeStartMonth.options[form.dateRangeStartMonth.selectedIndex].value;
-	var y = form.dateRangeStartYear.options[form.dateRangeStartYear.selectedIndex].value;
-	
-	if( d == "" && m == "" && y == "" )
-	{
-        form.hiddenDateRangeStartDate.value = "";
-	}
-	else
-	{
-        form.hiddenDateRangeStartDate.value = <asp:Literal id="dateString2" runat="server" />;
-    }
+    <%= PickerStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
 }
-function setHiddenRangeEndDateField()
+function popupCalendarStartDate(image)
 {
-	var form = document.forms[0];
-	var d = form.dateRangeEndDay.options[form.dateRangeEndDay.selectedIndex].value;
-	var m = form.dateRangeEndMonth.options[form.dateRangeEndMonth.selectedIndex].value;
-	var y = form.dateRangeEndYear.options[form.dateRangeEndYear.selectedIndex].value;
-	
-	if( d == "" && m == "" && y == "" )
-	{
-        form.hiddenDateRangeEndDate.value = "";
-	}
-	else
-	{
-        form.hiddenDateRangeEndDate.value = <asp:Literal id="dateString3" runat="server" />;
+    if( <%= CalendarStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+    {
+        <%= CalendarStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
     }
+    <%=CalendarStartDate.ClientObjectId%>.Show(image);    
+}
+function PickerRangeStartDate_OnChange()
+{
+    <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function CalendarRangeStartDate_OnChange()
+{
+    <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function popupCalendarRangeStartDate(image)
+{
+    if( <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+    {
+        <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+    }
+    <%=CalendarRangeStartDate.ClientObjectId%>.Show(image);    
+}
+function PickerRangeEndDate_OnChange()
+{
+    <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function CalendarRangeEndDate_OnChange()
+{
+    <%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function popupCalendarRangeEndDate(image)
+{
+    if( <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+    {
+        <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+    }
+    <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
 }
 </script>
 	
@@ -90,11 +91,11 @@ function setHiddenRangeEndDateField()
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>add to do</h1>
+            <h1>Create goal</h1>
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">What are you going to do?</label>
+                        <label for="">Goal name?</label>
                     </li>
                     <li>
                         <asp:TextBox runat="server"
@@ -104,12 +105,196 @@ function setHiddenRangeEndDateField()
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">To do description</label>
+                        <label for="">Goal description</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="eventDescriptionTextBox" Width="200px" />
                     </li>
                     <li>
-                        <label for="">What type of thing?</label>
+                        <label for="">Where</label>
+                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
+                            ID="eventVenueTextBox" Width="200px" />
+                    </li>
+                    <li>
+                        <label for="">When</label>
+                        <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
+                            OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
+                            <asp:ListItem Text="Specific date" Value="D" />
+                            <asp:ListItem Text="Date range" Value="R" />
+                            <asp:ListItem Text="Before age" Value="A" />
+                        </asp:DropDownList>
+                    </li>
+                    <li id="startDateLI" runat="server">
+                        <label for="">Start date</label>
+                        
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><ComponentArt:Calendar ID="PickerStartDate" 
+                                    runat="server" 
+                                    ClientSideOnSelectionChanged="PickerStartDate_OnChange"
+                                    ControlType="Picker" 
+                                    PickerCssClass="picker" 
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar>
+                                <ComponentArt:Calendar ID="CalendarStartDate" 
+                                    runat="server" 
+                                    CalendarCssClass="calendar"
+                                    TitleCssClass="title" 
+                                    ControlType="Calendar"
+                                    DayCssClass="day" 
+                                    DayHeaderCssClass="dayheader" 
+                                    DayHoverCssClass="dayhover" 
+                                    DayNameFormat="FirstTwoLetters"
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    MonthCssClass="month"
+                                    NextImageUrl="cal_nextMonth.gif"
+                                    NextPrevCssClass="nextprev" 
+                                    OtherMonthDayCssClass="othermonthday" 
+                                    PrevImageUrl="cal_prevMonth.gif" 
+                                    SelectedDayCssClass="selectedday" 
+                                    SelectMonthCssClass="selector"
+                                    SelectMonthText="&curren;" 
+                                    SelectWeekCssClass="selector"
+                                    SelectWeekText="&raquo;" 
+                                    SwapDuration="300"
+                                    SwapSlide="Linear"
+                                    ClientSideOnSelectionChanged="CalendarStartDate_OnChange" 
+                                    PopUp="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar></td>
+                                <td><img alt="Click for pop-up calendar" 
+                                    id="Img4" 
+                                    onclick="popupCalendarStartDate(this)" 
+                                    class="calendar_button" 
+                                    src="./images/calendarImages/btn_calendar.gif" 
+                                    width="25" height="22" /></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><asp:DropDownList ID="datePickList" runat="server" 
+                                    OnSelectedIndexChanged="datePickList_changed" AutoPostBack="true">
+                                    <asp:ListItem Text="" Value="" />
+                                    <asp:ListItem Text="In 5 years time" Value="5" />
+                                    <asp:ListItem Text="In 10 years time" Value="10" />
+                                    <asp:ListItem Text="In 20 years time" Value="20" />
+                                </asp:DropDownList></td>
+                            </tr>
+                        </table>
+                        
+                    </li>
+                    <li id="dateRangeLI1" runat="server">
+                        <label for="">Start date</label>
+                        
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><ComponentArt:Calendar ID="PickerRangeStartDate" 
+                                    runat="server" 
+                                    ClientSideOnSelectionChanged="PickerRangeStartDate_OnChange"
+                                    ControlType="Picker" 
+                                    PickerCssClass="picker" 
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar>
+                                <ComponentArt:Calendar ID="CalendarRangeStartDate" 
+                                    runat="server" 
+                                    CalendarCssClass="calendar"
+                                    TitleCssClass="title" 
+                                    ControlType="Calendar"
+                                    DayCssClass="day" 
+                                    DayHeaderCssClass="dayheader" 
+                                    DayHoverCssClass="dayhover" 
+                                    DayNameFormat="FirstTwoLetters"
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    MonthCssClass="month"
+                                    NextImageUrl="cal_nextMonth.gif"
+                                    NextPrevCssClass="nextprev" 
+                                    OtherMonthDayCssClass="othermonthday" 
+                                    PrevImageUrl="cal_prevMonth.gif" 
+                                    SelectedDayCssClass="selectedday" 
+                                    SelectMonthCssClass="selector"
+                                    SelectMonthText="&curren;" 
+                                    SelectWeekCssClass="selector"
+                                    SelectWeekText="&raquo;" 
+                                    SwapDuration="300"
+                                    SwapSlide="Linear"
+                                    ClientSideOnSelectionChanged="CalendarRangeStartDate_OnChange" 
+                                    PopUp="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar></td>
+                                <td><img alt="Click for pop-up calendar" 
+                                    id="Img1" 
+                                    onclick="popupCalendarRangeStartDate(this)" 
+                                    class="calendar_button" 
+                                    src="./images/calendarImages/btn_calendar.gif" 
+                                    width="25" height="22" /></td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li id="dateRangeLI2" runat="server">
+                        <label for="">To date</label>
+
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><ComponentArt:Calendar ID="PickerRangeEndDate" 
+                                    runat="server" 
+                                    ClientSideOnSelectionChanged="PickerRangeEndDate_OnChange"
+                                    ControlType="Picker" 
+                                    PickerCssClass="picker" 
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar>
+                                <ComponentArt:Calendar ID="CalendarRangeEndDate" 
+                                    runat="server" 
+                                    CalendarCssClass="calendar"
+                                    TitleCssClass="title" 
+                                    ControlType="Calendar"
+                                    DayCssClass="day" 
+                                    DayHeaderCssClass="dayheader" 
+                                    DayHoverCssClass="dayhover" 
+                                    DayNameFormat="FirstTwoLetters"
+                                    ImagesBaseUrl="./images/calendarImages/"
+                                    MonthCssClass="month"
+                                    NextImageUrl="cal_nextMonth.gif"
+                                    NextPrevCssClass="nextprev" 
+                                    OtherMonthDayCssClass="othermonthday" 
+                                    PrevImageUrl="cal_prevMonth.gif" 
+                                    SelectedDayCssClass="selectedday" 
+                                    SelectMonthCssClass="selector"
+                                    SelectMonthText="&curren;" 
+                                    SelectWeekCssClass="selector"
+                                    SelectWeekText="&raquo;" 
+                                    SwapDuration="300"
+                                    SwapSlide="Linear"
+                                    ClientSideOnSelectionChanged="CalendarRangeEndDate_OnChange" 
+                                    PopUp="Custom" 
+                                    PopUpExpandControlId="calendarButton">
+                                </ComponentArt:Calendar></td>
+                                <td><img alt="Click for pop-up calendar" 
+                                    id="Img2" 
+                                    onclick="popupCalendarRangeEndDate(this)" 
+                                    class="calendar_button" 
+                                    src="./images/calendarImages/btn_calendar.gif" 
+                                    width="25" height="22" /></td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li id="birthdayLI" runat="server">
+                        <label for="">Birthday</label>
+                        <asp:DropDownList ID="birthdayDropDownList" runat="server">
+                        </asp:DropDownList>
+                    </li>
+                    <li>
+                        <label for="">Timezone</label>
+                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
+                            DataTextField="Description" DataValueField="TimezoneID">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
+                        ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
+                        <label for="">Category</label>
                         <asp:DropDownList ID="categoryDropDownList" runat="server">
                             <asp:ListItem Text="Personal" Value="1" />
                             <asp:ListItem Text="Travel" Value="2" />
@@ -127,82 +312,22 @@ function setHiddenRangeEndDateField()
                         </asp:DropDownList>
                     </li>
                     <li>
-                        <label for="">When?</label>
-                        <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
-                            OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
-                            <asp:ListItem Text="Specific date" Value="D" />
-                            <asp:ListItem Text="Date range" Value="R" />
-                            <asp:ListItem Text="Before age" Value="A" />
-                        </asp:DropDownList>
-                    </li>
-                    <li id="startDateLI" runat="server">
-                        <label for="">Start date</label>
-                        <asp:DropDownList ID="startDateDay" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="startDateMonth" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="startDateYear" runat="server">
-                        </asp:DropDownList>
-                        <asp:TextBox ID="hiddenStartDate" runat="server" />
-                        <asp:CompareValidator ID="startDateValidator" runat="server"
-                           ControlToValidate="hiddenStartDate" ErrorMessage="Enter a valid start date"
-                           Operator="DataTypeCheck" Type="Date" />
-                    </li>
-                    <li id="dateRangeLI1" runat="server">
-                        <label for="">Start date</label>
-                        <asp:DropDownList ID="dateRangeStartDay" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateRangeStartMonth" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateRangeStartYear" runat="server">
-                        </asp:DropDownList>
-                        <asp:TextBox ID="hiddenDateRangeStartDate" runat="server" />
-                        <asp:CompareValidator ID="hiddenDateRangeStartDateValidator" runat="server"
-                           ControlToValidate="hiddenDateRangeStartDate" ErrorMessage="Enter a valid start date"
-                           Operator="DataTypeCheck" Type="Date" />
-                    </li>
-                    <li id="dateRangeLI2" runat="server">
-                        <label for="">To date</label>
-                        <asp:DropDownList ID="dateRangeEndDay" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateRangeEndMonth" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateRangeEndYear" runat="server">
-                        </asp:DropDownList>
-                        <asp:TextBox ID="hiddenDateRangeEndDate" runat="server" />
-                        <asp:CompareValidator ID="hiddenDateRangeEndDateValidator" runat="server"
-                           ControlToValidate="hiddenDateRangeEndDate" ErrorMessage="Enter a valid end date"
-                           Operator="DataTypeCheck" Type="Date" />
-                    </li>
-                    <li id="birthdayLI" runat="server">
-                        <label for="">Birthday</label>
-                        <asp:DropDownList ID="birthdayDropDownList" runat="server">
-                        </asp:DropDownList>
-                    </li>
-                    <li>
-                        <label for="">Timezone</label>
-                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
-                            DataTextField="Description" DataValueField="TimezoneID">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
-                        ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">Private to do</label>
-                        <asp:CheckBox ID="privateEventCheckbox" runat="server" />
-                    </li>
-                    <li>
-                        <label for="">Must do</label>
-                        <asp:CheckBox ID="mustDoCheckBox" runat="server" />
-                    </li>
-                    <li>
-                        <div class="buttons">
-                        <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                            Text="Save" CssClass="button-sml" />
-		                <asp:LinkButton 
-		                    ID="backButton" runat="server" ToolTip="save" Text="Back to event details" 
-		                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
-	                    </div>
+                        <label for="">Nature of goal</label>
+                        <p>Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
+                        Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></p>
                     </li>
                 </ol>
             </fieldset>
 		</div>
     
+        <div class="buttons">
+        <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
+            Text="Create" CssClass="button-sml" />
+        <asp:LinkButton 
+            ID="backButton" runat="server" ToolTip="save" Text="Go back" 
+            OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+        </div>
+
     </div>
     </form>
 </body>

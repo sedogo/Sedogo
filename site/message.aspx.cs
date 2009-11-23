@@ -130,5 +130,14 @@ public partial class message : SedogoPage
             int userID = int.Parse(Session["loggedInUserID"].ToString());
             PopulateMessageList(userID);
         }
+        if (e.CommandName == "sendReplyMessageButton")
+        {
+            int messageID = int.Parse(e.CommandArgument.ToString());
+
+            Message message = new Message(Session["loggedInUserFullName"].ToString(), messageID);
+
+            Response.Redirect("sendUserMessage.aspx?UID=" + message.postedByUserID.ToString() 
+                + "&EID=" + message.eventID.ToString());
+        }
     }
 }

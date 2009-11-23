@@ -35,17 +35,17 @@ public partial class sendMessageToTrackers : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        int eventID = int.Parse(Request.QueryString["EID"]);
         if (!IsPostBack)
         {
-            int eventID = int.Parse(Request.QueryString["EID"]);
 
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-            PopulateTrackingList(eventID);
 
             eventNameLabel.Text = sedogoEvent.eventName;
 
             SetFocus(messageTextBox);
         }
+        PopulateTrackingList(eventID);
     }
 
     //===============================================================
@@ -58,6 +58,8 @@ public partial class sendMessageToTrackers : SedogoPage
         {
             conn.Open();
 
+            trackingLinksPlaceholder.Controls.Add(new LiteralControl("<p>"));
+
             SqlCommand cmd = new SqlCommand("", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "spSelectTrackingUsersByEventID";
@@ -67,7 +69,7 @@ public partial class sendMessageToTrackers : SedogoPage
             {
                 string profilePicThumbnail = "";
 
-                //int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
+                int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
                 //int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
@@ -86,12 +88,23 @@ public partial class sendMessageToTrackers : SedogoPage
                     profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<p><img src=\"" + profileImagePath + "\" />"
-                    + firstName + " " + lastName + "<p>";
+                CheckBox trackerCheckBox = new CheckBox();
+                trackerCheckBox.ID = "trackerCheckBox_" + trackedEventID.ToString();
+                trackerCheckBox.Checked = true;
 
+                string outputText = "<img src=\"" + profileImagePath + "\" />&nbsp;"
+                    + firstName + " " + lastName;
+
+                //trackingLinksPlaceholder.Controls.Add(new LiteralControl("<table><tr><td>"));
+                trackingLinksPlaceholder.Controls.Add(trackerCheckBox);
+                trackingLinksPlaceholder.Controls.Add(new LiteralControl("&nbsp;"));
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                trackingLinksPlaceholder.Controls.Add(new LiteralControl("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
+                //trackingLinksPlaceholder.Controls.Add(new LiteralControl("</td></tr></table>"));
             }
             rdr.Close();
+
+            trackingLinksPlaceholder.Controls.Add(new LiteralControl("</p>"));
         }
         catch (Exception ex)
         {
@@ -131,42 +144,49 @@ public partial class sendMessageToTrackers : SedogoPage
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
+                int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
                 int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
                 string emailAddress = (string)rdr["EmailAddress"];
 
-                Message message = new Message(Session["loggedInUserFullName"].ToString());
-                message.userID = userID;
-                message.eventID = eventID;
-                message.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
-                message.messageText = messageText;
-                message.Add();
+                string fieldID = "trackerCheckBox_" + trackedEventID.ToString();
+                CheckBox trackerCheckBox = (CheckBox)FindControl(fieldID);
 
-                emailBodyCopy.AppendLine("From: " + currentUser.firstName + " " + currentUser.lastName + "<br/>");
-                emailBodyCopy.AppendLine(messageText.Replace("\n","<br/>"));
-
-                string emailSubject = "Sedogo message from " + currentUser.firstName + " regarding " + sedogoEvent.eventName;
-
-                string SMTPServer = gd.GetStringValue("SMTPServer");
-                string mailFromAddress = gd.GetStringValue("MailFromAddress");
-                string mailFromUsername = gd.GetStringValue("MailFromUsername");
-                string mailFromPassword = gd.GetStringValue("MailFromPassword");
-
-                MailMessage mailMessage = new MailMessage(mailFromAddress, emailAddress);
-                mailMessage.ReplyTo = new MailAddress(mailFromAddress);
-
-                mailMessage.Subject = emailSubject;
-                mailMessage.Body = emailBodyCopy.ToString();
-                mailMessage.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = SMTPServer;
-                if (mailFromPassword != "")
+                if (trackerCheckBox.Checked == true)
                 {
-                    // If the password is blank, assume mail relay is permitted
-                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                    Message message = new Message(Session["loggedInUserFullName"].ToString());
+                    message.userID = userID;
+                    message.eventID = eventID;
+                    message.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
+                    message.messageText = messageText;
+                    message.Add();
+
+                    emailBodyCopy.AppendLine("From: " + currentUser.firstName + " " + currentUser.lastName + "<br/>");
+                    emailBodyCopy.AppendLine(messageText.Replace("\n", "<br/>"));
+
+                    string emailSubject = "Sedogo message from " + currentUser.firstName + " regarding " + sedogoEvent.eventName;
+
+                    string SMTPServer = gd.GetStringValue("SMTPServer");
+                    string mailFromAddress = gd.GetStringValue("MailFromAddress");
+                    string mailFromUsername = gd.GetStringValue("MailFromUsername");
+                    string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+                    MailMessage mailMessage = new MailMessage(mailFromAddress, emailAddress);
+                    mailMessage.ReplyTo = new MailAddress(mailFromAddress);
+
+                    mailMessage.Subject = emailSubject;
+                    mailMessage.Body = emailBodyCopy.ToString();
+                    mailMessage.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = SMTPServer;
+                    if (mailFromPassword != "")
+                    {
+                        // If the password is blank, assume mail relay is permitted
+                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                    }
+                    smtp.Send(mailMessage);
                 }
-                smtp.Send(mailMessage);
             }
             rdr.Close();
         }

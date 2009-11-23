@@ -8,11 +8,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Edit to do title & details : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Edit goal title & details : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -50,7 +50,7 @@ function PickerRangeStartDate_OnChange()
 {
     <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
 }
-function CalendarAlertDate_OnChange()
+function CalendarRangeStartDate_OnChange()
 {
     <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
 }
@@ -86,19 +86,19 @@ function popupCalendarRangeEndDate(image)
     <div>
 
 	    <div id="modal">
-            <h1>edit to do</h1>
+            <h1>edit goal</h1>
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">To do name</label>
+                        <label for="">Goal name</label>
                         <asp:TextBox runat="server"
                             ID="eventNameTextBox" Width="200px" MaxLength="200" />
                             <asp:RequiredFieldValidator ID="eventNameTextBoxValidator" runat="server"
-                            ControlToValidate="eventNameTextBox" ErrorMessage="A to do name is required" Display="Dynamic">
+                            ControlToValidate="eventNameTextBox" ErrorMessage="A goal name is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">To do description</label>
+                        <label for="">Goal description</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="eventDescriptionTextBox" Width="200px" />
                     </li>
@@ -114,9 +114,6 @@ function popupCalendarRangeEndDate(image)
                             <asp:ListItem Text="Specific date" Value="D" />
                             <asp:ListItem Text="Date range" Value="R" />
                             <asp:ListItem Text="Before age" Value="A" />
-                            <asp:ListItem Text="In 5 years time" Value="5" />
-                            <asp:ListItem Text="In 10 years time" Value="10" />
-                            <asp:ListItem Text="In 20 years time" Value="20" />
                         </asp:DropDownList>
                     </li>
                     <li id="startDateLI" runat="server">
@@ -165,8 +162,17 @@ function popupCalendarRangeEndDate(image)
                                     class="calendar_button" 
                                     src="./images/calendarImages/btn_calendar.gif" 
                                     width="25" height="22" /></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><asp:DropDownList ID="datePickList" runat="server" 
+                                    OnSelectedIndexChanged="datePickList_changed" AutoPostBack="true">
+                                    <asp:ListItem Text="" Value="" />
+                                    <asp:ListItem Text="In 5 years time" Value="5" />
+                                    <asp:ListItem Text="In 10 years time" Value="10" />
+                                    <asp:ListItem Text="In 20 years time" Value="20" />
+                                </asp:DropDownList></td>
                             </tr>
                         </table>
+                        
                     </li>
                     <li id="dateRangeLI1" runat="server">
                         <label for="">Start date</label>
@@ -281,12 +287,9 @@ function popupCalendarRangeEndDate(image)
                         </asp:RequiredFieldValidator>
                     </li>
                     <li>
-                        <label for="">Private to do</label>
-                        <asp:CheckBox ID="privateEventCheckbox" runat="server" />
-                    </li>
-                    <li>
-                        <label for="">Must do</label>
-                        <asp:CheckBox ID="mustDoCheckBox" runat="server" />
+                        <label for="">Nature of goal</label>
+                        <p>Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
+                        Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></p>
                     </li>
                     <li>
                         <label for="">Category</label>
@@ -315,7 +318,7 @@ function popupCalendarRangeEndDate(image)
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                 OnClick="saveChangesButton_click" CssClass="button-sml" />
             <asp:LinkButton 
-                ID="backButton" runat="server" ToolTip="save" Text="Back to to do details" 
+                ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
                 OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
         </div>
     

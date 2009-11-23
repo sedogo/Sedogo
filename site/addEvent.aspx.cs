@@ -41,25 +41,13 @@ public partial class addEvent : SedogoPage
                 int.Parse(Session["loggedInUserID"].ToString()));
             int userAgeYears = DateTime.Now.Year - user.birthday.Year;
 
-            for (int day = 1; day <= 31; day++)
-            {
-                startDateDay.Items.Add(new ListItem(day.ToString(), day.ToString()));
-                dateRangeStartDay.Items.Add(new ListItem(day.ToString(), day.ToString()));
-                dateRangeEndDay.Items.Add(new ListItem(day.ToString(), day.ToString()));
-            }
-            for (int month = 1; month <= 12; month++)
-            {
-                DateTime loopDate = new DateTime(DateTime.Now.Year, month, 1);
-                startDateMonth.Items.Add(new ListItem(loopDate.ToString("MMMM", CultureInfo.InvariantCulture), month.ToString()));
-                dateRangeStartMonth.Items.Add(new ListItem(loopDate.ToString("MMMM", CultureInfo.InvariantCulture), month.ToString()));
-                dateRangeEndMonth.Items.Add(new ListItem(loopDate.ToString("MMMM", CultureInfo.InvariantCulture), month.ToString()));
-            }
-            for (int year = DateTime.Now.Year; year <= 2100; year++)
-            {
-                startDateYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
-                dateRangeStartYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
-                dateRangeEndYear.Items.Add(new ListItem(year.ToString(), year.ToString()));
-            }
+            CalendarStartDate.SelectedDate = DateTime.Now;
+            PickerStartDate.SelectedDate = DateTime.Now;
+            CalendarRangeStartDate.SelectedDate = DateTime.Now;
+            PickerRangeStartDate.SelectedDate = DateTime.Now;
+            CalendarRangeEndDate.SelectedDate = DateTime.Now;
+            PickerRangeEndDate.SelectedDate = DateTime.Now;
+
             for (int age = userAgeYears; age <= 100; age++)
             {
                 birthdayDropDownList.Items.Add(new ListItem(age.ToString(), age.ToString()));
@@ -70,33 +58,6 @@ public partial class addEvent : SedogoPage
                     birthdayDropDownList.SelectedValue = currentAge.ToString();
                 }
             }
-
-            hiddenStartDate.Attributes.Add("style", "display:none");
-            startDateDay.Attributes.Add("onchange", "setHiddenStartDateField()");
-            startDateMonth.Attributes.Add("onchange", "setHiddenStartDateField()");
-            startDateYear.Attributes.Add("onchange", "setHiddenStartDateField()");
-
-            startDateDay.SelectedValue = DateTime.Now.Day.ToString();
-            startDateMonth.SelectedValue = DateTime.Now.Month.ToString();
-            startDateYear.SelectedValue = DateTime.Now.Year.ToString();
-
-            hiddenDateRangeStartDate.Attributes.Add("style", "display:none");
-            dateRangeStartDay.Attributes.Add("onchange", "setHiddenRangeStartDateField()");
-            dateRangeStartMonth.Attributes.Add("onchange", "setHiddenRangeStartDateField()");
-            dateRangeStartYear.Attributes.Add("onchange", "setHiddenRangeStartDateField()");
-
-            dateRangeStartDay.SelectedValue = DateTime.Now.Day.ToString();
-            dateRangeStartMonth.SelectedValue = DateTime.Now.Month.ToString();
-            dateRangeStartYear.SelectedValue = DateTime.Now.Year.ToString();
-
-            hiddenDateRangeEndDate.Attributes.Add("style", "display:none");
-            dateRangeEndDay.Attributes.Add("onchange", "setHiddenRangeEndDateField()");
-            dateRangeEndMonth.Attributes.Add("onchange", "setHiddenRangeEndDateField()");
-            dateRangeEndYear.Attributes.Add("onchange", "setHiddenRangeEndDateField()");
-
-            dateRangeEndDay.SelectedValue = DateTime.Now.Day.ToString();
-            dateRangeEndMonth.SelectedValue = DateTime.Now.Month.ToString();
-            dateRangeEndYear.SelectedValue = DateTime.Now.Year.ToString();
 
             categoryDropDownList.SelectedValue = "1";
             startDateLI.Visible = true;
@@ -130,20 +91,30 @@ public partial class addEvent : SedogoPage
             }
 
             SetFocus(eventNameTextBox);
-
-            if ((string)Application["DateFormat"] == "dmy")
-            {
-                dateString1.Text = "d + \"/\" + m + \"/\" + y";
-                dateString2.Text = "d + \"/\" + m + \"/\" + y";
-                dateString3.Text = "d + \"/\" + m + \"/\" + y";
-            }
-            else
-            {
-                dateString1.Text = "m + \"/\" + d + \"/\" + y";
-                dateString2.Text = "m + \"/\" + d + \"/\" + y";
-                dateString3.Text = "m + \"/\" + d + \"/\" + y";
-            }
         }
+    }
+
+    //===============================================================
+    // Function: datePickList_changed
+    //===============================================================
+    protected void datePickList_changed(object sender, EventArgs e)
+    {
+        if (datePickList.SelectedValue == "5")
+        {
+            CalendarStartDate.SelectedDate = DateTime.Now.AddYears(5);
+            PickerStartDate.SelectedDate = DateTime.Now.AddYears(5);
+        }
+        if (datePickList.SelectedValue == "10")
+        {
+            CalendarStartDate.SelectedDate = DateTime.Now.AddYears(10);
+            PickerStartDate.SelectedDate = DateTime.Now.AddYears(10);
+        }
+        if (datePickList.SelectedValue == "20")
+        {
+            CalendarStartDate.SelectedDate = DateTime.Now.AddYears(20);
+            PickerStartDate.SelectedDate = DateTime.Now.AddYears(20);
+        }
+        datePickList.SelectedValue = "";
     }
 
     //===============================================================
@@ -185,21 +156,17 @@ public partial class addEvent : SedogoPage
         sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
         sedogoEvent.eventName = eventName;
         sedogoEvent.eventDescription = eventDescriptionTextBox.Text;
-        if( dateTypeDropDownList.SelectedValue == "D" )
+        sedogoEvent.eventVenue = eventVenueTextBox.Text;
+
+
+        if (dateTypeDropDownList.SelectedValue == "D")
         {
-            DateTime startDate = new DateTime(int.Parse(startDateYear.SelectedValue),
-                int.Parse(startDateMonth.SelectedValue), int.Parse(startDateDay.SelectedValue));
-            sedogoEvent.startDate = startDate;
+            sedogoEvent.startDate = CalendarStartDate.SelectedDate;
         }
-        if( dateTypeDropDownList.SelectedValue == "R" )
+        if (dateTypeDropDownList.SelectedValue == "R")
         {
-            //sedogoEvent.startDate = DateTime.MinValue;
-            DateTime dateRangeStart = new DateTime(int.Parse(dateRangeStartYear.SelectedValue),
-                int.Parse(dateRangeStartMonth.SelectedValue), int.Parse(dateRangeStartDay.SelectedValue));
-            DateTime dateRangeEnd = new DateTime(int.Parse(dateRangeEndYear.SelectedValue),
-                int.Parse(dateRangeEndMonth.SelectedValue), int.Parse(dateRangeEndDay.SelectedValue));
-            sedogoEvent.rangeStartDate = dateRangeStart;
-            sedogoEvent.rangeEndDate = dateRangeEnd;
+            sedogoEvent.rangeStartDate = CalendarRangeStartDate.SelectedDate;
+            sedogoEvent.rangeEndDate = CalendarRangeEndDate.SelectedDate;
         }
         if (dateTypeDropDownList.SelectedValue == "A")
         {
@@ -212,7 +179,7 @@ public partial class addEvent : SedogoPage
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Add();
 
-        Response.Redirect("viewEvent.aspx?EID=" + sedogoEvent.eventID.ToString());
+        Response.Redirect("addEventUploadPic.aspx?EID=" + sedogoEvent.eventID.ToString());
     }
 
     //===============================================================

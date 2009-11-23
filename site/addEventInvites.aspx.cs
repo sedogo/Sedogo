@@ -1,14 +1,14 @@
 ﻿//===============================================================
-// Filename: eventInvites.aspx.cs
-// Date: 21/10/09
+// Filename: addEventInvites.aspx
+// Date: 21/11/09
 // --------------------------------------------------------------
 // Description:
-//   Event invitations
+//   Add event invites
 // --------------------------------------------------------------
 // Dependencies:
 //   None
 // --------------------------------------------------------------
-// Original author: PRD 21/10/09
+// Original author: PRD 21/11/09
 // Revision history:
 //===============================================================
 
@@ -16,156 +16,29 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using System.Text;
 using System.Net.Mail;
+using System.Text;
+using System.IO;
 using Sedogo.BusinessObjects;
 
-public partial class eventInvites : SedogoPage
+public partial class addEventInvites : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
-            int eventID = int.Parse(Request.QueryString["EID"]);
-            string action = "";
-            int eventInviteID = -1;
-            if (Request.QueryString["A"] != null && Request.QueryString["EIID"] != null)
-            {
-                action = Request.QueryString["A"].ToString();
-                eventInviteID = int.Parse(Request.QueryString["EIID"]);
+        int eventID = int.Parse(Request.QueryString["EID"]);
 
-                if (action == "Delete")
-                {
-                    try
-                    {
-                        EventInvite inviteToDelete = new EventInvite(Session["loggedInUserFullName"].ToString(), eventInviteID);
-                        inviteToDelete.Delete();
-                    }
-                    catch (Exception ex)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
-                            "alert(\"Error: " + ex.Message + "\");", true);
-                    }
-                }
-                if (action == "InviteAgain")
-                {
-                    try
-                    {
-                        EventInvite repeatInvite = new EventInvite(Session["loggedInUserFullName"].ToString(), eventInviteID);
-                        repeatInvite.inviteDeclined = false;
-                        repeatInvite.inviteDeclinedDate = DateTime.MinValue;
-                        repeatInvite.Update();
-                    }
-                    catch (Exception ex)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
-                            "alert(\"Error: " + ex.Message + "\");", true);
-                    }
-                }
-            }
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-            SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
-
-            string dateString = "";
-            DateTime startDate = sedogoEvent.startDate;
-            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
-                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
-
-            eventTitleLabel.Text = sedogoEvent.eventName;
-            eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
-            eventDateLabel.Text = dateString;
-            eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
-
-            PopulateInvitations(eventID);
-        }
-    }
-
-    //===============================================================
-    // Function: PopulateInvitations
-    //===============================================================
-    private void PopulateInvitations(int eventID)
-    {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        try
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectEventInvitesList";
-            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
-            DbDataReader rdr = cmd.ExecuteReader();
-            if (rdr.HasRows == true)
-            {
-                while (rdr.Read())
-                {
-                    int eventInviteID = int.Parse(rdr["EventInviteID"].ToString());
-                    string emailAddress = (string)rdr["EmailAddress"];
-                    Boolean inviteEmailSent = (Boolean)rdr["InviteEmailSent"];
-                    //string InviteEmailSentEmailAddress = (string)rdr["InviteEmailSentEmailAddress"];
-                    //DateTime InviteEmailSentDate = (DateTime)rdr["InviteEmailSentDate"];
-                    Boolean inviteAccepted = (Boolean)rdr["InviteAccepted"];
-                    //DateTime inviteAcceptedDate = (DateTime)rdr["InviteAcceptedDate"];
-                    //DateTime createdDate = (DateTime)rdr["CreatedDate"];
-                    Boolean inviteDeclined = (Boolean)rdr["InviteDeclined"];
-
-                    string outputText = "<h3>" + emailAddress + "</h3><p>";
-                    if( inviteEmailSent == false )
-                    {
-                        outputText = outputText + "<i>Unable to send email!</i><br/>";
-                    }
-                    if (inviteAccepted == false && inviteDeclined == false)
-                    {
-                        outputText = outputText + "<i>Pending</i>";
-                        outputText = outputText + " (<a href=\"eventInvites.aspx?EID=" + eventID.ToString()
-                            + "&A=Delete&EIID=" + eventInviteID.ToString() + "\">Delete</a>)";
-                    }
-                    else
-                    {
-                        if (inviteAccepted == true)
-                        {
-                            outputText = outputText + "<i>Accepted</i>";
-                        }
-                        if (inviteDeclined == true)
-                        {
-                            outputText = outputText + "<i>Declined</i>";
-                            outputText = outputText + " (<a href=\"eventInvites.aspx?EID=" + eventID.ToString()
-                                + "&A=InviteAgain&EIID=" + eventInviteID.ToString() + "\">Invite again</a>)";
-                        }
-                    }
-                    outputText = outputText + "</p>";
-
-                    currentInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
-                }
-            }
-            else
-            {
-                string outputText = "<p>&nbsp;<br/>There are no invitations for this goal</p>";
-
-                currentInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
-            }
-            rdr.Close();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            conn.Close();
-        }
+        eventNameLabel.Text = sedogoEvent.eventName;
     }
 
     //===============================================================
@@ -319,7 +192,7 @@ public partial class eventInvites : SedogoPage
 
         if (allInvitesSentOK == true)
         {
-            Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+            Response.Redirect("addEventReminders.aspx?EID=" + eventID.ToString());
         }
         else
         {
@@ -333,8 +206,6 @@ public partial class eventInvites : SedogoPage
             inviteTextBox3.Text = "";
             inviteTextBox4.Text = "";
             inviteTextBox5.Text = "";
-
-            PopulateInvitations(eventID);
         }
     }
 
@@ -450,12 +321,12 @@ public partial class eventInvites : SedogoPage
     }
 
     //===============================================================
-    // Function: click_backToEventDetailsLink
+    // Function: click_skipInvitesLink
     //===============================================================
-    protected void click_backToEventDetailsLink(object sender, EventArgs e)
+    protected void click_skipInvitesLink(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
 
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+        Response.Redirect("addEventReminders.aspx?EID=" + eventID.ToString());
     }
 }

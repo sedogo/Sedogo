@@ -8,9 +8,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<title>Forgot password : Sedogo : Create your future and connect with others to make it happen</title>
 
@@ -47,13 +47,15 @@
                             ErrorMessage="The email address is not valid" 
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="forgotPasswordButton" runat="server" OnClick="forgotPasswordButton_click" Text="Reset password" />
-                    </li>
                 </ol>
             </fieldset>
 		</div>
+    
+        <div class="buttons">
+            <asp:LinkButton 
+                ID="forgotPasswordButton" runat="server" ToolTip="Reset password" Text="Reset password" 
+                OnClick="forgotPasswordButton_click" CssClass="button-sml" />
+        </div>
     
     </div>
     </form>

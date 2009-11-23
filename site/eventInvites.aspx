@@ -7,11 +7,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>To do invites : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Goal invites : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -65,7 +65,7 @@
                 <div class="buttons">
                 <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites"
                     OnClick="sendInvitesLink_click" CssClass="button-sml" />
-	            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to to do details" 
+	            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to goal details" 
 	                ToolTip="back to event details" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
                 </p>
                 </div>

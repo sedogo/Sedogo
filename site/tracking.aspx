@@ -7,9 +7,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">
-	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<title>Tracking : Sedogo : Create your future and connect with others to make it happen</title>
 
@@ -33,10 +33,10 @@
     <div>
     
 	    <div id="modal">
-            <h1>to dos</h1>
+            <h1>goals</h1>
 
             <div id="noTrackedEventsDiv" runat="server">
-            <p>You are not tracking any to dos.</p>
+            <p>You are not tracking any goals.</p>
             </div>
             
             <div id="trackedEventsDiv" runat="server">

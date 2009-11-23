@@ -425,7 +425,7 @@ public partial class userTimeline : SedogoPage
                     }
                     eventString.Append(eventName + "</h3>");
 
-                    eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this to do.</p>");
+                    eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this goal.</p>");
 
                     eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
 

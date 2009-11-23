@@ -60,14 +60,10 @@ function popupCalendarAlertDate(image)
                 <asp:PlaceHolder ID="currentAlertsPlaceholder" runat="server" />
             </div>
             <div class="left-col">
-		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <h1 style="">alerts for <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		        <i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
-		        <p>
-		            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to event details" 
-		                ToolTip="back to goal details" OnClick="click_backToEventDetailsLink" />
-		        </p>
 
                 <p><b>Add new alert:</b></p>
 
@@ -139,9 +135,14 @@ function popupCalendarAlertDate(image)
                     Width="300px" Rows="6" />
 
                 <p><asp:LinkButton ID="createAlertLink" runat="server" Text="Create alert"
-                    OnClick="createAlertLink_click" /></p>
+                    OnClick="createAlertLink_click" CssClass="button-sml" /></p>
 		    </div>
 		</div>
+
+        <div class="buttons">
+            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to event details" 
+                ToolTip="back to goal details" OnClick="click_backToEventDetailsLink" />
+        </div>
     
     </div>
     </form>

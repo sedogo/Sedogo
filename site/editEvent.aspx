@@ -103,12 +103,12 @@ function popupCalendarRangeEndDate(image)
                             ID="eventDescriptionTextBox" Width="200px" />
                     </li>
                     <li>
-                        <label for="">Venue</label>
+                        <label for="">Where</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="eventVenueTextBox" Width="200px" />
                     </li>
                     <li>
-                        <label for="">When?</label>
+                        <label for="">When</label>
                         <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
                             OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
                             <asp:ListItem Text="Specific date" Value="D" />

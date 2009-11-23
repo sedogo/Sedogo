@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadProfilePic.aspx.cs" Inherits="uploadProfilePic" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadProfilePic.aspx.cs" Inherits="uploadProfilePic" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -35,7 +35,15 @@
     
 	    <div id="modal">
             <h1>upload profile picture</h1>
-            <p>Text to be added</p>
+            
+            <asp:ValidationSummary runat="server" ID="validationSummary" 
+                ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+                HeaderText="Please review the following errors:" />
+            
+            <table width="100%">
+                <tr>
+                    <td valign="top">
+                    
             <fieldset>
                 <ol>
                     <li>
@@ -46,12 +54,25 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:Button id="uploadProfilePicButton" runat="server" OnClick="uploadProfilePicButton_click" Text="Upload picture" />
-                    </li>
                 </ol>
             </fieldset>
+
+                    </td>
+                    <td align="right">
+                        <asp:Image ID="profileImage" runat="server" CssClass="profile" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="buttons">
+                <asp:LinkButton 
+                    ID="uploadProfilePicButton" runat="server" ToolTip="Upload picture" Text="Upload picture" 
+                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                <asp:LinkButton 
+                    ID="backButton" runat="server" ToolTip="Back to edit profile" Text="Back to edit profile" 
+                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+            </div>
+
 		</div>
     
     </div>

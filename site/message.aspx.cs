@@ -60,11 +60,31 @@ public partial class message : SedogoPage
             messagesDiv.Visible = false;
         }
 
+        if (Session["ViewArchivedMessages"] == null || (Boolean)Session["ViewArchivedMessages"] == false)
+        {
+            viewArchivedMessagesButton.Visible = true;
+            hideArchivedMessagesButton.Visible = false;
+        }
+        else
+        {
+            viewArchivedMessagesButton.Visible = false;
+            hideArchivedMessagesButton.Visible = true;
+        }
+
         try
         {
             SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
 
-            SqlCommand cmd = new SqlCommand("spSelectUnreadMessageList", conn);
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            if (Session["ViewArchivedMessages"] == null || (Boolean)Session["ViewArchivedMessages"] == false)
+            {
+                cmd.CommandText = "spSelectUnreadMessageList";
+            }
+            else
+            {
+                cmd.CommandText = "spSelectMessageList";
+            }
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
 
@@ -97,6 +117,12 @@ public partial class message : SedogoPage
 
             Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
             userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
+
+            LinkButton markAsReadButton = e.Item.FindControl("markAsReadButton") as LinkButton;
+            if ((Boolean)row["MessageRead"] == true)
+            {
+                markAsReadButton.Visible = false;
+            }
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
             string eventPicThumbnail = row["eventPicThumbnail"].ToString();
@@ -139,5 +165,29 @@ public partial class message : SedogoPage
             Response.Redirect("sendUserMessage.aspx?UID=" + message.postedByUserID.ToString() 
                 + "&EID=" + message.eventID.ToString());
         }
+    }
+
+    //===============================================================
+    // Function: viewArchivedMessagesButton_click
+    //===============================================================
+    protected void viewArchivedMessagesButton_click(object sender, EventArgs e)
+    {
+        Session["ViewArchivedMessages"] = true;
+
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        PopulateMessageList(userID);
+    }
+
+    //===============================================================
+    // Function: hideArchivedMessagesButton_click
+    //===============================================================
+    protected void hideArchivedMessagesButton_click(object sender, EventArgs e)
+    {
+        Session["ViewArchivedMessages"] = false;
+
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        PopulateMessageList(userID);
     }
 }

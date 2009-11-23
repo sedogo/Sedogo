@@ -34,6 +34,20 @@ public partial class uploadProfilePic : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+        if (user.profilePicThumbnail != "")
+        {
+            profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+        }
+        else
+        {
+            profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
+        }
+        profileImage.ToolTip = user.fullName + "'s profile picture";
+
         SetFocus(profilePicFileUpload);
     }
 
@@ -62,5 +76,13 @@ public partial class uploadProfilePic : SedogoPage
 
             Response.Redirect("profileRedirect.aspx");
         }
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("editProfile.aspx");
     }
 }

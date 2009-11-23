@@ -50,12 +50,21 @@ function setHiddenDateField()
 	
 </head>
 <body>
-    <form id="form1" runat="server" target="_top">
+    <form id="form1" runat="server">
     <div>
     
 	    <div id="modal">
-            <h1>edit profile</h1>
+            <h1>Change your profile</h1>
             <p>Review and change your details below then submit to save</p>
+
+            <asp:ValidationSummary runat="server" ID="validationSummary" 
+                ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+                HeaderText="Please review the following errors:" />
+
+            <table width="100%">
+                <tr>
+                    <td>
+                    
             <fieldset>
                 <ol>
                     <li>
@@ -124,28 +133,27 @@ function setHiddenDateField()
                             ErrorMessage="The email address is not valid" Display="Dynamic"
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </li>
-                    <li>
-                        <label for="">Confirm email address</label>
-                        <asp:TextBox runat="server"
-                            ID="confirmEmailAddressTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="confirmEmailAddressTextBoxValidator" runat="server"
-                            ControlToValidate="confirmEmailAddressTextBox" ErrorMessage="Please confirm the email address" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:CompareValidator id="confirmEmailAddressTextBoxValidator2" 
-                            runat="server" ControlToValidate="confirmEmailAddressTextBox" 
-                            ControlToCompare="emailAddressTextBox"
-                            ErrorMessage="The two email addresses do not match" Display="Dynamic"
-                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:CompareValidator>
-                    </li>
                 </ol>
             </fieldset>
-		</div>
+
+                    </td>
+                    <td align="right">
+                        <asp:Image ID="profileImage" runat="server" CssClass="profile" />
+                    </td>
+                </tr>
+            </table>
     
-        <div class="buttons">
-            <asp:LinkButton 
-                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-                OnClick="saveChangesButton_click" CssClass="button-sml" />
-        </div>
+            <div class="buttons">
+                <asp:LinkButton 
+                    ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                    OnClick="saveChangesButton_click" CssClass="button-sml" />
+                <asp:LinkButton 
+                    ID="uploadProfilePicButton" runat="server" 
+                    ToolTip="save" Text="Upload profile picture" 
+                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+            </div>
+
+		</div>
     
     </div>
     </form>

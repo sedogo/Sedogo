@@ -73,6 +73,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     //trackingHeader.Visible = false;
                     //trackingLinksPlaceholder.Visible = false;
                     deleteEventButton.Visible = false;
+                    messageTrackingUsersLink.Visible = false;
 
                     editEventLink.Visible = false;
                     achievedEventLink.Visible = false;

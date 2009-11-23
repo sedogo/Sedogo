@@ -1012,7 +1012,7 @@ GO
 CREATE Procedure spUpdateTrackedEvent
 	@TrackedEventID				int,
 	@ShowOnTimeline				bit,
-	@JoinPending				bit
+	@JoinPending				bit,
 	@LastUpdatedDate			datetime
 AS
 BEGIN

@@ -810,6 +810,24 @@ img.profile
 .buttons
 {
     margin: 5px 0 0 0;
+    
+    display:block;
+
+    /*set the div in the bottom right corner*/
+    position:absolute;
+    bottom:10px;
+    right:10px;
+}
+.toprightbuttons
+{
+    margin: 5px 0 0 0;
+    
+    display:block;
+
+    /*set the div in the bottom right corner*/
+    position:absolute;
+    top:10px;
+    right:10px;
 }
 
 .errorMessage

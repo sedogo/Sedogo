@@ -78,6 +78,7 @@ public partial class sendUserMessage : SedogoPage
             linkURL = linkURL + "?Redir=Messages";
 
             emailBodyCopy.AppendLine("From: " + currentUser.firstName + " " + currentUser.lastName + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("To: " + messageToUser.firstName + " " + messageToUser.lastName + "<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("Message:<br/>");
             emailBodyCopy.AppendLine(messageText.Replace("\n","<br/>") + "<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("To view all your messages, <a href=\"" + linkURL + "\">click here</a>.<br/>");

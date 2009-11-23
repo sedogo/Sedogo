@@ -120,7 +120,7 @@
                             ID="eventNameTextBox" Width="200px" MaxLength="200" />
                     </li>
                     <li>
-                        <label for="">Venue</label>
+                        <label for="">Where</label>
                         <asp:TextBox runat="server"
                             ID="venueTextBox" Width="200px" MaxLength="200" />
                     </li>

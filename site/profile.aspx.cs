@@ -82,7 +82,7 @@ public partial class profile : SedogoPage
                 alertCountLink.Text = pendingAlertCount.ToString() + " alerts";
             }
 
-            groupCountLink.Text = "You belong to 0 groups";
+            //groupCountLink.Text = "You belong to 0 groups";
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             if (trackedEventCount == 1)

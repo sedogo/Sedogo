@@ -54,8 +54,7 @@
             <img src="images/profile/miniProfile.jpg" />
             <asp:TextBox ID="inviteTextBox5" runat="server" Width="300px" />
 
-            <p>If there is anything else you would like to include on the email sent out to the
-            addresses above, please type it in below:</p>
+            <p>message (optional)</p>
 
             <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
                 Width="300px" Rows="3" />

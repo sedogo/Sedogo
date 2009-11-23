@@ -59,11 +59,12 @@ public partial class addEvent : SedogoPage
                 }
             }
 
+            dateTypeDropDownList.SelectedValue = "A";
             categoryDropDownList.SelectedValue = "1";
-            startDateLI.Visible = true;
+            startDateLI.Visible = false;
             dateRangeLI1.Visible = false;
             dateRangeLI2.Visible = false;
-            birthdayLI.Visible = false;
+            birthdayLI.Visible = true;
 
             try
             {

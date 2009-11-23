@@ -254,8 +254,6 @@
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<div class="alerts">
-					<h3>Groups</h3>
-					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Latest goal's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>

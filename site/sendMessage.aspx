@@ -37,7 +37,7 @@
 
             <p><asp:Label ID="eventNameLabel" runat="server" /><br />
             <asp:Label ID="eventDateLabel" runat="server" /><br />
-            Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+            Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
             &nbsp;<br />
             Send message to <asp:Label ID="messageToLabel" runat="server" /></p>
                         

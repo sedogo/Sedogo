@@ -102,6 +102,16 @@ public partial class editProfile : SedogoPage
             headlineTextBox.Text = user.profileText;
             timezoneDropDownList.SelectedValue = user.timezoneID.ToString();
 
+            if (user.profilePicThumbnail != "")
+            {
+                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+            }
+            else
+            {
+                profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
+            }
+            profileImage.ToolTip = user.fullName + "'s profile picture";
+
             SetFocus(firstNameTextBox);
         }
     }
@@ -154,6 +164,14 @@ public partial class editProfile : SedogoPage
         Session["loggedInUserEmailAddress"] = user.emailAddress;
         Session["loggedInUserFullName"] = user.firstName + " " + user.lastName;
 
-        Response.Redirect("profile.aspx");
+        Response.Redirect("profileRedirect.aspx");
+    }
+
+    //===============================================================
+    // Function: uploadProfilePicButton_click
+    //===============================================================
+    protected void uploadProfilePicButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("uploadProfilePic.aspx");
     }
 }

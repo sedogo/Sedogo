@@ -1,4 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent"
+    Theme="Sedogo" %>
 <%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
@@ -29,7 +30,11 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
-	
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    
 <script language="JavaScript" type="text/javascript">
 function PickerStartDate_OnChange()
 {
@@ -80,12 +85,7 @@ function popupCalendarRangeEndDate(image)
     <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
 }
 </script>
-	
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
+
         <asp:ValidationSummary runat="server" ID="validationSummary" 
             ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
             HeaderText="Please review the following errors:" />
@@ -95,7 +95,7 @@ function popupCalendarRangeEndDate(image)
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Goal name?</label>
+                        <label for="">Goal name</label>
                     </li>
                     <li>
                         <asp:TextBox runat="server"
@@ -321,11 +321,11 @@ function popupCalendarRangeEndDate(image)
 		</div>
     
         <div class="buttons">
-        <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-            Text="Create" CssClass="button-sml" />
-        <asp:LinkButton 
-            ID="backButton" runat="server" ToolTip="save" Text="Go back" 
-            OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+            <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
+                Text="Create" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="backButton" runat="server" ToolTip="save" Text="Go back" 
+                OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
         </div>
 
     </div>

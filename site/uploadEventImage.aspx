@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadEventImage.aspx.cs" Inherits="uploadEventImage" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="uploadEventImage.aspx.cs" Inherits="uploadEventImage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -37,11 +37,10 @@
             HeaderText="Please review the following errors:" />
 
 	    <div id="modal">
-            <h1>upload picture</h1>
+            <h1>upload picture for <asp:Label ID="eventNameLabel" runat="server" /></h1>
 
-            <p><asp:Label ID="eventNameLabel" runat="server" /><br />
-            <asp:Label ID="eventDateLabel" runat="server" /><br />
-            Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+            <p><asp:Label ID="eventDateLabel" runat="server" /><br />
+            Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
             &nbsp;<br />
             </p>
 

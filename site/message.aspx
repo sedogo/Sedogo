@@ -34,6 +34,13 @@
     
 	    <div id="modal">
             <h1>messages</h1>
+    
+            <div class="toprightbuttons">
+                <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                    Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
+                <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                    Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
+            </div>
 
             <div id="noUnreadMessagesDiv" runat="server">
             <p>You have no unread messages.</p>

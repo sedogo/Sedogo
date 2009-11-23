@@ -35,14 +35,6 @@
         <div id="event-detail">
             <div class="right-col">
                 <asp:Image ID="eventImage" runat="server" />
-                <div class="buttons">
-                <p><asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
-                    Text="Upload image" CssClass="button-sml" /></p>
-                <p><asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this goal"
-                    OnClick="trackThisEventLink_click" /></p>
-                <p><asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create a goal like this for me"
-                    OnClick="createSimilarEventLink_click" CssClass="button-sml" /></p>
-                </div>
                 <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                 <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                 <h3 ID="invitesHeader" runat="server">Invites</h3>
@@ -51,30 +43,13 @@
                 <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" /></p>
                 <h3 ID="trackingHeader" runat="server">Tracking</h3>
                 <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                <div class="buttons"><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message" 
-                    OnClick="click_messageTrackingUsersLink" CssClass="button-sml" /></div>
             </div>
             <div class="left-col">
 		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
-		        <p>Venue: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+		        <p>Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
 		        <i>Owner: <asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
-		        <p>
-		            <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
-		            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="done" 
-		                ToolTip="achieved" OnClick="click_achievedEventLink" />
-		            <asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
-		                Text="send a message" OnClick="sendMessageButton_click" CssClass="button-sml" />
-		            <asp:LinkButton 
-		                ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
-		                OnClick="postCommentButton_click" CssClass="button-sml" />
-                    <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
-                        OnClick="joinThisEventLink_click" CssClass="button-sml" />
-                        <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" /></p>
-		            <asp:LinkButton 
-		                ID="deleteEventButton" runat="server" ToolTip="delete goal" Text="delete goal" 
-		                OnClick="deleteEventButton_click" CssClass="button-sml" />
 		        
 		        <div id="loginRegisterPanel" runat="server">
 		        <p>You must be logged in to view the full details or to post comments on this event.<br />
@@ -85,6 +60,32 @@
 		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 		    </div>
 		</div>
+
+        <div class="buttons">
+            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
+                Text="Upload image" CssClass="button-sml" />
+            <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this goal"
+                OnClick="trackThisEventLink_click" />
+            <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create a goal like this for me"
+                OnClick="createSimilarEventLink_click" CssClass="button-sml" />
+            <asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message" 
+                OnClick="click_messageTrackingUsersLink" CssClass="button-sml" />
+
+            <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
+            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="done" 
+                ToolTip="achieved" OnClick="click_achievedEventLink" />
+            <asp:LinkButton ID="sendMessageButton" runat="server" ToolTip="send a message" 
+                Text="send a message" OnClick="sendMessageButton_click" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
+                OnClick="postCommentButton_click" CssClass="button-sml" />
+            <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
+                OnClick="joinThisEventLink_click" CssClass="button-sml" />
+                <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" />
+            <asp:LinkButton 
+                ID="deleteEventButton" runat="server" ToolTip="delete goal" Text="delete goal" 
+                OnClick="deleteEventButton_click" CssClass="button-sml" />
+        </div>
     
     </div>
     </form>

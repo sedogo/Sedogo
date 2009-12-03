@@ -32,34 +32,50 @@
     <form id="form1" runat="server">
     <div>
 
-        <div id="event-detail">
-            <div class="right-col">
-                <asp:Image ID="eventImage" runat="server" />
-                <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
-                <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
-                <h3 ID="invitesHeader" runat="server">Invites</h3>
-                <p><asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" /></p>
-                <h3 ID="alertsHeader" runat="server">Alerts</h3>
-                <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" /></p>
-                <h3 ID="trackingHeader" runat="server">Tracking</h3>
-                <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-            </div>
-            <div class="left-col">
-		        <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
-		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
-		        <p>Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-		        <i>Owner: <asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></i><br />
-		        <asp:Label ID="eventDateLabel" runat="server" /></p>
-		        
-		        <div id="loginRegisterPanel" runat="server">
-		        <p>You must be logged in to view the full details or to post comments on this event.<br />
-		        <a href="login.aspx">Click here to login</a><br />
-		        or <a href="register.aspx">click here to register</a> if you are a new user</p>
+	    <div id="modal">
+	    
+    	    <div id="modalContents">
+
+                <div id="event-detail">
+                    <div class="right-col">
+                        <asp:Image ID="eventImage" runat="server" />
+                        <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
+                        <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
+                        <h3 ID="invitesHeader" runat="server">Invite people</h3>
+                        <p><asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" /></p>
+                        <h3 ID="alertsHeader" runat="server">Alerts</h3>
+                        <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" /></p>
+                        <h3 ID="trackingHeader" runat="server">Members</h3>
+                        <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
+                        <h3 ID="H1" runat="server">Followers</h3>
+                        <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
+                    </div>
+                    <div class="left-col">
+		                <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		                <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
+		                <i>Owner: <asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></i><br />
+		                Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+		                <asp:Label ID="eventDateLabel" runat="server" /></p>
+        		        
+		                <div id="invitedPanel" runat="server">
+                        <asp:LinkButton 
+                            ID="invitedButton" runat="server" ToolTip="join now" Text="You have been invited to join this goal - join now" 
+                            OnClick="invitedButton_click" CssClass="button-sml" />
+		                </div>
+        		        
+		                <div id="loginRegisterPanel" runat="server">
+		                <p>You must be logged in to view the full details or to post comments on this event.<br />
+		                <a href="login.aspx">Click here to login</a><br />
+		                or <a href="register.aspx">click here to register</a> if you are a new user</p>
+		                </div>
+        		        
+		                <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
+		            </div>
 		        </div>
-		        
-		        <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
-		    </div>
-		</div>
+
+            </div>
+
+        </div>
 
         <div class="buttons">
             <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
@@ -68,7 +84,7 @@
                 OnClick="trackThisEventLink_click" />
             <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create a goal like this for me"
                 OnClick="createSimilarEventLink_click" CssClass="button-sml" />
-            <asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message" 
+            <asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message to trackers" 
                 OnClick="click_messageTrackingUsersLink" CssClass="button-sml" />
 
             <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />

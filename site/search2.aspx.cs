@@ -121,8 +121,32 @@ public partial class search2 : SedogoPage
             PopulateLatestSearches();
 
             what.Text = searchText;
+            if (eventNameText == "")
+            {
+                eventNameTextBox.Text = searchText;
+            }
+            else
+            {
+                eventNameTextBox.Text = eventNameText;
+                venueTextBox.Text = eventVenue;
+                eventOwnerNameTextBox.Text = eventOwnerName;
+            }
 
-            PopulateEvents(user, searchText);
+            SearchHistory searchHistory = new SearchHistory("");
+            searchHistory.searchDate = DateTime.Now;
+            if (searchText == "")
+            {
+                searchHistory.searchText = eventNameText + "," + eventVenue + "," + eventOwnerName;
+            }
+            else
+            {
+                searchHistory.searchText = searchText;
+            }
+            searchHistory.userID = userID;
+            searchHistory.searchHits = 0;
+            searchHistory.Add();
+
+            PopulateEvents(user);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
             searchTimelineURL.Text = "timelineSearch2XML.aspx?G=" + Guid.NewGuid().ToString();
@@ -161,7 +185,7 @@ public partial class search2 : SedogoPage
     //===============================================================
     // Function: PopulateEvents
     //===============================================================
-    protected void PopulateEvents(SedogoUser user, string searchText)
+    protected void PopulateEvents(SedogoUser user)
     {
         int userID = int.Parse(Session["loggedInUserID"].ToString());
         Boolean viewArchivedEvents = false;
@@ -199,12 +223,6 @@ public partial class search2 : SedogoPage
         int numNext20YearsEvents = 0;
         int numNext100YearsEvents = 0;
         int numNotScheduledEvents = 0;
-
-        SearchHistory searchHistory = new SearchHistory("");
-        searchHistory.searchDate = DateTime.Now;
-        searchHistory.searchText = searchText;
-        searchHistory.userID = userID;
-        int rowCount = 0;
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -440,13 +458,6 @@ public partial class search2 : SedogoPage
                 }
                 rdr.Close();
             }
-            else
-            {
-                rowCount = 0;
-            }
-
-            searchHistory.searchHits = rowCount;
-            searchHistory.Add();
 
             overdueTitleLabel.Visible = true;
             todaysDateLabel.Visible = true;
@@ -697,5 +708,15 @@ public partial class search2 : SedogoPage
         }
 
         return searchCount;
+    }
+
+    //===============================================================
+    // Function: backToProfileButton_click
+    //===============================================================
+    protected void backToProfileButton_click(object sender, EventArgs e)
+    {
+        string url = "profile.aspx";
+
+        Response.Redirect(url);
     }
 }

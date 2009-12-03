@@ -105,6 +105,8 @@ public partial class profile : SedogoPage
 
                 if (inviteGUID != "")
                 {
+                    //int eventInviteID = EventInvite.GetEventInviteIDFromGUID(inviteGUID);
+
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
                     Session["EventInviteGUID"] = "";
                     Session["EventInviteUserID"] = "";
@@ -130,6 +132,7 @@ public partial class profile : SedogoPage
             if (Session["EventID"] != null && Session["EventID"].ToString() != "")
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"viewEvent.aspx?EID=" + Session["EventID"].ToString() + "\");", true);
+                Session["EventID"] = "";
             }
         }
     }

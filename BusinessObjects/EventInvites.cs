@@ -560,6 +560,79 @@ namespace Sedogo.BusinessObjects
             return inviteCount;
         }
 
+        //===============================================================
+        // Function: CheckUserEventInviteExists
+        //===============================================================
+        public static int CheckUserEventInviteExists(int eventID, int userID)
+        {
+            int inviteCount = 0;
 
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spCheckUserEventInviteExists";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                inviteCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("EventInvite", "CheckUserEventInviteExists", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return inviteCount;
+        }
+
+        //===============================================================
+        // Function: GetEventInviteIDFromUserIDEventID
+        //===============================================================
+        public static int GetEventInviteIDFromUserIDEventID(int eventID, int userID)
+        {
+            int eventInviteID = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spGetEventInviteIDFromUserIDEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows == true)
+                {
+                    rdr.Read();
+                    eventInviteID = int.Parse(rdr[0].ToString());
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("EventInvite", "CheckUserEventInviteExists", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return eventInviteID;
+        }
     }
 }

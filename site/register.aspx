@@ -48,7 +48,8 @@ function setHiddenDateField()
 }
 function termsClientValidation(source, args)
 {
-     args.IsValid = document.all["termsCheckbox"].checked;
+    var control = document.getElementById("termsCheckbox");
+    args.IsValid = control.checked;
 } 
 </script>
 

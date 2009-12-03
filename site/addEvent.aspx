@@ -92,40 +92,47 @@ function popupCalendarRangeEndDate(image)
     
 	    <div id="modal">
             <h1>Create goal</h1>
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Goal name</label>
-                    </li>
-                    <li>
-                        <asp:TextBox runat="server"
-                            ID="eventNameTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="eventNameTextBoxValidator" runat="server"
-                            ControlToValidate="eventNameTextBox" ErrorMessage="An event name is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">Goal description</label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
-                            ID="eventDescriptionTextBox" Width="200px" />
-                    </li>
-                    <li>
-                        <label for="">Where</label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
-                            ID="eventVenueTextBox" Width="200px" />
-                    </li>
-                    <li>
-                        <label for="">When</label>
-                        <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
-                            OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
-                            <asp:ListItem Text="Specific date" Value="D" />
-                            <asp:ListItem Text="Date range" Value="R" />
-                            <asp:ListItem Text="Before age" Value="A" />
-                        </asp:DropDownList>
-                    </li>
-                    <li id="startDateLI" runat="server">
-                        <label for="">Start date</label>
-                        
+            
+            <table border="0" cellspacing="0" cellpadding="2" width="400">
+                <tr>
+                    <td width="200">*Goal name</td>
+                    <td width="200"><asp:TextBox runat="server"
+                        ID="eventNameTextBox" Width="200px" MaxLength="200" />
+                        <asp:RequiredFieldValidator ID="eventNameTextBoxValidator" runat="server"
+                        ControlToValidate="eventNameTextBox" ErrorMessage="A goal name is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200" valign="top">Goal description</td>
+                    <td width="200"><asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
+                        ID="eventDescriptionTextBox" Width="200px" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200">Where</td>
+                    <td width="200"><asp:TextBox runat="server" MaxLength="200"
+                        ID="eventVenueTextBox" Width="200px" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200">*When</td>
+                    <td width="200"><asp:DropDownList ID="dateTypeDropDownList" runat="server" 
+                        OnSelectedIndexChanged="dateTypeDropDownList_changed" AutoPostBack="true">
+                        <asp:ListItem Text="Specific date" Value="D" />
+                        <asp:ListItem Text="Date range" Value="R" />
+                        <asp:ListItem Text="Before age" Value="A" />
+                    </asp:DropDownList></td>
+                </tr>
+                <tr id="startDateLI" runat="server">
+                    <td width="200">*Starts</td>
+                    <td width="200">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td><ComponentArt:Calendar ID="PickerStartDate" 
@@ -173,17 +180,17 @@ function popupCalendarRangeEndDate(image)
                                 <td><asp:DropDownList ID="datePickList" runat="server" 
                                     OnSelectedIndexChanged="datePickList_changed" AutoPostBack="true">
                                     <asp:ListItem Text="" Value="" />
-                                    <asp:ListItem Text="In 5 years time" Value="5" />
-                                    <asp:ListItem Text="In 10 years time" Value="10" />
-                                    <asp:ListItem Text="In 20 years time" Value="20" />
+                                    <asp:ListItem Text="In 5 years" Value="5" />
+                                    <asp:ListItem Text="In 10 years" Value="10" />
+                                    <asp:ListItem Text="In 20 years" Value="20" />
                                 </asp:DropDownList></td>
                             </tr>
                         </table>
-                        
-                    </li>
-                    <li id="dateRangeLI1" runat="server">
-                        <label for="">Start date</label>
-                        
+                    </td>
+                </tr>
+                <tr id="dateRangeLI1" runat="server">
+                    <td width="200">*Starts</td>
+                    <td width="200">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td><ComponentArt:Calendar ID="PickerRangeStartDate" 
@@ -229,10 +236,11 @@ function popupCalendarRangeEndDate(image)
                                     width="25" height="22" /></td>
                             </tr>
                         </table>
-                    </li>
-                    <li id="dateRangeLI2" runat="server">
-                        <label for="">To date</label>
-
+                    </td>
+                </tr>
+                <tr id="dateRangeLI2" runat="server">
+                    <td width="200">*Ends</td>
+                    <td width="200">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td><ComponentArt:Calendar ID="PickerRangeEndDate" 
@@ -278,24 +286,31 @@ function popupCalendarRangeEndDate(image)
                                     width="25" height="22" /></td>
                             </tr>
                         </table>
-                    </li>
-                    <li id="birthdayLI" runat="server">
-                        <label for="">Birthday</label>
-                        <asp:DropDownList ID="birthdayDropDownList" runat="server">
-                        </asp:DropDownList>
-                    </li>
-                    <li>
-                        <label for="">Timezone</label>
-                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
-                            DataTextField="Description" DataValueField="TimezoneID">
+                    </td>
+                </tr>
+                <tr id="birthdayLI" runat="server">
+                    <td width="200">*Birthday</td>
+                    <td width="200"><asp:DropDownList ID="birthdayDropDownList" runat="server">
+                        </asp:DropDownList></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200">*Timezone</td>
+                    <td width="200"><asp:DropDownList ID="timezoneDropDownList" runat="server"
+                        DataTextField="Description" DataValueField="TimezoneID">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
                         ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">Category</label>
-                        <asp:DropDownList ID="categoryDropDownList" runat="server">
+                        </asp:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200">*Category</td>
+                    <td width="200"><asp:DropDownList ID="categoryDropDownList" runat="server">
                             <asp:ListItem Text="Personal" Value="1" />
                             <asp:ListItem Text="Travel" Value="2" />
                             <asp:ListItem Text="Friends" Value="3" />
@@ -309,21 +324,27 @@ function popupCalendarRangeEndDate(image)
                             <asp:ListItem Text="Charity" Value="11" />
                             <asp:ListItem Text="Green" Value="12" />
                             <asp:ListItem Text="Misc" Value="13" />
-                        </asp:DropDownList>
-                    </li>
-                    <li>
-                        <label for="">Nature of goal</label>
-                        <p>Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
-                        Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></p>
-                    </li>
-                </ol>
-            </fieldset>
+                        </asp:DropDownList></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+                <tr>
+                    <td width="200">Nature of goal</td>
+                    <td width="200">Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
+                        Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                </tr>
+            </table>
+
 		</div>
     
         <div class="buttons">
             <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                Text="Create" CssClass="button-sml" />
-            <asp:LinkButton 
+                Text="Next" CssClass="button-sml" />
+            <asp:LinkButton Visible="false"
                 ID="backButton" runat="server" ToolTip="save" Text="Go back" 
                 OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
         </div>

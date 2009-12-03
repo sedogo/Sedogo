@@ -44,7 +44,7 @@
                 <tr>
                     <td valign="top">
                     
-            <fieldset>
+            <fieldset style="padding-top:30px;">
                 <ol>
                     <li>
                         <label for="">Select file</label>

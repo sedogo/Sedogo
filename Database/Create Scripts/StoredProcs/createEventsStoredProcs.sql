@@ -800,10 +800,9 @@ BEGIN
 	WHERE E.Deleted = 0
 	AND E.EventAchieved = 0
 	AND E.PrivateEvent = 0
-	--AND ( (@SearchText = '') 
-	-- OR (UPPER(E.EventName) LIKE '%'+UPPER(@SearchText)+'%')
-	-- OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') ) 
-	ORDER BY E.StartDate DESC
+	AND E.CategoryID = 1
+	ORDER BY NEWID()
+	
 END
 GO
 
@@ -1430,6 +1429,70 @@ END
 GO
 
 GRANT EXEC ON spSelectPendingInviteCountForUser TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spCheckUserEventInviteExists
+// Description:
+//=============================================================*/
+PRINT 'Creating spCheckUserEventInviteExists...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spCheckUserEventInviteExists')
+BEGIN
+	DROP Procedure spCheckUserEventInviteExists
+END
+GO
+
+CREATE Procedure spCheckUserEventInviteExists
+	@EventID					int,
+	@UserID						int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM EventInvites
+	WHERE UserID = @UserID
+	AND EventID = @EventID
+	AND Deleted = 0
+	AND InviteAccepted = 0
+	AND InviteDeclined = 0
+	
+END
+GO
+
+GRANT EXEC ON spCheckUserEventInviteExists TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spGetEventInviteIDFromUserIDEventID
+// Description:
+//=============================================================*/
+PRINT 'Creating spGetEventInviteIDFromUserIDEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spGetEventInviteIDFromUserIDEventID')
+BEGIN
+	DROP Procedure spGetEventInviteIDFromUserIDEventID
+END
+GO
+
+CREATE Procedure spGetEventInviteIDFromUserIDEventID
+	@EventID					int,
+	@UserID						int
+AS
+BEGIN
+	SELECT EventInviteID
+	FROM EventInvites
+	WHERE UserID = @UserID
+	AND EventID = @EventID
+	AND Deleted = 0
+	AND InviteAccepted = 0
+	AND InviteDeclined = 0
+	
+END
+GO
+
+GRANT EXEC ON spGetEventInviteIDFromUserIDEventID TO sedogoUser
 GO
 
 /*===============================================================

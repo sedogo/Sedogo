@@ -31,47 +31,58 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div class="Dialog">
     
 	    <div id="modal">
+
             <h1>change password</h1>
-            <p>Enter your current password, then new password below</p>
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Current password</label>
-                        <asp:TextBox runat="server"
-                            ID="currentPasswordTextBox" Width="200px" TextMode="Password" MaxLength="30" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
-                            ControlToValidate="currentPasswordTextBox" ErrorMessage="A password is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">Password</label>
-                        <asp:TextBox runat="server"
-                            ID="passwordTextBox1" Width="200px" TextMode="Password" MaxLength="30" />
-                            <asp:RequiredFieldValidator ID="passwordTextBox1Validator" runat="server"
-                            ControlToValidate="passwordTextBox1" ErrorMessage="A password is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="passwordTextBox1Validator2" runat="server"
-                            ControlToValidate="passwordTextBox1" Display="Dynamic"
-                            ErrorMessage="Password must be over 6 characters long." 
-                            ValidationExpression="[^\s]{6,30}" />
-                    </li>
-                    <li>
-                        <label for="">Re-type password</label>
-                        <asp:TextBox runat="server"
-                            ID="passwordTextBox2" Width="200px" TextMode="Password" MaxLength="30" />
-                            <asp:RequiredFieldValidator ID="passwordTextBox2Validator" runat="server"
-                            ControlToValidate="passwordTextBox1" ErrorMessage="Please verify your password" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:CompareValidator id="passwordTextBox2Validator2" runat="server" 
-                            ErrorMessage="The two passwords do not match" 
-                            ControlToValidate="passwordTextBox1" Display="Dynamic" 
-                            ControlToCompare="passwordTextBox2"></asp:CompareValidator>
-                    </li>
-                </ol>
-            </fieldset>
+	    
+	        <div style="padding-top:30px;"></div>
+
+    	    
+            <p>Please enter your current password, then new password below</p>
+            
+            <table border="0" cellspacing="5" cellpadding="0" width="400">
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" style="padding:5px 0" /></td>
+                </tr>
+                <tr>
+                    <td width="200">Current password</td>
+                    <td width="200"><asp:TextBox runat="server"
+                        ID="currentPasswordTextBox" Width="200px" TextMode="Password" MaxLength="30" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+                        ControlToValidate="currentPasswordTextBox" ErrorMessage="A password is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                    <td width="200">Password</td>
+                    <td width="200"><asp:TextBox runat="server"
+                        ID="passwordTextBox1" Width="200px" TextMode="Password" MaxLength="30" />
+                        <asp:RequiredFieldValidator ID="passwordTextBox1Validator" runat="server"
+                        ControlToValidate="passwordTextBox1" ErrorMessage="A password is required" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="passwordTextBox1Validator2" runat="server"
+                        ControlToValidate="passwordTextBox1" Display="Dynamic"
+                        ErrorMessage="Password must be over 6 characters long." 
+                        ValidationExpression="[^\s]{6,30}" /></td>
+                </tr>
+                <tr>
+                    <td width="200">Re-type password</td>
+                    <td width="200"><asp:TextBox runat="server"
+                        ID="passwordTextBox2" Width="200px" TextMode="Password" MaxLength="30" />
+                        <asp:RequiredFieldValidator ID="passwordTextBox2Validator" runat="server"
+                        ControlToValidate="passwordTextBox1" ErrorMessage="Please verify your password" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                        <asp:CompareValidator id="passwordTextBox2Validator2" runat="server" 
+                        ErrorMessage="The two passwords do not match" 
+                        ControlToValidate="passwordTextBox1" Display="Dynamic" 
+                        ControlToCompare="passwordTextBox2"></asp:CompareValidator></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" style="padding:5px 0" /></td>
+                </tr>
+            </table>
+                        
 		</div>
     
         <div class="buttons">

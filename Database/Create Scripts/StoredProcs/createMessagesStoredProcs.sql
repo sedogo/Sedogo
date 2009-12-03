@@ -190,20 +190,20 @@ AS
 BEGIN
 	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
-		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
 		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
 		U.ProfileText
 	FROM Messages M
-	JOIN Events E
+	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
 	JOIN Users U
 	ON U.UserID = E.UserID
 	WHERE M.Deleted = 0
 	AND M.UserID = @UserID
-	AND E.Deleted = 0
+	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
 GO
@@ -231,21 +231,21 @@ AS
 BEGIN
 	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
-		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
 		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
 		U.ProfileText
 	FROM Messages M
-	JOIN Events E
+	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
-	JOIN Users U
+	LEFT OUTER JOIN Users U
 	ON U.UserID = E.UserID
 	WHERE M.Deleted = 0
 	AND M.MessageRead = 0
 	AND M.UserID = @UserID
-	AND E.Deleted = 0
+	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
 GO

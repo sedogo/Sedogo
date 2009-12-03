@@ -78,6 +78,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     editEventLink.Visible = false;
                     achievedEventLink.Visible = false;
                     uploadEventImage.Visible = false;
+                    sendMessageButton.Visible = true;
 
                     int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
                     if (trackedEventID < 0)
@@ -118,6 +119,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     //trackingLinksPlaceholder.Visible = true;
                     deleteEventButton.Visible = true;
                     deleteEventButton.Attributes.Add("onclick", "if(confirm('Are you sure you want to delete this event?')){}else{return false}");
+                    sendMessageButton.Visible = false;
 
                     editEventLink.Visible = true;
                     achievedEventLink.Visible = true;
@@ -159,16 +161,18 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 }
                 PopulateTrackingList(eventID);
 
-                if (userID == sedogoEvent.userID)
+                loginRegisterPanel.Visible = false;
+
+                // See if current user has been invited to this goal
+                int eventInviteCount = EventInvite.CheckUserEventInviteExists(eventID, userID);
+                if (eventInviteCount > 0)
                 {
-                    sendMessageButton.Visible = false;
+                    invitedPanel.Visible = true;
                 }
                 else
                 {
-                    sendMessageButton.Visible = true;
+                    invitedPanel.Visible = false;
                 }
-
-                loginRegisterPanel.Visible = false;
             }
             else
             {
@@ -210,7 +214,15 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             
             eventTitleLabel.Text = sedogoEvent.eventName;
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
-            eventOwnersNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + eventOwner.userID.ToString();
+            if (sedogoEvent.userID != userID)
+            {
+                eventOwnersNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + eventOwner.userID.ToString();
+            }
+            else
+            {
+                // If this is your own event then no link
+                eventOwnersNameLabel.Enabled = false;
+            }
             eventDateLabel.Text = dateString;
             eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
             eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
@@ -295,6 +307,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
+        int trackingUserCount = 0;
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -321,6 +334,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
                 }
                 //string profilePicPreview = (string)rdr["ProfilePicPreview"];
+                Boolean showOnTimeline = (Boolean)rdr["ShowOnTimeline"];
 
                 string profileImagePath = "./images/profile/blankProfile.jpg";
                 if (profilePicThumbnail != "")
@@ -328,21 +342,32 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<table><tr><td><img src=\"" + profileImagePath + "\" /></td>"
-                    + "<td valign=\"bottom\">"
-                    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                //string outputText = "<table><tr><td><img src=\"" + profileImagePath + "\" /></td>"
+                //    + "<td valign=\"bottom\">"
+                //    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                //    + firstName + " " + lastName + "</a>";
+                string outputText = "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                     + firstName + " " + lastName + "</a>";
                 if (loggedInUserID == sedogoEvent.userID)
                 {
                     // This is my event!
-                    outputText = outputText + "<br/><a href=\"viewEvent.aspx?A=RemoveTracker&EID="
+                    outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
                         + eventID.ToString()
                         + "&TEID=" + trackedEventID.ToString() + "\">"
                         + "(Remove)</a>";
                 }
-                outputText = outputText + "</td></tr></table>";
+                //outputText = outputText + "</td></tr></table>";
 
-                trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                if (showOnTimeline == true)
+                {
+                    trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                }
+                else
+                {
+                    followersLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                }
+
+                trackingUserCount++;
             }
             rdr.Close();
         }
@@ -353,6 +378,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         finally
         {
             conn.Close();
+        }
+
+        if (trackingUserCount == 0)
+        {
+            messageTrackingUsersLink.Visible = false;
         }
     }
 
@@ -526,5 +556,33 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
+    }
+
+    //===============================================================
+    // Function: invitedButton_click
+    //===============================================================
+    protected void invitedButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        int eventInviteID = EventInvite.GetEventInviteIDFromUserIDEventID(eventID, userID);
+
+        // Check if the user is already tracking this event
+        if (TrackedEvent.GetTrackedEventID(eventID, userID) < 0)
+        {
+            TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString());
+            trackedEvent.eventID = eventID;
+            trackedEvent.userID = userID;
+            trackedEvent.Add();
+        }
+
+        EventInvite eventInvite = new EventInvite(Session["loggedInUserFullName"].ToString(), eventInviteID);
+
+        eventInvite.inviteAccepted = true;
+        eventInvite.inviteAcceptedDate = DateTime.Now;
+        eventInvite.Update();
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventInvite.eventID.ToString());
     }
 }

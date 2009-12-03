@@ -104,6 +104,9 @@ public partial class invite : SedogoPage
             Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
             eventNameLabel.Text = row["EventName"].ToString();
 
+            HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
+            eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
+
             Literal eventDateLabel = e.Item.FindControl("eventDateLabel") as Literal;
             eventDateLabel.Text = dateString;
 
@@ -141,6 +144,7 @@ public partial class invite : SedogoPage
                 TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString());
                 trackedEvent.eventID = eventInvite.eventID;
                 trackedEvent.userID = currentUserID;
+                trackedEvent.showOnTimeline = true;
                 trackedEvent.Add();
             }
 

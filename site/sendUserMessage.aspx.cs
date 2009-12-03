@@ -39,10 +39,18 @@ public partial class sendUserMessage : SedogoPage
             int eventID = int.Parse(Request.QueryString["EID"]);
             int messageToUserID = int.Parse(Request.QueryString["UID"]);
 
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            if( eventID > 0 )
+            {
+                goalNameDiv.Visible = true;
+                SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+                eventNameLabel.Text = sedogoEvent.eventName;
+            }
+            else
+            {
+                goalNameDiv.Visible = false;
+            }
             SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), messageToUserID);
 
-            eventNameLabel.Text = sedogoEvent.eventName;
             messageToLabel.Text = messageToUser.firstName + " " + messageToUser.lastName;
 
             SetFocus(messageTextBox);

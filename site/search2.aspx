@@ -232,6 +232,9 @@
             <asp:LinkButton 
                 ID="advSearchButton" runat="server" Text="Search" 
                 OnClick="advSearchButton_click" CssClass="button-sml" />
+            <asp:LinkButton 
+                ID="backToProfileButton" runat="server" Text="Back to profile" 
+                OnClick="backToProfileButton_click" CssClass="button-sml" />
                 
 		</div>
 		<div id="timelines">
@@ -287,7 +290,8 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+				</p>
 				<div class="events">
 					<h2>This month</h2>
 					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />

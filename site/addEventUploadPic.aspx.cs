@@ -34,19 +34,65 @@ public partial class addEventUploadPic : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            int eventID = int.Parse(Request.QueryString["EID"]);
+
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
+            eventNameLabel.Text = sedogoEvent.eventName;
+
+            SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+
+            CalendarAlertDate.SelectedDate = DateTime.Now;
+            PickerAlertDate.SelectedDate = DateTime.Now;
+
+            SetFocus(eventPicFileUpload);
+        }
+    }
+
+    //===============================================================
+    // Function: alertDatePickList_changed
+    //===============================================================
+    protected void alertDatePickList_changed(object sender, EventArgs e)
+    {
         int eventID = int.Parse(Request.QueryString["EID"]);
 
-        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-
-        eventNameLabel.Text = sedogoEvent.eventName;
-
-        SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
-        string dateString = "";
-        DateTime startDate = sedogoEvent.startDate;
-        MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
-            sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
-
-        SetFocus(eventPicFileUpload);
+        if (alertDatePickList.SelectedValue == "1D")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddDays(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddDays(1);
+        }
+        if (alertDatePickList.SelectedValue == "1W")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddDays(7);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddDays(7);
+        }
+        if (alertDatePickList.SelectedValue == "1M")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(1);
+        }
+        if (alertDatePickList.SelectedValue == "3M")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(3);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(3);
+        }
+        if (alertDatePickList.SelectedValue == "6M")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddMonths(6);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddMonths(6);
+        }
+        if (alertDatePickList.SelectedValue == "1Y")
+        {
+            CalendarAlertDate.SelectedDate = DateTime.Now.AddYears(1);
+            PickerAlertDate.SelectedDate = DateTime.Now.AddYears(1);
+        }
     }
 
     //===============================================================
@@ -72,9 +118,25 @@ public partial class addEventUploadPic : SedogoPage
             eventPicFileUpload.PostedFile.SaveAs(destPath);
 
             MiscUtils.CreateEventPicPreviews(Path.GetFileName(destPath), eventID);
-
-            Response.Redirect("addEventInvites.aspx?EID=" + eventID.ToString());
         }
+
+        DateTime alertDate = CalendarAlertDate.SelectedDate;
+        string alertText = newAlertTextBox.Text.Trim();
+
+        if (alertText != "")
+        {
+            EventAlert eventAlert = new EventAlert((string)Application["connectionString"]);
+            eventAlert.alertDate = alertDate;
+            eventAlert.eventID = eventID;
+            eventAlert.alertText = alertText;
+            eventAlert.Add();
+
+            newAlertTextBox.Text = "";
+            CalendarAlertDate.SelectedDate = DateTime.Now;
+            PickerAlertDate.SelectedDate = DateTime.Now;
+        }
+
+        Response.Redirect("addEventInvites.aspx?EID=" + eventID.ToString());
     }
 
     //===============================================================

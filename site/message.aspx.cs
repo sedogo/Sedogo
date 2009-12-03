@@ -112,11 +112,27 @@ public partial class message : SedogoPage
         {
             DataRowView row = e.Item.DataItem as DataRowView;
 
-            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
-            eventNameLabel.Text = row["EventName"].ToString();
+            int eventUserID = -1;
+            if (row["UserID"].ToString() != "")
+            {
+                eventUserID = int.Parse(row["UserID"].ToString());
+            }
 
+            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
             Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
-            userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
+            if (eventUserID < 0)
+            {
+                int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
+                // This is a message which is not attached to an event
+                SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
+                userNameLabel.Text = "From: " + messageFromUser.firstName + " " + messageFromUser.lastName;
+                eventNameLabel.Text = "";
+            }
+            else
+            {
+                userNameLabel.Text = "From: " + row["FirstName"].ToString() + " " + row["LastName"].ToString();
+                eventNameLabel.Text = "Goal: " + row["EventName"].ToString();
+            }
 
             LinkButton markAsReadButton = e.Item.FindControl("markAsReadButton") as LinkButton;
             if ((Boolean)row["MessageRead"] == true)

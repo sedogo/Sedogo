@@ -43,14 +43,18 @@
 	<script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var tl;
-		var t2;
 
 		function onLoad() {
 			var eventSource = new Timeline.DefaultEventSource();
+			var eventSourceSearch = new Timeline.DefaultEventSource();
+
 			var bandInfos = [
 				Timeline.createBandInfo({
+					width: "5%"
+				}),
+				Timeline.createBandInfo({
 					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-					width: "85%",
+					width: "38%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
 					eventSource: eventSource,
@@ -71,7 +75,7 @@
 				}),
 				Timeline.createBandInfo({
 					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
-					width: "15%",
+					width: "7%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
 					showEventText: false,
@@ -79,56 +83,40 @@
 					trackGap: 0.2,
 					eventSource: eventSource,
 					overview: true
-				})
-			];
-			bandInfos[1].syncWith = 0;
-			bandInfos[1].highlight = true;
-
-			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-			var url = "<asp:Literal id="timelineURL" runat="server" />";
-			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
-            
-			var eventSource2 = new Timeline.DefaultEventSource();
-			var bandInfos2 = [
+				}),
+				Timeline.createBandInfo({
+					width: "5%"
+				}),
 				Timeline.createBandInfo({
 					date: "<asp:Literal id="timelineStartDate3" runat="server" />",
-					width: "85%",
+					width: "38%",
 					intervalUnit: Timeline.DateTime.MONTH,
 					intervalPixels: 50,
-					eventSource: eventSource2,
-					zoomIndex: 10,
-					zoomSteps: new Array(
-						{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
-					)
+					eventSource: eventSourceSearch
 				}),
 				Timeline.createBandInfo({
 					date: "<asp:Literal id="timelineStartDate4" runat="server" />",
-					width: "15%",
+					width: "7%",
 					intervalUnit: Timeline.DateTime.YEAR,
 					intervalPixels: 100,
 					showEventText: false,
 					trackHeight: 0.5,
 					trackGap: 0.2,
-					eventSource: eventSource2,
+					eventSource: eventSourceSearch,
 					overview: true
 				})
 			];
-			bandInfos2[1].syncWith = 0;
-			bandInfos2[1].highlight = true;
+			bandInfos[2].syncWith = 1;
+			bandInfos[4].syncWith = 1;
+			bandInfos[5].syncWith = 1;
+			bandInfos[2].highlight = true;
+			bandInfos[5].highlight = true;
 
-			t2 = Timeline.create(document.getElementById("search-timeline"), bandInfos2);
+			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+			var url = "<asp:Literal id="timelineURL" runat="server" />";
+			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
 			var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
-			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSource2.loadXML(xml2, urlSearch); });
+			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
 		}
 
 		var resizeTimerID = null;
@@ -137,7 +125,6 @@
 				resizeTimerID = window.setTimeout(function() {
 					resizeTimerID = null;
 					tl.layout();
-					t2.layout();
 				}, 500);
 			}
 		}
@@ -222,12 +209,6 @@
 			</ol>
 			<p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="button-sml modal">advanced search</a></p>
 		</div>
-		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
-		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
-		</div>
-		<div id="moreThan50ResultsDiv" runat="server" class="errorMessage">
-		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
-		</div>
 		<div id="timelines">
 			<div id="tools">
 				<ul class="timeline-options">
@@ -254,16 +235,7 @@
 				<div id="buttons"></div>
 			</div>		
 			<div class="tl-container">
-				<div id="my-timeline" style="height: 250px;"></div>
-				<noscript>
-					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
-				</noscript>
-			</div>
-			<div class="three-col">
-			<h2><asp:Label ID="userTimelineLabel" runat="server" /><p class="advanced-search"><a href="profile.aspx" title="return to profile">return to profile</a></p></h2>
-			</div>
-			<div class="tl-container">
-				<div id="search-timeline" style="height: 250px;"></div>
+				<div id="my-timeline" style="height: 500px;"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
@@ -279,15 +251,6 @@
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<div class="alerts">
-					<h3>Messages</h3>
-					<p><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></p>
-					<p><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Alerts</h3>
-					<p><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Tracking</h3>
-					<p><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Groups</h3>
-					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
 					<h3>Latest events added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<h3>Latest searches</h3>
@@ -297,7 +260,10 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+				    <asp:HyperLink ID="sendMessageToUserLink" runat="server" ToolTip="send message"
+				        CssClass="button-sml modal" Text="send message" />
+				</p>
 				<div class="events">
 					<h2>This month</h2>
 					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
@@ -311,7 +277,11 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+					<asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" />
+				</p>
 				<div class="events">
 					<h2>Next 5 yrs</h2>
 					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
@@ -327,7 +297,11 @@
 				</div>
 			</div>
 			<div class="one-col-end">
-				<p class="extra-buttons"></p>
+				<p class="extra-buttons">
+					<asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" />
+				</p>
 				<div class="events">
 					<h2>5 yrs +</h2>
 					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />

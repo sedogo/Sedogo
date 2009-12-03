@@ -117,7 +117,7 @@ function popupCalendarRangeEndDate(image)
                         </asp:DropDownList>
                     </li>
                     <li id="startDateLI" runat="server">
-                        <label for="">Start date</label>
+                        <label for="">Starts</label>
                         
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
@@ -175,7 +175,7 @@ function popupCalendarRangeEndDate(image)
                         
                     </li>
                     <li id="dateRangeLI1" runat="server">
-                        <label for="">Start date</label>
+                        <label for="">Starts</label>
                         
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
@@ -224,7 +224,7 @@ function popupCalendarRangeEndDate(image)
                         </table>
                     </li>
                     <li id="dateRangeLI2" runat="server">
-                        <label for="">To date</label>
+                        <label for="">Ends</label>
 
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>

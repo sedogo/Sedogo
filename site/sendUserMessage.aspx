@@ -35,8 +35,11 @@
 	    <div id="modal">
             <h1>send message</h1>
 
-            <p>Send message to <asp:Label ID="messageToLabel" runat="server" /><br />
-            Regarding goal: <asp:Label ID="eventNameLabel" runat="server" /></p>
+            <p>Send message to <asp:Label ID="messageToLabel" runat="server" />
+            <div id="goalNameDiv" runat="server">
+            <br />
+            Regarding goal: <asp:Label ID="eventNameLabel" runat="server" />
+            </div></p>
                         
             <fieldset>
                 <ol>

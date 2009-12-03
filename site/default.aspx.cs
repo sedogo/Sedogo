@@ -107,6 +107,10 @@ public partial class _default : System.Web.UI.Page
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"register.aspx\");", true);
                 }
             }
+            if ((string)Session["EventID"] != "")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+            }
             if ((string)Session["DefaultRedirect"] != "")
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);

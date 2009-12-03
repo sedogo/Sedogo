@@ -1,0 +1,98 @@
+﻿Subject: eventName on dateString has been updated
+
+The following event has been updated:
+What: " + m_eventName
+Where: " + m_eventVenue
+When: " + dateString
+To view this event, click here
+Regards,
+The Sedogo Team
+<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" />
+Create your future and connect with others to make it happen
+
+
+
+
+Subject: firstName wants you to be a part of eventName dateString!
+
+You are invited to join the following goal:
+What: eventName
+Where: eventVenue
+When: dateString
+firstName has created this future goal on sedogo.com and wants you to join in.
+To be part of this event, click here
+To see who else is part of making this goal happen, click here
+Regards,
+The Sedogo Team
+<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" />
+Create your future and connect with others to make it happen
+
+or:
+
+You are invited to join the following goal:
+What: eventName
+Where: eventVenue
+When: dateString
+firstName has created this future goal on sedogo.com and wants you to join in.
+To be part of this event, sign up for a free sedogo account now.
+Regards,
+The Sedogo Team
+<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" />
+Create your future and connect with others to make it happen
+
+
+
+
+
+
+
+
+
+
+
+
+Subject: Sedogo password reset
+
+Your new password
+newPassword
+
+
+
+
+
+
+
+Subject: Sedogo registration
+
+Thanks for registering with Sedogo
+Please click on the link below to confirm:
+Click here
+
+
+
+
+Send message to trackers:
+=========================
+
+Subject: Sedogo message from firstName regarding eventName;
+
+From: firstName lastName
+messageText
+
+
+
+
+
+
+
+            emailBodyCopy.AppendLine("From: " + currentUser.firstName + " " + currentUser.lastName + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("To: " + messageToUser.firstName + " " + messageToUser.lastName + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("Message:<br/>");
+            emailBodyCopy.AppendLine(messageText.Replace("\n","<br/>") + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("To view all your messages, <a href=\"" + linkURL + "\">click here</a>.<br/>");
+            emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
+
+            string emailSubject = "You have a new Sedogo message from: " + currentUser.firstName + " " + currentUser.lastName;

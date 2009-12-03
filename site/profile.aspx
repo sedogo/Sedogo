@@ -7,7 +7,7 @@
 <head runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
-	<meta http-equiv="content-style-type" content="text/css" />
+	<meta http-equiv="content-wstyle-type" content="text/css" />
 	<meta http-equiv="expires" content="never" />
 
 	<title>Home : Sedogo : Create your future and connect with others to make it happen</title>
@@ -329,7 +329,7 @@
 		</div>
 	</div>
     <div id="modal-container">
-        <iframe></iframe>
+        <iframe frameborder="0"></iframe>
     </div>
     <div id="modal-background"></div>
     

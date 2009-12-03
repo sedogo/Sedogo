@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="invite.aspx.cs" Inherits="invite" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="invite.aspx.cs" Inherits="invite" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -51,6 +51,7 @@
                             </td>
                             <td>
                                 <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View event details" /><br />
                                 <asp:Literal ID="eventDateLabel" runat="server" /><br />
                                 <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
                             </td>

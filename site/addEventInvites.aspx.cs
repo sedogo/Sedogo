@@ -58,6 +58,21 @@ public partial class addEventInvites : SedogoPage
         string invite3EmailAddress = inviteTextBox3.Text;
         string invite4EmailAddress = inviteTextBox4.Text;
         string invite5EmailAddress = inviteTextBox5.Text;
+        string invite6EmailAddress = inviteTextBox6.Text;
+        string invite7EmailAddress = inviteTextBox7.Text;
+        string invite8EmailAddress = inviteTextBox8.Text;
+        string invite9EmailAddress = inviteTextBox9.Text;
+        string invite10EmailAddress = inviteTextBox10.Text;
+        string invite11EmailAddress = inviteTextBox11.Text;
+        string invite12EmailAddress = inviteTextBox12.Text;
+        string invite13EmailAddress = inviteTextBox13.Text;
+        string invite14EmailAddress = inviteTextBox14.Text;
+        string invite15EmailAddress = inviteTextBox15.Text;
+        string invite16EmailAddress = inviteTextBox16.Text;
+        string invite17EmailAddress = inviteTextBox17.Text;
+        string invite18EmailAddress = inviteTextBox18.Text;
+        string invite19EmailAddress = inviteTextBox19.Text;
+        string invite20EmailAddress = inviteTextBox20.Text;
 
         string additionalInviteText = additionalInviteTextTextBox.Text;
 
@@ -189,10 +204,221 @@ public partial class addEventInvites : SedogoPage
                 successfullyInvitedEmailAddresses.AppendLine(invite5EmailAddress);
             }
         }
+        if (invite6EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite6EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite6EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite6EmailAddress);
+            }
+        }
+        if (invite7EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite7EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite7EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite7EmailAddress);
+            }
+        }
+        if (invite8EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite8EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite8EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite8EmailAddress);
+            }
+        }
+        if (invite9EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite9EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite9EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite9EmailAddress);
+            }
+        }
+        if (invite10EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite10EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite10EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite10EmailAddress);
+            }
+        }
+        if (invite11EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite11EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite11EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite11EmailAddress);
+            }
+        }
+        if (invite12EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite12EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite12EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite12EmailAddress);
+            }
+        }
+        if (invite13EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite13EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite13EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite13EmailAddress);
+            }
+        }
+        if (invite14EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite14EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite14EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite14EmailAddress);
+            }
+        }
+        if (invite15EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite15EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite15EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite15EmailAddress);
+            }
+        }
+        if (invite16EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite16EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite16EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite16EmailAddress);
+            }
+        }
+        if (invite17EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite17EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite17EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite17EmailAddress);
+            }
+        }
+        if (invite18EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite18EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite18EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite18EmailAddress);
+            }
+        }
+        if (invite19EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite19EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite19EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite19EmailAddress);
+            }
+        }
+        if (invite20EmailAddress.Trim() != "")
+        {
+            if (SendInviteEmail(eventID, invite20EmailAddress, additionalInviteText, dateString,
+                currentEvent, currentUser, out errorMessage) == false)
+            {
+                allInvitesSentOK = false;
+                invalidEmailAddresses.AppendLine(invite20EmailAddress);
+                errorMessageDescription.AppendLine(errorMessage);
+            }
+            else
+            {
+                successfullyInvitedEmailAddresses.AppendLine(invite20EmailAddress);
+            }
+        }
+
 
         if (allInvitesSentOK == true)
         {
-            Response.Redirect("addEventReminders.aspx?EID=" + eventID.ToString());
+            Response.Redirect("addEventSummary.aspx?EID=" + eventID.ToString());
         }
         else
         {
@@ -327,6 +553,6 @@ public partial class addEventInvites : SedogoPage
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
 
-        Response.Redirect("addEventReminders.aspx?EID=" + eventID.ToString());
+        Response.Redirect("addEventSummary.aspx?EID=" + eventID.ToString());
     }
 }

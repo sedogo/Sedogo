@@ -28,6 +28,39 @@
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
 
+<script language="javascript">
+function showDiv(divName)
+{
+    if (document.getElementById) { // DOM3 = IE5, NS6
+        document.getElementById(divName).style.visibility = "visible";
+        document.getElementById(divName).style.display = "block";
+    } else {
+        if (document.layers) { // Netscape 4
+        document.divName.visibility = "visible";
+        document.divName.display = "block";
+        } else { // IE 4
+            document.all.divName.style.visibility = "visible";
+            document.all.divName.style.display = "block";
+        }
+    }
+}
+function hideDiv(divName) {
+    document.getElementById(divName).style.visibility = "hidden";
+    if (document.getElementById) { // DOM3 = IE5, NS6
+        document.getElementById(divName).style.visibility = "hidden";
+        document.getElementById(divName).style.display = "none";
+    } else {
+        if (document.layers) { // Netscape 4
+            document.divName.visibility= "hidden";
+            document.divName.display = "none";
+        } else { // IE 4
+            document.all.divName.style.visibility = "hidden";
+            document.all.divName.style.display = "none";
+        }
+    }
+}
+</script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,36 +72,205 @@
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" /></h1>
+	    
+    	    <div id="modalContents">
+	    
+	            <h1>Create a goal</h1>
+    	        
+                <h3 class="blue">Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" />?</h3>
 
-            <p>Type in friends or family email addresses</p>
+                <p>Type in friends or family email addresses</p>
 
-            <img src="images/profile/miniProfile.jpg" />
-            <asp:TextBox ID="inviteTextBox1" runat="server" Width="300px" /><br />
-            <img src="images/profile/miniProfile.jpg" />
-            <asp:TextBox ID="inviteTextBox2" runat="server" Width="300px" /><br />
-            <img src="images/profile/miniProfile.jpg" />
-            <asp:TextBox ID="inviteTextBox3" runat="server" Width="300px" /><br />
-            <img src="images/profile/miniProfile.jpg" />
-            <asp:TextBox ID="inviteTextBox4" runat="server" Width="300px" /><br />
-            <img src="images/profile/miniProfile.jpg" />
-            <asp:TextBox ID="inviteTextBox5" runat="server" Width="300px" />
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox1" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox2" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox3" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox4" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox5" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite6Div')">invite more</a></td>
+                    </tr>
+                </table>
+                <div style="visibility:hidden;display:none" id="invite6Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox6" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite7Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite7Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox7" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite8Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite8Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox8" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite9Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite9Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox9" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite10Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite10Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox10" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite11Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite11Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox11" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite12Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite12Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox12" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite13Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite13Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox13" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite14Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite14Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox14" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite15Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite15Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox15" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite16Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite16Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox16" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite17Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite17Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox17" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite18Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite18Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox18" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite19Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite19Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox19" runat="server" Width="300px" /></td>
+                        <td><a href="javascript:showDiv('invite20Div')">invite more</a></td>
+                    </tr>
+                </table>
+                </div>
+                <div style="visibility:hidden;display:none" id="invite20Div">
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox20" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                </div>
+                
+                <img src="images/popupLine.png" alt="" />
 
-            <p>message (optional)</p>
+                <p>message (optional)</p>
 
-            <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
-                Width="300px" Rows="3" />
+                <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
+                    Width="300px" Rows="3" MaxLength="1000" />
 
-            <p>&nbsp;<br />(Please note anyone without a sedogo account will be invited to join before they can connect with your goal)</p>
+                <p>&nbsp;<br />Please note anyone without a sedogo account will be invited to join before they can connect with your goal</p>
+                
+                <img src="images/popupLine.png" alt="" />
+                
+                <p>*Required field</p>
+
+            </div>
+            
+            <div class="buttons">
+                <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites"
+                    OnClick="sendInvitesLink_click" CssClass="button-sml" />
+                <asp:LinkButton ID="skipInvitesLink" runat="server" CssClass="button-sml" Text="Skip" 
+                    ToolTip="Skip" OnClick="click_skipInvitesLink" CausesValidation="false" Visible="false" />
+                </p>
+            </div>
+
 		</div>
-    
-        <div class="buttons">
-            <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites"
-                OnClick="sendInvitesLink_click" CssClass="button-sml" />
-            <asp:LinkButton ID="skipInvitesLink" runat="server" CssClass="button-sml" Text="Skip" 
-                ToolTip="Skip" OnClick="click_skipInvitesLink" CausesValidation="false" />
-            </p>
-        </div>
 
     </div>
     </form>

@@ -1,9 +1,9 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="message.aspx.cs" Inherits="message" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="viewSentMessages.aspx.cs" Inherits="viewSentMessages" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -33,19 +33,15 @@
     <div>
     
 	    <div id="modal">
-            <h1>messages</h1>
+            <h1>sent messages</h1>
     
             <div class="toprightbuttons">
-                <asp:LinkButton ID="viewSentMessages" runat="server" CssClass="button-sml" 
-                    Text="View sent messages" OnClick="viewSentMessagesButton_click" />
-                <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                    Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
-                <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                    Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
+                <asp:LinkButton ID="viewReceivedMessages" runat="server" CssClass="button-sml" 
+                    Text="View received messages" OnClick="viewReceivedMessages_click" />
             </div>
 
-            <div id="noUnreadMessagesDiv" runat="server">
-            <p>You have no unread messages.</p>
+            <div id="noSentMessagesDiv" runat="server">
+            <p>You have no sent messages.</p>
             </div>
             
             <div id="messagesDiv" runat="server">
@@ -66,9 +62,7 @@
                         </tr>
                     </table>
                     
-                    <p><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
-                        Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                        <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
+                    <p><asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
                         Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
                     <br />
 

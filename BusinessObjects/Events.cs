@@ -639,6 +639,150 @@ namespace Sedogo.BusinessObjects
 
             return trackingUserCount;
         }
+
+        //===============================================================
+        // Function: GetEventTrackerID
+        //===============================================================
+        public int GetTrackedEventID(int userID)
+        {
+            int trackedEventID = -1;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectTrackedEventIDFromEventIDUserID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                if( rdr.HasRows == true )
+                {
+                    rdr.Read();
+                    trackedEventID = int.Parse(rdr[0].ToString());
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetTrackedEventID", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackedEventID;
+        }
+
+        //===============================================================
+        // Function: GetMemberUserCount
+        //===============================================================
+        public static int GetMemberUserCount(int eventID)
+        {
+            int trackingUserCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectMemberUserCountByEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                trackingUserCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackingUserCount;
+        }
+
+        //===============================================================
+        // Function: GetPendingMemberUserCount
+        //===============================================================
+        public static int GetPendingMemberUserCount(int eventID)
+        {
+            int pendingUserCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectPendingMemberUserCountByEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                pendingUserCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetPendingMemberUserCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return pendingUserCount;
+        }
+    
+        //===============================================================
+        // Function: GetPendingMemberUserCount
+        //===============================================================
+        public static int GetPendingMemberUserCountByUserID(int userID)
+        {
+            int pendingUserCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectPendingMemberUserCountByUserID";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                pendingUserCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetPendingMemberUserCountByUserID", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return pendingUserCount;
+        }
     }
 
     //===============================================================

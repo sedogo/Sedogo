@@ -109,29 +109,30 @@
     <form id="form1" runat="server">
     <div>
     
+        <div id="popupClose">
+        <a href="#">Close</a>
+        </div>
+    
 	    <div id="modal">
             <h1>Advanced search</h1>
 
+            <p>What do you want to do?</p>
+            <asp:TextBox runat="server"
+                ID="eventNameTextBox" Width="200px" MaxLength="200" />
+            
+            <p>&nbsp;</p>
+               
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Goal name</label>
+                        <label for="eventOwnerNameTextBox">Who with?</label>
                         <asp:TextBox runat="server"
-                            ID="eventNameTextBox" Width="200px" MaxLength="200" />
+                            ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" /> (name)
                     </li>
                     <li>
-                        <label for="">Where</label>
+                        <label for="venueTextBox">Where?</label>
                         <asp:TextBox runat="server"
                             ID="venueTextBox" Width="200px" MaxLength="200" />
-                    </li>
-                    <li>
-                        <label for="">Goal owner name</label>
-                        <asp:TextBox runat="server"
-                            ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" />
-                    </li>
-                    <li>
-                    </li>
-                    <li>
                     </li>
                 </ol>
             </fieldset>

@@ -987,11 +987,178 @@ BEGIN
 	ON T.UserID = U.UserID
 	WHERE T.EventID = @EventID
 	AND U.Deleted = 0
+	AND T.ShowOnTimeline = 0
 	
 END
 GO
 
 GRANT EXEC ON spSelectTrackingUserCountByEventID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectTrackedEventIDFromEventIDUserID
+// Description:
+//   Selects the count of users tracking an event
+//=============================================================*/
+PRINT 'Creating spSelectTrackedEventIDFromEventIDUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectTrackedEventIDFromEventIDUserID')
+BEGIN
+	DROP Procedure spSelectTrackedEventIDFromEventIDUserID
+END
+GO
+
+CREATE Procedure spSelectTrackedEventIDFromEventIDUserID
+	@EventID		int,
+	@UserID			int
+AS
+BEGIN
+	SELECT TrackedEventID
+	FROM TrackedEvents
+	WHERE EventID = @EventID
+	AND UserID = @UserID
+	
+END
+GO
+
+GRANT EXEC ON spSelectTrackedEventIDFromEventIDUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectMemberUserCountByEventID
+// Description:
+//   Selects the count of users tracking an event
+//=============================================================*/
+PRINT 'Creating spSelectMemberUserCountByEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectMemberUserCountByEventID')
+BEGIN
+	DROP Procedure spSelectMemberUserCountByEventID
+END
+GO
+
+CREATE Procedure spSelectMemberUserCountByEventID
+	@EventID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM TrackedEvents T
+	JOIN Users U
+	ON T.UserID = U.UserID
+	WHERE T.EventID = @EventID
+	AND U.Deleted = 0
+	AND T.ShowOnTimeline = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectMemberUserCountByEventID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectPendingMemberUserCountByEventID
+// Description:
+//   Selects the count of users tracking an event
+//=============================================================*/
+PRINT 'Creating spSelectPendingMemberUserCountByEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectPendingMemberUserCountByEventID')
+BEGIN
+	DROP Procedure spSelectPendingMemberUserCountByEventID
+END
+GO
+
+CREATE Procedure spSelectPendingMemberUserCountByEventID
+	@EventID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM TrackedEvents T
+	JOIN Users U
+	ON T.UserID = U.UserID
+	WHERE T.EventID = @EventID
+	AND U.Deleted = 0
+	AND T.JoinPending = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectPendingMemberUserCountByEventID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectPendingMemberUserCountByUserID
+// Description:
+//   
+//=============================================================*/
+PRINT 'Creating spSelectPendingMemberUserCountByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectPendingMemberUserCountByUserID')
+BEGIN
+	DROP Procedure spSelectPendingMemberUserCountByUserID
+END
+GO
+
+CREATE Procedure spSelectPendingMemberUserCountByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	WHERE E.UserID = @UserID
+	AND E.Deleted = 0
+	AND T.JoinPending = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectPendingMemberUserCountByUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectPendingMemberRequestsByUserID
+// Description:
+//   
+//=============================================================*/
+PRINT 'Creating spSelectPendingMemberRequestsByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectPendingMemberRequestsByUserID')
+BEGIN
+	DROP Procedure spSelectPendingMemberRequestsByUserID
+END
+GO
+
+CREATE Procedure spSelectPendingMemberRequestsByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, 
+		T.LastUpdatedDate, T.ShowOnTimeline, T.JoinPending,
+		E.EventName, E.EventPicFilename, E.EventPicThumbnail,
+		E.EventPicPreview, E.CategoryID, E.DateType, E.StartDate,
+		E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday, 
+		E.EventDescription, E.MustDo, E.EventVenue,
+		U.FirstName, U.LastName
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = T.UserID
+	WHERE E.UserID = @UserID
+	AND E.Deleted = 0
+	AND T.JoinPending = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectPendingMemberRequestsByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1878,9 +2045,6 @@ GO
 
 GRANT EXEC ON spDeleteEventAlert TO sedogoUser
 GO
-
-
-
 
 /*===============================================================
 // Function: spSelectLatestEvents

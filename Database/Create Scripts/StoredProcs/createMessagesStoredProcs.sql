@@ -171,6 +171,38 @@ GRANT EXEC ON spSelectUnreadMessageCountForUser TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectSentMessageCountForUser
+// Description:
+//   Gets sent message count for a user
+// --------------------------------------------------------------
+// Parameters
+//	 @UserID			int
+//=============================================================*/
+PRINT 'Creating spSelectSentMessageCountForUser...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectSentMessageCountForUser')
+BEGIN
+	DROP Procedure spSelectSentMessageCountForUser
+END
+GO
+
+CREATE Procedure spSelectSentMessageCountForUser
+	@UserID			int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Messages
+	WHERE PostedByUserID = @UserID
+	AND Deleted = 0
+	AND MessageRead = 0
+END
+GO
+
+GRANT EXEC ON spSelectSentMessageCountForUser TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectMessageList
 // Description:
 //   Selects messages
@@ -251,6 +283,47 @@ END
 GO
 
 GRANT EXEC ON spSelectUnreadMessageList TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectSentMessageList
+// Description:
+//   Selects messages
+//=============================================================*/
+PRINT 'Creating spSelectSentMessageList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectSentMessageList')
+BEGIN
+	DROP Procedure spSelectSentMessageList
+END
+GO
+
+CREATE Procedure spSelectSentMessageList
+	@UserID		int
+AS
+BEGIN
+	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
+		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.ProfileText
+	FROM Messages M
+	LEFT OUTER JOIN Events E
+	ON M.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE M.Deleted = 0
+	AND M.PostedByUserID = @UserID
+	AND ISNULL(E.Deleted,0) = 0
+	ORDER BY M.CreatedDate DESC
+END
+GO
+
+GRANT EXEC ON spSelectSentMessageList TO sedogoUser
 GO
 
 /*===============================================================

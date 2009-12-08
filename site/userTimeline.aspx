@@ -250,6 +250,18 @@
 				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
+
+				<p class="extra-buttons">
+				    <asp:HyperLink ID="sendMessageToUserLink" runat="server" ToolTip="send message"
+				        CssClass="button-sml modal" Text="send message" />
+					<asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" />
+					<asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" />
+					&nbsp;
+					<asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" />
+				</p>
+
 				<div class="alerts">
 					<h3>Latest events added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
@@ -260,10 +272,6 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons">
-				    <asp:HyperLink ID="sendMessageToUserLink" runat="server" ToolTip="send message"
-				        CssClass="button-sml modal" Text="send message" />
-				</p>
 				<div class="events">
 					<h2>This month</h2>
 					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
@@ -277,11 +285,6 @@
 				</div>
 			</div>
 			<div class="one-col">
-				<p class="extra-buttons">
-					<asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" />
-					&nbsp;
-					<asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" />
-				</p>
 				<div class="events">
 					<h2>Next 5 yrs</h2>
 					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
@@ -297,11 +300,6 @@
 				</div>
 			</div>
 			<div class="one-col-end">
-				<p class="extra-buttons">
-					<asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" />
-					&nbsp;
-					<asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" />
-				</p>
 				<div class="events">
 					<h2>5 yrs +</h2>
 					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />

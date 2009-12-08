@@ -27,12 +27,13 @@ img
 }
 h2 
 {
-	background: #9b9885;
+	/*background: #9b9885;*/
 	font-size: 16px;
 	font-weight: bold;
-	color: #fff;
-	padding: 4px 12px;
-	margin-bottom: 18px;
+	color: #0cf;
+	padding: 4px;
+	/*padding: 4px 12px;*/
+	/*margin-bottom: 18px;*/
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 }
@@ -874,4 +875,12 @@ img.profile
 {
 	height:450px;
 	overflow:auto;
+}
+
+#popupClose 
+{
+	position:absolute;
+	top:0;
+	right:0;
+	width:50px;
 }

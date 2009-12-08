@@ -372,5 +372,46 @@ namespace Sedogo.BusinessObjects
 
             return messageCount;
         }
+        
+        //===============================================================
+        // Function: GetSentMessageCountForUser
+        //===============================================================
+        public static int GetSentMessageCountForUser(int userID)
+        {
+            int messageCount = 0;
+
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectSentMessageCountForUser";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@UserID";
+                param.Value = userID;
+                cmd.Parameters.Add(param);
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows == true)
+                {
+                    rdr.Read();
+                    messageCount = (int)rdr[0];
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("Message", "GetSentMessageCountForUser", ex.Message,
+                    logMessageLevel.errorMessage);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return messageCount;
+        }
     }
 }

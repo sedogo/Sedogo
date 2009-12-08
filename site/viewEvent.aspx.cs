@@ -252,6 +252,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     }
 
     //===============================================================
+    // Function: removeMeLink_click
+    //===============================================================
+    protected void removeMeLink_click(object sender, EventArgs e)
+    {
+        /*
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        int trackedEventID = sedogoEvent.GetTrackedEventID(loggedInUserID);
+
+        if (trackedEventID > 0)
+        {
+            TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
+            trackedEvent.Delete();
+        }
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+         * */
+    }
+
+    //===============================================================
     // Function: PopulateComments
     //===============================================================
     private void PopulateComments(int eventID)
@@ -347,14 +369,22 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 //    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                 //    + firstName + " " + lastName + "</a>";
                 string outputText = "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
-                    + firstName + " " + lastName + "</a>";
+                    + firstName + " " + lastName + "</a> ";
                 if (loggedInUserID == sedogoEvent.userID)
                 {
                     // This is my event!
                     outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
                         + eventID.ToString()
                         + "&TEID=" + trackedEventID.ToString() + "\">"
-                        + "(Remove)</a>";
+                        + "(Remove)</a> ";
+                }
+                if (loggedInUserID == userID)
+                {
+                    // I am the tracker
+                    outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
+                        + eventID.ToString()
+                        + "&TEID=" + trackedEventID.ToString() + "\">"
+                        + "(Remove)</a> ";
                 }
                 //outputText = outputText + "</td></tr></table>";
 
@@ -533,6 +563,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             trackedEvent.eventID = eventID;
             trackedEvent.userID = userID;
             trackedEvent.showOnTimeline = true;
+            trackedEvent.joinPending = true;
             trackedEvent.Add();
 
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);

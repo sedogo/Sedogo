@@ -1,4 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="viewEvent.aspx.cs" Inherits="viewEvent" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="viewEvent.aspx.cs" Inherits="viewEvent"
+    EnableEventValidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -48,8 +49,8 @@
                         <h3 ID="trackingHeader" runat="server">Members</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
                         <div style="padding:3px 0">
-                        <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
-                            OnClick="joinThisEventLink_click" CssClass="button-sml" />
+                            <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
+                                OnClick="joinThisEventLink_click" CssClass="button-sml" />
                             <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" />
                         </div>
                         <h3 ID="H1" runat="server">Followers</h3>

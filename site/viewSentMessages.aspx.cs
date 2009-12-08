@@ -26,7 +26,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
 
-public partial class message : SedogoPage
+public partial class viewSentMessages : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
@@ -37,7 +37,6 @@ public partial class message : SedogoPage
         {
             int userID = int.Parse(Session["loggedInUserID"].ToString());
 
-            //SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             PopulateMessageList(userID);
         }
     }
@@ -47,28 +46,17 @@ public partial class message : SedogoPage
     //===============================================================
     private void PopulateMessageList(int userID)
     {
-        int unreadMessageCount = Message.GetUnreadMessageCountForUser(userID);
+        int sentMessageCount = Message.GetSentMessageCountForUser(userID);
 
-        if( unreadMessageCount > 0 )
+        if (sentMessageCount > 0)
         {
-            noUnreadMessagesDiv.Visible = false;
+            noSentMessagesDiv.Visible = false;
             messagesDiv.Visible = true;
         }
         else
         {
-            noUnreadMessagesDiv.Visible = true;
+            noSentMessagesDiv.Visible = true;
             messagesDiv.Visible = false;
-        }
-
-        if (Session["ViewArchivedMessages"] == null || (Boolean)Session["ViewArchivedMessages"] == false)
-        {
-            viewArchivedMessagesButton.Visible = true;
-            hideArchivedMessagesButton.Visible = false;
-        }
-        else
-        {
-            viewArchivedMessagesButton.Visible = false;
-            hideArchivedMessagesButton.Visible = true;
         }
 
         try
@@ -77,14 +65,7 @@ public partial class message : SedogoPage
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            if (Session["ViewArchivedMessages"] == null || (Boolean)Session["ViewArchivedMessages"] == false)
-            {
-                cmd.CommandText = "spSelectUnreadMessageList";
-            }
-            else
-            {
-                cmd.CommandText = "spSelectMessageList";
-            }
+            cmd.CommandText = "spSelectSentMessageList";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
 
@@ -122,23 +103,15 @@ public partial class message : SedogoPage
             Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
             if (eventUserID < 0)
             {
-                int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
-                // This is a message which is not attached to an event
-                SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
-                userNameLabel.Text = "From: " + messageFromUser.firstName + " " + messageFromUser.lastName;
+                int userID = int.Parse(row["UserID"].ToString());
+                SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                userNameLabel.Text = "To: " + messageToUser.firstName + " " + messageToUser.lastName;
                 eventNameLabel.Text = "";
             }
             else
             {
-                userNameLabel.Text = "From: " + row["FirstName"].ToString() + " " + row["LastName"].ToString();
-                eventNameLabel.Text = "Goal: <a href=\"viewEvent.aspx?EID=" + row["EventID"].ToString() + "\">" 
-                    + row["EventName"].ToString() + "</a>";
-            }
-
-            LinkButton markAsReadButton = e.Item.FindControl("markAsReadButton") as LinkButton;
-            if ((Boolean)row["MessageRead"] == true)
-            {
-                markAsReadButton.Visible = false;
+                userNameLabel.Text = "To: " + row["FirstName"].ToString() + " " + row["LastName"].ToString();
+                eventNameLabel.Text = "Goal: " + row["EventName"].ToString();
             }
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
@@ -162,57 +135,22 @@ public partial class message : SedogoPage
     //===============================================================
     protected void messagesRepeater_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {
-        if( e.CommandName == "markAsReadButton" )
-        {
-            int messageID = int.Parse(e.CommandArgument.ToString());
-
-            Message message = new Message(Session["loggedInUserFullName"].ToString(), messageID);
-            message.messageRead = true;
-            message.Update();
-
-            int userID = int.Parse(Session["loggedInUserID"].ToString());
-            PopulateMessageList(userID);
-        }
         if (e.CommandName == "sendReplyMessageButton")
         {
             int messageID = int.Parse(e.CommandArgument.ToString());
 
             Message message = new Message(Session["loggedInUserFullName"].ToString(), messageID);
 
-            Response.Redirect("sendUserMessage.aspx?UID=" + message.postedByUserID.ToString() 
+            Response.Redirect("sendUserMessage.aspx?UID=" + message.postedByUserID.ToString()
                 + "&EID=" + message.eventID.ToString());
         }
     }
 
     //===============================================================
-    // Function: viewArchivedMessagesButton_click
+    // Function: viewReceivedMessages_click
     //===============================================================
-    protected void viewArchivedMessagesButton_click(object sender, EventArgs e)
+    protected void viewReceivedMessages_click(object sender, EventArgs e)
     {
-        Session["ViewArchivedMessages"] = true;
-
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-
-        PopulateMessageList(userID);
-    }
-
-    //===============================================================
-    // Function: hideArchivedMessagesButton_click
-    //===============================================================
-    protected void hideArchivedMessagesButton_click(object sender, EventArgs e)
-    {
-        Session["ViewArchivedMessages"] = false;
-
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-
-        PopulateMessageList(userID);
-    }
-
-    //===============================================================
-    // Function: viewSentMessagesButton_click
-    //===============================================================
-    protected void viewSentMessagesButton_click(object sender, EventArgs e)
-    {
-        Response.Redirect("viewSentMessages.aspx");
+        Response.Redirect("message.aspx");
     }
 }

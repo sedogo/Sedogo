@@ -346,6 +346,7 @@ public partial class search2 : SedogoPage
 
                     int eventAlertCount = EventAlert.GetEventAlertCountPending(eventID);
                     int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
+                    int joinedUserCount = SedogoEvent.GetMemberUserCount(eventID);
 
                     StringBuilder eventString = new StringBuilder();
                     eventString.Append("<div class=\"event");
@@ -361,19 +362,40 @@ public partial class search2 : SedogoPage
                     {
                         eventString.Append(" (achieved)");
                     }
+                    eventString.Append(eventName);
+
                     if (privateEvent == true)
                     {
-                        eventString.AppendLine("<img src=\"./images/privateIcon.jpg\" alt=\"Private goal\" />");
+                        eventString.AppendLine(" <img src=\"./images/privateIcon.jpg\" alt=\"Private event\" />");
                     }
                     if (eventAlertCount > 0)
                     {
-                        eventString.AppendLine("<img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
+                        eventString.AppendLine(" <img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
                     }
-                    eventString.Append(eventName + "</h3>");
+                    eventString.Append("</h3>");
 
-                    eventString.AppendLine("<p>" + trackingUserCount.ToString() + " are tracking this goal.</p>");
-
-                    eventString.AppendLine("<p>" + dateString + " <a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" title=\"\" class=\"modal\">View</a></p>");
+                    eventString.AppendLine("<p>" + dateString + "</p>");
+                    eventString.AppendLine("<p>");
+                    if (trackingUserCount > 0)
+                    {
+                        eventString.AppendLine(trackingUserCount.ToString());
+                        eventString.AppendLine(" following this goal");
+                    }
+                    if (joinedUserCount > 0)
+                    {
+                        eventString.AppendLine(joinedUserCount.ToString());
+                        if (joinedUserCount == 1)
+                        {
+                            eventString.AppendLine(" member");
+                        }
+                        else
+                        {
+                            eventString.AppendLine(" members");
+                        }
+                    }
+                    eventString.AppendLine("</p>");
+                    eventString.AppendLine("<a href=\"viewEvent.aspx?EID=" + eventID.ToString()
+                        + "\" title=\"\" class=\"modal\">View</a>");
 
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("<td align=\"right\">");

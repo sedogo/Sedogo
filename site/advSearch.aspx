@@ -110,7 +110,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>edit goal</h1>
+            <h1>Advanced search</h1>
 
             <fieldset>
                 <ol>

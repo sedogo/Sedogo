@@ -47,8 +47,17 @@
                         <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" /></p>
                         <h3 ID="trackingHeader" runat="server">Members</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
+                        <div style="padding:3px 0">
+                        <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
+                            OnClick="joinThisEventLink_click" CssClass="button-sml" />
+                            <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" />
+                        </div>
                         <h3 ID="H1" runat="server">Followers</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
+                        <div style="padding:3px 0">
+                        <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal"
+                            OnClick="trackThisEventLink_click" CssClass="button-sml" />
+                        </div>
                     </div>
                     <div class="left-col">
 		                <h1 style=""><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
@@ -80,13 +89,10 @@
         <div class="buttons">
             <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage"
                 Text="Upload image" CssClass="button-sml" />
-            <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Track this goal"
-                OnClick="trackThisEventLink_click" />
             <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Create a goal like this for me"
                 OnClick="createSimilarEventLink_click" CssClass="button-sml" />
             <asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="send message to trackers" 
                 OnClick="click_messageTrackingUsersLink" CssClass="button-sml" />
-
             <asp:HyperLink ID="editEventLink" runat="server" CssClass="button-sml" Text="edit" ToolTip="edit" />
             <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="done" 
                 ToolTip="achieved" OnClick="click_achievedEventLink" />
@@ -95,9 +101,6 @@
             <asp:LinkButton 
                 ID="postCommentButton" runat="server" ToolTip="post a comment" Text="post a comment" 
                 OnClick="postCommentButton_click" CssClass="button-sml" />
-            <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join this goal"
-                OnClick="joinThisEventLink_click" CssClass="button-sml" />
-                <asp:Label ID="joinThisEventLabel" runat="server" Text="Joined" />
             <asp:LinkButton 
                 ID="deleteEventButton" runat="server" ToolTip="delete goal" Text="delete goal" 
                 OnClick="deleteEventButton_click" CssClass="button-sml" />

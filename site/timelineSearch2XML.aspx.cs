@@ -208,46 +208,60 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 }
 
                 string timelineColour = "#cd3301";
+                string category = "";
                 switch (categoryID)
                 {
                     case 1:
                         timelineColour = "#cd3301";
+                        category = "Personal";
                         break;
                     case 2:
                         timelineColour = "#ff0b0b";
+                        category = "Travel";
                         break;
                     case 3:
                         timelineColour = "#ff6801";
+                        category = "Friends";
                         break;
                     case 4:
                         timelineColour = "#ff8500";
+                        category = "Family";
                         break;
                     case 5:
                         timelineColour = "#d5b21a";
+                        category = "General";
                         break;
                     case 6:
                         timelineColour = "#8dc406";
+                        category = "Health";
                         break;
                     case 7:
                         timelineColour = "#5b980c";
+                        category = "Money";
                         break;
                     case 8:
                         timelineColour = "#079abc";
+                        category = "Education";
                         break;
                     case 9:
                         timelineColour = "#5ab6cd";
+                        category = "Hobbies";
                         break;
                     case 10:
                         timelineColour = "#8a67c1";
+                        category = "Culture";
                         break;
                     case 11:
                         timelineColour = "#e54ecf";
+                        category = "Charity";
                         break;
                     case 12:
                         timelineColour = "#a5369c";
+                        category = "Green";
                         break;
                     case 13:
                         timelineColour = "#a32672";
+                        category = "Misc";
                         break;
                 }
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
@@ -260,6 +274,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 writer.WriteAttributeString("title", eventName);
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 writer.WriteAttributeString("color", timelineColour);
+                writer.WriteAttributeString("category", category);
                 writer.WriteString(linkURL + " &lt;br /&gt;");
                 writer.WriteEndElement();
             }

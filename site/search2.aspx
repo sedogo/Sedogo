@@ -195,18 +195,18 @@
 			</p>
 		</div>
 		<div class="three-col">
-			<label for="what" class="what">what is your goal?</label>
-			<asp:TextBox ID="what" runat="server" />
-			<asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
-			    ImageUrl="images/go.gif" ToolTip="go" CssClass="go" />
-			<ol>
-				<li>
-					<input type="radio" name="aim" class="radio" id="find-people" checked="checked" /> <label for="find-people" class="radio-label">Find people to do this with</label>
-				</li>
-				<li>
-					<input type="radio" name="aim" class="radio" id="add-to" /> <label for="add-to" class="radio-label">add to your goal list</label>
-				</li>
-			</ol>
+		    <table border="0" cellspacing="10" cellpadding="0" width="100%" style="background-color:#EEEEEE">
+		        <tr>
+		            <td><h3 class="blue">Add</h3>
+		            <p class="blue">to my goal list</p>
+		            <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" /></td>
+		            <td><h3 class="blue">Find</h3>
+		            <p class="blue">people with your goals</p>
+		            <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" /></td>
+		            <td valign="bottom"><a href="javascript:searchClick()"><img src="images/go.gif" alt="go" class="go" /></a></td>
+		            <td valign="bottom"><p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="modal">advanced search</a></p></td>
+		        </tr>    
+		    </table>
 		</div>
 		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
@@ -215,27 +215,39 @@
 		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
 		</div>
 		<div id="advSearchCriteria">
-		    Refine your search:<br />
-		    
-            <label for="">Goal name</label>
-            <asp:TextBox runat="server"
-                ID="eventNameTextBox" Width="200px" MaxLength="200" /><br />
-
-            <label for="">Where</label>
-            <asp:TextBox runat="server"
-                ID="venueTextBox" Width="200px" MaxLength="200" /><br />
-
-            <label for="">Goal owner name</label>
-            <asp:TextBox runat="server"
-                ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" />
-                
-            <asp:LinkButton 
-                ID="advSearchButton" runat="server" Text="Search" 
-                OnClick="advSearchButton_click" CssClass="button-sml" />
-            <asp:LinkButton 
-                ID="backToProfileButton" runat="server" Text="Back to profile" 
-                OnClick="backToProfileButton_click" CssClass="button-sml" />
-                
+		    <table border="0" cellspacing="10" cellpadding="0" width="100%" style="background-color:#EEEEEE">
+		        <tr>
+		            <td><h3 class="noTopMargin blue">Advanced Search</h3></td>
+		        </tr>    
+		        <tr>
+		            <td><p class="blue">Refine your search:</p></td>
+		        </tr>
+		        <tr>
+		            <td>
+		                <table>
+		                    <tr>
+		                        <td><label for="eventNameTextBox">Goal name</label></td>
+		                        <td><asp:TextBox runat="server"
+                                    ID="eventNameTextBox" Width="200px" MaxLength="200" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td><label for="venueTextBox">Where</label></td>
+		                        <td><asp:TextBox runat="server"
+                                    ID="venueTextBox" Width="200px" MaxLength="200" /></td>
+		                    </tr>
+		                    <tr>
+		                        <td><label for="eventOwnerNameTextBox">Goal owner name</label></td>
+		                        <td><asp:TextBox runat="server"
+                                    ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" /></td>
+                                <td><asp:LinkButton ID="advSearchButton" runat="server" Text="Search" 
+                                    OnClick="advSearchButton_click" CssClass="button-sml" /></td>
+                                <td><asp:LinkButton ID="backToProfileButton" runat="server" Text="Back to profile" 
+                                    OnClick="backToProfileButton_click" CssClass="button-sml" /></td>
+		                    </tr>
+		                </table>
+		            </td>
+		        </tr>
+		    </table>
 		</div>
 		<div id="timelines">
 			<div id="tools">

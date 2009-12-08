@@ -47,6 +47,19 @@ h3.blue
 {
     color: #0cf;
 }
+h3.noTopMargin
+{
+	margin-top: 5px;
+}
+p.blue
+{
+    color: #0cf;
+}
+
+#advSearchCriteria
+{
+	margin-top: 10px;
+}
 
 #container 
 {
@@ -109,6 +122,23 @@ input#what
 	margin: 4px 0;
 	color: #ccc
 }
+label.what2
+{
+	font-size: 22px;
+	font-weight: bold;
+	color: #0cf;
+}
+input#what2 
+{
+	display: block;
+	width: 252px;
+	padding: 4px 6px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	margin: 4px 0;
+	color: #ccc
+}
+
 .radio-label 
 {
 	font-size: 11px;
@@ -136,14 +166,6 @@ input#what
 {
 	padding-top: 3px
 }
-.go 
-{
-	position: absolute;
-	top: 76px;
-	left: 530px;
-}
-
-
 
 #timelines 
 {

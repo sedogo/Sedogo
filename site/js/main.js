@@ -265,7 +265,7 @@ $(document).ready(function() {
 
 
 function openModal(modalURL) {
-	alert("Remove pop-up");
+	alert("Remove pop-up!");
 //	$(".simileAjax-bubble-container").remove();	
 	$("#modal-container iframe").attr("src", modalURL);
 	$("#modal-container, #modal-background").fadeIn();

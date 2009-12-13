@@ -265,7 +265,6 @@ $(document).ready(function() {
 
 
 function openModal(modalURL) {
-	alert("test");
 	$(".simileAjax-bubble-container").remove();
 	$("#modal-container iframe").attr("src", modalURL);
 	$("#modal-container, #modal-background").fadeIn();

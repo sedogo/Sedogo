@@ -55,12 +55,64 @@ public partial class timelineSearch2XML : System.Web.UI.Page
         {
             eventOwnerName = (string)Request.QueryString["EvOwner"];
         }
+        int eventCategoryID = -1;
+        if (Request.QueryString["EvCategoryID"] != null)
+        {
+            eventCategoryID = int.Parse(Request.QueryString["EvCategoryID"].ToString());
+        }
+        string dateSearch = "R";
+        if (Request.QueryString["EvDateSearch"] != null)
+        {
+            dateSearch = (string)Request.QueryString["EvDateSearch"];
+        }
+        int beforeBirthday = -1;
+        if (Request.QueryString["EvDateBDay"] != null)
+        {
+            beforeBirthday = int.Parse(Request.QueryString["EvDateBDay"].ToString());
+        }
+        DateTime dateSearchStartDate = DateTime.MinValue;
+        if (Request.QueryString["EvDateStart"] != null)
+        {
+            try
+            {
+                string[] s = Request.QueryString["EvDateStart"].ToString().Split('-');
+                dateSearchStartDate = new DateTime(int.Parse(s[2]), int.Parse(s[1]), int.Parse(s[0]));
+            }
+            catch { }
+        }
+        DateTime dateSearchEndDate = DateTime.MinValue;
+        if (Request.QueryString["EvDateEnd"] != null)
+        {
+            try
+            {
+                string[] s = Request.QueryString["EvDateEnd"].ToString().Split('-');
+                dateSearchEndDate = new DateTime(int.Parse(s[2]), int.Parse(s[1]), int.Parse(s[0]));
+            }
+            catch { }
+        }
+        int recentlyAdded = -1;
+        if (Request.QueryString["EvRecentlyAdded"] != null)
+        {
+            recentlyAdded = int.Parse(Request.QueryString["EvRecentlyAdded"].ToString());
+        }
+        int recentlyUpdated = -1;
+        if (Request.QueryString["EvRecentlyUpdated"] != null)
+        {
+            recentlyUpdated = int.Parse(Request.QueryString["EvRecentlyUpdated"].ToString());
+        }
+        string definitlyDo = "A";
+        if (Request.QueryString["EvDefinitlyDo"] != null)
+        {
+            definitlyDo = (string)Request.QueryString["EvDefinitlyDo"];
+        }
 
         XmlTextWriter writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
         writer.WriteStartDocument();
         writer.WriteStartElement("data");
 
-        CreateXMLContent(writer, searchText, eventNameText, eventVenue, eventOwnerName);
+        CreateXMLContent(writer, searchText, eventNameText, eventVenue, eventOwnerName,
+            eventCategoryID, dateSearch, beforeBirthday, dateSearchStartDate, dateSearchEndDate,
+            recentlyAdded, recentlyUpdated, definitlyDo);
 
         writer.WriteEndElement();
         writer.WriteEndDocument();
@@ -71,7 +123,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
     // Function: CreateXMLContent
     //===============================================================
     private void CreateXMLContent(XmlTextWriter writer, string searchText,
-        string eventNameText, string eventVenue, string eventOwnerName)
+        string eventNameText, string eventVenue, string eventOwnerName, 
+        int eventCategoryID, string dateSearch, int beforeBirthday,
+        DateTime dateSearchStartDate, DateTime dateSearchEndDate,
+        int recentlyAdded, int recentlyUpdated, string definitlyDo)
     {
         int userID = int.Parse(Session["loggedInUserID"].ToString());
 
@@ -97,6 +152,37 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 1000).Value = eventNameText;
                 cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, 1000).Value = eventVenue;
                 cmd.Parameters.Add("@OwnerName", SqlDbType.NVarChar, 1000).Value = eventOwnerName;
+                cmd.Parameters.Add("@CategoryID", SqlDbType.Int).Value = eventCategoryID;
+                if (dateSearch == "R")
+                {
+                    if (dateSearchStartDate == DateTime.MinValue)
+                    {
+                        cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = dateSearchStartDate;
+                    }
+                    if (dateSearchStartDate == DateTime.MinValue)
+                    {
+                        cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = dateSearchEndDate;
+                    }
+                }
+                if (dateSearch == "B")
+                {
+                    // Do not search on birthday, search between now and
+                    // the date on which the birthday falls
+                    DateTime birthdayEndDate = user.birthday.AddYears(beforeBirthday);
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = birthdayEndDate;
+                }
+                cmd.Parameters.Add("@RecentlyAdded", SqlDbType.Int).Value = recentlyAdded;
+                cmd.Parameters.Add("@RecentlyUpdated", SqlDbType.Int).Value = recentlyUpdated;
+                cmd.Parameters.Add("@DefinitlyDo", SqlDbType.NChar, 1).Value = definitlyDo;
             }
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
@@ -106,7 +192,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 DateTime startDate = DateTime.MinValue;
                 DateTime rangeStartDate = DateTime.MinValue;
                 DateTime rangeEndDate = DateTime.MinValue;
-                int beforeBirthday = -1;
+                int beforeBirthdayLoop = -1;
                 Boolean privateEvent = false;
                 Boolean eventAchieved = false;
                 int eventUserID = -1;
@@ -139,7 +225,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("BeforeBirthday")))
                 {
-                    beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
+                    beforeBirthdayLoop = int.Parse(rdr["BeforeBirthday"].ToString());
                 }
                 privateEvent = (Boolean)rdr["PrivateEvent"];
                 if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
@@ -177,9 +263,9 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                     timelineStartDate = DateTime.Now;
                     if (eventUser.birthday > DateTime.MinValue)
                     {
-                        timelineEndDate = user.birthday.AddYears(beforeBirthday);
+                        timelineEndDate = user.birthday.AddYears(beforeBirthdayLoop);
 
-                        TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthday);
+                        TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthdayLoop);
                         if (ts.Days < 0)
                         {
                             // Birthday was in the past

@@ -1,5 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent"
-    Theme="Sedogo" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addEvent.aspx.cs" Inherits="addEvent" %>
 <%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 

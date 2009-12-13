@@ -57,12 +57,92 @@ public partial class search2 : SedogoPage
             {
                 eventOwnerName = (string)Request.QueryString["EvOwner"];
             }
+            int eventCategoryID = -1;
+            if (Request.QueryString["EvCategoryID"] != null)
+            {
+                eventCategoryID = int.Parse(Request.QueryString["EvCategoryID"].ToString());
+            }
+            string dateSearch = "R";
+            if (Request.QueryString["EvDateSearch"] != null)
+            {
+                dateSearch = (string)Request.QueryString["EvDateSearch"];
+            }
+            int beforeBirthday = -1;
+            if (Request.QueryString["EvDateBDay"] != null)
+            {
+                beforeBirthday = int.Parse(Request.QueryString["EvDateBDay"].ToString());
+            }
+            DateTime dateSearchStartDate = DateTime.MinValue;
+            if (Request.QueryString["EvDateStart"] != null)
+            {
+                try
+                {
+                    string[] s = Request.QueryString["EvDateStart"].ToString().Split('-');
+                    dateSearchStartDate = new DateTime(int.Parse(s[2]), int.Parse(s[1]), int.Parse(s[0]));
+                }
+                catch { }
+            }
+            DateTime dateSearchEndDate = DateTime.MinValue;
+            if (Request.QueryString["EvDateEnd"] != null)
+            {
+                try
+                {
+                    string[] s = Request.QueryString["EvDateEnd"].ToString().Split('-');
+                    dateSearchEndDate = new DateTime(int.Parse(s[2]), int.Parse(s[1]), int.Parse(s[0]));
+                }
+                catch { }
+            }
+            int recentlyAdded = -1;
+            if (Request.QueryString["EvRecentlyAdded"] != null)
+            {
+                recentlyAdded = int.Parse(Request.QueryString["EvRecentlyAdded"].ToString());
+            }
+            int recentlyUpdated = -1;
+            if (Request.QueryString["EvRecentlyUpdated"] != null)
+            {
+                recentlyUpdated = int.Parse(Request.QueryString["EvRecentlyUpdated"].ToString());
+            }
+            string definitlyDo = "A";
+            if (Request.QueryString["EvDefinitlyDo"] != null)
+            {
+                definitlyDo = (string)Request.QueryString["EvDefinitlyDo"];
+            }
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            int userAgeYears = DateTime.Now.Year - user.birthday.Year;
+
+            for (int age = userAgeYears; age <= 100; age++)
+            {
+                birthdayDropDownList.Items.Add(new ListItem(age.ToString(), age.ToString()));
+
+                if (user.birthday > DateTime.MinValue)
+                {
+                    int currentAge = DateTime.Now.Year - user.birthday.Year;
+                    birthdayDropDownList.SelectedValue = currentAge.ToString();
+                }
+            }
 
             eventNameTextBox.Text = eventNameText;
             venueTextBox.Text = eventVenue;
             eventOwnerNameTextBox.Text = eventOwnerName;
+            categoryDropDownList.SelectedValue = eventCategoryID.ToString();
+            if (dateSearch == "R")
+            {
+                betweenDatesRadioButton.Checked = true;
+                CalendarRangeStartDate.SelectedDate = dateSearchStartDate;
+                PickerRangeStartDate.SelectedDate = dateSearchStartDate;
+                CalendarRangeEndDate.SelectedDate = dateSearchEndDate;
+                PickerRangeEndDate.SelectedDate = dateSearchEndDate;
+            }
+            if (dateSearch == "B")
+            {
+                beforeBirthdayRadioButton.Checked = true;
+                birthdayDropDownList.SelectedValue = beforeBirthday.ToString();
+            }
+            recentlyAddedDropDownList.SelectedValue = recentlyAdded.ToString();
+            recentlyUpdatedDropDownList.SelectedValue = recentlyUpdated.ToString();
+            definitlyDoDropDownList.SelectedValue = definitlyDo;
 
-            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             userNameLabel.Text = user.fullName;
             profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
 
@@ -154,8 +234,19 @@ public partial class search2 : SedogoPage
             searchTimelineURL.Text += "&EvName=" + eventNameText;
             searchTimelineURL.Text += "&EvVenue=" + eventVenue;
             searchTimelineURL.Text += "&EvOwner=" + eventOwnerName;
+            searchTimelineURL.Text += "&EvCategoryID=" + eventCategoryID.ToString();
+            searchTimelineURL.Text += "&EvDateSearch=" + dateSearch;
+            searchTimelineURL.Text += "&EvDateStart=" + dateSearchStartDate.ToString("dd-MM-yyyy");
+            searchTimelineURL.Text += "&EvDateEnd=" + dateSearchEndDate.ToString("dd-MM-yyyy");
+            searchTimelineURL.Text += "&EvDateBDay=" + beforeBirthday.ToString();
+            searchTimelineURL.Text += "&EvRecentlyAdded=" + recentlyAdded.ToString();
+            searchTimelineURL.Text += "&EvRecentlyUpdated=" + recentlyUpdated.ToString();
+            searchTimelineURL.Text += "&EvDefinitlyDo=" + definitlyDo;
 
-            int searchCount = GetSearchResultCount(searchText, eventNameText, eventVenue, eventOwnerName);
+            int searchCount = GetSearchResultCount(searchText, eventNameText, eventVenue, eventOwnerName,
+                eventCategoryID, dateSearch, beforeBirthday, 
+                dateSearchStartDate, dateSearchEndDate,
+                recentlyAdded, recentlyUpdated, definitlyDo);
             if (searchCount >= 50)
             {
                 moreThan50ResultsDiv.Visible = true;
@@ -590,11 +681,37 @@ public partial class search2 : SedogoPage
         string eventName = eventNameTextBox.Text;
         string venue = venueTextBox.Text;
         string eventOwnerName = eventOwnerNameTextBox.Text;
+        int eventCategoryID = int.Parse(categoryDropDownList.SelectedValue);
+        string dateSearch = "R";
+        int beforeBirthday = -1;
+        DateTime dateSearchStartDate = DateTime.MinValue;
+        DateTime dateSearchEndDate = DateTime.MinValue;
+        if( betweenDatesRadioButton.Checked == true )
+        {
+            dateSearchStartDate = CalendarRangeStartDate.SelectedDate;
+            dateSearchEndDate = CalendarRangeEndDate.SelectedDate;
+        }
+        if( beforeBirthdayRadioButton.Checked == true )
+        {
+            dateSearch = "B";
+            beforeBirthday = int.Parse(birthdayDropDownList.SelectedValue);
+        }
+        int recentlyAdded = int.Parse(recentlyAddedDropDownList.SelectedValue);
+        int recentlyUpdated = int.Parse(recentlyUpdatedDropDownList.SelectedValue);
+        string definitlyDo = definitlyDoDropDownList.SelectedValue;
 
         string url = "search2.aspx";
         url = url + "?EvName=" + eventName;
         url = url + "&EvVenue=" + venue;
         url = url + "&EvOwner=" + eventOwnerName;
+        url = url + "&EvCategoryID=" + eventCategoryID.ToString();
+        url = url + "&EvDateSearch=" + dateSearch;
+        url = url + "&EvDateStart=" + dateSearchStartDate.ToString("dd-MM-yyyy");
+        url = url + "&EvDateEnd=" + dateSearchEndDate.ToString("dd-MM-yyyy");
+        url = url + "&EvDateBDay=" + beforeBirthday.ToString();
+        url = url + "&EvRecentlyAdded=" + recentlyAdded.ToString();
+        url = url + "&EvRecentlyUpdated=" + recentlyUpdated.ToString();
+        url = url + "&EvDefinitlyDo=" + definitlyDo;
 
         Response.Redirect(url);
     }
@@ -685,8 +802,10 @@ public partial class search2 : SedogoPage
     //===============================================================
     // Function: GetSearchResultCount
     //===============================================================
-    private int GetSearchResultCount(string searchText, string eventNameText, 
-        string eventVenue, string eventOwnerName)
+    private int GetSearchResultCount(string searchText, string eventNameText,
+        string eventVenue, string eventOwnerName, int eventCategoryID, string dateSearch, int beforeBirthday,
+        DateTime dateSearchStartDate, DateTime dateSearchEndDate,
+        int recentlyAdded, int recentlyUpdated, string definitlyDo)
     {
         int searchCount = 0;
 
@@ -712,6 +831,38 @@ public partial class search2 : SedogoPage
                 cmd.Parameters.Add("@EventName", SqlDbType.NVarChar, 1000).Value = eventNameText;
                 cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, 1000).Value = eventVenue;
                 cmd.Parameters.Add("@OwnerName", SqlDbType.NVarChar, 1000).Value = eventOwnerName;
+                cmd.Parameters.Add("@CategoryID", SqlDbType.Int).Value = eventCategoryID;
+                if( dateSearch == "R" )
+                {
+                    if (dateSearchStartDate == DateTime.MinValue)
+                    {
+                        cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = dateSearchStartDate;
+                    }
+                    if (dateSearchStartDate == DateTime.MinValue)
+                    {
+                        cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = DBNull.Value;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = dateSearchEndDate;
+                    }
+                }
+                if( dateSearch == "B" )
+                {
+                    // Do not search on birthday, search between now and
+                    // the date on which the birthday falls
+                    SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                    DateTime birthdayEndDate = user.birthday.AddYears(beforeBirthday);
+                    cmd.Parameters.Add("@StartDate", SqlDbType.DateTime).Value = DateTime.Now;
+                    cmd.Parameters.Add("@EndDate", SqlDbType.DateTime).Value = birthdayEndDate;
+                }
+                cmd.Parameters.Add("@RecentlyAdded", SqlDbType.Int).Value = recentlyAdded;
+                cmd.Parameters.Add("@RecentlyUpdated", SqlDbType.Int).Value = recentlyUpdated;
+                cmd.Parameters.Add("@DefinitlyDo", SqlDbType.NChar, 1).Value = definitlyDo;
             }
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())

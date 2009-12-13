@@ -743,18 +743,73 @@ END
 GO
 
 CREATE Procedure spSearchEventsAdvanced
-	@UserID			int,
-	@EventName		nvarchar(1000),
-	@EventVenue		nvarchar(1000),
-	@OwnerName		nvarchar(1000)
+	@UserID				int,
+	@EventName			nvarchar(1000),
+	@EventVenue			nvarchar(1000),
+	@OwnerName			nvarchar(1000),
+	@CategoryID			int,
+	@StartDate			datetime,
+	@EndDate			datetime,
+	@RecentlyAdded		int,
+	@RecentlyUpdated	int,
+	@DefinitlyDo		nchar(1)
 AS
 BEGIN
+	DECLARE @TempSearchList TABLE
+	(
+		EventID							int,
+		UserID							int,
+		EventName						nvarchar(200),
+		DateType						nchar(1),
+		StartDate						datetime,
+		RangeStartDate					datetime,
+		RangeEndDate					datetime,
+		BeforeBirthday					int,
+		CategoryID						int,
+		TimezoneID						int,
+		EventAchieved					bit,
+		PrivateEvent					bit,
+		CreatedFromEventID				int,
+		EventVenue						nvarchar(max),
+		MustDo							bit,
+		EventPicFilename				nvarchar(200),
+		EventPicThumbnail				nvarchar(200),
+		EventPicPreview					nvarchar(200),
+		CreatedDate						datetime,
+		CreatedByFullName				nvarchar(200),
+		LastUpdatedDate					datetime,
+		LastUpdatedByFullName			nvarchar(200),
+		EmailAddress					nvarchar(200),
+		FirstName						nvarchar(200),
+		LastName						nvarchar(200),
+		Gender							nchar(1),
+		HomeTown						nvarchar(200),
+		ProfilePicThumbnail				nvarchar(200),
+		Birthday						datetime,
+		BeforeBirthdayDate				datetime,
+		DaysFromCreatedDate				int,
+		DaysFromLastUpdatedDate			int
+	)
+
+	INSERT INTO @TempSearchList
+	(
+		EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent,
+		CreatedFromEventID, EventVenue, MustDo, EventPicFilename, EventPicThumbnail,
+		EventPicPreview, CreatedDate, CreatedByFullName, LastUpdatedDate,
+		LastUpdatedByFullName, EmailAddress, FirstName, LastName, Gender,
+		HomeTown, ProfilePicThumbnail, Birthday, BeforeBirthdayDate,
+		DaysFromCreatedDate, DaysFromLastUpdatedDate
+	)
 	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
 		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
-		E.EventVenue,
+		E.EventVenue, E.MustDo,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
-		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail,
+		U.Birthday, DATEADD(yy, E.BeforeBirthday, U.Birthday) AS BeforeBirthdayDate,
+		DATEDIFF(d,E.CreatedDate,getdate()) AS DaysFromCreatedDate,
+		DATEDIFF(d,E.LastUpdatedDate,getdate()) AS DaysFromLastUpdatedDate
 	FROM Events E
 	JOIN Users U
 	ON E.UserID = U.UserID
@@ -764,8 +819,43 @@ BEGIN
 	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
 	AND ( (UPPER(E.EventName) LIKE '%'+UPPER(@EventName)+'%')
 	 AND (UPPER(ISNULL(E.EventVenue,'')) LIKE '%'+UPPER(@EventVenue)+'%')
-	 AND (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@OwnerName)+'%') ) 
-	ORDER BY E.StartDate
+	 AND ((@CategoryID = -1) OR (E.CategoryID = @CategoryID))
+	 AND (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@OwnerName)+'%') 
+	 ) 
+	 
+	 IF @RecentlyAdded > 0
+	 BEGIN
+		 DELETE @TempSearchList
+		 WHERE DaysFromCreatedDate > @RecentlyAdded
+	 END
+	 IF @RecentlyUpdated > 0
+	 BEGIN
+		 DELETE @TempSearchList
+		 WHERE DaysFromLastUpdatedDate > @RecentlyAdded
+	 END
+	 IF @DefinitlyDo = 'D'
+	 BEGIN
+		 DELETE @TempSearchList
+		 WHERE MustDo = 0
+	 END
+	 
+	-- Now filter out based on dates
+	--DELETE @TempSearchList
+	--WHERE BeforeBirthday > 0
+	--AND ( BeforeBirthdayDate > @EndDate )
+	--AND ( BeforeBirthdayDate < @StartDate OR BeforeBirthdayDate > @EndDate )
+
+	DELETE @TempSearchList
+	WHERE StartDate IS NOT NULL
+	AND ( StartDate < @StartDate OR StartDate > @EndDate )
+
+	DELETE @TempSearchList
+	WHERE RangeStartDate IS NOT NULL
+	AND ( RangeStartDate < @StartDate OR RangeEndDate > @EndDate )
+	
+	SELECT *
+	FROM @TempSearchList
+	ORDER BY StartDate
 END
 GO
 

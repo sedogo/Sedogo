@@ -29,6 +29,8 @@ GO
 CREATE TABLE Events
 (
 	EventID							int					NOT NULL PRIMARY KEY IDENTITY,
+	EventGUID						uniqueidentifier	NOT NULL,
+	
 	UserID							int					NOT NULL,
 	EventName						nvarchar(200)		NOT NULL,
 	EventVenue						nvarchar(max)		NULL,
@@ -86,6 +88,8 @@ GO
 CREATE TABLE TrackedEvents
 (
 	TrackedEventID					int					NOT NULL PRIMARY KEY IDENTITY,
+	TrackedEventGUID				uniqueidentifier	NOT NULL,
+	
 	EventID							int					NOT NULL,
 	UserID							int					NOT NULL,
 	JoinPending						bit					NOT NULL,
@@ -114,6 +118,8 @@ GO
 CREATE TABLE EventComments
 (
 	EventCommentID					int					NOT NULL PRIMARY KEY IDENTITY,
+	EventCommentGUID				uniqueidentifier	NOT NULL,
+	
 	EventID							int					NOT NULL,
 	PostedByUserID					int					NOT NULL,
 	
@@ -145,6 +151,8 @@ GO
 CREATE TABLE Messages
 (
 	MessageID						int					NOT NULL PRIMARY KEY IDENTITY,
+	MessageGUID						uniqueidentifier	NOT NULL,
+	
 	EventID							int					NULL,		-- Null incase we add non-event messages
 	UserID							int					NOT NULL,
 	PostedByUserID					int					NOT NULL,
@@ -221,6 +229,8 @@ GO
 CREATE TABLE EventAlerts
 (
 	EventAlertID					int					NOT NULL PRIMARY KEY IDENTITY,
+	EventAlertGUID					uniqueidentifier	NOT NULL,
+	
 	EventID							int					NOT NULL,
 	
 	AlertDate						datetime		    NULL,

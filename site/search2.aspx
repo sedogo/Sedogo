@@ -1,5 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="search2.aspx.cs" Inherits="search2" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -23,6 +24,7 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/calendarStyle.css" />
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
@@ -182,6 +184,41 @@
         location.href = "userTimeline.aspx?UID=" + userID;
     }
     </script>
+<script language="JavaScript" type="text/javascript">
+function PickerRangeStartDate_OnChange()
+{
+    <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function CalendarRangeStartDate_OnChange()
+{
+    <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function popupCalendarRangeStartDate(image)
+{
+    if( <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+    {
+        <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+    }
+    <%=CalendarRangeStartDate.ClientObjectId%>.Show(image);    
+}
+function PickerRangeEndDate_OnChange()
+{
+    <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function CalendarRangeEndDate_OnChange()
+{
+    <%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+}
+function popupCalendarRangeEndDate(image)
+{
+    if( <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+    {
+        <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+    }
+    <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
+}
+</script>
+    
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
@@ -230,27 +267,178 @@
 		            <td>
 		                <table>
 		                    <tr>
-		                        <td><label for="eventNameTextBox">Goal name</label></td>
+		                        <td>Goal name</td>
 		                        <td><asp:TextBox runat="server"
                                     ID="eventNameTextBox" Width="200px" MaxLength="200" /></td>
+		                        <td>Category</td>
+		                        <td><asp:DropDownList ID="categoryDropDownList" runat="server">
+                                    <asp:ListItem Text="All" Value="-1" />
+                                    <asp:ListItem Text="Personal" Value="1" />
+                                    <asp:ListItem Text="Travel" Value="2" />
+                                    <asp:ListItem Text="Friends" Value="3" />
+                                    <asp:ListItem Text="Family" Value="4" />
+                                    <asp:ListItem Text="General" Value="5" />
+                                    <asp:ListItem Text="Health" Value="6" />
+                                    <asp:ListItem Text="Money" Value="7" />
+                                    <asp:ListItem Text="Education" Value="8" />
+                                    <asp:ListItem Text="Hobbies" Value="9" />
+                                    <asp:ListItem Text="Culture" Value="10" />
+                                    <asp:ListItem Text="Charity" Value="11" />
+                                    <asp:ListItem Text="Green" Value="12" />
+                                    <asp:ListItem Text="Misc" Value="13" />
+		                        </asp:DropDownList></td>
+		                        <td>Recently added</td>
+		                        <td><asp:DropDownList ID="recentlyAddedDropDownList" runat="server">
+                                    <asp:ListItem Text="All" Value="-1" />
+                                    <asp:ListItem Text="Last Day" Value="1" />
+                                    <asp:ListItem Text="Last Week" Value="7" />
+                                    <asp:ListItem Text="Last Month" Value="31" />
+		                        </asp:DropDownList></td>
 		                    </tr>
 		                    <tr>
-		                        <td><label for="venueTextBox">Where</label></td>
+		                        <td>Where</td>
 		                        <td><asp:TextBox runat="server"
                                     ID="venueTextBox" Width="200px" MaxLength="200" /></td>
+                                <td><asp:RadioButton id="betweenDatesRadioButton"
+                                   Text="Between dates" Checked="true" GroupName="dateRadioGroup" 
+                                   runat="server" /></td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td><ComponentArt:Calendar ID="PickerRangeStartDate" 
+                                                            runat="server" 
+                                                            ClientSideOnSelectionChanged="PickerRangeStartDate_OnChange"
+                                                            ControlType="Picker" 
+                                                            PickerCssClass="picker" 
+                                                            ImagesBaseUrl="./images/calendarImages/"
+                                                            PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                                            PopUpExpandControlId="calendarButton">
+                                                        </ComponentArt:Calendar>
+                                                        <ComponentArt:Calendar ID="CalendarRangeStartDate" 
+                                                            runat="server" 
+                                                            CalendarCssClass="calendar"
+                                                            TitleCssClass="title" 
+                                                            ControlType="Calendar"
+                                                            DayCssClass="day" 
+                                                            DayHeaderCssClass="dayheader" 
+                                                            DayHoverCssClass="dayhover" 
+                                                            DayNameFormat="FirstTwoLetters"
+                                                            ImagesBaseUrl="./images/calendarImages/"
+                                                            MonthCssClass="month"
+                                                            NextImageUrl="cal_nextMonth.gif"
+                                                            NextPrevCssClass="nextprev" 
+                                                            OtherMonthDayCssClass="othermonthday" 
+                                                            PrevImageUrl="cal_prevMonth.gif" 
+                                                            SelectedDayCssClass="selectedday" 
+                                                            SelectMonthCssClass="selector"
+                                                            SelectMonthText="&curren;" 
+                                                            SelectWeekCssClass="selector"
+                                                            SelectWeekText="&raquo;" 
+                                                            SwapDuration="300"
+                                                            SwapSlide="Linear"
+                                                            ClientSideOnSelectionChanged="CalendarRangeStartDate_OnChange" 
+                                                            PopUp="Custom" 
+                                                            PopUpExpandControlId="calendarButton">
+                                                        </ComponentArt:Calendar></td>
+                                                        <td><img alt="Click for pop-up calendar" 
+                                                            id="Img1" 
+                                                            onclick="popupCalendarRangeStartDate(this)" 
+                                                            class="calendar_button" 
+                                                            src="./images/calendarImages/btn_calendar.gif" 
+                                                            width="25" height="22" /></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td>To</td>
+                                            <td>
+                                                <table border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td><ComponentArt:Calendar ID="PickerRangeEndDate" 
+                                                            runat="server" 
+                                                            ClientSideOnSelectionChanged="PickerRangeEndDate_OnChange"
+                                                            ControlType="Picker" 
+                                                            PickerCssClass="picker" 
+                                                            ImagesBaseUrl="./images/calendarImages/"
+                                                            PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
+                                                            PopUpExpandControlId="calendarButton">
+                                                        </ComponentArt:Calendar>
+                                                        <ComponentArt:Calendar ID="CalendarRangeEndDate" 
+                                                            runat="server" 
+                                                            CalendarCssClass="calendar"
+                                                            TitleCssClass="title" 
+                                                            ControlType="Calendar"
+                                                            DayCssClass="day" 
+                                                            DayHeaderCssClass="dayheader" 
+                                                            DayHoverCssClass="dayhover" 
+                                                            DayNameFormat="FirstTwoLetters"
+                                                            ImagesBaseUrl="./images/calendarImages/"
+                                                            MonthCssClass="month"
+                                                            NextImageUrl="cal_nextMonth.gif"
+                                                            NextPrevCssClass="nextprev" 
+                                                            OtherMonthDayCssClass="othermonthday" 
+                                                            PrevImageUrl="cal_prevMonth.gif" 
+                                                            SelectedDayCssClass="selectedday" 
+                                                            SelectMonthCssClass="selector"
+                                                            SelectMonthText="&curren;" 
+                                                            SelectWeekCssClass="selector"
+                                                            SelectWeekText="&raquo;" 
+                                                            SwapDuration="300"
+                                                            SwapSlide="Linear"
+                                                            ClientSideOnSelectionChanged="CalendarRangeEndDate_OnChange" 
+                                                            PopUp="Custom" 
+                                                            PopUpExpandControlId="calendarButton">
+                                                        </ComponentArt:Calendar></td>
+                                                        <td><img alt="Click for pop-up calendar" 
+                                                            id="Img2" 
+                                                            onclick="popupCalendarRangeEndDate(this)" 
+                                                            class="calendar_button" 
+                                                            src="./images/calendarImages/btn_calendar.gif" 
+                                                            width="25" height="22" /></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+		                        <td>Recently updated</td>
+		                        <td><asp:DropDownList ID="recentlyUpdatedDropDownList" runat="server">
+                                    <asp:ListItem Text="All" Value="-1" />
+                                    <asp:ListItem Text="Last Day" Value="1" />
+                                    <asp:ListItem Text="Last Week" Value="7" />
+                                    <asp:ListItem Text="Last Month" Value="31" />
+		                        </asp:DropDownList></td>
 		                    </tr>
 		                    <tr>
-		                        <td><label for="eventOwnerNameTextBox">Goal owner name</label></td>
+		                        <td>Goal owner name</td>
 		                        <td><asp:TextBox runat="server"
                                     ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" /></td>
-                                <td><asp:LinkButton ID="advSearchButton" runat="server" Text="Search" 
-                                    OnClick="advSearchButton_click" CssClass="button-sml" /></td>
-                                <td><asp:LinkButton ID="backToProfileButton" runat="server" Text="Back to profile" 
-                                    OnClick="backToProfileButton_click" CssClass="button-sml" /></td>
+                                <td valign="top"><asp:RadioButton id="beforeBirthdayRadioButton"
+                                   Text="Before age" GroupName="dateRadioGroup" 
+                                   runat="server" /></td>
+                                <td><asp:DropDownList ID="birthdayDropDownList" runat="server">
+                                    </asp:DropDownList></td>
+		                        <td>Definitly do</td>
+		                        <td><asp:DropDownList ID="definitlyDoDropDownList" runat="server">
+                                    <asp:ListItem Text="All" Value="A" />
+                                    <asp:ListItem Text="Definitly do" Value="D" />
+		                        </asp:DropDownList></td>
 		                    </tr>
+		                    </tr>
+		                        <td colspan="6">
+		                            <asp:LinkButton ID="advSearchButton" runat="server" Text="Search" 
+                                        OnClick="advSearchButton_click" CssClass="button-sml" />
+                                    <asp:LinkButton ID="backToProfileButton" runat="server" Text="Back to profile" 
+                                        OnClick="backToProfileButton_click" CssClass="button-sml" />
+		                        </td>
+		                    <tr>
 		                </table>
 		            </td>
 		        </tr>
+
+
 		    </table>
 		</div>
 		<div id="timelines">

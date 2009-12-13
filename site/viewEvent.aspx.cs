@@ -226,6 +226,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             eventDateLabel.Text = dateString;
             eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
             eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
+            createdDateLabel.Text = sedogoEvent.createdDate.ToString("dd/MM/yyyy");
+            lastUpdatedDateLabel.Text = sedogoEvent.lastUpdatedDate.ToString("dd/MM/yyyy");
 
             if (sedogoEvent.eventPicPreview == "")
             {

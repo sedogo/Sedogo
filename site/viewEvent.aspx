@@ -65,7 +65,9 @@
 		                <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		                <i>Owner: <asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></i><br />
 		                Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-		                <asp:Label ID="eventDateLabel" runat="server" /></p>
+		                <asp:Label ID="eventDateLabel" runat="server" /><br />
+		                Created: <asp:Label ID="createdDateLabel" runat="server" /><br />
+		                Last updated: <asp:Label ID="lastUpdatedDateLabel" runat="server" /></p>
         		        
 		                <div id="invitedPanel" runat="server">
                         <asp:LinkButton 

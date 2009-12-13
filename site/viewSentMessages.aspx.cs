@@ -105,13 +105,16 @@ public partial class viewSentMessages : SedogoPage
             {
                 int userID = int.Parse(row["UserID"].ToString());
                 SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-                userNameLabel.Text = "To: " + messageToUser.firstName + " " + messageToUser.lastName;
+                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                    + messageToUser.firstName + " " + messageToUser.lastName + "</a> ";
                 eventNameLabel.Text = "";
             }
             else
             {
-                userNameLabel.Text = "To: " + row["FirstName"].ToString() + " " + row["LastName"].ToString();
-                eventNameLabel.Text = "Goal: " + row["EventName"].ToString();
+                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\">"
+                    + row["FirstName"].ToString() + " " + row["LastName"].ToString() + "</a> ";
+                eventNameLabel.Text = "Goal: <a href=\"viewEvent.aspx?EID=" + row["EventID"].ToString() + "\">" 
+                    + row["EventName"].ToString() + "</a>";
             }
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;

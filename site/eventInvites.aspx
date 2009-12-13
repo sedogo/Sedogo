@@ -45,17 +45,38 @@
 
                 <p><b>Invite new people</b><br /> type in their email address(es) in the box below, one email address per line:</p>
 
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox1" runat="server" Width="300px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox2" runat="server" Width="300px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox3" runat="server" Width="300px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox4" runat="server" Width="300px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox5" runat="server" Width="300px" />
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox1" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox2" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox3" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox4" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><img src="images/profile/miniProfile.jpg" /></td>
+                        <td><asp:TextBox ID="inviteTextBox5" runat="server" Width="300px" /></td>
+                    </tr>
+                </table>
 
+                <p>&nbsp;</p>
                 <p>message (optional)</p>
 
                 <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"

@@ -176,7 +176,11 @@
     function openEvent(eventID)
     {
         openModal("viewEvent.aspx?EID=" + eventID);
-    }    
+    }
+    function viewProfile(userID)
+    {
+        location.href = "userTimeline.aspx?UID=" + userID;
+    }
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">

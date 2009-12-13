@@ -147,6 +147,8 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                     eventUserID = int.Parse(rdr["UserID"].ToString());
                 }
 
+                SedogoUser eventUser = new SedogoUser("", eventUserID);
+
                 if (dateType == "D")
                 {
                     // Event occurs on a specific date
@@ -172,8 +174,6 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 if (dateType == "A")
                 {
                     // Event occurs before birthday
-                    SedogoUser eventUser = new SedogoUser("", eventUserID);
-
                     timelineStartDate = DateTime.Now;
                     if (eventUser.birthday > DateTime.MinValue)
                     {
@@ -266,12 +266,13 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 }
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
                 string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+                linkURL += " - &lt;a href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;View user profile&lt;/a&gt;";
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("isDuration", "true");
-                writer.WriteAttributeString("title", eventName);
+                writer.WriteAttributeString("title", eventName + " - " + eventUser.firstName + " " + eventUser.lastName);
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 writer.WriteAttributeString("color", timelineColour);
                 writer.WriteAttributeString("category", category);

@@ -1565,26 +1565,36 @@ Y.appendChild(O);
 return O;
 };
 };
-Timeline.EtherHighlight=function(B,E,D,C){var A=B.isHorizontal();
-this._highlightDiv=null;
-this._createHighlightDiv=function(){if(this._highlightDiv==null){this._highlightDiv=B.getDocument().createElement("div");
-this._highlightDiv.setAttribute("name","ether-highlight");
-this._highlightDiv.className="timeline-ether-highlight";
-var F=D.ether.highlightOpacity;
-if(F<100){SimileAjax.Graphics.setOpacity(this._highlightDiv,F);
-}C.appendChild(this._highlightDiv);
-}};
-this.position=function(H,J){this._createHighlightDiv();
-var I=Math.round(E.dateToPixelOffset(H));
-var G=Math.round(E.dateToPixelOffset(J));
-var F=Math.max(G-I,3);
-if(A){this._highlightDiv.style.left=I+"px";
-this._highlightDiv.style.width=F+"px";
-this._highlightDiv.style.height=(E.getViewWidth()-4)+"px";
-}else{this._highlightDiv.style.top=I+"px";
-this._highlightDiv.style.height=F+"px";
-this._highlightDiv.style.width=(E.getViewWidth()-4)+"px";
-}};
+Timeline.EtherHighlight = function(B, E, D, C) {
+	var A = B.isHorizontal();
+	this._highlightDiv = null;
+	this._createHighlightDiv = function() {
+		if (this._highlightDiv == null) {
+			this._highlightDiv = B.getDocument().createElement("div");
+			this._highlightDiv.setAttribute("name", "ether-highlight");
+			this._highlightDiv.className = "timeline-ether-highlight";
+			//var F=D.ether.highlightOpacity;
+			var F = 100;
+			if (F < 100) {
+				SimileAjax.Graphics.setOpacity(this._highlightDiv, F);
+			} C.appendChild(this._highlightDiv);
+		} 
+	};
+	this.position = function(H, J) {
+		this._createHighlightDiv();
+		var I = Math.round(E.dateToPixelOffset(H));
+		var G = Math.round(E.dateToPixelOffset(J));
+		var F = Math.max(G - I, 3);
+		if (A) {
+			this._highlightDiv.style.left = I + "px";
+			this._highlightDiv.style.width = F + "px";
+			this._highlightDiv.style.height = (E.getViewWidth() - 4) + "px";
+		} else {
+			this._highlightDiv.style.top = I + "px";
+			this._highlightDiv.style.height = F + "px";
+			this._highlightDiv.style.width = (E.getViewWidth() - 4) + "px";
+		} 
+	};
 };
 
 

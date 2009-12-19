@@ -119,7 +119,7 @@
 					}),
 					Timeline.createBandInfo({
 						date: today,
-						width: "40",
+						width: "10",
 						intervalUnit: Timeline.DateTime.YEAR,
 						intervalPixels: 980,
 						showEventText: false,
@@ -202,7 +202,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "Search results",
+                   		endLabel: "You have searched for...",
                    		// theme:      theme,
                    		cssClass: 't-highlight3'
 					})
@@ -560,7 +560,7 @@
 				</noscript>
 			</div>
 		</div>
-		<div class="controls" id="controls" style="top: 392px"></div>
+		<div class="controls" id="controls" style="top: 432px"></div>
 		<div id="other-content">
 			<div class="one-col">
 				<h2 class="col-header">My profile <span><a href="editProfile.aspx" title="Edit profile" class="modal">Edit</a></span></h2>
@@ -648,6 +648,7 @@
 		</div>
 	</div>
     <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
         <iframe frameborder="0"></iframe>
     </div>
     <div id="modal-background"></div>

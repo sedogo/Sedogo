@@ -78,16 +78,8 @@
 
 				var bandInfos = [
 					Timeline.createBandInfo({
-						date: today,
-						width: "50",
-						intervalUnit: Timeline.DateTime.YEAR,
-						intervalPixels: 980,
-						showEventText: false,
-						trackHeight: 0.5,
-						trackGap: 0.2,
-						theme: theme1,
-						eventSource: eventSource,
-						overview: true
+						width: "0",
+						theme: theme1
 					}),
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
@@ -260,6 +252,7 @@
 					<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>&nbsp;&nbsp;<a href="#" title="Close timeline" class="off"><img src="images/minus.gif" title="Close timeline" alt="Close timeline" /></a><a href="#" title="Open timeline" class="on"><img src="images/plus.gif" title="Open timeline" alt="Open timeline" /></a>
 				</div>
 			</div>		
+			<div style="background: #f0f1ec; color: #0cf; font-size: 18px; font-weight: bold; padding: 1px 0 0 1px; height: 24px">Search results</div>	
 			<div class="tl-container">
 				<div id="my-timeline"></div>
 				<noscript>
@@ -267,7 +260,7 @@
 				</noscript>
 			</div>
 		</div>
-		<div class="controls" id="controls"></div>
+		<div class="controls" id="controls" style="top: 155px"></div>
 		<div id="other-content">
 
 		    <p class="advanced-search"><a href="profile.aspx" title="return to home page">return to home page</a></p>
@@ -292,6 +285,7 @@
 		</div>
 	</div>
     <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
         <iframe frameborder="0"></iframe>
     </div>
     <div id="modal-background"></div>

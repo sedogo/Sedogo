@@ -40,73 +40,60 @@
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
 	<script type="text/javascript">
-	$(document).ready(function(){
-	});
-    function breakout_of_frame()
-    {
-      if (top.location != location)
-      {
-        top.location.href = document.location.href ;
-      }
-    }
-    function getElementID( name )
-    {
-	    var form = document.forms[0];
-        var nID = -1;
-        for( i=0 ; i < form.elements.length ; i++ )
-        {
-            if( form.elements[i].name == name )
-            {
-                nID = i;
-            }
-        }
-        return nID;
-    }
-    function searchClick()
-    {
-	    var form = document.forms[0];
-        var searchString = form.what.value;
-	    if( form.aim[1].checked == true )
-	    {
-	        doAddEvent(searchString);
-	    }
-	    else
-	    {
-	        if( isEmpty(searchString) || searchString.length < 3 )
-	        {
-	            alert("Please enter a longer search string");
-	        }
-	        else
-	        {
-	            location.href = "search2.aspx?Search=" + searchString;
-	        }
-        }
-    }
-    function checkEnter(e)
-    {
-        var characterCode;
-        if(e && e.which) // NN4 specific code
-        {
-            e = e;
-            characterCode = e.which;
-        }
-        else
-        {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
-        }
-        if (characterCode == 13) //// Enter key is 13
-        {
-            e.returnValue=false;
-            e.cancelBubble = true;
-            searchClick();
-            //document.getElementById(btn).click();
-        }
-        else
-        {
-            return false;
-        }
-    }
+		$(document).ready(function() {
+		});
+		function breakout_of_frame() {
+			if (top.location != location) {
+				top.location.href = document.location.href;
+			}
+		}
+		function getElementID(name) {
+			var form = document.forms[0];
+			var nID = -1;
+			for (i = 0; i < form.elements.length; i++) {
+				if (form.elements[i].name == name) {
+					nID = i;
+				}
+			}
+			return nID;
+		}
+		function searchClick() {
+			var form = document.forms[0];
+			var searchString = form.what.value;
+			if (form.aim[1].checked == true) {
+				doAddEvent(searchString);
+			}
+			else {
+				if (isEmpty(searchString) || searchString.length < 3) {
+					alert("Please enter a longer search string");
+				}
+				else {
+					location.href = "search2.aspx?Search=" + searchString;
+				}
+			}
+		}
+		function checkEnter(e) {
+			var characterCode;
+			if (e && e.which) // NN4 specific code
+			{
+				e = e;
+				characterCode = e.which;
+			}
+			else {
+				e = event;
+				characterCode = e.keyCode; // IE specific code
+			}
+			if (characterCode == 13) //// Enter key is 13
+			{
+				e.returnValue = false;
+				e.cancelBubble = true;
+				searchClick();
+				//document.getElementById(btn).click();
+			}
+			else {
+				return false;
+			}
+		}
     </script>
 </head>
 <body>

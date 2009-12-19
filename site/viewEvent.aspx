@@ -33,6 +33,7 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
@@ -48,13 +49,13 @@
                     <div class="right-col">
 						<div style="width: 170px; padding-top: 70px; overflow: hidden">
 	                        <asp:Image ID="eventImage" runat="server" Width="170" />
-                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Upload image" />
+                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Add picture" CssClass="underline" />
                         </div>
                         <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                         <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                         <h3 ID="alertsHeader" runat="server">Reminders</h3>
                         <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
-                        <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" /></p>
+                        <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline" /></p>
                         <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
                         <img src="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
@@ -93,7 +94,7 @@
 								</tr>
 							</tbody>
 		                </table>
-                        <asp:HyperLink ID="editEventLink" runat="server" Text="Edit" ToolTip="Edit" />
+                        <asp:HyperLink ID="editEventLink" runat="server" Text="Edit" ToolTip="Edit" CssClass="underline" />
 		                
 		                <div id="sendMessageDiv" runat="server">
 		                <asp:LinkButton id="sendMessageButton" runat="server" OnClick="sendMessageButton_click">Send Message</asp:LinkButton>

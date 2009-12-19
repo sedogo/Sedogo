@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 
 	$(".off").click(function() {
-		var originalHeight = $(".tl-container").css("height");
+		var originalHeight = $(".tl-container").height();
 		createCookie("originalHeight", originalHeight, 365);
 		$(".tl-container").animate({ "height": "0" }, zoomSpeed);
 		//		$(this).text("On");
@@ -74,7 +74,7 @@ $(document).ready(function() {
 
 
 	//Hide all modals if clicking outside
-	$("body").click(function() {
+	$("body, .close-modal").click(function() {
 		$("#modal-container, #modal-background").fadeOut();
 	});
 

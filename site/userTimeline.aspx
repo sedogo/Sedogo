@@ -50,15 +50,21 @@
 			var tl;
 			var theme1;
 
+			var today = new Date();
+			var tomorrow = new Date();
+			var sixMonthsAgo = new Date();
+			tomorrow.setDate(today.getDate()+1);
+			sixMonthsAgo.setDate(today.getDate()-182)
+
 			function onLoad() {
 				//Initiate timeline
 				initiateTimeline();
 			
 				//Set up filter controls
-				setupFilterHighlightControls(document.getElementById("controls"), tl, [1, 2], theme1);
+				setupFilterHighlightControls(document.getElementById("controls"), tl, [1, 2, 3, 4, 5, 6], theme1);
 
 				//Filter based on current cookie values after timelines load
-				performFiltering(tl, [1, 2], document.getElementById("table-filter"));
+				performFiltering(tl, [1, 2, 3, 4, 5, 6], document.getElementById("table-filter"));
 
 				//Bug fix: scroll timeline programatically to trigger correct auto-height
 				tl.getBand(0)._autoScroll(1);
@@ -73,13 +79,12 @@
 
 				var bandInfos = [
 					Timeline.createBandInfo({
-						width: "50",
-						theme: theme1,
-						eventSource: eventSource
+						width: "0",
+						theme: theme1
 					}),
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-						width: "250",
+						width: "200",
 						intervalUnit: Timeline.DateTime.MONTH,
 						intervalPixels: 50,
 						theme: theme1,
@@ -110,17 +115,61 @@
 						theme: theme1,
 						eventSource: eventSource,
 						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: today,
+						width: "10",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 980,
+						showEventText: false,
+						trackHeight: 0,
+						trackGap: 0,
+						theme: theme1,
+						eventSource: eventSource,
+						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: today,
+						width: "38",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 980,
+						showEventText: false,
+						trackHeight: 0,
+						trackGap: 0,
+						theme: theme1,
+						eventSource: eventSource,
+						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate3" runat="server" />",
+						width: "200",
+						intervalUnit: Timeline.DateTime.MONTH,
+						intervalPixels: 50,
+						theme: theme1,
+						eventSource: eventSourceSearch
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate4" runat="server" />",
+						width: "70",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
+						showEventText: false,
+						trackHeight: 0.5,
+						trackGap: 0.2,
+						theme: theme1,
+						eventSource: eventSourceSearch,
+						overview: true
 					})
 				];
+
 				//Synchronise band scrolling
 				bandInfos[2].syncWith = 1;
+				bandInfos[5].syncWith = 1;
+				bandInfos[6].syncWith = 1;
 				bandInfos[2].highlight = true;
+				bandInfos[6].highlight = true;
 
 				//Generate marker for today
-				var today = new Date();
-				var tomorrow = new Date();
-				tomorrow.setDate(today.getDate()+1);
-
 				for (var i = 0; i < bandInfos.length; i++) {
 					bandInfos[i].decorators = [
 						new Timeline.SpanHighlightDecorator({
@@ -134,11 +183,47 @@
 						})
 					];
 				}
+/*
+				bandInfos[0].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		color: "#FF0000",
+                   		opacity: 50,
+                   		endLabel: "My timeline",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight2'
+					})
+				];
+				bandInfos[3].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		opacity: 50,
+                   		endLabel: "You have searched for...",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight3'
+					})
+				];
+*/
+				bandInfos[4].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		opacity: 50,
+                   		endLabel: "xxx's profile",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight2'
+					})
+				];
+
 
 				//Create timeline and load data
 				tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
 				var url = "<asp:Literal id="timelineURL" runat="server" />";
 				Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
+				var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
+				Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
 			}
 
 			var resizeTimerID = null;
@@ -149,36 +234,30 @@
 						tl.layout();
 					}, 500);
 				}
-			}   		
-	</script>
+			}
+		</script>
 
 	<script type="text/javascript">
-	$(document).ready(function(){
-	});
-    function breakout_of_frame()
-    {
-      if (top.location != location)
-      {
-        top.location.href = document.location.href ;
-      }
-    }
-    function getElementID( name )
-    {
-	    var form = document.forms[0];
-        var nID = -1;
-        for( i=0 ; i < form.elements.length ; i++ )
-        {
-            if( form.elements[i].name == name )
-            {
-                nID = i;
-            }
-        }
-        return nID;
-    }
-    function openEvent(eventID)
-    {
-        openModal("viewEvent.aspx?EID=" + eventID);
-    }    
+		$(document).ready(function() {
+		});
+		function breakout_of_frame() {
+			if (top.location != location) {
+				top.location.href = document.location.href;
+			}
+		}
+		function getElementID(name) {
+			var form = document.forms[0];
+			var nID = -1;
+			for (i = 0; i < form.elements.length; i++) {
+				if (form.elements[i].name == name) {
+					nID = i;
+				}
+			}
+			return nID;
+		}
+		function openEvent(eventID) {
+			openModal("viewEvent.aspx?EID=" + eventID);
+		}    
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
@@ -239,15 +318,16 @@
 				<div id="buttons">
 					<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>&nbsp;&nbsp;<a href="#" title="Close timeline" class="off"><img src="images/minus.gif" title="Close timeline" alt="Close timeline" /></a><a href="#" title="Open timeline" class="on"><img src="images/plus.gif" title="Open timeline" alt="Open timeline" /></a>
 				</div>
-			</div>		
-			<div class="controls" id="controls"></div>
+			</div>
+			<div style="background: #f0f1ec; color: #0cf; font-size: 18px; font-weight: bold; padding: 1px 0 0 1px; height: 24px">My timeline</div>	
 			<div class="tl-container">
-				<div id="my-timeline" style="height: 500px;"></div>
+				<div id="my-timeline"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
 			</div>
 		</div>
+		<div class="controls" id="controls" style="top: 432px"></div>
 		<div id="other-content">
 
 			<div class="one-col">

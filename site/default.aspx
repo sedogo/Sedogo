@@ -228,7 +228,7 @@
 			</div>
 			<div class="two-col">
 			    <label for="what" class="what">what is your goal?</label>
-			    <asp:Panel DefaultButton="searchButton" runat="server">
+			    <asp:Panel ID="Panel1" DefaultButton="searchButton" runat="server">
 			    <asp:TextBox ID="what" runat="server" />
 			    <asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
 			        ImageUrl="~/images/1x1trans.gif" />
@@ -280,6 +280,7 @@
 			</div>
 		</div>
         <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
             <iframe frameborder="0"></iframe>
         </div>
         <div id="modal-background"></div>

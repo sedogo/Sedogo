@@ -101,7 +101,8 @@ p.blue
 }
 .three-col 
 {
-	width: 734px;
+	width: 730px;
+	overflow: hidden
 }
 #logo 
 {
@@ -930,7 +931,7 @@ img.profile
 
 		#controls {
 			position: absolute;
-			top: 168px;
+			top: 184px;
 			left: 55px;
 			background: #fff;
 			border: 1px solid #ccc;
@@ -1115,10 +1116,23 @@ li.goal-groups a {
 	color: #0cf;
 	margin-top: 0;
 }
-.alerts a {
+.messages a,
+.alerts a,
+.invites a,
+.requests a,
+.following a {
 	color: #9b9885;
 }
-.alerts a:hover {
+.messages a:hover,
+.alerts a:hover,
+.invites a:hover,
+.requests a:hover,
+.following a:hover,
+.messages a span,
+.alerts a span,
+.invites a span,
+.requests a span,
+.following a span {
 	color: #0cf;
 }
 .alerts .pinstripe-divider {
@@ -1130,4 +1144,12 @@ li.goal-groups a {
 }
 .width-constrain {
 	width: 362px
+}
+.close-modal {
+	position: absolute;
+	top: 6px;
+	right: 6px
+}
+a.underline {
+	text-decoration: underline
 }

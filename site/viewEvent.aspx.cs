@@ -58,9 +58,12 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
+            eventLabel1.Text = sedogoEvent.eventName;
+            eventLabel2.Text = sedogoEvent.eventName;
 
             if (userID > 0)
             {
+                int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
                 if (sedogoEvent.userID != userID)
                 {
                     // Viewing someone elses event
@@ -79,13 +82,12 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     achievedEventLink.Visible = false;
                     uploadEventImage.Visible = false;
                     sendMessageButton.Visible = true;
+                    sendMessageDiv.Visible = true;
 
-                    int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
                     if (trackedEventID < 0)
                     {
                         trackThisEventLink.Visible = true;
                         joinThisEventLink.Visible = true;
-                        joinThisEventLabel.Visible = false;
                     }
                     else
                     {
@@ -95,13 +97,18 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
                         if (trackedEvent.showOnTimeline == true)
                         {
-                            joinThisEventLink.Visible = false;
-                            joinThisEventLabel.Visible = true;
+                            if (trackedEvent.joinPending == false)
+                            {
+                                joinThisEventLink.Visible = false;
+                            }
+                            else
+                            {
+                                joinThisEventLink.Visible = false;
+                            }
                         }
                         else
                         {
                             joinThisEventLink.Visible = true;
-                            joinThisEventLabel.Visible = false;
                         }
                     }
                     createSimilarEventLink.Visible = true;
@@ -125,10 +132,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     achievedEventLink.Visible = true;
                     uploadEventImage.Visible = true;
                     createSimilarEventLink.Visible = false;
+                    sendMessageDiv.Visible = false;
 
                     int messageCount = Message.GetMessageCountForEvent(eventID);
                     int inviteCount = EventInvite.GetInviteCount(eventID);
-                    int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
+                    //int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
 
                     if (messageCount == 1)
                     {
@@ -138,36 +146,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
                     }
-                    if (inviteCount == 1)
-                    {
-                        invitesLink.Text = "you have " + inviteCount.ToString() + " invitation";
-                    }
-                    else
-                    {
-                        invitesLink.Text = "you have " + inviteCount.ToString() + " invitations";
-                    }
-                    if (alertsCount == 1)
-                    {
-                        alertsLink.Text = "you have " + alertsCount.ToString() + " alert";
-                    }
-                    else
-                    {
-                        alertsLink.Text = "you have " + alertsCount.ToString() + " alerts";
-                    }
+                    inviteCountLabel.Text = inviteCount.ToString() + " pending";
 
                     trackThisEventLink.Visible = false;
                     joinThisEventLink.Visible = false;  // You cannot join your own event
-                    joinThisEventLabel.Visible = false;
                 }
                 PopulateTrackingList(eventID);
+                PopulateAlertsList(eventID);
 
                 loginRegisterPanel.Visible = false;
 
                 // See if current user has been invited to this goal
-                int eventInviteCount = EventInvite.CheckUserEventInviteExists(eventID, userID);
-                if (eventInviteCount > 0)
+                if (trackedEventID < 0)
                 {
-                    invitedPanel.Visible = true;
+                    int eventInviteCount = EventInvite.CheckUserEventInviteExists(eventID, userID);
+                    if (eventInviteCount > 0)
+                    {
+                        invitedPanel.Visible = true;
+                    }
+                    else
+                    {
+                        invitedPanel.Visible = false;
+                    }
                 }
                 else
                 {
@@ -195,7 +195,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                 trackThisEventLink.Visible = false;
                 joinThisEventLink.Visible = false;
-                joinThisEventLabel.Visible = false;
+                invitedPanel.Visible = false;
+                sendMessageDiv.Visible = false;
 
                 messageTrackingUsersLink.Visible = false;
                 sendMessageButton.Visible = false;
@@ -226,8 +227,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             eventDateLabel.Text = dateString;
             eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
             eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
-            createdDateLabel.Text = sedogoEvent.createdDate.ToString("dd/MM/yyyy");
-            lastUpdatedDateLabel.Text = sedogoEvent.lastUpdatedDate.ToString("dd/MM/yyyy");
+            //createdDateLabel.Text = sedogoEvent.createdDate.ToString("dd/MM/yyyy");
+            lastUpdatedDateLabel.Text = sedogoEvent.lastUpdatedDate.ToString("ddd d MMMM yyyy");
 
             if (sedogoEvent.eventPicPreview == "")
             {
@@ -249,30 +250,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 achievedEventLink.Text = "achieved";
             }
 
+            sendMessageButton.Attributes.Add("style", "text-decoration: underline; display: block; background: url(images/ico_messages.gif) no-repeat left; padding-left: 20px; margin: 4px 0 20px 0");
+
             PopulateComments(eventID);
         }
-    }
-
-    //===============================================================
-    // Function: removeMeLink_click
-    //===============================================================
-    protected void removeMeLink_click(object sender, EventArgs e)
-    {
-        /*
-        int eventID = int.Parse(Request.QueryString["EID"]);
-        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
-
-        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-        int trackedEventID = sedogoEvent.GetTrackedEventID(loggedInUserID);
-
-        if (trackedEventID > 0)
-        {
-            TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
-            trackedEvent.Delete();
-        }
-
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
-         * */
     }
 
     //===============================================================
@@ -300,13 +281,19 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
                 string emailAddress = (string)rdr["EmailAddress"];
+                string profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
 
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
+                string profileImage = "./images/profile/blankProfile.jpg";
+                if (profilePicThumbnail != "")
+                {
+                    profileImage = "./assets/profilePics/" + profilePicThumbnail;
+                }
 
-                string outputText = "<h3>" + createdDate.ToString("ddd d MMMM yyyy") + "</h3><p>"
-                    + commentText.Replace("\n", "<br/>")
-                    + "<br/><i>Posted by: " + postedByUsername + "</i></p>";
+                string outputText = "<h3><img src=\"" + profileImage + "\" width=\"25\" />" + postedByUsername + "</h3><p>"
+                    + createdDate.ToString("ddd d MMMM yyyy") + "<br/>"
+                    + commentText.Replace("\n", "<br/>") + "</p>";
 
                 commentsPlaceHolder.Controls.Add(new LiteralControl(outputText));
             }
@@ -359,47 +346,52 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 }
                 //string profilePicPreview = (string)rdr["ProfilePicPreview"];
                 Boolean showOnTimeline = (Boolean)rdr["ShowOnTimeline"];
+                Boolean joinPending = (Boolean)rdr["JoinPending"];
 
-                string profileImagePath = "./images/profile/blankProfile.jpg";
-                if (profilePicThumbnail != "")
+                if (joinPending == false)
                 {
-                    profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
-                }
+                    string profileImagePath = "./images/profile/blankProfile.jpg";
+                    if (profilePicThumbnail != "")
+                    {
+                        profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                    }
 
-                //string outputText = "<table><tr><td><img src=\"" + profileImagePath + "\" /></td>"
-                //    + "<td valign=\"bottom\">"
-                //    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
-                //    + firstName + " " + lastName + "</a>";
-                string outputText = "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
-                    + firstName + " " + lastName + "</a> ";
-                if (loggedInUserID == sedogoEvent.userID)
-                {
-                    // This is my event!
-                    outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
-                        + eventID.ToString()
-                        + "&TEID=" + trackedEventID.ToString() + "\">"
-                        + "(Remove)</a> ";
-                }
-                if (loggedInUserID == userID)
-                {
-                    // I am the tracker
-                    outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
-                        + eventID.ToString()
-                        + "&TEID=" + trackedEventID.ToString() + "\">"
-                        + "(Remove)</a> ";
-                }
-                //outputText = outputText + "</td></tr></table>";
+                    //string outputText = "<table><tr><td><img src=\"" + profileImagePath + "\" /></td>"
+                    //    + "<td valign=\"bottom\">"
+                    //    + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                    //    + firstName + " " + lastName + "</a>";
+                    string outputText = "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                        + "<img src=\"" + profileImagePath + "\" width=\"25\" />"
+                        + firstName + " " + lastName + "</a> ";
+                    if (loggedInUserID == sedogoEvent.userID)
+                    {
+                        // This is my event!
+                        outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
+                            + eventID.ToString()
+                            + "&TEID=" + trackedEventID.ToString() + "\">"
+                            + "(Remove)</a> ";
+                    }
+                    if (loggedInUserID == userID)
+                    {
+                        // I am the tracker
+                        outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
+                            + eventID.ToString()
+                            + "&TEID=" + trackedEventID.ToString() + "\">"
+                            + "(Remove)</a> ";
+                    }
+                    //outputText = outputText + "</td></tr></table>";
 
-                if (showOnTimeline == true)
-                {
-                    trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
-                }
-                else
-                {
-                    followersLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
-                }
+                    if (showOnTimeline == true)
+                    {
+                        trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                    }
+                    else
+                    {
+                        followersLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
+                    }
 
-                trackingUserCount++;
+                    trackingUserCount++;
+                }
             }
             rdr.Close();
         }
@@ -415,6 +407,48 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         if (trackingUserCount == 0)
         {
             messageTrackingUsersLink.Visible = false;
+        }
+    }
+
+    //===============================================================
+    // Function: PopulateAlertsList
+    //===============================================================
+    private void PopulateAlertsList(int eventID)
+    {
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+
+        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        try
+        {
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "spSelectEventAlertListPending";      //spSelectEventAlertList
+            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+            DbDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                int eventAlertID = int.Parse(rdr["EventAlertID"].ToString());
+                DateTime alertDate = (DateTime)rdr["AlertDate"];
+                string alertText = (string)rdr["AlertText"];
+
+                string outputText = "<a href=\"eventAlerts.aspx?EID=" + eventID.ToString() + ">"
+                    + alertDate.ToString("ddd d MMMM yyyy") + "</a> ";
+
+                alertsPlaceHolder.Controls.Add(new LiteralControl(outputText));
+            }
+            rdr.Close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
         }
     }
 
@@ -567,6 +601,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             trackedEvent.showOnTimeline = true;
             trackedEvent.joinPending = true;
             trackedEvent.Add();
+
+            trackedEvent.SendJoinRequestEmail();
 
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
             sedogoEvent.SendEventUpdateEmail();

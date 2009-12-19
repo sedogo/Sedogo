@@ -24,9 +24,11 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="css/calendarStyle.css" />
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
+	<![endif]-->
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
@@ -34,6 +36,7 @@
 	<script type="text/javascript" src="js/ui.dialog.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
@@ -43,94 +46,197 @@
 		Timeline_parameters = 'bundle=true';
 	</script>
 	<script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		var tl;
+		<script type="text/javascript" src="js/examples_modified.js"></script>
+		<script type="text/javascript">
+			var tl;
+			var theme1;
 
-		function onLoad() {
-			var eventSource = new Timeline.DefaultEventSource();
-			var eventSourceSearch = new Timeline.DefaultEventSource();
+			var today = new Date();
+			var tomorrow = new Date();
+			var sixMonthsAgo = new Date();
+			tomorrow.setDate(today.getDate()+1);
+			sixMonthsAgo.setDate(today.getDate()-182)
 
-			var bandInfos = [
-				Timeline.createBandInfo({
-					width: "5%"
-				}),
-				Timeline.createBandInfo({
-					date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-					width: "38%",
-					intervalUnit: Timeline.DateTime.MONTH,
-					intervalPixels: 50,
-					eventSource: eventSource,
-					zoomIndex: 10,
-					zoomSteps: new Array(
-						{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
-						{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-						{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
-					)
-				}),
-				Timeline.createBandInfo({
-					date: "<asp:Literal id="timelineStartDate2" runat="server" />",
-					width: "7%",
-					intervalUnit: Timeline.DateTime.YEAR,
-					intervalPixels: 100,
-					showEventText: false,
-					trackHeight: 0.5,
-					trackGap: 0.2,
-					eventSource: eventSource,
-					overview: true
-				}),
-				Timeline.createBandInfo({
-					width: "5%"
-				}),
-				Timeline.createBandInfo({
-					date: "<asp:Literal id="timelineStartDate3" runat="server" />",
-					width: "38%",
-					intervalUnit: Timeline.DateTime.MONTH,
-					intervalPixels: 50,
-					eventSource: eventSourceSearch
-				}),
-				Timeline.createBandInfo({
-					date: "<asp:Literal id="timelineStartDate4" runat="server" />",
-					width: "7%",
-					intervalUnit: Timeline.DateTime.YEAR,
-					intervalPixels: 100,
-					showEventText: false,
-					trackHeight: 0.5,
-					trackGap: 0.2,
-					eventSource: eventSourceSearch,
-					overview: true
-				})
-			];
-			bandInfos[2].syncWith = 1;
-			bandInfos[4].syncWith = 1;
-			bandInfos[5].syncWith = 1;
-			bandInfos[2].highlight = true;
-			bandInfos[5].highlight = true;
+			function onLoad() {
+				//Initiate timeline
+				initiateTimeline();
+			
+				//Set up filter controls
+				setupFilterHighlightControls(document.getElementById("controls"), tl, [1, 2, 3, 4, 5, 6], theme1);
 
-			tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-			var url = "<asp:Literal id="timelineURL" runat="server" />";
-			Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
-			var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
-			Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
-		}
+				//Filter based on current cookie values after timelines load
+				performFiltering(tl, [1, 2, 3, 4, 5, 6], document.getElementById("table-filter"));
 
-		var resizeTimerID = null;
-		function onResize() {
-			if (resizeTimerID == null) {
-				resizeTimerID = window.setTimeout(function() {
-					resizeTimerID = null;
-					tl.layout();
-				}, 500);
+				//Bug fix: scroll timeline programatically to trigger correct auto-height
+				tl.getBand(0)._autoScroll(1);
 			}
-		}
-	</script>
+
+			function initiateTimeline() {
+				var eventSource = new Timeline.DefaultEventSource();
+				var eventSourceSearch = new Timeline.DefaultEventSource();
+
+				theme1 = Timeline.ClassicTheme.create();
+				theme1.autoWidth = true; // Set the Timeline's "width" automatically. Setting autoWidth on the timelines first bands theme, will affect all bands.
+
+				var bandInfos = [
+					Timeline.createBandInfo({
+						width: "0",
+						theme: theme1
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
+						width: "200",
+						intervalUnit: Timeline.DateTime.MONTH,
+						intervalPixels: 50,
+						theme: theme1,
+						eventSource: eventSource,
+						zoomIndex: 10,
+						zoomSteps: new Array(
+							{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
+							{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
+							{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
+							{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
+							{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
+							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+						)
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
+						width: "70",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
+						showEventText: false,
+						trackHeight: 0.5,
+						trackGap: 0.2,
+						theme: theme1,
+						eventSource: eventSource,
+						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: today,
+						width: "40",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 980,
+						showEventText: false,
+						trackHeight: 0,
+						trackGap: 0,
+						theme: theme1,
+						eventSource: eventSource,
+						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: today,
+						width: "38",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 980,
+						showEventText: false,
+						trackHeight: 0,
+						trackGap: 0,
+						theme: theme1,
+						eventSource: eventSource,
+						overview: true
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate3" runat="server" />",
+						width: "200",
+						intervalUnit: Timeline.DateTime.MONTH,
+						intervalPixels: 50,
+						theme: theme1,
+						eventSource: eventSourceSearch
+					}),
+					Timeline.createBandInfo({
+						date: "<asp:Literal id="timelineStartDate4" runat="server" />",
+						width: "70",
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
+						showEventText: false,
+						trackHeight: 0.5,
+						trackGap: 0.2,
+						theme: theme1,
+						eventSource: eventSourceSearch,
+						overview: true
+					})
+				];
+
+				//Synchronise band scrolling
+				bandInfos[2].syncWith = 1;
+				bandInfos[5].syncWith = 1;
+				bandInfos[6].syncWith = 1;
+				bandInfos[2].highlight = true;
+				bandInfos[6].highlight = true;
+
+				//Generate marker for today
+				for (var i = 0; i < bandInfos.length; i++) {
+					bandInfos[i].decorators = [
+						new Timeline.SpanHighlightDecorator({
+							startDate: today,
+							endDate: tomorrow,
+                    		color: "#CCCCCC",
+                    		opacity: 50,
+                    		startLabel: "",
+                    		// theme:      theme,
+                    		cssClass: 't-highlight1'
+						})
+					];
+				}
+/*
+				bandInfos[0].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		color: "#FF0000",
+                   		opacity: 50,
+                   		endLabel: "My timeline",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight2'
+					})
+				];
+*/
+				bandInfos[3].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		opacity: 50,
+                   		endLabel: "Search results",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight3'
+					})
+				];
+				bandInfos[4].decorators = [
+					new Timeline.SpanHighlightDecorator({
+						startDate: sixMonthsAgo,
+						endDate: sixMonthsAgo,
+                   		opacity: 50,
+                   		endLabel: "Search results",
+                   		// theme:      theme,
+                   		cssClass: 't-highlight2'
+					})
+				];
+
+
+				//Create timeline and load data
+				tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
+				var url = "<asp:Literal id="timelineURL" runat="server" />";
+				Timeline.loadXML(url, function(xml, url) { eventSource.loadXML(xml, url); });
+				var urlSearch = "<asp:Literal id="searchTimelineURL" runat="server" />";
+				Timeline.loadXML(urlSearch, function(xml2, urlSearch) { eventSourceSearch.loadXML(xml2, urlSearch); });
+			}
+
+			var resizeTimerID = null;
+			function onResize() {
+				if (resizeTimerID == null) {
+					resizeTimerID = window.setTimeout(function() {
+						resizeTimerID = null;
+						tl.layout();
+					}, 500);
+				}
+			}
+		</script>
 
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -155,72 +261,47 @@
         }
         return nID;
     }
-    function searchClick()
-    {
-	    var form = document.forms[0];
-        var searchString = form.what.value;
-	    if( form.aim[1].checked == true )
-	    {
-	        doAddEvent(searchString);
-	    }
-	    else
-	    {
-	        if( isEmpty(searchString) || searchString.length < 3 )
-	        {
-	            alert("Please enter a longer search string");
-	        }
-	        else
-	        {
-	            location.href = "search2.aspx?Search=" + searchString;
-	        }
-        }
-    }
     function openEvent(eventID)
     {
         openModal("viewEvent.aspx?EID=" + eventID);
-    }
-    function viewProfile(userID)
+    }    
+    </script>
+    <script language="JavaScript" type="text/javascript">
+    function PickerRangeStartDate_OnChange()
     {
-        location.href = "userTimeline.aspx?UID=" + userID;
+        <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+    }
+    function CalendarRangeStartDate_OnChange()
+    {
+        <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+    }
+    function popupCalendarRangeStartDate(image)
+    {
+        if( <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+        {
+            <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+        }
+        <%=CalendarRangeStartDate.ClientObjectId%>.Show(image);    
+    }
+    function PickerRangeEndDate_OnChange()
+    {
+        <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+    }
+    function CalendarRangeEndDate_OnChange()
+    {
+        <%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+    }
+    function popupCalendarRangeEndDate(image)
+    {
+        if( <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
+        {
+            <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
+        }
+        <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
     }
     </script>
-<script language="JavaScript" type="text/javascript">
-function PickerRangeStartDate_OnChange()
-{
-    <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-}
-function CalendarRangeStartDate_OnChange()
-{
-    <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-}
-function popupCalendarRangeStartDate(image)
-{
-    if( <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
-    {
-        <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
-    }
-    <%=CalendarRangeStartDate.ClientObjectId%>.Show(image);    
-}
-function PickerRangeEndDate_OnChange()
-{
-    <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-}
-function CalendarRangeEndDate_OnChange()
-{
-    <%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-}
-function popupCalendarRangeEndDate(image)
-{
-    if( <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
-    {
-        <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
-    }
-    <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
-}
-</script>
-    
 </head>
-<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
+<body class="search2" onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
     <div>
     
@@ -236,16 +317,36 @@ function popupCalendarRangeEndDate(image)
 			</p>
 		</div>
 		<div class="three-col">
-		    <table border="0" cellspacing="10" cellpadding="0" width="100%" style="background-color:#EEEEEE">
+		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
 		        <tr>
 		            <td><h3 class="blue">Add</h3>
-		            <p class="blue">to my goal list</p>
-		            <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" /></td>
+		                <p class="blue">to my goal list</p>
+		                <asp:Panel ID="Panel1" DefaultButton="searchButton" runat="server">
+                        <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" ValidationGroup="whatGroup" />
+                        <asp:RegularExpressionValidator
+                            id="whatValidator"
+                            runat="server"
+                            ErrorMessage="Goal name must have at least 2 chatacters"
+                            ControlToValidate="what" ValidationGroup="whatGroup"
+                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+		                <asp:ImageButton ID="searchButton" runat="server" OnClientClick="doAddEvent()"
+		                    ImageUrl="~/images/1x1trans.gif" />
+		                </asp:Panel>
+		            </td>
 		            <td><h3 class="blue">Find</h3>
-		            <p class="blue">people with your goals</p>
-		            <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" /></td>
-		            <td valign="bottom"><a href="javascript:searchClick()"><img src="images/go.gif" alt="go" class="go" /></a></td>
-		            <td valign="bottom"><p class="advanced-search"><a href="advSearch.aspx" title="advanced search" class="modal">advanced search</a></p></td>
+		                <p class="blue">people with my goals</p>
+		                <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
+		                <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" ValidationGroup="what2Group" />
+                        <asp:RegularExpressionValidator
+                            id="what2Validator"
+                            runat="server"
+                            ErrorMessage="Goal name must have at least 2 chatacters"
+                            ControlToValidate="what2" ValidationGroup="what2Group"
+                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+		                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton2_click" 
+		                    ImageUrl="~/images/1x1trans.gif" />
+		                </asp:Panel>
+		            </td>
 		        </tr>    
 		    </table>
 		</div>
@@ -256,7 +357,7 @@ function popupCalendarRangeEndDate(image)
 		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
 		</div>
 		<div id="advSearchCriteria">
-		    <table border="0" cellspacing="10" cellpadding="0" width="100%" style="background-color:#EEEEEE">
+		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="advanced-search-table">
 		        <tr>
 		            <td><h3 class="noTopMargin blue">Advanced Search</h3></td>
 		        </tr>    
@@ -437,73 +538,66 @@ function popupCalendarRangeEndDate(image)
 		                </table>
 		            </td>
 		        </tr>
-
-
 		    </table>
 		</div>
+		<h2 class="plain">You have searched for ...</h2>
+		<p>Search results are shown below your timeline</p>
 		<div id="timelines">
 			<div id="tools">
 				<ul class="timeline-options">
 					<li class="first"><a href="#" title="View all" id="view-all">View all</a></li>
-					<li class="last"><a href="#" title="Show categories" id="show-categories">Show categories</a></li>
+					<li class="last"><a href="#" title="Show goal categories" id="show-categories">Show goal categories</a></li>
 				</ul>
-				<div id="category-selector-container">
-					<ul id="category-selector">
-						<li class="category-btn-1"><a href="#" title="Personal">Personal</a></li>
-						<li class="category-btn-2"><a href="#" title="Travel">Travel</a></li>
-						<li class="category-btn-3"><a href="#" title="Friends">Friends</a></li>
-						<li class="category-btn-4"><a href="#" title="Family">Family</a></li>
-						<li class="category-btn-5"><a href="#" title="General">General</a></li>
-						<li class="category-btn-6"><a href="#" title="Health">Health</a></li>
-						<li class="category-btn-7"><a href="#" title="Money">Money</a></li>
-						<li class="category-btn-8"><a href="#" title="Education">Education</a></li>
-						<li class="category-btn-9"><a href="#" title="Hobbies">Hobbies</a></li>
-						<li class="category-btn-10"><a href="#" title="Culture">Culture</a></li>
-						<li class="category-btn-11"><a href="#" title="Charity">Charity</a></li>
-						<li class="category-btn-12"><a href="#" title="Green">Green</a></li>
-						<li class="category-btn-13"><a href="#" title="Misc">Misc</a></li>
-					</ul>
+				<div id="buttons">
+					<a href="#" title="Scroll left" class="left" id="scroll-back"><img src="images/left.gif" title="Scroll left" alt="Left arrow" /></a><a href="#" title="Scroll right" class="right" id="scroll-forward"><img src="images/right.gif" title="Scroll right" alt="Left arrow" /></a>&nbsp;&nbsp;<a href="#" title="Close timeline" class="off"><img src="images/minus.gif" title="Close timeline" alt="Close timeline" /></a><a href="#" title="Open timeline" class="on"><img src="images/plus.gif" title="Open timeline" alt="Open timeline" /></a>
 				</div>
-				<div id="buttons"></div>
-			</div>		
+			</div>
+			<div style="background: #f0f1ec; color: #0cf; font-size: 18px; font-weight: bold; padding: 1px 0 0 1px; height: 24px">My timeline</div>	
 			<div class="tl-container">
-				<div id="my-timeline" style="height: 500px;"></div>
+				<div id="my-timeline"></div>
 				<noscript>
 					This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
 				</noscript>
 			</div>
 		</div>
+		<div class="controls" id="controls" style="top: 392px"></div>
 		<div id="other-content">
-
 			<div class="one-col">
+				<h2 class="col-header">My profile <span><a href="editProfile.aspx" title="Edit profile" class="modal">Edit</a></span></h2>
 				<asp:Image ID="profileImage" runat="server" CssClass="profile" />
-				<p class="profile-name"><asp:Label id="userNameLabel" runat="server" /><br />
-				<a href="editProfile.aspx" title="Edit profile" class="modal">Edit profile</a><br />
+				<p class="profile-name"><span style="font-size: 14px; font-weight: bold"><asp:Label id="userNameLabel" runat="server" /></span><br />
 				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
 				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
-				
+				<br />
 				<p class="extra-buttons">
-					<asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /><br />
-					<asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /><br />
-					<asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /><br />
-					<asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" />
+				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">+ Goal</a>
 				</p>
-				
+				<ol class="items">
+					<li class="messages"><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></li>
+					<li class="alerts"><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></li>
+					<li class="invites"><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></li>
+					<li class="requests"><asp:HyperLink id="goalJoinRequestsLink" NavigateUrl="eventJoinRequests.aspx" runat="server" CssClass="modal" /></li>
+					<li class="following"><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></li>
+					<!--<li class="goal-groups">&nbsp;</li>-->
+				</ol>
 				<div class="alerts">
-					<h3>Groups</h3>
-					<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>
-					<h3>Latest goals added</h3>
+					<!--<h3>Groups</h3>-->
+					<!--<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>-->
+					<div class="pinstripe-divider"></div>
+					<h3>Latest goal's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
+					<div class="pinstripe-divider"></div>
 					<h3>Latest searches</h3>
 					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
+					<div class="pinstripe-divider"></div>
 					<h3>Most popular searches</h3>
 					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
 				</div>
 			</div>
 			<div class="one-col">
+				<h2 class="col-header">This month</h2>
 				<div class="events">
-					<h2>This month</h2>
 					<asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
 					<asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
 					<asp:Label ID="todaysDateLabel" runat="server" />
@@ -515,8 +609,8 @@ function popupCalendarRangeEndDate(image)
 				</div>
 			</div>
 			<div class="one-col">
+				<h2 class="col-header">Next 5 years</h2>
 				<div class="events">
-					<h2>Next 5 yrs</h2>
 					<asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
 					<asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
 					<asp:Label ID="next2YearsTitleLabel" runat="server" Text="Next 2 years" />
@@ -530,8 +624,8 @@ function popupCalendarRangeEndDate(image)
 				</div>
 			</div>
 			<div class="one-col-end">
+				<h2 class="col-header">5 years+</h2>
 				<div class="events">
-					<h2>5 yrs +</h2>
 					<asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />
 					<asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
 					<asp:Label ID="tenToTwentyYearsTitleLabel" runat="server" Text="10-20 years" />
@@ -554,7 +648,7 @@ function popupCalendarRangeEndDate(image)
 		</div>
 	</div>
     <div id="modal-container">
-        <iframe></iframe>
+        <iframe frameborder="0"></iframe>
     </div>
     <div id="modal-background"></div>
     

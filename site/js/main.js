@@ -78,47 +78,31 @@ $(document).ready(function() {
 		$("#modal-container, #modal-background").fadeOut();
 	});
 
-
-
-	//***PHIL*** The following code checks what the current value of the #what and #what2 boxes is.  If the value is blank it puts a demo suggested value in.  However, this seems to create a problem in that the boxes are then both populated so the Find search acts as an Add.  I've put code in to disable the input boxes if nothing is entered but this still doesn't solve it.  I've commented this all out for the time being, but Megan is keen for this default text to be present so it looks like this will need to be handled server side.
-
 	//Search form
 	//Style input box text and remove sample value	
-	/*
 	var whatValue = $("#what").attr("value");
 	var what2Value = $("#what2").attr("value");
 
 	if (whatValue == "") {
-	$("#what").attr("value", "e.g. climb Everest");
-	$("#what").attr("disabled", "disabled");
+		$("#what").attr("value", "e.g. climb Everest");
 	}
 	if (what2Value == "") {
-	$("#what2").attr("value", "e.g. climb Everest");
-	$("#what2").attr("disabled", "disabled");
+		$("#what2").attr("value", "e.g. climb Everest");
 	}
 
 	$("#what, #what2").focus(function() {
-	var currentValue = $(this).attr("value");
-	if (currentValue = "e.g. climb Everest") {
-	$(this).attr("value", "");
-	$(this).attr("disabled", "");
-	}
+		var currentValue = $(this).attr("value");
+		if (currentValue = "e.g. climb Everest") {
+			$(this).attr("value", "");
+		}
 	});
 	$("#what, #what2").blur(function() {
-	var currentValue = $(this).attr("value");
-	if (currentValue == "") {
-	$(this).attr("value", "e.g. climb Everest");
-	$(this).attr("disabled", "disabled");
-	}
+		var currentValue = $(this).attr("value");
+		if (currentValue == "") {
+			$(this).attr("value", "e.g. climb Everest");
+		}
 	});
-	*/
-
-
-
-
 });
-
-
 
 function createCookie(name, value, days) {
 	if (days) {

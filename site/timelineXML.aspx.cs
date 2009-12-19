@@ -95,6 +95,7 @@ public partial class timelineXML : System.Web.UI.Page
                     int beforeBirthday = -1;
                     Boolean privateEvent = false;
                     Boolean eventAchieved = false;
+                    int eventUserID = 1;
 
                     DateTime timelineStartDate = DateTime.MinValue;
                     DateTime timelineEndDate = DateTime.MinValue;
@@ -127,6 +128,10 @@ public partial class timelineXML : System.Web.UI.Page
                         beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
                     }
                     privateEvent = (Boolean)rdr["PrivateEvent"];
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                    {
+                        eventUserID = int.Parse(rdr["UserID"].ToString());
+                    }
 
                     if (dateType == "D")
                     {
@@ -251,7 +256,15 @@ public partial class timelineXML : System.Web.UI.Page
                     writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                     writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                     writer.WriteAttributeString("isDuration", "true");
-                    writer.WriteAttributeString("title", eventName);
+                    if (userID == eventUserID)
+                    {
+                        writer.WriteAttributeString("title", eventName);
+                    }
+                    else
+                    {
+                        SedogoUser eventUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), eventUserID);
+                        writer.WriteAttributeString("title", eventName + " - " + eventUser.firstName + " " + eventUser.lastName);
+                    }
                     //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                     writer.WriteAttributeString("color", timelineColour);
                     writer.WriteAttributeString("category", category);

@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	
 <script language="JavaScript" type="text/javascript">
 function setHiddenDateField()
@@ -66,7 +73,7 @@ function setHiddenDateField()
                     <td>
                     
             <fieldset>
-                <ol>
+                <ol class="width-constrain">
                     <li>
                         <label for="">First name</label>
                         <asp:TextBox runat="server"
@@ -75,6 +82,7 @@ function setHiddenDateField()
                             ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Surname</label>
                         <asp:TextBox runat="server"
@@ -83,11 +91,13 @@ function setHiddenDateField()
                             ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Introduction</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="headlineTextBox" Width="200px" MaxLength="200" />
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Date of birth</label>
                         <asp:DropDownList ID="dateOfBirthDay" runat="server">
@@ -99,11 +109,13 @@ function setHiddenDateField()
                            ControlToValidate="hiddenDateOfBirth" ErrorMessage="Select a valid date"
                            Operator="DataTypeCheck" Type="Date" />
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Gender</label>
                         <asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
                         Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Home town</label>
                         <asp:TextBox runat="server"
@@ -112,6 +124,7 @@ function setHiddenDateField()
                             ControlToValidate="homeTownTextBox" ErrorMessage="A home town is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Timezone</label>
                         <asp:DropDownList ID="timezoneDropDownList" runat="server"
@@ -121,6 +134,7 @@ function setHiddenDateField()
                         ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
                         </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Email address</label>
                         <asp:TextBox runat="server"
@@ -133,6 +147,7 @@ function setHiddenDateField()
                             ErrorMessage="The email address is not valid" Display="Dynamic"
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                 </ol>
             </fieldset>
 
@@ -146,11 +161,11 @@ function setHiddenDateField()
             <div class="buttons">
                 <asp:LinkButton 
                     ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-                    OnClick="saveChangesButton_click" CssClass="button-sml" />
+                    OnClick="saveChangesButton_click" CssClass="button-lrg" />
                 <asp:LinkButton 
                     ID="uploadProfilePicButton" runat="server" 
                     ToolTip="save" Text="Upload profile picture" 
-                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                    OnClick="uploadProfilePicButton_click" CssClass="button-lrg" />
             </div>
 
 		</div>

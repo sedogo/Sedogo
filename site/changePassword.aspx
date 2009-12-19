@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -35,7 +42,7 @@
     
 	    <div id="modal">
 
-            <h1>change password</h1>
+            <h1>Change Password</h1>
 	    
 	        <div style="padding-top:30px;"></div>
 
@@ -44,7 +51,7 @@
             
             <table border="0" cellspacing="5" cellpadding="0" width="400">
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" style="padding:5px 0" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">Current password</td>
@@ -79,7 +86,7 @@
                         ControlToCompare="passwordTextBox2"></asp:CompareValidator></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" style="padding:5px 0" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
             </table>
                         
@@ -87,8 +94,8 @@
     
         <div class="buttons">
             <asp:LinkButton 
-                ID="saveChangesButton" runat="server" ToolTip="save" Text="Change password" 
-                OnClick="saveChangesButton_click" CssClass="button-sml" />
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                OnClick="saveChangesButton_click" CssClass="button-lrg" />
         </div>    
     
     </div>

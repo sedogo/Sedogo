@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 	
 <script language="JavaScript" type="text/javascript">
 function PickerStartDate_OnChange()
@@ -86,9 +93,9 @@ function popupCalendarRangeEndDate(image)
     <div>
 
 	    <div id="modal">
-            <h1>edit goal</h1>
+            <h1>Edit goal</h1>
             <fieldset>
-                <ol>
+                <ol class="width-constrain">
                     <li>
                         <label for="">Goal name</label>
                         <asp:TextBox runat="server"
@@ -97,16 +104,18 @@ function popupCalendarRangeEndDate(image)
                             ControlToValidate="eventNameTextBox" ErrorMessage="A goal name is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Goal description</label>
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="eventDescriptionTextBox" Width="200px" />
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Where</label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
-                            ID="eventVenueTextBox" Width="200px" />
+                        <asp:TextBox runat="server" ID="eventVenueTextBox" Width="200px" />
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">When</label>
                         <asp:DropDownList ID="dateTypeDropDownList" runat="server" 
@@ -277,6 +286,7 @@ function popupCalendarRangeEndDate(image)
                         <asp:DropDownList ID="birthdayDropDownList" runat="server">
                         </asp:DropDownList>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Timezone</label>
                         <asp:DropDownList ID="timezoneDropDownList" runat="server"
@@ -286,11 +296,13 @@ function popupCalendarRangeEndDate(image)
                         ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
                         </asp:RequiredFieldValidator>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Nature of goal</label>
                         <p>Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
                         Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></p>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Category</label>
                         <asp:DropDownList ID="categoryDropDownList" runat="server">
@@ -309,6 +321,7 @@ function popupCalendarRangeEndDate(image)
                             <asp:ListItem Text="Misc" Value="13" />
                         </asp:DropDownList>
                     </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                 </ol>                        
             </fieldset>
 		</div>
@@ -316,10 +329,10 @@ function popupCalendarRangeEndDate(image)
         <div class="buttons">
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-                OnClick="saveChangesButton_click" CssClass="button-sml" />
+                OnClick="saveChangesButton_click" CssClass="button-lrg" />
             <asp:LinkButton 
                 ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
-                OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
         </div>
     
     </div>

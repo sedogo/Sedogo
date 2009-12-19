@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -26,9 +26,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -102,7 +109,7 @@ function popupCalendarRangeEndDate(image)
                         </asp:RequiredFieldValidator></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200" valign="top">Goal description</td>
@@ -110,7 +117,7 @@ function popupCalendarRangeEndDate(image)
                         ID="eventDescriptionTextBox" Width="200px" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">Where</td>
@@ -118,7 +125,7 @@ function popupCalendarRangeEndDate(image)
                         ID="eventVenueTextBox" Width="200px" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">*When</td>
@@ -287,13 +294,16 @@ function popupCalendarRangeEndDate(image)
                         </table>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
+                </tr>
                 <tr id="birthdayLI" runat="server">
                     <td width="200">*Birthday</td>
                     <td width="200"><asp:DropDownList ID="birthdayDropDownList" runat="server">
                         </asp:DropDownList></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">*Timezone</td>
@@ -305,7 +315,7 @@ function popupCalendarRangeEndDate(image)
                         </asp:RequiredFieldValidator></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">*Category</td>
@@ -326,7 +336,7 @@ function popupCalendarRangeEndDate(image)
                         </asp:DropDownList></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
                 <tr>
                     <td width="200">Nature of goal</td>
@@ -334,18 +344,18 @@ function popupCalendarRangeEndDate(image)
                         Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
+                    <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>
                 </tr>
             </table>
 
 		</div>
-    
+		<p class="required-field">&#42; Required field</p>
         <div class="buttons">
             <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                Text="Next" CssClass="button-sml" />
+                Text="Next" CssClass="button-lrg" />
             <asp:LinkButton Visible="false"
                 ID="backButton" runat="server" ToolTip="save" Text="Go back" 
-                OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
         </div>
 
     </div>

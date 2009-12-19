@@ -84,43 +84,45 @@ public partial class userTimeline : SedogoPage
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {
-                messageCountLink.Text = messageCount.ToString() + " new message";
+                messageCountLink.Text = messageCount.ToString() + " Message";
             }
             else
             {
-                messageCountLink.Text = messageCount.ToString() + " new messages";
+                messageCountLink.Text = messageCount.ToString() + " Messages";
             }
 
             int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
             if (pendingInviteCount == 1)
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " new invite";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " Invite";
             }
             else
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " new invites";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " Invites";
             }
 
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " alert";
+                alertCountLink.Text = pendingAlertCount.ToString() + " Alert";
             }
             else
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " alerts";
+                alertCountLink.Text = pendingAlertCount.ToString() + " Alerts";
             }
 
             //groupCountLink.Text = "You belong to 0 groups";
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            if (trackedEventCount == 1)
+            trackingCountLink.Text = trackedEventCount.ToString() + " Following";
+            int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
+            if (pendingRequestsCount == 1)
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goal";
+                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Request";
             }
             else
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goals";
+                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Requests";
             }
 
             PopulateLatestSearches();
@@ -130,14 +132,14 @@ public partial class userTimeline : SedogoPage
             PopulateEvents(user);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
-            searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
+            //searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
-            timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
-            timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+            //timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            //timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
         }
     }
 
@@ -631,5 +633,15 @@ public partial class userTimeline : SedogoPage
         {
             conn.Close();
         }
+    }
+
+    //===============================================================
+    // Function: searchButton2_click
+    //===============================================================
+    protected void searchButton2_click(object sender, EventArgs e)
+    {
+        string searchString = what2.Text;
+
+        Response.Redirect("search2.aspx?Search=" + searchString);
     }
 }

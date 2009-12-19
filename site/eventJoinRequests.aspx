@@ -33,7 +33,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>goal join requests</h1>
+            <h1>Requests</h1>
 
             <div id="noRequestsDiv" runat="server">
             <p>You have no requests.</p>
@@ -50,10 +50,10 @@
                                 <asp:Image id="eventPicThumbnailImage" runat="server" />
                             </td>
                             <td>
-                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                <p>Who: <asp:Label ID="userNameLabel" runat="server" CssClass="blue" /><br />
+                                Goal requested: <asp:Label ID="eventNameLabel" runat="server" CssClass="blue" /><br />
                                 <asp:HyperLink ID="eventHyperlink" runat="server" Text="View event details" /><br />
-                                <asp:Literal ID="eventDateLabel" runat="server" /><br />
-                                <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
+                                Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br /></p>
                             </td>
                         </tr>
                     </table>

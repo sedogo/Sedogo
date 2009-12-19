@@ -4,13 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta http-equiv="expires" content="never" />
 
-	<title>Home : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Advanced search : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -26,12 +26,16 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
 	<script type="text/javascript" src="js/ui.dialog.js"></script>
 	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
@@ -109,30 +113,31 @@
     <form id="form1" runat="server">
     <div>
     
-        <div id="popupClose">
-        <a href="#">Close</a>
-        </div>
-    
 	    <div id="modal">
             <h1>Advanced search</h1>
 
-            <p>What do you want to do?</p>
-            <asp:TextBox runat="server"
-                ID="eventNameTextBox" Width="200px" MaxLength="200" />
-            
-            <p>&nbsp;</p>
-               
             <fieldset>
-                <ol>
+                <ol class="width-constrain">
                     <li>
-                        <label for="eventOwnerNameTextBox">Who with?</label>
+                        <label for="">Goal name</label>
                         <asp:TextBox runat="server"
-                            ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" /> (name)
+                            ID="eventNameTextBox" Width="200px" MaxLength="200" />
                     </li>
+                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="venueTextBox">Where?</label>
+                        <label for="">Where</label>
                         <asp:TextBox runat="server"
                             ID="venueTextBox" Width="200px" MaxLength="200" />
+                    </li>
+                     <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Goal owner name</label>
+                        <asp:TextBox runat="server"
+                            ID="eventOwnerNameTextBox" Width="200px" MaxLength="200" />
+                    </li>
+                    <li>
+                    </li>
+                    <li>
                     </li>
                 </ol>
             </fieldset>
@@ -141,7 +146,7 @@
         <div class="buttons">
             <asp:LinkButton 
                 ID="searchButton" runat="server" Text="Search" 
-                OnClick="searchButton_click" CssClass="button-sml" />
+                OnClick="searchButton_click" CssClass="button-lrg" />
         </div>
     
     </div>

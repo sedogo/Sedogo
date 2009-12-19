@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 
 <script language="javascript" type="text/javascript">
 function PickerAlertDate_OnChange()
@@ -134,8 +141,8 @@ function popupCalendarAlertDate(image)
     
         <div class="buttons">
             <p><asp:LinkButton ID="addReminderLink" runat="server" Text="Add reminder"
-                OnClick="addReminderLink_click" CssClass="button-sml" />
-            <asp:LinkButton ID="skipRemindersLink" runat="server" CssClass="button-sml" Text="Skip" 
+                OnClick="addReminderLink_click" CssClass="button-lrg" />
+            <asp:LinkButton ID="skipRemindersLink" runat="server" CssClass="button-lrg" Text="Skip" 
                 ToolTip="Skip" OnClick="click_skipRemindersLink" CausesValidation="false" />
             </p>
         </div>

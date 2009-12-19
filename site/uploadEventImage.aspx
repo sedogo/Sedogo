@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -24,9 +24,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -37,13 +44,24 @@
             HeaderText="Please review the following errors:" />
 
 	    <div id="modal">
-            <h1>upload picture for <asp:Label ID="eventNameLabel" runat="server" /></h1>
+            <h1>Upload picture for <asp:Label ID="eventNameLabel" runat="server" /></h1>
 
-            <p><asp:Label ID="eventDateLabel" runat="server" /><br />
-            Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-            &nbsp;<br />
-            </p>
+			<table class="summary">
+				<tbody>
+					<tr>
+						<th>When:</th>
+						<td><asp:Label ID="eventDateLabel" runat="server" /></td>
+					</tr>
+					<tr>
+						<th>Where:</th>
+						<td><asp:Label ID="eventVenueLabel" runat="server" /></td>
+					</tr>
+				</tbody>
+			</table>
 
+			<img src="images/popupLine.png" alt="" class="line-divider" />
+            <br />
+            <br />
             <fieldset>
                 <ol>
                     <li>
@@ -57,9 +75,9 @@
                     <li>
                         <div class="buttons">
                         <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
-                            Text="Upload picture" CssClass="button-sml" />
+                            Text="Upload picture" CssClass="button-lrg" />
                         <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
-                            Text="Back to event details" CssClass="button-sml" CausesValidation="false" />
+                            Text="Back to event details" CssClass="button-lrg" CausesValidation="false" />
                         </div>
                     </li>
                 </ol>

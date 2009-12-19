@@ -1325,5 +1325,63 @@ namespace Sedogo.BusinessObjects
 
             return trackedEventCount;
         }
+
+        //===============================================================
+        // Function: SendJoinRequestEmail
+        //===============================================================
+        public void SendJoinRequestEmail()
+        {
+            StringBuilder emailBodyCopy = new StringBuilder();
+            GlobalData gd = new GlobalData("");
+
+            /*
+            string dateString = "";
+            DateTime startDate = m_startDate;
+            SedogoUser eventOwner = new SedogoUser(m_loggedInUser, m_userID);
+            MiscUtils.GetDateStringStartDate(eventOwner, m_dateType, m_rangeStartDate,
+                m_rangeEndDate, m_beforeBirthday, ref dateString, ref startDate);
+
+            string inviteURL = gd.GetStringValue("SiteBaseURL");
+            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+
+            emailBodyCopy.AppendLine("The following event has been updated:<br/>");
+            emailBodyCopy.AppendLine("What: " + m_eventName + "<br/>");
+            emailBodyCopy.AppendLine("Where: " + m_eventVenue + "<br/>");
+            emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("To view this event, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
+            emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
+
+            string emailSubject = m_eventName + " on " + dateString + " has been updated";
+
+            string SMTPServer = gd.GetStringValue("SMTPServer");
+            string mailFromAddress = gd.GetStringValue("MailFromAddress");
+            string mailFromUsername = gd.GetStringValue("MailFromUsername");
+            string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            string emailAddress = (string)rdr["EmailAddress"];
+
+            try
+            {
+                MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                message.ReplyTo = new MailAddress(mailFromAddress);
+
+                message.Subject = emailSubject;
+                message.Body = emailBodyCopy.ToString();
+                message.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = SMTPServer;
+                if (mailFromPassword != "")
+                {
+                    // If the password is blank, assume mail relay is permitted
+                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                }
+                smtp.Send(message);
+            }
+            catch { }
+            */
+        }
     }
 }

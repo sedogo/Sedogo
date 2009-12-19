@@ -192,7 +192,7 @@ CREATE Procedure spSelectFullEventListByCategory
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
 		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
@@ -204,7 +204,7 @@ BEGIN
 	
 	UNION 
 	
-	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
 		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
 		E.EventDescription, E.EventVenue, E.MustDo,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
@@ -281,7 +281,7 @@ CREATE Procedure spSelectFullEventListIncludingAchieved
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
 		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
@@ -611,7 +611,7 @@ AS
 BEGIN
 	SELECT C.EventCommentID, C.PostedByUserID, C.CommentText, 
 		C.CreatedDate, C.CreatedByFullName, C.LastUpdatedDate, C.LastUpdatedByFullName,
-		U.FirstName, U.LastName, U.EmailAddress
+		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview
 	FROM EventComments C
 	JOIN Users U
 	ON C.PostedByUserID = U.UserID

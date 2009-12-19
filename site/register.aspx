@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 
 <script language="JavaScript" type="text/javascript">
 function setHiddenDateField()
@@ -63,36 +70,33 @@ function termsClientValidation(source, args)
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>Sign-up to sedogo</h1>
-            <p>Already a sedogo member? <a href="login.aspx">Login here</a></p>
-            <h2>Enter your details below to start using Sedogo today</h2>
-            
-            <table border="0" cellspacing="4" cellpadding="2" width="400">
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">First name</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="firstNameTextBox" Width="200px" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
-                        ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator></td>
-                </tr>
-                <tr>
-                    <td width="200">Surname</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="lastNameTextBox" Width="200px" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
-                        ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Date of birth</td>
-                    <td width="200"><asp:DropDownList ID="dateOfBirthDay" runat="server">
+            <h1 style="margin-bottom: 2px">Sign-up to sedogo</h1>
+            <p>Already a sedogo member? <a href="login.aspx" title="Log in here">Log in here</a></p>
+            <h3 class="blue" style="font-size: 14px">Enter your details below to start using Sedogo today</h3>
+            <fieldset>
+                <ol class="width-constrain">
+                     <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">First name</label>
+                        <asp:TextBox runat="server"
+                            ID="firstNameTextBox" Width="200px" MaxLength="200" />
+                            <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
+                            ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                    </li>
+                     <div class="pinstripe-divider">&nbsp;</div>
+                   <li>
+                        <label for="">Surname</label>
+                        <asp:TextBox runat="server"
+                            ID="lastNameTextBox" Width="200px" MaxLength="200" />
+                            <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
+                            ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Date of birth</label>
+                        <asp:DropDownList ID="dateOfBirthDay" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthMonth" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthYear" runat="server">
                         </asp:DropDownList>
@@ -102,100 +106,87 @@ function termsClientValidation(source, args)
                             Display="Dynamic"></asp:RequiredFieldValidator>
                         <asp:CompareValidator ID="dateOfBirthValidator" runat="server"
                            ControlToValidate="hiddenDateOfBirth" ErrorMessage="Select a valid date"
-                           Operator="DataTypeCheck" Type="Date" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Gender</td>
-                    <td width="200"><asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
-                        Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Home town</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="homeTownTextBox" Width="200px" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="homeTownTextBoxValidator" runat="server"
-                        ControlToValidate="homeTownTextBox" ErrorMessage="A home town is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Timezone</td>
-                    <td width="200"><asp:DropDownList ID="timezoneDropDownList" runat="server"
+                           Operator="DataTypeCheck" Type="Date" />
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Gender</label>
+                        <asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
+                        Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Home town</label>
+                        <asp:TextBox runat="server"
+                            ID="homeTownTextBox" Width="200px" MaxLength="200" />
+                            <asp:RequiredFieldValidator ID="homeTownTextBoxValidator" runat="server"
+                            ControlToValidate="homeTownTextBox" ErrorMessage="A home town is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Timezone</label>
+                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
                             DataTextField="Description" DataValueField="TimezoneID">
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
                         ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Email address</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="emailAddressTextBox" Width="200px" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
-                        ControlToValidate="emailAddressTextBox" ErrorMessage="An email address is required" Display="Dynamic">
                         </asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
-                        runat="server" ControlToValidate="emailAddressTextBox" 
-                        ErrorMessage="The email address is not valid" Display="Dynamic"
-                        ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Password</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="passwordTextBox1" Width="200px" TextMode="Password" MaxLength="30" />
-                        <asp:RequiredFieldValidator ID="passwordTextBox1Validator" runat="server"
-                        ControlToValidate="passwordTextBox1" ErrorMessage="A password is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="passwordTextBox1Validator2" runat="server"
-                        ControlToValidate="passwordTextBox1" Display="Dynamic"
-                        ErrorMessage="Password must be over 6 characters long." 
-                        ValidationExpression="[^\s]{6,30}" /></td>
-                </tr>
-                <tr>
-                    <td width="200">Re-type password</td>
-                    <td width="200"><asp:TextBox runat="server"
-                        ID="passwordTextBox2" Width="200px" TextMode="Password" MaxLength="30" />
-                        <asp:RequiredFieldValidator ID="passwordTextBox2Validator" runat="server"
-                        ControlToValidate="passwordTextBox1" ErrorMessage="Please verify your password" Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                        <asp:CompareValidator id="passwordTextBox2Validator2" runat="server" 
-                        ErrorMessage="The two passwords do not match" 
-                        ControlToValidate="passwordTextBox1" Display="Dynamic" 
-                        ControlToCompare="passwordTextBox2"></asp:CompareValidator></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-                <tr>
-                    <td width="200"><asp:HyperLink ID="termsLink" NavigateUrl="terms.aspx" Target="_blank" 
-                        Text="Terms and conditions" ToolTip="Terms and conditions" runat="server" /></td>
-                    <td width="200" style="padding-top:7px"><asp:Checkbox runat="server" ID="termsCheckbox" /><asp:CustomValidator runat="server" ErrorMessage="You must accept the terms and conditions" 
-                            ClientValidationFunction="termsClientValidation" ID="termsCheckboxValidator" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><img src="images/popupLine.png" alt="" /></td>
-                </tr>
-            </table>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Email address</label>
+                        <asp:TextBox runat="server"
+                            ID="emailAddressTextBox" Width="200px" MaxLength="200" />
+                            <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
+                            ControlToValidate="emailAddressTextBox" ErrorMessage="An email address is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
+                            runat="server" ControlToValidate="emailAddressTextBox" 
+                            ErrorMessage="The email address is not valid" Display="Dynamic"
+                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Password</label>
+                        <asp:TextBox runat="server"
+                            ID="passwordTextBox1" Width="200px" TextMode="Password" MaxLength="30" />
+                            <asp:RequiredFieldValidator ID="passwordTextBox1Validator" runat="server"
+                            ControlToValidate="passwordTextBox1" ErrorMessage="A password is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="passwordTextBox1Validator2" runat="server"
+                            ControlToValidate="passwordTextBox1" Display="Dynamic"
+                            ErrorMessage="Password must be over 6 characters long." 
+                            ValidationExpression="[^\s]{6,30}" />
+                    </li>
+                    <li>
+                        <label for="">Re-type password</label>
+                        <asp:TextBox runat="server"
+                            ID="passwordTextBox2" Width="200px" TextMode="Password" MaxLength="30" />
+                            <asp:RequiredFieldValidator ID="passwordTextBox2Validator" runat="server"
+                            ControlToValidate="passwordTextBox1" ErrorMessage="Please verify your password" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                            <asp:CompareValidator id="passwordTextBox2Validator2" runat="server" 
+                            ErrorMessage="The two passwords do not match" 
+                            ControlToValidate="passwordTextBox1" Display="Dynamic" 
+                            ControlToCompare="passwordTextBox2"></asp:CompareValidator>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for=""><asp:HyperLink ID="termsLink" NavigateUrl="terms.aspx" Target="_blank" 
+                            Text="Terms and conditions" ToolTip="Terms and conditions" runat="server" /></label>
+                        <asp:Checkbox runat="server" ID="termsCheckbox"  />
+                        <asp:CustomValidator runat="server" ErrorMessage="You must accept the terms and conditions" 
+                            ClientValidationFunction="termsClientValidation" ID="termsCheckboxValidator" /> 
+                    </li>
+                </ol>
+            </fieldset>
 		</div>
     
         <div class="buttons">
             <asp:LinkButton 
-                ID="registerUserButton" runat="server" Text="Register" 
-                OnClick="registerUserButton_click" CssClass="button-sml" />
+                ID="registerUserButton" runat="server" Text="Sign Up" 
+                OnClick="registerUserButton_click" CssClass="button-lrg" />
         </div>
     
     </div>

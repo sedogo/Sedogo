@@ -99,16 +99,16 @@ public partial class eventJoinRequests : SedogoPage
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
-            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
+            Label eventNameLabel = e.Item.FindControl("eventNameLabel") as Label;
             eventNameLabel.Text = row["EventName"].ToString();
 
             HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
             eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
 
-            Literal eventDateLabel = e.Item.FindControl("eventDateLabel") as Literal;
+            Label eventDateLabel = e.Item.FindControl("eventDateLabel") as Label;
             eventDateLabel.Text = dateString;
 
-            Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
+            Label userNameLabel = e.Item.FindControl("userNameLabel") as Label;
             userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;

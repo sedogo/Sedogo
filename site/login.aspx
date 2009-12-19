@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -25,9 +25,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -38,10 +45,11 @@
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>log-in</h1>
-            <p>Enter your email address and password below to log in to your Sedogo account</p>
-            <fieldset>
-                <ol>
+            <h1>Log in</h1>
+            <p>Enter your email address and password below to log in to your sedogo account</p>
+             <br />
+           <fieldset>
+                <ol class="width-constrain">
                     <li>
                         <label for="">Email address</label>
                         <asp:TextBox runat="server" ID="emailAddress" Width="200px" />
@@ -50,6 +58,7 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
+                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Password</label>
                         <asp:TextBox runat="server" ID="userPassword" TextMode="password" Width="200px" />
@@ -58,6 +67,7 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
+                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Remember me</label>
                         <asp:CheckBox ID="rememberMeCheckbox" runat="server" />
@@ -68,11 +78,11 @@
     
         <div class="buttons">
             <asp:LinkButton 
-                ID="loginButton" runat="server" ToolTip="Login" Text="Login" 
-                OnClick="loginButton_Click" CssClass="button-sml" />
-            <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="forgotten password?" 
+                ID="loginButton" runat="server" ToolTip="Log in" Text="Log in" 
+                OnClick="loginButton_Click" CssClass="button-lrg" />
+            <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
                 OnClick="forgotPasswordButton_click"
-                CausesValidation="false" CssClass="button-sml" />
+                CausesValidation="false" CssClass="button-lrg" />
         </div>
     
         <p>&nbsp;<br />If you don't have a Sedogo account and wish to 

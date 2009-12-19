@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -26,9 +26,16 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 
 <script language="javascript" type="text/javascript">
 function PickerAlertDate_OnChange()
@@ -73,7 +80,7 @@ function popupCalendarAlertDate(image)
                 </ol>
             </fieldset>
 
-            <img src="images/popupLine.png" alt="" />
+            <img src="images/popupLine.png" alt="" class="line-divider" />
     
             <h3 class="blue">Want to be reminded about <asp:Label ID="Label1" runat="server" />?</h3>
             <p>Select a date to receive an alert about this goal</p>
@@ -127,6 +134,8 @@ function popupCalendarAlertDate(image)
                             </tr>
                         </table>
                     </td>
+                    </tr>
+                    <tr>
                     <td>
                         <asp:DropDownList ID="alertDatePickList" runat="server"
                             AutoPostBack="true" OnSelectedIndexChanged="alertDatePickList_changed">
@@ -141,21 +150,21 @@ function popupCalendarAlertDate(image)
                     </td>
                 </tr>
             </table>
-            
+            <p style="margin-top: 20px">Reminder message</p>
             <asp:TextBox ID="newAlertTextBox" runat="server" TextMode="MultiLine"
-                Width="300px" Rows="6" />
+                Width="233px" Rows="4" />
 
-            <img src="images/popupLine.png" alt="" />
+            <img src="images/popupLine.png" alt="" class="line-divider" />
 
-            <p>*Required field</p>    
+			<p class="required-field">&#42; Required field</p>
 		</div>
     
         <div class="buttons">
             <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                Text="Next" CssClass="button-sml" />
+                Text="Next" CssClass="button-lrg" />
             <asp:LinkButton Visible="false"
                 ID="skipUploadButton" runat="server" ToolTip="Skip" Text="Skip" 
-                OnClick="skipUploadButton_click" CssClass="button-sml" CausesValidation="false" />
+                OnClick="skipUploadButton_click" CssClass="button-lrg" CausesValidation="false" />
         </div>
 
     </div>

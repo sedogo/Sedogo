@@ -55,45 +55,46 @@ public partial class profile : SedogoPage
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {
-                messageCountLink.Text = messageCount.ToString() + " new message";
+                messageCountLink.Text = messageCount.ToString() + " Message";
             }
             else
             {
-                messageCountLink.Text = messageCount.ToString() + " new messages";
+                messageCountLink.Text = messageCount.ToString() + " Messages";
             }
 
             int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
             if (pendingInviteCount == 1)
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " new invite";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " Invite";
             }
             else
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " new invites";
+                inviteCountLink.Text = pendingInviteCount.ToString() + " Invites";
             }
 
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " alert";
+                alertCountLink.Text = pendingAlertCount.ToString() + " Alert";
             }
             else
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " alerts";
+                alertCountLink.Text = pendingAlertCount.ToString() + " Alerts";
             }
 
             //groupCountLink.Text = "You belong to 0 groups";
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            if (trackedEventCount == 1)
+            trackingCountLink.Text = trackedEventCount.ToString() + " Following";
+            int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
+            if (pendingRequestsCount == 1)
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goal";
+                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Request";
             }
             else
             {
-                trackingCountLink.Text = "Tracking " + trackedEventCount.ToString() + " goals";
+                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Requests";
             }
-            goalJoinRequestsLink.Text = "0 requests to join your goals";
 
             PopulateEvents(user);
             PopulateLatestSearches();
@@ -113,8 +114,6 @@ public partial class profile : SedogoPage
                     Session["EventInviteUserID"] = "";
                 }
             }
-
-            what.Attributes.Add("onKeyPress", "checkEnter(event)");
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);
 
@@ -624,5 +623,15 @@ public partial class profile : SedogoPage
         {
             conn.Close();
         }
+    }
+
+    //===============================================================
+    // Function: searchButton2_click
+    //===============================================================
+    protected void searchButton2_click(object sender, EventArgs e)
+    {
+        string searchString = what2.Text;
+
+        Response.Redirect("search2.aspx?Search=" + searchString);
     }
 }

@@ -287,7 +287,7 @@
                             runat="server"
                             ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what" ValidationGroup="whatGroup"
-                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+                            ValidationExpression="[\S\s]{2,200}" />                        
 		                <asp:ImageButton ID="searchButton" runat="server" OnClientClick="doAddEvent()"
 		                    ImageUrl="~/images/1x1trans.gif" />
 		                </asp:Panel>
@@ -301,7 +301,7 @@
                             runat="server"
                             ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what2" ValidationGroup="what2Group"
-                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+                            ValidationExpression="[\S\s]{2,200}" />                        
 		                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton2_click" 
 		                    ImageUrl="~/images/1x1trans.gif" />
 		                </asp:Panel>
@@ -414,7 +414,8 @@
 			</ul>				
 		</div>
 	</div>
-    <div id="modal-container">
+     <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
         <iframe frameborder="0"></iframe>
     </div>
     <div id="modal-background"></div>

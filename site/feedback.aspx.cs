@@ -52,15 +52,15 @@ public partial class feedback : System.Web.UI.Page
         string mailFromUsername = gd.GetStringValue("MailFromUsername");
         string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
-        MailMessage message = new MailMessage(mailFromAddress, "phil@axinteractive.com");
-        //MailMessage message = new MailMessage(mailFromAddress, "help@sedogo.com");
+        //MailMessage message = new MailMessage(mailFromAddress, "phil@axinteractive.com");
+        MailMessage message = new MailMessage(mailFromAddress, "help@sedogo.com");
         message.ReplyTo = new MailAddress(mailFromAddress);
 
         StringBuilder emailBody = new StringBuilder();
         emailBody.AppendLine("<html><body>");
-        emailBody.AppendLine("Help:\n");
-        emailBody.AppendLine(currentUser.emailAddress + "\n");
-        emailBody.AppendLine(feedbackText.Replace("\n", "<br/>") + "\n");
+        emailBody.AppendLine("Help:<br/>");
+        emailBody.AppendLine(currentUser.emailAddress + "<br/>");
+        emailBody.AppendLine(feedbackText.Replace("\n", "<br/>") + "<br/>");
         emailBody.AppendLine("</body></html>");
 
         message.Subject = "Sedogo help";

@@ -82,8 +82,6 @@ public partial class profile : SedogoPage
                 alertCountLink.Text = pendingAlertCount.ToString() + " Alerts";
             }
 
-            //groupCountLink.Text = "You belong to 0 groups";
-
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
             trackingCountLink.Text = trackedEventCount.ToString() + " Following";
             int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
@@ -104,7 +102,6 @@ public partial class profile : SedogoPage
             {
                 groupGoalsLink.Text = joinedEventCount.ToString() + " Group goals";
             }
-            
 
             PopulateEvents(user);
             PopulateLatestSearches();

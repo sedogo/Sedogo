@@ -59,7 +59,7 @@
                             </td>
                             <td>
                                 <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View event details" /><br />
+                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" /><br />
                                 <asp:Literal ID="eventDateLabel" runat="server" /><br />
                                 <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
                             </td>

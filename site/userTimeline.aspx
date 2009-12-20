@@ -285,7 +285,7 @@
                         <asp:RegularExpressionValidator
                             id="whatValidator"
                             runat="server"
-                            ErrorMessage="Goal name must have at least 2 chatacters"
+                            ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what" ValidationGroup="whatGroup"
                             ValidationExpression="[0-9a-zA-Z]{2,}" />                        
 		                <asp:ImageButton ID="searchButton" runat="server" OnClientClick="doAddEvent()"
@@ -299,7 +299,7 @@
                         <asp:RegularExpressionValidator
                             id="what2Validator"
                             runat="server"
-                            ErrorMessage="Goal name must have at least 2 chatacters"
+                            ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what2" ValidationGroup="what2Group"
                             ValidationExpression="[0-9a-zA-Z]{2,}" />                        
 		                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton2_click" 

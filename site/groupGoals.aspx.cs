@@ -47,7 +47,7 @@ public partial class groupGoals : SedogoPage
     //===============================================================
     private void PopulateTrackedEventsList(int userID)
     {
-        int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
+        int trackedEventCount = TrackedEvent.GetJoinedEventCount(userID);
 
         if (trackedEventCount > 0)
         {

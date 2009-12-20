@@ -61,7 +61,7 @@
                             <td>
                                 <p>Who: <asp:Label ID="userNameLabel" runat="server" CssClass="blue" /><br />
                                 Goal requested: <asp:Label ID="eventNameLabel" runat="server" CssClass="blue" /><br />
-                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View event details" /><br />
+                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" /><br />
                                 Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br /></p>
                             </td>
                         </tr>

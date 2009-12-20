@@ -354,8 +354,8 @@
 					<h3>Latest goal's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<div class="pinstripe-divider"></div>
-					<h3>Latest searches</h3>
-					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
+					<!--<h3>Latest searches</h3>-->
+					<!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
 					<div class="pinstripe-divider"></div>
 					<h3>Most popular searches</h3>
 					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
@@ -406,7 +406,7 @@
 		</div>
 		<div id="footer">
 			<ul>
-				<li class="first">&copy; Sedogo</li>
+				<li class="first">&copy; Sedogo Ltd 2010</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
 				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>

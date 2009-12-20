@@ -56,7 +56,7 @@
             <p>In order to provide you with free resources and information on subjects which you have shown an interest, we may share your personal data with third party organisations we partner with.</p>
             <h2>Opting in/ Opting out</h2>
             <p>By using Sedogo you opt in to receive marketing information from carefully selected third party organisations. Sedogo will ensure that the contact you receive will be from reputable organisations. You may opt out at any time from receiving further such information by notifying us by post. </p>
-            <p>IDG cannot accept any responsibility for use by third parties of data that you have consented to being passed on.</p>
+            <p>Sedogo cannot accept any responsibility for use by third parties of data that you have consented to being passed on.</p>
             <h2>Disclosure of Information</h2>
             <p>If the business of operating this Website is sold, the relevant customer lists and other personal data of our subscribers and users will be transferred to the new owner. This will be done in accordance with current legislation.</p>
             <p>We may disclose your personal data if we are under a duty to disclose your personal data as a result of a court order or any other legal obligation, any subpoena or legal process or as otherwise required by law, or if we believe it necessary to prevent or take action regarding illegal activities or violations of our policies.</p>

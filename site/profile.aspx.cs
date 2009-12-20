@@ -55,52 +55,52 @@ public partial class profile : SedogoPage
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {
-                messageCountLink.Text = messageCount.ToString() + " Message";
+                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Message";
             }
             else
             {
-                messageCountLink.Text = messageCount.ToString() + " Messages";
+                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
             }
 
             int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
             if (pendingInviteCount == 1)
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " Invite";
+                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invite";
             }
             else
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " Invites";
+                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
             }
 
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " Alert";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alert";
             }
             else
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " Alerts";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alerts";
             }
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            trackingCountLink.Text = trackedEventCount.ToString() + " Following";
+            trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Following";
             int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
             if (pendingRequestsCount == 1)
             {
-                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Request";
+                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Request";
             }
             else
             {
-                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Requests";
+                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
             }
             int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
             if (joinedEventCount == 1)
             {
-                groupGoalsLink.Text = joinedEventCount.ToString() + " Group goal";
+                groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goal";
             }
             else
             {
-                groupGoalsLink.Text = joinedEventCount.ToString() + " Group goals";
+                groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goals";
             }
 
             PopulateEvents(user);

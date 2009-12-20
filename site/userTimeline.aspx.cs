@@ -3,7 +3,7 @@
 // Date: 02/11/09
 // --------------------------------------------------------------
 // Description:
-//   Users timeline
+//   Users timelines
 // --------------------------------------------------------------
 // Dependencies:
 //   None
@@ -84,45 +84,45 @@ public partial class userTimeline : SedogoPage
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {
-                messageCountLink.Text = messageCount.ToString() + " Message";
+                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Message";
             }
             else
             {
-                messageCountLink.Text = messageCount.ToString() + " Messages";
+                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
             }
 
             int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
             if (pendingInviteCount == 1)
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " Invite";
+                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invite";
             }
             else
             {
-                inviteCountLink.Text = pendingInviteCount.ToString() + " Invites";
+                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
             }
 
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " Alert";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alert";
             }
             else
             {
-                alertCountLink.Text = pendingAlertCount.ToString() + " Alerts";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alerts";
             }
 
             //groupCountLink.Text = "You belong to 0 groups";
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            trackingCountLink.Text = trackedEventCount.ToString() + " Following";
+            trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Following";
             int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
             if (pendingRequestsCount == 1)
             {
-                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Request";
+                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Request";
             }
             else
             {
-                goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Requests";
+                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
             }
 
             PopulateLatestSearches();
@@ -132,14 +132,14 @@ public partial class userTimeline : SedogoPage
             PopulateEvents(user);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
-            //searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
+            searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
-            //timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
-            //timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+            timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
+            timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
         }
     }
 

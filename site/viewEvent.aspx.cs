@@ -370,8 +370,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                             + eventID.ToString()
                             + "&TEID=" + trackedEventID.ToString() + "\">"
                             + "(Remove)</a> ";
-                    }
-                    if (loggedInUserID == userID)
+                    } 
+                    else if (loggedInUserID == userID)
                     {
                         // I am the tracker
                         outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="

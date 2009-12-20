@@ -242,7 +242,7 @@
                             runat="server"
                             ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what" ValidationGroup="whatGroup"
-                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+                            ValidationExpression="[\S\s]{2,200}" />                        
 		                <asp:ImageButton ID="searchButton" runat="server" OnClientClick="doAddEvent()"
 		                    ImageUrl="~/images/1x1trans.gif" />
 		                </asp:Panel>
@@ -256,7 +256,7 @@
                             runat="server"
                             ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what2" ValidationGroup="what2Group"
-                            ValidationExpression="[0-9a-zA-Z]{2,}" />                        
+                            ValidationExpression="[\S\s]{2,200}" />                        
 		                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton_click" 
 		                    ImageUrl="~/images/1x1trans.gif" />
 		                </asp:Panel>
@@ -302,7 +302,7 @@
 			</div>
 			<div id="footer">
 				<ul>
-					<li class="first">&copy; Sedogo</li>
+					<li class="first">&copy; Sedogo Ltd 2010</li>
 					<li><a href="about.aspx" title="About" class="modal">About</a></li>
 					<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
 				    <li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>

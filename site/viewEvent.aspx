@@ -49,7 +49,7 @@
                     <div class="right-col">
 						<div style="width: 170px; padding-top: 70px; overflow: hidden">
 	                        <asp:Image ID="eventImage" runat="server" Width="170" />
-                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Add picture" CssClass="underline" />
+                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Edit picture" CssClass="underline" />
                         </div>
                         <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                         <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
@@ -60,7 +60,7 @@
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
                         <img src="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
                             OnClick="click_messageTrackingUsersLink" />
-                        <h3 ID="H1" runat="server">Followers</h3>
+                        <h3 ID="H1" runat="server">Following</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
                         <h3 ID="invitesHeader" runat="server">Invites:</h3>
                         <p><asp:Label ID="inviteCountLabel" runat="server"></asp:Label><br />
@@ -106,7 +106,7 @@
 
                         <div style="margin:10px 0 10px 0">
                         <asp:LinkButton ID="postCommentButton" runat="server" 
-                            ToolTip="post a comment" Text="Post a comment" 
+                            ToolTip="post comment" Text="Post a comment" 
                             OnClick="postCommentButton_click" CssClass="button-sml" />
                         </div>
 

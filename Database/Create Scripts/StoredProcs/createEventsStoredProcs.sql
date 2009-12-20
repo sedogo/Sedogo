@@ -1010,12 +1010,52 @@ BEGIN
 	ON U.UserID = E.UserID
 	WHERE T.UserID = @UserID
 	AND E.Deleted = 0
+	AND T.ShowOnTimeline = 0
 	ORDER BY E.EventName DESC
 	
 END
 GO
 
 GRANT EXEC ON spSelectTrackedEventListByUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectJoinedEventListByUserID
+// Description:
+//   Selects the tracked events list
+//=============================================================*/
+PRINT 'Creating spSelectJoinedEventListByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectJoinedEventListByUserID')
+BEGIN
+	DROP Procedure spSelectJoinedEventListByUserID
+END
+GO
+
+CREATE Procedure spSelectJoinedEventListByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
+		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
+		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.EventAchieved, E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		U.FirstName, U.LastName, U.EmailAddress
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE T.UserID = @UserID
+	AND E.Deleted = 0
+	AND T.ShowOnTimeline = 1
+	ORDER BY E.EventName DESC
+	
+END
+GO
+
+GRANT EXEC ON spSelectJoinedEventListByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1367,11 +1407,44 @@ BEGIN
 	ON T.EventID = E.EventID
 	WHERE T.UserID = @UserID
 	AND E.Deleted = 0
+	AND T.ShowOnTimeline = 0
 	
 END
 GO
 
 GRANT EXEC ON spSelectTrackedEventCountByUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectJoinedEventCountByUserID
+// Description:
+//   Selects the tracked events for a user
+//=============================================================*/
+PRINT 'Creating spSelectJoinedEventCountByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectJoinedEventCountByUserID')
+BEGIN
+	DROP Procedure spSelectJoinedEventCountByUserID
+END
+GO
+
+CREATE Procedure spSelectJoinedEventCountByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	WHERE T.UserID = @UserID
+	AND E.Deleted = 0
+	AND T.ShowOnTimeline = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectJoinedEventCountByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -2158,7 +2231,7 @@ BEGIN
 		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
 		EventAchieved, CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
 	FROM Events
-	WHERE UserID <> @LoggedInUserID
+	WHERE UserID = @LoggedInUserID
 	AND Deleted = 0
 	AND PrivateEvent = 0
 	ORDER BY CreatedDate DESC

@@ -594,7 +594,7 @@ public partial class userTimeline : SedogoPage
             while (rdrPopular.Read())
             {
                 string searchText = (string)rdrPopular["SearchText"];
-                int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
+                //int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
 
                 HyperLink searchHyperlink = new HyperLink();
                 searchHyperlink.Text = searchText;

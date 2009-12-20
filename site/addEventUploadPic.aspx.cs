@@ -41,6 +41,7 @@ public partial class addEventUploadPic : SedogoPage
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
             eventNameLabel.Text = sedogoEvent.eventName;
+            eventNameLabel2.Text = sedogoEvent.eventName;
 
             SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
             string dateString = "";

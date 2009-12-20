@@ -83,7 +83,7 @@ function popupCalendarAlertDate(image)
 
             <img src="images/popupLine.png" alt="" class="line-divider" />
     
-            <h3 class="blue">Want to be reminded about <asp:Label ID="Label1" runat="server" />?</h3>
+            <h3 class="blue">Want to be reminded about <asp:Label ID="eventNameLabel2" runat="server" />?</h3>
             <p>Select a date to receive an alert about this goal</p>
 
             <table>
@@ -163,7 +163,7 @@ function popupCalendarAlertDate(image)
         <div class="buttons">
             <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
                 Text="Next" CssClass="button-lrg" />
-            <asp:LinkButton Visible="false"
+            <asp:LinkButton
                 ID="skipUploadButton" runat="server" ToolTip="Skip" Text="Skip" 
                 OnClick="skipUploadButton_click" CssClass="button-lrg" CausesValidation="false" />
         </div>

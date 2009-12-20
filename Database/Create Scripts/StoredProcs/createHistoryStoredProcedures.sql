@@ -162,10 +162,38 @@ GO
 CREATE Procedure spSelectSearchHistoryPopularTop5
 AS
 BEGIN
-	SELECT TOP 5 SearchText, COUNT(SearchHistoryID) AS SearchCount
-	FROM SearchHistory
-	GROUP BY SearchText
-	ORDER BY SearchCount DESC
+	SELECT StringValue AS SearchText
+	FROM GlobalData
+	WHERE KeyName = 'PopularSearchString1'
+
+	UNION
+	
+	SELECT StringValue AS SearchText
+	FROM GlobalData
+	WHERE KeyName = 'PopularSearchString2'
+
+	UNION
+	
+	SELECT StringValue AS SearchText
+	FROM GlobalData
+	WHERE KeyName = 'PopularSearchString3'
+
+	UNION
+	
+	SELECT StringValue AS SearchText
+	FROM GlobalData
+	WHERE KeyName = 'PopularSearchString4'
+
+	UNION
+	
+	SELECT StringValue AS SearchText
+	FROM GlobalData
+	WHERE KeyName = 'PopularSearchString5'
+
+	--SELECT TOP 5 SearchText, COUNT(SearchHistoryID) AS SearchCount
+	--FROM SearchHistory
+	--GROUP BY SearchText
+	--ORDER BY SearchCount DESC
 	
 END
 GO

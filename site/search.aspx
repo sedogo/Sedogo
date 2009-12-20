@@ -280,6 +280,7 @@
 				<li class="first">&copy; Sedogo</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
+				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>
 				<li class="last"><a href="feedback.aspx" title="Feedback" class="modal">Feedback</a></li>
 			</ul>				
 		</div>

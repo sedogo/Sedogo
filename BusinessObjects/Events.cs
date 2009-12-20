@@ -1327,6 +1327,41 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
+        // Function: GetJoinedEventCount
+        //===============================================================
+        public static int GetJoinedEventCount(int userID)
+        {
+            int trackedEventCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectJoinedEventCountByUserID";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                trackedEventCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("TrackedEvent", "GetJoinedEventCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return trackedEventCount;
+        }
+
+        //===============================================================
         // Function: SendJoinRequestEmail
         //===============================================================
         public void SendJoinRequestEmail()
@@ -1334,38 +1369,38 @@ namespace Sedogo.BusinessObjects
             StringBuilder emailBodyCopy = new StringBuilder();
             GlobalData gd = new GlobalData("");
 
-            /*
+            SedogoUser trackingUser = new SedogoUser(m_loggedInUser, m_userID);
+            SedogoEvent sedogoEvent = new SedogoEvent(m_loggedInUser, m_eventID);
+            SedogoUser eventUser = new SedogoUser(m_loggedInUser, sedogoEvent.userID);
+
             string dateString = "";
-            DateTime startDate = m_startDate;
-            SedogoUser eventOwner = new SedogoUser(m_loggedInUser, m_userID);
-            MiscUtils.GetDateStringStartDate(eventOwner, m_dateType, m_rangeStartDate,
-                m_rangeEndDate, m_beforeBirthday, ref dateString, ref startDate);
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventUser, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
             string inviteURL = gd.GetStringValue("SiteBaseURL");
             inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
 
-            emailBodyCopy.AppendLine("The following event has been updated:<br/>");
-            emailBodyCopy.AppendLine("What: " + m_eventName + "<br/>");
-            emailBodyCopy.AppendLine("Where: " + m_eventVenue + "<br/>");
+            emailBodyCopy.AppendLine("The following user has requested to join one of your goals:<br/>");
+            emailBodyCopy.AppendLine("What: " + sedogoEvent.eventName + "<br/>");
+            emailBodyCopy.AppendLine("Where: " + sedogoEvent.eventVenue + "<br/>");
             emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
-            emailBodyCopy.AppendLine("To view this event, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
+            emailBodyCopy.AppendLine("To view this goal, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
             emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
             emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
 
-            string emailSubject = m_eventName + " on " + dateString + " has been updated";
+            string emailSubject = "Someone has requested to join your Sedogo goal: " + sedogoEvent.eventName;
 
             string SMTPServer = gd.GetStringValue("SMTPServer");
             string mailFromAddress = gd.GetStringValue("MailFromAddress");
             string mailFromUsername = gd.GetStringValue("MailFromUsername");
             string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
-            string emailAddress = (string)rdr["EmailAddress"];
-
             try
             {
-                MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                MailMessage message = new MailMessage(mailFromAddress, trackingUser.emailAddress);
                 message.ReplyTo = new MailAddress(mailFromAddress);
 
                 message.Subject = emailSubject;
@@ -1381,7 +1416,6 @@ namespace Sedogo.BusinessObjects
                 smtp.Send(message);
             }
             catch { }
-            */
         }
     }
 }

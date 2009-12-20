@@ -50,8 +50,7 @@
             <div id="event-detail">
                 <div class="right-col" style="padding: 50px 10px 0 0">
 					<div style="width: 170px; overflow: hidden; float: right">
-						<!--***PAUL*** this image needs to be 170px wide or it will be cropped-->
-						<asp:Image ID="eventImage" runat="server" />
+						<asp:Image ID="eventImage" runat="server" Width="170" />
 					</div>
                 </div>
                 <div class="left-col">
@@ -98,8 +97,6 @@
             
             <div class="buttons">
                 <p>
-					<!--***PAUL*** This back button causes a .NET error - not sure what needs doing here-->
-					<a href="addEventInvites.aspx" class="button-lrg">Back</a>
 					<asp:LinkButton ID="viewEventLink" runat="server" CssClass="button-lrg" Text="Save Goal" ToolTip="Save Goal" OnClick="click_viewEventLink" CausesValidation="false" />
                 </p>
             </div>

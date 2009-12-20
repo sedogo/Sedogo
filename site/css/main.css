@@ -1120,6 +1120,7 @@ li.goal-groups a {
 .alerts a,
 .invites a,
 .requests a,
+.goal-groups a,
 .following a {
 	color: #9b9885;
 }
@@ -1128,10 +1129,12 @@ li.goal-groups a {
 .invites a:hover,
 .requests a:hover,
 .following a:hover,
+.goal-groups a:hover,
 .messages a span,
 .alerts a span,
 .invites a span,
 .requests a span,
+.goal-groups a span,
 .following a span {
 	color: #0cf;
 }

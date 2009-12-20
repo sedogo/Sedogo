@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="tracking.aspx.cs" Inherits="tracking" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="groupGoals.aspx.cs" Inherits="groupGoals" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -41,10 +41,10 @@
     <div>
     
 	    <div id="modal">
-            <h1>Following goals</h1>
+            <h1>Group goals</h1>
 
             <div id="noTrackedEventsDiv" runat="server">
-            <p>You are not following any goals.</p>
+            <p>You have not joined any goals.</p>
             </div>
             
             <div id="trackedEventsDiv" runat="server">

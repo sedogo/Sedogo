@@ -43,10 +43,10 @@
     
 	    <div id="modal">
             <h1>about</h1>
-            <p>Integer hendrerit lacus massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut ipsum at purus vulputate pellentesque. Praesent a enim diam. Nunc accumsan condimentum orci, eu tristique nisi egestas eu. Cras eget augue eros. Sed id turpis nec lectus tempor aliquet vel vitae nulla. Maecenas nisl nisi, facilisis et pretium in, sagittis quis metus. Donec vitae convallis sapien. Duis tincidunt lacus id lectus consectetur sed lobortis magna eleifend. Donec pellentesque arcu sed arcu pulvinar ut dapibus est condimentum.</p>
-            <p>Morbi egestas, lacus vitae egestas sagittis, magna erat semper lorem, ac facilisis tellus erat ut lorem. Nunc luctus viverra tincidunt. Proin volutpat pretium eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam venenatis leo a augue porttitor id varius massa gravida. Nunc accumsan pulvinar massa vitae egestas. Quisque felis nulla, aliquet quis dictum sed, vulputate quis diam. Donec pellentesque euismod fringilla. Donec arcu augue, tincidunt id suscipit sed, auctor rutrum erat. Nulla ante augue, pharetra eget hendrerit euismod, tempor in eros. Phasellus malesuada diam non arcu sodales consectetur. Quisque non sem libero, eu viverra nisi. Donec euismod pulvinar eros ac mattis.</p>
+            <p>Sedogo is the future of social networking. Literally.</p>
+            <p>Create tomorrow's goals for your life and connect with others to achieve them.</p>
 		</div>
-    
+
     </div>
     </form>
 </body>

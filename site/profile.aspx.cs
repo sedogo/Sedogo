@@ -95,6 +95,16 @@ public partial class profile : SedogoPage
             {
                 goalJoinRequestsLink.Text = pendingRequestsCount.ToString() + " Requests";
             }
+            int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
+            if (joinedEventCount == 1)
+            {
+                groupGoalsLink.Text = joinedEventCount.ToString() + " Group goal";
+            }
+            else
+            {
+                groupGoalsLink.Text = joinedEventCount.ToString() + " Group goals";
+            }
+            
 
             PopulateEvents(user);
             PopulateLatestSearches();
@@ -584,7 +594,7 @@ public partial class profile : SedogoPage
             while (rdrPopular.Read())
             {
                 string searchText = (string)rdrPopular["SearchText"];
-                int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
+                //int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
 
                 HyperLink searchHyperlink = new HyperLink();
                 searchHyperlink.Text = searchText;

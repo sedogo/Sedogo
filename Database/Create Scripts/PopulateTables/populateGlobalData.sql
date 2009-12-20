@@ -70,4 +70,24 @@ EXECUTE spGlobalDataAddStringValue
 	@KeyName					= 'DateFormat',
 	@Value						= 'dmy'
 
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'PopularSearchString1',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'PopularSearchString2',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'PopularSearchString3',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'PopularSearchString4',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'PopularSearchString5',
+	@Value						= ''
+
 GO 

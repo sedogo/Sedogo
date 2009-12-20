@@ -290,15 +290,15 @@
 					<li class="invites"><asp:HyperLink id="inviteCountLink" NavigateUrl="invite.aspx" runat="server" CssClass="modal" /></li>
 					<li class="requests"><asp:HyperLink id="goalJoinRequestsLink" NavigateUrl="eventJoinRequests.aspx" runat="server" CssClass="modal" /></li>
 					<li class="following"><asp:HyperLink id="trackingCountLink" NavigateUrl="tracking.aspx" runat="server" CssClass="modal" /></li>
-					<!--<li class="goal-groups">&nbsp;</li>-->
+					<li class="goal-groups"><asp:HyperLink id="groupGoalsLink" NavigateUrl="groupGoals.aspx" runat="server" CssClass="modal" /></li>
 				</ol>
 				<div class="alerts">
 					<h3>Latest goal's added</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<div class="pinstripe-divider"></div>
-					<h3>Latest searches</h3>
-					<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>
-					<div class="pinstripe-divider"></div>
+					<!--<h3>Latest searches</h3>-->
+					<!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
+					<!--<div class="pinstripe-divider"></div>-->
 					<h3>Most popular searches</h3>
 					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
 				</div>
@@ -350,6 +350,7 @@
 				<li class="first">&copy; Sedogo</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
+				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>
 				<li class="last"><a href="feedback.aspx" title="Feedback" class="modal">Feedback</a></li>
 			</ul>				
 		</div>

@@ -202,7 +202,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "You have searched for...",
+                   		endLabel: "You have searched for <asp:Literal ID="searchForLiteral1" runat="server" />",
                    		// theme:      theme,
                    		cssClass: 't-highlight3'
 					})
@@ -540,7 +540,7 @@
 		        </tr>
 		    </table>
 		</div>
-		<h2 class="plain">You have searched for ...</h2>
+		<h2 class="plain">You have searched for <asp:Literal ID="searchForLiteral2" runat="server" /></h2>
 		<p>Search results are shown below your timeline</p>
 		<div id="timelines">
 			<div id="tools">
@@ -566,8 +566,6 @@
 				<h2 class="col-header">My profile <span><a href="editProfile.aspx" title="Edit profile" class="modal">Edit</a></span></h2>
 				<asp:Image ID="profileImage" runat="server" CssClass="profile" />
 				<p class="profile-name"><span style="font-size: 14px; font-weight: bold"><asp:Label id="userNameLabel" runat="server" /></span><br />
-				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a><br />
-				<a href="uploadProfilePic.aspx" title="Upload profile picture" class="modal">Upload profile picture</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<br />
 				<p class="extra-buttons">
@@ -643,6 +641,7 @@
 				<li class="first">&copy; Sedogo</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
+				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>
 				<li class="last"><a href="feedback.aspx" title="Feedback" class="modal">Feedback</a></li>
 			</ul>				
 		</div>

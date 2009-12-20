@@ -643,6 +643,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString());
             trackedEvent.eventID = eventID;
             trackedEvent.userID = userID;
+            trackedEvent.joinPending = false;
+            trackedEvent.showOnTimeline = true;
             trackedEvent.Add();
         }
 

@@ -43,10 +43,14 @@
     
 	    <div id="modal">
             <h1>FAQ</h1>
-            <h2>Integer hendrerit lacus massa?</h2>
-            <p>Integer hendrerit lacus massa. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc ut ipsum at purus vulputate pellentesque. Praesent a enim diam. Nunc accumsan condimentum orci, eu tristique nisi egestas eu. Cras eget augue eros. Sed id turpis nec lectus tempor aliquet vel vitae nulla. Maecenas nisl nisi, facilisis et pretium in, sagittis quis metus. Donec vitae convallis sapien. Duis tincidunt lacus id lectus consectetur sed lobortis magna eleifend. Donec pellentesque arcu sed arcu pulvinar ut dapibus est condimentum.</p>
-            <h2>Morbi egestas, lacus vitae egestas sagittis?</h2>
-            <p>Morbi egestas, lacus vitae egestas sagittis, magna erat semper lorem, ac facilisis tellus erat ut lorem. Nunc luctus viverra tincidunt. Proin volutpat pretium eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam venenatis leo a augue porttitor id varius massa gravida. Nunc accumsan pulvinar massa vitae egestas. Quisque felis nulla, aliquet quis dictum sed, vulputate quis diam. Donec pellentesque euismod fringilla. Donec arcu augue, tincidunt id suscipit sed, auctor rutrum erat. Nulla ante augue, pharetra eget hendrerit euismod, tempor in eros. Phasellus malesuada diam non arcu sodales consectetur. Quisque non sem libero, eu viverra nisi. Donec euismod pulvinar eros ac mattis.</p>
+            <h2>What goals can I create?</h2>
+            <p>You can create any goal you like. Sedogo automatically matches you to people with similar goals to you. To make planning your goals easier, we've added categories for you to choose from.</p>
+            <h2>Can I connect with more than one person to achieve a goal?</h2>
+            <p>Absolutely. You can invite as many or few people as you like to be part of any one goal. The shared goal will appear as part of everyone's timeline.</p>
+            <h2>Can I follow someone's else's goal?</h2>
+            <p>Yes. Simply search for them or the goal they've created and click 'follow goal'.</p>
+            <h2>How much does it cost to subscribe to sedogo? </h2>
+            <p>Nothing! Belonging to sedogo is free.</p>
 		</div>
     
     </div>

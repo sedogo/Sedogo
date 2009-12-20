@@ -228,6 +228,9 @@ public partial class search2 : SedogoPage
             searchHistory.searchHits = 0;
             searchHistory.Add();
 
+            searchForLiteral1.Text = searchText;
+            searchForLiteral2.Text = searchText;
+
             PopulateEvents(user);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
@@ -757,7 +760,7 @@ public partial class search2 : SedogoPage
             while (rdrPopular.Read())
             {
                 string searchText = (string)rdrPopular["SearchText"];
-                int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
+                //int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
 
                 HyperLink searchHyperlink = new HyperLink();
                 searchHyperlink.Text = searchText;

@@ -47,16 +47,18 @@
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Email address</label>
-                        <input type="text" name="" value="" />
-                    </li>
-                    <li>
-                        <label for="">Feedback</label>
-                        <textarea></textarea>
+                        <label for="">Message</label>
+                        <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
+                            Width="400" Rows="10"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
+                        ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
+                        Display="Dynamic">
+                        </asp:RequiredFieldValidator>
                     </li>
                     <li>
                         <label for=""></label>
-                        <input type="submit" name="" value="submit" />
+                        <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send feedback"
+                            OnClick="sendFeedbackButton_click"></asp:LinkButton>
                     </li>
                 </ol>
             </fieldset>

@@ -262,9 +262,6 @@ function hideDiv(divName) {
                 <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
                     Width="233px" Rows="3" MaxLength="1000" />
                 
-                
-                <!--***PAUL*** there needs to be a send button here as per graphic '3creategoal.jpg'-->
-                
                 <p style="font-size: 11px; padding-top: 20px">Please note anyone without a sedogo account will be <br />invited to join before they can connect with your goal</p>
                 
                 <img src="images/popupLine.png" alt="" class="line-divider" />
@@ -274,13 +271,10 @@ function hideDiv(divName) {
             </div>
             
             <div class="buttons">
-            
-				<!--***PAUL*** there needs to be a save button here.  I've renamed the send button text 'Save Goal' as per graphic, but it needs to save not send.-->
-            
                 <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Save Goal"
                     OnClick="sendInvitesLink_click" CssClass="button-lrg" />
                 <asp:LinkButton ID="skipInvitesLink" runat="server" CssClass="button-lrg" Text="Skip" 
-                    ToolTip="Skip" OnClick="click_skipInvitesLink" CausesValidation="false" Visible="false" />
+                    ToolTip="Skip" OnClick="click_skipInvitesLink" CausesValidation="false" />
                 </p>
             </div>
 

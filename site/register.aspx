@@ -71,8 +71,8 @@ function termsClientValidation(source, args)
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1 style="margin-bottom: 2px">Sign-up to sedogo</h1>
-            <p>Already a sedogo member? <a href="login.aspx" title="Log in here">Log in here</a></p>
+            <h1 style="margin-bottom: 2px">Sign-up to Sedogo</h1>
+            <p>Already a Sedogo member? <a href="login.aspx" title="Log in here">Log in here</a></p>
             <h3 class="blue" style="font-size: 14px">Enter your details below to start using Sedogo today</h3>
             <fieldset>
                 <ol class="width-constrain">

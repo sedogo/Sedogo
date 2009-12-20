@@ -77,7 +77,7 @@
 
 				<div class="pinstripe-divider">&nbsp;</div>
 
-                <h3 class="blue" style="font-size: 13px; margin-bottom: 12px">Who do you want to invite to <!--***PAUL*** need event name here--></h3>
+                <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <!--***PAUL*** need event name here--></h3>
                 <p>Type in friends or family email addresses or Sedogo account names.</p>
 
                 <img src="images/profile/miniProfile.jpg" />

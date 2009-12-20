@@ -118,6 +118,9 @@
 						overview: true
 					}),
 					Timeline.createBandInfo({
+						width: "0",
+						theme: theme1
+/*
 						date: today,
 						width: "10",
 						intervalUnit: Timeline.DateTime.YEAR,
@@ -128,6 +131,7 @@
 						theme: theme1,
 						eventSource: eventSource,
 						overview: true
+*/
 					}),
 					Timeline.createBandInfo({
 						date: today,
@@ -196,7 +200,6 @@
                    		cssClass: 't-highlight2'
 					})
 				];
-*/
 				bandInfos[3].decorators = [
 					new Timeline.SpanHighlightDecorator({
 						startDate: sixMonthsAgo,
@@ -207,6 +210,7 @@
                    		cssClass: 't-highlight3'
 					})
 				];
+*/
 				bandInfos[4].decorators = [
 					new Timeline.SpanHighlightDecorator({
 						startDate: sixMonthsAgo,
@@ -354,14 +358,18 @@
 		        </tr>    
 		    </table>
 		</div>
-		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
-		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
-		</div>
-		<div id="moreThan50ResultsDiv" runat="server" class="errorMessage">
-		    <p><b>&nbsp;<br />There were more than 50 matching results found, please refine your search<br />&nbsp;</b></p>
-		</div>
 		<div id="advSearchCriteria">
 		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="advanced-search-table">
+				<tr>
+					<td>
+						<div id="noSearchResultsDiv" runat="server" class="errorMessage">
+							<p>There were no results found, please try again or refine your search</p>
+						</div>
+						<div id="moreThan50ResultsDiv" runat="server" class="errorMessage">
+							<p>There were more than 50 matching results found, please refine your search</p>
+						</div>
+					</td>
+				</tr>
 		        <tr>
 		            <td><h3 class="noTopMargin blue">Advanced Search</h3></td>
 		        </tr>    
@@ -587,13 +595,13 @@
 					<!--<h3>Groups</h3>-->
 					<!--<p><asp:HyperLink id="groupCountLink" NavigateUrl="group.aspx" runat="server" CssClass="modal" /></p>-->
 					<div class="pinstripe-divider"></div>
-					<h3>Latest goal's added</h3>
+					<h3>My latest goals</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<div class="pinstripe-divider"></div>
 					<!--<h3>Latest searches</h3>-->
 					<!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
 					<div class="pinstripe-divider"></div>
-					<h3>Most popular searches</h3>
+					<h3>Popular goals</h3>
 					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
 				</div>
 			</div>

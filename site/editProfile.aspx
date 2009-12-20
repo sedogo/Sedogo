@@ -76,7 +76,7 @@ function setHiddenDateField()
             <fieldset>
                 <ol class="width-constrain">
                     <li>
-                        <label for="">First name</label>
+                        <label for="">First name</label><br />
                         <asp:TextBox runat="server"
                             ID="firstNameTextBox" Width="200px" MaxLength="200" />
                             <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
@@ -85,7 +85,7 @@ function setHiddenDateField()
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Surname</label>
+                        <label for="">Surname</label><br />
                         <asp:TextBox runat="server"
                             ID="lastNameTextBox" Width="200px" MaxLength="200" />
                             <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
@@ -94,13 +94,13 @@ function setHiddenDateField()
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Introduction</label>
+                        <label for="">Introduction</label><br />
                         <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
                             ID="headlineTextBox" Width="200px" MaxLength="200" />
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Date of birth</label>
+                        <label for="">Date of birth</label><br />
                         <asp:DropDownList ID="dateOfBirthDay" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthMonth" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthYear" runat="server">
@@ -112,13 +112,13 @@ function setHiddenDateField()
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Gender</label>
+                        <label for="" style="width: 80px">Gender</label>
                         <asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
                         Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Home town</label>
+                        <label for="">Home town</label><br />
                         <asp:TextBox runat="server"
                             ID="homeTownTextBox" Width="200px" MaxLength="200" />
                             <asp:RequiredFieldValidator ID="homeTownTextBoxValidator" runat="server"
@@ -137,7 +137,7 @@ function setHiddenDateField()
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Email address</label>
+                        <label for="">Email address</label><br />
                         <asp:TextBox runat="server"
                             ID="emailAddressTextBox" Width="200px" MaxLength="200" />
                             <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
@@ -154,7 +154,13 @@ function setHiddenDateField()
 
                     </td>
                     <td align="right">
-                        <asp:Image ID="profileImage" runat="server" CssClass="profile" />
+                        <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
+                        <p style="display: block; clear: both">
+                        <asp:LinkButton 
+                    ID="uploadProfilePicButton" runat="server" 
+                    ToolTip="save" Text="Upload profile picture" 
+                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                    </p>
                     </td>
                 </tr>
             </table>
@@ -163,10 +169,6 @@ function setHiddenDateField()
                 <asp:LinkButton 
                     ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                     OnClick="saveChangesButton_click" CssClass="button-lrg" />
-                <asp:LinkButton 
-                    ID="uploadProfilePicButton" runat="server" 
-                    ToolTip="save" Text="Upload profile picture" 
-                    OnClick="uploadProfilePicButton_click" CssClass="button-lrg" />
             </div>
 
 		</div>

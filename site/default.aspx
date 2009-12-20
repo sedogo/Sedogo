@@ -297,12 +297,12 @@
 				</div>
 				<div class="one-col-end">
 					<h2 class="col-header">get inspired</h2>
-					<p class="teaser">Need help getting started? How about a few ideas on what you might want to achieve?</p>
+					<p class="teaser">Need help getting started? See popular goal searches and get ideas</p>
 				</div>
 			</div>
 			<div id="footer">
 				<ul>
-					<li class="first">&copy; Sedogo Ltd 2010</li>
+					<li class="first">&copy; Sedogo</li>
 					<li><a href="about.aspx" title="About" class="modal">About</a></li>
 					<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
 				    <li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>

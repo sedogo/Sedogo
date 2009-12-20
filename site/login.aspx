@@ -81,14 +81,14 @@
             <asp:LinkButton 
                 ID="loginButton" runat="server" ToolTip="Log in" Text="Log in" 
                 OnClick="loginButton_Click" CssClass="button-lrg" />
-            <asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
-                OnClick="forgotPasswordButton_click"
-                CausesValidation="false" CssClass="button-lrg" />
         </div>
     
-        <p>&nbsp;<br />If you don't have a Sedogo account and wish to 
+        <p><br />If you don't have a Sedogo account and wish to 
             register, <a href="register.aspx">please click here</a></p>
-    
+            <br />
+		<p><asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
+                OnClick="forgotPasswordButton_click"
+                CausesValidation="false" CssClass="underline-bold" /></p>
     </div>
     </form>
 </body>

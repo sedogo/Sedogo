@@ -58,20 +58,22 @@
                                 <asp:Image id="eventPicThumbnailImage" runat="server" />
                             </td>
                             <td>
-                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" /><br />
-                                <asp:Literal ID="eventDateLabel" runat="server" /><br />
-                                <i><asp:Literal ID="userNameLabel" runat="server" /></i></p>
+								<p>
+									Goal creator: <span class="blue"></span><br />
+									Goal: <span class="blue"><asp:Literal ID="eventNameLabel" runat="server" /></span><br />
+									Date: <span class="blue"><asp:Literal ID="eventDateLabel" runat="server" /></span>
+								</p>
+                                <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" />-->
+                                <!--<asp:Literal ID="userNameLabel" runat="server" />-->
                             </td>
                         </tr>
                     </table>
                     
-                    <p><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
-                        Text="accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
-                        <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml" 
-                        Text="decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
-                    <br />
-
+                    <p style="padding-left: 54px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
+                        Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
+                        <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
+                        Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
+<div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 368px">&nbsp;</div>
                 </ItemTemplate>
             </asp:Repeater>
             </div>

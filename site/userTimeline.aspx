@@ -334,7 +334,6 @@
 				<h2 class="col-header">My profile <span><a href="editProfile.aspx" title="Edit profile" class="modal">Edit</a></span></h2>
 				<asp:Image ID="profileImage" runat="server" CssClass="profile" />
 				<p class="profile-name"><span style="font-size: 14px; font-weight: bold"><asp:Label id="userNameLabel" runat="server" /></span><br />
-				<a href="changePassword.aspx" title="Change password" class="modal">Change password</a></p>
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<br />
 				<p class="extra-buttons">
@@ -351,13 +350,13 @@
 					<!--<li class="goal-groups">&nbsp;</li>-->
 				</ol>
 				<div class="alerts">
-					<h3>Latest goal's added</h3>
+					<h3>My latest goals</h3>
 					<p><asp:PlaceHolder id="latestEventsPlaceholder" runat="server" /></p>
 					<div class="pinstripe-divider"></div>
 					<!--<h3>Latest searches</h3>-->
 					<!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
 					<div class="pinstripe-divider"></div>
-					<h3>Most popular searches</h3>
+					<h3>Popular goals</h3>
 					<p><asp:PlaceHolder id="popularSearchesPlaceholder" runat="server" /></p>
 				</div>
 			</div>

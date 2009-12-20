@@ -277,7 +277,7 @@
 		</div>
 		<div id="footer">
 			<ul>
-				<li class="first">&copy; Sedogo Ltd 2010</li>
+				<li class="first">&copy; Sedogo</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
 				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>

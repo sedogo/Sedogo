@@ -194,7 +194,8 @@ input#what2:focus {
 	margin-bottom: 22px
 }
 .button,
-.button-sml
+.button-sml,
+.button-sml-extra-padding
 {
 	background: #0cf;
 	padding: 4px 16px;
@@ -204,17 +205,23 @@ input#what2:focus {
 .button a,
 .button-sml,
 .button-sml a,
+.button-sml-extra-padding,
+.button-sml-extra-padding a,
 .button-lrg,
 .button-lrg a{
 	color: #fff;
 }
-.button-sml
+.button-sml,
+.button-sml-extra-padding
 {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	background: #0cf;
 	padding: 4px 8px;
 	font-size: 12px;
+}
+.button-sml-extra-padding {
+	padding: 4px 24px;
 }
 .button-lrg
 {
@@ -763,8 +770,9 @@ img.profile
     margin: 0 0 20px 0
 }
 #event-detail h3 {
-    background: none;
-    color: #0cf;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color: #0cf;
     margin: 22px 0 2px 0
 }
 #event-detail p {
@@ -779,8 +787,8 @@ img.profile
     padding-left: 40px
 }
 #event-detail .right-col h3 {
-    color: #9b9885;
-    margin-bottom: 0
+    margin-bottom: 0;
+    font-size: 12px
 }
 #event-detail .right-col p {
     margin: 0
@@ -888,14 +896,10 @@ img.profile
 {
 	display:block;
 	clear:both;
-	border:solid 1px red;
-	margin:20px 0px 0px 0px;
+	margin: 0;
 	text-align:center; 
-	color:red; 
-	background-color:Yellow; 
-	border-color:Black; 
-	border-width:1px; 
-	border-style:solid;
+	color: #000; 
+	font-weight: bold
 }
 /*<<<<<<< .mine*/
 
@@ -1035,7 +1039,7 @@ table.summary th {
 }
 table.summary th,
 table.summary td {
-	padding-top: 4px;
+	padding-top: 1px;
 }
 table.summary td.blue {
 	color: #0cf
@@ -1154,6 +1158,17 @@ li.goal-groups a {
 	top: 6px;
 	right: 6px
 }
-a.underline {
+a.underline,
+a.underline-bold {
 	text-decoration: underline
+}
+a.underline-bold {
+	font-weight: bold;
+}
+.reminders-header {
+	background: url(../images/ico_alerts.gif) no-repeat left;
+	padding-left: 18px
+}
+.blue {
+	color: #0cf
 }

@@ -67,7 +67,7 @@
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
                 OnClick="saveChangesButton_click" CssClass="button-sml" />
             <asp:LinkButton 
-                ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
+                ID="backButton" runat="server" ToolTip="Send" Text="Back to goal details" 
                 OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
         </div>    
 

@@ -49,8 +49,8 @@
             <p>Absolutely. You can invite as many or few people as you like to be part of any one goal. The shared goal will appear as part of everyone's timeline.</p>
             <h2>Can I follow someone's else's goal?</h2>
             <p>Yes. Simply search for them or the goal they've created and click 'follow goal'.</p>
-            <h2>How much does it cost to subscribe to sedogo? </h2>
-            <p>Nothing! Belonging to sedogo is free.</p>
+            <h2>How much does it cost to subscribe to Sedogo? </h2>
+            <p>Nothing! Belonging to Sedogo is free.</p>
 		</div>
     
     </div>

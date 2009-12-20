@@ -11,7 +11,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Post comment : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Add comment : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -63,11 +63,11 @@
 
         <div class="buttons">
             <asp:LinkButton 
-                ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                ID="saveChangesButton" runat="server" ToolTip="save" Text="Add" 
                 OnClick="saveChangesButton_click" CssClass="button-lrg" />
-            <asp:LinkButton 
+            <!--<asp:LinkButton 
                 ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
-                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
+                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />-->
         </div>    
     </div>
     </form>

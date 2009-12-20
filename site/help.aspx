@@ -42,7 +42,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>help</h1>
+            <h1>Help</h1>
             <p>If you have any questions, just ask. We aim to reply to all queries within 48 hours.</p>
             
             <fieldset>
@@ -56,16 +56,15 @@
                         Display="Dynamic">
                         </asp:RequiredFieldValidator>
                     </li>
-                    <li>
-                        <label for=""></label>
-                        <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send feedback"
-                            OnClick="sendFeedbackButton_click"></asp:LinkButton>
-                    </li>
                 </ol>
             </fieldset>
             
 		</div>
-    
+   
+        <div class="buttons">
+			<asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Ask question" OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
+        </div>
+   
     </div>
     </form>
 </body>

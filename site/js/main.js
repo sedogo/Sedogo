@@ -76,6 +76,7 @@ $(document).ready(function() {
 	//Hide all modals if clicking outside
 	$("body, .close-modal").click(function() {
 		$("#modal-container, #modal-background").fadeOut();
+		$("#modal-container iframe").attr("src", "");
 	});
 
 	//Search form

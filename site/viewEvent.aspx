@@ -49,24 +49,28 @@
                     <div class="right-col">
 						<div style="width: 170px; padding-top: 70px; overflow: hidden">
 	                        <asp:Image ID="eventImage" runat="server" Width="170" />
-                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Edit picture" CssClass="underline" />
+                            <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Edit picture" CssClass="underline-bold" />
                         </div>
                         <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                         <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
-                        <h3 ID="alertsHeader" runat="server">Reminders</h3>
+                        <h3 ID="alertsHeader" runat="server" class="reminders-header">Reminders</h3>
                         <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
-                        <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline" /></p>
-                        <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members</h3>
+                        <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline-bold" /></p>
+                        <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members:</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
                         <img src="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
-                            OnClick="click_messageTrackingUsersLink" />
-                        <h3 ID="H1" runat="server">Following</h3>
+                            OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
+                        <h3 ID="H1" runat="server">Following:</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
                         <h3 ID="invitesHeader" runat="server">Invites:</h3>
                         <p><asp:Label ID="inviteCountLabel" runat="server"></asp:Label><br />
-                        <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" /></p>
+                        <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>
+                        <h3 ID="H2" runat="server">Requests:</h3>
                         
-                        &nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;
+                        <br /><br />
+                        <p style="height: 28px"><asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="Achieved" ToolTip="Achieved" OnClick="click_achievedEventLink" /></p>
+						<p><asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete goal" OnClick="deleteEventButton_click" CssClass="button-sml" /></p>
+
                     </div>
                     <div class="left-col">
 		                <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
@@ -75,6 +79,9 @@
 							<tbody>
 								<tr>
 									<td colspan="2"><asp:Label ID="eventDescriptionLabel" runat="server" /></td>
+								</tr>
+								<tr>
+									<th colspan="2">&nbsp;</th>
 								</tr>
 								<tr>
 									<th>Who:</th>
@@ -94,7 +101,7 @@
 								</tr>
 							</tbody>
 		                </table>
-                        <asp:HyperLink ID="editEventLink" runat="server" Text="Edit" ToolTip="Edit" CssClass="underline" />
+                        <asp:HyperLink ID="editEventLink" runat="server" Text="Edit" ToolTip="Edit" CssClass="underline-bold" />
 		                
 		                <div id="sendMessageDiv" runat="server">
 		                <asp:LinkButton id="sendMessageButton" runat="server" OnClick="sendMessageButton_click">Send Message</asp:LinkButton>
@@ -102,11 +109,11 @@
         		        
 				<div class="pinstripe-divider">&nbsp;</div>
         		        
-        		        <h3 style="font-size: 13px; color: #0cf">Posts about <asp:Label ID="eventLabel2" runat="server" /></h3>
+        		        <h3 style="font-size: 12px; color: #0cf">Comments about <asp:Label ID="eventLabel2" runat="server" /></h3>
 
                         <div style="margin:10px 0 10px 0">
                         <asp:LinkButton ID="postCommentButton" runat="server" 
-                            ToolTip="post comment" Text="Post a comment" 
+                            ToolTip="Add comment" Text="Add comment" 
                             OnClick="postCommentButton_click" CssClass="button-sml" />
                         </div>
 
@@ -117,7 +124,7 @@
 		                </div>
         		        
 		                <div id="loginRegisterPanel" runat="server">
-		                <p>You must be logged in to view the full details or to post comments on this event.<br />
+		                <p>You must be logged in to view the full details or to add comments to this event.<br />
 		                <a href="login.aspx">Click here to login</a><br />
 		                or <a href="register.aspx">click here to register</a> if you are a new user</p>
 		                </div>
@@ -131,8 +138,6 @@
         </div>
 
         <div class="buttons">
-            <asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-lrg" Text="Done" ToolTip="Achieved" OnClick="click_achievedEventLink" />
-            <asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete goal" Text="Delete goal" OnClick="deleteEventButton_click" CssClass="button-lrg" />
             <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click" CssClass="button-lrg" />
 			<asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal" OnClick="trackThisEventLink_click" CssClass="button-lrg" />
 			<asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click" CssClass="button-lrg" />

@@ -798,14 +798,15 @@ img.profile
 */
 	width: 600px;
 	height: 450px;
+	margin-top: -225px;
 	margin-left: -300px;
 	display: none;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 	background: #fff;
-	position: absolute;
+	position: fixed;
 	left: 50%;
-	top: 140px;
+	top: 50%;
 	padding: 14px;
 	z-index: 1000;
 }

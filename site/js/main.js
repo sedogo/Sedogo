@@ -48,9 +48,9 @@ $(document).ready(function() {
 	//Modal windows
 	//Create modal window from regular links with class '.modal'
 	$(".modal").click(function() {
-		var windowHeight = $(window).height();
-		var scrollTop = $(window).scrollTop();
-		$("#modal-container").css("top", (((windowHeight / 2) - 250) + scrollTop) + "px");
+		//		var windowHeight = $(window).height();
+		//		var scrollTop = $(window).scrollTop();
+		//		$("#modal-container").css("top", (((windowHeight / 2) - 250) + scrollTop) + "px");
 		var modalURL = $(this).attr("href");
 		$("#modal-container iframe").attr("src", modalURL);
 		$("#modal-container, #modal-background").fadeIn();
@@ -58,9 +58,9 @@ $(document).ready(function() {
 	});
 	//Use livequery to bind modal to AJAX-created content links
 	$(".modal").livequery("click", function(event) {
-		var windowHeight = $(window).height();
-		var scrollTop = $(window).scrollTop();
-		$("#modal-container").css("top", (((windowHeight / 2) - 250) + scrollTop) + "px");
+		//		var windowHeight = $(window).height();
+		//		var scrollTop = $(window).scrollTop();
+		//		$("#modal-container").css("top", (((windowHeight / 2) - 250) + scrollTop) + "px");
 		var modalURL = $(this).attr("href");
 		$("#modal-container iframe").attr("src", modalURL);
 		$("#modal-container, #modal-background").fadeIn();

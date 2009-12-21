@@ -211,7 +211,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "xxx's profile",
+                   		endLabel: "<asp:Literal id="timelineUserNameLiteral" runat="server" />'s profile",
                    		// theme:      theme,
                    		cssClass: 't-highlight2'
 					})

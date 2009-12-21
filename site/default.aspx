@@ -293,7 +293,7 @@
 				</div>
 				<div class="one-col">
 					<h2 class="col-header">join in today</h2>
-					<p class="teaser">Start creating personal goals right now. Registering is fast, easy and free!</p>
+					<p class="teaser">Start creating personal goals right now. <a href="register.aspx" title="get started" class="modal">Registering is fast, easy and free!</a></p>
 				</div>
 				<div class="one-col-end">
 					<h2 class="col-header">get inspired</h2>

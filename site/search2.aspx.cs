@@ -179,11 +179,11 @@ public partial class search2 : SedogoPage
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alert";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
             }
             else
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alerts";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
             }
 
             groupCountLink.Text = "<span>0</span> Groups";
@@ -463,7 +463,7 @@ public partial class search2 : SedogoPage
                     }
                     if (eventAlertCount > 0)
                     {
-                        eventString.AppendLine(" <img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
+                        eventString.AppendLine(" <img src=\"./images/ico_alerts.gif\" alt=\"Alert\" />");
                     }
                     eventString.Append("</h3>");
 

@@ -67,6 +67,7 @@ public partial class userTimeline : SedogoPage
             //userTimelineLabel.Text = user.firstName + " " + user.lastName + "'s timeline";
             sendMessageToUserLink.Text = "Send message to " + viewUser.firstName + " " + viewUser.lastName;
             sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
+            timelineUserNameLiteral.Text = viewUser.firstName + " " + viewUser.lastName;
 
             userNameLabel.Text = user.fullName;
             profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
@@ -104,11 +105,11 @@ public partial class userTimeline : SedogoPage
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alert";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
             }
             else
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alerts";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
             }
 
             //groupCountLink.Text = "You belong to 0 groups";
@@ -337,7 +338,7 @@ public partial class userTimeline : SedogoPage
                     }
                     if (eventAlertCount > 0)
                     {
-                        eventString.AppendLine(" <img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
+                        eventString.AppendLine(" <img src=\"./images/ico_alerts.gif\" alt=\"Alert\" />");
                     }
                     eventString.Append("</h3>");
 

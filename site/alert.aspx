@@ -41,10 +41,10 @@
     <div>
     
 	    <div id="modal">
-            <h1>alerts</h1>
+            <h1>Reminders</h1>
 
             <div id="noAlertsDiv" runat="server">
-            <p>You have no alerts.</p>
+            <p>You have no reminders.</p>
             </div>
             
             <div id="alertsDiv" runat="server">
@@ -64,7 +64,7 @@
                     </table>
                     
                     <p><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
-                        Text="clear alert" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
+                        Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
                     <br />
 
                 </ItemTemplate>

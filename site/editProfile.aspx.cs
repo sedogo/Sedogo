@@ -174,4 +174,12 @@ public partial class editProfile : SedogoPage
     {
         Response.Redirect("uploadProfilePic.aspx");
     }
+
+    //===============================================================
+    // Function: changePasswordButton_click
+    //===============================================================
+    protected void changePasswordButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("changePassword.aspx");
+    }
 }

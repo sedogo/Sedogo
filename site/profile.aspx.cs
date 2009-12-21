@@ -75,15 +75,22 @@ public partial class profile : SedogoPage
             int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
             if (pendingAlertCount == 1)
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alert";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
             }
             else
             {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Alerts";
+                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
             }
 
             int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Following";
+            if (trackedEventCount == 1)
+            {
+                trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
+            }
+            else
+            {
+                trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
+            }
             int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
             if (pendingRequestsCount == 1)
             {
@@ -158,11 +165,11 @@ public partial class profile : SedogoPage
 
         if( viewArchivedEvents == true )
         {
-            viewArchiveLink.Text = "Hide past goals";
+            viewArchiveLink.Text = "Hide Past Goals";
         }
         else
         {
-            viewArchiveLink.Text = "Show past goals";
+            viewArchiveLink.Text = "Past Goals";
         }
 
         DateTime todayStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
@@ -339,7 +346,7 @@ public partial class profile : SedogoPage
                 }
                 if (eventAlertCount > 0)
                 {
-                    eventString.AppendLine(" <img src=\"./images/alertIcon.jpg\" alt=\"Alert\" />");
+                    eventString.AppendLine(" <img src=\"./images/ico_alerts.gif\" alt=\"Alert\" />");
                 }
                 eventString.Append("</h3>");
 

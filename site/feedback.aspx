@@ -42,12 +42,12 @@
     <div>
     
 	    <div id="modal">
-            <h1>feedback</h1>
-            <p>Please let us know what you like/dislike about Sedogo</p>
+            <h1>Feedback</h1>
+            <p>Comments? Suggestions? We'd love to hear them.</p>
             <fieldset>
                 <ol>
                     <li>
-                        <label for="">Message</label>
+                        <label for="">Feedback</label>
                         <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
                             Width="400" Rows="10"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
@@ -57,7 +57,7 @@
                     </li>
                     <li>
                         <label for=""></label>
-                        <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send feedback"
+                        <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send to Sedogo team"
                             OnClick="sendFeedbackButton_click"></asp:LinkButton>
                     </li>
                 </ol>

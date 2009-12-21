@@ -291,7 +291,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     profileImage = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<h3><img src=\"" + profileImage + "\" width=\"25\" />" + postedByUsername + "</h3><p>"
+                string outputText = "<h3><img src=\"" + profileImage + "\" width=\"25\" />&nbsp;" + postedByUsername + "</h3><p>"
                     + createdDate.ToString("ddd d MMMM yyyy") + "<br/>"
                     + commentText.Replace("\n", "<br/>") + "</p>";
 

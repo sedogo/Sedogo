@@ -2063,7 +2063,7 @@ CREATE Procedure spSelectEventAlertListPendingByUser
 	@UserID		int
 AS
 BEGIN
-	SELECT A.EventAlertID, A.AlertDate, A.AlertText, 
+	SELECT A.EventAlertID, A.EventID, A.AlertDate, A.AlertText, 
 		A.CreatedDate, A.CreatedByFullName, A.LastUpdatedDate, A.LastUpdatedByFullName,
 		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,

@@ -92,7 +92,8 @@ public partial class alert : SedogoPage
         {
             DataRowView row = e.Item.DataItem as DataRowView;
 
-            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
+            HyperLink eventNameLabel = e.Item.FindControl("eventNameLabel") as HyperLink;
+            eventNameLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventNameLabel.Text = row["EventName"].ToString();
 
             string alertText = row["AlertText"].ToString();

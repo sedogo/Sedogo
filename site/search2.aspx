@@ -273,7 +273,36 @@
     function viewProfile(eventUserID)
     {
         location.href = "userTimeline.aspx?UID=" + eventUserID;
-    }    
+    }
+    function doAddEvent()
+    {
+        var form = document.forms[0];
+        openModal("addEvent.aspx?Name=" + form.what.value);
+    }
+    function checkAddButtonEnter(e)
+    {
+        var characterCode;
+        if (e && e.which) // NN4 specific code
+        {
+            e = e;
+            characterCode = e.which;
+        }
+        else
+        {
+            e = event;
+            characterCode = e.keyCode; // IE specific code
+        }
+        if (characterCode == 13) //// Enter key is 13
+        {
+            e.returnValue = false;
+            e.cancelBubble = true;
+            doAddEvent();
+        }
+        else
+        {
+            return false;
+        }
+    }
     </script>
     <script language="JavaScript" type="text/javascript">
     function PickerRangeStartDate_OnChange()
@@ -330,7 +359,6 @@
 		        <tr>
 		            <td><h3 class="blue">Add</h3>
 		                <p class="blue">to my goal list</p>
-		                <asp:Panel ID="Panel1" DefaultButton="searchButton" runat="server">
                         <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" ValidationGroup="whatGroup" />
                         <asp:RegularExpressionValidator
                             id="whatValidator"
@@ -338,9 +366,6 @@
                             ErrorMessage="Goal name must have at least 2 characters"
                             ControlToValidate="what" ValidationGroup="whatGroup"
                             ValidationExpression="[\S\s]{2,200}" />                        
-		                <asp:ImageButton ID="searchButton" runat="server" OnClientClick="doAddEvent()"
-		                    ImageUrl="~/images/1x1trans.gif" />
-		                </asp:Panel>
 		            </td>
 		            <td><h3 class="blue">Find</h3>
 		                <p class="blue">people with my goals</p>

@@ -210,6 +210,7 @@ input#what2:focus {
 .button-lrg,
 .button-lrg a{
 	color: #fff;
+	white-space:nowrap;
 }
 .button-sml,
 .button-sml-extra-padding

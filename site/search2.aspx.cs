@@ -275,6 +275,8 @@ public partial class search2 : SedogoPage
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
             timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+
+            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
         }
     }
 
@@ -902,6 +904,26 @@ public partial class search2 : SedogoPage
     {
         string searchString = what2.Text;
 
-        Response.Redirect("search2.aspx?Search=" + searchString);
+        if (searchString.Trim() == "")
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
+        }
+        else
+        {
+            if (searchString.Length > 2)
+            {
+                Response.Redirect("search2.aspx?Search=" + searchString.ToString());
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+
+                int userID = int.Parse(Session["loggedInUserID"].ToString());
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+                PopulateEvents(user);
+                PopulateLatestSearches();
+            }
+        }
     }
 }

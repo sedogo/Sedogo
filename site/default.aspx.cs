@@ -120,6 +120,8 @@ public partial class _default : System.Web.UI.Page
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+
+            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
         }
     }
 
@@ -128,9 +130,9 @@ public partial class _default : System.Web.UI.Page
     //===============================================================
     protected void searchButton_click(object sender, EventArgs e)
     {
-        string searchText = what.Text;
+        string searchText = what2.Text;
 
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+        if (searchText.Trim() == "")
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
         }

@@ -141,6 +141,8 @@ public partial class userTimeline : SedogoPage
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
             timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+
+            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
         }
     }
 
@@ -549,6 +551,12 @@ public partial class userTimeline : SedogoPage
             else
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+
+                int userID = int.Parse(Session["loggedInUserID"].ToString());
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+                PopulateLatestSearches();
+                PopulateEvents(user);
             }
         }
     }

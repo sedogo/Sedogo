@@ -148,6 +148,8 @@ public partial class profile : SedogoPage
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"viewEvent.aspx?EID=" + Session["EventID"].ToString() + "\");", true);
                 Session["EventID"] = "";
             }
+
+            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
         }
     }
 
@@ -646,6 +648,26 @@ public partial class profile : SedogoPage
     {
         string searchString = what2.Text;
 
-        Response.Redirect("search2.aspx?Search=" + searchString);
+        if (searchString.Trim() == "")
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
+        }
+        else
+        {
+            if (searchString.Length > 2)
+            {
+                Response.Redirect("search2.aspx?Search=" + searchString.ToString());
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+
+                int userID = int.Parse(Session["loggedInUserID"].ToString());
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+                PopulateEvents(user);
+                PopulateLatestSearches();
+            }
+        }
     }
 }

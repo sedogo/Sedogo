@@ -187,30 +187,18 @@
         }
         return nID;
     }
-    function searchClick()
+    function loginRedirect(eventID)
     {
-	    var form = document.forms[0];
-        var searchString = form.what.value;
-	    if( form.aim[1].checked == true )
-	    {
-	        doAddEvent(searchString);
-	    }
-	    else
-	    {
-	        if( isEmpty(searchString) || searchString.length < 3 )
-	        {
-	            alert("Please enter a longer search string");
-	        }
-	        else
-	        {
-	            location.href = "search2.aspx?Search=" + searchString;
-	        }
-        }
+        openModal("login.aspx?EID=" + eventID);
     }
     function openEvent(eventID)
     {
         openModal("viewEvent.aspx?EID=" + eventID);
-    }    
+    }
+    function doAddEvent()
+    {
+        openModal("login.aspx");
+    }
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
@@ -229,12 +217,34 @@
 			</p>
 		</div>
 		<div class="three-col">
-			<label for="what" class="what">what is your goal?</label>
-		    <asp:Panel ID="Panel1" DefaultButton="searchButton" runat="server">
-		    <asp:TextBox ID="what" runat="server" />
-		    <asp:ImageButton ID="searchButton" runat="server" OnClick="searchButton_click" 
-		        ImageUrl="~/images/1x1trans.gif" />
-		    </asp:Panel>
+		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
+		        <tr>
+		            <td><h3 class="blue">Add</h3>
+		                <p class="blue">to my goal list</p>
+                        <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" ValidationGroup="whatGroup" />
+                        <asp:RegularExpressionValidator
+                            id="whatValidator"
+                            runat="server"
+                            ErrorMessage="Goal name must have at least 2 characters"
+                            ControlToValidate="what" ValidationGroup="whatGroup"
+                            ValidationExpression="[\S\s]{2,200}" />                        
+		            </td>
+		            <td><h3 class="blue">Find</h3>
+		                <p class="blue">people with my goals</p>
+		                <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
+		                <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" ValidationGroup="what2Group" />
+                        <asp:RegularExpressionValidator
+                            id="what2Validator"
+                            runat="server"
+                            ErrorMessage="Goal name must have at least 2 characters"
+                            ControlToValidate="what2" ValidationGroup="what2Group"
+                            ValidationExpression="[\S\s]{2,200}" />                        
+		                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton_click" 
+		                    ImageUrl="~/images/1x1trans.gif" />
+		                </asp:Panel>
+		            </td>
+		        </tr>    
+		    </table>
 		</div>
 		<div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		    <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>

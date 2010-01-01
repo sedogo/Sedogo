@@ -43,7 +43,7 @@ public partial class search : System.Web.UI.Page
                 searchText = (string)Request.QueryString["Search"];
             }
 
-            what.Text = searchText;
+            what2.Text = searchText;
 
             timelineURL.Text = "timelineSearchXML.aspx?Search=" + searchText;
 
@@ -52,9 +52,63 @@ public partial class search : System.Web.UI.Page
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
-            noSearchResultsDiv.Visible = false;
-            moreThan50ResultsDiv.Visible = false;
+            int searchCount = GetSearchResultCount(searchText);
+            if (searchCount >= 50)
+            {
+                moreThan50ResultsDiv.Visible = true;
+            }
+            else
+            {
+                moreThan50ResultsDiv.Visible = false;
+            }
+            if (searchCount == 0)
+            {
+                noSearchResultsDiv.Visible = true;
+            }
+            else
+            {
+                noSearchResultsDiv.Visible = false;
+            }
+
+            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
         }
+    }
+
+    //===============================================================
+    // Function: GetSearchResultCount
+    //===============================================================
+    private int GetSearchResultCount(string searchText)
+    {
+        int searchCount = 0;
+        int userID = -1;
+
+        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        try
+        {
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = "spSearchEvents";
+            cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+            cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;
+            DbDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                searchCount++;
+            }
+            rdr.Close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+        return searchCount;
     }
 
     //===============================================================
@@ -62,9 +116,9 @@ public partial class search : System.Web.UI.Page
     //===============================================================
     protected void searchButton_click(object sender, EventArgs e)
     {
-        string searchText = what.Text;
+        string searchText = what2.Text;
 
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+        if (searchText.Trim() == "")
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
         }

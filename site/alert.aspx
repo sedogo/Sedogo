@@ -56,14 +56,14 @@
                         <tr>
                             <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
                             <td>
-                                <p>Goal name: <asp:Literal ID="eventNameLabel" runat="server" /></p>
+                                <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
                                 <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
                                 <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
                             </td>
                         </tr>
                     </table>
                     
-                    <p><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
+                    <p style="padding-left:50px"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
                         Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
                     <br />
 

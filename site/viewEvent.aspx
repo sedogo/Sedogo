@@ -66,6 +66,7 @@
                         <p><asp:Label ID="inviteCountLabel" runat="server"></asp:Label><br />
                         <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>
                         <h3 ID="H2" runat="server">Requests:</h3>
+                        <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
                         
                         <br /><br />
                         <p style="height: 28px"><asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="Achieved" ToolTip="Achieved" OnClick="click_achievedEventLink" /></p>

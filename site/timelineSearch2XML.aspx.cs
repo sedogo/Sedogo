@@ -350,8 +350,15 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                         category = "Misc";
                         break;
                 }
+                int messageCount = Message.GetMessageCountForEvent(eventID);
+                int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
+                int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
+
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
-                string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+                string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+                linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
+                linkURL = linkURL + messageCount.ToString() + " comments<br/>";
+                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
                 linkURL += " - &lt;a href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;View user profile&lt;/a&gt;";
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT

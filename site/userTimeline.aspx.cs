@@ -330,7 +330,7 @@ public partial class userTimeline : SedogoPage
                     eventString.AppendLine("<h3>");
                     if (eventAchieved == true)
                     {
-                        eventString.Append(" (achieved)");
+                        eventString.Append(" (Achieved)");
                     }
                     eventString.Append(eventName);
 

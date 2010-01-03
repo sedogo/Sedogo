@@ -59,12 +59,11 @@
                             </td>
                             <td>
 								<p>
-									Goal creator: <span class="blue"></span><br />
+									Goal creator: <span class="blue"><asp:Literal ID="userNameLabel" runat="server" /></span><br />
 									Goal: <span class="blue"><asp:Literal ID="eventNameLabel" runat="server" /></span><br />
 									Date: <span class="blue"><asp:Literal ID="eventDateLabel" runat="server" /></span>
 								</p>
                                 <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" />-->
-                                <!--<asp:Literal ID="userNameLabel" runat="server" />-->
                             </td>
                         </tr>
                     </table>

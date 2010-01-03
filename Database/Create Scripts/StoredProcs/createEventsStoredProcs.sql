@@ -1292,6 +1292,46 @@ GRANT EXEC ON spSelectPendingMemberRequestsByUserID TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectPendingMemberRequestsByEventID
+// Description:
+//   
+//=============================================================*/
+PRINT 'Creating spSelectPendingMemberRequestsByEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectPendingMemberRequestsByEventID')
+BEGIN
+	DROP Procedure spSelectPendingMemberRequestsByEventID
+END
+GO
+
+CREATE Procedure spSelectPendingMemberRequestsByEventID
+	@EventID		int
+AS
+BEGIN
+	SELECT T.TrackedEventID, T.EventID, T.UserID, T.CreatedDate, 
+		T.LastUpdatedDate, T.ShowOnTimeline, T.JoinPending,
+		E.EventName, E.EventPicFilename, E.EventPicThumbnail,
+		E.EventPicPreview, E.CategoryID, E.DateType, E.StartDate,
+		E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday, 
+		E.EventDescription, E.MustDo, E.EventVenue,
+		U.FirstName, U.LastName, U.ProfilePicThumbnail
+	FROM TrackedEvents T
+	JOIN Events E
+	ON T.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = T.UserID
+	WHERE E.EventID = @EventID
+	AND E.Deleted = 0
+	AND T.JoinPending = 1
+	
+END
+GO
+
+GRANT EXEC ON spSelectPendingMemberRequestsByEventID TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spUpdateTrackedEvent
 // Description:
 //   Delete tracked event
@@ -1749,11 +1789,16 @@ CREATE Procedure spSelectPendingInviteCountForUser
 AS
 BEGIN
 	SELECT COUNT(*)
-	FROM EventInvites
-	WHERE UserID = @UserID
-	AND Deleted = 0
-	AND InviteAccepted = 0
-	AND InviteDeclined = 0
+	FROM EventInvites I
+	JOIN Events E
+	ON I.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE I.Deleted = 0
+	AND E.Deleted = 0
+	AND I.UserID = @UserID
+	AND I.InviteAccepted = 0
+	AND I.InviteDeclined = 0
 	
 END
 GO

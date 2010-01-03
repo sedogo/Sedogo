@@ -150,6 +150,8 @@ public partial class profile : SedogoPage
             }
 
             what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
+
+            keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }
     }
 
@@ -338,7 +340,7 @@ public partial class profile : SedogoPage
                 eventString.AppendLine("<h3>");
                 if( eventAchieved == true )
                 {
-                    eventString.Append(" (achieved)");
+                    eventString.Append(" (Achieved)");
                 }
                 eventString.Append(eventName);
                 

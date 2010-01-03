@@ -26,6 +26,7 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/calendarStyle.css" />
 	<!--[if IE]>
 		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->

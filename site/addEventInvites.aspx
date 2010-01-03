@@ -271,7 +271,7 @@ function hideDiv(divName) {
             </div>
             
             <div class="buttons">
-                <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Save Goal"
+                <p><asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send emails"
                     OnClick="sendInvitesLink_click" CssClass="button-lrg" />
                 <asp:LinkButton ID="skipInvitesLink" runat="server" CssClass="button-lrg" Text="Skip" 
                     ToolTip="Skip" OnClick="click_skipInvitesLink" CausesValidation="false" />

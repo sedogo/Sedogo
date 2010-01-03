@@ -249,8 +249,15 @@ public partial class timelineXML : System.Web.UI.Page
                             category = "Misc";
                             break;
                     }
-                    //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
-                    string linkURL = "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+
+                    int messageCount = Message.GetMessageCountForEvent(eventID);
+                    int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
+                    int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
+
+                    string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+                    linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
+                    linkURL = linkURL + messageCount.ToString() + " comments<br/>";
+                    linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 
                     writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                     writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));

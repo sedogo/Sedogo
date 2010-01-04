@@ -2139,11 +2139,12 @@ Timeline.EtherHighlight = function(B, E, D, C) {
 			this._highlightDiv = B.getDocument().createElement("div");
 			this._highlightDiv.setAttribute("name", "ether-highlight");
 			this._highlightDiv.className = "timeline-ether-highlight";
-			var F = D.ether.highlightOpacity;
+			//var F=D.ether.highlightOpacity;
+			var F = 100;
 			if (F < 100) {
 				SimileAjax.Graphics.setOpacity(this._highlightDiv, F);
 			} C.appendChild(this._highlightDiv);
-		} 
+		}
 	};
 	this.position = function(H, J) {
 		this._createHighlightDiv();
@@ -2158,7 +2159,7 @@ Timeline.EtherHighlight = function(B, E, D, C) {
 			this._highlightDiv.style.top = I + "px";
 			this._highlightDiv.style.height = F + "px";
 			this._highlightDiv.style.width = (E.getViewWidth() - 4) + "px";
-		} 
+		}
 	};
 };
 
@@ -2431,7 +2432,7 @@ Timeline.GregorianDateLabeller.prototype.labelInterval = function(A, C) {
 	} return B.call(this, A, C);
 };
 Timeline.GregorianDateLabeller.prototype.labelPrecise = function(A) {
-	return SimileAjax.DateTime.removeTimeZoneOffset(A, this._timeZone).toUTCString();
+	return SimileAjax.DateTime.removeTimeZoneOffset(A, this._timeZone).toUTCString().substr(0, 16);
 };
 Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 	var D;

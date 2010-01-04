@@ -57,14 +57,13 @@
                         <tr>
                             <td><asp:Image ID="eventImage" runat="server" /></td>
                             <td>
-                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" /><br />
+                                <p>Goal: <asp:HyperLink ID="eventNameLabel" runat="server" /><br />
                                 <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
                             </td>
                         </tr>
                     </table>
-                    <p><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
-                        Text="stop tracking" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
+                    <p style="padding-left: 54px"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
+                        Text="Leave goal" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                     <br />
 
                 </ItemTemplate>

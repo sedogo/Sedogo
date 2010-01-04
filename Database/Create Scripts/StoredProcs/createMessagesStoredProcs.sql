@@ -160,10 +160,15 @@ CREATE Procedure spSelectUnreadMessageCountForUser
 AS
 BEGIN
 	SELECT COUNT(*)
-	FROM Messages
-	WHERE UserID = @UserID
-	AND Deleted = 0
-	AND MessageRead = 0
+	FROM Messages M
+	LEFT OUTER JOIN Events E
+	ON M.EventID = E.EventID
+	LEFT OUTER JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE M.Deleted = 0
+	AND M.MessageRead = 0
+	AND M.UserID = @UserID
+	AND ISNULL(E.Deleted,0) = 0
 END
 GO
 
@@ -192,10 +197,13 @@ CREATE Procedure spSelectSentMessageCountForUser
 AS
 BEGIN
 	SELECT COUNT(*)
-	FROM Messages
-	WHERE PostedByUserID = @UserID
-	AND Deleted = 0
-	AND MessageRead = 0
+	FROM Messages M
+	LEFT OUTER JOIN Events E
+	ON M.EventID = E.EventID
+	WHERE M.Deleted = 0
+	AND M.PostedByUserID = @UserID
+	AND ISNULL(E.Deleted,0) = 0
+	AND M.MessageRead = 0
 END
 GO
 

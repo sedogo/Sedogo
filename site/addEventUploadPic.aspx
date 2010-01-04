@@ -26,6 +26,7 @@
 	<meta http-equiv="Cleartype" content="Cleartype" />
 
 	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/calendarStyle.css" />
 	<!--[if IE]>
 		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->
@@ -54,6 +55,41 @@ function popupCalendarAlertDate(image)
         <%= CalendarAlertDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
     }
     <%=CalendarAlertDate.ClientObjectId%>.Show(image);    
+}
+function setReminderDate()
+{
+	var form = document.forms[0];
+	var d = form.alertDatePickList.options[form.alertDatePickList.selectedIndex].value;
+	if( d == "1D" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1DValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1DValue2" runat="server" />));
+	}
+	if( d == "1W" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1WValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1WValue2" runat="server" />));
+	}
+	if( d == "1M" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1MValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1MValue2" runat="server" />));
+	}
+	if( d == "3M" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date3MValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date3MValue2" runat="server" />));
+	}
+	if( d == "6M" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date6MValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date6MValue2" runat="server" />));
+	}
+	if( d == "1Y" )
+	{
+	    PickerAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1YValue1" runat="server" />));
+	    CalendarAlertDate.SetSelectedDate(new Date(<asp:Literal ID="Date1YValue2" runat="server" />));
+	}
 }
 </script>
 
@@ -138,8 +174,7 @@ function popupCalendarAlertDate(image)
                     </tr>
                     <tr>
                     <td>
-                        <asp:DropDownList ID="alertDatePickList" runat="server"
-                            AutoPostBack="true" OnSelectedIndexChanged="alertDatePickList_changed">
+                        <asp:DropDownList ID="alertDatePickList" runat="server">
                             <asp:ListItem Text="" Value="" />
                             <asp:ListItem Text="1 day" Value="1D" />
                             <asp:ListItem Text="1 week" Value="1W" />

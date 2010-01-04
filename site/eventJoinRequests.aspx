@@ -60,14 +60,13 @@
                             </td>
                             <td>
                                 <p>Who: <asp:Label ID="userNameLabel" runat="server" CssClass="blue" /><br />
-                                Goal requested: <asp:Label ID="eventNameLabel" runat="server" CssClass="blue" /><br />
-                                <asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" /><br />
+                                Goal requested: <asp:HyperLink ID="eventNameLabel" runat="server" CssClass="blue" /><br />
                                 Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br /></p>
                             </td>
                         </tr>
                     </table>
                     
-                    <p><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
+                    <p style="padding-left: 54px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
                         Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' />
                         <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml" 
                         Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>

@@ -314,7 +314,7 @@ CREATE Procedure spSelectFullEventListIncludingAchievedByCategory
 	@UserID			int
 AS
 BEGIN
-	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
 		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
@@ -325,7 +325,7 @@ BEGIN
 	
 	UNION 
 	
-	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
 		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
 		E.EventDescription, E.EventVenue, E.MustDo,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
@@ -367,7 +367,7 @@ CREATE Procedure spSelectEventListIncludingAchieved
 	@EndDate		datetime
 AS
 BEGIN
-	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
 		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
@@ -2047,12 +2047,16 @@ CREATE Procedure spSelectEventAlertList
 	@EventID		int
 AS
 BEGIN
-	SELECT EventAlertID, AlertDate, AlertText, Completed,
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
-	FROM EventAlerts
-	WHERE Deleted = 0
-	AND EventID = @EventID
-	ORDER BY CreatedDate DESC
+	SELECT A.EventAlertID, A.AlertDate, A.AlertText, A.Completed,
+		A.CreatedDate, A.CreatedByFullName, A.LastUpdatedDate, A.LastUpdatedByFullName
+	FROM EventAlerts A
+	JOIN Events E
+	ON A.EventID = E.EventID
+	WHERE A.Completed = 0
+	AND A.Deleted = 0
+	AND E.Deleted = 0
+	AND A.EventID = @EventID
+	ORDER BY A.CreatedDate DESC
 END
 GO
 
@@ -2077,13 +2081,16 @@ CREATE Procedure spSelectEventAlertListPending
 	@EventID		int
 AS
 BEGIN
-	SELECT EventAlertID, AlertDate, AlertText, 
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
-	FROM EventAlerts
-	WHERE Completed = 0
-	AND Deleted = 0
-	AND EventID = @EventID
-	ORDER BY CreatedDate DESC
+	SELECT A.EventAlertID, A.AlertDate, A.AlertText, 
+		A.CreatedDate, A.CreatedByFullName, A.LastUpdatedDate, A.LastUpdatedByFullName
+	FROM EventAlerts A
+	JOIN Events E
+	ON A.EventID = E.EventID
+	WHERE A.Completed = 0
+	AND A.Deleted = 0
+	AND E.Deleted = 0
+	AND A.EventID = @EventID
+	ORDER BY A.CreatedDate DESC
 END
 GO
 
@@ -2146,10 +2153,13 @@ CREATE Procedure spSelectEventAlertCountPending
 AS
 BEGIN
 	SELECT COUNT(*)
-	FROM EventAlerts
-	WHERE Completed = 0
-	AND Deleted = 0
-	AND EventID = @EventID
+	FROM EventAlerts A
+	JOIN Events E
+	ON A.EventID = E.EventID
+	WHERE A.Completed = 0
+	AND A.Deleted = 0
+	AND E.Deleted = 0
+	AND A.EventID = @EventID
 END
 GO
 
@@ -2180,6 +2190,7 @@ BEGIN
 	ON A.EventID = E.EventID
 	WHERE A.Completed = 0
 	AND A.Deleted = 0
+	AND E.Deleted = 0
 	AND E.UserID = @UserID
 END
 GO

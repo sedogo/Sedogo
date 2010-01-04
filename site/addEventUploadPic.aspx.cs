@@ -49,9 +49,28 @@ public partial class addEventUploadPic : SedogoPage
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
-
             CalendarAlertDate.SelectedDate = DateTime.Now;
             PickerAlertDate.SelectedDate = DateTime.Now;
+
+            alertDatePickList.Attributes.Add("onchange", "setReminderDate()");
+            DateTime d = DateTime.Now.AddDays(1);
+            Date1DValue1.Text = d.Year.ToString() + "," + (d.Month-1).ToString() + "," + d.Day.ToString();
+            Date1DValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            d = DateTime.Now.AddDays(7);
+            Date1WValue1.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            Date1WValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            d = DateTime.Now.AddMonths(1);
+            Date1MValue1.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            Date1MValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            d = DateTime.Now.AddMonths(3);
+            Date3MValue1.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            Date3MValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            d = DateTime.Now.AddMonths(6);
+            Date6MValue1.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            Date6MValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            d = DateTime.Now.AddYears(1);
+            Date1YValue1.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
+            Date1YValue2.Text = d.Year.ToString() + "," + (d.Month - 1).ToString() + "," + d.Day.ToString();
 
             SetFocus(eventPicFileUpload);
         }

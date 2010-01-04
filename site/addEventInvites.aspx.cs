@@ -482,7 +482,7 @@ public partial class addEventInvites : SedogoPage
                         emailBodyCopy.AppendLine("To see who else is part of making this goal happen, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
                         emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
                         emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
-                        emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+                        emailBodyCopy.AppendLine("<img src=\"http://www.sedogo.com/images/sedogo.gif\" /><br/>");
                         emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
                     }
                     else
@@ -495,7 +495,7 @@ public partial class addEventInvites : SedogoPage
                         emailBodyCopy.AppendLine("To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.<br/>");
                         emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
                         emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
-                        emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+                        emailBodyCopy.AppendLine("<img src=\"http://www.sedogo.com/images/sedogo.gif\" /><br/>");
                         emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
                     }
 

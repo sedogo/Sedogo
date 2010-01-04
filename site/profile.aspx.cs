@@ -558,6 +558,8 @@ public partial class profile : SedogoPage
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
             int.Parse(Session["loggedInUserID"].ToString()));
         PopulateEvents(user);
+
+        PopulateLatestSearches();
     }
 
     //===============================================================

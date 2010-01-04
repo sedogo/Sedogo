@@ -41,8 +41,15 @@ public partial class feedback : System.Web.UI.Page
     //===============================================================
     protected void sendFeedbackButton_click(object sender, EventArgs e)
     {
-        int currentUserID = int.Parse(Session["loggedInUserID"].ToString());
-        SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
+        string userEmailAddress = "(not logged in)";
+
+        int currentUserID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+            SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
+            userEmailAddress = currentUser.emailAddress;
+        }
         
         string feedbackText = feedbackTextBox.Text;
 
@@ -59,7 +66,7 @@ public partial class feedback : System.Web.UI.Page
         StringBuilder emailBody = new StringBuilder();
         emailBody.AppendLine("<html><body>");
         emailBody.AppendLine("Help:<br/>");
-        emailBody.AppendLine(currentUser.emailAddress + "<br/>");
+        emailBody.AppendLine(userEmailAddress + "<br/>");
         emailBody.AppendLine(feedbackText.Replace("\n", "<br/>") + "<br/>");
         emailBody.AppendLine("</body></html>");
 

@@ -168,7 +168,7 @@ function setHiddenDateField()
             <div class="buttons">
                 <asp:LinkButton 
                     ID="changePasswordButton" runat="server" ToolTip="save" Text="Change password" 
-                    OnClick="changePasswordButton_click" CssClass="button-lrg" />
+                    OnClick="changePasswordButton_click" />
                 <asp:LinkButton 
                     ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                     OnClick="saveChangesButton_click" CssClass="button-lrg" />

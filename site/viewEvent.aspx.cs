@@ -465,7 +465,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     {
         int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
-        //SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
         int pendingRequestCount = 0;
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
@@ -501,14 +501,22 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     + "<img src=\"" + profileImagePath + "\" width=\"17\" style=\"margin-right:4px\" />"
                     + firstName + " " + lastName + "</a> ";
 
-                outputText = outputText + " <a href=\"viewEvent.aspx?A=AcceptRequest&EID="
-                    + eventID.ToString()
-                    + "&TEID=" + trackedEventID.ToString() + "\">"
-                    + "(Accept)</a> ";
-                outputText = outputText + " <a href=\"viewEvent.aspx?A=RejectRequest&EID="
-                    + eventID.ToString()
-                    + "&TEID=" + trackedEventID.ToString() + "\">"
-                    + "(Reject)</a> ";
+                if (loggedInUserID == sedogoEvent.userID)
+                {
+                    // This is my event!
+                    outputText = outputText + " <a href=\"viewEvent.aspx?A=AcceptRequest&EID="
+                        + eventID.ToString()
+                        + "&TEID=" + trackedEventID.ToString() + "\">"
+                        + "(Accept)</a> ";
+                    outputText = outputText + " <a href=\"viewEvent.aspx?A=RejectRequest&EID="
+                        + eventID.ToString()
+                        + "&TEID=" + trackedEventID.ToString() + "\">"
+                        + "(Reject)</a> ";
+                }
+                else if (loggedInUserID == userID)
+                {
+                    // I am the tracker
+                }
                 outputText = outputText + "</p>";
 
                 requestsLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
@@ -672,7 +680,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         SedogoEvent viewedEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         SedogoEvent newEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString());
-        newEvent.beforeBirthday = 1;
+        newEvent.beforeBirthday = viewedEvent.beforeBirthday;
         newEvent.categoryID = viewedEvent.categoryID;
         newEvent.dateType = viewedEvent.dateType;
         newEvent.eventDescription = viewedEvent.eventDescription;

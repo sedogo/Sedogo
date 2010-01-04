@@ -71,10 +71,17 @@ public partial class uploadProfilePic : SedogoPage
 
             profilePicFileUpload.PostedFile.SaveAs(destPath);
 
-            MiscUtils.CreatePreviews(Path.GetFileName(destPath), 
+            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), 
                 int.Parse(Session["loggedInUserID"].ToString()));
 
-            Response.Redirect("profileRedirect.aspx");
+            if (status >= 0)
+            {
+                Response.Redirect("profileRedirect.aspx");
+            }
+            else
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This type of image is not supported, please choose another.\");", true);
+            }
         }
     }
 

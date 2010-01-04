@@ -542,7 +542,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("To view this event, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
             emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
-            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://www.sedogo.com/images/sedogo.gif\" /><br/>");
             emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
 
             string emailSubject = m_eventName + " on " + dateString + " has been updated";
@@ -1382,13 +1382,14 @@ namespace Sedogo.BusinessObjects
             inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
 
             emailBodyCopy.AppendLine("The following user has requested to join one of your goals:<br/>");
+            emailBodyCopy.AppendLine("Who: " + eventUser.firstName + " " + eventUser.lastName + "<br/>");
             emailBodyCopy.AppendLine("What: " + sedogoEvent.eventName + "<br/>");
             emailBodyCopy.AppendLine("Where: " + sedogoEvent.eventVenue + "<br/>");
             emailBodyCopy.AppendLine("When: " + dateString + "<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("To view this goal, <a href=\"" + inviteURL + "\">click here</a>.<br/>");
             emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
-            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://www.sedogo.com/images/sedogo.gif\" /><br/>");
             emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
 
             string emailSubject = "Someone has requested to join your Sedogo goal: " + sedogoEvent.eventName;

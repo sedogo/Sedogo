@@ -95,15 +95,13 @@ public partial class tracking : SedogoPage
             int eventID = int.Parse(row["EventID"].ToString());
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
-            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
+            HyperLink eventNameLabel = e.Item.FindControl("eventNameLabel") as HyperLink;
+            eventNameLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventNameLabel.Text = row["EventName"].ToString();
 
             HyperLink userNameLabel = e.Item.FindControl("userNameLabel") as HyperLink;
             userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
             userNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + sedogoEvent.userID.ToString();
-
-            HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
-            eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
 
             Image eventImage = e.Item.FindControl("eventImage") as Image;
             string eventPicThumbnail = row["EventPicThumbnail"].ToString();

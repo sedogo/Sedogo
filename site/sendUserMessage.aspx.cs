@@ -92,7 +92,7 @@ public partial class sendUserMessage : SedogoPage
             emailBodyCopy.AppendLine("To view all your messages, <a href=\"" + linkURL + "\">click here</a>.<br/>");
             emailBodyCopy.AppendLine("Regards,<br/>&nbsp;<br/>");
             emailBodyCopy.AppendLine("The Sedogo Team<br/>&nbsp;<br/>");
-            emailBodyCopy.AppendLine("<img src=\"http://sedogo.websites.bta.com/images/sedogo.gif\" /><br/>");
+            emailBodyCopy.AppendLine("<img src=\"http://www.sedogo.com/images/sedogo.gif\" /><br/>");
             emailBodyCopy.AppendLine("Create your future and connect with others to make it happen");
 
             string emailSubject = "You have a new Sedogo message from: " + currentUser.firstName + " " + currentUser.lastName;

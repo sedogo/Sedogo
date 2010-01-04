@@ -63,7 +63,7 @@
 									Goal: <span class="blue"><asp:Literal ID="eventNameLabel" runat="server" /></span><br />
 									Date: <span class="blue"><asp:Literal ID="eventDateLabel" runat="server" /></span>
 								</p>
-                                <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View details" />-->
+                                <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View" />-->
                             </td>
                         </tr>
                     </table>

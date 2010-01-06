@@ -361,6 +361,7 @@ public partial class eventInvites : SedogoPage
 
                     // Check if they are a Sedogo account holder
                     int sedogoUserID = SedogoUser.GetUserIDFromEmailAddress(emailAddress);
+                    Boolean enableSendEmails = true;
 
                     EventInvite newInvite = new EventInvite(Session["loggedInUserFullName"].ToString());
                     newInvite.eventID = eventID;
@@ -387,6 +388,12 @@ public partial class eventInvites : SedogoPage
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
                     if (sedogoUserID > 0)
                     {
+                        SedogoUser inviteUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoUserID);
+                        if (inviteUser.enableSendEmails == false)
+                        {
+                            enableSendEmails = false;
+                        }
+
                         inviteURL = inviteURL + "&UID=" + sedogoUserID.ToString();
 
                         emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
@@ -443,26 +450,32 @@ public partial class eventInvites : SedogoPage
                     string mailFromUsername = gd.GetStringValue("MailFromUsername");
                     string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
-                    MailMessage message = new MailMessage(mailFromAddress, emailAddress);
-                    message.ReplyTo = new MailAddress(mailFromAddress);
-
-                    message.Subject = emailSubject;
-                    message.Body = emailBodyCopy.ToString();
-                    message.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = SMTPServer;
-                    if (mailFromPassword != "")
+                    if (enableSendEmails == true)
                     {
-                        // If the password is blank, assume mail relay is permitted
-                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                        try
+                        {
+                            MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                            message.ReplyTo = new MailAddress(mailFromAddress);
+
+                            message.Subject = emailSubject;
+                            message.Body = emailBodyCopy.ToString();
+                            message.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = SMTPServer;
+                            if (mailFromPassword != "")
+                            {
+                                // If the password is blank, assume mail relay is permitted
+                                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                            }
+                            smtp.Send(message);
+
+                            newInvite.inviteEmailSent = true;
+                            newInvite.inviteEmailSentDate = DateTime.Now;
+                            newInvite.inviteEmailSentEmailAddress = emailAddress;
+                            newInvite.Update();
+                        }
+                        catch { }
                     }
-                    smtp.Send(message);
-
-                    newInvite.inviteEmailSent = true;
-                    newInvite.inviteEmailSentDate = DateTime.Now;
-                    newInvite.inviteEmailSentEmailAddress = emailAddress;
-                    newInvite.Update();
-
                     sentOK = true;
                 }
                 else

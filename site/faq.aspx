@@ -51,6 +51,12 @@
             <p>Yes. Simply search for them or the goal they've created and click 'follow goal'.</p>
             <h2>How much does it cost to subscribe to Sedogo? </h2>
             <p>Nothing! Belonging to Sedogo is free.</p>
+            <h2>Can everyone see the goals I create?</h2>
+            <p>Only if you want them to. You can choose which goals you want others to see and which you don't.</p>
+            <h2>How do I create a goal that only I can see?</h2>
+            <p>Add your goal. On the 'Create goal' page, you'll see a 'Nature of goal' option. Select 'private'. You can also change the privacy setting on existing goals. Just select the goal you want to change and choose 'edit'.</p>
+            <h2>How do I create a goal that only the people I invite can see?</h2>
+            <p>Make sure you select 'private' when you create your goal (see above). After that, only those you invite to join the goal will be able to see it. You can change the privacy settings of existing goals by selecting the goal and choosing 'edit'.</p>
 		</div>
     
     </div>

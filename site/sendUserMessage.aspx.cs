@@ -78,72 +78,76 @@ public partial class sendUserMessage : SedogoPage
         SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), messageToUserID);
         GlobalData gd = new GlobalData("");
 
-        try
+        StringBuilder emailBodyCopy = new StringBuilder();
+
+        string linkURL = gd.GetStringValue("SiteBaseURL");
+        linkURL = linkURL + "?Redir=Messages";
+
+        emailBodyCopy.AppendLine("<html>");
+        emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+        emailBodyCopy.AppendLine("<style type=\"text/css\">");
+        emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+        emailBodyCopy.AppendLine("	p { margin: 0 }");
+        emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+        emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+        emailBodyCopy.AppendLine("</style></head>");
+        emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+        emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+        emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+        emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+        emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
+        emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+        emailBodyCopy.AppendLine("				<tr>");
+        emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
+        emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
+        emailBodyCopy.AppendLine("				</tr>");
+        emailBodyCopy.AppendLine("				<tr>");
+        emailBodyCopy.AppendLine("					<td width=\"60px\">To:</td>");
+        emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageToUser.firstName + " " + messageToUser.lastName + "</td>");
+        emailBodyCopy.AppendLine("				</tr>");
+        emailBodyCopy.AppendLine("				<tr>");
+        emailBodyCopy.AppendLine("					<td width=\"60px\">Message:</td>");
+        emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageText.Replace("\n", "<br/>") + "</td>");
+        emailBodyCopy.AppendLine("				</tr>");
+        emailBodyCopy.AppendLine("			</table>");
+        emailBodyCopy.AppendLine("			<p>To view all your messages, <a href=\"" + linkURL + "\">click here</a>.</p>");
+        emailBodyCopy.AppendLine("			<br /><br />");
+        emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
+        emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
+        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+        emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+        emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+        string emailSubject = "You have a new Sedogo message from: " + currentUser.firstName + " " + currentUser.lastName;
+
+        string SMTPServer = gd.GetStringValue("SMTPServer");
+        string mailFromAddress = gd.GetStringValue("MailFromAddress");
+        string mailFromUsername = gd.GetStringValue("MailFromUsername");
+        string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+        SedogoUser inviteUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), messageToUserID);
+        if (inviteUser.enableSendEmails == true)
         {
-            StringBuilder emailBodyCopy = new StringBuilder();
-
-            string linkURL = gd.GetStringValue("SiteBaseURL");
-            linkURL = linkURL + "?Redir=Messages";
-
-            emailBodyCopy.AppendLine("<html>");
-            emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
-            emailBodyCopy.AppendLine("<style type=\"text/css\">");
-            emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
-            emailBodyCopy.AppendLine("	p { margin: 0 }");
-            emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
-            emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
-            emailBodyCopy.AppendLine("</style></head>");
-            emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
-            emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-            emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
-            emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
-            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-            emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
-            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
-            emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
-            emailBodyCopy.AppendLine("				</tr>");
-            emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td width=\"60px\">To:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageToUser.firstName + " " + messageToUser.lastName + "</td>");
-            emailBodyCopy.AppendLine("				</tr>");
-            emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td width=\"60px\">Message:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageText.Replace("\n", "<br/>") + "</td>");
-            emailBodyCopy.AppendLine("				</tr>");
-            emailBodyCopy.AppendLine("			</table>");
-            emailBodyCopy.AppendLine("			<p>To view all your messages, <a href=\"" + linkURL + "\">click here</a>.</p>");
-            emailBodyCopy.AppendLine("			<br /><br />");
-            emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
-            emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
-            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
-            emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-            emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
-
-            string emailSubject = "You have a new Sedogo message from: " + currentUser.firstName + " " + currentUser.lastName;
-
-            string SMTPServer = gd.GetStringValue("SMTPServer");
-            string mailFromAddress = gd.GetStringValue("MailFromAddress");
-            string mailFromUsername = gd.GetStringValue("MailFromUsername");
-            string mailFromPassword = gd.GetStringValue("MailFromPassword");
-
-            MailMessage emailMessage = new MailMessage(mailFromAddress, messageToUser.emailAddress);
-            emailMessage.ReplyTo = new MailAddress(mailFromAddress);
-
-            emailMessage.Subject = emailSubject;
-            emailMessage.Body = emailBodyCopy.ToString();
-            emailMessage.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = SMTPServer;
-            if (mailFromPassword != "")
+            try
             {
-                // If the password is blank, assume mail relay is permitted
-                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                MailMessage emailMessage = new MailMessage(mailFromAddress, messageToUser.emailAddress);
+                emailMessage.ReplyTo = new MailAddress(mailFromAddress);
+
+                emailMessage.Subject = emailSubject;
+                emailMessage.Body = emailBodyCopy.ToString();
+                emailMessage.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = SMTPServer;
+                if (mailFromPassword != "")
+                {
+                    // If the password is blank, assume mail relay is permitted
+                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                }
+                smtp.Send(emailMessage);
             }
-            smtp.Send(emailMessage);
+            catch {}
         }
-        catch {}
 
         Response.Redirect("message.aspx");
     }

@@ -47,26 +47,28 @@ public partial class message : SedogoPage
     //===============================================================
     private void PopulateMessageList(int userID)
     {
-        int unreadMessageCount = Message.GetUnreadMessageCountForUser(userID);
-
-        if( unreadMessageCount > 0 )
-        {
-            noUnreadMessagesDiv.Visible = false;
-            messagesDiv.Visible = true;
-        }
-        else
-        {
-            noUnreadMessagesDiv.Visible = true;
-            messagesDiv.Visible = false;
-        }
-
         if (Session["ViewArchivedMessages"] == null || (Boolean)Session["ViewArchivedMessages"] == false)
         {
+            int unreadMessageCount = Message.GetUnreadMessageCountForUser(userID);
+            if (unreadMessageCount > 0)
+            {
+                noUnreadMessagesDiv.Visible = false;
+                messagesDiv.Visible = true;
+            }
+            else
+            {
+                noUnreadMessagesDiv.Visible = true;
+                messagesDiv.Visible = false;
+            }
+
             viewArchivedMessagesButton.Visible = true;
             hideArchivedMessagesButton.Visible = false;
         }
         else
         {
+            messagesDiv.Visible = true;
+            noUnreadMessagesDiv.Visible = false;
+
             viewArchivedMessagesButton.Visible = false;
             hideArchivedMessagesButton.Visible = true;
         }
@@ -83,7 +85,7 @@ public partial class message : SedogoPage
             }
             else
             {
-                cmd.CommandText = "spSelectMessageList";
+                cmd.CommandText = "spSelectReadMessageList";
             }
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;

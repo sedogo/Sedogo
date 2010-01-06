@@ -41,9 +41,6 @@
     
         <div id="event-detail">
             <div class="right-col">
-
-                <h3 ID="trackingHeader" runat="server">Tracking</h3>
-
             </div>
             <div class="left-col">
 

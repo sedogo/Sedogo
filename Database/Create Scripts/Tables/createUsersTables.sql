@@ -55,6 +55,7 @@ CREATE TABLE Users
 	FailedLoginCount				int				    NOT NULL,
 	PasswordExpiryDate				datetime		    NULL,
 	LastLoginDate					datetime		    NULL,
+	EnableSendEmails				bit				    NOT NULL,
 
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,

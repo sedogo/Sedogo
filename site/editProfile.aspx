@@ -149,6 +149,11 @@ function setHiddenDateField()
                             ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Enable email notifications</label><br />
+                        <asp:CheckBox runat="server" ID="enableEmailCheckbox" />
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                 </ol>
             </fieldset>
 

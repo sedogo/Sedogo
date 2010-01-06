@@ -294,6 +294,48 @@ GRANT EXEC ON spSelectUnreadMessageList TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectReadMessageList
+// Description:
+//   Selects messages
+//=============================================================*/
+PRINT 'Creating spSelectReadMessageList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectReadMessageList')
+BEGIN
+	DROP Procedure spSelectReadMessageList
+END
+GO
+
+CREATE Procedure spSelectReadMessageList
+	@UserID		int
+AS
+BEGIN
+	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
+		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.ProfileText
+	FROM Messages M
+	LEFT OUTER JOIN Events E
+	ON M.EventID = E.EventID
+	LEFT OUTER JOIN Users U
+	ON U.UserID = E.UserID
+	WHERE M.Deleted = 0
+	AND M.MessageRead = 1
+	AND M.UserID = @UserID
+	AND ISNULL(E.Deleted,0) = 0
+	ORDER BY M.CreatedDate DESC
+END
+GO
+
+GRANT EXEC ON spSelectReadMessageList TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectSentMessageList
 // Description:
 //   Selects messages

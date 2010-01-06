@@ -71,6 +71,7 @@ namespace Sedogo.BusinessObjects
         private string      m_profileText = "";
         private DateTime    m_passwordExpiryDate = DateTime.MinValue;
         private DateTime    m_lastLoginDate = DateTime.MinValue;
+        private Boolean     m_enableSendEmails = true;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
@@ -162,6 +163,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_loginEnabled; }
             set { m_loginEnabled = value; }
+        }
+        public Boolean enableSendEmails
+        {
+            get { return m_enableSendEmails; }
+            set { m_enableSendEmails = value; }
         }
         public string userPassword
         {
@@ -307,6 +313,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_loginEnabled = (Boolean)rdr["LoginEnabled"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EnableSendEmails")))
+                {
+                    m_enableSendEmails = (Boolean)rdr["EnableSendEmails"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("UserPassword")))
                 {
                     m_userPassword = (string)rdr["UserPassword"];
@@ -445,6 +455,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
                 cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
                 cmd.Parameters.Add("@LoginEnabled", SqlDbType.Bit).Value = m_loginEnabled;
+                cmd.Parameters.Add("@EnableSendEmails", SqlDbType.Bit).Value = m_enableSendEmails;
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;

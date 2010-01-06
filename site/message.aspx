@@ -72,7 +72,7 @@
                         </tr>
                     </table>
                     
-                    <p><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
+                    <p style="padding-left: 54px"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
                         Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
                         <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
                         Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>

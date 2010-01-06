@@ -596,7 +596,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         sedogoEvent.eventAchieved = !sedogoEvent.eventAchieved;
         sedogoEvent.Update();
 
-        sedogoEvent.SendEventUpdateEmail();
+        //sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
     }
@@ -644,8 +644,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         trackedEvent.userID = userID;
         trackedEvent.Add();
 
-        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-        sedogoEvent.SendEventUpdateEmail();
+        //SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        //sedogoEvent.SendEventUpdateEmail();
 
         trackThisEventLink.Visible = false;
 
@@ -737,8 +737,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
             trackedEvent.SendJoinRequestEmail();
 
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-            sedogoEvent.SendEventUpdateEmail();
+            //SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            //sedogoEvent.SendEventUpdateEmail();
         }
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString() + "&A=NotifyJoin");
@@ -755,7 +755,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         sedogoEvent.Delete();
 
-        sedogoEvent.SendEventUpdateEmail();
+        //sedogoEvent.SendEventUpdateEmail();
 
         Response.Redirect("profileRedirect.aspx");
     }

@@ -67,6 +67,7 @@ BEGIN
 		FailedLoginCount,
 		PasswordExpiryDate,
 		LastLoginDate,
+		EnableSendEmails,
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
@@ -91,6 +92,7 @@ BEGIN
 		0,		-- FailedLoginCount
 		NULL,	-- PasswordExpiryDate
 		NULL,	-- LastLoginDate
+		1,		-- EnableSendEmails
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
@@ -127,7 +129,7 @@ AS
 BEGIN
 	SELECT GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
-		ProfileText, CountryID, LanguageID, TimezoneID,
+		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
@@ -157,7 +159,7 @@ AS
 BEGIN
 	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
 		HomeTown, Birthday, ProfileText, TimezoneID,
-		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
+		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
@@ -196,6 +198,7 @@ CREATE Procedure spUpdateUser
 	@LanguageID						int,
 	@TimezoneID						int,
 	@LoginEnabled					bit,
+	@EnableSendEmails				bit,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)
 AS
@@ -212,6 +215,7 @@ BEGIN
 		TimezoneID				= @TimezoneID,
 		ProfileText				= @ProfileText,
 		LoginEnabled			= @LoginEnabled,
+		EnableSendEmails		= @EnableSendEmails,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE UserID = @UserID

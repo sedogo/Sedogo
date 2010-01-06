@@ -130,8 +130,6 @@ public partial class sendMessageToTrackers : SedogoPage
 
         string messageText = messageTextBox.Text;
 
-        StringBuilder emailBodyCopy = new StringBuilder();
-
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -161,6 +159,8 @@ public partial class sendMessageToTrackers : SedogoPage
                     message.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
                     message.messageText = messageText;
                     message.Add();
+
+                    StringBuilder emailBodyCopy = new StringBuilder();
 
                     emailBodyCopy.AppendLine("<html>");
                     emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -200,20 +200,28 @@ public partial class sendMessageToTrackers : SedogoPage
                     string mailFromUsername = gd.GetStringValue("MailFromUsername");
                     string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
-                    MailMessage mailMessage = new MailMessage(mailFromAddress, emailAddress);
-                    mailMessage.ReplyTo = new MailAddress(mailFromAddress);
-
-                    mailMessage.Subject = emailSubject;
-                    mailMessage.Body = emailBodyCopy.ToString();
-                    mailMessage.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = SMTPServer;
-                    if (mailFromPassword != "")
+                    SedogoUser inviteUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                    if (inviteUser.enableSendEmails == true)
                     {
-                        // If the password is blank, assume mail relay is permitted
-                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                        try
+                        {
+                            MailMessage mailMessage = new MailMessage(mailFromAddress, emailAddress);
+                            mailMessage.ReplyTo = new MailAddress(mailFromAddress);
+
+                            mailMessage.Subject = emailSubject;
+                            mailMessage.Body = emailBodyCopy.ToString();
+                            mailMessage.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = SMTPServer;
+                            if (mailFromPassword != "")
+                            {
+                                // If the password is blank, assume mail relay is permitted
+                                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                            }
+                            smtp.Send(mailMessage);
+                        }
+                        catch { }
                     }
-                    smtp.Send(mailMessage);
                 }
             }
             rdr.Close();

@@ -101,6 +101,7 @@ public partial class editProfile : SedogoPage
             }
             headlineTextBox.Text = user.profileText;
             timezoneDropDownList.SelectedValue = user.timezoneID.ToString();
+            enableEmailCheckbox.Checked = user.enableSendEmails;
 
             if (user.profilePicThumbnail != "")
             {
@@ -157,6 +158,7 @@ public partial class editProfile : SedogoPage
         }
         user.profileText = headlineTextBox.Text;
         user.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
+        user.enableSendEmails = enableEmailCheckbox.Checked;
         user.Update();
 
         Session["loggedInUserFirstName"] = user.firstName;

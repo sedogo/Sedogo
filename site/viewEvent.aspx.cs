@@ -71,6 +71,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
                 trackedEvent.Delete();
             }
+            if (action == "NotifyJoin")
+            {
+            }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
             eventLabel1.Text = sedogoEvent.eventName;
@@ -738,7 +741,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             sedogoEvent.SendEventUpdateEmail();
         }
 
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString() + "&A=NotifyJoin");
     }
 
     //===============================================================

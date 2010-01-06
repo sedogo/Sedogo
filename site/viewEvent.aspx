@@ -63,7 +63,7 @@
                         <h3 ID="H1" runat="server">Following:</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
                         <h3 ID="invitesHeader" runat="server">Invites:</h3>
-                        <p><asp:Label ID="inviteCountLabel" runat="server"></asp:Label><br />
+                        <p><asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
                         <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>
                         <h3 ID="H2" runat="server">Requests:</h3>
                         <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />

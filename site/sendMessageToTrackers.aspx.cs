@@ -162,8 +162,36 @@ public partial class sendMessageToTrackers : SedogoPage
                     message.messageText = messageText;
                     message.Add();
 
-                    emailBodyCopy.AppendLine("From: " + currentUser.firstName + " " + currentUser.lastName + "<br/>");
-                    emailBodyCopy.AppendLine(messageText.Replace("\n", "<br/>"));
+                    emailBodyCopy.AppendLine("<html>");
+                    emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+                    emailBodyCopy.AppendLine("<style type=\"text/css\">");
+                    emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+                    emailBodyCopy.AppendLine("	p { margin: 0 }");
+                    emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+                    emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                    emailBodyCopy.AppendLine("</style></head>");
+                    emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+                    emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+                    emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+                    emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+                    emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
+                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td width=\"60px\">Message:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageText.Replace("\n", "<br/>") + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("			</table>");
+                    emailBodyCopy.AppendLine("			<br /><br />");
+                    emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
+                    emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
+                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                    emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                    emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                     string emailSubject = "Sedogo message from " + currentUser.firstName + " regarding " + sedogoEvent.eventName;
 

@@ -149,7 +149,7 @@ public partial class profile : SedogoPage
                 Session["EventID"] = "";
             }
 
-            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
+            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }

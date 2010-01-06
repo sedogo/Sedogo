@@ -157,18 +157,19 @@ function setHiddenDateField()
                         <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
                         <p style="display: block; clear: both">
                         <asp:LinkButton 
-                    ID="uploadProfilePicButton" runat="server" 
-                    ToolTip="save" Text="Upload profile picture" 
-                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                            ID="uploadProfilePicButton" runat="server" 
+                            ToolTip="save" Text="Upload profile picture" 
+                            OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                        <p style="display: block; clear: both">
+                        <asp:LinkButton 
+                            ID="changePasswordButton" runat="server" ToolTip="save" Text="Change password" 
+                            OnClick="changePasswordButton_click" CssClass="button-sml" />
                     </p>
                     </td>
                 </tr>
             </table>
     
             <div class="buttons">
-                <asp:LinkButton 
-                    ID="changePasswordButton" runat="server" ToolTip="save" Text="Change password" 
-                    OnClick="changePasswordButton_click" />
                 <asp:LinkButton 
                     ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                     OnClick="saveChangesButton_click" CssClass="button-lrg" />

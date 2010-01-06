@@ -68,14 +68,37 @@ public partial class forgotPassword : System.Web.UI.Page
             MailMessage message = new MailMessage(mailFromAddress, loginEmailAddress);
             message.ReplyTo = new MailAddress(mailFromAddress);
 
-            StringBuilder emailBody = new StringBuilder();
-            emailBody.AppendLine("<html><body>");
-            emailBody.AppendLine("Your new password\n");
-            emailBody.AppendLine(newPassword + "\n");
-            emailBody.AppendLine("</body></html>");
+            StringBuilder emailBodyCopy = new StringBuilder();
+
+            emailBodyCopy.AppendLine("<html>");
+            emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+            emailBodyCopy.AppendLine("<style type=\"text/css\">");
+            emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+            emailBodyCopy.AppendLine("	p { margin: 0 }");
+            emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+            emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("</style></head>");
+            emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+            emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+            emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+            emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+            emailBodyCopy.AppendLine("			<h1>Your new sedogo.com password</h1>");
+            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td width=\"60px\">Password:</td>");
+            emailBodyCopy.AppendLine("					<td width=\"240px\">" + newPassword + "</td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("			</table>");
+            emailBodyCopy.AppendLine("			<br /><br />");
+            emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
+            emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+            emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             message.Subject = "Sedogo password reset";
-            message.Body = emailBody.ToString();
+            message.Body = emailBodyCopy.ToString();
             message.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = SMTPServer;

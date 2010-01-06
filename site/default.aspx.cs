@@ -121,7 +121,7 @@ public partial class _default : System.Web.UI.Page
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
-            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
+            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
         }
     }
 
@@ -138,7 +138,7 @@ public partial class _default : System.Web.UI.Page
         }
         else
         {
-            if (searchText.Length > 2)
+            if (searchText.Length >= 2)
             {
                 Response.Redirect("search.aspx?Search=" + searchText.ToString());
             }

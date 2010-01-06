@@ -101,16 +101,19 @@ public partial class invite : SedogoPage
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
-            Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
+            HyperLink eventNameLabel = e.Item.FindControl("eventNameLabel") as HyperLink;
+            eventNameLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventNameLabel.Text = row["EventName"].ToString();
 
             HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
             eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
 
-            Literal eventDateLabel = e.Item.FindControl("eventDateLabel") as Literal;
+            HyperLink eventDateLabel = e.Item.FindControl("eventDateLabel") as HyperLink;
+            eventDateLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventDateLabel.Text = dateString;
 
-            Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
+            HyperLink userNameLabel = e.Item.FindControl("userNameLabel") as HyperLink;
+            userNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + sedogoEvent.userID.ToString();
             userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;

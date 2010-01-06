@@ -70,7 +70,7 @@ public partial class search : System.Web.UI.Page
                 noSearchResultsDiv.Visible = false;
             }
 
-            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
+            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
         }
     }
 
@@ -124,7 +124,7 @@ public partial class search : System.Web.UI.Page
         }
         else
         {
-            if (searchText.Length > 2)
+            if (searchText.Length >= 2)
             {
                 Response.Redirect("search.aspx?Search=" + searchText.ToString());
             }

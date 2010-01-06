@@ -238,26 +238,56 @@
 		</script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-		});
-		function breakout_of_frame() {
-			if (top.location != location) {
-				top.location.href = document.location.href;
+	$(document).ready(function() {
+	});
+	function breakout_of_frame() {
+		if (top.location != location) {
+			top.location.href = document.location.href;
+		}
+	}
+	function getElementID(name) {
+		var form = document.forms[0];
+		var nID = -1;
+		for (i = 0; i < form.elements.length; i++) {
+			if (form.elements[i].name == name) {
+				nID = i;
 			}
 		}
-		function getElementID(name) {
-			var form = document.forms[0];
-			var nID = -1;
-			for (i = 0; i < form.elements.length; i++) {
-				if (form.elements[i].name == name) {
-					nID = i;
-				}
-			}
-			return nID;
-		}
-		function openEvent(eventID) {
-			openModal("viewEvent.aspx?EID=" + eventID);
-		}    
+		return nID;
+	}
+	function openEvent(eventID)
+	{
+		openModal("viewEvent.aspx?EID=" + eventID);
+	}
+	function doAddEvent()
+	{
+	    var form = document.forms[0];
+	    openModal("addEvent.aspx?Name=" + form.what.value);
+	}
+	function checkAddButtonEnter(e)
+	{
+	    var characterCode;
+	    if (e && e.which) // NN4 specific code
+	    {
+	        e = e;
+	        characterCode = e.which;
+	    }
+	    else
+	    {
+	        e = event;
+	        characterCode = e.keyCode; // IE specific code
+	    }
+	    if (characterCode == 13) //// Enter key is 13
+	    {
+	        e.returnValue = false;
+	        e.cancelBubble = true;
+	        doAddEvent();
+	    }
+	    else
+	    {
+	        return false;
+	    }
+	}
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
@@ -280,13 +310,11 @@
 		        <tr>
 		            <td><h3 class="blue">Add</h3>
 		                <p class="blue">to my goal list</p>
-                        <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" ValidationGroup="whatGroup" />
-                        <asp:RegularExpressionValidator
-                            id="whatValidator"
-                            runat="server"
-                            ErrorMessage="Goal name must have at least 2 characters"
-                            ControlToValidate="what" ValidationGroup="whatGroup"
-                            ValidationExpression="[\S\s]{2,200}" />                        
+		                <asp:Panel ID="Panel1" runat="server" DefaultButton="searchButton1">
+                        <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" />
+		                <asp:ImageButton ID="searchButton1" runat="server" Enabled="false"
+		                    ImageUrl="~/images/1x1trans.gif" />
+                        </asp:Panel>
 		            </td>
 		            <td><h3 class="blue">Find</h3>
 		                <p class="blue">people with my goals</p>
@@ -403,7 +431,7 @@
 		</div>
 		<div id="footer">
 			<ul>
-				<li class="first">&copy; Sedogo Ltd 2010</li>
+				<li class="first">&copy; Sedogo Ltd 2008-2010</li>
 				<li><a href="about.aspx" title="About" class="modal">About</a></li>
 				<li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
 				<li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>

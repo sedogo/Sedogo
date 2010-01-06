@@ -142,7 +142,7 @@ public partial class userTimeline : SedogoPage
             timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
-            what.Attributes.Add("onKeyPress", "checkAddButtonEnter(this)");
+            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
         }
     }
 
@@ -544,7 +544,7 @@ public partial class userTimeline : SedogoPage
         }
         else
         {
-            if (searchText.Length > 2)
+            if (searchText.Length >= 2)
             {
                 Response.Redirect("search2.aspx?Search=" + searchText.ToString());
             }

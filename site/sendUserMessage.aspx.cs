@@ -113,8 +113,8 @@ public partial class sendUserMessage : SedogoPage
         emailBodyCopy.AppendLine("			</table>");
         emailBodyCopy.AppendLine("			<p>To view all your messages, <a href=\"" + linkURL + "\">click here</a>.</p>");
         emailBodyCopy.AppendLine("			<br /><br />");
-        emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
-        emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
+        emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+        emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
         emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
         emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
         emailBodyCopy.AppendLine("		</td></tr></table></body></html>");

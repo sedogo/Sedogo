@@ -68,6 +68,9 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <li>
+                        <label for="">&nbsp;</label><p>passwords are case sensitive</p>
+                    </li>
                      <div class="pinstripe-divider">&nbsp;</div>
                     <li>
                         <label for="">Remember me</label>

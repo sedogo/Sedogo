@@ -363,120 +363,129 @@ public partial class eventInvites : SedogoPage
                     int sedogoUserID = SedogoUser.GetUserIDFromEmailAddress(emailAddress);
                     Boolean enableSendEmails = true;
 
-                    EventInvite newInvite = new EventInvite(Session["loggedInUserFullName"].ToString());
-                    newInvite.eventID = eventID;
-                    newInvite.emailAddress = emailAddress;
-                    newInvite.inviteAdditionalText = additionalInviteText;
-                    newInvite.userID = sedogoUserID;
-                    newInvite.Add();
-
-                    string inviteURL = gd.GetStringValue("SiteBaseURL");
-                    inviteURL = inviteURL + "?EIG=" + newInvite.eventInviteGUID;
-
-                    emailBodyCopy.AppendLine("<html>");
-                    emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
-                    emailBodyCopy.AppendLine("<style type=\"text/css\">");
-                    emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
-                    emailBodyCopy.AppendLine("	p { margin: 0 }");
-                    emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
-                    emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
-                    emailBodyCopy.AppendLine("</style></head>");
-                    emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
-                    emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-                    emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
-                    emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
-                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-                    if (sedogoUserID > 0)
+                    if( sedogoUserID != currentUser.userID )
                     {
-                        SedogoUser inviteUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoUserID);
-                        if (inviteUser.enableSendEmails == false)
+                        EventInvite newInvite = new EventInvite(Session["loggedInUserFullName"].ToString());
+                        newInvite.eventID = eventID;
+                        newInvite.emailAddress = emailAddress;
+                        newInvite.inviteAdditionalText = additionalInviteText;
+                        newInvite.userID = sedogoUserID;
+                        newInvite.Add();
+
+                        string inviteURL = gd.GetStringValue("SiteBaseURL");
+                        inviteURL = inviteURL + "?EIG=" + newInvite.eventInviteGUID;
+                        string eventURL = gd.GetStringValue("SiteBaseURL");
+                        eventURL = eventURL + "?EID=" + currentEvent.eventID.ToString();
+
+                        emailBodyCopy.AppendLine("<html>");
+                        emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+                        emailBodyCopy.AppendLine("<style type=\"text/css\">");
+                        emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+                        emailBodyCopy.AppendLine("	p { margin: 0 }");
+                        emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+                        emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                        emailBodyCopy.AppendLine("</style></head>");
+                        emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+                        emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+                        emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+                        emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+                        if (sedogoUserID > 0)
                         {
-                            enableSendEmails = false;
+                            SedogoUser inviteUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoUserID);
+                            if (inviteUser.enableSendEmails == false)
+                            {
+                                enableSendEmails = false;
+                            }
+
+                            inviteURL = inviteURL + "&UID=" + sedogoUserID.ToString();
+
+                            emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
+                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td>Where:</td>");
+                            emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td>When:</td>");
+                            emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("			</table>");
+                            emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
+                            emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
+                            emailBodyCopy.AppendLine("			<p>To see who else is part of making this goal happen, <a href=\"" + eventURL + "\"><u>click here</u></a>.</p>");
+                            emailBodyCopy.AppendLine("			<p>To view this goal, <a href=\"" + eventURL + "\"><u>click here</u></a>.</p>");
                         }
+                        else
+                        {
+                            emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
+                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td>Where:</td>");
+                            emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("				<tr>");
+                            emailBodyCopy.AppendLine("					<td>When:</td>");
+                            emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
+                            emailBodyCopy.AppendLine("				</tr>");
+                            emailBodyCopy.AppendLine("			</table>");
+                            emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
+                            emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.");
+                        }
+                        emailBodyCopy.AppendLine("			<br /><br />");
+                        emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+                        emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
+                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                        emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                        emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
-                        inviteURL = inviteURL + "&UID=" + sedogoUserID.ToString();
+                        string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";
 
-                        emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
-                        emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
-                        emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td>Where:</td>");
-                        emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td>When:</td>");
-                        emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("			</table>");
-                        emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
-                        emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
-                        emailBodyCopy.AppendLine("			<p>To see who else is part of making this goal happen, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
-                        emailBodyCopy.AppendLine("			<p>To view this goal, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
+                        string SMTPServer = gd.GetStringValue("SMTPServer");
+                        string mailFromAddress = gd.GetStringValue("MailFromAddress");
+                        string mailFromUsername = gd.GetStringValue("MailFromUsername");
+                        string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+                        if (enableSendEmails == true)
+                        {
+                            try
+                            {
+                                MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                                message.ReplyTo = new MailAddress(mailFromAddress);
+
+                                message.Subject = emailSubject;
+                                message.Body = emailBodyCopy.ToString();
+                                message.IsBodyHtml = true;
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = SMTPServer;
+                                if (mailFromPassword != "")
+                                {
+                                    // If the password is blank, assume mail relay is permitted
+                                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                                }
+                                smtp.Send(message);
+
+                                newInvite.inviteEmailSent = true;
+                                newInvite.inviteEmailSentDate = DateTime.Now;
+                                newInvite.inviteEmailSentEmailAddress = emailAddress;
+                                newInvite.Update();
+                            }
+                            catch { }
+                        }
+                        sentOK = true;
                     }
                     else
                     {
-                        emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
-                        emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
-                        emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td>Where:</td>");
-                        emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("				<tr>");
-                        emailBodyCopy.AppendLine("					<td>When:</td>");
-                        emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
-                        emailBodyCopy.AppendLine("				</tr>");
-                        emailBodyCopy.AppendLine("			</table>");
-                        emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
-                        emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.");
+                        errorMessageDescription = emailAddress + " - you cannot invite yourself";
                     }
-                    emailBodyCopy.AppendLine("			<br /><br />");
-                    emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
-                    emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
-                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
-                    emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-                    emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
-
-                    string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";
-
-                    string SMTPServer = gd.GetStringValue("SMTPServer");
-                    string mailFromAddress = gd.GetStringValue("MailFromAddress");
-                    string mailFromUsername = gd.GetStringValue("MailFromUsername");
-                    string mailFromPassword = gd.GetStringValue("MailFromPassword");
-
-                    if (enableSendEmails == true)
-                    {
-                        try
-                        {
-                            MailMessage message = new MailMessage(mailFromAddress, emailAddress);
-                            message.ReplyTo = new MailAddress(mailFromAddress);
-
-                            message.Subject = emailSubject;
-                            message.Body = emailBodyCopy.ToString();
-                            message.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = SMTPServer;
-                            if (mailFromPassword != "")
-                            {
-                                // If the password is blank, assume mail relay is permitted
-                                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
-                            }
-                            smtp.Send(message);
-
-                            newInvite.inviteEmailSent = true;
-                            newInvite.inviteEmailSentDate = DateTime.Now;
-                            newInvite.inviteEmailSentEmailAddress = emailAddress;
-                            newInvite.Update();
-                        }
-                        catch { }
-                    }
-                    sentOK = true;
                 }
                 else
                 {

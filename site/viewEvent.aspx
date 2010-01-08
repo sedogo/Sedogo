@@ -58,10 +58,12 @@
                         <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline-bold" /></p>
                         <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members:</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                        <img src="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
+                        <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
                             OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
                         <h3 ID="H1" runat="server">Following:</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
+                        <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/ico_messages.gif" /><asp:LinkButton ID="followersTrackingUsersLink" runat="server" Text="Message All" 
+                            OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
                         <h3 ID="invitesHeader" runat="server">Invites:</h3>
                         <p><asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
                         <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>

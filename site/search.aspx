@@ -243,7 +243,7 @@
 		<div class="three-col">
 		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
 		        <tr>
-		            <td><h3 class="blue">Add</h3>
+		            <td><h3 class="blue"><a href="javascript:doAddEvent()">Add</a></h3>
 		                <p class="blue">to my goal list</p>
 		                <asp:Panel ID="Panel1" runat="server" DefaultButton="searchButton1">
                         <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" />
@@ -251,7 +251,7 @@
 		                    ImageUrl="~/images/1x1trans.gif" />
                         </asp:Panel>
 		            </td>
-		            <td><h3 class="blue">Find</h3>
+		            <td><h3 class="blue"><asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton_click" /></h3>
 		                <p class="blue">people with my goals</p>
 		                <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
 		                <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" ValidationGroup="what2Group" />

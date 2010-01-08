@@ -36,22 +36,27 @@ public partial class sendMessageToTrackers : SedogoPage
     protected void Page_Load(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
+        int messageUserID = -1;
+        if (Request.QueryString["UID"] != null)
+        {
+            messageUserID = int.Parse(Request.QueryString["UID"]);
+        }
+
         if (!IsPostBack)
         {
-
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
             eventNameLabel.Text = sedogoEvent.eventName;
 
             SetFocus(messageTextBox);
         }
-        PopulateTrackingList(eventID);
+        PopulateTrackingList(eventID, messageUserID);
     }
 
     //===============================================================
     // Function: PopulateTrackingList
     //===============================================================
-    private void PopulateTrackingList(int eventID)
+    private void PopulateTrackingList(int eventID, int messageUserID)
     {
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -70,7 +75,7 @@ public partial class sendMessageToTrackers : SedogoPage
                 string profilePicThumbnail = "";
 
                 int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
-                //int userID = int.Parse(rdr["UserID"].ToString());
+                int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
                 //string gender = (string)rdr["Gender"];
@@ -90,7 +95,10 @@ public partial class sendMessageToTrackers : SedogoPage
 
                 CheckBox trackerCheckBox = new CheckBox();
                 trackerCheckBox.ID = "trackerCheckBox_" + trackedEventID.ToString();
-                trackerCheckBox.Checked = true;
+                if (messageUserID < 0 || messageUserID == userID)
+                {
+                    trackerCheckBox.Checked = true;
+                }
 
                 string outputText = "<img src=\"" + profileImagePath + "\" />&nbsp;"
                     + firstName + " " + lastName;
@@ -175,11 +183,19 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
                     emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-                    emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
+                    //emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
                     emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
                     emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td width=\"60px\">Goal:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + sedogoEvent.eventName + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td>Where:</td>");
+                    emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60px\">Message:</td>");
@@ -187,8 +203,8 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("			</table>");
                     emailBodyCopy.AppendLine("			<br /><br />");
-                    emailBodyCopy.AppendLine("			<p>Regards</p><p class=\"blue\"><strong>The Sedogo Team.</strong></p><br />");
-                    emailBodyCopy.AppendLine("			<br /><br /><br /><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></td>");
+                    emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+                    emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
                     emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
                     emailBodyCopy.AppendLine("		</td></tr></table></body></html>");

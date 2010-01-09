@@ -361,11 +361,12 @@
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<br />
 				<p class="extra-buttons">
+				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">+ Goal</a>
+				</p>
+				<p>&nbsp;</p>
+				<p class="extra-buttons">
 				    <asp:HyperLink ID="sendMessageToUserLink" runat="server" ToolTip="send message"
 				        CssClass="button-sml modal" Text="send message" />
-				</p>
-				<p class="extra-buttons">
-				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">+ Goal</a>
 				</p>
 				<ol class="items">
 					<li class="messages"><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></li>
@@ -447,5 +448,19 @@
     
     </div>
     </form>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://
+ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-
+analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try
+    {
+        var pageTracker = _gat._getTracker("UA-12373356-1");
+        pageTracker._trackPageview();
+    } catch (err) { }</script>
+
 </body>
 </html>

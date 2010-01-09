@@ -282,7 +282,9 @@ public partial class timelineXML : System.Web.UI.Page
             }
             catch (Exception ex)
             {
-                throw ex;
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("timelineXML", "Page_Load", ex.Message, logMessageLevel.errorMessage);
+                //throw ex;
             }
             finally
             {

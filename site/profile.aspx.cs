@@ -141,6 +141,10 @@ public partial class profile : SedogoPage
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"message.aspx\");", true);
                 }
+                if (redir == "Requests")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"message.aspx\");", true);
+                }
                 Session["DefaultRedirect"] = "";
             }
             if (Session["EventID"] != null && Session["EventID"].ToString() != "")
@@ -658,7 +662,7 @@ public partial class profile : SedogoPage
         }
         else
         {
-            if (searchString.Length > 2)
+            if (searchString.Length >= 2)
             {
                 Response.Redirect("search2.aspx?Search=" + searchString.ToString());
             }

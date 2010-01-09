@@ -376,7 +376,9 @@ public partial class timelineSearch2XML : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            throw ex;
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.WriteLog("timelineSearch2XML", "Page_Load", ex.Message, logMessageLevel.errorMessage);
+            //throw ex;
         }
         finally
         {

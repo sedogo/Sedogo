@@ -264,7 +264,9 @@ public partial class timelineHomePageXML : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            throw ex;
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.WriteLog("timelineHomePageXML", "Page_Load", ex.Message, logMessageLevel.errorMessage);
+            //throw ex;
         }
         finally
         {

@@ -569,6 +569,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
             emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td>To stop receiving these emails, go to your profile and un-check the 'Enable email notifications' option.</td></tr>");
             emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             string emailSubject = m_eventName + " on " + dateString + " has been updated";
@@ -1409,7 +1410,8 @@ namespace Sedogo.BusinessObjects
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
             string inviteURL = gd.GetStringValue("SiteBaseURL");
-            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+            //inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+            inviteURL = inviteURL + "?Redir=Requests";
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -1428,7 +1430,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60px\">Who:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"240px\">" + eventUser.firstName + " " + eventUser.lastName + "</td>");
+            emailBodyCopy.AppendLine("					<td width=\"240px\">" + trackingUser.firstName + " " + trackingUser.lastName + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
@@ -1443,12 +1445,13 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("			</table>");
-            emailBodyCopy.AppendLine("			<p>To view this goal, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
+            emailBodyCopy.AppendLine("			<p>To accept or decline this request, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
             emailBodyCopy.AppendLine("			<br /><br />");
             emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
             emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
             emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td>To stop receiving these emails, go to your profile and un-check the 'Enable email notifications' option.</td></tr>");
             emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             string emailSubject = "Someone has requested to join your Sedogo goal: " + sedogoEvent.eventName;

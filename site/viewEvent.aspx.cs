@@ -298,7 +298,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     //===============================================================
     private void PopulateComments(int eventID)
     {
-        int currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+        int currentUserID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+        }
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -700,6 +704,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         trackThisEventLink.Visible = false;
 
         PopulateTrackingList(eventID);
+        PopulateComments(eventID);
+        PopulateRequestsList(eventID);
     }
 
     //===============================================================

@@ -910,7 +910,7 @@ public partial class search2 : SedogoPage
         }
         else
         {
-            if (searchString.Length > 2)
+            if (searchString.Length >= 2)
             {
                 Response.Redirect("search2.aspx?Search=" + searchString.ToString());
             }

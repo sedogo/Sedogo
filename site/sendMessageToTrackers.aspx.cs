@@ -207,6 +207,7 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
                     emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                    emailBodyCopy.AppendLine("		</td></tr><tr><td>To stop receiving these emails, go to your profile and un-check the 'Enable email notifications' option.</td></tr>");
                     emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                     string emailSubject = "Sedogo message from " + currentUser.firstName + " regarding " + sedogoEvent.eventName;

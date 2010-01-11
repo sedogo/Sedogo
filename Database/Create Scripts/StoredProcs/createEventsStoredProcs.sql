@@ -69,6 +69,7 @@ BEGIN
 		MustDo,
 		EventAchieved,
 		Deleted,
+		ShowOnDefaultPage,
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
@@ -92,6 +93,7 @@ BEGIN
 		@MustDo,
 		0,		-- EventAchieved
 		0,		-- Deleted
+		0,		-- ShowOnDefaultPage
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
@@ -625,6 +627,34 @@ GRANT EXEC ON spSelectEventCommentsList TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectEventCommentCountForEvent
+// Description:
+//   Selects the events comment count
+//=============================================================*/
+PRINT 'Creating spSelectEventCommentCountForEvent...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventCommentCountForEvent')
+BEGIN
+	DROP Procedure spSelectEventCommentCountForEvent
+END
+GO
+
+CREATE Procedure spSelectEventCommentCountForEvent
+	@EventID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM EventComments
+	WHERE Deleted = 0
+	AND EventID = @EventID
+END
+GO
+
+GRANT EXEC ON spSelectEventCommentCountForEvent TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spUpdateEventComment
 // Description:
 //   Update event comment
@@ -879,7 +909,7 @@ GO
 CREATE Procedure spSelectHomePageEvents
 AS
 BEGIN
-	SELECT TOP 10 E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+	SELECT TOP 20 E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
 		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
@@ -888,9 +918,10 @@ BEGIN
 	JOIN Users U
 	ON E.UserID = U.UserID
 	WHERE E.Deleted = 0
-	AND E.EventAchieved = 0
-	AND E.PrivateEvent = 0
-	AND E.CategoryID = 1
+	AND E.ShowOnDefaultPage = 1
+	--AND E.EventAchieved = 0
+	--AND E.PrivateEvent = 0
+	--AND E.CategoryID = 1
 	ORDER BY NEWID()
 	
 END

@@ -250,7 +250,7 @@ public partial class timelineXML : System.Web.UI.Page
                             break;
                     }
 
-                    int messageCount = Message.GetMessageCountForEvent(eventID);
+                    int messageCount = SedogoEvent.GetCommentCount(eventID);
                     int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
                     int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
 

@@ -187,6 +187,7 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"4\">&nbsp;</td>");
                     emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
@@ -198,7 +199,7 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td width=\"60px\">Message:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"60px\" valign=\"top\">Message:</td>");
                     emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageText.Replace("\n", "<br/>") + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("			</table>");
@@ -207,7 +208,7 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
                     emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-                    emailBodyCopy.AppendLine("		</td></tr><tr><td>To stop receiving these emails, go to your profile and un-check the 'Enable email notifications' option.</td></tr>");
+                    emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
                     emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                     string emailSubject = "Sedogo message from " + currentUser.firstName + " regarding " + sedogoEvent.eventName;

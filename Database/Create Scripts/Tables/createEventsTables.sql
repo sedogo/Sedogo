@@ -50,6 +50,7 @@ CREATE TABLE Events
 	PrivateEvent					bit					NOT NULL,
 	CreatedFromEventID				int					NULL,
 	TimezoneID						int					NOT NULL,
+	ShowOnDefaultPage				bit					NOT NULL,
 	
 	EventPicFilename				nvarchar(200)		NULL,
 	EventPicThumbnail				nvarchar(200)		NULL,

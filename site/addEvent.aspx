@@ -187,7 +187,7 @@ function popupCalendarRangeEndDate(image)
                                 <td>&nbsp;&nbsp;</td>
                                 <td><asp:DropDownList ID="datePickList" runat="server" 
                                     OnSelectedIndexChanged="datePickList_changed" AutoPostBack="true">
-                                    <asp:ListItem Text="" Value="" />
+                                    <asp:ListItem Text="Select timeframe:" Value="" />
                                     <asp:ListItem Text="In 5 years" Value="5" />
                                     <asp:ListItem Text="In 10 years" Value="10" />
                                     <asp:ListItem Text="In 20 years" Value="20" />
@@ -292,6 +292,14 @@ function popupCalendarRangeEndDate(image)
                                     class="calendar_button" 
                                     src="./images/calendarImages/btn_calendar.gif" 
                                     width="25" height="22" /></td>
+                                <td>&nbsp;&nbsp;</td>
+                                <td><asp:DropDownList ID="daterangePickList" runat="server" 
+                                    OnSelectedIndexChanged="daterangePickList_changed" AutoPostBack="true">
+                                    <asp:ListItem Text="Select timeframe:" Value="" />
+                                    <asp:ListItem Text="Within 5 years" Value="5" />
+                                    <asp:ListItem Text="Within 10 years" Value="10" />
+                                    <asp:ListItem Text="Within 20 years" Value="20" />
+                                </asp:DropDownList></td>
                             </tr>
                         </table>
                     </td>
@@ -364,17 +372,16 @@ function popupCalendarRangeEndDate(image)
     </form>
 
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://
-ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-
-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
     try
     {
         var pageTracker = _gat._getTracker("UA-12373356-1");
         pageTracker._trackPageview();
-    } catch (err) { }</script>
+    } catch (err) { }
+</script>
 
 </body>
 </html>

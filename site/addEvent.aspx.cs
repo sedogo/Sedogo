@@ -119,6 +119,29 @@ public partial class addEvent : SedogoPage
     }
 
     //===============================================================
+    // Function: daterangePickList_changed
+    //===============================================================
+    protected void daterangePickList_changed(object sender, EventArgs e)
+    {
+        if (daterangePickList.SelectedValue == "5")
+        {
+            CalendarRangeEndDate.SelectedDate = DateTime.Now.AddYears(5).AddDays(-1);
+            PickerRangeEndDate.SelectedDate = DateTime.Now.AddYears(5).AddDays(-1);
+        }
+        if (daterangePickList.SelectedValue == "10")
+        {
+            CalendarRangeEndDate.SelectedDate = DateTime.Now.AddYears(10).AddDays(-1);
+            PickerRangeEndDate.SelectedDate = DateTime.Now.AddYears(10).AddDays(-1);
+        }
+        if (daterangePickList.SelectedValue == "20")
+        {
+            CalendarRangeEndDate.SelectedDate = DateTime.Now.AddYears(20).AddDays(-1);
+            PickerRangeEndDate.SelectedDate = DateTime.Now.AddYears(20).AddDays(-1);
+        }
+        daterangePickList.SelectedValue = "";
+    }
+
+    //===============================================================
     // Function: dateTypeDropDownList_changed
     //===============================================================
     protected void dateTypeDropDownList_changed(object sender, EventArgs e)

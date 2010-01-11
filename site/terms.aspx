@@ -31,10 +31,6 @@
 	<!--[if gte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
-
-	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery.corner.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -83,21 +79,22 @@
             <p>The Studio, 17 Blossom St, London, E1 6PL.</p>
             <p>Phone: +44 (0) 20 3393 8404</p>
             <p>Email: info@sedogo.com</p>
+            <br />&nbsp;<br />
+            <a href="javascript:window.close()">Close window</a>
     </div>
     </form>
 
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://
-ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-
-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
     try
     {
         var pageTracker = _gat._getTracker("UA-12373356-1");
         pageTracker._trackPageview();
-    } catch (err) { }</script>
+    } catch (err) { }
+</script>
 
 </body>
 </html>

@@ -87,6 +87,7 @@ public partial class forgotPassword : System.Web.UI.Page
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60px\">Password:</td>");
+            emailBodyCopy.AppendLine("					<td width=\"10px\">&nbsp;</td>");
             emailBodyCopy.AppendLine("					<td width=\"240px\">" + newPassword + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("			</table>");

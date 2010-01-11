@@ -302,7 +302,7 @@
 				</div>
 				<div class="one-col-end">
 					<h2 class="col-header">get inspired</h2>
-					<p class="teaser">Need help getting started? See popular goal searches and get ideas</p>
+					<p class="teaser">Need help getting started? <a href="getInspired.aspx">See popular goal searches and get ideas</a></p>
 				</div>
 			</div>
 			<div id="footer">
@@ -325,17 +325,16 @@
     </form>
 
 <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://
-ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-
-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript">
     try
     {
         var pageTracker = _gat._getTracker("UA-12373356-1");
         pageTracker._trackPageview();
-    } catch (err) { }</script>
+    } catch (err) { }
+</script>
 
 </body>
 </html>

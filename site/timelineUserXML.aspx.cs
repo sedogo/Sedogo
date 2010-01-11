@@ -224,7 +224,7 @@ public partial class timelineUserXML : System.Web.UI.Page
                         category = "Misc";
                         break;
                 }
-                int messageCount = Message.GetMessageCountForEvent(eventID);
+                int messageCount = SedogoEvent.GetCommentCount(eventID);
                 int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
                 int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
 

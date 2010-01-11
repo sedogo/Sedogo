@@ -135,6 +135,8 @@ public partial class eventJoinRequests : SedogoPage
         {
             trackedEvent.joinPending = false;
             trackedEvent.Update();
+
+            trackedEvent.SendJoinAcceptedEmail();
         }
         if (e.CommandName == "declineButton")
         {

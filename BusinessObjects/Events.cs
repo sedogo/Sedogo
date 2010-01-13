@@ -51,6 +51,7 @@ namespace Sedogo.BusinessObjects
         private string      m_eventPicFilename = "";
         private string      m_eventPicThumbnail = "";
         private string      m_eventPicPreview = "";
+        private Boolean     m_showOnDefaultPage = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
@@ -155,6 +156,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_eventPicPreview; }
             set { m_eventPicPreview = value; }
+        }
+        public Boolean showOnDefaultPage
+        {
+            get { return m_showOnDefaultPage; }
+            set { m_showOnDefaultPage = value; }
         }
         public DateTime createdDate
         {
@@ -286,6 +292,10 @@ namespace Sedogo.BusinessObjects
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicPreview")))
                 {
                     m_eventPicPreview = (string)rdr["EventPicPreview"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ShowOnDefaultPage")))
+                {
+                    m_showOnDefaultPage = (Boolean)rdr["ShowOnDefaultPage"];
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
                 {
@@ -440,6 +450,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@EventDescription", SqlDbType.NVarChar, -1).Value = m_eventDescription;
                 cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, -1).Value = m_eventVenue;
                 cmd.Parameters.Add("@MustDo", SqlDbType.Bit).Value = m_mustDo;
+                cmd.Parameters.Add("@ShowOnDefaultPage", SqlDbType.Bit).Value = m_showOnDefaultPage;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
 

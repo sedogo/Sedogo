@@ -131,7 +131,7 @@ BEGIN
 	SELECT UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
 		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, Deleted, 
 		PrivateEvent, CreatedFromEventID,
-		EventDescription, EventVenue, MustDo,
+		EventDescription, EventVenue, MustDo, ShowOnDefaultPage,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
@@ -174,6 +174,40 @@ END
 GO
 
 GRANT EXEC ON spSelectFullEventList TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectAdministratorsEventList
+// Description:
+//   Selects the event list
+//=============================================================*/
+PRINT 'Creating spSelectAdministratorsEventList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectAdministratorsEventList')
+BEGIN
+	DROP Procedure spSelectAdministratorsEventList
+END
+GO
+
+CREATE Procedure spSelectAdministratorsEventList
+AS
+BEGIN
+	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.EventDescription, E.EventVenue, E.MustDo, E.UserID, E.ShowOnDefaultPage,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.FirstName, U.LastName, U.EmailAddress
+	FROM Events E
+	JOIN Users U
+	ON E.UserID = U.UserID
+	WHERE E.Deleted = 0
+	ORDER BY E.StartDate
+END
+GO
+
+GRANT EXEC ON spSelectAdministratorsEventList TO sedogoUser
 GO
 
 /*===============================================================
@@ -416,6 +450,7 @@ CREATE Procedure spUpdateEvent
 	@EventDescription				nvarchar(max),
 	@EventVenue						nvarchar(max),
 	@MustDo							bit,
+	@ShowOnDefaultPage				bit,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)
 AS
@@ -435,6 +470,7 @@ BEGIN
 		EventDescription		= @EventDescription,
 		EventVenue				= @EventVenue,
 		MustDo					= @MustDo,
+		ShowOnDefaultPage		= @ShowOnDefaultPage,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventID = @EventID

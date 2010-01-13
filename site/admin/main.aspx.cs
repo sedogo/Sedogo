@@ -58,4 +58,20 @@ public partial class admin_main : System.Web.UI.Page
     {
         Response.Redirect("timezonesList.aspx");
     }
+
+    //===============================================================
+    // Function: popularGoalsLink_click
+    //===============================================================
+    protected void popularGoalsLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("popularGoals.aspx");
+    }
+
+    //===============================================================
+    // Function: defaultPageTimelineLink_click
+    //===============================================================
+    protected void defaultPageTimelineLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("defaultPageTimelineList.aspx");
+    }
 }

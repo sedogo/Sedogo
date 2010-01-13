@@ -73,6 +73,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
             if (action == "NotifyJoin")
             {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Your request to join this goal has been sent to the goal owner.\");", true);
             }
             if (action == "SendMessage")
             {

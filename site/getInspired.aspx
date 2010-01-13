@@ -31,6 +31,15 @@
 		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->
 
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.livequery.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+    <!--<script type="text/javascript" src="utils/validationFunctions.js"></script>-->
+
 	<script type="text/javascript">
     function doAddEvent()
     {
@@ -117,7 +126,7 @@
 				</div>
 				<div class="one-col">
 					<h2 class="col-header">&nbsp;</h2>
-					<p class="teaser">ut it’s not always easy, is it? Life often gets in the way. Well, 
+					<p class="teaser">But it’s not always easy, is it? Life often gets in the way. Well, 
                         that's exactly why we launched Sedogo.  It's more than a diary of 
                         planned goals, Sedogo is a way of connecting with people who can be 
                         part of your future hopes and dreams, however big or small. Whether 
@@ -127,16 +136,15 @@
                         the future of social networking. Your future.</p>
 				</div>
 				<div class="one-col-end">
-					<h2 class="col-header">get inspired</h2>
-					<p class="teaser">Goal suggestions
-                        Need some help getting started? Here are a few ideas that might grab 
+					<h2 class="col-header">Goal suggestions</h2>
+					<p class="teaser">Need some help getting started? Here are a few ideas that might grab 
                         you. Add as many as take your fancy. After all, you only get one life.<br />
                         &nbsp;<br />
                         Fly the double decker airbus A380<br />
                         Own an exotic pet<br />
                         Try zorbing<br />
                         Go on a Murder Mystery Weekend<br />
-                        Form the ultimate Pub Quizz team<br />
+                        Form the ultimate Pub Quiz team<br />
                         Learn to ballroom waltz, Jane Austen style<br />
                         Go skinning dipping in a natural spa<br />
                         Experiment with a faddy diet<br />

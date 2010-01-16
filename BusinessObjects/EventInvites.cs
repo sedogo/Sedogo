@@ -532,6 +532,8 @@ namespace Sedogo.BusinessObjects
         {
             int inviteCount = 0;
 
+            SedogoUser sedogoUser = new SedogoUser("", userID);
+
             SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
             try
             {
@@ -541,6 +543,8 @@ namespace Sedogo.BusinessObjects
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "spSelectPendingInviteCountForUser";
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = sedogoUser.emailAddress;
+
                 DbDataReader rdr = cmd.ExecuteReader();
                 rdr.Read();
                 inviteCount = int.Parse(rdr[0].ToString());

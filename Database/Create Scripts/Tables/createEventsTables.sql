@@ -238,6 +238,7 @@ CREATE TABLE EventAlerts
 	AlertText						nvarchar(max)		NULL,
 	Completed						bit					NOT NULL,
 	Deleted							bit					NOT NULL,
+	ReminderEmailSent				bit					NOT NULL,
 	
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,

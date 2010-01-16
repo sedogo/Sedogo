@@ -538,6 +538,7 @@ public partial class addEventInvites : SedogoPage
                             emailBodyCopy.AppendLine("			</table>");
                             emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
                             emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.");
+                            emailBodyCopy.AppendLine("			<p>When you have completed the registration process, <a href=\"" + eventURL + "\">click here</a> to view this event.");
                         }
                         emailBodyCopy.AppendLine("			<br /><br />");
                         emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");

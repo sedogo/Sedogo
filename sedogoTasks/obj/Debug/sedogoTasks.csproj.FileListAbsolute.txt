@@ -1,0 +1,11 @@
+C:\Development\Sedogo\sedogoTasks\bin\Debug\sedogoTasks.exe.config
+C:\Development\Sedogo\sedogoTasks\bin\Debug\sedogoTasks.exe
+C:\Development\Sedogo\sedogoTasks\bin\Debug\sedogoTasks.pdb
+C:\Development\Sedogo\sedogoTasks\bin\Debug\BusinessObjects.dll
+C:\Development\Sedogo\sedogoTasks\bin\Debug\BusinessObjects.pdb
+C:\Development\Sedogo\sedogoTasks\obj\Debug\ResolveAssemblyReference.cache
+C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.mainForm.resources
+C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.Properties.Resources.resources
+C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.csproj.GenerateResource.Cache
+C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.exe
+C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.pdb

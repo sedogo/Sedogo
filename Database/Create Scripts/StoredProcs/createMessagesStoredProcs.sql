@@ -281,7 +281,7 @@ BEGIN
 	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
 	LEFT OUTER JOIN Users U
-	ON U.UserID = E.UserID
+	ON U.UserID = M.PostedByUserID
 	WHERE M.Deleted = 0
 	AND M.MessageRead = 0
 	AND M.UserID = @UserID
@@ -323,7 +323,7 @@ BEGIN
 	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
 	LEFT OUTER JOIN Users U
-	ON U.UserID = E.UserID
+	ON U.UserID = M.PostedByUserID
 	WHERE M.Deleted = 0
 	AND M.MessageRead = 1
 	AND M.UserID = @UserID
@@ -365,7 +365,7 @@ BEGIN
 	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
 	JOIN Users U
-	ON U.UserID = E.UserID
+	ON U.UserID = M.UserID
 	WHERE M.Deleted = 0
 	AND M.PostedByUserID = @UserID
 	AND ISNULL(E.Deleted,0) = 0

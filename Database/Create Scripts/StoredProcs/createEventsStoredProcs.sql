@@ -1852,7 +1852,8 @@ END
 GO
 
 CREATE Procedure spSelectPendingInviteCountForUser
-	@UserID						int
+	@UserID			int,
+	@EmailAddress	nvarchar(200)
 AS
 BEGIN
 	SELECT COUNT(*)
@@ -1863,7 +1864,8 @@ BEGIN
 	ON U.UserID = E.UserID
 	WHERE I.Deleted = 0
 	AND E.Deleted = 0
-	AND I.UserID = @UserID
+	AND ( I.UserID = @UserID
+		OR (I.UserID IS NULL AND I.EmailAddress = @EmailAddress) )
 	AND I.InviteAccepted = 0
 	AND I.InviteDeclined = 0
 	
@@ -1952,7 +1954,8 @@ END
 GO
 
 CREATE Procedure spSelectPendingInviteListForUser
-	@UserID		int
+	@UserID			int,
+	@EmailAddress	nvarchar(200)
 AS
 BEGIN
 	SELECT I.EventInviteID, I.GUID, I.EventID, I.EmailAddress, I.InviteAdditionalText, 
@@ -1972,7 +1975,8 @@ BEGIN
 	ON U.UserID = E.UserID
 	WHERE I.Deleted = 0
 	AND E.Deleted = 0
-	AND I.UserID = @UserID
+	AND ( I.UserID = @UserID
+		OR (I.UserID IS NULL AND I.EmailAddress = @EmailAddress) )
 	AND I.InviteAccepted = 0
 	AND I.InviteDeclined = 0
 	ORDER BY I.CreatedDate
@@ -2043,6 +2047,7 @@ BEGIN
 		AlertText,
 		Completed,
 		Deleted,
+		ReminderEmailSent,
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
@@ -2055,6 +2060,7 @@ BEGIN
 		@AlertText,
 		0,		-- Completed
 		0,		-- Deleted
+		0,		-- ReminderEmailSent
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
@@ -2086,7 +2092,7 @@ CREATE Procedure spSelectEventAlertDetails
 	@EventAlertID			int
 AS
 BEGIN
-	SELECT EventID, AlertDate, AlertText, Completed, Deleted,
+	SELECT EventID, AlertDate, AlertText, Completed, Deleted, ReminderEmailSent,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM EventAlerts
 	WHERE EventAlertID = @EventAlertID
@@ -2284,6 +2290,7 @@ CREATE Procedure spUpdateEventAlert
 	@AlertDate					datetime,
 	@AlertText					nvarchar(max),
 	@Completed					bit,
+	@ReminderEmailSent			bit,
 	@LastUpdatedDate			datetime,
 	@LastUpdatedByFullName		nvarchar(200)
 AS
@@ -2292,6 +2299,7 @@ BEGIN
 	SET AlertText				= @AlertText,
 		AlertDate				= @AlertDate,
 		Completed				= @Completed,
+		ReminderEmailSent		= @ReminderEmailSent,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventAlertID = @EventAlertID
@@ -2363,6 +2371,36 @@ END
 GO
 
 GRANT EXEC ON spSelectLatestEvents TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectAlertsToSendByEmail
+// Description:
+//   
+//=============================================================*/
+PRINT 'Creating spSelectAlertsToSendByEmail...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectAlertsToSendByEmail')
+BEGIN
+	DROP Procedure spSelectAlertsToSendByEmail
+END
+GO
+
+CREATE Procedure spSelectAlertsToSendByEmail
+AS
+BEGIN
+	SELECT EventAlertID, EventAlertGUID, EventID, AlertDate, AlertText
+	FROM EventAlerts
+	WHERE AlertDate < getdate()
+	AND Completed = 0
+	AND Deleted = 0
+	AND ReminderEmailSent = 0
+	
+END
+GO
+
+GRANT EXEC ON spSelectAlertsToSendByEmail TO sedogoUser
 GO
 
 PRINT '== Finished createEventsStoredProcs.sql =='

@@ -64,10 +64,12 @@ public partial class invite : SedogoPage
         {
             SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
 
+            SedogoUser sedogoUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
             SqlCommand cmd = new SqlCommand("spSelectPendingInviteListForUser", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
-
+            cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = sedogoUser.emailAddress;
             cmd.CommandTimeout = 90;
             SqlDataAdapter da = new SqlDataAdapter();
             da.SelectCommand = cmd;

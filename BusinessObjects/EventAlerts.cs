@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
+using System.Net.Mail;
 
 namespace Sedogo.BusinessObjects
 {
@@ -36,6 +37,7 @@ namespace Sedogo.BusinessObjects
         private string      m_alertText = "";
         private Boolean     m_completed = false;
         private Boolean     m_deleted = false;
+        private Boolean     m_reminderEmailSent = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
@@ -70,6 +72,11 @@ namespace Sedogo.BusinessObjects
         public Boolean deleted
         {
             get { return m_deleted; }
+        }
+        public Boolean reminderEmailSent
+        {
+            get { return m_reminderEmailSent; }
+            set { m_reminderEmailSent = value; }
         }
         public DateTime createdDate
         {
@@ -145,6 +152,10 @@ namespace Sedogo.BusinessObjects
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
                 {
                     m_deleted = (Boolean)rdr["Deleted"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ReminderEmailSent")))
+                {
+                    m_reminderEmailSent = (Boolean)rdr["ReminderEmailSent"];
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
                 {
@@ -248,6 +259,8 @@ namespace Sedogo.BusinessObjects
                     cmd.Parameters.Add("@AlertDate", SqlDbType.DateTime).Value = DBNull.Value;
                 }
                 cmd.Parameters.Add("@AlertText", SqlDbType.NVarChar, -1).Value = m_alertText;
+                cmd.Parameters.Add("@Completed", SqlDbType.Bit).Value = m_completed;
+                cmd.Parameters.Add("@ReminderEmailSent", SqlDbType.Bit).Value = m_reminderEmailSent;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
 
@@ -362,6 +375,127 @@ namespace Sedogo.BusinessObjects
             }
 
             return alertCount;
+        }
+
+        //===============================================================
+        // Function: SendAlertEmails
+        //===============================================================
+        public static void SendAlertEmails()
+        {
+            GlobalData gd = new GlobalData("");
+            string SMTPServer = gd.GetStringValue("SMTPServer");
+            string mailFromAddress = gd.GetStringValue("MailFromAddress");
+            string mailFromUsername = gd.GetStringValue("MailFromUsername");
+            string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectAlertsToSendByEmail";
+                DbDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    int eventAlertID = int.Parse(rdr["EventAlertID"].ToString());
+
+                    // Send the email
+                    EventAlert eventAlert = new EventAlert("", eventAlertID);
+                    SedogoEvent sedogoEvent = new SedogoEvent("", eventAlert.eventID);
+                    SedogoUser user = new SedogoUser("", sedogoEvent.userID);
+                    string dateString = "";
+                    DateTime startDate = sedogoEvent.startDate;
+
+                    string emailSubject = "Sedogo alert for event " + sedogoEvent.eventName;
+
+                    MiscUtils.GetDateStringStartDate(user, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                        sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+                    string inviteURL = gd.GetStringValue("SiteBaseURL");
+                    inviteURL = inviteURL + "?EID=" + eventAlert.eventID.ToString();
+
+                    StringBuilder emailBodyCopy = new StringBuilder();
+                    emailBodyCopy.AppendLine("<html>");
+                    emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+                    emailBodyCopy.AppendLine("<style type=\"text/css\">");
+                    emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+                    emailBodyCopy.AppendLine("	p { margin: 0 }");
+                    emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+                    emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                    emailBodyCopy.AppendLine("</style></head>");
+                    emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+                    emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+                    emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+                    emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+                    emailBodyCopy.AppendLine("			<h1>The following event has been updated:</h1>");
+                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"3\">&nbsp;</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + sedogoEvent.eventName + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td>Where:</td>");
+                    emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td>When:</td>");
+                    emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                    emailBodyCopy.AppendLine("					<td>" + eventAlert.alertText.Replace("\n", "<br/>") + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("			</table>");
+                    emailBodyCopy.AppendLine("			<p>To view this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
+                    emailBodyCopy.AppendLine("			<br /><br />");
+                    emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+                    emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
+                    emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                    emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                    emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+                    emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+                    if (user.enableSendEmails == true)
+                    {
+                        try
+                        {
+                            MailMessage message = new MailMessage(mailFromAddress, user.emailAddress);
+                            message.ReplyTo = new MailAddress(mailFromAddress);
+
+                            message.Subject = emailSubject;
+                            message.Body = emailBodyCopy.ToString();
+                            message.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = SMTPServer;
+                            if (mailFromPassword != "")
+                            {
+                                // If the password is blank, assume mail relay is permitted
+                                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                            }
+                            smtp.Send(message);
+                        }
+                        catch { }
+                    }
+
+                    eventAlert.reminderEmailSent = true;
+                    eventAlert.Update();
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("EventAlert", "SendAlertEmails", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

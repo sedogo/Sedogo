@@ -11,7 +11,7 @@
 	<meta http-equiv="content-style-type" content="text/css" />
 	<meta http-equiv="expires" content="never" />
 
-	<title>Home : Sedogo : Create your future timeline.  Connect, track and interact with like minded people.</title>
+	<title>Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />

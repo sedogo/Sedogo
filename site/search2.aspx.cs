@@ -218,18 +218,81 @@ public partial class search2 : SedogoPage
             searchHistory.searchDate = DateTime.Now;
             if (searchText == "")
             {
-                searchHistory.searchText = eventNameText + "," + eventVenue + "," + eventOwnerName;
+                searchText = eventNameText + ", " + eventVenue + ", " + eventOwnerName;
+                if (eventCategoryID > 0)
+                {
+                    string category = "";
+                    switch (eventCategoryID)
+                    {
+                        case 1:
+                            category = "Personal";
+                            break;
+                        case 2:
+                            category = "Travel";
+                            break;
+                        case 3:
+                            category = "Friends";
+                            break;
+                        case 4:
+                            category = "Family";
+                            break;
+                        case 5:
+                            category = "General";
+                            break;
+                        case 6:
+                            category = "Health";
+                            break;
+                        case 7:
+                            category = "Money";
+                            break;
+                        case 8:
+                            category = "Education";
+                            break;
+                        case 9:
+                            category = "Hobbies";
+                            break;
+                        case 10:
+                            category = "Culture";
+                            break;
+                        case 11:
+                            category = "Charity";
+                            break;
+                        case 12:
+                            category = "Green";
+                            break;
+                        case 13:
+                            category = "Misc";
+                            break;
+                    }
+                    searchText += ", " + category;
+                }
+                if (beforeBirthday > 0)
+                {
+                    searchText += ", Before birthday: " + beforeBirthday.ToString();
+                }
+                if (dateSearchStartDate > DateTime.MinValue)
+                {
+                    searchText += ", From date: " + dateSearchStartDate.ToString("dd/MM/yyyy");
+                }
+                if (dateSearchEndDate > DateTime.MinValue)
+                {
+                    searchText += ", To date: " + dateSearchEndDate.ToString("dd/MM/yyyy");
+                }
+                searchHistory.searchText = searchText;
+                searchResultsLabel.Text = "Search results for: " + searchText;
+                searchForLiteral1.Text = searchText;
+                searchForLiteral2.Text = searchText;
             }
             else
             {
                 searchHistory.searchText = searchText;
+                searchResultsLabel.Text = "Search results for: " + searchText;
+                searchForLiteral1.Text = searchText;
+                searchForLiteral2.Text = searchText;
             }
             searchHistory.userID = userID;
             searchHistory.searchHits = 0;
             searchHistory.Add();
-
-            searchForLiteral1.Text = searchText;
-            searchForLiteral2.Text = searchText;
 
             PopulateEvents(user);
 

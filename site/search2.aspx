@@ -217,7 +217,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "Search results",
+                   		endLabel: "<asp:Literal id="searchResultsLabel" runat="server" />",
                    		// theme:      theme,
                    		cssClass: 't-highlight2'
 					})
@@ -258,6 +258,10 @@
         openModal("viewEvent.aspx?EID=" + eventID);
     }    
     function viewProfile(eventUserID)
+    {
+        openModal("userProfile.aspx?UID=" + eventUserID);
+    }
+    function viewUserTimeline(eventUserID)
     {
         location.href = "userTimeline.aspx?UID=" + eventUserID;
     }

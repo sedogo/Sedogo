@@ -228,7 +228,7 @@
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
-    <form id="form1" runat="server">
+    <form id="defaultForm" runat="server">
     <div>
     
 		<div id="container">

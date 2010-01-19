@@ -33,7 +33,7 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
         if( !IsPostBack )
         {
             int loggedInUserID = -1;
-            if (Session["loggedInUserID"] != null)
+            if (Session["loggedInUserID"] != null && Page.Form.ID != "defaultForm")
             {
                 loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
             }

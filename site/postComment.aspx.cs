@@ -60,6 +60,9 @@ public partial class postComment : SedogoPage
         comment.commentText = commentText;
         comment.Add();
 
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        sedogoEvent.SendEventUpdateEmail();
+
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 

@@ -934,7 +934,11 @@ img.profile
 
 
 
-
+		.close-controls {
+			position: absolute;
+			top 0;
+			right: 4px;
+		}
 		#controls {
 			position: absolute;
 			top: 184px;
@@ -1009,6 +1013,9 @@ img.profile
 		}
 		.filter13 {
 			color: #A32672
+		}
+		.filter14 {
+			color: #669
 		}
 
 
@@ -1290,4 +1297,12 @@ a.underline-bold {
   border-color:#BB5503 !important;
   border-style:solid;
   font-weight:bold;
+}
+
+
+
+
+
+.misc-pop-up {
+	display: none;
 }

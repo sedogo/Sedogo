@@ -1,5 +1,5 @@
 function centerSimileAjax(date) {
-    tl.getBand(0).setCenterVisibleDate(SimileAjax.DateTime.parseGregorianDateTime(date));
+	tl.getBand(0).setCenterVisibleDate(SimileAjax.DateTime.parseGregorianDateTime(date));
 }
 
 //Function to reload page (to force timeline height to refresh on category selection)
@@ -7,7 +7,7 @@ function reloadPage() {
 	setTimeout("location.reload(true);", 0);
 }
 
-var numOfFilters = 13;
+var numOfFilters = 14;
 
 
 
@@ -94,6 +94,9 @@ function setupFilterHighlightControls(div, timeline, bandIndices, theme) {
 			case 12:
 				valueOfCheckbox = "Misc"
 				break;
+			case 13:
+				valueOfCheckbox = "Work"
+				break;
 		}
 		input.value = valueOfCheckbox;
 
@@ -105,7 +108,7 @@ function setupFilterHighlightControls(div, timeline, bandIndices, theme) {
 		td.appendChild(label);
 	}
 
-	tr = table.insertRow(13);
+	tr = table.insertRow(numOfFilters);
 	tr.style.verticalAlign = "middle";
 	td = tr.insertCell(0);
 	td.innerHTML = '<div class="refresh-timeline"><a href="#" onclick=""><img src="images/refresh.png" title="" alt="" /> Refresh timeline</a></div>';

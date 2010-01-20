@@ -22,7 +22,7 @@ $(document).ready(function() {
 	});
 
 
-	$("#show-categories").click(function() {
+	$("#show-categories, .close-controls").click(function() {
 		$("#controls").toggle();
 		return false;
 	});
@@ -103,6 +103,30 @@ $(document).ready(function() {
 			$(this).attr("value", "e.g. climb Everest");
 		}
 	});
+
+
+
+
+	$('.misc-pop-up-link').click(function() {
+		$('.misc-pop-up').css('display', 'block');
+		return false;
+	});
+	$('.misc-pop-up-link-close').click(function() {
+		$('.misc-pop-up').css('display', 'none');
+		return false;
+	});
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 function createCookie(name, value, days) {

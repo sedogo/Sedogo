@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="getInspired.aspx.cs" Inherits="getInspired" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="getInspired.aspx.cs" Inherits="getInspired" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 
@@ -118,39 +118,46 @@
 					&nbsp;
 				</div>
 				<div class="one-col">
-					<h2 class="col-header">Get inspired</h2>
-					<p class="teaser">What have you often vowed to do before you die? Travel the world? 
-                        Learn a language? Write that novel? Ghandi once said the future 
+					<h2 class="col-header" style="margin-top: 12px; width: 160px">get inspired</h2>
+					<p class="teaser" style="font-size: 22px; line-height: 30px">What have you often vowed to do before you die? Travel the world? 
+                        Learn a language?<br />
+                        Write that novel?<br />
+                        Ghandi once said the future 
                         depends on what we do in the present.</p>
+                    <br />
+                    <br />
 					<p><a href="register.aspx" title="get started" class="button modal">get started</a></p>
 				</div>
 				<div class="one-col">
-					<h2 class="col-header">&nbsp;</h2>
-					<p class="teaser">But it’s not always easy, is it? Life often gets in the way. Well, 
+					<h2 class="col-header" style="margin-top: 12px; border-color: #fff">&nbsp;</h2>
+					<p class="teaser" style="font-size: 13px; width: 220px">But it's not always easy, is it? Life often gets in the way. Well, 
                         that's exactly why we launched Sedogo.  It's more than a diary of 
                         planned goals, Sedogo is a way of connecting with people who can be 
                         part of your future hopes and dreams, however big or small. Whether 
-                        it’s bringing family and friends together to celebrate your next 
+                        it's bringing family and friends together to celebrate your next 
                         birthday, or meeting strangers who, a year from now, you'll be 
                         trusting with your life on the slopes of K2, sedogo really is the of 
                         the future of social networking. Your future.</p>
 				</div>
 				<div class="one-col-end">
-					<h2 class="col-header">Goal suggestions</h2>
-					<p class="teaser">Need some help getting started? Here are a few ideas that might grab 
-                        you. Add as many as take your fancy. After all, you only get one life.<br />
+					<h2 class="col-header" style="margin-top: 12px; width: 160px">goal suggestions</h2>
+					<p class="teaser" style="font-size: 13px"><strong>Need some help getting started? Here are a few ideas that might grab 
+                        you. Add as many as take your fancy. After all, you only get one life.</strong><br />
                         &nbsp;<br />
-                        Fly the double decker airbus A380<br />
-                        Own an exotic pet<br />
-                        Try zorbing<br />
-                        Go on a Murder Mystery Weekend<br />
-                        Form the ultimate Pub Quiz team<br />
-                        Learn to ballroom waltz, Jane Austen style<br />
-                        Go skinning dipping in a natural spa<br />
-                        Experiment with a faddy diet<br />
-                        Rent a remote cabin<br />
-                        Sleep under the stars<br />
-                        Watch a play in the West End every month</p>
+                        <span style="color: #0cf">
+	                        &gt; Fly the double decker airbus A380<br />
+                            &gt; Own an exotic pet<br />
+                            &gt; Try zorbing<br />
+                            &gt; Go on a Murder Mystery Weekend<br />
+                            &gt; Form the ultimate Pub Quiz team<br />
+                            &gt; Learn to ballroom waltz, Jane Austen style<br />
+                            &gt; Go skinning dipping in a natural spa<br />
+                            &gt; Experiment with a faddy diet<br />
+                            &gt; Rent a remote cabin<br />
+                            &gt; Sleep under the stars<br />
+                            &gt; Watch a play in the West End every month
+                        </span>
+                    </p>
 				</div>
 			</div>
 			<div id="footer">

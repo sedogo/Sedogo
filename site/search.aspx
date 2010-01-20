@@ -292,7 +292,9 @@
 				</noscript>
 			</div>
 		</div>
-		<div class="controls" id="controls" style="top: 155px"></div>
+		<div class="controls" id="controls" style="top: 185px">
+			<a href="#" class="close-controls"><img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
+		</div>
 		<div id="other-content">
 
 		    <p class="advanced-search"><a href="profile.aspx" title="return to home page">return to home page</a></p>

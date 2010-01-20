@@ -286,7 +286,9 @@
 			        </noscript>
 		        </div>
 			</div>
-			<div class="controls" id="controls"></div>
+			<div class="controls" id="controls">
+				<a href="#" class="close-controls"><img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
+			</div>
 			<div id="other-content">
 				<div class="one-col">
 					&nbsp;

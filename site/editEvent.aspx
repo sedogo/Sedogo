@@ -334,6 +334,7 @@ function popupCalendarRangeEndDate(image)
                             <asp:ListItem Text="Money" Value="7" />
                             <asp:ListItem Text="Education" Value="8" />
                             <asp:ListItem Text="Hobbies" Value="9" />
+                            <asp:ListItem Text="Work" Value="14" />
                             <asp:ListItem Text="Culture" Value="10" />
                             <asp:ListItem Text="Charity" Value="11" />
                             <asp:ListItem Text="Green" Value="12" />

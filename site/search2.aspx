@@ -410,6 +410,7 @@
                                     <asp:ListItem Text="Money" Value="7" />
                                     <asp:ListItem Text="Education" Value="8" />
                                     <asp:ListItem Text="Hobbies" Value="9" />
+                                    <asp:ListItem Text="Misc" Value="14" />
                                     <asp:ListItem Text="Culture" Value="10" />
                                     <asp:ListItem Text="Charity" Value="11" />
                                     <asp:ListItem Text="Green" Value="12" />
@@ -587,7 +588,9 @@
 				</noscript>
 			</div>
 		</div>
-		<div class="controls" id="controls" style="top: 432px"></div>
+		<div class="controls" id="controls" style="top: 432px">
+			<a href="#" class="close-controls"><img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
+		</div>
 		<div id="other-content">
 			<div class="one-col">
 				<h2 class="col-header">My profile <span><a href="editProfile.aspx" title="Edit profile" class="modal">Edit</a></span></h2>

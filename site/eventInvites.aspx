@@ -37,11 +37,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div style="position: relative; height: 450px; overflow: auto">
     
         <div id="event-detail">
             <div class="right-col">
-				<!--***PAUL*** this needs to show pending invitations and accepted invitations as per graphic 'inviteothers.jpg'-->
+				<!--***PHIL*** this needs to show pending invitations and accepted invitations as per graphic 'inviteothers.jpg'-->
                 <h3 ID="currentInvitesHeader" runat="server" style="color: #0cf; margin: 50px 0 0 0">Pending invitations</h3>
                 
                 <h3 id="H1" runat="server" style="color: #0cf; margin: 50px 0 0 0">Accepted invitations</h3>
@@ -49,7 +49,7 @@
             </div>
             <div class="left-col">
 		        <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
-		        <!--***PAUL*** needs the following line to be dynamically generated-->
+		        <!--***PHIL*** needs the following line to be dynamically generated-->
 		        <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited 26th November 2009</p>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
 
@@ -67,7 +67,7 @@
 							<th>Where:</th>
 							<td></td>
 						</tr>
-						<!--***PAUL*** the output of the 'Before' section below needs to use better english so it always makes sense-->
+						<!--***PHIL*** the output of the 'Before' section below needs to use better english so it always makes sense-->
 						<tr>
 							<th>Before:</th>
 							<td><asp:Label ID="eventDateLabel" runat="server" /></td>
@@ -95,21 +95,20 @@
 
                 <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
                     Width="233px" Rows="3" />
+                <p style="font-size: 11px"><br />Please note that anyone without a sedogo account <br />will be invited to join to connect with your goal</p>
+		    </div>
+		</div>
 
-                <div class="buttons">
+ 
+    </div>
+                <div class="buttons" style="top: 418px; left: 316px">
                 <p>
 					<asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-lrg" Text="Back" ToolTip="Back" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
 	                <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
 	            
                 </p>
                 </div>
-
-                <p style="font-size: 11px"><br />Please note that anyone without a sedogo account <br />will be invited to join to connect with your goal</p>
-		    </div>
-		</div>
-    
-    </div>
-    </form>
+   </form>
 
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

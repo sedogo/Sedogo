@@ -333,7 +333,7 @@
 		        </tr>    
 		    </table>
 		</div>
-		<div id="timelines">
+		<div id="timelines" style="margin-bottom: 6px">
 			<div id="tools">
 				<ul class="timeline-options">
 					<li class="first"><a href="#" title="View all" id="view-all">View all</a></li>
@@ -351,7 +351,51 @@
 				</noscript>
 			</div>
 		</div>
-		<div class="controls" id="controls" style="top: 432px"></div>
+					
+		
+
+
+		<div style="height: 34px; position: relative">
+			<div class="misc-pop-up">
+				<div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent" style="width: 260px; height: 142px; left: 0px; bottom: 68px;">
+					<div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
+						<div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-top-right simileAjax-bubble-border-top-right-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-bottom-left simileAjax-bubble-border-bottom-left-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-bottom-right simileAjax-bubble-border-bottom-right-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-left simileAjax-bubble-border-left-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-right simileAjax-bubble-border-right-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-top simileAjax-bubble-border-top-pngTranslucent"></div>
+						<div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent"></div>
+						<div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
+							<div style="position: static; width: 260px;">
+								<div class="timeline-event-bubble-title">Guy Eaton <a href="" title=""><img src="images/ico_messages.gif" title="" alt="" /></a></div>
+								<div class="timeline-event-bubble-body">
+									<img src="images/profile/darren-test-pic.jpg" title="" alt="" style="float: right; margin: 0 0 8px 12px" />
+									<p style="font-size: 11px; color: #666; margin-bottom: 8px">Many goals. Big and small.  So much to do.  And whatever else I'd like to say about myself.</p>
+									<p style="font-size: 11px;">
+										<span class="blue">12</span> Goals<br />
+										<span class="blue">15</span> Goals Achieved<br />
+										<span class="blue">8</span> Group Goals<br />
+										<span class="blue">9</span> Goals Followed
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close"></div>
+						<div class="simileAjax-bubble-arrow-point-down simileAjax-bubble-arrow-point-down-pngTranslucent" style="left: 45px;"></div>
+					</div>
+				</div>
+			</div>
+			<a href="" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link">Guy Eaton's profile</a>
+		</div>
+
+
+
+
+		<div class="controls" id="controls" style="top: 432px">
+			<a href="#" class="close-controls"><img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
+		</div>
 		<div id="other-content">
 
 			<div class="one-col">

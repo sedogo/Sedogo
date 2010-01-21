@@ -82,6 +82,25 @@ public partial class userTimeline : SedogoPage
             }
             profileImage.ToolTip = user.fullName + "'s profile picture";
 
+            // Populate the profile popup
+            usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
+            usersProfileNameLabel.Text = viewUser.fullName;
+            usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>");
+            userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(viewUserID).ToString(); ;
+            userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(viewUserID).ToString();
+            userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(viewUserID).ToString();
+            userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(viewUserID).ToString();
+            if (viewUser.profilePicThumbnail != "")
+            {
+                userProfileThumbnailPic.ImageUrl = viewUser.profilePicThumbnail;
+            }
+            else
+            {
+                userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
+            }
+            userProfileThumbnailPic.Attributes.Add("style","float: right; margin: 0 0 8px 12px");
+            userProfilePopupMessageLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
+
             int messageCount = Message.GetUnreadMessageCountForUser(userID);
             if (messageCount == 1)
             {

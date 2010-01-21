@@ -211,7 +211,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "<asp:Literal id="timelineUserNameLiteral" runat="server" />'s profile",
+                   		endLabel: "<asp:Literal id="timelineUserNameLiteral" runat="server" />'s timeline",
                    		// theme:      theme,
                    		cssClass: 't-highlight2'
 					})
@@ -369,15 +369,16 @@
 						<div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent"></div>
 						<div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
 							<div style="position: static; width: 260px;">
-								<div class="timeline-event-bubble-title">Guy Eaton <a href="" title=""><img src="images/ico_messages.gif" title="" alt="" /></a></div>
+								<div class="timeline-event-bubble-title"><asp:Label ID="usersProfileNameLabel" runat="server" /> 
+								<asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/ico_messages.gif" runat="server" CssClass="modal" /></div>
 								<div class="timeline-event-bubble-body">
-									<img src="images/profile/darren-test-pic.jpg" title="" alt="" style="float: right; margin: 0 0 8px 12px" />
-									<p style="font-size: 11px; color: #666; margin-bottom: 8px">Many goals. Big and small.  So much to do.  And whatever else I'd like to say about myself.</p>
+								    <asp:Image id="userProfileThumbnailPic" runat="server" />
+									<p style="font-size: 11px; color: #666; margin-bottom: 8px"><asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
 									<p style="font-size: 11px;">
-										<span class="blue">12</span> Goals<br />
-										<span class="blue">15</span> Goals Achieved<br />
-										<span class="blue">8</span> Group Goals<br />
-										<span class="blue">9</span> Goals Followed
+										<span class="blue"><asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
+										<span class="blue"><asp:Label ID="userProfilePopupGoalsAchievedLabel" runat="server" /></span> Goals Achieved<br />
+										<span class="blue"><asp:Label ID="userProfilePopupGroupGoalsLabel" runat="server" /></span> Group Goals<br />
+										<span class="blue"><asp:Label ID="userProfilePopupGoalsFollowedLabel" runat="server" /></span> Goals Followed
 									</p>
 								</div>
 							</div>
@@ -387,11 +388,8 @@
 					</div>
 				</div>
 			</div>
-			<a href="" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link">Guy Eaton's profile</a>
+			<a href="" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link"><asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
 		</div>
-
-
-
 
 		<div class="controls" id="controls" style="top: 432px">
 			<a href="#" class="close-controls"><img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>

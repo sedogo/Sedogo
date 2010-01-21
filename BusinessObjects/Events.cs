@@ -672,7 +672,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -711,7 +711,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetTrackedEventID", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetTrackedEventID", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -746,7 +746,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetTrackingUserCount", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -781,7 +781,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetCommentCount", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetCommentCount", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -816,7 +816,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetPendingMemberUserCount", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetPendingMemberUserCount", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -851,7 +851,7 @@ namespace Sedogo.BusinessObjects
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.WriteLog("TrackedEvent", "GetPendingMemberUserCountByUserID", ex.Message, logMessageLevel.errorMessage);
+                errorLog.WriteLog("SedogoEvent", "GetPendingMemberUserCountByUserID", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -860,6 +860,76 @@ namespace Sedogo.BusinessObjects
             }
 
             return pendingUserCount;
+        }
+
+        //===============================================================
+        // Function: GetEventCountNotAchieved
+        //===============================================================
+        public static int GetEventCountNotAchieved(int userID)
+        {
+            int eventCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectEventCountNotAchievedByUserID";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                eventCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEvent", "GetEventCountNotAchieved", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return eventCount;
+        }
+
+        //===============================================================
+        // Function: GetEventCountAchieved
+        //===============================================================
+        public static int GetEventCountAchieved(int userID)
+        {
+            int eventCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectEventCountAchievedByUserID";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                eventCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEvent", "GetEventCountAchieved", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return eventCount;
         }
     }
 

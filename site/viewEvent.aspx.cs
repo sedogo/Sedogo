@@ -92,6 +92,12 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 if (sedogoEvent.userID != userID)
                 {
                     // Viewing someone elses event
+                    if (sedogoEvent.privateEvent == true)
+                    {
+                        // Viewing private events is not permitted
+                        Response.Redirect("profileRedirect.aspx");
+                    }
+
                     messagesHeader.Visible = false;
                     messagesLink.Visible = false;
                     invitesHeader.Visible = false;
@@ -206,6 +212,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             else
             {
                 // Setup the window for a user who is not registered/logged in
+                if (sedogoEvent.privateEvent == true)
+                {
+                    // Viewing private events is not permitted
+                    Response.Redirect("profile.aspx");
+                }
 
                 messagesHeader.Visible = false;
                 messagesLink.Visible = false;

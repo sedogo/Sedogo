@@ -47,9 +47,18 @@
             <fieldset>
                 <ol>
                     <li>
+                        <label for="">Your email address</label>
+                        <asp:Label id="yourEmailAddressLabel" runat="server" />
+                        <asp:TextBox ID="emailAddressTextBox" runat="server" Width="250" MaxLength="200" />
+                        <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
+                        ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 
+                        Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
                         <label for="">Feedback</label>
                         <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
-                            Width="400" Rows="10"></asp:TextBox>
+                            Width="250" Rows="10"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
                         ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
                         Display="Dynamic">

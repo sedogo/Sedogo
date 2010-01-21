@@ -33,7 +33,19 @@ public partial class feedback : System.Web.UI.Page
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        int currentUserID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+            SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
 
+            yourEmailAddressLabel.Text = currentUser.emailAddress;
+            emailAddressTextBoxValidator.Enabled = false;
+            emailAddressTextBox.Visible = false;
+        }
+        else
+        {
+        }
     }
 
     //===============================================================
@@ -49,6 +61,10 @@ public partial class feedback : System.Web.UI.Page
             currentUserID = int.Parse(Session["loggedInUserID"].ToString());
             SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
             userEmailAddress = currentUser.emailAddress;
+        }
+        else
+        {
+            userEmailAddress = emailAddressTextBox.Text;
         }
         
         string feedbackText = feedbackTextBox.Text;

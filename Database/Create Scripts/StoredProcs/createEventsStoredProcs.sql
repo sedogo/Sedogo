@@ -203,6 +203,7 @@ BEGIN
 	JOIN Users U
 	ON E.UserID = U.UserID
 	WHERE E.Deleted = 0
+	AND U.Deleted = 0
 	ORDER BY E.StartDate
 END
 GO
@@ -541,6 +542,64 @@ END
 GO
 
 GRANT EXEC ON spDeleteEvent TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectEventCountNotAchievedByUserID
+// Description:
+//   Selects the event count
+//=============================================================*/
+PRINT 'Creating spSelectEventCountNotAchievedByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventCountNotAchievedByUserID')
+BEGIN
+	DROP Procedure spSelectEventCountNotAchievedByUserID
+END
+GO
+
+CREATE Procedure spSelectEventCountNotAchievedByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Events
+	WHERE Deleted = 0
+	AND EventAchieved = 0
+	AND UserID = @UserID
+END
+GO
+
+GRANT EXEC ON spSelectEventCountNotAchievedByUserID TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spSelectEventCountAchievedByUserID
+// Description:
+//   Selects the event count
+//=============================================================*/
+PRINT 'Creating spSelectEventCountAchievedByUserID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventCountAchievedByUserID')
+BEGIN
+	DROP Procedure spSelectEventCountAchievedByUserID
+END
+GO
+
+CREATE Procedure spSelectEventCountAchievedByUserID
+	@UserID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Events
+	WHERE Deleted = 0
+	AND EventAchieved = 1
+	AND UserID = @UserID
+END
+GO
+
+GRANT EXEC ON spSelectEventCountAchievedByUserID TO sedogoUser
 GO
 
 /*===============================================================

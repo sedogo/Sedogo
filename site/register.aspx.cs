@@ -167,7 +167,7 @@ public partial class register : System.Web.UI.Page
             emailBodyCopy.AppendLine("</style></head>");
             emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
             emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-            emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+            //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
             emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
             emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo</h1>");
@@ -175,10 +175,14 @@ public partial class register : System.Web.UI.Page
             emailBodyCopy.AppendLine("			<p><a href=\"" + siteBaseURL + "/e/?G=" + newUser.GUID + "\"><u>click here</u></a>.</p>");
             emailBodyCopy.AppendLine("			<br /><br />");
             emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
-            emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
-            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
-            emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-            emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+            emailBodyCopy.AppendLine("			<br /></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr></table></body></html>");
+
+            // Old version, removed because of spam filters
+            //emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
+            //emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            //emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             string SMTPServer = gd.GetStringValue("SMTPServer");
             string mailFromAddress = gd.GetStringValue("MailFromAddress");

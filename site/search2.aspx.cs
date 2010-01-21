@@ -344,6 +344,28 @@ public partial class search2 : SedogoPage
     }
 
     //===============================================================
+    // Function: click_viewArchiveLink
+    //===============================================================
+    protected void click_viewArchiveLink(object sender, EventArgs e)
+    {
+        //Boolean viewArchivedEvents = false;
+        if (Session["ViewArchivedEvents"] != null)
+        {
+            Session["ViewArchivedEvents"] = !(Boolean)Session["ViewArchivedEvents"];
+        }
+        else
+        {
+            Session["ViewArchivedEvents"] = true;
+        }
+
+        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
+            int.Parse(Session["loggedInUserID"].ToString()));
+        PopulateEvents(user);
+
+        PopulateLatestSearches();
+    }
+
+    //===============================================================
     // Function: PopulateEvents
     //===============================================================
     protected void PopulateEvents(SedogoUser user)
@@ -353,6 +375,15 @@ public partial class search2 : SedogoPage
         if (Session["ViewArchivedEvents"] != null)
         {
             viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
+        }
+
+        if (viewArchivedEvents == true)
+        {
+            viewArchiveLink.Text = "Hide Past Goals";
+        }
+        else
+        {
+            viewArchiveLink.Text = "Past Goals";
         }
 
         DateTime todayStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,

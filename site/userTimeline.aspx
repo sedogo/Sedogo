@@ -388,7 +388,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link"><asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
+			<a href="#" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link"><asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
 		</div>
 
 		<div class="controls" id="controls" style="top: 432px">
@@ -403,13 +403,10 @@
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<br />
 				<p class="extra-buttons">
+				    <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml" OnClick="click_viewArchiveLink" />
 				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">+ Goal</a>
 				</p>
 				<p>&nbsp;</p>
-				<p class="extra-buttons">
-				    <asp:HyperLink ID="sendMessageToUserLink" runat="server" ToolTip="send message"
-				        CssClass="button-sml modal" Text="send message" />
-				</p>
 				<ol class="items">
 					<li class="messages"><asp:HyperLink id="messageCountLink" runat="server" NavigateUrl="message.aspx" CssClass="modal" /></li>
 					<li class="alerts"><asp:HyperLink id="alertCountLink" NavigateUrl="alert.aspx" runat="server" CssClass="modal" /></li>

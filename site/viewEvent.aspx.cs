@@ -92,10 +92,23 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 if (sedogoEvent.userID != userID)
                 {
                     // Viewing someone elses event
+
+                    // For private events, you need to either own the event, be tracking it,
+                    // or have been invited to it
                     if (sedogoEvent.privateEvent == true)
                     {
-                        // Viewing private events is not permitted
-                        Response.Redirect("profileRedirect.aspx");
+                        int eventInviteCount = EventInvite.CheckUserEventInviteExists(eventID, userID);
+                        Boolean showOnTimeline = false;
+                        if (trackedEventID > 0)
+                        {
+                            TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
+                            showOnTimeline = trackedEvent.showOnTimeline;
+                        }
+                        if (eventInviteCount <= 0 && showOnTimeline == false)
+                        {
+                            // Viewing private events is not permitted
+                            Response.Redirect("profileRedirect.aspx");
+                        }
                     }
 
                     messagesHeader.Visible = false;

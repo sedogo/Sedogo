@@ -599,6 +599,7 @@
 				<p class="profile-intro"><asp:Label ID="profileTextLabel" runat="server" /></p>
 				<br />
 				<p class="extra-buttons">
+				    <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml" OnClick="click_viewArchiveLink" />
 				    <a href="addEvent.aspx" title="add goal" class="button-sml modal">+ Goal</a>
 				</p>
 				<ol class="items">

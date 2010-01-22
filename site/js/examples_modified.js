@@ -83,19 +83,19 @@ function setupFilterHighlightControls(div, timeline, bandIndices, theme) {
 				valueOfCheckbox = "Hobbies"
 				break;
 			case 9:
-				valueOfCheckbox = "Culture"
+				valueOfCheckbox = "Work"
 				break;
 			case 10:
-				valueOfCheckbox = "Charity"
+				valueOfCheckbox = "Culture"
 				break;
 			case 11:
-				valueOfCheckbox = "Green"
+				valueOfCheckbox = "Charity"
 				break;
 			case 12:
-				valueOfCheckbox = "Misc"
+				valueOfCheckbox = "Green"
 				break;
 			case 13:
-				valueOfCheckbox = "Work"
+				valueOfCheckbox = "Misc"
 				break;
 		}
 		input.value = valueOfCheckbox;

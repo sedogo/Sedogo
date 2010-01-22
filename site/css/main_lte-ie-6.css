@@ -8,7 +8,6 @@
 	padding: 0 8px 0 10px;
 }
 #modal-container {
-	display: block;
-	border: 8px solid #9b9885;
+	border: 8px solid #eee;
 	position: absolute;
 }

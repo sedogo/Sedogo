@@ -28,7 +28,7 @@
 	<!--[if IE]>
 		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->
-	<!--[if gte IE 6]>
+	<!--[if lte IE 6]>
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
 </head>

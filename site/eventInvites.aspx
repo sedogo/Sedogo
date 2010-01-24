@@ -50,7 +50,7 @@
             <div class="left-col">
 		        <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <!--***PHIL*** needs the following line to be dynamically generated-->
-		        <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited 26th November 2009</p>
+		        <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="editedDateLabel" runat="server" /></p>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
 
 				<table class="summary">
@@ -61,13 +61,12 @@
 						</tr>
 						<tr>
 							<th>Goal:</th>
-							<td></td>
+							<td><asp:Label ID="goalNameLabel" runat="server" /></td>
 						</tr>
 						<tr>
 							<th>Where:</th>
-							<td></td>
+							<td><asp:Label ID="goalVenueLabel" runat="server" /></td>
 						</tr>
-						<!--***PHIL*** the output of the 'Before' section below needs to use better english so it always makes sense-->
 						<tr>
 							<th>Before:</th>
 							<td><asp:Label ID="eventDateLabel" runat="server" /></td>
@@ -77,7 +76,7 @@
 
 				<div class="pinstripe-divider">&nbsp;</div>
 
-                <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <!--***PAUL*** need event name here--></h3>
+                <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" /></h3>
                 <p>Type in friends or family email addresses or Sedogo account names.</p>
 
                 <img src="images/profile/miniProfile.jpg" />

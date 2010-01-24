@@ -77,6 +77,7 @@ public partial class forgotPassword : System.Web.UI.Page
             emailBodyCopy.AppendLine("	p { margin: 0 }");
             emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
             emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
             emailBodyCopy.AppendLine("</style></head>");
             emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
             emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");

@@ -170,6 +170,9 @@ public partial class sendMessageToTrackers : SedogoPage
 
                     StringBuilder emailBodyCopy = new StringBuilder();
 
+                    string eventURL = gd.GetStringValue("SiteBaseURL");
+                    eventURL = eventURL + "?EID=" + eventID.ToString();
+
                     emailBodyCopy.AppendLine("<html>");
                     emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
                     emailBodyCopy.AppendLine("<style type=\"text/css\">");
@@ -192,7 +195,7 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60px\">Goal:</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + sedogoEvent.eventName + "</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\"><a href=\"" + eventURL + "\">" + sedogoEvent.eventName + "</a></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td>Where:</td>");

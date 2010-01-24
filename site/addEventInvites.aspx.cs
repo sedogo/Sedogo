@@ -48,7 +48,6 @@ public partial class addEventInvites : SedogoPage
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
         StringBuilder invalidEmailAddresses = new StringBuilder();
-        StringBuilder errorMessageDescription = new StringBuilder();
         string errorMessage = "";
         StringBuilder successfullyInvitedEmailAddresses = new StringBuilder();
         Boolean allInvitesSentOK = true;
@@ -140,8 +139,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite1EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite1EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -154,8 +152,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite2EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite2EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -168,8 +165,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite3EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite3EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -182,8 +178,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite4EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite4EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -196,8 +191,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite5EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite5EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -210,8 +204,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite6EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite6EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -224,8 +217,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite7EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite7EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -238,8 +230,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite8EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite8EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -252,8 +243,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite9EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite9EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -266,8 +256,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite10EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite10EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -280,8 +269,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite11EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite11EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -294,8 +282,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite12EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite12EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -308,8 +295,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite13EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite13EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -322,8 +308,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite14EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite14EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -336,8 +321,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite15EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite15EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -350,8 +334,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite16EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite16EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -364,8 +347,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite17EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite17EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -378,8 +360,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite18EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite18EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -392,8 +373,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite19EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite19EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -406,8 +386,7 @@ public partial class addEventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite20EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite20EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -424,14 +403,28 @@ public partial class addEventInvites : SedogoPage
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", 
                 "alert(\"Invitations to the following addresses could not be sent: "
-                + errorMessageDescription.ToString().Replace("\n", ", ").Replace("\r", "") + "\");", true);
-            //newUserInvitesTextBox.Text = invalidEmailAddresses.ToString();
+                + invalidEmailAddresses.ToString().Replace("\n", ", ").Replace("\r", "") + "\");", true);
 
             inviteTextBox1.Text = "";
             inviteTextBox2.Text = "";
             inviteTextBox3.Text = "";
             inviteTextBox4.Text = "";
             inviteTextBox5.Text = "";
+            inviteTextBox6.Text = "";
+            inviteTextBox7.Text = "";
+            inviteTextBox8.Text = "";
+            inviteTextBox9.Text = "";
+            inviteTextBox10.Text = "";
+            inviteTextBox11.Text = "";
+            inviteTextBox12.Text = "";
+            inviteTextBox13.Text = "";
+            inviteTextBox14.Text = "";
+            inviteTextBox15.Text = "";
+            inviteTextBox16.Text = "";
+            inviteTextBox17.Text = "";
+            inviteTextBox18.Text = "";
+            inviteTextBox19.Text = "";
+            inviteTextBox20.Text = "";
         }
     }
 
@@ -481,6 +474,7 @@ public partial class addEventInvites : SedogoPage
                         emailBodyCopy.AppendLine("	p { margin: 0 }");
                         emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
                         emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                        emailBodyCopy.AppendLine("	img { border: 0; }");
                         emailBodyCopy.AppendLine("</style></head>");
                         emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
                         emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
@@ -542,11 +536,17 @@ public partial class addEventInvites : SedogoPage
                         }
                         emailBodyCopy.AppendLine("			<br /><br />");
                         emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
-                        emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
-                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
-                        emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-                        emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+                        emailBodyCopy.AppendLine("			<br /></td>");
+                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr>");
+                        emailBodyCopy.AppendLine("		<tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
                         emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+                        // Remove to take out images from invite email
+                        //emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
+                        //emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                        //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                        //emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+                        //emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                         string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";
 

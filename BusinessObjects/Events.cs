@@ -553,6 +553,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("	p { margin: 0 }");
             emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
             emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
             emailBodyCopy.AppendLine("</style></head>");
             emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
             emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
@@ -565,6 +566,10 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
             emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"3\">&nbsp;</td>");
             emailBodyCopy.AppendLine("					<td width=\"240px\">" + m_eventName + "</td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td>Who:</td>");
+            emailBodyCopy.AppendLine("					<td>" + eventOwner.firstName + " " + eventOwner.lastName + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td>Where:</td>");
@@ -590,6 +595,29 @@ namespace Sedogo.BusinessObjects
             string mailFromAddress = gd.GetStringValue("MailFromAddress");
             string mailFromUsername = gd.GetStringValue("MailFromUsername");
             string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            // Sent the message to the event owner as well as the trackers
+            if (eventOwner.enableSendEmails == true)
+            {
+                try
+                {
+                    MailMessage message = new MailMessage(mailFromAddress, eventOwner.emailAddress);
+                    message.ReplyTo = new MailAddress(mailFromAddress);
+
+                    message.Subject = emailSubject;
+                    message.Body = emailBodyCopy.ToString();
+                    message.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = SMTPServer;
+                    if (mailFromPassword != "")
+                    {
+                        // If the password is blank, assume mail relay is permitted
+                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                    }
+                    smtp.Send(message);
+                }
+                catch { }
+            }
 
             SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
             try
@@ -1537,6 +1565,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("	p { margin: 0 }");
             emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
             emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
             emailBodyCopy.AppendLine("</style></head>");
             emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
             emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
@@ -1629,6 +1658,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("	p { margin: 0 }");
             emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
             emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
             emailBodyCopy.AppendLine("</style></head>");
             emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
             emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");

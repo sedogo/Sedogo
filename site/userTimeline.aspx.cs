@@ -84,6 +84,7 @@ public partial class userTimeline : SedogoPage
 
             // Populate the profile popup
             usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
+            usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?UID=" + viewUserID.ToString();
             usersProfileNameLabel.Text = viewUser.fullName;
             usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>");
             userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(viewUserID).ToString(); ;
@@ -92,7 +93,7 @@ public partial class userTimeline : SedogoPage
             userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(viewUserID).ToString();
             if (viewUser.profilePicThumbnail != "")
             {
-                userProfileThumbnailPic.ImageUrl = viewUser.profilePicThumbnail;
+                userProfileThumbnailPic.ImageUrl = "~/assets/profilePics/" + viewUser.profilePicThumbnail;
             }
             else
             {

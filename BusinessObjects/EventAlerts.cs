@@ -424,6 +424,7 @@ namespace Sedogo.BusinessObjects
                     emailBodyCopy.AppendLine("	p { margin: 0 }");
                     emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
                     emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                    emailBodyCopy.AppendLine("	img { border: 0; }");
                     emailBodyCopy.AppendLine("</style></head>");
                     emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
                     emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
@@ -435,11 +436,15 @@ namespace Sedogo.BusinessObjects
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
                     emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"3\">&nbsp;</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + sedogoEvent.eventName + "</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"240px\"><a href=\"" + inviteURL + "\">" + sedogoEvent.eventName + "</a></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td>Where:</td>");
                     emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
+                    emailBodyCopy.AppendLine("				</tr>");
+                    emailBodyCopy.AppendLine("				<tr>");
+                    emailBodyCopy.AppendLine("					<td>Who:</td>");
+                    emailBodyCopy.AppendLine("					<td>" + user.firstName + " " + user.lastName + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td>When:</td>");

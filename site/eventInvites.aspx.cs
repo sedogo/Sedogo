@@ -87,6 +87,10 @@ public partial class eventInvites : SedogoPage
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
             eventDateLabel.Text = dateString;
             eventDescriptionLabel.Text = sedogoEvent.eventDescription.Replace("\n", "<br/>");
+            eventNameLabel.Text = sedogoEvent.eventName;
+            goalNameLabel.Text = sedogoEvent.eventName;
+            goalVenueLabel.Text = sedogoEvent.eventVenue;
+            editedDateLabel.Text = sedogoEvent.lastUpdatedDate.ToString("dd MMMM yyyy");
 
             PopulateInvitations(eventID);
         }
@@ -175,7 +179,6 @@ public partial class eventInvites : SedogoPage
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
         StringBuilder invalidEmailAddresses = new StringBuilder();
-        StringBuilder errorMessageDescription = new StringBuilder();
         string errorMessage = "";
         StringBuilder successfullyInvitedEmailAddresses = new StringBuilder();
         Boolean allInvitesSentOK = true;
@@ -252,8 +255,7 @@ public partial class eventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite1EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite1EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -266,8 +268,7 @@ public partial class eventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite2EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite2EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -280,8 +281,7 @@ public partial class eventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite3EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite3EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -294,8 +294,7 @@ public partial class eventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite4EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite4EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -308,8 +307,7 @@ public partial class eventInvites : SedogoPage
                 currentEvent, currentUser, out errorMessage) == false)
             {
                 allInvitesSentOK = false;
-                invalidEmailAddresses.AppendLine(invite5EmailAddress);
-                errorMessageDescription.AppendLine(errorMessage);
+                invalidEmailAddresses.AppendLine(invite5EmailAddress + ": " + errorMessage);
             }
             else
             {
@@ -326,7 +324,6 @@ public partial class eventInvites : SedogoPage
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", 
                 "alert(\"Invitations to the following addresses could not be sent: "
                 + invalidEmailAddresses.ToString().Replace("\n", ", ").Replace("\r", "") + "\");", true);
-            //newUserInvitesTextBox.Text = invalidEmailAddresses.ToString();
 
             inviteTextBox1.Text = "";
             inviteTextBox2.Text = "";
@@ -384,6 +381,7 @@ public partial class eventInvites : SedogoPage
                         emailBodyCopy.AppendLine("	p { margin: 0 }");
                         emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
                         emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                        emailBodyCopy.AppendLine("	img { border: 0; }");
                         emailBodyCopy.AppendLine("</style></head>");
                         emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
                         emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");

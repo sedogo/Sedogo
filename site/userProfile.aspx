@@ -69,6 +69,23 @@
                         <asp:Label runat="server" ID="homeTownLabel" />
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Goals</label><br />
+                        <asp:Label runat="server" ID="userProfilePopupGoalsLabel" />
+                    </li>
+                    <li>
+                        <label for="">Goals achieved</label><br />
+                        <asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" />
+                    </li>
+                    <li>
+                        <label for="">Group goals</label><br />
+                        <asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" />
+                    </li>
+                    <li>
+                        <label for="">Goals followed</label><br />
+                        <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" />
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
                 </ol>
             </fieldset>
 

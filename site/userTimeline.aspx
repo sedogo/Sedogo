@@ -369,7 +369,7 @@
 						<div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent"></div>
 						<div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
 							<div style="position: static; width: 260px;">
-								<div class="timeline-event-bubble-title"><asp:Label ID="usersProfileNameLabel" runat="server" /> 
+								<div class="timeline-event-bubble-title"><asp:Hyperlink ID="usersProfileNameLabel" runat="server" /> 
 								<asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/ico_messages.gif" runat="server" CssClass="modal" /></div>
 								<div class="timeline-event-bubble-body">
 								    <asp:Image id="userProfileThumbnailPic" runat="server" />

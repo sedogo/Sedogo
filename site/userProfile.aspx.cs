@@ -53,6 +53,12 @@ public partial class userProfile : System.Web.UI.Page
             profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";
+
+        userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
+        userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
+        userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();
+        userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
+
     }
 
     //===============================================================

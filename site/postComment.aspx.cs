@@ -51,17 +51,18 @@ public partial class postComment : SedogoPage
     protected void saveChangesButton_click(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
         string commentText = commentTextBox.Text;
 
         SedogoEventComment comment = new SedogoEventComment(Session["loggedInUserFullName"].ToString());
         comment.eventID = eventID;
-        comment.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
+        comment.postedByUserID = loggedInUserID;
         comment.commentText = commentText;
         comment.Add();
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-        sedogoEvent.SendEventUpdateEmail();
+        sedogoEvent.SendEventUpdateEmail(loggedInUserID);
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }

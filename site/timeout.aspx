@@ -5,6 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="shortcut icon" href="favicon.ico" >  
     <title>Untitled Page</title>
 </head>
 <body>

@@ -255,7 +255,7 @@ public partial class timelineXML : System.Web.UI.Page
                     int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
 
                     string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
-                    linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
+                    linkURL = linkURL + memberUserCount.ToString() + " following<br/>";
                     linkURL = linkURL + messageCount.ToString() + " comments<br/>";
                     linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 

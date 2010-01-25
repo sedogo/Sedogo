@@ -532,7 +532,7 @@ namespace Sedogo.BusinessObjects
         //===============================================================
         // Function: SendEventUpdateEmail
         //===============================================================
-        public void SendEventUpdateEmail()
+        public void SendEventUpdateEmail(int updatingUserID)
         {
             StringBuilder emailBodyCopy = new StringBuilder();
             GlobalData gd = new GlobalData("");
@@ -597,26 +597,29 @@ namespace Sedogo.BusinessObjects
             string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
             // Sent the message to the event owner as well as the trackers
-            if (eventOwner.enableSendEmails == true)
+            if (updatingUserID != m_userID)
             {
-                try
+                if (eventOwner.enableSendEmails == true)
                 {
-                    MailMessage message = new MailMessage(mailFromAddress, eventOwner.emailAddress);
-                    message.ReplyTo = new MailAddress(mailFromAddress);
-
-                    message.Subject = emailSubject;
-                    message.Body = emailBodyCopy.ToString();
-                    message.IsBodyHtml = true;
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = SMTPServer;
-                    if (mailFromPassword != "")
+                    try
                     {
-                        // If the password is blank, assume mail relay is permitted
-                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                        MailMessage message = new MailMessage(mailFromAddress, eventOwner.emailAddress);
+                        message.ReplyTo = new MailAddress(mailFromAddress);
+
+                        message.Subject = emailSubject;
+                        message.Body = emailBodyCopy.ToString();
+                        message.IsBodyHtml = true;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = SMTPServer;
+                        if (mailFromPassword != "")
+                        {
+                            // If the password is blank, assume mail relay is permitted
+                            smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                        }
+                        smtp.Send(message);
                     }
-                    smtp.Send(message);
+                    catch { }
                 }
-                catch { }
             }
 
             SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
@@ -639,27 +642,30 @@ namespace Sedogo.BusinessObjects
                     //string homeTown = (string)rdr["HomeTown"];
                     string emailAddress = (string)rdr["EmailAddress"];
 
-                    SedogoUser user = new SedogoUser(m_loggedInUser, userID);
-                    if (user.enableSendEmails == true)
+                    if (updatingUserID != userID)
                     {
-                        try
+                        SedogoUser user = new SedogoUser(m_loggedInUser, userID);
+                        if (user.enableSendEmails == true)
                         {
-                            MailMessage message = new MailMessage(mailFromAddress, emailAddress);
-                            message.ReplyTo = new MailAddress(mailFromAddress);
-
-                            message.Subject = emailSubject;
-                            message.Body = emailBodyCopy.ToString();
-                            message.IsBodyHtml = true;
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = SMTPServer;
-                            if (mailFromPassword != "")
+                            try
                             {
-                                // If the password is blank, assume mail relay is permitted
-                                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                                MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                                message.ReplyTo = new MailAddress(mailFromAddress);
+
+                                message.Subject = emailSubject;
+                                message.Body = emailBodyCopy.ToString();
+                                message.IsBodyHtml = true;
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = SMTPServer;
+                                if (mailFromPassword != "")
+                                {
+                                    // If the password is blank, assume mail relay is permitted
+                                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                                }
+                                smtp.Send(message);
                             }
-                            smtp.Send(message);
+                            catch { }
                         }
-                        catch { }
                     }
                 }
                 rdr.Close();

@@ -209,10 +209,11 @@ public partial class editEvent : SedogoPage
         int eventID = int.Parse(Request.QueryString["EID"]);
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
         string eventName = eventNameTextBox.Text;
 
-        sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
+        //sedogoEvent.userID = int.Parse(Session["loggedInUserID"].ToString());
         sedogoEvent.eventName = eventName;
         sedogoEvent.eventDescription = eventDescriptionTextBox.Text;
         sedogoEvent.eventVenue = eventVenueTextBox.Text;
@@ -237,7 +238,7 @@ public partial class editEvent : SedogoPage
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Update();
 
-        sedogoEvent.SendEventUpdateEmail();
+        sedogoEvent.SendEventUpdateEmail(loggedInUserID);
 
         Response.Redirect("profileRedirect.aspx");
     }

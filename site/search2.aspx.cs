@@ -491,7 +491,8 @@ public partial class search2 : SedogoPage
                         // Event occurs in a date range - use the start date
                         dateString = rangeStartDate.ToString("ddd d MMMM yyyy") + " to " + rangeEndDate.ToString("ddd d MMMM yyyy");
 
-                        startDate = rangeStartDate;
+                        startDate = rangeEndDate;
+                        //startDate = rangeStartDate;
                     }
                     if (dateType == "A")
                     {
@@ -565,22 +566,19 @@ public partial class search2 : SedogoPage
 
                     eventString.AppendLine("<p>" + dateString + "</p>");
                     eventString.AppendLine("<p>");
+                    int followingUserCount = 0;
                     if (trackingUserCount > 0)
                     {
-                        eventString.AppendLine(trackingUserCount.ToString());
-                        eventString.AppendLine(" following this goal");
+                        followingUserCount += trackingUserCount;
                     }
                     if (joinedUserCount > 0)
                     {
-                        eventString.AppendLine(joinedUserCount.ToString());
-                        if (joinedUserCount == 1)
-                        {
-                            eventString.AppendLine(" member");
-                        }
-                        else
-                        {
-                            eventString.AppendLine(" members");
-                        }
+                        followingUserCount += joinedUserCount;
+                    }
+                    if (followingUserCount > 0)
+                    {
+                        eventString.AppendLine(followingUserCount.ToString());
+                        eventString.AppendLine(" following this goal");
                     }
                     eventString.AppendLine("</p>");
                     eventString.AppendLine("<a href=\"viewEvent.aspx?EID=" + eventID.ToString()

@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link rel="shortcut icon" href="favicon.ico" >  
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -70,20 +71,16 @@
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for="">Goals</label><br />
-                        <asp:Label runat="server" ID="userProfilePopupGoalsLabel" />
+                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals
                     </li>
                     <li>
-                        <label for="">Goals achieved</label><br />
-                        <asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" />
+                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /></span> Goals achieved
                     </li>
                     <li>
-                        <label for="">Group goals</label><br />
-                        <asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" />
+                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /></span> Group goals
                     </li>
                     <li>
-                        <label for="">Goals followed</label><br />
-                        <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" />
+                       <span class="blue"> <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /></span> Goals followed
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                 </ol>
@@ -98,7 +95,7 @@
     
             <div class="buttons">
                 <asp:LinkButton 
-                    ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message to user" 
+                    ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message" 
                     OnClick="sendMessageToUserLink_click" CssClass="button-lrg" />
             </div>
 

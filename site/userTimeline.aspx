@@ -5,6 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <link rel="shortcut icon" href="favicon.ico" >  
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
@@ -351,9 +352,6 @@
 				</noscript>
 			</div>
 		</div>
-					
-		
-
 
 		<div style="height: 34px; position: relative">
 			<div class="misc-pop-up">

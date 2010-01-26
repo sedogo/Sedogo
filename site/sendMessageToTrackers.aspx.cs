@@ -194,11 +194,11 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td width=\"60px\">Goal:</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\"><a href=\"" + eventURL + "\">" + sedogoEvent.eventName + "</a></td>");
+                    emailBodyCopy.AppendLine("					<td valign=\"top\">Goal:</td>");
+                    emailBodyCopy.AppendLine("					<td><a href=\"" + eventURL + "\">" + sedogoEvent.eventName + "</a></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td>Where:</td>");
+                    emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
                     emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");

@@ -398,26 +398,33 @@ public partial class userTimeline : SedogoPage
 
                     eventString.AppendLine("<p>" + dateString + "</p>");
                     eventString.AppendLine("<p>");
-                    int followingUserCount = 0;
-                    if (trackingUserCount > 0)
-                    {
-                        followingUserCount += trackingUserCount;
-                    }
                     if (joinedUserCount > 0)
                     {
-                        followingUserCount += joinedUserCount;
+                        eventString.AppendLine(joinedUserCount.ToString());
+                        if (joinedUserCount == 1)
+                        {
+                            eventString.AppendLine(" member");
+                        }
+                        else
+                        {
+                            eventString.AppendLine(" members");
+                        }
                     }
-                    if (followingUserCount > 0)
+                    if (trackingUserCount > 0)
                     {
-                        eventString.AppendLine(followingUserCount.ToString());
-                        eventString.AppendLine(" following this goal");
+                        if (joinedUserCount > 0)
+                        {
+                            eventString.AppendLine("<br/>");
+                        }
+                        eventString.AppendLine(trackingUserCount.ToString());
+                        eventString.AppendLine(" following");
                     }
                     eventString.AppendLine("</p>");
                     eventString.AppendLine("<a href=\"viewEvent.aspx?EID=" + eventID.ToString()
                         + "\" title=\"\" class=\"modal\">View</a>");
 
                     eventString.AppendLine("</td>");
-                    eventString.AppendLine("<td align=\"right\">");
+                    eventString.AppendLine("<td align=\"right\" style=\"padding-top:5px\">");
                     if (eventPicThumbnail == "")
                     {
                         eventString.AppendLine("<img src=\"./images/eventThumbnailBlank.png\" />");

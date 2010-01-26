@@ -1866,6 +1866,40 @@ GRANT EXEC ON spSelectEventInviteCountByEventID TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectPendingEventInviteCountByEventID
+// Description:
+//   Selects the tracked events for a user
+//=============================================================*/
+PRINT 'Creating spSelectPendingEventInviteCountByEventID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectPendingEventInviteCountByEventID')
+BEGIN
+	DROP Procedure spSelectPendingEventInviteCountByEventID
+END
+GO
+
+CREATE Procedure spSelectPendingEventInviteCountByEventID
+	@EventID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM EventInvites I
+	JOIN Events E
+	ON I.EventID = E.EventID
+	WHERE I.EventID = @EventID
+	AND E.Deleted = 0
+	AND I.Deleted = 0
+	AND I.InviteAccepted = 0
+	AND I.InviteDeclined = 0
+	
+END
+GO
+
+GRANT EXEC ON spSelectPendingEventInviteCountByEventID TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectEventInviteCountByEventIDAndEmailAddress
 // Description:
 //   Used to check if a particular email address has already

@@ -452,6 +452,41 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
+        // Function: GetPendingInviteCount
+        //===============================================================
+        public static int GetPendingInviteCount(int eventID)
+        {
+            int inviteCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectPendingEventInviteCountByEventID";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                inviteCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("EventInvite", "GetPendingInviteCount", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return inviteCount;
+        }
+
+        //===============================================================
         // Function: GetInviteCountForEmailAddress
         //===============================================================
         public static int GetInviteCountForEmailAddress(int eventID, string inviteEmailSentEmailAddress)

@@ -143,7 +143,7 @@ public partial class profile : SedogoPage
                 }
                 if (redir == "Requests")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"message.aspx\");", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
                 }
                 Session["DefaultRedirect"] = "";
             }
@@ -361,26 +361,33 @@ public partial class profile : SedogoPage
 
                 eventString.AppendLine("<p>" + dateString + "</p>");
                 eventString.AppendLine("<p>");
-                int followingUserCount = 0;
-                if (trackingUserCount > 0 )
+                if (joinedUserCount > 0)
                 {
-                    followingUserCount += trackingUserCount;
+                    eventString.AppendLine(joinedUserCount.ToString());
+                    if (joinedUserCount == 1)
+                    {
+                        eventString.AppendLine(" member");
+                    }
+                    else
+                    {
+                        eventString.AppendLine(" members");
+                    }
                 }
-                if (joinedUserCount > 0 )
+                if (trackingUserCount > 0)
                 {
-                    followingUserCount += joinedUserCount;
-                }
-                if (followingUserCount > 0)
-                {
-                    eventString.AppendLine(followingUserCount.ToString());
-                    eventString.AppendLine(" following this goal");
+                    if (joinedUserCount > 0)
+                    {
+                        eventString.AppendLine("<br/>");
+                    }
+                    eventString.AppendLine(trackingUserCount.ToString());
+                    eventString.AppendLine(" following");
                 }
                 eventString.AppendLine("</p>");
                 eventString.AppendLine("<a href=\"viewEvent.aspx?EID=" + eventID.ToString() 
                     + "\" title=\"\" class=\"modal\">View</a>");
 
                 eventString.AppendLine("</td>");
-                eventString.AppendLine("<td align=\"right\">");
+                eventString.AppendLine("<td align=\"right\" style=\"padding-top:5px\">");
                 if (eventPicThumbnail == "")
                 {
                     eventString.AppendLine("<img src=\"./images/eventThumbnailBlank.png\" />");

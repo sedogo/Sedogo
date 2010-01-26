@@ -182,7 +182,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     sendMessageDiv.Visible = false;
 
                     int messageCount = Message.GetMessageCountForEvent(eventID);
-                    int inviteCount = EventInvite.GetInviteCount(eventID);
+                    //int inviteCount = EventInvite.GetInviteCount(eventID);
+                    int pendingInviteCount = EventInvite.GetPendingInviteCount(eventID);
                     //int alertsCount = EventAlert.GetEventAlertCountPending(eventID);
 
                     if (messageCount == 1)
@@ -193,7 +194,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
                     }
-                    inviteCountLabel.Text = inviteCount.ToString() + " pending";
+                    inviteCountLabel.Text = pendingInviteCount.ToString() + " pending";
 
                     trackThisEventLink.Visible = false;
                     joinThisEventLink.Visible = false;  // You cannot join your own event

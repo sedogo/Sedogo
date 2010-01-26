@@ -40,7 +40,7 @@ public partial class userProfile : System.Web.UI.Page
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
 
         firstNameLabel.Text = user.firstName;
-        lastNameLabel.Text = user.lastName;
+        //lastNameLabel.Text = user.lastName;
         homeTownLabel.Text = user.homeTown;
         headlineLabel.Text = user.profileText.Replace("\n","<br/>");
 
@@ -53,6 +53,15 @@ public partial class userProfile : System.Web.UI.Page
             profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";
+
+        if( user.birthday > DateTime.MinValue )
+        {
+            birthdayLabel.Text = user.birthday.ToString("d MMMM yyyy");
+        }
+        else
+        {
+            birthdayLabel.Text = "";
+        }
 
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();

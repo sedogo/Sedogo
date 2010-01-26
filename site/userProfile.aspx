@@ -42,7 +42,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>View profile</h1>
+            <h1><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1>
 
             <table width="100%">
                 <tr>
@@ -51,18 +51,13 @@
             <fieldset>
                 <ol class="width-constrain">
                     <li>
-                        <label for="">First name</label><br />
-                        <asp:Label runat="server" ID="firstNameLabel" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Surname</label><br />
-                        <asp:Label runat="server" ID="lastNameLabel" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Introduction</label><br />
+                        <label for="">&nbsp;</label><br />
                         <asp:Label runat="server" ID="headlineLabel" />
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <label for="">Birthday</label><br />
+                        <asp:Label runat="server" ID="birthdayLabel" />
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>

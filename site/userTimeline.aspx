@@ -371,8 +371,8 @@
 								<asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/ico_messages.gif" runat="server" CssClass="modal" /></div>
 								<div class="timeline-event-bubble-body">
 								    <asp:Image id="userProfileThumbnailPic" runat="server" />
-									<p style="font-size: 11px; color: #666; margin-bottom: 8px"><asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
-									<p style="font-size: 11px;">
+									<p style="font-size: 12px; color: #666; margin-bottom: 8px"><asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
+									<p style="font-size: 12px;">
 										<span class="blue"><asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
 										<span class="blue"><asp:Label ID="userProfilePopupGoalsAchievedLabel" runat="server" /></span> Goals Achieved<br />
 										<span class="blue"><asp:Label ID="userProfilePopupGroupGoalsLabel" runat="server" /></span> Group Goals<br />

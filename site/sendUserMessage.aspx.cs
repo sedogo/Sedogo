@@ -105,15 +105,15 @@ public partial class sendUserMessage : SedogoPage
         emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
         emailBodyCopy.AppendLine("				</tr>");
         emailBodyCopy.AppendLine("				<tr>");
-        emailBodyCopy.AppendLine("					<td width=\"60px\">To:</td>");
-        emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageToUser.firstName + " " + messageToUser.lastName + "</td>");
+        emailBodyCopy.AppendLine("					<td valign=\"top\">To:</td>");
+        emailBodyCopy.AppendLine("					<td>" + messageToUser.firstName + " " + messageToUser.lastName + "</td>");
         emailBodyCopy.AppendLine("				</tr>");
         emailBodyCopy.AppendLine("				<tr>");
         emailBodyCopy.AppendLine("					<td width=\"60px\" valign=\"top\">Message:</td>");
         emailBodyCopy.AppendLine("					<td width=\"240px\"><p style=\"color:black\">" + messageText.Replace("\n", "<br/>") + "</p></td>");
         emailBodyCopy.AppendLine("				</tr>");
         emailBodyCopy.AppendLine("			</table>");
-        emailBodyCopy.AppendLine("			<p>To view all your messages, <a href=\"" + linkURL + "\">click here</a>.</p>");
+        emailBodyCopy.AppendLine("			<p>To reply to this message, <a href=\"" + linkURL + "\">click here</a>.</p>");
         emailBodyCopy.AppendLine("			<br /><br />");
         emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
         emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");

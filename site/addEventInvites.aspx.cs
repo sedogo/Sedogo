@@ -499,11 +499,11 @@ public partial class addEventInvites : SedogoPage
                             emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td>Where:</td>");
+                            emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
                             emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td>When:</td>");
+                            emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("			</table>");
@@ -522,11 +522,11 @@ public partial class addEventInvites : SedogoPage
                             emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td>Where:</td>");
+                            emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
                             emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td>When:</td>");
+                            emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("			</table>");

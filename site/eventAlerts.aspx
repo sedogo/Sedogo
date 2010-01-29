@@ -64,16 +64,16 @@ function popupCalendarAlertDate(image)
     
         <div id="event-detail">
             <div class="right-col">
-                <h3 ID="currentAlertsHeader" runat="server">Current alerts</h3>
+                <h3 ID="currentAlertsHeader" runat="server">Reminders</h3>
                 <asp:PlaceHolder ID="currentAlertsPlaceholder" runat="server" />
             </div>
             <div class="left-col">
-		        <h1 style="">alerts for <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		        <h1 style="">Reminders for <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
 		        <i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 
-                <p><b>Add new alert:</b></p>
+                <p><b>Add new reminder:</b></p>
 
                 <table>
                     <tr>

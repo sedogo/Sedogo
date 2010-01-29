@@ -315,6 +315,15 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             //trackThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
             //joinThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
 
+            if (sedogoEvent.dateType == "R")
+            {
+                dateLabel.Text = "Between";
+            }
+            else
+            {
+                dateLabel.Text = "Before";
+            }
+
             PopulateComments(eventID);
         }
     }

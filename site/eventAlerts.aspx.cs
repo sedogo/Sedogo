@@ -107,7 +107,7 @@ public partial class eventAlerts : SedogoPage
                     string outputText = "<h3>" + alertDate.ToString("ddd d MMMM yyyy") + "</h3><p>";
                     outputText = outputText + "<i>" + alertText.Replace("\n","<br/>") + "</i>";
                     outputText = outputText + " (<a href=\"eventAlerts.aspx?EID=" + eventID.ToString()
-                        + "&A=Delete&EAID=" + eventAlertID.ToString() + "\">Clear alert</a>)";
+                        + "&A=Delete&EAID=" + eventAlertID.ToString() + "\">Clear reminder</a>)";
                     outputText = outputText + "</p>";
 
                     currentAlertsPlaceholder.Controls.Add(new LiteralControl(outputText));
@@ -115,7 +115,7 @@ public partial class eventAlerts : SedogoPage
             }
             else
             {
-                string outputText = "<p>&nbsp;<br/>There are no alerts for this event</p>";
+                string outputText = "<p>&nbsp;<br/>There are no reminders for this event</p>";
 
                 currentAlertsPlaceholder.Controls.Add(new LiteralControl(outputText));
             }

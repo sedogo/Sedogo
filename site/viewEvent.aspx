@@ -100,7 +100,7 @@
 									<td><asp:Label ID="eventVenueLabel" runat="server" /></td>
 								</tr>
 								<tr>
-									<th>Before:</th>
+									<th><asp:Label ID="dateLabel" runat="server" />:</th>
 									<td><asp:Label ID="eventDateLabel" runat="server" /></td>
 								</tr>
 							</tbody>

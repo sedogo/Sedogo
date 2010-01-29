@@ -85,11 +85,11 @@ public partial class forgotPassword : System.Web.UI.Page
             emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
             emailBodyCopy.AppendLine("			<h1>Your new sedogo.com password</h1>");
-            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
             emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td width=\"60px\">Password:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"10px\">&nbsp;</td>");
-            emailBodyCopy.AppendLine("					<td width=\"240px\">" + newPassword + "</td>");
+            emailBodyCopy.AppendLine("					<td width=\"60\">Password:</td>");
+            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
+            emailBodyCopy.AppendLine("					<td width=\"530\">" + newPassword + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("			</table>");
             emailBodyCopy.AppendLine("			<br /><br />");

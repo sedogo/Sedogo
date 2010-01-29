@@ -187,11 +187,11 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
                     //emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
-                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td width=\"60px\">From:</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"4\">&nbsp;</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"60\">From:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"4\">&nbsp;</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"530\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td valign=\"top\">Goal:</td>");
@@ -202,8 +202,8 @@ public partial class sendMessageToTrackers : SedogoPage
                     emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td width=\"60px\" valign=\"top\">Message:</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\">" + messageText.Replace("\n", "<br/>") + "</td>");
+                    emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                    emailBodyCopy.AppendLine("					<td><p style=\"color:black\">" + messageText.Replace("\n", "<br/>") + "</p></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("			</table>");
                     emailBodyCopy.AppendLine("			<br /><br />");

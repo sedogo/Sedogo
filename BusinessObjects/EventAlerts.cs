@@ -432,11 +432,11 @@ namespace Sedogo.BusinessObjects
                     emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
                     emailBodyCopy.AppendLine("			<h1>The following event has been updated:</h1>");
-                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                    emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                     emailBodyCopy.AppendLine("				<tr>");
-                    emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"5\">&nbsp;</td>");
-                    emailBodyCopy.AppendLine("					<td width=\"240px\"><a href=\"" + inviteURL + "\">" + sedogoEvent.eventName + "</a></td>");
+                    emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"5\">&nbsp;</td>");
+                    emailBodyCopy.AppendLine("					<td width=\"530\"><a href=\"" + inviteURL + "\">" + sedogoEvent.eventName + "</a></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
@@ -452,7 +452,7 @@ namespace Sedogo.BusinessObjects
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
-                    emailBodyCopy.AppendLine("					<td>" + eventAlert.alertText.Replace("\n", "<br/>") + "</td>");
+                    emailBodyCopy.AppendLine("					<td><p style=\"color:black\">" + eventAlert.alertText.Replace("\n", "<br/>") + "</p></td>");
                     emailBodyCopy.AppendLine("				</tr>");
                     emailBodyCopy.AppendLine("			</table>");
                     emailBodyCopy.AppendLine("			<p>To view this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");

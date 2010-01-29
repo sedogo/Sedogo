@@ -492,11 +492,11 @@ public partial class addEventInvites : SedogoPage
                             inviteURL = inviteURL + "&UID=" + sedogoUserID.ToString();
 
                             emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
-                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"3\">&nbsp;</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"3\">&nbsp;</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"530\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
@@ -515,11 +515,11 @@ public partial class addEventInvites : SedogoPage
                         else
                         {
                             emailBodyCopy.AppendLine("			<h1>You are invited to join the following goal:</h1>");
-                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"300\">");
+                            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                             emailBodyCopy.AppendLine("				<tr>");
-                            emailBodyCopy.AppendLine("					<td width=\"60px\">What:</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"10px\" rowspan=\"3\">&nbsp;</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"240px\">" + currentEvent.eventName + "</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"3\">&nbsp;</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"530\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");

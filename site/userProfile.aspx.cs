@@ -39,8 +39,7 @@ public partial class userProfile : System.Web.UI.Page
 
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
 
-        firstNameLabel.Text = user.firstName;
-        //lastNameLabel.Text = user.lastName;
+        firstNameLabel.Text = user.firstName + " " + user.lastName;
         homeTownLabel.Text = user.homeTown;
         headlineLabel.Text = user.profileText.Replace("\n","<br/>");
 

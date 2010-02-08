@@ -25,7 +25,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-public partial class admin_usersList : System.Web.UI.Page
+public partial class admin_usersList : AdminPage
 {
     //===============================================================
     // Function: Page_Load

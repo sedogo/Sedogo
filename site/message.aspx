@@ -66,8 +66,8 @@
                                 <asp:Image id="eventPicThumbnailImage" runat="server" />
                             </td>
                             <td>
-                                <p><asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                <i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                <asp:Literal ID="eventNameLabel" runat="server" /><br />
                                 <asp:Literal ID="messageLabel" runat="server" /></p>
                             </td>
                         </tr>

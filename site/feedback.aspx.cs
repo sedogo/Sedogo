@@ -77,7 +77,7 @@ public partial class feedback : System.Web.UI.Page
 
         //MailMessage message = new MailMessage(mailFromAddress, "phil@axinteractive.com");
         MailMessage message = new MailMessage(mailFromAddress, "help@sedogo.com");
-        message.ReplyTo = new MailAddress(mailFromAddress);
+        message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
         StringBuilder emailBody = new StringBuilder();
         emailBody.AppendLine("<html><body>");

@@ -373,6 +373,8 @@
 								    <asp:Image id="userProfileThumbnailPic" runat="server" />
 									<p style="font-size: 12px; color: #666; margin-bottom: 8px"><asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
 									<p style="font-size: 12px;">
+										Birthday: <span class="blue"><asp:Label ID="birthdayLabel" runat="server" /></span><br />
+										Home town: <span class="blue"><asp:Label ID="homeTownLabel" runat="server" /></span><br />
 										<span class="blue"><asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
 										<span class="blue"><asp:Label ID="userProfilePopupGoalsAchievedLabel" runat="server" /></span> Goals Achieved<br />
 										<span class="blue"><asp:Label ID="userProfilePopupGroupGoalsLabel" runat="server" /></span> Group Goals<br />

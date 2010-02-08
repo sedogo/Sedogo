@@ -27,7 +27,7 @@ using System.Text;
 using System.IO;
 using Sedogo.BusinessObjects;
 
-public partial class admin_popularGoals : System.Web.UI.Page
+public partial class admin_popularGoals : AdminPage
 {
     //===============================================================
     // Function: Page_Load

@@ -143,7 +143,7 @@ public partial class profile : SedogoPage
                 }
                 if (redir == "Requests")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"eventJoinRequests.aspx\");", true);
                 }
                 Session["DefaultRedirect"] = "";
             }

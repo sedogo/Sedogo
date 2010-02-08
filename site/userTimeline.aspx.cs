@@ -87,6 +87,8 @@ public partial class userTimeline : SedogoPage
             usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?UID=" + viewUserID.ToString();
             usersProfileNameLabel.Text = viewUser.fullName;
             usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>");
+            birthdayLabel.Text = viewUser.birthday.ToString("d MMMM yyyy");
+            homeTownLabel.Text = viewUser.homeTown;
             userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(viewUserID).ToString(); ;
             userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(viewUserID).ToString();
             userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(viewUserID).ToString();

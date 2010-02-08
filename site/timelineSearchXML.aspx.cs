@@ -238,7 +238,7 @@ public partial class timelineSearchXML : System.Web.UI.Page
 
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
                 string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
-                linkURL = linkURL + memberUserCount.ToString() + " following<br/>";
+                linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
                 linkURL = linkURL + messageCount.ToString() + " comments<br/>";
                 linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 

@@ -478,7 +478,7 @@ public partial class addEventInvites : SedogoPage
                         emailBodyCopy.AppendLine("</style></head>");
                         emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
                         emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-                        emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+                        //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
                         emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
                         emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
                         if (sedogoUserID > 0)
@@ -536,17 +536,13 @@ public partial class addEventInvites : SedogoPage
                         }
                         emailBodyCopy.AppendLine("			<br /><br />");
                         emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
-                        emailBodyCopy.AppendLine("			<br /></td>");
-                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr>");
-                        emailBodyCopy.AppendLine("		<tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
-                        emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
-
-                        // Remove to take out images from invite email
-                        //emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
-                        //emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                        emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\">");
+                        //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/logo.gif\" />");
+                        emailBodyCopy.AppendLine("			</a></td>");
+                        emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
                         //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-                        //emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
-                        //emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+                        emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+                        emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                         string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";
 
@@ -560,7 +556,7 @@ public partial class addEventInvites : SedogoPage
                             try
                             {
                                 MailMessage message = new MailMessage(mailFromAddress, emailAddress);
-                                message.ReplyTo = new MailAddress(mailFromAddress);
+                                message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
                                 message.Subject = emailSubject;
                                 message.Body = emailBodyCopy.ToString();

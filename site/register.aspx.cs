@@ -193,7 +193,7 @@ public partial class register : System.Web.UI.Page
             string mailToEmailAddress = emailAddress;
 
             MailMessage message = new MailMessage(mailFromAddress, mailToEmailAddress);
-            message.ReplyTo = new MailAddress(mailFromAddress);
+            message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
             message.Subject = "Sedogo registration";
             message.Body = emailBodyCopy.ToString();

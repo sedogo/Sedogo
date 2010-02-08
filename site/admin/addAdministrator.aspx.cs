@@ -24,7 +24,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
 
-public partial class admin_addAdministrator : System.Web.UI.Page
+public partial class admin_addAdministrator : AdminPage
 {
     //===============================================================
     // Function: Page_Load

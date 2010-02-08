@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class admin_main : System.Web.UI.Page
+public partial class admin_main : AdminPage
 {
     //===============================================================
     // Function: Page_Load

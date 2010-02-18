@@ -40,6 +40,7 @@ public partial class profile : SedogoPage
 
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             userNameLabel.Text = user.fullName;
+			timelinebDate.Text = user.birthday.Year.ToString();
             profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
 
             if (user.profilePicThumbnail != "")

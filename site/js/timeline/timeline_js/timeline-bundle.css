@@ -70,7 +70,7 @@
   position: absolute;
   /*border: solid #aaa;*/
   color: #aaa;
-  width: 5em;
+  width: 6em;
   height: 1.5em;}
 .timeline-date-label-em {color: #0cf; font-weight: bold; font-size: 14px;}
 
@@ -110,9 +110,13 @@
 	color: #fff
 }
 .timeline-event-tape {
-	height: 6px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px
+	height: 18px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	min-width:150px;
+	max-width:100%;
+	padding-left:10px;
+	padding-top:2px;
 }
 .timeline-small-event-tape {
 	height: 1px;

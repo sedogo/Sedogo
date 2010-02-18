@@ -246,26 +246,37 @@
                 <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
                     <tr>
                         <td>
-                            <h3 class="blue">
-                                <a href="javascript:doAddEvent()">Add</a></h3>
-                            <p class="blue">
-                                to my goal list</p>
-                            <asp:Panel ID="Panel1" runat="server" DefaultButton="searchButton1">
-                                <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" />
-                                <asp:ImageButton ID="searchButton1" runat="server" Enabled="false" ImageUrl="~/images/1x1trans.gif" />
+                            <h3 class="blue"><a href="javascript:doAddEvent()">Add</a></h3>
+                            <p class="blue">to my goal list</p>
+                            <asp:Panel ID="Panel1" runat="server">
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
+                                            MaxLength="1000" /></td>
+                                        <td valign="top" style="padding-top:3px"><asp:Image ID="searchButton1" 
+                                            runat="server" ImageUrl="~/images/addButton.png" /></td>
+                                    </tr>
+                                </table>
                             </asp:Panel>
                         </td>
                         <td>
-                            <h3 class="blue">
-                                <asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton2_click" /></h3>
-                            <p class="blue">
-                                people with my goals</p>
+                            <h3 class="blue"><asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton2_click" /></h3>
+                            <p class="blue">people with my goals</p>
                             <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
-                                <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" ValidationGroup="what2Group" />
-                                <asp:RegularExpressionValidator ID="what2Validator" runat="server" ErrorMessage="Goal name must have at least 2 characters"
-                                    ControlToValidate="what2" ValidationGroup="what2Group" ValidationExpression="[\S\s]{2,200}" />
-                                <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton2_click"
-                                    ImageUrl="~/images/1x1trans.gif" />
+                                <table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
+                                            ValidationGroup="what2Group" /></td>
+                                        <td valign="top" style="padding-top:3px"><asp:ImageButton 
+                                            ID="searchButton2" runat="server" OnClick="searchButton2_click" 
+                                            ImageUrl="~/images/searchButton.png" /></td>
+                                    </tr>
+                                </table>
+                                <asp:RegularExpressionValidator 
+                                    ID="what2Validator" runat="server" 
+                                    ErrorMessage="Goal name must have at least 2 characters" 
+                                    ControlToValidate="what2" ValidationGroup="what2Group" 
+                                    ValidationExpression="[\S\s]{2,200}" />
                             </asp:Panel>
                         </td>
                     </tr>

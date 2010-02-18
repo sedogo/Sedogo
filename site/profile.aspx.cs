@@ -156,6 +156,12 @@ public partial class profile : SedogoPage
 
             what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
+            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
+            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
+            searchButton1.Attributes.Add("onclick", "doAddEvent();");
+            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
+            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
+
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }
     }

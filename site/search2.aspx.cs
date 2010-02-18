@@ -218,7 +218,28 @@ public partial class search2 : SedogoPage
             searchHistory.searchDate = DateTime.Now;
             if (searchText == "")
             {
-                searchText = eventNameText + ", " + eventVenue + ", " + eventOwnerName;
+                searchText = "";
+                if (eventNameText != "")
+                {
+                    searchText = eventNameText;
+                }
+                if (eventVenue != "")
+                {
+                    if (searchText != "")
+                    {
+                        searchText += ", ";
+                    }
+                    searchText += eventVenue;
+                }
+                if (eventOwnerName != "")
+                {
+                    if (searchText != "")
+                    {
+                        searchText += ", ";
+                    }
+                    searchText += eventOwnerName;
+                }
+
                 if (eventCategoryID > 0)
                 {
                     string category = "";
@@ -264,19 +285,27 @@ public partial class search2 : SedogoPage
                             category = "Misc";
                             break;
                     }
-                    searchText += ", " + category;
+                    if (searchText != "")
+                    {
+                        searchText += ", ";
+                    }
+                    searchText += category;
                 }
                 if (beforeBirthday > 0)
                 {
-                    searchText += ", Before birthday: " + beforeBirthday.ToString();
+                    if (searchText != "")
+                    {
+                        searchText += ", ";
+                    }
+                    searchText += "Before birthday: " + beforeBirthday.ToString();
                 }
                 if (dateSearchStartDate > DateTime.MinValue)
                 {
-                    searchText += ", From date: " + dateSearchStartDate.ToString("dd/MM/yyyy");
+                    searchText += "From date: " + dateSearchStartDate.ToString("dd/MM/yyyy");
                 }
                 if (dateSearchEndDate > DateTime.MinValue)
                 {
-                    searchText += ", To date: " + dateSearchEndDate.ToString("dd/MM/yyyy");
+                    searchText += "To date: " + dateSearchEndDate.ToString("dd/MM/yyyy");
                 }
                 searchHistory.searchText = searchText;
                 searchResultsLabel.Text = "Search results for: " + searchText;
@@ -340,6 +369,12 @@ public partial class search2 : SedogoPage
             timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
             what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
+
+            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
+            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
+            searchButton1.Attributes.Add("onclick", "doAddEvent();");
+            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
+            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
         }
     }
 

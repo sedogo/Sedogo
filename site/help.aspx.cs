@@ -76,8 +76,23 @@ public partial class help : System.Web.UI.Page
         try
         {
             smtp.Send(message);
+
+            SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+            emailHistory.subject = "Sedogo help";
+            emailHistory.body = emailBody.ToString();
+            emailHistory.sentFrom = mailFromAddress;
+            emailHistory.sentTo = "help@sedogo.com";
+            emailHistory.Add();
         }
-        catch { }
+        catch (Exception ex)
+        {
+            SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+            emailHistory.subject = "Sedogo help";
+            emailHistory.body = ex.Message + " -------- " + emailBody.ToString();
+            emailHistory.sentFrom = mailFromAddress;
+            emailHistory.sentTo = "help@sedogo.com";
+            emailHistory.Add();
+        }
 
         Response.Redirect("profileRedirect.aspx");
     }

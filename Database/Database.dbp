@@ -22,6 +22,7 @@ Begin DataProject = "Database"
          Script = "createGlobalDataStoredProcs.sql"
          Script = "createHistoryStoredProcedures.sql"
          Script = "createMessagesStoredProcs.sql"
+         Script = "createSentEmailHistoryStoredProcs.sql"
          Script = "createTimezonesStoredProcs.sql"
          Script = "createUsersStoredProcs.sql"
       End
@@ -31,6 +32,7 @@ Begin DataProject = "Database"
          Script = "createEventsTables.sql"
          Script = "createGlobalDataTables.sql"
          Script = "createHistoryTables.sql"
+         Script = "createSentEmailHistoryTables.sql"
          Script = "createUsersTables.sql"
       End
    End

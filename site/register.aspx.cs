@@ -205,7 +205,27 @@ public partial class register : System.Web.UI.Page
                 // If the password is blank, assume mail relay is permitted
                 smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
             }
-            smtp.Send(message);
+
+            try
+            {
+                smtp.Send(message);
+
+                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                emailHistory.subject = "Sedogo registration";
+                emailHistory.body = emailBodyCopy.ToString();
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = emailAddress;
+                emailHistory.Add();
+            }
+            catch(Exception ex)
+            {
+                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                emailHistory.subject = "Sedogo registration";
+                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = emailAddress;
+                emailHistory.Add();
+            }
 
             Response.Redirect("registerWait.aspx");
         }

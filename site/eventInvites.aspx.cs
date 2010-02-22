@@ -448,7 +448,7 @@ public partial class eventInvites : SedogoPage
                         emailBodyCopy.AppendLine("			</a></td>");
                         emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
                         //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-                        emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+                        emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for " + emailAddress + ". To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
                         emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
                         string emailSubject = currentUser.firstName + " wants you to be a part of " + currentEvent.eventName + " " + dateString + "!";
@@ -481,8 +481,23 @@ public partial class eventInvites : SedogoPage
                                 newInvite.inviteEmailSentDate = DateTime.Now;
                                 newInvite.inviteEmailSentEmailAddress = emailAddress;
                                 newInvite.Update();
+
+                                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                                emailHistory.subject = emailSubject;
+                                emailHistory.body = emailBodyCopy.ToString();
+                                emailHistory.sentFrom = mailFromAddress;
+                                emailHistory.sentTo = emailAddress;
+                                emailHistory.Add();
                             }
-                            catch { }
+                            catch (Exception ex)
+                            {
+                                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                                emailHistory.subject = emailSubject;
+                                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                                emailHistory.sentFrom = mailFromAddress;
+                                emailHistory.sentTo = emailAddress;
+                                emailHistory.Add();
+                            }
                         }
                         sentOK = true;
                     }

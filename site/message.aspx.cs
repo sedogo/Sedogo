@@ -119,22 +119,23 @@ public partial class message : SedogoPage
             {
                 eventUserID = int.Parse(row["UserID"].ToString());
             }
+            int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
+            SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
 
             Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
             Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
+
+            userNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\" target=\"_top\">"
+                + messageFromUser.firstName + " " + messageFromUser.lastName + "</a> ";
             if (eventUserID < 0)
             {
-                int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
                 // This is a message which is not attached to an event
-                SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
-                userNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\" target=\"_top\">"
-                    + messageFromUser.firstName + " " + messageFromUser.lastName + "</a> ";
                 eventNameLabel.Text = "";
             }
             else
             {
-                userNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\">"
-                    + row["FirstName"].ToString() + " " + row["LastName"].ToString() + "</a> ";
+                //userNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\">"
+                //    + row["FirstName"].ToString() + " " + row["LastName"].ToString() + "</a> ";
                 eventNameLabel.Text = "Goal: <a href=\"viewEvent.aspx?EID=" + row["EventID"].ToString() + "\">" 
                     + row["EventName"].ToString() + "</a>";
             }

@@ -265,7 +265,7 @@
                                         <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
                                             ValidationGroup="what2Group" /></td>
                                         <td valign="top" style="padding-top:3px"><asp:ImageButton 
-                                            ID="searchButton2" runat="server" OnClick="searchButton2_click" 
+                                            ID="searchButton2" runat="server" OnClick="searchButton_click" 
                                             ImageUrl="~/images/searchButton.png" /></td>
                                     </tr>
                                 </table>

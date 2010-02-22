@@ -99,7 +99,7 @@ public partial class forgotPassword : System.Web.UI.Page
             emailBodyCopy.AppendLine("			</a></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
             //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.</small></td></tr>");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for " + loginEmailAddress + ". To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
             emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             message.Subject = "Sedogo password reset";
@@ -115,8 +115,23 @@ public partial class forgotPassword : System.Web.UI.Page
             try
             {
                 smtp.Send(message);
+
+                SentEmailHistory emailHistory = new SentEmailHistory("");
+                emailHistory.subject = "Sedogo password reset";
+                emailHistory.body = emailBodyCopy.ToString();
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = loginEmailAddress;
+                emailHistory.Add();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                SentEmailHistory emailHistory = new SentEmailHistory("");
+                emailHistory.subject = "Sedogo password reset";
+                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = loginEmailAddress;
+                emailHistory.Add();
+            }
 
             Session["ResetPassword"] = "Y";
             Response.Redirect("default.aspx");

@@ -110,13 +110,13 @@
 	color: #fff
 }
 .timeline-event-tape {
-	height: 18px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	min-width:150px;
+	height: 6px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	/*min-width:150px;
 	max-width:100%;
 	padding-left:10px;
-	padding-top:2px;
+	padding-top:2px;*/
 }
 .timeline-small-event-tape {
 	height: 1px;

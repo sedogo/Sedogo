@@ -2819,7 +2819,7 @@ Timeline.OriginalEventPainter.prototype._paintEventLabel = function(K, L, D, H, 
 		B.style.color = F;
 	} if (G.event.highlightLabelBackground && C >= 0) {
 		B.style.background = this._getHighlightColor(C, G);
-	}//*// this._eventLayer.appendChild(B);
+	} this._eventLayer.appendChild(B);
 	return { left: D, top: H, width: A, height: J, elmt: B };
 };
 Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G, C, J, I, M) {
@@ -2834,8 +2834,8 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
 	//O.style.height=E+"px"; DJB: Let CSS control height of timelines
 	O.style.top = K + "px";
 	//*	
-	O.innerHTML = N.getText();
-	O.style.color="#ffffff";	
+	//O.innerHTML = N.getText();
+	//O.style.color="#ffffff";	
 	//*
 	if (N._title != null) {
 		O.title = N._title;

@@ -8,6 +8,11 @@ body {
 	color: #9b9885;
 	background: #fff
 }
+hr
+{
+	color: #9b9885;
+	height: 1px;
+}
 th, td {
 	vertical-align: top;
 }
@@ -936,7 +941,7 @@ img.profile
 
 		.close-controls {
 			position: absolute;
-			top 0;
+			top: 0;
 			right: 4px;
 		}
 		#controls {
@@ -1105,22 +1110,22 @@ ol.items li a {
 	padding-left: 30px;
 }
 li.messages a {
-	background: url(../images/ico_messages.gif) no-repeat left;
+	background: url(../images/messages.gif) no-repeat left;
 }
 li.alerts a {
-	background: url(../images/ico_alerts.gif) no-repeat left;
+	background: url(../images/reminder.gif) no-repeat left;
 }
 li.invites a {
-	background: url(../images/ico_invites.gif) no-repeat left;
+	background: url(../images/invite.gif) no-repeat left;
 }
 li.requests a {
-	background: url(../images/ico_requests.gif) no-repeat left;
+	background: url(../images/requests.gif) no-repeat left;
 }
 li.following a {
-	background: url(../images/ico_following.gif) no-repeat left;
+	background: url(../images/goalsfollowed.gif) no-repeat left;
 }
 li.goal-groups a {
-	background: url(../images/ico_goal-groups.gif) no-repeat left;
+	background: url(../images/groupgoals.gif) no-repeat left;
 }
 .alerts {
 	padding-top: 30px
@@ -1175,7 +1180,7 @@ a.underline-bold {
 }
 .reminders-header {
 	background: url(../images/ico_alerts.gif) no-repeat left;
-	padding-left: 18px
+	padding-left: 18px;
 }
 .blue {
 	color: #0cf

@@ -316,7 +316,7 @@
                                 <tr>
                                     <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
                                         MaxLength="1000" /></td>
-                                    <td valign="top" style="padding-top:3px"><asp:Image ID="searchButton1" 
+                                    <td valign="top" style="padding-top:4px"><asp:Image ID="searchButton1" 
                                         runat="server" ImageUrl="~/images/addButton.png" /></td>
                                 </tr>
                             </table>
@@ -329,7 +329,7 @@
                                     <tr>
                                         <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
                                             ValidationGroup="what2Group" /></td>
-                                        <td valign="top" style="padding-top:3px"><asp:ImageButton 
+                                        <td valign="top" style="padding-top:4px"><asp:ImageButton 
                                             ID="searchButton2" runat="server" OnClick="searchButton2_click" 
                                             ImageUrl="~/images/searchButton.png" /></td>
                                     </tr>
@@ -378,7 +378,7 @@
 						<div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
 							<div style="position: static; width: 260px;">
 								<div class="timeline-event-bubble-title"><asp:Hyperlink ID="usersProfileNameLabel" runat="server" /> 
-								<asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/ico_messages.gif" runat="server" CssClass="modal" /></div>
+								<asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/messages.gif" runat="server" CssClass="modal" /></div>
 								<div class="timeline-event-bubble-body">
 								    <asp:Image id="userProfileThumbnailPic" runat="server" />
 									<p style="font-size: 12px; color: #666; margin-bottom: 8px"><asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
@@ -398,7 +398,7 @@
 					</div>
 				</div>
 			</div>
-			<a href="#" title="" style="padding: 4px 24px 4px 0; background: url(images/ico_messages.gif) no-repeat right" class="misc-pop-up-link"><asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
+			<a href="#" title="" style="padding: 4px 24px 4px 0; background: url(images/messages.gif) no-repeat right" class="misc-pop-up-link"><asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
 		</div>
 
 		<div class="controls" id="controls" style="top: 432px">

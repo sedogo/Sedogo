@@ -96,7 +96,7 @@
                                 <tr>
                                     <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
                                         MaxLength="1000" /></td>
-                                    <td valign="top" style="padding-top:3px"><asp:Image ID="searchButton1" 
+                                    <td valign="top" style="padding-top:4px"><asp:Image ID="searchButton1" 
                                         runat="server" ImageUrl="~/images/addButton.png" /></td>
                                 </tr>
                             </table>
@@ -109,7 +109,7 @@
                                     <tr>
                                         <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
                                             ValidationGroup="what2Group" /></td>
-                                        <td valign="top" style="padding-top:3px"><asp:ImageButton 
+                                        <td valign="top" style="padding-top:4px"><asp:ImageButton 
                                             ID="searchButton2" runat="server" OnClick="searchButton_click" 
                                             ImageUrl="~/images/searchButton.png" /></td>
                                     </tr>

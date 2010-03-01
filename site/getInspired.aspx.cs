@@ -50,7 +50,7 @@ public partial class getInspired : System.Web.UI.Page
     {
         string searchText = what2.Text;
 
-        if (searchText.Trim() == "")
+        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
         }

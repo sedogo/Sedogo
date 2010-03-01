@@ -358,11 +358,11 @@ public partial class profile : SedogoPage
                 
                 if (privateEvent == true)
                 {
-                    eventString.AppendLine(" <img src=\"./images/privateIcon.jpg\" alt=\"Private event\" />");
+                    eventString.AppendLine(" <img src=\"./images/private.gif\" alt=\"Private event\" />");
                 }
                 if (eventAlertCount > 0)
                 {
-                    eventString.AppendLine(" <img src=\"./images/ico_alerts.gif\" alt=\"Alert\" />");
+                    eventString.AppendLine(" <img src=\"./images/reminder.gif\" alt=\"Alert\" />");
                 }
                 eventString.Append("</h3>");
 

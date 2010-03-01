@@ -309,7 +309,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 achievedEventLink.Text = "Achieved";
             }
 
-            sendMessageButton.Attributes.Add("style", "text-decoration: underline; display: block; background: url(images/ico_messages.gif) no-repeat left; padding-left: 20px; margin: 4px 0 20px 0");
+            sendMessageButton.Attributes.Add("style", "text-decoration: underline; display: block; background: url(images/messages.gif) no-repeat left; padding-left: 20px; margin: 4px 0 20px 0");
 
             createSimilarEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
             //trackThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
@@ -490,7 +490,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
                             + eventID.ToString()
                             + "&TEID=" + trackedEventID.ToString() + "\">"
-                            + "(Remove)</a> ";
+                            + "<img src=\"images/remove.gif\" /></a> ";
                     } 
                     else if (loggedInUserID == userID)
                     {
@@ -498,14 +498,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
                             + eventID.ToString()
                             + "&TEID=" + trackedEventID.ToString() + "\">"
-                            + "(Remove)</a> ";
+                            + "<img src=\"images/remove.gif\" /></a> ";
                     }
                     //outputText = outputText + "</td></tr></table>";
                     if (loggedInUserID == sedogoEvent.userID)
                     {
                         outputText = outputText + " <a href=\"viewEvent.aspx?A=SendMessage&EID="
                                 + eventID.ToString()
-                                + "&UID=" + userID.ToString() + "\"> <img src=\"./images/ico_messages.gif\" /></a>";
+                                + "&UID=" + userID.ToString() + "\"> <img src=\"./images/messages.gif\" /></a>";
                     }
                     outputText = outputText + "</p>";
 

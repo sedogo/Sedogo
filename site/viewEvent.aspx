@@ -55,19 +55,23 @@
                         <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                         <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                         <h3 ID="alertsHeader" runat="server" class="reminders-header">Reminders</h3>
-                        <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
                         <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline-bold" /></p>
+                        <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
+                        <div class="pinstripe-divider">&nbsp;</div>
                         <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members:</h3>
                         <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                        <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/ico_messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
+                        <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
                             OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
+                        <div class="pinstripe-divider">&nbsp;</div>
                         <h3 ID="H1" runat="server">Following:</h3>
                         <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
-                        <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/ico_messages.gif" /><asp:LinkButton ID="followersTrackingUsersLink" runat="server" Text="Message All" 
+                        <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:LinkButton ID="followersTrackingUsersLink" runat="server" Text="Message All" 
                             OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
+                        <div class="pinstripe-divider">&nbsp;</div>
                         <h3 ID="invitesHeader" runat="server">Invites:</h3>
                         <p><asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
-                        <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>
+                        <img src="images/invite.gif" /><asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People" CssClass="underline-bold" /></p>
+                        <div class="pinstripe-divider">&nbsp;</div>
                         <h3 ID="H2" runat="server">Requests:</h3>
                         <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
                         

@@ -245,15 +245,16 @@
 		<div class="three-col">
 		    <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
 		        <tr>
-		            <td><h3 class="blue"><a href="javascript:doAddEvent()">Add</a></h3>
+		            <td><h3 class="blue"><a href="login.aspx" class="modal">Add</a></h3>
 		                <p class="blue">to my goal list</p>
 		                <asp:Panel ID="Panel1" runat="server">
                             <table border="0" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
                                         MaxLength="1000" /></td>
-                                    <td valign="top" style="padding-top:4px"><asp:Image ID="searchButton1" 
-                                        runat="server" ImageUrl="~/images/addButton.png" /></td>
+                                    <td valign="top" style="padding-top:4px"><a href="login.aspx" 
+                                        class="modal"><asp:Image ID="searchButton1" 
+                                        runat="server" ImageUrl="~/images/addButton.png" /></a></td>
                                 </tr>
                             </table>
                         </asp:Panel>
@@ -326,6 +327,13 @@
 				    <li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>
 					<li class="last"><a href="feedback.aspx" title="Feedback" class="modal">Feedback</a></li>
 				</ul>
+                <div style="text-align:right;margin-top:-25px">
+                <div style="color:#0cf">Follow us <a target="_blank" style="padding-left:7px"
+                    href="http://twitter.com/Sedogo"><img src="images/facebook.gif" /></a> <a 
+                    style="padding-left:7px"
+                    target="_blank" href="http://www.facebook.com/pages/Sedogo/261533591696"><img 
+                    src="images/twitter.gif" /></a></div>
+                </div>
 			</div>
 		</div>
         <div id="modal-container">

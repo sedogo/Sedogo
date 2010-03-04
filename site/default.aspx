@@ -6,6 +6,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <meta name="google-site-verification" content="9MltlA8eLNS_PsMbFJZM0zWmAAIKbVkimMAhAsczoLg" />
+
     <link rel="shortcut icon" href="favicon.ico" >  
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
@@ -329,9 +331,9 @@
 				</ul>
                 <div style="text-align:right;margin-top:-25px">
                 <div style="color:#0cf">Follow us <a target="_blank" style="padding-left:7px"
-                    href="http://twitter.com/Sedogo"><img src="images/facebook.gif" /></a> <a 
+                    href="http://www.facebook.com/pages/Sedogo/261533591696"><img src="images/facebook.gif" /></a> <a 
                     style="padding-left:7px"
-                    target="_blank" href="http://www.facebook.com/pages/Sedogo/261533591696"><img 
+                    target="_blank" href="http://twitter.com/Sedogo"><img 
                     src="images/twitter.gif" /></a></div>
                 </div>
 			</div>

@@ -2437,7 +2437,11 @@ return false;
 };
 SimileAjax.DOM.registerEvent(D,B,A);
 };
-SimileAjax.WindowManager.pushLayer=function(C,D,B){var A={onPop:C,index:SimileAjax.WindowManager._layers.length,ephemeral:(D),elmt:B};
+SimileAjax.WindowManager.pushLayer=function(C,D,B){
+//*
+SimileAjax.WindowManager.popAllLayers();
+//*
+var A={onPop:C,index:SimileAjax.WindowManager._layers.length,ephemeral:(D),elmt:B};
 SimileAjax.WindowManager._layers.push(A);
 return A;
 };

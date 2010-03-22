@@ -88,7 +88,6 @@ public partial class editEvent : SedogoPage
             eventNameTextBox.Text = sedogoEvent.eventName;
             eventDescriptionTextBox.Text = sedogoEvent.eventDescription;
             eventVenueTextBox.Text = sedogoEvent.eventVenue;
-            mustDoCheckBox.Checked = sedogoEvent.mustDo;
             timezoneDropDownList.SelectedValue = sedogoEvent.timezoneID.ToString();
 
             if (sedogoEvent.dateType == "D")
@@ -234,7 +233,7 @@ public partial class editEvent : SedogoPage
         sedogoEvent.dateType = dateTypeDropDownList.SelectedValue;
         sedogoEvent.categoryID = int.Parse(categoryDropDownList.SelectedValue);
         sedogoEvent.privateEvent = privateEventCheckbox.Checked;
-        sedogoEvent.mustDo = mustDoCheckBox.Checked;
+        sedogoEvent.mustDo = false;
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Update();
 

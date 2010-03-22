@@ -32,6 +32,9 @@ public partial class admin_defaultPageTimelineList : AdminPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        goalsListGrid.ItemContentCreated += new
+            ComponentArt.Web.UI.Grid.ItemContentCreatedEventHandler(this.OnGoalsListItemContentCreated);
+
         if (!IsPostBack)
         {
             try
@@ -48,6 +51,52 @@ public partial class admin_defaultPageTimelineList : AdminPage
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+    }
+
+    //===============================================================
+    // Function: OnGoalsListItemContentCreated
+    //===============================================================
+    public void OnGoalsListItemContentCreated(object sender, ComponentArt.Web.UI.GridItemContentCreatedEventArgs oArgs)
+    {
+        if (oArgs.Column.DataCellServerTemplateId == "PrivateTemplate")
+        {
+            string privateEvent = oArgs.Item["PrivateEvent"].ToString();
+
+            if (privateEvent.ToLower() == "true")
+            {
+                oArgs.Content.Controls.Add(new LiteralControl("Private"));
+            }
+            else
+            {
+                oArgs.Content.Controls.Add(new LiteralControl(""));
+            }
+        }
+        if (oArgs.Column.DataCellServerTemplateId == "ShowOnDefaultPageTemplate")
+        {
+            string showOnDefaultPage = oArgs.Item["ShowOnDefaultPage"].ToString();
+
+            if (showOnDefaultPage.ToLower() == "true")
+            {
+                oArgs.Content.Controls.Add(new LiteralControl("Yes"));
+            }
+            else
+            {
+                oArgs.Content.Controls.Add(new LiteralControl(""));
+            }
+        }
+        if (oArgs.Column.DataCellServerTemplateId == "EventPicThumbnailTemplate")
+        {
+            string eventPicThumbnail = oArgs.Item["EventPicThumbnail"].ToString();
+
+            if (eventPicThumbnail == "")
+            {
+                oArgs.Content.Controls.Add(new LiteralControl(""));
+            }
+            else
+            {
+                oArgs.Content.Controls.Add(new LiteralControl("Yes"));
             }
         }
     }

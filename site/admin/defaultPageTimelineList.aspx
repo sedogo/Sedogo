@@ -67,7 +67,17 @@
                     <ComponentArt:GridColumn DataField="EmailAddress" HeadingText="Email" />
                     <ComponentArt:GridColumn DataField="ShowOnDefaultPage" HeadingText="ShowOnDefaultPage" />
                         
+                    <ComponentArt:GridColumn DataCellServerTemplateId="ShowOnDefaultPageTemplate"
+                        HeadingText="Show on default" AllowEditing="false" AllowSorting="False" Width="80" />
+                    <ComponentArt:GridColumn DataCellServerTemplateId="PrivateTemplate"
+                        HeadingText="Private" AllowEditing="false" AllowSorting="False" Width="50" />
+                    <ComponentArt:GridColumn DataCellServerTemplateId="EventPicThumbnailTemplate"
+                        HeadingText="Thumbnail" AllowEditing="false" AllowSorting="False" Width="70" />
+                        
                     <ComponentArt:GridColumn DataField="EventID" Visible="false" />
+                    <ComponentArt:GridColumn DataField="PrivateEvent" Visible="false" />
+                    <ComponentArt:GridColumn DataField="ShowOnDefaultPage" Visible="false" />
+                    <ComponentArt:GridColumn DataField="EventPicThumbnail" Visible="false" />
                 </Columns>
             </ComponentArt:GridLevel>
         </Levels>
@@ -95,10 +105,18 @@
             </ComponentArt:ClientTemplate>
         </ClientTemplates>
         <ServerTemplates>
-        <ComponentArt:GridServerTemplate ID="RoleTemplate">
-            <Template>
-            </Template>
-        </ComponentArt:GridServerTemplate>
+            <ComponentArt:GridServerTemplate ID="PrivateTemplate">
+                <Template>
+                </Template>
+            </ComponentArt:GridServerTemplate>
+            <ComponentArt:GridServerTemplate ID="ShowOnDefaultPageTemplate">
+                <Template>
+                </Template>
+            </ComponentArt:GridServerTemplate>
+            <ComponentArt:GridServerTemplate ID="EventPicThumbnailTemplate">
+                <Template>
+                </Template>
+            </ComponentArt:GridServerTemplate>
         </ServerTemplates>
     </ComponentArt:Grid>
 

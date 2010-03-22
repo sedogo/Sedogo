@@ -199,7 +199,7 @@ public partial class addEvent : SedogoPage
         sedogoEvent.dateType = dateTypeDropDownList.SelectedValue;
         sedogoEvent.categoryID = int.Parse(categoryDropDownList.SelectedValue);
         sedogoEvent.privateEvent = privateEventCheckbox.Checked;
-        sedogoEvent.mustDo = mustDoCheckBox.Checked;
+        sedogoEvent.mustDo = false;
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Add();
 

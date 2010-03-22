@@ -158,7 +158,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                             joinThisEventLink.Visible = true;
                         }
                     }
-                    createSimilarEventLink.Visible = true;
+                    //createSimilarEventLink.Visible = true;
                 }
                 else
                 {
@@ -178,7 +178,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     editEventLink.Visible = true;
                     achievedEventLink.Visible = true;
                     uploadEventImage.Visible = true;
-                    createSimilarEventLink.Visible = false;
+                    //createSimilarEventLink.Visible = false;
                     sendMessageDiv.Visible = false;
 
                     int messageCount = Message.GetMessageCountForEvent(eventID);
@@ -245,7 +245,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 editEventLink.Visible = false;
                 achievedEventLink.Visible = false;
                 uploadEventImage.Visible = false;
-                createSimilarEventLink.Visible = false;
+                //createSimilarEventLink.Visible = false;
 
                 trackThisEventLink.Visible = false;
                 joinThisEventLink.Visible = false;
@@ -315,7 +315,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             //trackThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
             //joinThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
 
-            if (sedogoEvent.dateType == "R")
+            if (sedogoEvent.dateType == "D")
+            {
+                dateLabel.Text = "On";
+            }
+            else if (sedogoEvent.dateType == "R")
             {
                 dateLabel.Text = "Between";
             }
@@ -487,9 +491,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     if (loggedInUserID == sedogoEvent.userID)
                     {
                         // This is my event!
-                        outputText = outputText + " <a href=\"viewEvent.aspx?A=RemoveTracker&EID="
-                            + eventID.ToString()
-                            + "&TEID=" + trackedEventID.ToString() + "\">"
+                        outputText = outputText + " <a href=\"javascript:confirmDelete(" 
+                            + eventID.ToString() + "," + trackedEventID.ToString() + ")\">"
                             + "<img src=\"images/remove.gif\" /></a> ";
                     } 
                     else if (loggedInUserID == userID)

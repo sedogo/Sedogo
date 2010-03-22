@@ -347,8 +347,7 @@ function popupCalendarRangeEndDate(image)
                 </tr>
                 <tr>
                     <td width="200">Nature of goal</td>
-                    <td width="200">Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" />
-                        Must do: <asp:CheckBox ID="mustDoCheckBox" runat="server" /></td>
+                    <td width="200">Private: <asp:CheckBox ID="privateEventCheckbox" runat="server" /></td>
                 </tr>
                 <tr>
                     <td colspan="2"><img src="images/popupLine.png" alt="" class="line-divider" /></td>

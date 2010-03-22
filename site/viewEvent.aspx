@@ -37,6 +37,16 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+
+	<script type="text/javascript">
+    function confirmDelete(eventID, trackedEventID)
+	{
+	    if (confirm("Are you sure you want to delete this member?") == true)
+	    {
+	        location.href = "viewEvent.aspx?A=RemoveTracker&EID=" + eventID + "&TEID=" + trackedEventID;
+	    }
+	}
+	</script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -146,7 +156,7 @@
         </div>
 
         <div class="buttons">
-            <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click" CssClass="button-lrg" />
+            <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click" CssClass="button-lrg" Visible="false" />
 			<asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal" OnClick="trackThisEventLink_click" CssClass="button-lrg" />
 			<asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click" CssClass="button-lrg" />
         </div>

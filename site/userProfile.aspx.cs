@@ -39,6 +39,12 @@ public partial class userProfile : System.Web.UI.Page
 
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
 
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
+
+        SedogoUser loggedInUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), loggedInUserID);
+        sidebarControl.userID = loggedInUserID;
+        sidebarControl.user = loggedInUser;
+
         firstNameLabel.Text = user.firstName + " " + user.lastName;
         homeTownLabel.Text = user.homeTown;
         headlineLabel.Text = user.profileText.Replace("\n","<br/>");

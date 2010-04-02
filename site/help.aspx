@@ -1,4 +1,8 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="help.aspx.cs" Inherits="help" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,44 +46,46 @@
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1>Help</h1>
-            <p>If you have any questions, just ask. We aim to reply to all queries within 48 hours.</p>
-            
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Message</label>
-                        <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
-                            Width="400" Rows="10"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
-                        ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
-                        Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                </ol>
-            </fieldset>
-            
-		</div>
-   
-        <div class="buttons">
-			<asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Ask question" OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
-        </div>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		    <div id="other-content">
+
+			    <div class="three-col">
+
+                    <h1>Help</h1>
+                    <p>If you have any questions, just ask. We aim to reply to all queries within 48 hours.</p>
+                    
+                    <fieldset>
+                        <ol>
+                            <li>
+                                <label for="">Message</label>
+                                <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
+                                    Width="400" Rows="10"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
+                                ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
+                                Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                            </li>
+                        </ol>
+                    </fieldset>
+                    
+                    <div class="buttonsfullpage">
+			            <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Ask question" 
+			                OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
+                    </div>
+
+		        </div>
+    			
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
    
     </div>
     </form>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try
-{
-    var pageTracker = _gat._getTracker("UA-12373356-1");
-    pageTracker._trackPageview();
-} catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

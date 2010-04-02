@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressBook.cs" />
     <Compile Include="Administrators.cs" />
     <Compile Include="Countries.cs" />
     <Compile Include="ErrorLog.cs" />

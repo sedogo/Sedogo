@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="message.aspx.cs" Inherits="message" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,71 +38,84 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1>messages</h1>
-    
-            <div class="toprightbuttons">
-                <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                    Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
-                <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                    Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
-            </div>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-            <div id="noUnreadMessagesDiv" runat="server">
-            <p>You have no unread messages.</p>
-            </div>
-            
-            <div id="messagesDiv" runat="server">
-            <asp:Repeater ID="messagesRepeater" runat="server" OnItemDataBound="messagesRepeater_ItemDataBound"
-                OnItemCommand="messagesRepeater_ItemCommand">
-                <ItemTemplate>
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+
+			    <div class="three-col">
+
+                <h1>messages</h1>
+        
+                <div class="rightbuttons">
+                    <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                        Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
+                    <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                        Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
+                </div>
+
+                <div id="noUnreadMessagesDiv" runat="server">
+                <p>You have no unread messages.</p>
+                </div>
                 
-                    <table>
-                        <tr>
-                            <td>
-                                <asp:Image id="eventPicThumbnailImage" runat="server" />
-                            </td>
-                            <td>
-                                <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
-                                <asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                <asp:Literal ID="messageLabel" runat="server" /></p>
-                            </td>
-                        </tr>
-                    </table>
+                <div id="messagesDiv" runat="server">
+                <asp:Repeater ID="messagesRepeater" runat="server" OnItemDataBound="messagesRepeater_ItemDataBound"
+                    OnItemCommand="messagesRepeater_ItemCommand">
+                    <ItemTemplate>
                     
-                    <p style="padding-left: 54px"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
-                        Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                        <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
-                        Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
-                    <br />
+                        <table>
+                            <tr>
+                                <td>
+                                    <asp:Image id="eventPicThumbnailImage" runat="server" />
+                                </td>
+                                <td>
+                                    <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                    <asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                    <asp:Literal ID="messageLabel" runat="server" /></p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <p style="padding-left: 54px"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
+                            Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
+                            <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
+                            Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
+                        <br />
 
-                </ItemTemplate>
-            </asp:Repeater>
-            </div>
-		</div>
+                    </ItemTemplate>
+                </asp:Repeater>
+                </div>
+                
+		    </div>
+
+		        </div>
+    			
+	        <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
     
     </div>
     </form>
 
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

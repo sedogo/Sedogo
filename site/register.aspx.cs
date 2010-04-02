@@ -210,7 +210,7 @@ public partial class register : System.Web.UI.Page
             {
                 smtp.Send(message);
 
-                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                SentEmailHistory emailHistory = new SentEmailHistory("");
                 emailHistory.subject = "Sedogo registration";
                 emailHistory.body = emailBodyCopy.ToString();
                 emailHistory.sentFrom = mailFromAddress;
@@ -219,7 +219,7 @@ public partial class register : System.Web.UI.Page
             }
             catch(Exception ex)
             {
-                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                SentEmailHistory emailHistory = new SentEmailHistory("");
                 emailHistory.subject = "Sedogo registration";
                 emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
                 emailHistory.sentFrom = mailFromAddress;

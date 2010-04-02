@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="feedback.aspx.cs" Inherits="feedback" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -41,53 +46,54 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
-	    <div id="modal">
-            <h1>Feedback</h1>
-            <p>Comments? Suggestions? We'd love to hear them.</p>
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Your email address</label>
-                        <asp:Label id="yourEmailAddressLabel" runat="server" />
-                        <asp:TextBox ID="emailAddressTextBox" runat="server" Width="250" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
-                        ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 
-                        Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">Feedback</label>
-                        <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
-                            Width="250" Rows="10"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
-                        ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
-                        Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for=""></label>
+
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		    <div id="other-content">
+			    <div class="three-col">
+
+                    <h1>Feedback</h1>
+                    <p>Comments? Suggestions? We'd love to hear them.</p>
+                    <fieldset>
+                        <ol>
+                            <li>
+                                <label for="">Your email address</label>
+                                <asp:Label id="yourEmailAddressLabel" runat="server" />
+                                <asp:TextBox ID="emailAddressTextBox" runat="server" Width="250" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
+                                ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 
+                                Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                            </li>
+                            <li>
+                                <label for="">Feedback</label>
+                                <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
+                                    Width="250" Rows="10"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
+                                ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
+                                Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                            </li>
+                        </ol>
+                    </fieldset>
+
+                    <div class="buttonsfullpage">
                         <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send to Sedogo team"
-                            OnClick="sendFeedbackButton_click"></asp:LinkButton>
-                    </li>
-                </ol>
-            </fieldset>
-		</div>
+                            OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
+                    </div>
+
+		        </div>
+
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
     
     </div>
     </form>
 
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

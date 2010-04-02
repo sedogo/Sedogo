@@ -33,18 +33,18 @@ public partial class feedback : System.Web.UI.Page
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        int currentUserID = -1;
-        if (Session["loggedInUserID"] != null)
+        if (!IsPostBack)
         {
-            currentUserID = int.Parse(Session["loggedInUserID"].ToString());
-            SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
+            int currentUserID = -1;
+            if (Session["loggedInUserID"] != null)
+            {
+                currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+                SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
 
-            yourEmailAddressLabel.Text = currentUser.emailAddress;
-            emailAddressTextBoxValidator.Enabled = false;
-            emailAddressTextBox.Visible = false;
-        }
-        else
-        {
+                yourEmailAddressLabel.Text = currentUser.emailAddress;
+                emailAddressTextBoxValidator.Enabled = false;
+                emailAddressTextBox.Visible = false;
+            }
         }
     }
 

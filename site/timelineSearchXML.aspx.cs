@@ -240,7 +240,7 @@ public partial class timelineSearchXML : System.Web.UI.Page
                 string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
                 linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
                 linkURL = linkURL + messageCount.ToString() + " comments<br/>";
-                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+                linkURL = linkURL + "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" target=\"_top\" title=\"\"&gt;Full details&lt;/a&gt;";
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));

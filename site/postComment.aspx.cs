@@ -36,6 +36,11 @@ public partial class postComment : SedogoPage
         if (!IsPostBack)
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = userID;
+            sidebarControl.user = user;
 
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 

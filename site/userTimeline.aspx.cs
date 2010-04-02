@@ -62,25 +62,15 @@ public partial class userTimeline : SedogoPage
             }
 
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = userID;
+            sidebarControl.user = user;
+
             SedogoUser viewUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), viewUserID);
 
             //userTimelineLabel.Text = user.firstName + " " + user.lastName + "'s timeline";
             //sendMessageToUserLink.Text = "Send message to " + viewUser.firstName + " " + viewUser.lastName;
             //sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
             timelineUserNameLiteral.Text = viewUser.firstName + " " + viewUser.lastName;
-
-            userNameLabel.Text = user.fullName;
-            profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
-
-            if (user.profilePicThumbnail != "")
-            {
-                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
-            }
-            else
-            {
-                profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
-            }
-            profileImage.ToolTip = user.fullName + "'s profile picture";
 
             // Populate the profile popup
             usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
@@ -104,54 +94,6 @@ public partial class userTimeline : SedogoPage
             userProfileThumbnailPic.Attributes.Add("style","float: right; margin: 0 0 8px 12px");
             userProfilePopupMessageLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
 
-            int messageCount = Message.GetUnreadMessageCountForUser(userID);
-            if (messageCount == 1)
-            {
-                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Message";
-            }
-            else
-            {
-                messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
-            }
-
-            int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
-            if (pendingInviteCount == 1)
-            {
-                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invite";
-            }
-            else
-            {
-                inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
-            }
-
-            int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
-            if (pendingAlertCount == 1)
-            {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
-            }
-            else
-            {
-                alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
-            }
-
-            //groupCountLink.Text = "You belong to 0 groups";
-
-            int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-            trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Following";
-            int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
-            if (pendingRequestsCount == 1)
-            {
-                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Request";
-            }
-            else
-            {
-                goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
-            }
-
-            PopulateLatestSearches();
-
-            what.Text = "";
-
             PopulateEvents(user);
 
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
@@ -163,36 +105,7 @@ public partial class userTimeline : SedogoPage
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
             timelineStartDate3.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate4.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
-
-            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
-
-            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
-            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
-            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
-            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
         }
-    }
-
-    //===============================================================
-    // Function: click_viewArchiveLink
-    //===============================================================
-    protected void click_viewArchiveLink(object sender, EventArgs e)
-    {
-        //Boolean viewArchivedEvents = false;
-        if (Session["ViewArchivedEvents"] != null)
-        {
-            Session["ViewArchivedEvents"] = !(Boolean)Session["ViewArchivedEvents"];
-        }
-        else
-        {
-            Session["ViewArchivedEvents"] = true;
-        }
-
-        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
-            int.Parse(Session["loggedInUserID"].ToString()));
-        PopulateEvents(user);
-
-        PopulateLatestSearches();
     }
 
     //===============================================================
@@ -206,15 +119,7 @@ public partial class userTimeline : SedogoPage
         {
             viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
         }
-
-        if (viewArchivedEvents == true)
-        {
-            viewArchiveLink.Text = "Hide Past Goals";
-        }
-        else
-        {
-            viewArchiveLink.Text = "Past Goals";
-        }
+        sidebarControl.viewArchivedEvents = viewArchivedEvents;
 
         DateTime todayStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day,
             0, 0, 0);
@@ -592,128 +497,5 @@ public partial class userTimeline : SedogoPage
         {
             conn.Close();
         }
-    }
-
-    //===============================================================
-    // Function: searchButton_click
-    //===============================================================
-    protected void searchButton_click(object sender, EventArgs e)
-    {
-        string searchText = what.Text;
-
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-        {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-        }
-        else
-        {
-            if (searchText.Length >= 2)
-            {
-                Response.Redirect("search2.aspx?Search=" + searchText.ToString());
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-
-                int userID = int.Parse(Session["loggedInUserID"].ToString());
-                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-                PopulateLatestSearches();
-                PopulateEvents(user);
-            }
-        }
-    }
-
-    //===============================================================
-    // Function: PopulateLatestSearches
-    //===============================================================
-    private void PopulateLatestSearches()
-    {
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        try
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectSearchHistoryTop5";
-            DbDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
-            {
-                string searchText = "";
-
-                int searchHistoryID = int.Parse(rdr["SearchHistoryID"].ToString());
-                if (!rdr.IsDBNull(rdr.GetOrdinal("SearchText")))
-                {
-                    searchText = (string)rdr["SearchText"];
-                }
-
-                HyperLink searchHyperlink = new HyperLink();
-                searchHyperlink.Text = searchText;
-                searchHyperlink.NavigateUrl = "search2.aspx?Search=" + searchText;
-                latestSearchesPlaceholder.Controls.Add(searchHyperlink);
-
-                latestSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-            }
-            rdr.Close();
-
-            SqlCommand cmdPopular = new SqlCommand("", conn);
-            cmdPopular.CommandType = CommandType.StoredProcedure;
-            cmdPopular.CommandText = "spSelectSearchHistoryPopularTop5";
-            DbDataReader rdrPopular = cmdPopular.ExecuteReader();
-            while (rdrPopular.Read())
-            {
-                string searchText = (string)rdrPopular["SearchText"];
-                //int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
-
-                HyperLink searchHyperlink = new HyperLink();
-                searchHyperlink.Text = searchText;
-                searchHyperlink.NavigateUrl = "search2.aspx?Search=" + searchText;
-                popularSearchesPlaceholder.Controls.Add(searchHyperlink);
-
-                popularSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-            }
-            rdrPopular.Close();
-
-            SqlCommand cmdLatestEvents = new SqlCommand("", conn);
-            cmdLatestEvents.CommandType = CommandType.StoredProcedure;
-            cmdLatestEvents.CommandText = "spSelectLatestEvents";
-            cmdLatestEvents.Parameters.Add("@LoggedInUserID", SqlDbType.Int).Value = userID;
-            DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
-            while (rdrLatestEvents.Read())
-            {
-                int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
-                string eventName = (string)rdrLatestEvents["EventName"];
-
-                HyperLink eventHyperlink = new HyperLink();
-                eventHyperlink.Text = eventName;
-                eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + eventID.ToString();
-                eventHyperlink.CssClass = "modal";
-                latestEventsPlaceholder.Controls.Add(eventHyperlink);
-
-                latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-            }
-            rdrLatestEvents.Close();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            conn.Close();
-        }
-    }
-
-    //===============================================================
-    // Function: searchButton2_click
-    //===============================================================
-    protected void searchButton2_click(object sender, EventArgs e)
-    {
-        string searchString = what2.Text;
-
-        Response.Redirect("search2.aspx?Search=" + searchString);
     }
 }

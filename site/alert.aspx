@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="alert.aspx.cs" Inherits="alert" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,60 +38,72 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1>Reminders</h1>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-            <div id="noAlertsDiv" runat="server">
-            <p>You have no reminders.</p>
-            </div>
-            
-            <div id="alertsDiv" runat="server">
-            <asp:Repeater ID="alertsRepeater" runat="server" OnItemDataBound="alertsRepeater_ItemDataBound"
-                OnItemCommand="alertsRepeater_ItemCommand">
-                <ItemTemplate>
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+
+			    <div class="three-col">
+
+                <h1>Reminders</h1>
+
+                <div id="noAlertsDiv" runat="server">
+                <p>You have no reminders.</p>
+                </div>
                 
-                    <table>
-                        <tr>
-                            <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
-                            <td>
-                                <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
-                                <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
-                                <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
-                            </td>
-                        </tr>
-                    </table>
+                <div id="alertsDiv" runat="server">
+                <asp:Repeater ID="alertsRepeater" runat="server" OnItemDataBound="alertsRepeater_ItemDataBound"
+                    OnItemCommand="alertsRepeater_ItemCommand">
+                    <ItemTemplate>
                     
-                    <p style="padding-left:50px"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
-                        Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
-                    <br />
+                        <table>
+                            <tr>
+                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                <td>
+                                    <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
+                                    <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
+                                    <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <p style="padding-left:50px"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
+                            Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
+                        <br />
 
-                </ItemTemplate>
-            </asp:Repeater>
-            </div>
-		</div>
+                    </ItemTemplate>
+                </asp:Repeater>
+                </div>
+
+		        </div>
+    			
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
     
     </div>
     </form>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try
-{
-    var pageTracker = _gat._getTracker("UA-12373356-1");
-    pageTracker._trackPageview();
-} catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

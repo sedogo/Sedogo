@@ -78,6 +78,14 @@ public partial class eventInvites : SedogoPage
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
 
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
+            sidebarControl.userID = userID;
+            if (userID > 0)
+            {
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                sidebarControl.user = user;
+            }
+
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,

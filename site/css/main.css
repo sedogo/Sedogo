@@ -126,15 +126,15 @@ p.blue
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
 }
-label.what,
-label.what2 
+label.bannerAddFindControl_what,
+label.bannerAddFindControl_what2 
 {
 	font-size: 22px;
 	font-weight: bold;
 	color: #0cf;
 }
-input#what,
-input#what2
+input#bannerAddFindControl_what,
+input#bannerAddFindControl_what2
 {
 	display: block;
 	padding: 4px 6px;
@@ -144,8 +144,8 @@ input#what2
 	color: #ccc;
 	width: 208px
 }
-input#what:focus,
-input#what2:focus {
+input#bannerAddFindControl_what:focus,
+input#bannerAddFindControl_what2:focus {
 	border: 1px solid #888984;
 	color: #000
 }
@@ -886,6 +886,12 @@ img.profile
     bottom:10px;
     right:10px;
 }
+.buttonsfullpage
+{
+    margin: 5px 0 0 0;
+    
+    display:block;
+}
 .toprightbuttons
 {
     margin: 5px 0 0 0;
@@ -896,6 +902,10 @@ img.profile
     position:absolute;
     top:10px;
     right:10px;
+}
+.rightbuttons
+{
+	padding-left: 250px;
 }
 
 .errorMessage

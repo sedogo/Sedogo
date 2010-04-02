@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="about.aspx.cs" Inherits="about" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,26 +47,28 @@
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1>about</h1>
-            <p>Sedogo is the future of social networking. Literally.</p>
-            <p>Create tomorrow's goals for your life and connect with others to achieve them.</p>
-		</div>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
+		    <div id="other-content">
+
+			    <div class="three-col">
+
+                    <h1>about</h1>
+                    <p>Sedogo is the future of social networking. Literally.</p>
+                    <p>Create tomorrow's goals for your life and connect with others to achieve them.</p>
+
+		        </div>
+
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+    
     </div>
     </form>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try
-{
-    var pageTracker = _gat._getTracker("UA-12373356-1");
-    pageTracker._trackPageview();
-} catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

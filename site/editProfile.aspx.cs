@@ -37,6 +37,12 @@ public partial class editProfile : SedogoPage
     {
         if (!IsPostBack)
         {
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = userID;
+            sidebarControl.user = user;
+
             for (int day = 1; day <= 31; day++)
             {
                 dateOfBirthDay.Items.Add(new ListItem(day.ToString(), day.ToString()));
@@ -77,9 +83,6 @@ public partial class editProfile : SedogoPage
             {
                 throw ex;
             }
-
-            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), 
-                int.Parse(Session["loggedInUserID"].ToString()));
 
             firstNameTextBox.Text = user.firstName;
             lastNameTextBox.Text = user.lastName;

@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="editProfile.aspx.cs" Inherits="editProfile" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,9 +39,13 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 	
 <script language="JavaScript" type="text/javascript">
 function setHiddenDateField()
@@ -62,142 +71,149 @@ function setHiddenDateField()
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1>Change your profile</h1>
-            <p>Review and change your details below then submit to save</p>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-            <asp:ValidationSummary runat="server" ID="validationSummary" 
-                ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
-                HeaderText="Please review the following errors:" />
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 
-            <table width="100%">
-                <tr>
-                    <td>
-                    
-            <fieldset>
-                <ol class="width-constrain">
-                    <li>
-                        <label for="">First name</label><br />
-                        <asp:TextBox runat="server"
-                            ID="firstNameTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
-                            ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Surname</label><br />
-                        <asp:TextBox runat="server"
-                            ID="lastNameTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
-                            ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Introduction</label><br />
-                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
-                            ID="headlineTextBox" Width="200px" MaxLength="200" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Date of birth</label><br />
-                        <asp:DropDownList ID="dateOfBirthDay" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateOfBirthMonth" runat="server">
-                        </asp:DropDownList><asp:DropDownList ID="dateOfBirthYear" runat="server">
-                        </asp:DropDownList>
-                        <asp:TextBox ID="hiddenDateOfBirth" runat="server" />
-                        <asp:CompareValidator ID="dateOfBirthValidator" runat="server"
-                           ControlToValidate="hiddenDateOfBirth" ErrorMessage="Select a valid date"
-                           Operator="DataTypeCheck" Type="Date" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="" style="width: 80px">Gender</label>
-                        <asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
-                        Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Home town</label><br />
-                        <asp:TextBox runat="server"
-                            ID="homeTownTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="homeTownTextBoxValidator" runat="server"
-                            ControlToValidate="homeTownTextBox" ErrorMessage="A home town is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Timezone</label>
-                        <asp:DropDownList ID="timezoneDropDownList" runat="server"
-                            DataTextField="Description" DataValueField="TimezoneID">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
-                        ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
-                        </asp:RequiredFieldValidator>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Email address</label><br />
-                        <asp:TextBox runat="server"
-                            ID="emailAddressTextBox" Width="200px" MaxLength="200" />
-                            <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
-                            ControlToValidate="emailAddressTextBox" ErrorMessage="An email address is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
-                            runat="server" ControlToValidate="emailAddressTextBox" 
-                            ErrorMessage="The email address is not valid" Display="Dynamic"
-                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Enable email notifications</label><br />
-                        <asp:CheckBox runat="server" ID="enableEmailCheckbox" />
-                        <p>Enable email notifications of invitations to goals, updates and alerts about goals you've joined.......</p>
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                </ol>
-            </fieldset>
+			    <div class="three-col">
 
-                    </td>
-                    <td align="right">
-                        <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-                        <p style="display: block; clear: both">
-                        <asp:LinkButton 
-                            ID="uploadProfilePicButton" runat="server" 
-                            ToolTip="save" Text="Upload profile picture" 
-                            OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
-                        <p style="display: block; clear: both">
-                        <asp:LinkButton 
-                            ID="changePasswordButton" runat="server" ToolTip="save" Text="Change password" 
-                            OnClick="changePasswordButton_click" CssClass="button-sml" />
-                    </p>
-                    </td>
-                </tr>
-            </table>
-    
-            <div class="buttons">
-                <asp:LinkButton 
-                    ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-                    OnClick="saveChangesButton_click" CssClass="button-lrg" />
-            </div>
+                <h1>Change your profile</h1>
+                <p>Review and change your details below then submit to save</p>
 
-		</div>
+                <asp:ValidationSummary runat="server" ID="validationSummary" 
+                    ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+                    HeaderText="Please review the following errors:" />
+
+                <table width="100%">
+                    <tr>
+                        <td>
+                        
+                <fieldset>
+                    <ol class="width-constrain">
+                        <li>
+                            <label for="">First name</label><br />
+                            <asp:TextBox runat="server"
+                                ID="firstNameTextBox" Width="200px" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
+                                ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required" Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Surname</label><br />
+                            <asp:TextBox runat="server"
+                                ID="lastNameTextBox" Width="200px" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
+                                ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Introduction</label><br />
+                            <asp:TextBox runat="server" TextMode="MultiLine" Rows="4"
+                                ID="headlineTextBox" Width="200px" MaxLength="200" />
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Date of birth</label><br />
+                            <asp:DropDownList ID="dateOfBirthDay" runat="server">
+                            </asp:DropDownList><asp:DropDownList ID="dateOfBirthMonth" runat="server">
+                            </asp:DropDownList><asp:DropDownList ID="dateOfBirthYear" runat="server">
+                            </asp:DropDownList>
+                            <asp:TextBox ID="hiddenDateOfBirth" runat="server" />
+                            <asp:CompareValidator ID="dateOfBirthValidator" runat="server"
+                               ControlToValidate="hiddenDateOfBirth" ErrorMessage="Select a valid date"
+                               Operator="DataTypeCheck" Type="Date" />
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="" style="width: 80px">Gender</label>
+                            <asp:RadioButton ID="genderMaleRadioButton" GroupName="gender" runat="server" Checked="true" /> 
+                            Male &nbsp;&nbsp;&nbsp; <asp:RadioButton ID="genderFemaleRadioButton" GroupName="gender" runat="server" /> Female
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Home town</label><br />
+                            <asp:TextBox runat="server"
+                                ID="homeTownTextBox" Width="200px" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="homeTownTextBoxValidator" runat="server"
+                                ControlToValidate="homeTownTextBox" ErrorMessage="A home town is required" Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Timezone</label>
+                            <asp:DropDownList ID="timezoneDropDownList" runat="server"
+                                DataTextField="Description" DataValueField="TimezoneID">
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="timezoneRequiredFieldValidator" runat="server"
+                            ControlToValidate="timezoneDropDownList" ErrorMessage="A timezone is required" Display="Dynamic">
+                            </asp:RequiredFieldValidator>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Email address</label><br />
+                            <asp:TextBox runat="server"
+                                ID="emailAddressTextBox" Width="200px" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
+                                ControlToValidate="emailAddressTextBox" ErrorMessage="An email address is required" Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
+                                runat="server" ControlToValidate="emailAddressTextBox" 
+                                ErrorMessage="The email address is not valid" Display="Dynamic"
+                                ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                        <li>
+                            <label for="">Enable email notifications</label><br />
+                            <asp:CheckBox runat="server" ID="enableEmailCheckbox" />
+                            <p>Enable email notifications of invitations to goals, updates and alerts about goals you've joined.......</p>
+                        </li>
+                        <div class="pinstripe-divider">&nbsp;</div>
+                    </ol>
+                </fieldset>
+
+                        </td>
+                        <td align="right">
+                            <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
+                            <p style="display: block; clear: both">
+                            <asp:LinkButton 
+                                ID="uploadProfilePicButton" runat="server" 
+                                ToolTip="save" Text="Upload profile picture" 
+                                OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                            <p style="display: block; clear: both">
+                            <asp:LinkButton 
+                                ID="changePasswordButton" runat="server" ToolTip="save" Text="Change password" 
+                                OnClick="changePasswordButton_click" CssClass="button-sml" />
+                        </p>
+                        </td>
+                    </tr>
+                </table>
+        
+                <div class="buttonsfullpage">
+                    <asp:LinkButton 
+                        ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
+                        OnClick="saveChangesButton_click" CssClass="button-lrg" />
+                </div>
+
+		        </div>
+    			
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
     
     </div>
     </form>
 
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

@@ -37,12 +37,18 @@ public partial class sendMessage : SedogoPage
         if (!IsPostBack)
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
 
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
             eventNameLabel.Text = sedogoEvent.eventName;
 
             SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = userID;
+            sidebarControl.user = user;
+            
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,

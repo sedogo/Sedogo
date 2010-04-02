@@ -88,7 +88,7 @@
         </div>
     
         <p><br />If you don't have a Sedogo account and wish to 
-            register, <a href="register.aspx">please click here</a></p>
+            register, <a href="register.aspx" target="_top">please click here</a></p>
             <br />
 		<p><asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
                 OnClick="forgotPasswordButton_click"

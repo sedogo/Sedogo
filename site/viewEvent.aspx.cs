@@ -49,6 +49,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 action = (string)Request.QueryString["A"];
             }
 
+            sidebarControl.userID = userID;
+            if (userID > 0)
+            {
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                sidebarControl.user = user;
+            }
+
             if (action == "RemoveTracker")
             {
                 int trackedEventID = int.Parse(Request.QueryString["TEID"].ToString());

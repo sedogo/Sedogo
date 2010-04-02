@@ -37,6 +37,10 @@ public partial class eventJoinRequests : SedogoPage
         {
             int userID = int.Parse(Session["loggedInUserID"].ToString());
 
+            sidebarControl.userID = userID;
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.user = user;
+
             PopulateRequestList(userID);
         }
     }

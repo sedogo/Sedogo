@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="faq.aspx.cs" Inherits="faq" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -41,39 +46,40 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
-	    <div id="modal">
-            <h1>FAQ</h1>
-            <h2>What goals can I create?</h2>
-            <p>You can create any goal you like. Sedogo automatically matches you to people with similar goals to you. To make planning your goals easier, we've added categories for you to choose from.</p>
-            <h2>Can I connect with more than one person to achieve a goal?</h2>
-            <p>Absolutely. You can invite as many or few people as you like to be part of any one goal. The shared goal will appear as part of everyone's timeline.</p>
-            <h2>Can I follow someone's else's goal?</h2>
-            <p>Yes. Simply search for them or the goal they've created and click 'follow goal'.</p>
-            <h2>How much does it cost to subscribe to Sedogo? </h2>
-            <p>Nothing! Belonging to Sedogo is free.</p>
-            <h2>Can everyone see the goals I create?</h2>
-            <p>Only if you want them to. You can choose which goals you want others to see and which you don't.</p>
-            <h2>How do I create a goal that only I can see?</h2>
-            <p>Add your goal. On the 'Create goal' page, you'll see a 'Nature of goal' option. Select 'private'. You can also change the privacy setting on existing goals. Just select the goal you want to change and choose 'edit'.</p>
-            <h2>How do I create a goal that only the people I invite can see?</h2>
-            <p>Make sure you select 'private' when you create your goal (see above). After that, only those you invite to join the goal will be able to see it. You can change the privacy settings of existing goals by selecting the goal and choosing 'edit'.</p>
-		</div>
+
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		    <div id="other-content">
+			    <div class="three-col">
+
+                    <h1>FAQ</h1>
+                    <h2>What goals can I create?</h2>
+                    <p>You can create any goal you like. Sedogo automatically matches you to people with similar goals to you. To make planning your goals easier, we've added categories for you to choose from.</p>
+                    <h2>Can I connect with more than one person to achieve a goal?</h2>
+                    <p>Absolutely. You can invite as many or few people as you like to be part of any one goal. The shared goal will appear as part of everyone's timeline.</p>
+                    <h2>Can I follow someone's else's goal?</h2>
+                    <p>Yes. Simply search for them or the goal they've created and click 'follow goal'.</p>
+                    <h2>How much does it cost to subscribe to Sedogo? </h2>
+                    <p>Nothing! Belonging to Sedogo is free.</p>
+                    <h2>Can everyone see the goals I create?</h2>
+                    <p>Only if you want them to. You can choose which goals you want others to see and which you don't.</p>
+                    <h2>How do I create a goal that only I can see?</h2>
+                    <p>Add your goal. On the 'Create goal' page, you'll see a 'Nature of goal' option. Select 'private'. You can also change the privacy setting on existing goals. Just select the goal you want to change and choose 'edit'.</p>
+                    <h2>How do I create a goal that only the people I invite can see?</h2>
+                    <p>Make sure you select 'private' when you create your goal (see above). After that, only those you invite to join the goal will be able to see it. You can change the privacy settings of existing goals by selecting the goal and choosing 'edit'.</p>
+
+		        </div>
+
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
     
     </div>
     </form>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try
-{
-    var pageTracker = _gat._getTracker("UA-12373356-1");
-    pageTracker._trackPageview();
-} catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

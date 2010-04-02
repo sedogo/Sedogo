@@ -22,6 +22,7 @@ sqlcmd %SQLCMD_PARAM% ..\Tables\createGlobalDataTables.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\Tables\createUsersTables.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\Tables\createEventsTables.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\Tables\createAdministratorsTables.sql >> %logFileName%
+sqlcmd %SQLCMD_PARAM% ..\Tables\createAddressBookTables.sql >> %logFileName%
 
 ECHO Creating Stored Procedures...
 echo . >> %logFileName%
@@ -33,6 +34,7 @@ sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createGlobalDataStoredProcs.sql >> %logFile
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createEventsStoredProcs.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createAdministratorsStoredProcs.sql >> %logFileName%
 sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createMessagesStoredProcs.sql >> %logFileName%
+sqlcmd %SQLCMD_PARAM% ..\StoredProcs\createAddressBookStoredProcs.sql >> %logFileName%
 
 ECHO Populating tables...
 echo . >> %logFileName%

@@ -37,7 +37,10 @@ public partial class tracking : SedogoPage
         {
             int userID = int.Parse(Session["loggedInUserID"].ToString());
 
-            //SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = userID;
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.user = user;
+
             PopulateTrackedEventsList(userID);
         }
     }

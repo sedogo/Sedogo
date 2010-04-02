@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="postComment.aspx.cs" Inherits="postComment" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,57 +38,67 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    
-	    <div id="modal">
-            <h1>Add comment</h1>
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Goal name</label>
-                        <asp:Label ID="eventNameLabel" runat="server" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-						<label for="">Comment</label>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
-                            ID="commentTextBox" Width="400px" />
-                            <asp:RequiredFieldValidator ID="commentTextBoxValidator" runat="server"
-                            ControlToValidate="commentTextBox" ErrorMessage="A comment is required" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                </ol>
-            </fieldset>
-		</div>
 
-        <div class="buttons">
-            <asp:LinkButton 
-                ID="saveChangesButton" runat="server" ToolTip="save" Text="Add" 
-                OnClick="saveChangesButton_click" CssClass="button-lrg" />
-            <!--<asp:LinkButton 
-                ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
-                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />-->
-        </div>    
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+
+			    <div class="three-col">
+
+                    <h1>Add comment</h1>
+                    <fieldset>
+                        <ol>
+                            <li>
+                                <label for="">Goal name</label>
+                                <asp:Label ID="eventNameLabel" runat="server" />
+                            </li>
+                            <div class="pinstripe-divider">&nbsp;</div>
+                            <li>
+						        <label for="">Comment</label>
+                                <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
+                                    ID="commentTextBox" Width="400px" />
+                                    <asp:RequiredFieldValidator ID="commentTextBoxValidator" runat="server"
+                                    ControlToValidate="commentTextBox" ErrorMessage="A comment is required" Display="Dynamic">
+                                    </asp:RequiredFieldValidator>
+                            </li>
+                        </ol>
+                    </fieldset>
+
+                    <div class="fullpagebuttons">
+                        <asp:LinkButton 
+                            ID="saveChangesButton" runat="server" ToolTip="save" Text="Add" 
+                            OnClick="saveChangesButton_click" CssClass="button-lrg" />
+                    </div>    
+
+		        </div>
+    			
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
+    
     </div>
     </form>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try
-{
-    var pageTracker = _gat._getTracker("UA-12373356-1");
-    pageTracker._trackPageview();
-} catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

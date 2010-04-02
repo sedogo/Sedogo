@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="eventInvites.aspx.cs" Inherits="eventInvites" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,94 +38,105 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div style="position: relative; height: 450px; overflow: auto">
     
-        <div id="event-detail">
-            <div class="right-col">
-				<!--***PHIL*** this needs to show pending invitations and accepted invitations as per graphic 'inviteothers.jpg'-->
-                <h3 ID="currentInvitesHeader" runat="server" style="color: #0cf; margin: 50px 0 0 0">Pending invitations</h3>
-                
-                <h3 id="H1" runat="server" style="color: #0cf; margin: 50px 0 0 0">Accepted invitations</h3>
-                <asp:PlaceHolder ID="currentInvitesPlaceholder" runat="server" />
-            </div>
-            <div class="left-col">
-		        <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
-		        <!--***PHIL*** needs the following line to be dynamically generated-->
-		        <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="editedDateLabel" runat="server" /></p>
-		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-				<table class="summary">
-					<tbody>
-						<tr>
-							<th>Who:</th>
-							<td class="blue"><asp:Label ID="eventOwnersNameLabel" runat="server" /></td>
-						</tr>
-						<tr>
-							<th>Goal:</th>
-							<td><asp:Label ID="goalNameLabel" runat="server" /></td>
-						</tr>
-						<tr>
-							<th>Where:</th>
-							<td><asp:Label ID="goalVenueLabel" runat="server" /></td>
-						</tr>
-						<tr>
-							<th>Before:</th>
-							<td><asp:Label ID="eventDateLabel" runat="server" /></td>
-						</tr>
-					</tbody>
-				</table>
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 
-				<div class="pinstripe-divider">&nbsp;</div>
+			    <div class="three-col">
 
-                <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" /></h3>
-                <p>Type in friends or family email addresses or Sedogo account names.</p>
+                    <div id="event-detail">
+                        <div class="right-col">
+                            <h3 ID="currentInvitesHeader" runat="server" style="color: #0cf; margin: 50px 0 0 0">Pending invitations</h3>
+                            
+                            <h3 id="H1" runat="server" style="color: #0cf; margin: 50px 0 0 0">Accepted invitations</h3>
+                            <asp:PlaceHolder ID="currentInvitesPlaceholder" runat="server" />
+                        </div>
+                        <div class="left-col">
+		                    <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
+		                    <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="editedDateLabel" runat="server" /></p>
+		                    <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
 
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /><br />
-                <img src="images/profile/miniProfile.jpg" />
-                <asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" />
-				<div class="pinstripe-divider" style="margin: 20px 0 14px 0">&nbsp;</div>
-                <p style="margin-bottom: 8px">Invite message <em>(optional)</em></p>
+				            <table class="summary">
+					            <tbody>
+						            <tr>
+							            <th>Who:</th>
+							            <td class="blue"><asp:Label ID="eventOwnersNameLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Goal:</th>
+							            <td><asp:Label ID="goalNameLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Where:</th>
+							            <td><asp:Label ID="goalVenueLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Before:</th>
+							            <td><asp:Label ID="eventDateLabel" runat="server" /></td>
+						            </tr>
+					            </tbody>
+				            </table>
 
-                <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
-                    Width="233px" Rows="3" />
-                <p style="font-size: 11px"><br />Please note that anyone without a sedogo account <br />will be invited to join to connect with your goal</p>
+				            <div class="pinstripe-divider">&nbsp;</div>
+
+                            <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" /></h3>
+                            <p>Type in friends or family email addresses or Sedogo account names.</p>
+
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" />
+				            <div class="pinstripe-divider" style="margin: 20px 0 14px 0">&nbsp;</div>
+                            <p style="margin-bottom: 8px">Invite message <em>(optional)</em></p>
+
+                            <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
+                                Width="233px" Rows="3" />
+                            <p style="font-size: 11px"><br />Please note that anyone without a sedogo account <br />will be invited to join to connect with your goal</p>
+		                </div>
+		            </div>
+
+                    <div>
+                    <p>
+					    <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-lrg" Text="Back" ToolTip="Back" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
+	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
+    	            
+                    </p>
+                    </div>
+
+		        </div>
 		    </div>
-		</div>
-
- 
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
+    
     </div>
-                <div class="buttons" style="top: 418px; left: 316px">
-                <p>
-					<asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-lrg" Text="Back" ToolTip="Back" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
-	                <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
-	            
-                </p>
-                </div>
-   </form>
+    </form>
 
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl1" runat="server" />
 
 </body>
 </html>

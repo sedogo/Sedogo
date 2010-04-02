@@ -1,4 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="userProfile.aspx.cs" Inherits="userProfile" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,83 +38,92 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-	    <div id="modal">
-            <h1><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1>
+        <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-            <table width="100%">
-                <tr>
-                    <td>
-                    
-            <fieldset>
-                <ol class="width-constrain">
-                    <li>
-                        <label for="">&nbsp;</label><br />
-                        <asp:Label runat="server" ID="headlineLabel" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Birthday</label><br />
-                        <asp:Label runat="server" ID="birthdayLabel" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Home town</label><br />
-                        <asp:Label runat="server" ID="homeTownLabel" />
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals
-                    </li>
-                    <li>
-                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /></span> Goals achieved
-                    </li>
-                    <li>
-                        <span class="blue"><asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /></span> Group goals
-                    </li>
-                    <li>
-                       <span class="blue"> <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /></span> Goals followed
-                    </li>
-                    <div class="pinstripe-divider">&nbsp;</div>
-                </ol>
-            </fieldset>
+            <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                <div class="one-col">
 
-                    </td>
-                    <td align="right">
-                        <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-                    </td>
-                </tr>
-            </table>
-    
-            <div class="buttons">
-                <asp:LinkButton 
-                    ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message" 
-                    OnClick="sendMessageToUserLink_click" CssClass="button-lrg" />
+                    <h1><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1>
+
+                    <table width="100%">
+                        <tr>
+                            <td>
+                            
+                    <fieldset>
+                        <ol class="width-constrain">
+                            <li>
+                                <label for="">&nbsp;</label><br />
+                                <asp:Label runat="server" ID="headlineLabel" />
+                            </li>
+                            <div class="pinstripe-divider">&nbsp;</div>
+                            <li>
+                                <label for="">Birthday</label><br />
+                                <asp:Label runat="server" ID="birthdayLabel" />
+                            </li>
+                            <div class="pinstripe-divider">&nbsp;</div>
+                            <li>
+                                <label for="">Home town</label><br />
+                                <asp:Label runat="server" ID="homeTownLabel" />
+                            </li>
+                            <div class="pinstripe-divider">&nbsp;</div>
+                            <li>
+                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals
+                            </li>
+                            <li>
+                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /></span> Goals achieved
+                            </li>
+                            <li>
+                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /></span> Group goals
+                            </li>
+                            <li>
+                               <span class="blue"> <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /></span> Goals followed
+                            </li>
+                            <div class="pinstripe-divider">&nbsp;</div>
+                        </ol>
+                    </fieldset>
+
+                            </td>
+                            <td align="right">
+                                <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
+                            </td>
+                        </tr>
+                    </table>
+            
+                    <div>
+                        <asp:LinkButton 
+                            ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message" 
+                            OnClick="sendMessageToUserLink_click" CssClass="button-lrg" />
+                    </div>
+                </div>
             </div>
 
-		</div>
-    
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+        </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
+
     </div>
     </form>
 
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-</script>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 
 </body>
 </html>

@@ -59,7 +59,11 @@
 
 			    <div class="three-col">
 
-                    <h1>send message</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Send message</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="LinkButton1" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
 
                     <p><asp:Label ID="eventNameLabel" runat="server" /><br />
                     <asp:Label ID="eventDateLabel" runat="server" /><br />
@@ -83,9 +87,6 @@
                         <asp:LinkButton 
                             ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
                             OnClick="saveChangesButton_click" CssClass="button-sml" />
-                        <asp:LinkButton 
-                            ID="backButton" runat="server" ToolTip="Send" Text="Back to goal details" 
-                            OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
                     </div>    
 
 		        </div>

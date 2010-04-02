@@ -533,9 +533,9 @@ public partial class eventInvites : SedogoPage
     }
 
     //===============================================================
-    // Function: click_backToEventDetailsLink
+    // Function: backButton_click
     //===============================================================
-    protected void click_backToEventDetailsLink(object sender, EventArgs e)
+    protected void backButton_click(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
 

@@ -59,50 +59,55 @@
 
 			    <div class="three-col">
 
-                <h1>messages</h1>
-        
-                <div class="rightbuttons">
-                    <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                        Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
-                    <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                        Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
-                </div>
-
-                <div id="noUnreadMessagesDiv" runat="server">
-                <p>You have no unread messages.</p>
-                </div>
-                
-                <div id="messagesDiv" runat="server">
-                <asp:Repeater ID="messagesRepeater" runat="server" OnItemDataBound="messagesRepeater_ItemDataBound"
-                    OnItemCommand="messagesRepeater_ItemCommand">
-                    <ItemTemplate>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Messages</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+            
+                    <div class="page-banner-buttons">
+                        <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                            Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
+                        <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
+                            Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
+                    </div>
+                    <div class="clear-float"></div>
                     
-                        <table>
-                            <tr>
-                                <td>
-                                    <asp:Image id="eventPicThumbnailImage" runat="server" />
-                                </td>
-                                <td>
-                                    <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
-                                    <asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                    <asp:Literal ID="messageLabel" runat="server" /></p>
-                                </td>
-                            </tr>
-                        </table>
+                    <div id="noUnreadMessagesDiv" runat="server">
+                    <p>You have no unread messages.</p>
+                    </div>
+                    
+                    <div id="messagesDiv" runat="server">
+                    <asp:Repeater ID="messagesRepeater" runat="server" OnItemDataBound="messagesRepeater_ItemDataBound"
+                        OnItemCommand="messagesRepeater_ItemCommand">
+                        <ItemTemplate>
                         
-                        <p style="padding-left: 54px"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
-                            Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                            <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
-                            Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
-                        <br />
-
-                    </ItemTemplate>
-                </asp:Repeater>
-                </div>
-                
-		    </div>
-
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:Image id="eventPicThumbnailImage" runat="server" />
+                                    </td>
+                                    <td>
+                                        <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                        <asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                        <asp:Literal ID="messageLabel" runat="server" /></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
+                                Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
+                                <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
+                                Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
+                            <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+                            
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    </div>
+                    
 		        </div>
+	        </div>
     			
 	        <Sedogo:FooterControl ID="footerControl" runat="server" />
 	    </div>

@@ -55,7 +55,18 @@
 	        location.href = "viewEvent.aspx?A=RemoveTracker&EID=" + eventID + "&TEID=" + trackedEventID;
 	    }
 	}
+	function uploadEventImage()
+	{
+	    <asp:Literal id="uploadEventImageLiteral" runat="server" />
+	    openModal(url);
+	}
+	function editEvent()
+	{
+	    <asp:Literal id="editEventLiteral" runat="server" />
+	    openModal(url);
+	}
 	</script>
+	
 </head>
 <body>
     <form id="form1" runat="server">
@@ -70,11 +81,16 @@
 
 			    <div class="three-col">
 
+                    <div class="page-banner-content">
+                        <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+
                     <table>
                         <tr>
                             <td>
                             
-                                <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 				                <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
                                 <table class="summary">
 					                <tbody>
@@ -102,7 +118,8 @@
 						                </tr>
 					                </tbody>
                                 </table>
-                                <asp:HyperLink ID="editEventLink" runat="server" Text="Edit" ToolTip="Edit" CssClass="underline-bold" />
+                                <asp:Hyperlink ID="editEventLink" runat="server" NavigateUrl="javascript:editEvent()" 
+                                    Text="Edit" CssClass="underline-bold" />
             	                
                                 <div id="sendMessageDiv" runat="server">
                                 <asp:LinkButton id="sendMessageButton" runat="server" OnClick="sendMessageButton_click">Send Message</asp:LinkButton>
@@ -137,7 +154,7 @@
 
 				                <div style="width: 170px; padding-top: 70px; overflow: hidden">
                                     <asp:Image ID="eventImage" runat="server" Width="170" />
-                                    <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="click_uploadEventImage" Text="Edit picture" CssClass="underline-bold" />
+                                    <asp:Hyperlink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()" Text="Edit picture" CssClass="underline-bold" />
                                 </div>
                                 <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                                 <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->

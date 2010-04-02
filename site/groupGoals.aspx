@@ -60,7 +60,11 @@
 
 			    <div class="three-col">
 
-                    <h1>Group goals</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Group goals</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
 
                     <div id="noTrackedEventsDiv" runat="server">
                     <p>You have not joined any goals.</p>
@@ -81,9 +85,10 @@
                                     </td>
                                 </tr>
                             </table>
-                            <p style="padding-left: 54px"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
+                            <p style="text-align:right"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
                                 Text="Leave goal" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                             <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 
                         </ItemTemplate>
                     </asp:Repeater>

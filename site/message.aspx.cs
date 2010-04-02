@@ -223,4 +223,12 @@ public partial class message : SedogoPage
     {
         Response.Redirect("viewSentMessages.aspx");
     }
+    
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
+    }
 }

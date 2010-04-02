@@ -58,6 +58,12 @@
 
 			    <div class="three-col">
 
+                    <div class="page-banner-content">
+                        <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+
                     <div id="event-detail">
                         <div class="right-col">
                             <h3 ID="currentInvitesHeader" runat="server" style="color: #0cf; margin: 50px 0 0 0">Pending invitations</h3>
@@ -66,7 +72,6 @@
                             <asp:PlaceHolder ID="currentInvitesPlaceholder" runat="server" />
                         </div>
                         <div class="left-col">
-		                    <h1 style="color: #0cf; margin: 0 0 4px 0"><asp:Literal ID="eventTitleLabel" runat="server" /></h1>
 		                    <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="editedDateLabel" runat="server" /></p>
 		                    <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
 
@@ -117,9 +122,7 @@
 
                     <div>
                     <p>
-					    <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-lrg" Text="Back" ToolTip="Back" OnClick="click_backToEventDetailsLink" CausesValidation="false" />
 	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
-    	            
                     </p>
                     </div>
 

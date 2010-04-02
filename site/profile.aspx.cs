@@ -70,20 +70,20 @@ public partial class profile : SedogoPage
             if (Session["DefaultRedirect"] != null && Session["DefaultRedirect"].ToString() != "")
             {
                 string redir = (string)Session["DefaultRedirect"];
+                Session["DefaultRedirect"] = "";
                 if (redir == "Messages")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"message.aspx\");", true);
+                    Response.Redirect("message.aspx");
                 }
                 if (redir == "Requests")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"eventJoinRequests.aspx\");", true);
+                    Response.Redirect("eventJoinRequests.aspx");
                 }
-                Session["DefaultRedirect"] = "";
             }
             if (Session["EventID"] != null && Session["EventID"].ToString() != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"viewEvent.aspx?EID=" + Session["EventID"].ToString() + "\");", true);
                 Session["EventID"] = "";
+                Response.Redirect("viewEvent.aspx?EID=" + Session["EventID"].ToString());
             }
 
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));

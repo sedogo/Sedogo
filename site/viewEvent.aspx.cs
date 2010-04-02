@@ -305,8 +305,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 uploadEventImage.Text = "Edit picture";
             }
 
-            editEventLink.NavigateUrl = "editEvent.aspx?EID=" + eventID.ToString();
-
             if (sedogoEvent.eventAchieved == true)
             {
                 achievedEventLink.Text = "Re-open";
@@ -321,6 +319,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             createSimilarEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
             //trackThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
             //joinThisEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
+
+            uploadEventImageLiteral.Text = "var url = 'uploadEventImage.aspx?EID=" + eventID.ToString() + "';";
+            editEventLiteral.Text = "var url = 'editEvent.aspx?EID=" + eventID.ToString() + "';";
 
             if (sedogoEvent.dateType == "D")
             {
@@ -701,16 +702,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     }
 
     //===============================================================
-    // Function: click_uploadEventImage
-    //===============================================================
-    protected void click_uploadEventImage(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-
-        Response.Redirect("uploadEventImage.aspx?EID=" + eventID.ToString());
-    }
-
-    //===============================================================
     // Function: sendMessageButton_click
     //===============================================================
     protected void sendMessageButton_click(object sender, EventArgs e)
@@ -889,5 +880,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         eventInvite.Update();
 
         Response.Redirect("viewEvent.aspx?EID=" + eventInvite.eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
     }
 }

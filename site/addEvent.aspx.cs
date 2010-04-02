@@ -203,14 +203,6 @@ public partial class addEvent : SedogoPage
         sedogoEvent.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         sedogoEvent.Add();
 
-        Response.Redirect("addEventUploadPic.aspx?EID=" + sedogoEvent.eventID.ToString());
-    }
-
-    //===============================================================
-    // Function: backButton_click
-    //===============================================================
-    protected void backButton_click(object sender, EventArgs e)
-    {
-        Response.Redirect("profileRedirect.aspx");
+        Response.Redirect("viewEvent.aspx?EID=" + sedogoEvent.eventID.ToString());
     }
 }

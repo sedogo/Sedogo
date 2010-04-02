@@ -140,4 +140,12 @@ public partial class alert : SedogoPage
         int userID = int.Parse(Session["loggedInUserID"].ToString());
         PopulateAlertsList(userID);
     }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
+    }
 }

@@ -135,4 +135,12 @@ public partial class tracking : SedogoPage
             PopulateTrackedEventsList(userID);
         }
     }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
+    }
 }

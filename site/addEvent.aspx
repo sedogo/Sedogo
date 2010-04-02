@@ -94,6 +94,10 @@ function popupCalendarRangeEndDate(image)
     }
     <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
 }
+function preSaveClick()
+{
+    document.forms[0].target = "_top";
+}
 </script>
 
         <asp:ValidationSummary runat="server" ID="validationSummary" 
@@ -364,10 +368,7 @@ function popupCalendarRangeEndDate(image)
 		<p class="required-field">&#42; Required field</p>
         <div class="buttons">
             <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                Text="Next" CssClass="button-lrg" />
-            <asp:LinkButton Visible="false"
-                ID="backButton" runat="server" ToolTip="save" Text="Go back" 
-                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
+                Text="Save" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
         </div>
 
     </div>

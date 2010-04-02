@@ -60,7 +60,11 @@
 
 			    <div class="three-col">
 
-                    <h1>Requests</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Requests</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
 
                     <div id="noRequestsDiv" runat="server">
                     <p>You have no requests.</p>
@@ -84,11 +88,12 @@
                                 </tr>
                             </table>
                             
-                            <p style="padding-left: 54px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
+                            <p style="text-align:right"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
                                 Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' />
                                 <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml" 
                                 Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                             <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 
                         </ItemTemplate>
                     </asp:Repeater>

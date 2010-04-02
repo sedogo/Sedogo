@@ -60,7 +60,12 @@
                     <fieldset>
                         <ol>
                             <li>
+                                <br />
+                            </li>
+                            <li>
                                 <label for="">Message</label>
+                            </li>
+                            <li>
                                 <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
                                     Width="400" Rows="10"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"

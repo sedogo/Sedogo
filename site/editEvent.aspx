@@ -362,9 +362,6 @@ function popupCalendarRangeEndDate(image)
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
                 OnClick="saveChangesButton_click" CssClass="button-lrg" />
-            <asp:LinkButton 
-                ID="backButton" runat="server" ToolTip="save" Text="Back to goal details" 
-                OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
         </div>
     
     </div>

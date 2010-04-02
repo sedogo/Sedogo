@@ -4,7 +4,7 @@
     <h2 class="col-header">
         My profile <span><asp:HyperLink NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile" Text="Edit" runat="server" /></span></h2>
     <asp:Image ID="profileImage" runat="server" CssClass="profile" />
-    <p class="profile-name">
+
         <span style="font-size: 14px; font-weight: bold">
             <asp:Label ID="userNameLabel" runat="server" /></span><br />
         <p class="profile-intro">
@@ -14,8 +14,10 @@
             <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
                 OnClick="click_viewArchiveLink" />
             <asp:HyperLink NavigateUrl="~/addEvent.aspx" ToolTip="add goal" CssClass="button-sml modal" 
-                Text="+ Goal" runat="server" /></a>
+                Text="+ Goal" runat="server" />
         </p>
+
+        <div id="sidebarMenuItems">
         <ol class="items">
             <li class="messages">
                 <asp:HyperLink ID="messageCountLink" runat="server" NavigateUrl="~/message.aspx" /></li>
@@ -29,9 +31,13 @@
                 <asp:HyperLink ID="trackingCountLink" NavigateUrl="~/tracking.aspx" runat="server" /></li>
             <li class="goal-groups">
                 <asp:HyperLink ID="groupGoalsLink" NavigateUrl="~/groupGoals.aspx" runat="server" /></li>
-            <li class="goal-groups">
+            <!--
+            <li class="addressbook">
                 <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
+            -->
         </ol>
+        </div>
+        
         <div class="alerts">
             <h3>
                 My latest goals</h3>

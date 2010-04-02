@@ -59,16 +59,18 @@
 
 			    <div class="three-col">
 
-                    <h1>Add comment</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Add comment to <asp:Label ID="eventNameLabel" runat="server" /></div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+
                     <fieldset>
                         <ol>
                             <li>
-                                <label for="">Goal name</label>
-                                <asp:Label ID="eventNameLabel" runat="server" />
+                                <label for="commentTextBox">Comment</label>
                             </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
                             <li>
-						        <label for="">Comment</label>
                                 <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
                                     ID="commentTextBox" Width="400px" />
                                     <asp:RequiredFieldValidator ID="commentTextBoxValidator" runat="server"

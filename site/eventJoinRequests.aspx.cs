@@ -150,4 +150,12 @@ public partial class eventJoinRequests : SedogoPage
         int userID = int.Parse(Session["loggedInUserID"].ToString());
         PopulateRequestList(userID);
     }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
+    }
 }

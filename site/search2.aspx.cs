@@ -530,7 +530,7 @@ public partial class search2 : SedogoPage
                     }
                     eventString.AppendLine("</p>");
                     eventString.AppendLine("<a href=\"viewEvent.aspx?EID=" + eventID.ToString()
-                        + "\" title=\"\" class=\"modal\">View</a>");
+                        + "\" title=\"\">View</a>");
 
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("<td align=\"right\" style=\"padding-top:5px\">");

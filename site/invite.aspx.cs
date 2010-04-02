@@ -172,4 +172,12 @@ public partial class invite : SedogoPage
         int userID = int.Parse(Session["loggedInUserID"].ToString());
         PopulateInviteList(userID);
     }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
+    }
 }

@@ -1,6 +1,6 @@
 ﻿//===============================================================
 // Filename: editProfile.aspx.cs
-// Date: 04/09/09
+// Date:04/09/09
 // --------------------------------------------------------------
 // Description:
 //   Edit profile
@@ -173,18 +173,10 @@ public partial class editProfile : SedogoPage
     }
 
     //===============================================================
-    // Function: uploadProfilePicButton_click
+    // Function: backButton_click
     //===============================================================
-    protected void uploadProfilePicButton_click(object sender, EventArgs e)
+    protected void backButton_click(object sender, EventArgs e)
     {
-        Response.Redirect("uploadProfilePic.aspx");
-    }
-
-    //===============================================================
-    // Function: changePasswordButton_click
-    //===============================================================
-    protected void changePasswordButton_click(object sender, EventArgs e)
-    {
-        Response.Redirect("changePassword.aspx");
+        Response.Redirect("profile.aspx");
     }
 }

@@ -59,35 +59,40 @@
 
 			    <div class="three-col">
 
-                <h1>Reminders</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Reminders</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
 
-                <div id="noAlertsDiv" runat="server">
-                <p>You have no reminders.</p>
-                </div>
-                
-                <div id="alertsDiv" runat="server">
-                <asp:Repeater ID="alertsRepeater" runat="server" OnItemDataBound="alertsRepeater_ItemDataBound"
-                    OnItemCommand="alertsRepeater_ItemCommand">
-                    <ItemTemplate>
+                    <div id="noAlertsDiv" runat="server">
+                    <p>You have no reminders.</p>
+                    </div>
                     
-                        <table>
-                            <tr>
-                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
-                                <td>
-                                    <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
-                                    <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
-                                    <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
-                                </td>
-                            </tr>
-                        </table>
+                    <div id="alertsDiv" runat="server">
+                    <asp:Repeater ID="alertsRepeater" runat="server" OnItemDataBound="alertsRepeater_ItemDataBound"
+                        OnItemCommand="alertsRepeater_ItemCommand">
+                        <ItemTemplate>
                         
-                        <p style="padding-left:50px"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
-                            Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
-                        <br />
+                            <table>
+                                <tr>
+                                    <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                    <td>
+                                        <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
+                                        <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
+                                        <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="text-align:right"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
+                                Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
+                            <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 
-                    </ItemTemplate>
-                </asp:Repeater>
-                </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    </div>
 
 		        </div>
     			

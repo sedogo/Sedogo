@@ -90,6 +90,6 @@ public partial class uploadProfilePic : SedogoPage
     //===============================================================
     protected void backButton_click(object sender, EventArgs e)
     {
-        Response.Redirect("editProfile.aspx");
+        Response.Redirect("profileRedirect.aspx");
     }
 }

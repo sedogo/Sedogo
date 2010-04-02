@@ -59,41 +59,47 @@
 
 			    <div class="three-col">
 
-                <h1>Invites</h1>
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Invites</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
 
-                <div id="noInvitesDiv" runat="server">
-                <p>You have no invitations.</p>
-                </div>
-                
-                <div id="invitesDiv" runat="server">
-                <asp:Repeater ID="invitesRepeater" runat="server" OnItemDataBound="invitesRepeater_ItemDataBound"
-                    OnItemCommand="invitesRepeater_ItemCommand">
-                    <ItemTemplate>
+                    <div id="noInvitesDiv" runat="server">
+                    <p>You have no invitations.</p>
+                    </div>
                     
-                        <table>
-                            <tr>
-                                <td>
-                                    <asp:Image id="eventPicThumbnailImage" runat="server" />
-                                </td>
-                                <td>
-								    <p>
-									    Goal creator: <span class="blue"><asp:Hyperlink ID="userNameLabel" runat="server" /></span><br />
-									    Goal: <span class="blue"><asp:Hyperlink ID="eventNameLabel" runat="server" /></span><br />
-									    Date: <span class="blue"><asp:Hyperlink ID="eventDateLabel" runat="server" /></span>
-								    </p>
-                                    <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View" />-->
-                                </td>
-                            </tr>
-                        </table>
+                    <div id="invitesDiv" runat="server">
+                    <asp:Repeater ID="invitesRepeater" runat="server" OnItemDataBound="invitesRepeater_ItemDataBound"
+                        OnItemCommand="invitesRepeater_ItemCommand">
+                        <ItemTemplate>
                         
-                        <p style="padding-left: 54px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
-                            Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
-                            <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
-                            Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
-                        <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 368px">&nbsp;</div>
-                    </ItemTemplate>
-                </asp:Repeater>
-                </div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:Image id="eventPicThumbnailImage" runat="server" />
+                                    </td>
+                                    <td>
+								        <p>
+									        Goal creator: <span class="blue"><asp:Hyperlink ID="userNameLabel" runat="server" /></span><br />
+									        Goal: <span class="blue"><asp:Hyperlink ID="eventNameLabel" runat="server" /></span><br />
+									        Date: <span class="blue"><asp:Hyperlink ID="eventDateLabel" runat="server" /></span>
+								        </p>
+                                        <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View" />-->
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="text-align:right"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
+                                Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
+                                <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
+                                Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
+                            <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+                            
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    </div>
 
 		        </div>
     			

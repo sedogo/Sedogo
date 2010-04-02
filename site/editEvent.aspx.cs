@@ -241,14 +241,4 @@ public partial class editEvent : SedogoPage
 
         Response.Redirect("profileRedirect.aspx");
     }
-
-    //===============================================================
-    // Function: backButton_click
-    //===============================================================
-    protected void backButton_click(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
-    }
 }

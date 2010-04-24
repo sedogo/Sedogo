@@ -40,6 +40,7 @@ public partial class eventJoinRequests : SedogoPage
             sidebarControl.userID = userID;
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.user = user;
+            bannerAddFindControl.userID = userID;
 
             PopulateRequestList(userID);
         }

@@ -2496,5 +2496,39 @@ GO
 GRANT EXEC ON spSelectAlertsToSendByEmail TO sedogoUser
 GO
 
+/*===============================================================
+// Function: spSelectEventListByFirstLetter
+// Description:
+//   Selects the event list
+//=============================================================*/
+PRINT 'Creating spSelectEventListByFirstLetter...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventListByFirstLetter')
+BEGIN
+	DROP Procedure spSelectEventListByFirstLetter
+END
+GO
+
+CREATE Procedure spSelectEventListByFirstLetter
+	@LetterFilter	char(1)
+AS
+BEGIN
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		EventDescription, EventVenue, MustDo,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM Events
+	WHERE PrivateEvent = 0
+	AND EventAchieved = 0
+	AND SUBSTRING(EventName, 1, 1) = @LetterFilter
+	ORDER BY StartDate
+END
+GO
+
+GRANT EXEC ON spSelectEventListByFirstLetter TO sedogoUser
+GO
+
 PRINT '== Finished createEventsStoredProcs.sql =='
 GO

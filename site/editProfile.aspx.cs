@@ -42,6 +42,7 @@ public partial class editProfile : SedogoPage
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.userID = userID;
             sidebarControl.user = user;
+            bannerAddFindControl.userID = userID;
 
             for (int day = 1; day <= 31; day++)
             {

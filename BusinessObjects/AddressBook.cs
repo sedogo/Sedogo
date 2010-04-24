@@ -228,5 +228,40 @@ namespace Sedogo.BusinessObjects
                 conn.Close();
             }
         }
+
+        //===============================================================
+        // Function: GetAddressBookCountByUser
+        //===============================================================
+        public static int GetAddressBookCountByUser(int userID)
+        {
+            int alertCount = 0;
+
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectAddressBookCountByUser";
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                alertCount = int.Parse(rdr[0].ToString());
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("AddressBook", "GetAddressBookCountByUser", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return alertCount;
+        }
     }
 }

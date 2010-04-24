@@ -125,8 +125,8 @@ public partial class addEventSummary : SedogoPage
 
             SqlCommand cmd = new SqlCommand("", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectEventAlertListPending";
-            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+            cmd.CommandText = "spSelectUsersWithLastName";
+            cmd.Parameters.Add("@Letter", SqlDbType.Char, 1).Value = eventID;
             DbDataReader rdr = cmd.ExecuteReader();
             if (rdr.HasRows == true)
             {

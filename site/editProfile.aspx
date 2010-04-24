@@ -71,6 +71,8 @@ function setHiddenDateField()
     <form id="form1" runat="server">
     <div>
     
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
 	    <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />

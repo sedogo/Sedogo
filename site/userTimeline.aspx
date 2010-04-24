@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="EventsListControl" Src="~/components/eventsListControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -266,6 +267,8 @@
     <form id="form1" runat="server">
     <div>
     
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
 	    <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
@@ -301,7 +304,7 @@
 						    <div class="simileAjax-bubble-border-top simileAjax-bubble-border-top-pngTranslucent"></div>
 						    <div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent"></div>
 						    <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
-							    <div style="position: static; width: 260px;">
+							    <div style="position: static; width: 240px;">
 								    <div class="timeline-event-bubble-title"><asp:Hyperlink ID="usersProfileNameLabel" runat="server" /> 
 								    <asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/messages.gif" runat="server" CssClass="modal" /></div>
 								    <div class="timeline-event-bubble-body">
@@ -331,47 +334,7 @@
 		    </div>
 		    <div id="other-content">
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
-			    <div class="one-col">
-				    <div class="events">
-					    <h2>This month</h2>
-					    <asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
-					    <asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="todaysDateLabel" runat="server" />
-					    <asp:PlaceHolder ID="todayEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="thisWeekTitleLabel" runat="server" Text="This week" />
-					    <asp:PlaceHolder ID="thisWeekEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="thisMonthTitleLabel" runat="server" Text="This month" />
-					    <asp:PlaceHolder ID="thisMonthEventsPlaceHolder" runat="server" />
-				    </div>
-			    </div>
-			    <div class="one-col">
-				    <div class="events">
-					    <h2>Next 5 yrs</h2>
-					    <asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
-					    <asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="next2YearsTitleLabel" runat="server" Text="Next 2 years" />
-					    <asp:PlaceHolder ID="next2YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="next3YearsTitleLabel" runat="server" Text="Next 3 years" />
-					    <asp:PlaceHolder ID="next3YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="next4YearsTitleLabel" runat="server" Text="Next 4 years" />
-					    <asp:PlaceHolder ID="next4YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="next5YearsTitleLabel" runat="server" Text="Next 5 years" />
-					    <asp:PlaceHolder ID="next5YearsEventsPlaceHolder" runat="server" />
-				    </div>
-			    </div>
-			    <div class="one-col-end">
-				    <div class="events">
-					    <h2>5 yrs +</h2>
-					    <asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />
-					    <asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="tenToTwentyYearsTitleLabel" runat="server" Text="10-20 years" />
-					    <asp:PlaceHolder ID="next20YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="twentyPlusYearsTitleLabel" runat="server" Text="20+ years" />
-					    <asp:PlaceHolder ID="next100YearsEventsPlaceHolder" runat="server" />
-					    <asp:Label ID="unknownDateTitleLabel" runat="server" Text="Unknown" />
-					    <asp:PlaceHolder ID="notScheduledEventsPlaceHolder" runat="server" />
-				    </div>
-			    </div>
+                <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
     			
 		    </div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />

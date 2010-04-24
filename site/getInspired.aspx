@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -42,42 +43,45 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-    <!--<script type="text/javascript" src="utils/validationFunctions.js"></script>-->
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
-	<script type="text/javascript">
-    function doAddEvent()
-    {
-        openModal("login.aspx");
-    }
-    function checkAddButtonEnter(e)
-    {
-        var characterCode;
-        if (e && e.which) // NN4 specific code
+    <style type="text/css">
+        .itemTemplate
         {
-            e = e;
-            characterCode = e.which;
+            border: 0px;    /*solid 1px #dff3ff;*/
+            height: 216px;
+            width: 232px;
+            margin: 0px;   /*5px;*/
         }
-        else
+        .rotatorBackground
         {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
+            float: left;
+            margin-left: 0px;   /*50px;*/
+            margin-top: 0px;    /*15px;*/
+            width: 696px;
+            height: 216px;
+            border: 0;  /*solid 2px #dedede;*/
+            font-family: Arial;
+            -moz-border-radius: 0px;    /*15px;*/
+            -webkit-border-radius: 0px;    /*15px;*/
+            _margin-left: 0px;    /*25px;*/ /* IE6 hack*/
+            _margin-top: 0px;    /*7px;*/ /* IE6 hack*/
         }
-        if (characterCode == 13) //// Enter key is 13
+        .horizontalRotator
         {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            doAddEvent();
+            margin-top: 0px;    /*110px;*/
+            margin-left: auto;
+            margin-right: auto;
+            width: 696px;
+            height: 216px;
         }
-        else
-        {
-            return false;
-        }
-    }
-    </script>
+    </style>    
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
+    
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
     
         <div id="container">
 	        <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
@@ -129,9 +133,30 @@
                         </span>
                     </p>
 				</div>
+				
+				<div class="three-col" style="float:left">
+                    <div class="rotatorBackground">
+                        <telerik:RadRotator ID="eventRotator" runat="server" Width="696px" Height="216px"
+                            CssClass="horizontalRotator" ScrollDuration="500" 
+                            FrameDuration="5000" ItemHeight="216" ItemWidth="232">
+                            <ItemTemplate>
+                                <div class="itemTemplate">
+                                    <a href="getInspired.aspx"><img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png'
+                                    alt="Customer Image" /></a>
+                                </div>
+                            </ItemTemplate>
+                        </telerik:RadRotator>
+                    </div>
+                </div>
+				
 			</div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />
 		</div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
             
     </div>
     </form>

@@ -76,6 +76,8 @@ function termsClientValidation(source, args)
     <form id="form1" runat="server">
     <div>
     
+    <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
     <div>
         <div id="container">
 	    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />

@@ -43,8 +43,6 @@ public partial class search : System.Web.UI.Page
                 searchText = (string)Request.QueryString["Search"];
             }
 
-            what2.Text = searchText;
-
             timelineURL.Text = "timelineSearchXML.aspx?Search=" + searchText;
 
             DateTime timelineStartDate = DateTime.Now.AddMonths(8);
@@ -69,13 +67,6 @@ public partial class search : System.Web.UI.Page
             {
                 noSearchResultsDiv.Visible = false;
             }
-
-            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
-
-            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
-            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
-            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
-            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
         }
     }
 
@@ -114,29 +105,5 @@ public partial class search : System.Web.UI.Page
         }
 
         return searchCount;
-    }
-
-    //===============================================================
-    // Function: searchButton_click
-    //===============================================================
-    protected void searchButton_click(object sender, EventArgs e)
-    {
-        string searchText = what2.Text;
-
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-        {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-        }
-        else
-        {
-            if (searchText.Length >= 2)
-            {
-                Response.Redirect("search.aspx?Search=" + searchText.ToString());
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-            }
-        }
     }
 }

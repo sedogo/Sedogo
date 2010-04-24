@@ -48,6 +48,7 @@ public partial class sendMessage : SedogoPage
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.userID = userID;
             sidebarControl.user = user;
+            bannerAddFindControl.userID = userID;
             
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;

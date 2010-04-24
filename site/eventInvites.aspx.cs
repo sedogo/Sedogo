@@ -84,6 +84,7 @@ public partial class eventInvites : SedogoPage
             {
                 SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
                 sidebarControl.user = user;
+                bannerAddFindControl.userID = userID;
             }
 
             string dateString = "";

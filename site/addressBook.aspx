@@ -46,18 +46,52 @@
 <body>
     <form id="form1" runat="server">
     <div>
+
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+        
         <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+	        
             <div id="other-content">
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 
-                <div class="one-col">
-                TEST
-                </div>
-                <div class="one-col">
-                </div>
-                <div class="one-col-end">
+                <div class="three-col">
+                    <div id="noContactsDiv" runat="server">
+                    <p>You have no entries in your address book.</p>
+                    </div>
+                    
+                    <div id="contactsDiv" runat="server">
+                    <asp:Repeater ID="addressBookRepeater" runat="server" 
+                        OnItemDataBound="addressBookRepeater_ItemDataBound"
+                        OnItemCommand="addressBookRepeater_ItemCommand">
+                        <ItemTemplate>
+                        
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <p>Name: <asp:HyperLink ID="nameLabel" runat="server" /></p>
+                                        <p>Email: <asp:HyperLink ID="emailLabel" runat="server" /></p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="text-align:right"><asp:LinkButton ID="editContactButton" 
+                                runat="server" CssClass="button-sml" 
+                                Text="Edit" CommandName="editContactButton" 
+                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AddressBookID") %>' /></p>
+                            <br />
+                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    </div>
+                    
+                    <asp:LinkButton ID="editContactButton" 
+                        runat="server" CssClass="button-sml modal" OnClick="editContactButton_click"
+                        Text="Add person to address book" />
+                                
                 </div>
 
             </div>

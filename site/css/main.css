@@ -1140,7 +1140,9 @@ table.summary td.blue {
 	background: #ccc;
 	margin: 5px 0 7px 0;
 }
-.add-find {
+.add-find 
+{
+	margin-top:10px;
 	background: #eee;
 	-moz-border-radius: 12px;
 	-webkit-border-radius: 12px;
@@ -1403,4 +1405,21 @@ a.underline-bold {
 #sidebarMenuItems a:hover
 {
   background-color:#EEEEEE;
+}
+
+.eventCommentBox
+{
+	background-color: #EEEEEE;
+	border:solid 1px #CCCCCC;
+	padding:2px 5px 2px 2px;
+}
+
+.directory
+{
+	width: 150px;
+}
+
+.publicPageSelectedLetter
+{
+	font-weight: bold;
 }

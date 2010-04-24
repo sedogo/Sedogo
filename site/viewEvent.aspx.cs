@@ -54,6 +54,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
                 sidebarControl.user = user;
+                bannerAddFindControl.userID = userID;
+
+                eventCommentBox.Visible = true;
+            }
+            else
+            {
+                eventCommentBox.Visible = false;
             }
 
             if (action == "RemoveTracker")
@@ -418,12 +425,21 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 if( postedByUserID < 0 || postedByUserID == currentUserID )
                 {
                     outputText = outputText + "<a href=\"profile.aspx\"";
+                    outputText = outputText + " target=\"_top\">" + postedByUsername + "</a>";
                 }
                 else
                 {
-                    outputText = outputText + "<a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\"";
+                    if (currentUserID > 0)
+                    {
+                        outputText = outputText + "<a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\"";
+                        outputText = outputText + " target=\"_top\">" + postedByUsername + "</a>";
+                    }
+                    else
+                    {
+                        outputText = outputText + postedByUsername;
+                    }
                 }
-                outputText = outputText + " target=\"_top\">" + postedByUsername + "</a><p>";
+                outputText = outputText + "</p>";
                 outputText = outputText + createdDate.ToString("ddd d MMMM yyyy") + "<br/>"
                     + "<span style=\"color:black\">" + commentText.Replace("\n", "<br/>") + "</span></p>";
 
@@ -717,8 +733,20 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     protected void postCommentButton_click(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
-        Response.Redirect("postComment.aspx?EID=" + eventID.ToString());
+        string commentText = commentTextBox.Text;
+
+        SedogoEventComment comment = new SedogoEventComment(Session["loggedInUserFullName"].ToString());
+        comment.eventID = eventID;
+        comment.postedByUserID = loggedInUserID;
+        comment.commentText = commentText;
+        comment.Add();
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        sedogoEvent.SendEventUpdateEmail(loggedInUserID);
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 
     //===============================================================

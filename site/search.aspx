@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -190,85 +191,18 @@
         }
         return nID;
     }
-    function loginRedirect(eventID)
-    {
-        openModal("login.aspx?EID=" + eventID);
-    }
-    function doAddEvent()
-    {
-        openModal("login.aspx");
-    }
-    function checkAddButtonEnter(e)
-    {
-        var characterCode;
-        if (e && e.which) // NN4 specific code
-        {
-            e = e;
-            characterCode = e.which;
-        }
-        else
-        {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
-        }
-        if (characterCode == 13) //// Enter key is 13
-        {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            doAddEvent();
-        }
-        else
-        {
-            return false;
-        }
-    }
     </script>
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
     <div>
     
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
 	    <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-		    <div class="three-col">
-		        <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
-		            <tr>
-		                <td><h3 class="blue"><a href="login.aspx" class="modal">Add</a></h3>
-		                    <p class="blue">to my goal list</p>
-		                    <asp:Panel ID="Panel1" runat="server">
-                                <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                        <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
-                                            MaxLength="1000" /></td>
-                                        <td valign="top" style="padding-top:4px"><a href="login.aspx" 
-                                            class="modal"><asp:Image ID="searchButton1" 
-                                            runat="server" ImageUrl="~/images/addButton.png" /></a></td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
-		                </td>
-		                <td><h3 class="blue"><asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton_click" /></h3>
-		                    <p class="blue">people with my goals</p>
-		                    <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
-                                    <table border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
-                                                ValidationGroup="what2Group" /></td>
-                                            <td valign="top" style="padding-top:4px"><asp:ImageButton 
-                                                ID="searchButton2" runat="server" OnClick="searchButton_click" 
-                                                ImageUrl="~/images/searchButton.png" /></td>
-                                        </tr>
-                                    </table>
-                                    <asp:RegularExpressionValidator 
-                                        ID="what2Validator" runat="server" 
-                                        ErrorMessage="Goal name must have at least 2 characters" 
-                                        ControlToValidate="what2" ValidationGroup="what2Group" 
-                                        ValidationExpression="[\S\s]{2,200}" />
-		                    </asp:Panel>
-		                </td>
-		            </tr>    
-		        </table>
-		    </div>
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
 		    <div id="noSearchResultsDiv" runat="server" class="errorMessage">
 		        <p><b>&nbsp;<br />There were no results found, please try again or refine your search<br />&nbsp;</b></p>
 		    </div>
@@ -312,6 +246,11 @@
 		    </div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />
 	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
     
     </div>
     </form>

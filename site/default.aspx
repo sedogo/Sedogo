@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -196,43 +197,45 @@
         }
         return nID;
     }
-    function loginRedirect(eventID)
-    {
-        openModal("login.aspx?EID=" + eventID);
-    }
-    function doAddEvent()
-    {
-        openModal("login.aspx");
-    }
-    function checkAddButtonEnter(e)
-    {
-        var characterCode;
-        if (e && e.which) // NN4 specific code
-        {
-            e = e;
-            characterCode = e.which;
-        }
-        else
-        {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
-        }
-        if (characterCode == 13) //// Enter key is 13
-        {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            doAddEvent();
-        }
-        else
-        {
-            return false;
-        }
-    }
     </script>
+    
+    <style type="text/css">
+        .itemTemplate
+        {
+            border: 0px;    /*solid 1px #dff3ff;*/
+            height: 216px;
+            width: 232px;
+            margin: 0px;   /*5px;*/
+        }
+        .rotatorBackground
+        {
+            float: left;
+            margin-left: 0px;   /*50px;*/
+            margin-top: 0px;    /*15px;*/
+            width: 232px;
+            height: 216px;
+            border: 0;  /*solid 2px #dedede;*/
+            font-family: Arial;
+            -moz-border-radius: 0px;    /*15px;*/
+            -webkit-border-radius: 0px;    /*15px;*/
+            _margin-left: 0px;    /*25px;*/ /* IE6 hack*/
+            _margin-top: 0px;    /*7px;*/ /* IE6 hack*/
+        }
+        .horizontalRotator
+        {
+            margin-top: 0px;    /*110px;*/
+            margin-left: auto;
+            margin-right: auto;
+            width: 232px;
+            height: 216px;
+        }
+    </style>    
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="defaultForm" runat="server">
     <div>
+
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
     
         <div id="container">
 	        <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
@@ -274,6 +277,20 @@
 				<div class="one-col-end">
 					<h2 class="col-header">get inspired</h2>
 					<p class="teaser">Need help getting started? <a href="getInspired.aspx">See popular goal searches and get ideas</a></p>
+					
+                    <div class="rotatorBackground">
+                        <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
+                            CssClass="horizontalRotator" ScrollDuration="500" 
+                            FrameDuration="5000" ItemHeight="216" ItemWidth="232">
+                            <ItemTemplate>
+                                <div class="itemTemplate">
+                                    <a href="getInspired.aspx"><img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png'
+                                    alt="Customer Image" /></a>
+                                </div>
+                            </ItemTemplate>
+                        </telerik:RadRotator>
+                    </div>
+            					
 				</div>
 			</div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />

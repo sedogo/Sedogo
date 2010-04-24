@@ -4,6 +4,15 @@
 <div class="three-col">
 
     <script language="JavaScript" type="text/javascript">
+    function loginRedirect(eventID)
+    {
+        openModal("login.aspx?EID=" + eventID);
+    }
+    function doLogin()
+    {
+        openModal("login.aspx");
+    }
+    
     function doAddEvent()
     {
         var form = document.forms[0];
@@ -26,7 +35,7 @@
         {
             e.returnValue = false;
             e.cancelBubble = true;
-            doAddEvent();
+            <asp:Literal id="keyPressActionScript" runat="server" />
         }
         else
         {
@@ -37,16 +46,15 @@
 
     <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
         <tr>
-            <td><h3 class="blue"><a href="javascript:doAddEvent()">Add</a></h3>
+            <td><h3 class="blue"><asp:HyperLink ID="addLink" runat="server" Text="Add" /></h3>
                 <p class="blue">to my goal list</p>
                 <asp:Panel ID="Panel1" runat="server">
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
                                 MaxLength="1000" /></td>
-                            <td valign="top" style="padding-top:4px"><a 
-                                href="javascript:doAddEvent()"><asp:Image ID="searchButton1" 
-                                runat="server" ImageUrl="~/images/addButton.png" /></td>
+                            <td valign="top" style="padding-top:4px"><asp:HyperLink runat="server"
+                                ID="searchButton1" ImageUrl="~/images/addButton.png" /></td>
                         </tr>
                     </table>
                 </asp:Panel>

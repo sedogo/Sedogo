@@ -120,7 +120,20 @@ public partial class _default : System.Web.UI.Page
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
+
+            eventRotator.DataSource = GetRotatorDataSource();
+            eventRotator.DataBind();
         }
+    }
+
+    //===============================================================
+    // Function: GetRotatorDataSource
+    //===============================================================
+    private string[] GetRotatorDataSource()
+    {
+        string[] images = { "go_brag", "go_fast", "go_high", "go_party", 
+                               "go_sailing", "go_speechless", "go_swimming", "go_traveling", "go_watch" };
+        return images;
     }
 
     //===============================================================

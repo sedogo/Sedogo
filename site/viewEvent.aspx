@@ -72,6 +72,8 @@
     <form id="form1" runat="server">
     <div>
     
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
 	    <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
@@ -87,7 +89,7 @@
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
 
-                    <table>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
                         <tr>
                             <td>
                             
@@ -126,14 +128,34 @@
 		                        </div>
                 		        
 		                        <div class="pinstripe-divider">&nbsp;</div>
+
+                		        <div class="eventCommentBox" id="eventCommentBox" runat="server">
+                		        <table width="100%" cellspacing="2" cellpadding="2">
+                		            <tr>
+                		                <td colspan="2">
+                		                    <asp:TextBox id="commentTextBox" runat="server" 
+                		                        TextMode="MultiLine" Rows="3" ValidationGroup="addCommentGroup"
+                		                        Width="100%"></asp:TextBox>
+                		                </td>
+                		            </tr>
+                		            <tr>
+                		                <td colspan="2"><asp:RequiredFieldValidator 
+            		                        ID="eventNameTextBoxValidator" runat="server"
+                                            ControlToValidate="commentTextBox" ValidationGroup="addCommentGroup"
+                                            ErrorMessage="A goal name is required" Display="Dynamic">
+                                            </asp:RequiredFieldValidator></td>
+                		            </tr>
+                		            <tr>
+                		                <td></td>
+                		                <td align="right">
+                		                    <div style="padding-top:5px; padding-bottom:5px"><asp:LinkButton ID="postCommentButton" runat="server" 
+                                            ToolTip="Add comment" Text="Add comment" ValidationGroup="addCommentGroup" 
+                                            OnClick="postCommentButton_click" CssClass="button-sml" /></div></td>
+                		            </tr>
+                		        </table>
+                		        </div>
                 		        
 		                        <h3 style="font-size: 12px; color: #0cf">Comments about <asp:Label ID="eventLabel2" runat="server" /></h3>
-
-                                <div style="margin:10px 0 10px 0">
-                                <asp:LinkButton ID="postCommentButton" runat="server" 
-                                    ToolTip="Add comment" Text="Add comment" 
-                                    OnClick="postCommentButton_click" CssClass="button-sml" />
-                                </div>
 
                                 <div id="invitedPanel" runat="server">
                                 <asp:LinkButton 
@@ -141,15 +163,16 @@
                                     OnClick="invitedButton_click" CssClass="button-sml" />
                                 </div>
                 		        
-                                <div id="loginRegisterPanel" runat="server">
+                                <div id="loginRegisterPanel" runat="server" style="border:solid 1px #CCCCCC; padding:10px; margin-bottom:10px">
                                 <p>You must be logged in to view the full details or to add comments to this event.<br />
-                                <a href="login.aspx">Click here to login</a><br />
-                                or <a href="register.aspx">click here to register</a> if you are a new user</p>
+                                <a href="login.aspx" class="modal">Click here to login</a><br />
+                                or <a href="register.aspx" class="modal">click here to register</a> if you are a new user</p>
                                 </div>
                 		        
                                 <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
 
                             </td>
+                            <td>&nbsp;</td>
                             <td>
 
 				                <div style="width: 170px; padding-top: 70px; overflow: hidden">

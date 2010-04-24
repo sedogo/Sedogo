@@ -40,89 +40,127 @@ public partial class sidebar : System.Web.UI.UserControl
     {
         if (!IsPostBack)
         {
-           userNameLabel.Text = user.fullName;
+            if (userID > 0)
+            {
+                userNameLabel.Text = user.fullName;
 
-           profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
+                profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
 
-           if (user.profilePicThumbnail != "")
-           {
-               profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
-           }
-           else
-           {
-               profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
-           }
-           profileImage.ToolTip = user.fullName + "'s profile picture";
+                if (user.profilePicThumbnail != "")
+                {
+                    profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
+                }
+                else
+                {
+                    profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                }
+                profileImage.ToolTip = user.fullName + "'s profile picture";
 
-           int messageCount = Message.GetUnreadMessageCountForUser(userID);
-           if (messageCount == 1)
-           {
-               messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Message";
-           }
-           else
-           {
-               messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
-           }
-           int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
-           if (pendingInviteCount == 1)
-           {
-               inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invite";
-           }
-           else
-           {
-               inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
-           }
+                int messageCount = Message.GetUnreadMessageCountForUser(userID);
+                if (messageCount == 1)
+                {
+                    messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Message";
+                }
+                else
+                {
+                    messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
+                }
+                int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
+                if (pendingInviteCount == 1)
+                {
+                    inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invite";
+                }
+                else
+                {
+                    inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
+                }
 
-           int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
-           if (pendingAlertCount == 1)
-           {
-               alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
-           }
-           else
-           {
-               alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
-           }
+                int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
+                if (pendingAlertCount == 1)
+                {
+                    alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminder";
+                }
+                else
+                {
+                    alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
+                }
 
-           int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
-           if (trackedEventCount == 1)
-           {
-               trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
-           }
-           else
-           {
-               trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
-           }
-           int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
-           if (pendingRequestsCount == 1)
-           {
-               goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Request";
-           }
-           else
-           {
-               goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
-           }
-           int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
-           if (joinedEventCount == 1)
-           {
-               groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goal";
-           }
-           else
-           {
-               groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goals";
-           }
-           addressBookLink.Text = "Address book";
+                int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
+                if (trackedEventCount == 1)
+                {
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
+                }
+                else
+                {
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
+                }
+                int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
+                if (pendingRequestsCount == 1)
+                {
+                    goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Request";
+                }
+                else
+                {
+                    goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
+                }
+                int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
+                if (joinedEventCount == 1)
+                {
+                    groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goal";
+                }
+                else
+                {
+                    groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goals";
+                }
+                addressBookLink.Text = "Address book";
 
-           if (viewArchivedEvents == true)
-           {
-               viewArchiveLink.Text = "Hide Past Goals";
-           }
-           else
-           {
-               viewArchiveLink.Text = "Past Goals";
-           }
+                if (viewArchivedEvents == true)
+                {
+                    viewArchiveLink.Text = "Hide Past Goals";
+                }
+                else
+                {
+                    viewArchiveLink.Text = "Past Goals";
+                }
 
-           PopulateLatestSearches();
+                sidebarMenuItems.Visible = true;
+                viewArchiveLink.Visible = true;
+                addGoalLink.Visible = true;
+                editProfileLink.Visible = true;
+                profileImage.Visible = true;
+                userNameLabel.Visible = true;
+                profileTextLabel.Visible = true;
+                myProfileTextLabel.Visible = true;
+                myLatestGoalsLabel.Visible = true;
+            }
+            else
+            {
+                sidebarMenuItems.Visible = false;
+                viewArchiveLink.Visible = false;
+                addGoalLink.Visible = false;
+                editProfileLink.Visible = false;
+                profileImage.Visible = false;
+                userNameLabel.Visible = false;
+                profileTextLabel.Visible = false;
+                myProfileTextLabel.Visible = false;
+                myLatestGoalsLabel.Visible = false;
+            }
+
+            PopulateLatestSearches();
+
+            eventRotator.DataSource = GetRotatorDataSource();
+            eventRotator.DataBind();
         }
+    }
+
+    //===============================================================
+    // Function: GetRotatorDataSource
+    //===============================================================
+    private string[] GetRotatorDataSource()
+    {
+        string[] images = { "go_brag", "go_fast", "go_high", "go_party", 
+                               "go_sailing", "go_speechless", "go_swimming", "go_traveling", "go_watch" };
+        return images;
     }
 
     //===============================================================
@@ -130,8 +168,6 @@ public partial class sidebar : System.Web.UI.UserControl
     //===============================================================
     private void PopulateLatestSearches()
     {
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -153,7 +189,14 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink searchHyperlink = new HyperLink();
                 searchHyperlink.Text = searchText;
-                searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
+                if (userID > 0)
+                {
+                    searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
+                }
+                else
+                {
+                    searchHyperlink.NavigateUrl = "~/search.aspx?Search=" + searchText;
+                }
                 latestSearchesPlaceholder.Controls.Add(searchHyperlink);
 
                 latestSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
@@ -171,31 +214,41 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink searchHyperlink = new HyperLink();
                 searchHyperlink.Text = searchText;
-                searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
+                if (userID > 0)
+                {
+                    searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
+                }
+                else
+                {
+                    searchHyperlink.NavigateUrl = "~/search.aspx?Search=" + searchText;
+                }
                 popularSearchesPlaceholder.Controls.Add(searchHyperlink);
 
                 popularSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
             }
             rdrPopular.Close();
 
-            SqlCommand cmdLatestEvents = new SqlCommand("", conn);
-            cmdLatestEvents.CommandType = CommandType.StoredProcedure;
-            cmdLatestEvents.CommandText = "spSelectLatestEvents";
-            cmdLatestEvents.Parameters.Add("@LoggedInUserID", SqlDbType.Int).Value = userID;
-            DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
-            while (rdrLatestEvents.Read())
+            if (userID > 0)
             {
-                int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
-                string eventName = (string)rdrLatestEvents["EventName"];
+                SqlCommand cmdLatestEvents = new SqlCommand("", conn);
+                cmdLatestEvents.CommandType = CommandType.StoredProcedure;
+                cmdLatestEvents.CommandText = "spSelectLatestEvents";
+                cmdLatestEvents.Parameters.Add("@LoggedInUserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
+                while (rdrLatestEvents.Read())
+                {
+                    int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
+                    string eventName = (string)rdrLatestEvents["EventName"];
 
-                HyperLink eventHyperlink = new HyperLink();
-                eventHyperlink.Text = eventName;
-                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                latestEventsPlaceholder.Controls.Add(eventHyperlink);
+                    HyperLink eventHyperlink = new HyperLink();
+                    eventHyperlink.Text = eventName;
+                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                    latestEventsPlaceholder.Controls.Add(eventHyperlink);
 
-                latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
+                    latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
+                }
+                rdrLatestEvents.Close();
             }
-            rdrLatestEvents.Close();
         }
         catch (Exception ex)
         {

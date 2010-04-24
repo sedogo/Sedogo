@@ -538,5 +538,39 @@ GO
 GRANT EXEC ON spInsertUserLoginHistory TO sedogoUser
 GO
 
+/*===============================================================
+// Function: spSelectUsersWithLastName
+// Description:
+//   Selects the user list
+//=============================================================*/
+PRINT 'Creating spSelectUsersWithLastName...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectUsersWithLastName')
+BEGIN
+	DROP Procedure spSelectUsersWithLastName
+END
+GO
+
+CREATE Procedure spSelectUsersWithLastName
+	@LetterFilter	char(1)
+AS
+BEGIN
+	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
+		HomeTown, Birthday, ProfileText, TimezoneID,
+		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
+		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM Users
+	WHERE Deleted = 0
+	AND SUBSTRING(LastName, 1, 1) = @LetterFilter
+	ORDER BY LastName
+END
+GO
+
+GRANT EXEC ON spSelectUsersWithLastName TO sedogoUser
+GO
+
+
 PRINT '== Finished createUsersStoredProcs.sql =='
 GO

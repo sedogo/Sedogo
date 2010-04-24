@@ -33,6 +33,18 @@ public partial class getInspired : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            eventRotator.DataSource = GetRotatorDataSource();
+            eventRotator.DataBind();
         }
+    }
+
+    //===============================================================
+    // Function: GetRotatorDataSource
+    //===============================================================
+    private string[] GetRotatorDataSource()
+    {
+        string[] images = { "go_brag", "go_fast", "go_high", "go_party", 
+                               "go_sailing", "go_speechless", "go_swimming", "go_traveling", "go_watch" };
+        return images;
     }
 }

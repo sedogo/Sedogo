@@ -175,5 +175,32 @@ GO
 GRANT EXEC ON spDeleteAddressBook TO sedogoUser
 GO
 
+/*===============================================================
+// Function: spSelectAddressBookCountByUser
+// Description:
+//   Selects the AddressBook list
+//=============================================================*/
+PRINT 'Creating spSelectAddressBookCountByUser...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectAddressBookCountByUser')
+BEGIN
+	DROP Procedure spSelectAddressBookCountByUser
+END
+GO
+
+CREATE Procedure spSelectAddressBookCountByUser
+	@UserID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM AddressBook
+	WHERE UserID = @UserID
+END
+GO
+
+GRANT EXEC ON spSelectAddressBookCountByUser TO sedogoUser
+GO
+
 PRINT '== Finished createAddressBookStoredProcs.sql =='
 GO

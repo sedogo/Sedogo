@@ -40,6 +40,7 @@ public partial class message : SedogoPage
             sidebarControl.userID = userID;
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.user = user;
+            bannerAddFindControl.userID = userID;
 
             PopulateMessageList(userID);
         }

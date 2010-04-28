@@ -89,16 +89,56 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Your request to join this goal has been sent to the goal owner.\");", true);
             }
-            if (action == "SendMessage")
-            {
-                int messageUserID = int.Parse(Request.QueryString["UID"].ToString());
-
-                Response.Redirect("sendMessageToTrackers.aspx?EID=" + eventID.ToString() + "&UID=" + messageUserID.ToString());
-            }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
             eventLabel1.Text = sedogoEvent.eventName;
             eventLabel2.Text = sedogoEvent.eventName;
+
+            pageTitleUserName.Text = sedogoEvent.eventName + " : Sedogo : Create your future and connect with others to make it happen";
+            string timelineColour = "#cd3301";
+            switch (sedogoEvent.categoryID)
+            {
+                case 1:
+                    timelineColour = "#cd3301";
+                    break;
+                case 2:
+                    timelineColour = "#ff0b0b";
+                    break;
+                case 3:
+                    timelineColour = "#ff6801";
+                    break;
+                case 4:
+                    timelineColour = "#ff8500";
+                    break;
+                case 5:
+                    timelineColour = "#d5b21a";
+                    break;
+                case 6:
+                    timelineColour = "#8dc406";
+                    break;
+                case 7:
+                    timelineColour = "#5b980c";
+                    break;
+                case 8:
+                    timelineColour = "#079abc";
+                    break;
+                case 9:
+                    timelineColour = "#5ab6cd";
+                    break;
+                case 10:
+                    timelineColour = "#8a67c1";
+                    break;
+                case 11:
+                    timelineColour = "#e54ecf";
+                    break;
+                case 12:
+                    timelineColour = "#a5369c";
+                    break;
+                case 13:
+                    timelineColour = "#a32672";
+                    break;
+            }
+            pageBannerBarDiv.Style.Add("background-color", timelineColour);
 
             if (userID > 0)
             {
@@ -329,6 +369,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
             uploadEventImageLiteral.Text = "var url = 'uploadEventImage.aspx?EID=" + eventID.ToString() + "';";
             editEventLiteral.Text = "var url = 'editEvent.aspx?EID=" + eventID.ToString() + "';";
+            eventAlertsLiteral.Text = "var url = 'eventAlerts.aspx?EID=" + eventID.ToString() + "';";
+            messageTrackingUsersLiteral.Text = "var url = 'sendMessageToTrackers.aspx?EID=" + eventID.ToString() + "';";
+            messageFollowingUsersLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
+            sendMessageLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
 
             if (sedogoEvent.dateType == "D")
             {
@@ -530,9 +574,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     //outputText = outputText + "</td></tr></table>";
                     if (loggedInUserID == sedogoEvent.userID)
                     {
-                        outputText = outputText + " <a href=\"viewEvent.aspx?A=SendMessage&EID="
-                                + eventID.ToString()
-                                + "&UID=" + userID.ToString() + "\"> <img src=\"./images/messages.gif\" /></a>";
+                        outputText = outputText + " <a href=\"sendMessageToTrackers.aspx?EID=" + eventID.ToString()
+                                + "&UID=" + userID.ToString() + "\" class=\"modal\"> <img src=\"./images/messages.gif\" /></a>";
                     }
                     outputText = outputText + "</p>";
 
@@ -718,16 +761,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     }
 
     //===============================================================
-    // Function: sendMessageButton_click
-    //===============================================================
-    protected void sendMessageButton_click(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-
-        Response.Redirect("sendMessage.aspx?EID=" + eventID.ToString());
-    }
-
-    //===============================================================
     // Function: postCommentButton_click
     //===============================================================
     protected void postCommentButton_click(object sender, EventArgs e)
@@ -783,16 +816,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     }
 
     //===============================================================
-    // Function: click_alertsLink
-    //===============================================================
-    protected void click_alertsLink(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-
-        Response.Redirect("eventAlerts.aspx?EID=" + eventID.ToString());
-    }
-
-    //===============================================================
     // Function: createSimilarEventLink_click
     //===============================================================
     protected void createSimilarEventLink_click(object sender, EventArgs e)
@@ -818,16 +841,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         newEvent.Add();
 
         Response.Redirect("viewEvent.aspx?EID=" + newEvent.eventID.ToString());
-    }
-
-    //===============================================================
-    // Function: click_messageTrackingUsersLink
-    //===============================================================
-    protected void click_messageTrackingUsersLink(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-
-        Response.Redirect("sendMessageToTrackers.aspx?EID=" + eventID.ToString());
     }
 
     //===============================================================

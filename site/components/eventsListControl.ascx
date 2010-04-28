@@ -3,7 +3,7 @@
 
 <div class="one-col">
     <div class="events">
-	    <h2>This month</h2>
+	    <h2 class="col-header">This month</h2>
 	    <asp:Label ID="overdueTitleLabel" runat="server" Text="Overdue" />
 	    <asp:PlaceHolder ID="overdueEventsPlaceHolder" runat="server" />
 	    <asp:Label ID="todaysDateLabel" runat="server" />
@@ -16,7 +16,7 @@
 </div>
 <div class="one-col">
     <div class="events">
-	    <h2>Next 5 yrs</h2>
+	    <h2 class="col-header">Next 5 yrs</h2>
 	    <asp:Label ID="thisYearTitleLabel" runat="server" Text="This year" />
 	    <asp:PlaceHolder ID="nextYearEventsPlaceHolder" runat="server" />
 	    <asp:Label ID="next2YearsTitleLabel" runat="server" Text="Next 2 years" />
@@ -31,7 +31,7 @@
 </div>
 <div class="one-col-end">
     <div class="events">
-	    <h2>5 yrs +</h2>
+	    <h2 class="col-header">5 yrs +</h2>
 	    <asp:Label ID="fiveToTenYearsTitleLabel" runat="server" Text="5-10 years" />
 	    <asp:PlaceHolder ID="next10YearsEventsPlaceHolder" runat="server" />
 	    <asp:Label ID="tenToTwentyYearsTitleLabel" runat="server" Text="10-20 years" />

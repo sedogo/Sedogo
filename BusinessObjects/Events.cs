@@ -588,7 +588,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("			</a></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
             //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for " + eventOwner.emailAddress + ". To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for <<RECIPIENT>>. To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
             emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
             string emailSubject = m_eventName + " on " + dateString + " has been updated";
@@ -609,7 +609,7 @@ namespace Sedogo.BusinessObjects
                         message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
                         message.Subject = emailSubject;
-                        message.Body = emailBodyCopy.ToString();
+                        message.Body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", eventOwner.emailAddress);
                         message.IsBodyHtml = true;
                         SmtpClient smtp = new SmtpClient();
                         smtp.Host = SMTPServer;
@@ -622,7 +622,7 @@ namespace Sedogo.BusinessObjects
 
                         SentEmailHistory emailHistory = new SentEmailHistory("");
                         emailHistory.subject = emailSubject;
-                        emailHistory.body = emailBodyCopy.ToString();
+                        emailHistory.body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", eventOwner.emailAddress);
                         emailHistory.sentFrom = mailFromAddress;
                         emailHistory.sentTo = eventOwner.emailAddress;
                         emailHistory.Add();
@@ -631,7 +631,7 @@ namespace Sedogo.BusinessObjects
                     {
                         SentEmailHistory emailHistory = new SentEmailHistory("");
                         emailHistory.subject = emailSubject;
-                        emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                        emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString().Replace("<<RECIPIENT>>", eventOwner.emailAddress);
                         emailHistory.sentFrom = mailFromAddress;
                         emailHistory.sentTo = eventOwner.emailAddress;
                         emailHistory.Add();
@@ -670,7 +670,7 @@ namespace Sedogo.BusinessObjects
                                 message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
                                 message.Subject = emailSubject;
-                                message.Body = emailBodyCopy.ToString();
+                                message.Body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", emailAddress);
                                 message.IsBodyHtml = true;
                                 SmtpClient smtp = new SmtpClient();
                                 smtp.Host = SMTPServer;
@@ -683,7 +683,7 @@ namespace Sedogo.BusinessObjects
 
                                 SentEmailHistory emailHistory = new SentEmailHistory("");
                                 emailHistory.subject = emailSubject;
-                                emailHistory.body = emailBodyCopy.ToString();
+                                emailHistory.body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", emailAddress);
                                 emailHistory.sentFrom = mailFromAddress;
                                 emailHistory.sentTo = emailAddress;
                                 emailHistory.Add();
@@ -692,7 +692,7 @@ namespace Sedogo.BusinessObjects
                             {
                                 SentEmailHistory emailHistory = new SentEmailHistory("");
                                 emailHistory.subject = emailSubject;
-                                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString().Replace("<<RECIPIENT>>", emailAddress);
                                 emailHistory.sentFrom = mailFromAddress;
                                 emailHistory.sentTo = emailAddress;
                                 emailHistory.Add();

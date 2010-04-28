@@ -156,15 +156,30 @@ public partial class g_default : System.Web.UI.Page
                     {
                         eventName = (string)rdr["EventName"];
                     }
+                    string eventPicThumbnail = "";
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicThumbnail")))
+                    {
+                        eventPicThumbnail = (string)rdr["EventPicThumbnail"];
+                    }
+
                     //SELECT , , DateType, StartDate, RangeStartDate, RangeEndDate,
                     //BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
                     //EventDescription, EventVenue, MustDo,
-                    //EventPicFilename, EventPicThumbnail, EventPicPreview,
+                    //EventPicFilename, , EventPicPreview,
                     //CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 
                     Literal userLink = new Literal();
-
-                    userLink.Text = "<div class=\"directory\"><a href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a></div>";
+                    userLink.Text = "<div class=\"directory\">";
+                    if (eventPicThumbnail == "")
+                    {
+                        userLink.Text += "<img src=\"../images/eventThumbnailBlank.png\" />";
+                    }
+                    else
+                    {
+                        userLink.Text += "<img src=\"../assets/eventPics/" + eventPicThumbnail + "\" />";
+                    }
+                    userLink.Text += "&nbsp;<a href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a>";
+                    userLink.Text += "</div>";
 
                     goalPlaceHolder.Controls.Add(userLink);
                 }

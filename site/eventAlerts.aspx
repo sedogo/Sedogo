@@ -36,6 +36,7 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 	
@@ -148,11 +149,6 @@ function popupCalendarAlertDate(image)
 		    </div>
 		</div>
 
-        <div class="buttons">
-            <asp:LinkButton ID="backToEventDetailsLink" runat="server" CssClass="button-sml" Text="back to event details" 
-                ToolTip="back to goal details" OnClick="click_backToEventDetailsLink" />
-        </div>
-    
     </div>
     </form>
 

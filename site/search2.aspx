@@ -260,40 +260,34 @@
       }
     }
     </script>
-    <script language="JavaScript" type="text/javascript">
-    function PickerRangeStartDate_OnChange()
+    
+<script language="javascript">
+var state = 'none';
+function showhide(layer_ref)
+{
+    if (state == 'block')
     {
-        <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+        state = 'none';
     }
-    function CalendarRangeStartDate_OnChange()
+    else
     {
-        <%= PickerRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
+        state = 'block';
     }
-    function popupCalendarRangeStartDate(image)
+    if (document.all)
+    { //IS IE 4 or 5 (or 6 beta)
+        eval("document.all." + layer_ref + ".style.display = state");
+    }
+    if (document.layers)
+    { //IS NETSCAPE 4 or below
+        document.layers[layer_ref].display = state;
+    }
+    if (document.getElementById && !document.all)
     {
-        if( <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
-        {
-            <%= CalendarRangeStartDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
-        }
-        <%=CalendarRangeStartDate.ClientObjectId%>.Show(image);    
+        hza = document.getElementById(layer_ref);
+        hza.style.display = state;
     }
-    function PickerRangeEndDate_OnChange()
-    {
-        <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-    }
-    function CalendarRangeEndDate_OnChange()
-    {
-        <%= PickerRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.SetSelectedDate(<%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate());
-    }
-    function popupCalendarRangeEndDate(image)
-    {
-        if( <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.GetSelectedDate() == null )
-        {
-            <%= CalendarRangeEndDate.ClientID.Replace("$","_").Replace(":","_") %>.ClearSelectedDate();
-        }
-        <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
-    }
-    </script>
+}
+</script>     
 </head>
 <body class="search2" onload="breakout_of_frame();onLoad();" onresize="onResize();">
     <form id="form1" runat="server">
@@ -307,7 +301,7 @@
 		    <div id="advSearchCriteria">
 		        <table border="0" cellspacing="10" cellpadding="0" width="100%" class="advanced-search-table">
 				    <tr>
-					    <td>
+					    <td colspan="2">
 						    <div id="noSearchResultsDiv" runat="server" class="errorMessage">
 							    <p>There were no results found, please try again or refine your search</p>
 						    </div>
@@ -318,13 +312,12 @@
 				    </tr>
 		            <tr>
 		                <td><h3 class="noTopMargin blue">Advanced Search</h3></td>
+		                <td align="right"><a href="#" onclick="showhide('searchDiv');">Toggle</a></td>
 		            </tr>    
 		            <tr>
-		                <td><p class="blue">Refine your search:</p></td>
-		            </tr>
-		            <tr>
-		                <td>
-		                    <table>
+		                <td colspan="2">
+		                    <div id="searchDiv" style="display:none">
+		                    <table border="0" cellspacing="4" cellpadding="2">
 		                        <tr>
 		                            <td>Goal name</td>
 		                            <td><asp:TextBox runat="server"
@@ -359,110 +352,8 @@
 		                            <td>Where</td>
 		                            <td><asp:TextBox runat="server"
                                         ID="venueTextBox" Width="200px" MaxLength="200" /></td>
-                                    <td><asp:RadioButton id="betweenDatesRadioButton"
-                                       Text="Between dates" Checked="true" GroupName="dateRadioGroup" 
-                                       runat="server" /></td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <table border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td><ComponentArt:Calendar ID="PickerRangeStartDate" 
-                                                                runat="server" 
-                                                                ClientSideOnSelectionChanged="PickerRangeStartDate_OnChange"
-                                                                ControlType="Picker" 
-                                                                PickerCssClass="picker" 
-                                                                ImagesBaseUrl="./images/calendarImages/"
-                                                                PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
-                                                                PopUpExpandControlId="calendarButton">
-                                                            </ComponentArt:Calendar>
-                                                            <ComponentArt:Calendar ID="CalendarRangeStartDate" 
-                                                                runat="server" 
-                                                                CalendarCssClass="calendar"
-                                                                TitleCssClass="title" 
-                                                                ControlType="Calendar"
-                                                                DayCssClass="day" 
-                                                                DayHeaderCssClass="dayheader" 
-                                                                DayHoverCssClass="dayhover" 
-                                                                DayNameFormat="FirstTwoLetters"
-                                                                ImagesBaseUrl="./images/calendarImages/"
-                                                                MonthCssClass="month"
-                                                                NextImageUrl="cal_nextMonth.gif"
-                                                                NextPrevCssClass="nextprev" 
-                                                                OtherMonthDayCssClass="othermonthday" 
-                                                                PrevImageUrl="cal_prevMonth.gif" 
-                                                                SelectedDayCssClass="selectedday" 
-                                                                SelectMonthCssClass="selector"
-                                                                SelectMonthText="&curren;" 
-                                                                SelectWeekCssClass="selector"
-                                                                SelectWeekText="&raquo;" 
-                                                                SwapDuration="300"
-                                                                SwapSlide="Linear"
-                                                                ClientSideOnSelectionChanged="CalendarRangeStartDate_OnChange" 
-                                                                PopUp="Custom" 
-                                                                PopUpExpandControlId="calendarButton">
-                                                            </ComponentArt:Calendar></td>
-                                                            <td><img alt="Click for pop-up calendar" 
-                                                                id="Img1" 
-                                                                onclick="popupCalendarRangeStartDate(this)" 
-                                                                class="calendar_button" 
-                                                                src="./images/calendarImages/btn_calendar.gif" 
-                                                                width="25" height="22" /></td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                                <td>To</td>
-                                                <td>
-                                                    <table border="0" cellspacing="0" cellpadding="0">
-                                                        <tr>
-                                                            <td><ComponentArt:Calendar ID="PickerRangeEndDate" 
-                                                                runat="server" 
-                                                                ClientSideOnSelectionChanged="PickerRangeEndDate_OnChange"
-                                                                ControlType="Picker" 
-                                                                PickerCssClass="picker" 
-                                                                ImagesBaseUrl="./images/calendarImages/"
-                                                                PickerCustomFormat="dd/MM/yyyy" PickerFormat="Custom" 
-                                                                PopUpExpandControlId="calendarButton">
-                                                            </ComponentArt:Calendar>
-                                                            <ComponentArt:Calendar ID="CalendarRangeEndDate" 
-                                                                runat="server" 
-                                                                CalendarCssClass="calendar"
-                                                                TitleCssClass="title" 
-                                                                ControlType="Calendar"
-                                                                DayCssClass="day" 
-                                                                DayHeaderCssClass="dayheader" 
-                                                                DayHoverCssClass="dayhover" 
-                                                                DayNameFormat="FirstTwoLetters"
-                                                                ImagesBaseUrl="./images/calendarImages/"
-                                                                MonthCssClass="month"
-                                                                NextImageUrl="cal_nextMonth.gif"
-                                                                NextPrevCssClass="nextprev" 
-                                                                OtherMonthDayCssClass="othermonthday" 
-                                                                PrevImageUrl="cal_prevMonth.gif" 
-                                                                SelectedDayCssClass="selectedday" 
-                                                                SelectMonthCssClass="selector"
-                                                                SelectMonthText="&curren;" 
-                                                                SelectWeekCssClass="selector"
-                                                                SelectWeekText="&raquo;" 
-                                                                SwapDuration="300"
-                                                                SwapSlide="Linear"
-                                                                ClientSideOnSelectionChanged="CalendarRangeEndDate_OnChange" 
-                                                                PopUp="Custom" 
-                                                                PopUpExpandControlId="calendarButton">
-                                                            </ComponentArt:Calendar></td>
-                                                            <td><img alt="Click for pop-up calendar" 
-                                                                id="Img2" 
-                                                                onclick="popupCalendarRangeEndDate(this)" 
-                                                                class="calendar_button" 
-                                                                src="./images/calendarImages/btn_calendar.gif" 
-                                                                width="25" height="22" /></td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
 		                            <td>Recently updated</td>
 		                            <td><asp:DropDownList ID="recentlyUpdatedDropDownList" runat="server">
                                         <asp:ListItem Text="All" Value="-1" />
@@ -487,7 +378,7 @@
 		                            </asp:DropDownList></td>
 		                        </tr>
 		                        </tr>
-		                            <td colspan="6">
+		                            <td colspan="6" style="padding-top:5px">
 		                                <asp:LinkButton ID="advSearchButton" runat="server" Text="Search" 
                                             OnClick="advSearchButton_click" CssClass="button-sml" />
                                         <asp:LinkButton ID="backToProfileButton" runat="server" Text="Back to profile" 
@@ -495,6 +386,7 @@
 		                            </td>
 		                        <tr>
 		                    </table>
+		                    </div>
 		                </td>
 		            </tr>
 		        </table>

@@ -179,7 +179,18 @@ public partial class d_default : System.Web.UI.Page
 
                     Literal userLink = new Literal();
 
-                    userLink.Text = "<div class=\"directory\"><a href=\"/d/?U=" + userID.ToString() + "\">" + firstName + " " + lastName + "</a></div>";
+                    userLink.Text = "<div class=\"directory\">";
+                    if (profilePicThumbnail == "")
+                    {
+                        userLink.Text += "<img src=\"../images/profile/blankProfile.jpg\" />";
+                    }
+                    else
+                    {
+                        userLink.Text += "<img src=\"../assets/profilePics/" + profilePicThumbnail + "\" />";
+                    }
+                    userLink.Text += "&nbsp;<a href=\"/publicProfile.aspx?UID=" + userID.ToString() + "\">" + firstName + " " + lastName + "</a>";
+                    userLink.Text += "</div>";
+                    // userProfile.aspx userTimeline.aspx
 
                     peopleNamePlaceHolder.Controls.Add(userLink);
                 }

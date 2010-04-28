@@ -54,6 +54,12 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
     //===============================================================
     protected void searchButton_click(object sender, EventArgs e)
     {
+        int userID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            userID = int.Parse(Session["loggedInUserID"].ToString());
+        }
+
         string searchText = what.Text;
 
         if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
@@ -85,6 +91,12 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
     //===============================================================
     protected void searchButton2_click(object sender, EventArgs e)
     {
+        int userID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            userID = int.Parse(Session["loggedInUserID"].ToString());
+        }
+
         string searchString = what2.Text;
 
         if (userID > 0)

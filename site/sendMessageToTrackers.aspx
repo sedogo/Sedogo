@@ -36,6 +36,14 @@
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+    function preSaveClick()
+    {
+        document.forms[0].target = "_top";
+    }
+</script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -61,9 +69,7 @@
 
                 <div class="buttons">
                 <asp:LinkButton id="saveChangesButton" runat="server" OnClick="saveChangesButton_click" 
-                    Text="Send message" CssClass="button-sml" />
-                <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
-                    Text="Back to goal details" CssClass="button-sml" CausesValidation="false" />
+                    Text="Send message" CssClass="button-sml" OnClientClick="javascript:preSaveClick()" />
                 </div>
                 
 		    </div>

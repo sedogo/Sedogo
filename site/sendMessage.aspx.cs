@@ -45,11 +45,6 @@ public partial class sendMessage : SedogoPage
 
             SedogoUser eventOwner = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
 
-            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-            sidebarControl.userID = userID;
-            sidebarControl.user = user;
-            bannerAddFindControl.userID = userID;
-            
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
@@ -177,16 +172,6 @@ public partial class sendMessage : SedogoPage
                 emailHistory.Add();
             }
         }
-
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
-    }
-
-    //===============================================================
-    // Function: backButton_click
-    //===============================================================
-    protected void backButton_click(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }

@@ -136,9 +136,9 @@
 				
 				<div class="three-col" style="float:left">
                     <div class="rotatorBackground">
-                        <telerik:RadRotator ID="eventRotator" runat="server" Width="696px" Height="216px"
+                        <telerik:RadRotator ID="eventRotator" runat="server" Width="720px" Height="216px"
                             CssClass="horizontalRotator" ScrollDuration="500" 
-                            FrameDuration="5000" ItemHeight="216" ItemWidth="232">
+                            FrameDuration="5000" ItemHeight="216" ItemWidth="240">
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx"><img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png'

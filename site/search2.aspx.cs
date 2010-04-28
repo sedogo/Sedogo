@@ -139,19 +139,19 @@ public partial class search2 : SedogoPage
             venueTextBox.Text = eventVenue;
             eventOwnerNameTextBox.Text = eventOwnerName;
             categoryDropDownList.SelectedValue = eventCategoryID.ToString();
-            if (dateSearch == "R")
-            {
-                betweenDatesRadioButton.Checked = true;
-                CalendarRangeStartDate.SelectedDate = dateSearchStartDate;
-                PickerRangeStartDate.SelectedDate = dateSearchStartDate;
-                CalendarRangeEndDate.SelectedDate = dateSearchEndDate;
-                PickerRangeEndDate.SelectedDate = dateSearchEndDate;
-            }
-            if (dateSearch == "B")
-            {
-                beforeBirthdayRadioButton.Checked = true;
-                birthdayDropDownList.SelectedValue = beforeBirthday.ToString();
-            }
+            //if (dateSearch == "R")
+            //{
+            //    betweenDatesRadioButton.Checked = true;
+            //    CalendarRangeStartDate.SelectedDate = dateSearchStartDate;
+            //    PickerRangeStartDate.SelectedDate = dateSearchStartDate;
+            //    CalendarRangeEndDate.SelectedDate = dateSearchEndDate;
+            //    PickerRangeEndDate.SelectedDate = dateSearchEndDate;
+            //}
+            //if (dateSearch == "B")
+            //{
+            //    beforeBirthdayRadioButton.Checked = true;
+            //    birthdayDropDownList.SelectedValue = beforeBirthday.ToString();
+            //}
             recentlyAddedDropDownList.SelectedValue = recentlyAdded.ToString();
             recentlyUpdatedDropDownList.SelectedValue = recentlyUpdated.ToString();
             definitlyDoDropDownList.SelectedValue = definitlyDo;
@@ -172,26 +172,26 @@ public partial class search2 : SedogoPage
             searchHistory.searchDate = DateTime.Now;
             if (searchText == "")
             {
-                searchText = "";
+                string displaySearchText = "";
                 if (eventNameText != "")
                 {
-                    searchText = eventNameText;
+                    displaySearchText = eventNameText;
                 }
                 if (eventVenue != "")
                 {
-                    if (searchText != "")
+                    if (displaySearchText != "")
                     {
-                        searchText += ", ";
+                        displaySearchText += ", ";
                     }
-                    searchText += eventVenue;
+                    displaySearchText += eventVenue;
                 }
                 if (eventOwnerName != "")
                 {
-                    if (searchText != "")
+                    if (displaySearchText != "")
                     {
-                        searchText += ", ";
+                        displaySearchText += ", ";
                     }
-                    searchText += eventOwnerName;
+                    displaySearchText += eventOwnerName;
                 }
 
                 if (eventCategoryID > 0)
@@ -239,32 +239,32 @@ public partial class search2 : SedogoPage
                             category = "Misc";
                             break;
                     }
-                    if (searchText != "")
+                    if (displaySearchText != "")
                     {
-                        searchText += ", ";
+                        displaySearchText += ", ";
                     }
-                    searchText += category;
+                    displaySearchText += category;
                 }
                 if (beforeBirthday > 0)
                 {
-                    if (searchText != "")
+                    if (displaySearchText != "")
                     {
-                        searchText += ", ";
+                        displaySearchText += ", ";
                     }
-                    searchText += "Before birthday: " + beforeBirthday.ToString();
+                    displaySearchText += "Before birthday: " + beforeBirthday.ToString();
                 }
                 if (dateSearchStartDate > DateTime.MinValue)
                 {
-                    searchText += "From date: " + dateSearchStartDate.ToString("dd/MM/yyyy");
+                    displaySearchText += "From date: " + dateSearchStartDate.ToString("dd/MM/yyyy");
                 }
                 if (dateSearchEndDate > DateTime.MinValue)
                 {
-                    searchText += "To date: " + dateSearchEndDate.ToString("dd/MM/yyyy");
+                    displaySearchText += "To date: " + dateSearchEndDate.ToString("dd/MM/yyyy");
                 }
-                searchHistory.searchText = searchText;
-                searchResultsLabel.Text = "Search results for: " + searchText;
-                searchForLiteral1.Text = searchText;
-                searchForLiteral2.Text = searchText;
+                searchHistory.searchText = displaySearchText;
+                searchResultsLabel.Text = "Search results for: " + displaySearchText;
+                searchForLiteral1.Text = displaySearchText;
+                searchForLiteral2.Text = displaySearchText;
             }
             else
             {
@@ -335,16 +335,16 @@ public partial class search2 : SedogoPage
         int beforeBirthday = -1;
         DateTime dateSearchStartDate = DateTime.MinValue;
         DateTime dateSearchEndDate = DateTime.MinValue;
-        if( betweenDatesRadioButton.Checked == true )
-        {
-            dateSearchStartDate = CalendarRangeStartDate.SelectedDate;
-            dateSearchEndDate = CalendarRangeEndDate.SelectedDate;
-        }
-        if( beforeBirthdayRadioButton.Checked == true )
-        {
-            dateSearch = "B";
-            beforeBirthday = int.Parse(birthdayDropDownList.SelectedValue);
-        }
+        //if( betweenDatesRadioButton.Checked == true )
+        //{
+        //    dateSearchStartDate = CalendarRangeStartDate.SelectedDate;
+        //    dateSearchEndDate = CalendarRangeEndDate.SelectedDate;
+        //}
+        //if( beforeBirthdayRadioButton.Checked == true )
+        //{
+        //    dateSearch = "B";
+        //    beforeBirthday = int.Parse(birthdayDropDownList.SelectedValue);
+        //}
         int recentlyAdded = int.Parse(recentlyAddedDropDownList.SelectedValue);
         int recentlyUpdated = int.Parse(recentlyUpdatedDropDownList.SelectedValue);
         string definitlyDo = definitlyDoDropDownList.SelectedValue;

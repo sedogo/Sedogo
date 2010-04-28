@@ -18,7 +18,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>View event : Sedogo : Create your future and connect with others to make it happen</title>
+	<title><asp:Literal ID="pageTitleUserName" runat="server" /></title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -65,6 +65,26 @@
 	    <asp:Literal id="editEventLiteral" runat="server" />
 	    openModal(url);
 	}
+	function eventAlerts()
+	{
+	    <asp:Literal id="eventAlertsLiteral" runat="server" />
+	    openModal(url);
+	}
+	function messageTrackingUsers()
+	{
+	    <asp:Literal id="messageTrackingUsersLiteral" runat="server" />
+	    openModal(url);
+	}
+	function messageFollowingUsers()
+	{
+	    <asp:Literal id="messageFollowingUsersLiteral" runat="server" />
+	    openModal(url);
+	}
+	function sendMessage()
+	{
+	    <asp:Literal id="sendMessageLiteral" runat="server" />
+	    openModal(url);
+	}
 	</script>
 	
 </head>
@@ -83,7 +103,7 @@
 
 			    <div class="three-col">
 
-                    <div class="page-banner-content">
+                    <div class="page-banner-content" id="pageBannerBarDiv" runat="server">
                         <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
                         <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
@@ -124,7 +144,8 @@
                                     Text="Edit" CssClass="underline-bold" />
             	                
                                 <div id="sendMessageDiv" runat="server">
-                                <asp:LinkButton id="sendMessageButton" runat="server" OnClick="sendMessageButton_click">Send Message</asp:LinkButton>
+                                <asp:Hyperlink id="sendMessageButton" runat="server" Visible="false"
+                                    NavigateUrl="javascript:sendMessage();">Send Message</asp:Hyperlink>
 		                        </div>
                 		        
 		                        <div class="pinstripe-divider">&nbsp;</div>
@@ -142,7 +163,7 @@
                 		                <td colspan="2"><asp:RequiredFieldValidator 
             		                        ID="eventNameTextBoxValidator" runat="server"
                                             ControlToValidate="commentTextBox" ValidationGroup="addCommentGroup"
-                                            ErrorMessage="A goal name is required" Display="Dynamic">
+                                            ErrorMessage="A comment is required" Display="Dynamic">
                                             </asp:RequiredFieldValidator></td>
                 		            </tr>
                 		            <tr>
@@ -177,23 +198,27 @@
 
 				                <div style="width: 170px; padding-top: 70px; overflow: hidden">
                                     <asp:Image ID="eventImage" runat="server" Width="170" />
-                                    <asp:Hyperlink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()" Text="Edit picture" CssClass="underline-bold" />
+                                    <asp:Hyperlink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()" 
+                                    Text="Edit picture" CssClass="underline-bold" />
                                 </div>
                                 <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                                 <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                                 <h3 ID="alertsHeader" runat="server" class="reminders-header">Reminders</h3>
-                                <p><asp:LinkButton ID="alertsLink" runat="server" OnClick="click_alertsLink" Text="Edit" CssClass="underline-bold" /></p>
+                                <p><asp:Hyperlink ID="alertsLink" runat="server" NavigateUrl="javascript:eventAlerts();"
+                                    Text="Edit" CssClass="underline-bold" /></p>
                                 <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
                                 <div class="pinstripe-divider">&nbsp;</div>
                                 <h3 ID="trackingHeader" runat="server" style="color: #0cf">Members:</h3>
                                 <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                                <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:LinkButton ID="messageTrackingUsersLink" runat="server" Text="Message All" 
-                                    OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
+                                <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:Hyperlink 
+                                    ID="messageTrackingUsersLink" runat="server" Text="Message All" 
+                                    NavigateUrl="javascript:messageTrackingUsers();" />
                                 <div class="pinstripe-divider">&nbsp;</div>
                                 <h3 ID="H1" runat="server">Following:</h3>
                                 <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
-                                <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:LinkButton ID="followersTrackingUsersLink" runat="server" Text="Message All" 
-                                    OnClick="click_messageTrackingUsersLink" CssClass="underline-bold" />
+                                <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:Hyperlink 
+                                    ID="followersTrackingUsersLink" runat="server" Text="Message All" 
+                                    NavigateUrl="javascript:messageFollowingUsers();" CssClass="underline-bold" />
                                 <div class="pinstripe-divider">&nbsp;</div>
                                 <h3 ID="invitesHeader" runat="server">Invites:</h3>
                                 <p><asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />

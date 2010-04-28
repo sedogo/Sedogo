@@ -37,6 +37,14 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	
+<script language="JavaScript" type="text/javascript">
+function preSaveClick()
+{
+    document.forms[0].target = "_top";
+}
+</script>
+	
 </head>
 <body>
     <form id="form1" runat="server">
@@ -78,9 +86,7 @@
                     <li>
                         <div class="buttons">
                         <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
-                            Text="Upload picture" CssClass="button-lrg" />
-                        <asp:LinkButton id="backButton" runat="server" OnClick="backButton_click" 
-                            Text="Back to event details" CssClass="button-lrg" CausesValidation="false" />
+                            Text="Upload picture" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
                         </div>
                     </li>
                 </ol>

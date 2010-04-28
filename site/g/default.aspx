@@ -95,12 +95,12 @@
 					</table>
 					</div>
 					
-					<div id="goalByLetterDiv" runat="server" style="padding-top:10px">
+					<div id="goalByLetterDiv" runat="server">
 					
-					<asp:PlaceHolder ID="goalPlaceHolder" runat="server" />
-					<div id="noGoalsWithThisLetterDiv" runat="server">
-					<p>There are no goals with this letter</p>
-					</div>
+					    <asp:PlaceHolder ID="goalPlaceHolder" runat="server" />
+					    <div id="noGoalsWithThisLetterDiv" runat="server">
+					    <p>There are no goals with this letter</p>
+					    </div>
 					
 					</div>
 				</div>

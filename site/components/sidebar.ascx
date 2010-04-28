@@ -1,9 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="sidebar.ascx.cs" Inherits="sidebar" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<SCRIPT TYPE="text/javascript">
+function changeClass(id, newClass)
+{
+    document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
+
+    //sidebarControl_messageCountLink
+    //sidebarControl_alertCountLink
+    //sidebarControl_inviteCountLink
+    //sidebarControl_goalJoinRequestsLink
+    //sidebarControl_trackingCountLink
+    //sidebarControl_groupGoalsLink
+    //sidebarControl_addressBookLink
+     
+    
+    //alert("Params: " + id + ":" + newClass);
+    //element = document.getElementById(id);
+    //alert(element);
+    //event.cancelBubble = true;
+    //element.style.className = newClass;
+}
+</SCRIPT> 
+
 <div class="one-col">
     <h2 class="col-header">
-        <asp:Literal ID="myProfileTextLabel" runat="server" Text="My profile" /> <span><asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile" 
+        <asp:Hyperlink ID="myProfileTextLabel" runat="server" Text="My profile" /> <span><asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile" 
             Text="Edit" runat="server" /></span></h2>
             <asp:Image ID="profileImage" runat="server" CssClass="profile" />
 
@@ -18,7 +40,7 @@
             <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal" CssClass="button-sml modal" 
                 Text="+ Goal" runat="server" />
         </p>
-
+ 
         <div id="sidebarMenuItems" runat="server">
         <ol class="items">
             <li class="messages">
@@ -69,5 +91,5 @@
             </ItemTemplate>
         </telerik:RadRotator>
     </div>
-
+    
 </div>

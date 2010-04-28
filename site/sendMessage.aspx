@@ -1,9 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="sendMessage.aspx.cs" Inherits="sendMessage" %>
-<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
-<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
-<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
-<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -38,73 +34,60 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-	<script type="text/javascript" src="js/ui.dialog.js"></script>
-	<script type="text/javascript" src="js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+	
+<script language="JavaScript" type="text/javascript">
+    function preSaveClick()
+    {
+        document.forms[0].target = "_top";
+    }
+</script>
+	
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
-    
-	    <div id="container">
-	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
-    
-		    <div id="other-content">
-                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+        <div id="event-detail">
+            <div class="right-col">
+            </div>
+            <div class="left-col">
 
-			    <div class="three-col">
+                <p><asp:Label ID="eventNameLabel" runat="server" /><br />
+                <asp:Label ID="eventDateLabel" runat="server" /><br />
+                Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+                &nbsp;<br />
+                Send message to <asp:Label ID="messageToLabel" runat="server" /></p>
+                            
+                <fieldset>
+                    <ol>
+                        <li>
+                            <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
+                                ID="messageTextBox" Width="400px" />
+                                <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
+                                ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                        </li>
+                    </ol>
+                </fieldset>
 
-                    <div class="page-banner-content">
-                        <div class="page-banner-header">Send message</div>
-                        <div class="page-banner-backbutton"><asp:LinkButton id="LinkButton1" runat="server" Text="Back" 
-                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
-                    </div>
-
-                    <p><asp:Label ID="eventNameLabel" runat="server" /><br />
-                    <asp:Label ID="eventDateLabel" runat="server" /><br />
-                    Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-                    &nbsp;<br />
-                    Send message to <asp:Label ID="messageToLabel" runat="server" /></p>
-                                
-                    <fieldset>
-                        <ol>
-                            <li>
-                                <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
-                                    ID="messageTextBox" Width="400px" />
-                                    <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
-                                    ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
-                                    </asp:RequiredFieldValidator>
-                            </li>
-                        </ol>
-                    </fieldset>
-
-                    <div class="fullpagebuttons">
-                        <asp:LinkButton 
-                            ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
-                            OnClick="saveChangesButton_click" CssClass="button-sml" />
-                    </div>    
-
-		        </div>
-	        </div>
-		    <Sedogo:FooterControl ID="footerControl" runat="server" />
-	    </div>
-        <div id="modal-container">
-			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
-            <iframe frameborder="0"></iframe>
-        </div>
-        <div id="modal-background"></div>
+                <div class="fullpagebuttons">
+                    <asp:LinkButton 
+                        ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
+                        OnClick="saveChangesButton_click" CssClass="button-sml" OnClientClick="javascript:preSaveClick()" />
+                </div>    
+                
+		    </div>
+		</div>
     
     </div>
     </form>
 
     <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+
+
+
 
 </body>
 </html>

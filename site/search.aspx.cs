@@ -37,11 +37,20 @@ public partial class search : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            int userID = -1;
+            if (Session["loggedInUserID"] != null)
+            {
+                userID = int.Parse(Session["loggedInUserID"].ToString());
+            }
+
             string searchText = "";
             if (Request.QueryString["Search"] != null)
             {
                 searchText = (string)Request.QueryString["Search"];
             }
+
+            //SedogoUser user = new SedogoUser("", userID);
+            bannerAddFindControl.userID = userID;
 
             timelineURL.Text = "timelineSearchXML.aspx?Search=" + searchText;
 

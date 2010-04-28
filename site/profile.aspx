@@ -15,8 +15,7 @@
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-wstyle-type" content="text/css" />
     <meta http-equiv="expires" content="never" />
-    <title>Profile : Sedogo : Create your future and connect with others to make it happen
-    </title>
+    <title>Profile : Sedogo : Create your future and connect with others to make it happen</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />

@@ -233,6 +233,7 @@
             </div>
             <div id="other-content">
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                
                 <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
             </div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />

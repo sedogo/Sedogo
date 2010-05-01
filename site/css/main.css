@@ -349,7 +349,7 @@ img.profile
 }
 .event 
 {
-	margin: 0 0 8px 0
+	margin: 8px 0 8px 0
 }
 .event-teaser 
 {
@@ -1268,7 +1268,28 @@ a.underline-bold {
 .reminders-header {
 	background: url(../images/ico_alerts.gif) no-repeat left;
 	padding-left: 18px;
+	margin-bottom:5px;
+	color: #0cf;
 }
+.requests-header {
+	background: url(../images/requests.gif) no-repeat left;
+	margin-bottom:5px;
+	padding-left: 18px;
+	color: #0cf;
+}
+.following-header {
+	background: url(../images/requests.gif) no-repeat left;
+	margin-bottom:5px;
+	padding-left: 18px;
+	color: #0cf;
+}
+.invites-header {
+	background: url(../images/invite.gif) no-repeat left;
+	margin-bottom:5px;
+	padding-left: 18px;
+	color: #0cf;
+}
+
 .blue {
 	color: #0cf
 }
@@ -1430,4 +1451,25 @@ a.underline-bold {
 .publicPageSelectedLetter
 {
 	font-weight: bold;
+}
+
+.eventRightColBox
+{
+	margin-top:10px;
+	border:solid 1px #CCCCCC;
+	padding:2px 5px 2px 2px;
+}
+.eventRightColBox h3
+{
+	margin-top: 2px
+}
+
+.userProfileBox
+{
+	border:solid 1px #CCCCCC;
+	padding:2px 5px 2px 2px;
+}
+.eventListText
+{
+	color:#000000;
 }

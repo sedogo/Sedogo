@@ -42,6 +42,11 @@ public partial class sidebar : System.Web.UI.UserControl
         {
             if (userID > 0)
             {
+                if (Session["ViewArchivedEvents"] != null)
+                {
+                    viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
+                }
+
                 userNameLabel.Text = user.fullName;
 
                 profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");

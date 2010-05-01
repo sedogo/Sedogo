@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="addAddressBook.aspx.cs" Inherits="addAddressBook" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="editAddressBook.aspx.cs" Inherits="editAddressBook" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -47,7 +47,7 @@
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>Add address book entry</h1>
+            <h1>Edit address book entry</h1>
 
             <table border="0" cellpadding="2" cellspacing="2">
                 <tr>

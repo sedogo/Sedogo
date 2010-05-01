@@ -35,6 +35,15 @@ public partial class getInspired : System.Web.UI.Page
         {
             eventRotator.DataSource = GetRotatorDataSource();
             eventRotator.DataBind();
+
+            if (Session["loggedInUserID"] == null)
+            {
+                getStartedLink.NavigateUrl = "register.aspx";
+            }
+            else
+            {
+                getStartedLink.NavigateUrl = "profile.aspx";
+            }
         }
     }
 

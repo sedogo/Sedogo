@@ -97,7 +97,7 @@ namespace Sedogo.BusinessObjects
                 cmd.CommandText = "spSelectAddressBookDetails";
                 DbParameter param = cmd.CreateParameter();
                 param.ParameterName = "@AddressBookID";
-                param.Value = m_userID;
+                param.Value = m_addressBookID;
                 cmd.Parameters.Add(param);
                 DbDataReader rdr = cmd.ExecuteReader();
                 rdr.Read();

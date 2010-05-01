@@ -105,7 +105,8 @@ public partial class addressBook : SedogoPage
             emailLabel.NavigateUrl = "viewAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
             emailLabel.Text = row["EmailAddress"].ToString();
 
-
+            HyperLink editContactButton = e.Item.FindControl("editContactButton") as HyperLink;
+            editContactButton.NavigateUrl = "editAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
 
             /*
 
@@ -130,13 +131,5 @@ public partial class addressBook : SedogoPage
     {
         int addressBookID = int.Parse(e.CommandArgument.ToString());
 
-    }
-
-    //===============================================================
-    // Function: editContactButton_click
-    //===============================================================
-    protected void editContactButton_click(object sender, EventArgs e)
-    {
-        Response.Redirect("addAddressBook.aspx");
     }
 }

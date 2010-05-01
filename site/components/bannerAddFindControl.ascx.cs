@@ -32,19 +32,19 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
         if (userID > 0)
         {
             addLink.NavigateUrl = "javascript:doAddEvent()";
-            searchButton1.NavigateUrl = "javascript:doAddEvent()";
+            addButtonLink.NavigateUrl = "javascript:doAddEvent()";
             keyPressActionScript.Text = "javascript:doAddEvent()";
         }
         else
         {
             addLink.NavigateUrl = "javascript:doLogin()";
-            searchButton1.NavigateUrl = "javascript:doLogin()";
+            addButtonLink.NavigateUrl = "javascript:doLogin()";
             keyPressActionScript.Text = "javascript:doLogin()";
         }
         what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
-        searchButton1.Attributes.Add("onmouseover", "this.src='/images/addButtonRollover.png'");
-        searchButton1.Attributes.Add("onmouseout", "this.src='/images/addButton.png'");
+        addButtonImage.Attributes.Add("onmouseover", "this.src='/images/addButtonRollover.png'");
+        addButtonImage.Attributes.Add("onmouseout", "this.src='/images/addButton.png'");
         searchButton2.Attributes.Add("onmouseover", "this.src='/images/searchButtonRollover.png'");
         searchButton2.Attributes.Add("onmouseout", "this.src='/images/searchButton.png'");
     }

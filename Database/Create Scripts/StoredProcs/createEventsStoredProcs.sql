@@ -658,6 +658,125 @@ GRANT EXEC ON spAddEventComment TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spAddEventImageComment
+// Description:
+//   Add an event comment to the database
+//=============================================================*/
+PRINT 'Creating spAddEventImageComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddEventImageComment')
+	BEGIN
+		DROP Procedure spAddEventImageComment
+	END
+GO
+
+CREATE Procedure spAddEventImageComment
+	@EventID				int,
+	@PostedByUserID			int,
+	@EventImageFilename		nvarchar(200),
+	@EventImagePreview		nvarchar(200),
+	@CommentText			nvarchar(max),
+	@CreatedDate			datetime,
+	@CreatedByFullName		nvarchar(200),
+	@LastUpdatedDate		datetime,
+	@LastUpdatedByFullName	nvarchar(200),
+	@EventCommentID			int OUTPUT
+AS
+BEGIN
+	INSERT INTO EventComments
+	(
+		EventID,
+		PostedByUserID,
+		EventImageFilename,
+		EventImagePreview,
+		CommentText,
+		Deleted,
+		CreatedDate,
+		CreatedByFullName,
+		LastUpdatedDate,
+		LastUpdatedByFullName
+	)
+	VALUES
+	(
+		@EventID,
+		@PostedByUserID,
+		@EventImageFilename,
+		@EventImagePreview,
+		@CommentText,
+		0,		-- Deleted
+		@CreatedDate,
+		@CreatedByFullName,
+		@LastUpdatedDate,
+		@LastUpdatedByFullName
+	)
+	
+	SET @EventCommentID = @@IDENTITY
+END
+GO
+
+GRANT EXEC ON spAddEventImageComment TO sedogoUser
+GO
+
+/*===============================================================
+// Function: spAddEventVideoLinkComment
+// Description:
+//   Add an event comment to the database
+//=============================================================*/
+PRINT 'Creating spAddEventVideoLinkComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddEventVideoLinkComment')
+	BEGIN
+		DROP Procedure spAddEventVideoLinkComment
+	END
+GO
+
+CREATE Procedure spAddEventVideoLinkComment
+	@EventID				int,
+	@PostedByUserID			int,
+	@CommentText			nvarchar(max),
+	@EventVideoLink			nvarchar(1000),
+	@CreatedDate			datetime,
+	@CreatedByFullName		nvarchar(200),
+	@LastUpdatedDate		datetime,
+	@LastUpdatedByFullName	nvarchar(200),
+	@EventCommentID			int OUTPUT
+AS
+BEGIN
+	INSERT INTO EventComments
+	(
+		EventID,
+		PostedByUserID,
+		EventVideoLink,
+		CommentText,
+		Deleted,
+		CreatedDate,
+		CreatedByFullName,
+		LastUpdatedDate,
+		LastUpdatedByFullName
+	)
+	VALUES
+	(
+		@EventID,
+		@PostedByUserID,
+		@EventVideoLink,
+		@CommentText,
+		0,		-- Deleted
+		@CreatedDate,
+		@CreatedByFullName,
+		@LastUpdatedDate,
+		@LastUpdatedByFullName
+	)
+	
+	SET @EventCommentID = @@IDENTITY
+END
+GO
+
+GRANT EXEC ON spAddEventVideoLinkComment TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectEventCommentDetails
 // Description:
 //   Gets event comment details
@@ -679,6 +798,7 @@ CREATE Procedure spSelectEventCommentDetails
 AS
 BEGIN
 	SELECT EventID, PostedByUserID, CommentText, Deleted,
+		EventImageFilename, EventImagePreview, EventVideoFilename, EventVideoLink,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM EventComments
 	WHERE EventCommentID = @EventCommentID
@@ -707,6 +827,7 @@ CREATE Procedure spSelectEventCommentsList
 AS
 BEGIN
 	SELECT C.EventCommentID, C.PostedByUserID, C.CommentText, 
+		C.EventImageFilename, C.EventImagePreview, C.EventVideoFilename, C.EventVideoLink,
 		C.CreatedDate, C.CreatedByFullName, C.LastUpdatedDate, C.LastUpdatedByFullName,
 		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview
 	FROM EventComments C

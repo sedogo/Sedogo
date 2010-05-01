@@ -36,43 +36,19 @@ public partial class userProfile : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         int userID = int.Parse(Request.QueryString["UID"].ToString());
+        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 
         SedogoUser loggedInUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), loggedInUserID);
         sidebarControl.userID = loggedInUserID;
         sidebarControl.user = loggedInUser;
 
-        firstNameLabel.Text = user.firstName + " " + user.lastName;
-        homeTownLabel.Text = user.homeTown;
-        headlineLabel.Text = user.profileText.Replace("\n","<br/>");
+        userProfileControl.userID = userID;
+        userProfileControl.user = user;
 
-        if (user.profilePicThumbnail != "")
-        {
-            profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
-        }
-        else
-        {
-            profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
-        }
-        profileImage.ToolTip = user.fullName + "'s profile picture";
-
-        if( user.birthday > DateTime.MinValue )
-        {
-            birthdayLabel.Text = user.birthday.ToString("d MMMM yyyy");
-        }
-        else
-        {
-            birthdayLabel.Text = "";
-        }
-
-        userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
-        userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
-        userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();
-        userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
-
+        eventsListControl.userID = userID;
+        eventsListControl.user = user;
     }
 
     //===============================================================

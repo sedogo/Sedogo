@@ -12,11 +12,11 @@
 
     Name: <asp:TextBox runat="server" ID="firstNameTextBox" Width="200px" /> 
         <asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
-            ControlToValidate="firstNameTextBox" ErrorMessage="A first name address is required"
+            ControlToValidate="firstNameTextBox" ErrorMessage="A first name is required"
             Display="None" SetFocusOnError="true">
             </asp:RequiredFieldValidator> <asp:TextBox runat="server" ID="lastNameTextBox" Width="200px" />
             <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
-            ControlToValidate="lastNameTextBox" ErrorMessage="A last name address is required"
+            ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required"
             Display="None" SetFocusOnError="true"></asp:RequiredFieldValidator><br />
     Email address: <asp:TextBox runat="server" ID="emailAddress" Width="200px" />
         <asp:RequiredFieldValidator ID="emailAddressValidator" runat="server"

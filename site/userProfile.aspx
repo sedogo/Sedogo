@@ -4,6 +4,8 @@
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="UserProfileControl" Src="~/components/userProfileControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="EventsListControl" Src="~/components/eventsListControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -58,60 +60,24 @@
 
             <div id="other-content">
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
-                <div class="one-col">
+                <div class="three-col">
 
-                    <h1><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1>
-
-                    <table width="100%">
-                        <tr>
-                            <td>
-                            
-                    <fieldset>
-                        <ol class="width-constrain">
-                            <li>
-                                <label for="">&nbsp;</label><br />
-                                <asp:Label runat="server" ID="headlineLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Birthday</label><br />
-                                <asp:Label runat="server" ID="birthdayLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Home town</label><br />
-                                <asp:Label runat="server" ID="homeTownLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals
-                            </li>
-                            <li>
-                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /></span> Goals achieved
-                            </li>
-                            <li>
-                                <span class="blue"><asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /></span> Group goals
-                            </li>
-                            <li>
-                               <span class="blue"> <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /></span> Goals followed
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                        </ol>
-                    </fieldset>
-
-                            </td>
-                            <td align="right">
-                                <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-                            </td>
-                        </tr>
-                    </table>
+                    <Sedogo:UserProfileControl ID="userProfileControl" runat="server" />
+            
+                    <br />&nbsp;
             
                     <div>
                         <asp:LinkButton 
                             ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message" 
                             OnClick="sendMessageToUserLink_click" CssClass="button-lrg" />
                     </div>
+                    
+                    <br />&nbsp;<br />&nbsp;
+                    
                 </div>
+
+                <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
+
             </div>
 
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />

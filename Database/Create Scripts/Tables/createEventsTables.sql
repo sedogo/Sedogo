@@ -127,6 +127,11 @@ CREATE TABLE EventComments
 	CommentText						nvarchar(max)		NULL,
 	Deleted							bit					NOT NULL,
 	
+	EventImageFilename				nvarchar(200)	    NULL,
+	EventImagePreview				nvarchar(200)	    NULL,
+	EventVideoFilename				nvarchar(200)	    NULL,
+	EventVideoLink					nvarchar(200)	    NULL,
+	
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL,

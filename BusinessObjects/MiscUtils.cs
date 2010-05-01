@@ -165,6 +165,59 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
+        // Function: CreateEventCommentImagePreviews
+        // Description:
+        //===============================================================
+        public static int CreateEventCommentImagePreviews(string filename, int eventID,
+            string commentText, int loggedInUserID, string loggedInUserName)
+        {
+            int returnStatus = -1;
+
+            GlobalData gd = new GlobalData("");
+            int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
+            int previewSize = 500;  // gd.GetIntegerValue("PreviewSize");
+            string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
+            string fileStoreFolderTemp = fileStoreFolder + "\\temp";
+            string fileStoreFolderProfilePics = fileStoreFolder + "\\eventPics";
+            string thumbnailFileName = "";
+            string previewFileName = "";
+
+            int thumbnailStatus = GenerateThumbnail(fileStoreFolderTemp,
+                filename, thumbnailSize, thumbnailSize, previewSize, previewSize,
+                out thumbnailFileName, out previewFileName);
+
+            if (thumbnailStatus > 0)
+            {
+                // Move the thumbnails to the /profilePics folder and update the user
+                string destFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, filename));
+                string destThumbnailFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, thumbnailFileName));
+                string destPreviewFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, previewFileName));
+
+                File.Move(Path.Combine(fileStoreFolderTemp, filename),
+                    destFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, thumbnailFileName),
+                    destThumbnailFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, previewFileName),
+                    destPreviewFilename);
+
+                SedogoEventComment comment = new SedogoEventComment(loggedInUserName);
+                comment.eventID = eventID;
+                comment.postedByUserID = loggedInUserID;
+                comment.commentText = commentText;
+                comment.eventImageFilename = Path.GetFileName(destFilename);
+                comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+                comment.ImageAdd();
+
+                SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
+                sedogoEvent.SendEventUpdateEmail(loggedInUserID);
+
+                returnStatus = 0;
+            }
+
+            return returnStatus;
+        }
+
+        //===============================================================
         // Function: GenerateThumbnail
         //===============================================================
         private static int GenerateThumbnail(string fileStoreFolder, string filename,

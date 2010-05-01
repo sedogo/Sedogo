@@ -99,8 +99,8 @@
                             
                             <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
                                 Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                                <asp:LinkButton ID="sendReplyMessageButton" runat="server" CssClass="button-sml" 
-                                Text="send reply" CommandName="sendReplyMessageButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
+                                <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 
+                                Text="send reply" /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
                             

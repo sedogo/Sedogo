@@ -123,6 +123,12 @@ public partial class message : SedogoPage
             {
                 eventUserID = int.Parse(row["UserID"].ToString());
             }
+            int eventID = -1;
+            if (row["EventID"].ToString() != "")
+            {
+                eventID = int.Parse(row["EventID"].ToString());
+            }
+
             int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
             SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
 
@@ -163,6 +169,10 @@ public partial class message : SedogoPage
 
             Literal messageLabel = e.Item.FindControl("messageLabel") as Literal;
             messageLabel.Text = row["MessageText"].ToString();
+
+            HyperLink sendReplyMessageButton = e.Item.FindControl("sendReplyMessageButton") as HyperLink;
+            sendReplyMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + postedByUserID.ToString()
+                + "&EID=" + eventID.ToString();
         }
     }
 
@@ -181,15 +191,6 @@ public partial class message : SedogoPage
 
             int userID = int.Parse(Session["loggedInUserID"].ToString());
             PopulateMessageList(userID);
-        }
-        if (e.CommandName == "sendReplyMessageButton")
-        {
-            int messageID = int.Parse(e.CommandArgument.ToString());
-
-            Message message = new Message(Session["loggedInUserFullName"].ToString(), messageID);
-
-            Response.Redirect("sendUserMessage.aspx?UID=" + message.postedByUserID.ToString() 
-                + "&EID=" + message.eventID.ToString());
         }
     }
 

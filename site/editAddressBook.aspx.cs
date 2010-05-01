@@ -1,9 +1,9 @@
 ﻿//===============================================================
-// Filename: addAddressBook.aspx.cs
+// Filename: editAddressBook.aspx.cs
 // Date: 01/05/10
 // --------------------------------------------------------------
 // Description:
-//   Add administrator
+//   Edit address book
 // --------------------------------------------------------------
 // Dependencies:
 //   None
@@ -24,7 +24,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
 
-public partial class addAddressBook : SedogoPage
+public partial class editAddressBook : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
@@ -33,6 +33,14 @@ public partial class addAddressBook : SedogoPage
     {
         if (!IsPostBack)
         {
+            int addressBookID = int.Parse(Request.QueryString["ABID"].ToString());
+
+            AddressBook addressBookEntry = new AddressBook(Session["loggedInUserFullName"].ToString(),
+                addressBookID);
+
+            firstNameTextBox.Text = addressBookEntry.firstName;
+            lastNameTextBox.Text = addressBookEntry.lastName;
+            emailAddress.Text = addressBookEntry.emailAddress;
         }
     }
 
@@ -41,16 +49,16 @@ public partial class addAddressBook : SedogoPage
     //===============================================================
     protected void saveButton_Click(object sender, EventArgs e)
     {
+        int addressBookID = int.Parse(Request.QueryString["ABID"].ToString());
         int userID = int.Parse(Session["loggedInUserID"].ToString());
 
-        AddressBook addressBookEntry = new AddressBook(Session["loggedInUserFullName"].ToString());
-        addressBookEntry.userID = userID;
+        AddressBook addressBookEntry = new AddressBook(Session["loggedInUserFullName"].ToString(),
+            addressBookID);
         addressBookEntry.firstName = firstNameTextBox.Text;
         addressBookEntry.lastName = lastNameTextBox.Text;
         addressBookEntry.emailAddress = emailAddress.Text;
-        addressBookEntry.Add();
+        addressBookEntry.Update();
 
-        //Response.Redirect("editAddressBook.aspx?ABID=" + addressBookEntry.addressBookID.ToString());
         Response.Redirect("addressBook.aspx");
     }
 

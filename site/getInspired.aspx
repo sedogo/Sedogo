@@ -100,7 +100,8 @@
                         depends on what we do in the present.</p>
                     <br />
                     <br />
-					<p><a href="register.aspx" title="get started" class="button">get started</a></p>
+					<p><asp:HyperLink ID="getStartedLink" runat="server" ToolTip="get started" 
+					    Text="get started" CssClass="button" /></p>
 				</div>
 				<div class="one-col">
 					<h2 class="col-header" style="margin-top: 12px; border-color: #fff">&nbsp;</h2>

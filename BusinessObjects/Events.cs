@@ -1008,6 +1008,10 @@ namespace Sedogo.BusinessObjects
         private int         m_eventID = -1;
         private int         m_postedByUserID = -1;
         private string      m_commentText = "";
+        private string      m_eventImageFilename = "";
+        private string      m_eventImagePreview = "";
+        private string      m_eventVideoFilename = "";
+        private string      m_eventVideoLink = "";
         private Boolean     m_deleted = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
@@ -1034,6 +1038,26 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_commentText; }
             set { m_commentText = value; }
+        }
+        public string eventImageFilename
+        {
+            get { return m_eventImageFilename; }
+            set { m_eventImageFilename = value; }
+        }
+        public string eventImagePreview
+        {
+            get { return m_eventImagePreview; }
+            set { m_eventImagePreview = value; }
+        }
+        public string eventVideoFilename
+        {
+            get { return m_eventVideoFilename; }
+            set { m_eventVideoFilename = value; }
+        }
+        public string eventVideoLink
+        {
+            get { return m_eventVideoLink; }
+            set { m_eventVideoLink = value; }
         }
         public Boolean deleted
         {
@@ -1106,6 +1130,22 @@ namespace Sedogo.BusinessObjects
                 {
                     m_commentText = (string)rdr["CommentText"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventImageFilename")))
+                {
+                    m_eventImageFilename = (string)rdr["EventImageFilename"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventImagePreview")))
+                {
+                    m_eventImagePreview = (string)rdr["EventImagePreview"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventVideoFilename")))
+                {
+                    m_eventVideoFilename = (string)rdr["EventVideoFilename"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventVideoLink")))
+                {
+                    m_eventVideoLink = (string)rdr["EventVideoLink"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
                 {
                     m_deleted = (Boolean)rdr["Deleted"];
@@ -1174,6 +1214,93 @@ namespace Sedogo.BusinessObjects
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("SedogoEventComment", "Add", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: ImageAdd
+        //===============================================================
+        public void ImageAdd()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spAddEventImageComment", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
+                cmd.Parameters.Add("@PostedByUserID", SqlDbType.Int).Value = m_postedByUserID;
+                cmd.Parameters.Add("@EventImageFilename", SqlDbType.NVarChar, 200).Value = m_eventImageFilename;
+                cmd.Parameters.Add("@EventImagePreview", SqlDbType.NVarChar, 200).Value = m_eventImagePreview;
+                cmd.Parameters.Add("@CommentText", SqlDbType.NVarChar, -1).Value = m_commentText;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+
+                SqlParameter paramEventCommentID = cmd.CreateParameter();
+                paramEventCommentID.ParameterName = "@EventCommentID";
+                paramEventCommentID.SqlDbType = SqlDbType.Int;
+                paramEventCommentID.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramEventCommentID);
+
+                cmd.ExecuteNonQuery();
+                m_eventCommentID = (int)paramEventCommentID.Value;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventComment", "ImageAdd", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: VideoLinkAdd
+        //===============================================================
+        public void VideoLinkAdd()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spAddEventVideoLinkComment", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
+                cmd.Parameters.Add("@PostedByUserID", SqlDbType.Int).Value = m_postedByUserID;
+                cmd.Parameters.Add("@EventVideoLink", SqlDbType.NVarChar, 1000).Value = m_eventVideoLink;
+                cmd.Parameters.Add("@CommentText", SqlDbType.NVarChar, -1).Value = m_commentText;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+
+                SqlParameter paramEventCommentID = cmd.CreateParameter();
+                paramEventCommentID.ParameterName = "@EventCommentID";
+                paramEventCommentID.SqlDbType = SqlDbType.Int;
+                paramEventCommentID.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramEventCommentID);
+
+                cmd.ExecuteNonQuery();
+                m_eventCommentID = (int)paramEventCommentID.Value;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventComment", "VideoLinkAdd", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally

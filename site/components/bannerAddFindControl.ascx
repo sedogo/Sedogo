@@ -54,7 +54,8 @@
                             <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
                                 MaxLength="1000" /></td>
                             <td valign="top" style="padding-top:4px"><asp:HyperLink runat="server"
-                                ID="searchButton1" ImageUrl="~/images/addButton.png" /></td>
+                                ID="addButtonLink"><asp:Image ID="addButtonImage" runat="server" 
+                                ImageUrl="~/images/addButton.png" /></asp:HyperLink></td>
                         </tr>
                     </table>
                 </asp:Panel>

@@ -67,31 +67,32 @@
                         OnItemCommand="addressBookRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table>
+                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
-                                    <td></td>
                                     <td>
                                         <p>Name: <asp:HyperLink ID="nameLabel" runat="server" /></p>
                                         <p>Email: <asp:HyperLink ID="emailLabel" runat="server" /></p>
                                     </td>
+                                    <td align="right">
+                                        <p><asp:Hyperlink ID="editContactButton" 
+                                            runat="server" CssClass="button-sml modal" Text="Edit" /></p>
+                                    </td>
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right"><asp:LinkButton ID="editContactButton" 
-                                runat="server" CssClass="button-sml" 
-                                Text="Edit" CommandName="editContactButton" 
-                                CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AddressBookID") %>' /></p>
-                            <br />
-                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+                            <div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div>
 
                         </ItemTemplate>
                     </asp:Repeater>
                     </div>
                     
-                    <asp:LinkButton ID="editContactButton" 
-                        runat="server" CssClass="button-sml modal" OnClick="editContactButton_click"
-                        Text="Add person to address book" />
-                                
+                    <div style="margin-top:10px">
+                    <asp:Hyperlink ID="addContactButton" runat="server" CssClass="button-sml modal"
+                        Text="Add person to address book" NavigateUrl="addAddressBook.aspx" />
+                    </div>       
+                    
+                    <br />&nbsp;
+                    
                 </div>
 
             </div>

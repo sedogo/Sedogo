@@ -67,6 +67,8 @@
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
 
+                    &nbsp;<br />
+
                     <div id="noInvitesDiv" runat="server">
                     <p>You have no invitations.</p>
                     </div>
@@ -92,7 +94,7 @@
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
+                            <p style="text-align:right;margin-top:10px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
                                 Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
                                 <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
                                 Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>

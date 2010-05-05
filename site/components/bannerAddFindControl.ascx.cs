@@ -72,11 +72,11 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
             {
                 if (userID > 0)
                 {
-                    Response.Redirect("search2.aspx?Search=" + searchText.ToString());
+                    Response.Redirect("~/search2.aspx?Search=" + searchText.ToString());
                 }
                 else
                 {
-                    Response.Redirect("search.aspx?Search=" + searchText.ToString());
+                    Response.Redirect("~/search.aspx?Search=" + searchText.ToString());
                 }
             }
             else
@@ -101,11 +101,11 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
 
         if (userID > 0)
         {
-            Response.Redirect("search2.aspx?Search=" + searchString);
+            Response.Redirect("~/search2.aspx?Search=" + searchString);
         }
         else
         {
-            Response.Redirect("search.aspx?Search=" + searchString);
+            Response.Redirect("~/search.aspx?Search=" + searchString);
         }
     }
 }

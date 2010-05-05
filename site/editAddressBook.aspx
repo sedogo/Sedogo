@@ -13,7 +13,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Address book : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Friends : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -47,7 +47,7 @@
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>Edit address book entry</h1>
+            <h1>Edit friend</h1>
 
             <table border="0" cellpadding="2" cellspacing="2">
                 <tr>

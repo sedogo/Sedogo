@@ -40,13 +40,13 @@
     
     <table border="0" cellspacing="2" cellpadding="2" width="100%">
         <tr>
-            <td width="33%">&nbsp;</td>
-            <td width="33%">&nbsp;</td>
-            <td width="33%">
+            <td width="262">&nbsp;</td>
+            <td width="262">&nbsp;</td>
+            <td width="206">
             
                 <div class="userProfileBox">
                 <fieldset>
-                    <ol class="width-constrain">
+                    <ol>
                         <li>
                             <span class="blue"><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals
                         </li>

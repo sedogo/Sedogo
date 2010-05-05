@@ -58,7 +58,7 @@
 
                 <div class="three-col">
                     <div id="noContactsDiv" runat="server">
-                    <p>You have no entries in your address book.</p>
+                    <p>You have no entries in your friends list.</p>
                     </div>
                     
                     <div id="contactsDiv" runat="server">
@@ -88,7 +88,7 @@
                     
                     <div style="margin-top:10px">
                     <asp:Hyperlink ID="addContactButton" runat="server" CssClass="button-sml modal"
-                        Text="Add person to address book" NavigateUrl="addAddressBook.aspx" />
+                        Text="Add person to friend list" NavigateUrl="addAddressBook.aspx" />
                     </div>       
                     
                     <br />&nbsp;

@@ -213,6 +213,50 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                         }
                     }
 
+                    string timelineColour = "#cd3301";
+                    switch (categoryID)
+                    {
+                        case 1:
+                            timelineColour = "#cd3301";
+                            break;
+                        case 2:
+                            timelineColour = "#ff0b0b";
+                            break;
+                        case 3:
+                            timelineColour = "#ff6801";
+                            break;
+                        case 4:
+                            timelineColour = "#ff8500";
+                            break;
+                        case 5:
+                            timelineColour = "#d5b21a";
+                            break;
+                        case 6:
+                            timelineColour = "#8dc406";
+                            break;
+                        case 7:
+                            timelineColour = "#5b980c";
+                            break;
+                        case 8:
+                            timelineColour = "#079abc";
+                            break;
+                        case 9:
+                            timelineColour = "#5ab6cd";
+                            break;
+                        case 10:
+                            timelineColour = "#8a67c1";
+                            break;
+                        case 11:
+                            timelineColour = "#e54ecf";
+                            break;
+                        case 12:
+                            timelineColour = "#a5369c";
+                            break;
+                        case 13:
+                            timelineColour = "#a32672";
+                            break;
+                    }
+
                     int eventAlertCount = EventAlert.GetEventAlertCountPending(eventID);
                     int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
                     int joinedUserCount = SedogoEvent.GetMemberUserCount(eventID);
@@ -224,7 +268,10 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     //    eventString.Append(" highlight-group-" + categoryID.ToString());
                     //}
                     eventString.AppendLine("\">");
-                    eventString.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
+                    eventString.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" ");
+                    eventString.AppendLine("onMouseOver=\"setColor('colourBar_" + eventID.ToString() + "','" + timelineColour + "');\" ");
+                    eventString.AppendLine("onMouseOut=\"setColor('colourBar_" + eventID.ToString() + "','#FFFFFF');\" ");
+                    eventString.AppendLine(">");
                     eventString.AppendLine("<tr style=\"background-color:#EEEEEE\">");
                     eventString.AppendLine("<td>");
                         eventString.AppendLine("<p class=\"eventListText\"><b>");
@@ -246,6 +293,9 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                         }
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("</tr>");
+                    eventString.AppendLine("<tr height=\"6px\"><td colspan=\"2\" bgcolor=\"#FFFFFF\" id=\"colourBar_" + eventID.ToString() + "\" >");
+                    eventString.AppendLine("<img src=\"/1x1trans.gif\" height=\"6px\" >");
+                    eventString.AppendLine("</td></tr>");
                     eventString.AppendLine("<tr>");
                     eventString.AppendLine("<td>");
 

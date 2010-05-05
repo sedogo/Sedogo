@@ -29,10 +29,10 @@ function changeClass(id, newClass)
             Text="Edit" runat="server" /></span></h2>
             <asp:Image ID="profileImage" runat="server" CssClass="profile" />
 
-        <span style="font-size: 14px; font-weight: bold">
+        <span style="font-size: 14px; font-weight: bold; color: Black">
             <asp:Label ID="userNameLabel" runat="server" /></span><br />
-        <p class="profile-intro">
-            <asp:Label ID="profileTextLabel" runat="server" /></p>
+        <!--<p class="profile-intro">-->
+            <!--<asp:Label ID="profileTextLabel" runat="server" /></p>-->
         <br />
         <p class="extra-buttons">
             <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"

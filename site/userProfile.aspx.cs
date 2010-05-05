@@ -28,7 +28,7 @@ using System.Text;
 using System.Globalization;
 using Sedogo.BusinessObjects;
 
-public partial class userProfile : System.Web.UI.Page
+public partial class userProfile : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
@@ -49,6 +49,11 @@ public partial class userProfile : System.Web.UI.Page
 
         eventsListControl.userID = userID;
         eventsListControl.user = user;
+
+        if( userID == loggedInUserID )
+        {
+            sendMessageToUserLink.Visible = false;
+        }
     }
 
     //===============================================================

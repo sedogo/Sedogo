@@ -24,6 +24,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using System.IO;
 using Sedogo.BusinessObjects;
 
 public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPage because this would not allow anonymous users
@@ -381,8 +382,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             messageTrackingUsersLiteral.Text = "var url = 'sendMessageToTrackers.aspx?EID=" + eventID.ToString() + "';";
             messageFollowingUsersLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
             sendMessageLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
-            uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
-            uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
+            //uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
+            //uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
 
             if (sedogoEvent.dateType == "D")
             {
@@ -437,6 +438,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string eventImagePreview = "";
                 string eventVideoFilename = "";
                 string eventVideoLink = "";
+                string eventLink = "";
 
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CommentText")))
                 {
@@ -486,6 +488,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     eventVideoLink = (string)rdr["EventVideoLink"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventLink")))
+                {
+                    eventLink = (string)rdr["EventLink"];
+                }
 
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
@@ -518,11 +524,27 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     + "<span style=\"color:black\">" + commentText.Replace("\n", "<br/>") + "</span>";
                 if (eventImagePreview != "")
                 {
+                    if (commentText != "")
+                    {
+                        outputText = outputText + "<br/>";
+                    }
                     outputText = outputText + "<img src=\"../assets/eventPics/" + eventImagePreview + "\" /><br/>";
                 }
                 if (eventVideoLink != "")
                 {
+                    if (commentText != "")
+                    {
+                        outputText = outputText + "<br/>";
+                    }
                     outputText = outputText + eventVideoLink + "<br/>";
+                }
+                if (eventLink != "")
+                {
+                    if (commentText != "")
+                    {
+                        outputText = outputText + "<br/>";
+                    }
+                    outputText = outputText + "<a href=\"" + eventLink + "\">" + eventLink + "</a><br/>";
                 }
                 outputText = outputText + "</p>\n";
 
@@ -818,6 +840,41 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         string commentText = commentTextBox.Text;
 
         SedogoEventComment comment = new SedogoEventComment(Session["loggedInUserFullName"].ToString());
+        if (eventPicFileUpload.PostedFile != null)
+        {
+            if (eventPicFileUpload.PostedFile.ContentLength != 0)
+            {
+                int fileSizeBytes = eventPicFileUpload.PostedFile.ContentLength;
+
+                GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+                string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
+
+                string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
+                string destPath = Path.Combine(fileStoreFolder, originalFileName);
+                destPath = destPath.Replace(" ", "_");
+                destPath = MiscUtils.GetUniqueFileName(destPath);
+                string savedFilename = Path.GetFileName(destPath);
+
+                eventPicFileUpload.PostedFile.SaveAs(destPath);
+
+                string savedFileName = "";
+                string destFilename = "";
+                string destPreviewFilename = "";
+                MiscUtils.CreateEventCommentImagePreviews(Path.GetFileName(destPath),
+                    out savedFileName, out destFilename, out destPreviewFilename);
+
+                comment.eventImageFilename = Path.GetFileName(savedFileName);
+                comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+            }
+        }
+        if (videoLinkText.Text != "")
+        {
+            comment.eventVideoLink = videoLinkText.Text;
+        }
+        if (linkTextBox.Text != "" && linkTextBox.Text != "http://")
+        {
+            comment.eventLink = linkTextBox.Text;
+        }
         comment.eventID = eventID;
         comment.postedByUserID = loggedInUserID;
         comment.commentText = commentText;

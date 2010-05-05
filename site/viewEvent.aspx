@@ -1,5 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="viewEvent.aspx.cs" Inherits="viewEvent"
-    EnableEventValidation="false" %>
+    EnableEventValidation="false" ValidateRequest="false" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -86,6 +86,33 @@
 	    openModal(url);
 	}
 	</script>
+    <script language="javascript">
+    var state = 'none';
+    function showhide(layer_ref)
+    {
+        if (state == 'block')
+        {
+            state = 'none';
+        }
+        else
+        {
+            state = 'block';
+        }
+        if (document.all)
+        { //IS IE 4 or 5 (or 6 beta)
+            eval("document.all." + layer_ref + ".style.display = state");
+        }
+        if (document.layers)
+        { //IS NETSCAPE 4 or below
+            document.layers[layer_ref].display = state;
+        }
+        if (document.getElementById && !document.all)
+        {
+            hza = document.getElementById(layer_ref);
+            hza.style.display = state;
+        }
+    }
+    </script>     
 	
 </head>
 <body>
@@ -114,7 +141,7 @@
                         <tr>
                             <td width="300px">
                             
-				                <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
+				                <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px; margin-top:10px">Edited <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
                                 <table class="summary">
 					                <tbody>
 						                <tr>
@@ -150,7 +177,6 @@
                                             <table>
                                                 <tr>
                                                     <td><asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="Achieved" ToolTip="Achieved" OnClick="click_achievedEventLink" /></td>
-                                                    <td><asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete goal" OnClick="deleteEventButton_click" CssClass="button-sml" /></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -187,12 +213,32 @@
                 		                        <tr>
                 		                            <td>Attach</td>
                 		                            <td>&nbsp;&nbsp;</td>
-                		                            <td><asp:HyperLink id="uploadEventCommentImageLink" CssClass="modal" 
-                		                                ImageUrl="~/images/addpicture.gif" runat="server" /></td>
-                		                            <td><asp:HyperLink id="uploadEventCommentVideoLinkLink" CssClass="modal" 
-                		                                ImageUrl="~/images/addlink.gif" runat="server" /></td>
+                		                            <td><asp:HyperLink id="uploadEventCommentImageLink"
+                		                                ImageUrl="~/images/addpicture.gif" runat="server" NavigateUrl="javascript:showhide('uploadImageDiv');" /></td>
+                		                            <td><asp:HyperLink id="uploadEventCommentVideoLinkLink"
+                		                                ImageUrl="~/images/addvideo.gif" runat="server" NavigateUrl="javascript:showhide('uploadVideoLinkDiv');" /></td>
+                		                            <td><asp:HyperLink id="uploadEventLinkLink"
+                		                                ImageUrl="~/images/addlink.gif" runat="server" NavigateUrl="javascript:showhide('uploadLinkDiv');" /></td>
                 		                        </tr>
                 		                    </table>
+                		                    </div>
+                		                    <div id="uploadImageDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
+                		                        <p>Browse to an image</p>
+                                                <asp:FileUpload ID="eventPicFileUpload" runat="server" /><br />
+                                                <asp:RegularExpressionValidator 
+                                                id="eventPicFileUploadValidator1" runat="server" 
+                                                ErrorMessage="Only .jpg .jpeg .gif and .png files are allowed" 
+                                                ValidationExpression="(.*\.jpg)|(.*\.jpeg)" 
+                                                ControlToValidate="eventPicFileUpload"></asp:RegularExpressionValidator>
+                		                    </div>
+                		                    <div id="uploadVideoLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
+                		                        <p>Enter code to embed a video</p>
+                                                <asp:TextBox ID="videoLinkText" runat="server" Width="400px" 
+                                                    TextMode="MultiLine" Rows="8"></asp:TextBox>
+                		                    </div>
+                		                    <div id="uploadLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
+                		                        <p>Enter code to insert a link</p>
+                                                <asp:TextBox ID="linkTextBox" runat="server" Width="400px">http://</asp:TextBox>
                 		                    </div>
                 		                </td>
                 		                <td align="right">
@@ -203,15 +249,15 @@
                 		        </table>
                 		        </div>
                 		        
-		                        <h3 style="font-size: 12px; color: #0cf">Comments about <asp:Label ID="eventLabel2" runat="server" /></h3>
-
-                                <div id="invitedPanel" runat="server">
+                                <div id="invitedPanel" runat="server" style="margin-top:10px">
                                 <asp:LinkButton 
                                     ID="invitedButton" runat="server" ToolTip="join now" Text="You have been invited to join this goal - join now" 
                                     OnClick="invitedButton_click" CssClass="button-sml" />
                                 </div>
                 		        
-                                <div id="loginRegisterPanel" runat="server" style="border:solid 1px #CCCCCC; padding:10px; margin-bottom:10px">
+		                        <h3 style="font-size: 12px; color: #0cf">Comments about <asp:Label ID="eventLabel2" runat="server" /></h3>
+
+                                <div id="loginRegisterPanel" runat="server" style="border:solid 1px #CCCCCC; padding-top:10px; margin-bottom:10px">
                                 <p>You must be logged in to view the full details or to add comments to this event.<br />
                                 <a href="login.aspx" class="modal">Click here to login</a><br />
                                 or <a href="register.aspx">click here to register</a> if you are a new user</p>
@@ -223,7 +269,7 @@
                             <td width="16px">&nbsp;</td>
                             <td width="170px">
 
-				                <div style="width: 170px; padding-top: 70px; overflow: hidden">
+				                <div style="width: 170px; padding-top: 10px; overflow: hidden">
                                     <asp:Image ID="eventImage" runat="server" Width="170" />
                                     <asp:Hyperlink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()" 
                                     Text="Edit picture" CssClass="underline-bold" />
@@ -262,10 +308,11 @@
                                     <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
                                     <div class="pinstripe-divider">&nbsp;</div>
 
-                                    <div class="buttons">
-                                        <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click" CssClass="button-lrg" Visible="false" />
-			                            <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal" OnClick="trackThisEventLink_click" CssClass="button-lrg" />
-			                            <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click" CssClass="button-lrg" />
+                                    <div>
+                                        <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click" CssClass="button-sml" Visible="false" /><br />&nbsp;<br />&nbsp;
+			                            <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal" OnClick="trackThisEventLink_click" CssClass="button-sml" /><br />&nbsp;<br />&nbsp;
+			                            <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click" CssClass="button-sml" /><br />&nbsp;<br />&nbsp;
+                                        <asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete goal" OnClick="deleteEventButton_click" CssClass="button-sml" /><br />&nbsp;<br />&nbsp;
                                     </div>
                                 </div>
                                 

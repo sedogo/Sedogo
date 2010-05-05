@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="UserProfileControl" Src="~/components/userProfileControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -58,36 +59,7 @@
 			<div id="other-content">
 				<div class="three-col">
 
-                    <h1 style="margin-bottom: 2px">User profile</h1>
-
-                    <div>
-                        <p style="display: block"><asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-                    </div>
-
-                    <fieldset>
-                        <ol class="width-constrain">
-                             <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Name: </label>
-                                <asp:Label runat="server" ID="nameLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Gender: </label>
-                                <asp:Label runat="server" ID="genderLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Home town: </label>
-                                <asp:Label runat="server" ID="homeTownLabel" />
-                            </li>
-                            <div class="pinstripe-divider">&nbsp;</div>
-                            <li>
-                                <label for="">Profile: </label>
-                                <asp:Label runat="server" ID="profileTextLabel" />
-                            </li>
-                        </ol>
-                    </fieldset>
+                    <Sedogo:UserProfileControl ID="userProfileControl" runat="server" />
 
 				</div>
 			</div>

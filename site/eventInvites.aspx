@@ -127,6 +127,9 @@
 	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Send invites" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
                     </p>
                     </div>
+                    
+                    <br />
+                    &nbsp;
 
 		        </div>
 		    </div>

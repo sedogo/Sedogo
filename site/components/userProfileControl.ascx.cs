@@ -38,12 +38,6 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-        int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
-
-        SedogoUser loggedInUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), loggedInUserID);
-
         firstNameLabel.Text = user.firstName + " " + user.lastName;
         homeTownLabel.Text = user.homeTown;
         headlineLabel.Text = user.profileText.Replace("\n", "<br/>");

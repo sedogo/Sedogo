@@ -49,7 +49,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 userNameLabel.Text = user.fullName;
 
-                profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
+                //profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
 
                 if (user.profilePicThumbnail != "")
                 {
@@ -134,7 +134,7 @@ public partial class sidebar : System.Web.UI.UserControl
                 groupGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 groupGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
-                addressBookLink.Text = "Address book";
+                addressBookLink.Text = "Friends";
                 addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 

@@ -45,38 +45,10 @@ public partial class d_publicProfile : System.Web.UI.Page
                 loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
             }
 
-            //SedogoUser loggedInUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), loggedInUserID);
             bannerAddFindControl.userID = userID;
 
-            nameLabel.Text = user.fullName;
-            pageTitleUserName.Text = user.fullName + " : Sedogo : Create your future and connect with others to make it happen";
-            if (user.gender == "M")
-            {
-                genderLabel.Text = "Male";
-            }
-            else
-            {
-                genderLabel.Text = "Female";
-            }
-            homeTownLabel.Text = user.homeTown;
-            profileTextLabel.Text = user.profileText.Replace("\n","<br/>");
-
-            //user.birthday;
-            //user.countryID;
-            //user.emailAddress;
-            //user.firstName;
-            //user.lastName;
-
-            if (user.profilePicThumbnail != "")
-            {
-                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
-            }
-            else
-            {
-                profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
-            }
-            profileImage.ToolTip = user.fullName + "'s profile picture";
-
+            userProfileControl.userID = userID;
+            userProfileControl.user = user;
         }
     }
 }

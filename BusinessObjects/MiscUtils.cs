@@ -55,9 +55,17 @@ namespace Sedogo.BusinessObjects
                 do
                 {
                     int pos = filename.LastIndexOf(".");
-                    string tempFilename = filename.Substring(0, pos);
-                    string tempExtension = filename.Substring(pos + 1, (filename.Length - pos - 1));
-                    newPath = tempFilename + "_" + fileNumber.ToString() + "." + tempExtension;
+                    if (pos > 0)
+                    {
+                        string tempFilename = filename.Substring(0, pos);
+                        string tempExtension = filename.Substring(pos + 1, (filename.Length - pos - 1));
+                        newPath = tempFilename + "_" + fileNumber.ToString() + "." + tempExtension;
+                    }
+                    else
+                    {
+                        string tempFilename = filename;
+                        newPath = tempFilename + "_" + fileNumber.ToString();
+                    }
                     fileNumber++;
                 }
                 while (File.Exists(newPath));
@@ -168,8 +176,8 @@ namespace Sedogo.BusinessObjects
         // Function: CreateEventCommentImagePreviews
         // Description:
         //===============================================================
-        public static int CreateEventCommentImagePreviews(string filename, int eventID,
-            string commentText, int loggedInUserID, string loggedInUserName)
+        public static int CreateEventCommentImagePreviews(string filename,
+            out string savedFileName, out string thumbnailFileName, out string previewFileName)
         {
             int returnStatus = -1;
 
@@ -179,8 +187,9 @@ namespace Sedogo.BusinessObjects
             string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
             string fileStoreFolderTemp = fileStoreFolder + "\\temp";
             string fileStoreFolderProfilePics = fileStoreFolder + "\\eventPics";
-            string thumbnailFileName = "";
-            string previewFileName = "";
+            savedFileName = "";
+            thumbnailFileName = "";
+            previewFileName = "";
 
             int thumbnailStatus = GenerateThumbnail(fileStoreFolderTemp,
                 filename, thumbnailSize, thumbnailSize, previewSize, previewSize,
@@ -200,16 +209,9 @@ namespace Sedogo.BusinessObjects
                 File.Move(Path.Combine(fileStoreFolderTemp, previewFileName),
                     destPreviewFilename);
 
-                SedogoEventComment comment = new SedogoEventComment(loggedInUserName);
-                comment.eventID = eventID;
-                comment.postedByUserID = loggedInUserID;
-                comment.commentText = commentText;
-                comment.eventImageFilename = Path.GetFileName(destFilename);
-                comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
-                comment.ImageAdd();
-
-                SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
-                sedogoEvent.SendEventUpdateEmail(loggedInUserID);
+                savedFileName = destFilename;
+                thumbnailFileName = destThumbnailFilename;
+                previewFileName = destPreviewFilename;
 
                 returnStatus = 0;
             }

@@ -1,6 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="eventsListControl.ascx.cs" 
     Inherits="components_eventsListControl" %>
 
+<SCRIPT TYPE="text/javascript">
+    function setColor(id, newColor)
+{
+    document.getElementById(id).style.background = newColor;
+}
+</SCRIPT> 
+
 <div class="one-col">
     <div class="events">
 	    <h2 class="col-header">This month</h2>

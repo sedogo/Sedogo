@@ -130,7 +130,8 @@ CREATE TABLE EventComments
 	EventImageFilename				nvarchar(200)	    NULL,
 	EventImagePreview				nvarchar(200)	    NULL,
 	EventVideoFilename				nvarchar(200)	    NULL,
-	EventVideoLink					nvarchar(200)	    NULL,
+	EventVideoLink					nvarchar(1000)	    NULL,
+	EventLink						nvarchar(200)	    NULL,
 	
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,

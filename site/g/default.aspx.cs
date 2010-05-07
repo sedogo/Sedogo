@@ -172,7 +172,7 @@ public partial class g_default : System.Web.UI.Page
                     userLink.Text = "<div class=\"directory\">";
                     if (eventPicThumbnail == "")
                     {
-                        userLink.Text += "<img src=\"../images/eventThumbnailBlank.png\" />";
+                        userLink.Text += "<img src=\"../images/goalimage_small.jpg\" />";
                     }
                     else
                     {

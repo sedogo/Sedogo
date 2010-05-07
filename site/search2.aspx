@@ -312,7 +312,7 @@ function showhide(layer_ref)
 				    </tr>
 		            <tr>
 		                <td><h3 class="noTopMargin blue">Advanced Search</h3></td>
-		                <td align="right"><a href="#" onclick="showhide('searchDiv');">Toggle</a></td>
+		                <td align="right"><a href="#" onclick="showhide('searchDiv');"><img src="/images/search_toggle.gif" /></a></td>
 		            </tr>    
 		            <tr>
 		                <td colspan="2">

@@ -158,18 +158,25 @@ p.blue
 #noUnreadMessagesDiv,
 #invitesDiv, 
 #noInvitesDiv,
-#alertsDiv,
-#noAlertsDiv,
 #requestsDiv,
 #noRequestsDiv,
-#trackedEventsDiv,
-#noTrackedEventsDiv,
 #trackedEventsDiv,
 #noTrackedEventsDiv
 {
 	width: 430px;
 	padding-bottom: 10px;
 	/*border-bottom: 1px solid #ccc;*/
+	margin-top:10px;
+}
+
+#alertsDiv,
+#noAlertsDiv,
+#contactsDiv,
+#noContactsDiv
+{
+	padding-bottom: 10px;
+	/*border-bottom: 1px solid #ccc;*/
+	margin-top:10px;
 }
 
 .fullpagebuttons
@@ -328,11 +335,14 @@ img.profile
 {
 	clear: left
 }
-.alerts p 
+.latestGoals
+{
+}
+.latestGoals p 
 {
 	margin: 0;
 }
-.alerts p a:hover 
+.latestGoals p a:hover 
 {
 	color: #9b9885
 }
@@ -1184,7 +1194,7 @@ ol.items {
 }
 ol.items li {
 	border-bottom: 1px solid #ccc;
-	padding: 2px 0
+	height:18px;
 }
 ol.items li a {
 	display: block;
@@ -1212,7 +1222,7 @@ li.addressbook a {
 	background: url(../images/friends.gif) no-repeat left;
 }
 .alerts {
-	padding-top: 30px
+	/*padding-top: 30px*/
 }
 .alerts h3 {
 	color: #0cf;
@@ -1292,6 +1302,9 @@ a.underline-bold {
 
 .blue {
 	color: #0cf
+}
+.grey {
+	color: #666666
 }
 
 .calendar_button
@@ -1430,16 +1443,18 @@ a.underline-bold {
 .sideBarBGNormal
 {
   background-color:#FFFFFF !important;
+  height:18px;
 }
 .sideBarBGHighlight
 {
-  background-color:#CCCCCC !important;
+  background-color:#F0F0ED !important;
+  height:18px;
 }
 
 .eventCommentBox
 {
 	background-color: #EEEEEE;
-	border:solid 1px #CCCCCC;
+	border:solid 1px #F0F0ED;
 	padding:2px 5px 2px 2px;
 }
 
@@ -1451,7 +1466,7 @@ a.underline-bold {
 .eventRightColBox
 {
 	margin-top:10px;
-	border:solid 1px #CCCCCC;
+	border:solid 1px #F0F0ED;
 	padding:2px 5px 2px 2px;
 }
 .eventRightColBox h3
@@ -1461,7 +1476,7 @@ a.underline-bold {
 
 .userProfileBox
 {
-	border:solid 1px #CCCCCC;
+	border:solid 1px #F0F0ED;
 	padding:2px 5px 2px 2px;
 }
 .eventListText

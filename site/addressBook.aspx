@@ -57,6 +57,13 @@
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 
                 <div class="three-col">
+                
+                    <div class="page-banner-content">
+                        <div class="page-banner-header">Friends</div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+                
                     <div id="noContactsDiv" runat="server">
                     <p>You have no entries in your friends list.</p>
                     </div>
@@ -70,12 +77,18 @@
                             <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
                                     <td>
-                                        <p>Name: <asp:HyperLink ID="nameLabel" runat="server" /></p>
-                                        <p>Email: <asp:HyperLink ID="emailLabel" runat="server" /></p>
+                                        <p>Name: <asp:HyperLink ID="nameLabel" runat="server" CssClass="modal" /></p>
+                                        <p>Email: <asp:HyperLink ID="emailLabel" runat="server" CssClass="modal" /></p>
                                     </td>
                                     <td align="right">
-                                        <p><asp:Hyperlink ID="editContactButton" 
-                                            runat="server" CssClass="button-sml modal" Text="Edit" /></p>
+                                        <p>
+                                        <asp:Hyperlink ID="viewProfileButton" 
+                                        runat="server" CssClass="button-sml" Text="View profile" />
+                                        <asp:Hyperlink ID="editContactButton" 
+                                        runat="server" CssClass="button-sml modal" Text="Edit" />
+                                        <asp:Hyperlink ID="deleteContactButton" 
+                                        runat="server" CssClass="button-sml" Text="Delete" />
+                                        </p>
                                     </td>
                                 </tr>
                             </table>

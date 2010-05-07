@@ -49,6 +49,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 action = (string)Request.QueryString["A"];
             }
+            int eventCommentID = -1;
+            if (Request.QueryString["CID"] != null)
+            {
+                eventCommentID = int.Parse(Request.QueryString["CID"].ToString());
+            }
+
+            string deleteCommentLink = "viewEvent.aspx?A=&" + eventCommentID.ToString();
+
 
             sidebarControl.userID = userID;
             if (userID > 0)
@@ -92,10 +100,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Your request to join this goal has been sent to the goal owner.\");", true);
             }
+            if (action == "DeleteComment")
+            {
+                SedogoEventComment comment = new SedogoEventComment(loggedInUserName, eventCommentID);
+                comment.Delete();
+            }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
             eventLabel1.Text = sedogoEvent.eventName;
-            eventLabel2.Text = sedogoEvent.eventName;
 
             pageTitleUserName.Text = sedogoEvent.eventName + " : Sedogo : Create your future and connect with others to make it happen";
             string timelineColour = "#cd3301";
@@ -237,7 +249,18 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     sendMessageButton.Visible = false;
 
                     editEventLink.Visible = true;
-                    achievedEventLink.Visible = true;
+
+                    if (sedogoEvent.eventAchieved == true)
+                    {
+                        achievedEventLink.Visible = false;
+                        reOpenEventLink.Visible = true;
+                    }
+                    else
+                    {
+                        achievedEventLink.Visible = true;
+                        reOpenEventLink.Visible = false;
+                    }
+
                     uploadEventImage.Visible = true;
                     //createSimilarEventLink.Visible = false;
                     sendMessageDiv.Visible = false;
@@ -307,6 +330,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                 editEventLink.Visible = false;
                 achievedEventLink.Visible = false;
+                reOpenEventLink.Visible = false;
                 uploadEventImage.Visible = false;
                 //createSimilarEventLink.Visible = false;
 
@@ -361,15 +385,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 uploadEventImage.Text = "Edit picture";
             }
 
-            if (sedogoEvent.eventAchieved == true)
-            {
-                achievedEventLink.Text = "Achieved <img src=\"/images/acceptachieve.gif\" />";
-            }
-            else
-            {
-                achievedEventLink.Text = "Achieved";
-            }
-
             sendMessageButton.Attributes.Add("style", "text-decoration: underline; display: block; background: url(images/messages.gif) no-repeat left; padding-left: 20px; margin: 4px 0 20px 0");
 
             createSimilarEventLink.Attributes.Add("onclick", "if(confirm('Copy goal will create your own goal like this on your timeline. Continue?')){}else{return false}");
@@ -398,14 +413,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 dateLabel.Text = "Before";
             }
 
-            PopulateComments(eventID);
+            PopulateComments(eventID, sedogoEvent.userID);
         }
     }
 
     //===============================================================
     // Function: PopulateComments
     //===============================================================
-    private void PopulateComments(int eventID)
+    private void PopulateComments(int eventID, int eventUserID)
     {
         int currentUserID = -1;
         if (Session["loggedInUserID"] != null)
@@ -545,6 +560,16 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         outputText = outputText + "<br/>";
                     }
                     outputText = outputText + "<a href=\"" + eventLink + "\">" + eventLink + "</a><br/>";
+                }
+                if (currentUserID == eventUserID)
+                {
+                    if (commentText != "")
+                    {
+                        outputText = outputText + "<br/>";
+                    }
+                    string deleteCommentLink = "viewEvent.aspx?A=DeleteComment&CID="
+                        + eventCommentID.ToString() + "&EID=" + eventID.ToString();
+                    outputText = outputText + "<a href=\"" + deleteCommentLink + "\">Delete comment</a><br/>";
                 }
                 outputText = outputText + "</p>\n";
 
@@ -905,7 +930,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         trackThisEventLink.Visible = false;
 
         PopulateTrackingList(eventID);
-        PopulateComments(eventID);
+        PopulateComments(eventID, trackedEvent.userID);
         PopulateRequestsList(eventID);
     }
 

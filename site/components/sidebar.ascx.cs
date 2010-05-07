@@ -299,6 +299,7 @@ public partial class sidebar : System.Web.UI.UserControl
             Session["ViewArchivedEvents"] = true;
         }
 
-        Response.Redirect(Request.Url.PathAndQuery);
+        //Response.Redirect(Request.Url.PathAndQuery);
+        Response.Redirect("~/profile.aspx");
     }
 }

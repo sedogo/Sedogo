@@ -176,7 +176,10 @@
                                         <td align="right">
                                             <table>
                                                 <tr>
-                                                    <td><asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="Achieved" ToolTip="Achieved" OnClick="click_achievedEventLink" /></td>
+                                                    <td><asp:LinkButton ID="achievedEventLink" runat="server" CssClass="button-sml" Text="Achieved" 
+                                                        ToolTip="Achieved" OnClick="click_achievedEventLink" Visible="false" /><asp:ImageButton ID="reOpenEventLink" 
+                                                        runat="server" ImageUrl="~/images/achieved_button.gif" ToolTip="Achieved" 
+                                                        OnClick="click_achievedEventLink" Visible="false" /></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -193,6 +196,9 @@
                 		        <div class="eventCommentBox" id="eventCommentBox" runat="server">
                 		        <table width="100%" cellspacing="2" cellpadding="2">
                 		            <tr>
+                		                <td colspan="2">Add Comment</td>
+                		            </tr>
+                		            <tr>
                 		                <td colspan="2">
                 		                    <asp:TextBox id="commentTextBox" runat="server" 
                 		                        TextMode="MultiLine" Rows="3" ValidationGroup="addCommentGroup"
@@ -208,35 +214,38 @@
                 		            </tr>
                 		            <tr>
                 		                <td>
-                		                    <div style="padding-top:5px; padding-bottom:5px; border:solid 1px #999999">
+                		                    <div style="padding-top:5px; padding-bottom:5px; border:solid 1px #999999; background-color:white">
                 		                    <table border="0" cellspacing="2" cellpadding="2">
                 		                        <tr>
                 		                            <td>Attach</td>
                 		                            <td>&nbsp;&nbsp;</td>
                 		                            <td><asp:HyperLink id="uploadEventCommentImageLink"
                 		                                ImageUrl="~/images/addpicture.gif" runat="server" NavigateUrl="javascript:showhide('uploadImageDiv');" /></td>
+                		                            <td>&nbsp;</td>
                 		                            <td><asp:HyperLink id="uploadEventCommentVideoLinkLink"
                 		                                ImageUrl="~/images/addvideo.gif" runat="server" NavigateUrl="javascript:showhide('uploadVideoLinkDiv');" /></td>
+                		                            <td>&nbsp;</td>
                 		                            <td><asp:HyperLink id="uploadEventLinkLink"
                 		                                ImageUrl="~/images/addlink.gif" runat="server" NavigateUrl="javascript:showhide('uploadLinkDiv');" /></td>
                 		                        </tr>
                 		                    </table>
                 		                    </div>
-                		                    <div id="uploadImageDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
-                		                        <p>Browse to an image</p>
+                		                    <div id="uploadImageDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; padding-left:4px; border:solid 1px #999999">
+                		                        <p>Browse to add an image</p>
                                                 <asp:FileUpload ID="eventPicFileUpload" runat="server" /><br />
                                                 <asp:RegularExpressionValidator 
                                                 id="eventPicFileUploadValidator1" runat="server" 
                                                 ErrorMessage="Only .jpg .jpeg .gif and .png files are allowed" 
                                                 ValidationExpression="(.*\.jpg)|(.*\.jpeg)" 
                                                 ControlToValidate="eventPicFileUpload"></asp:RegularExpressionValidator>
+                                                <p>I certify that I have the right to distribute these photos</p>
                 		                    </div>
-                		                    <div id="uploadVideoLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
+                		                    <div id="uploadVideoLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; padding-left:4px; border:solid 1px #999999">
                 		                        <p>Enter code to embed a video</p>
                                                 <asp:TextBox ID="videoLinkText" runat="server" Width="400px" 
                                                     TextMode="MultiLine" Rows="8"></asp:TextBox>
                 		                    </div>
-                		                    <div id="uploadLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; border:solid 1px #999999">
+                		                    <div id="uploadLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; padding-left:4px; border:solid 1px #999999">
                 		                        <p>Enter code to insert a link</p>
                                                 <asp:TextBox ID="linkTextBox" runat="server" Width="400px">http://</asp:TextBox>
                 		                    </div>
@@ -255,8 +264,6 @@
                                     OnClick="invitedButton_click" CssClass="button-sml" />
                                 </div>
                 		        
-		                        <h3 style="font-size: 12px; color: #0cf">Comments about <asp:Label ID="eventLabel2" runat="server" /></h3>
-
                                 <div id="loginRegisterPanel" runat="server" style="border:solid 1px #CCCCCC; padding-top:10px; margin-bottom:10px">
                                 <p>You must be logged in to view the full details or to add comments to this event.<br />
                                 <a href="login.aspx" class="modal">Click here to login</a><br />

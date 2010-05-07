@@ -2,11 +2,27 @@
     Inherits="components_eventsListControl" %>
 
 <SCRIPT TYPE="text/javascript">
-    function setColor(id, newColor)
+function setColor(id, newColor)
 {
     document.getElementById(id).style.background = newColor;
 }
-</SCRIPT> 
+function showhideGoal(layer_ref)
+{
+    if (document.all)
+    { //IS IE 4 or 5 (or 6 beta)
+        eval("document.all." + layer_ref + ".style.display = 'block'");
+    }
+    if (document.layers)
+    { //IS NETSCAPE 4 or below
+        document.layers[layer_ref].display = 'block';
+    }
+    if (document.getElementById && !document.all)
+    {
+        hza = document.getElementById(layer_ref);
+        hza.style.display = 'block';
+    }
+}
+</script>     
 
 <div class="one-col">
     <div class="events">

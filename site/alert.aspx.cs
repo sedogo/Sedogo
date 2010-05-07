@@ -100,6 +100,9 @@ public partial class alert : SedogoPage
             eventNameLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventNameLabel.Text = row["EventName"].ToString();
 
+            HyperLink editAlertButton = e.Item.FindControl("editAlertButton") as HyperLink;
+            editAlertButton.NavigateUrl = "eventAlerts.aspx?EID=" + row["EventID"].ToString();
+
             string alertText = row["AlertText"].ToString();
             alertText = alertText.Replace("\n", "<br/>");
             Literal alertTextLabel = e.Item.FindControl("alertTextLabel") as Literal;

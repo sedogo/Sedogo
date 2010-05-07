@@ -3,7 +3,19 @@
 
 <div class="userProfileBox">
 
-    <h1 class="blue"><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1>
+    <table width="100%" border="0" cellspacing="2" cellpadding="2">
+        <tr>
+            <td><h1 class="blue"><asp:Label runat="server" ID="firstNameLabel" />'s profile</h1></td>
+            <td align="right">
+                <table border="0" cellspacing="2" cellpadding="2">
+                    <tr>
+                        <td style="padding:4px 0"><a href="/profile.aspx" class="grey">Close</a></td>
+                        <td><a href="/profile.aspx"><img src="/images/close-modal.gif" /></a></td>
+                    </tr>
+                </table>
+             </td>
+        </tr>
+    </table>
 
     <table width="100%">
         <tr>

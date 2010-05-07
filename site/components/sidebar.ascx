@@ -60,7 +60,7 @@ function changeClass(id, newClass)
         </ol>
         </div>
         
-        <div class="alerts">
+        <div class="latestGoals">
             <h3><asp:Label ID="myLatestGoalsLabel" runat="server" Text="My latest goals" /></h3>
             <p>
                 <asp:PlaceHolder ID="latestEventsPlaceholder" runat="server" />

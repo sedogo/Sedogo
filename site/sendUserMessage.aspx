@@ -67,7 +67,7 @@
         <div class="buttons">
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="Send message" Text="Send message" 
-                OnClick="saveChangesButton_click" CssClass="button-sml" />
+                OnClick="saveChangesButton_click" CssClass="button-lrg" />
         </div>    
 
     </div>

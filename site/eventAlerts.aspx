@@ -144,7 +144,7 @@ function popupCalendarAlertDate(image)
                 <asp:TextBox ID="newAlertTextBox" runat="server" TextMode="MultiLine"
                     Width="300px" Rows="6" />
 
-                <p><asp:LinkButton ID="createAlertLink" runat="server" Text="Create alert"
+                <p><asp:LinkButton ID="createAlertLink" runat="server" Text="Create reminder"
                     OnClick="createAlertLink_click" CssClass="button-sml" /></p>
 		    </div>
 		</div>

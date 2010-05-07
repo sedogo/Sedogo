@@ -17,7 +17,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Tracking : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Goals followed : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -62,7 +62,7 @@
 			    <div class="three-col">
 
                     <div class="page-banner-content">
-                        <div class="page-banner-header">Following goals</div>
+                        <div class="page-banner-header">Goals followed</div>
                         <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>

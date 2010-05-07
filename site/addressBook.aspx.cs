@@ -38,6 +38,29 @@ public partial class addressBook : SedogoPage
         {
             int userID = int.Parse(Session["loggedInUserID"].ToString());
 
+            string action = "";
+            int addressBookID = -1;
+            if (Request.QueryString["A"] != null && Request.QueryString["ABID"] != null)
+            {
+                action = Request.QueryString["A"].ToString();
+                addressBookID = int.Parse(Request.QueryString["ABID"]);
+
+                if (action == "Delete")
+                {
+                    try
+                    {
+                        AddressBook addressBook = new AddressBook(Session["loggedInUserFullName"].ToString(),
+                            addressBookID);
+                        addressBook.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
+                            "alert(\"Error: " + ex.Message + "\");", true);
+                    }
+                }
+            }
+
             SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.userID = userID;
             sidebarControl.user = user;
@@ -98,15 +121,30 @@ public partial class addressBook : SedogoPage
             DataRowView row = e.Item.DataItem as DataRowView;
 
             HyperLink nameLabel = e.Item.FindControl("nameLabel") as HyperLink;
-            nameLabel.NavigateUrl = "viewAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
+            nameLabel.NavigateUrl = "editAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
             nameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
 
             HyperLink emailLabel = e.Item.FindControl("emailLabel") as HyperLink;
-            emailLabel.NavigateUrl = "viewAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
+            emailLabel.NavigateUrl = "editAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
             emailLabel.Text = row["EmailAddress"].ToString();
 
             HyperLink editContactButton = e.Item.FindControl("editContactButton") as HyperLink;
             editContactButton.NavigateUrl = "editAddressBook.aspx?ABID=" + row["AddressBookID"].ToString();
+
+            HyperLink deleteContactButton = e.Item.FindControl("deleteContactButton") as HyperLink;
+            deleteContactButton.NavigateUrl = "addressBook.aspx?ABID=" + row["AddressBookID"].ToString() + "&A=Delete";
+
+            HyperLink viewProfileButton = e.Item.FindControl("viewProfileButton") as HyperLink;
+            int userID = SedogoUser.GetUserIDFromEmailAddress(row["EmailAddress"].ToString());
+            if (userID > 0)
+            {
+                viewProfileButton.NavigateUrl = "userProfile.aspx?UID=" + userID.ToString();
+                viewProfileButton.Visible = true;
+            }
+            else
+            {
+                viewProfileButton.Visible = false;
+            }
 
             /*
 
@@ -131,5 +169,13 @@ public partial class addressBook : SedogoPage
     {
         int addressBookID = int.Parse(e.CommandArgument.ToString());
 
+    }
+
+    //===============================================================
+    // Function: backButton_click
+    //===============================================================
+    protected void backButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("profile.aspx");
     }
 }

@@ -76,19 +76,31 @@
                         OnItemCommand="alertsRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table>
+                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
-                                    <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
                                     <td>
-                                        <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
-                                        <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
-                                        <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
+                                        <table>
+                                            <tr>
+                                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                                <td>
+                                                    <p>Goal name: <asp:HyperLink ID="eventNameLabel" runat="server" /></p>
+                                                    <p><i><asp:Literal ID="alertDateLabel" runat="server" /><br />
+                                                    <asp:Literal ID="alertTextLabel" runat="server" /></i></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="right">
+                                        <p>
+                                        <asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
+                                        Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' />
+                                        <asp:Hyperlink ID="editAlertButton" 
+                                        runat="server" CssClass="button-sml modal" Text="Edit" />
+                                        </p>
                                     </td>
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right"><asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
-                                Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 

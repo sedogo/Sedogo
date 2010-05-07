@@ -92,6 +92,8 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
         searchHistory.userID = userID;
         int rowCount = 0;
 
+        StringBuilder stateString = new StringBuilder();
+
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -271,8 +273,9 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     eventString.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" ");
                     eventString.AppendLine("onMouseOver=\"setColor('colourBar_" + eventID.ToString() + "','" + timelineColour + "');\" ");
                     eventString.AppendLine("onMouseOut=\"setColor('colourBar_" + eventID.ToString() + "','#FFFFFF');\" ");
+                    eventString.AppendLine("onclick=\"showhideGoal('goalDiv_" + eventID.ToString() + "');\" ");
                     eventString.AppendLine(">");
-                    eventString.AppendLine("<tr style=\"background-color:#EEEEEE\">");
+                    eventString.AppendLine("<tr style=\"background-color:#EEEEEE\" >");
                     eventString.AppendLine("<td>");
                         eventString.AppendLine("<p class=\"eventListText\"><b>");
                         if (eventAchieved == true)
@@ -294,8 +297,11 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("</tr>");
                     eventString.AppendLine("<tr height=\"6px\"><td colspan=\"2\" bgcolor=\"#FFFFFF\" id=\"colourBar_" + eventID.ToString() + "\" >");
-                    eventString.AppendLine("<img src=\"/1x1trans.gif\" height=\"6px\" >");
+                    eventString.AppendLine("<img src=\"/images/1x1trans.gif\" height=\"6px\" >");
                     eventString.AppendLine("</td></tr>");
+                    eventString.AppendLine("</table>");
+                    eventString.AppendLine("<div id=\"goalDiv_" + eventID.ToString() + "\" style=\"display:none\">");
+                    eventString.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" >");
                     eventString.AppendLine("<tr>");
                     eventString.AppendLine("<td>");
 
@@ -338,6 +344,7 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     }
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("</tr></table>");
+                    eventString.AppendLine("</div>");
                     eventString.AppendLine("</div>");
 
                     // Use the timeline start date as this has been adjusted above

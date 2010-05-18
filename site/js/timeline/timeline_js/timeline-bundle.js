@@ -1,5 +1,8 @@
 ﻿
 var BYr;
+var chkDiv;
+var zoomStatus;
+
 /* band.js */
 Timeline._Band = function(B, G, C) {
 	if (B.autoWidth && typeof G.width == "string") {
@@ -38,18 +41,74 @@ Timeline._Band = function(B, G, C) {
 	this._div = this._timeline.getDocument().createElement("div");
 	this._div.id = "timeline-band-" + C;
 	this._div.className = "timeline-band timeline-band-" + C;	
-	this._timeline.addDiv(this._div);
-	SimileAjax.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
-	SimileAjax.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
-	SimileAjax.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
-	SimileAjax.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
-	SimileAjax.DOM.registerEventWithObject(this._div, "dblclick", this, "_onDblClick");
+	
+	//* new
+	
+	var Divs = this._timeline.getDocument().createElement("div");
+    
+    if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
+	{  
+	    Divs.className="flexcroll";
+	    Divs.id="divouter-" + C;
+	    this._div.style.position="relative";
+	    Divs.appendChild(this._div);
+	    Divs.style.zIndex="115";
+	    this._timeline.addDiv(Divs);
+	    //$("#divouter-" + C).css('zIndex', '115');  
+	}
+	
+	if(this._div.id!="timeline-band-2" && this._div.id!="timeline-band-6" && this._div.id!="timeline-band-1" && this._div.id!="timeline-band-5")
+	{
+	    this._timeline.addDiv(this._div);
+	}
+	
+	if(this._div.id == "timeline-band-2")
+	{
+	    //this._div.style.position="relative";
+	    var SView = document.getElementById('smallScroll');
+	    this._div.style.zIndex="0";	 
+	    SView.appendChild(this._div);
+	}
+		
+	//*
+	//*New Changes
+	//SimileAjax.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
+	//SimileAjax.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
+	//SimileAjax.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
+	//SimileAjax.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
+	//SimileAjax.DOM.registerEventWithObject(this._div, "dblclick", this, "_onDblClick");
+	if(this._div.id!="timeline-band-4")
+	{
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mousemove", this, "_onMouseMove");
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mouseout", this, "_onMouseOut");
+	    SimileAjax.DOM.registerEventWithObject(this._div, "dblclick", this, "_onDblClick");
+	}
+	else
+	{
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mousedown", this, "_onMouseDown");
+	    SimileAjax.DOM.registerEventWithObject(this._div, "mouseup", this, "_onMouseUp");
+	}
+	//*
 	var F = this._theme != null ? this._theme.mouseWheel : "scroll";
 	if (F === "zoom" || F === "scroll" || this._zoomSteps) {
 		if (SimileAjax.Platform.browser.isFirefox) {
-			SimileAjax.DOM.registerEventWithObject(this._div, "DOMMouseScroll", this, "_onMouseScroll");
+		    //*comment for new
+			//SimileAjax.DOM.registerEventWithObject(this._div, "DOMMouseScroll", this, "_onMouseScroll");
+			if(this._div.id=="timeline-band-1"||this._div.id=="timeline-band-5")
+			{
+			    SimileAjax.DOM.registerEventWithObject(this._div, "click", this, "_onDivClick");
+			}			
+			//*
 		} else {
-			SimileAjax.DOM.registerEventWithObject(this._div, "mousewheel", this, "_onMouseScroll");
+		    //*comment for new
+			//SimileAjax.DOM.registerEventWithObject(this._div, "mousewheel", this, "_onMouseScroll");
+			if(this._div.id=="timeline-band-1"||this._div.id=="timeline-band-5")
+			{
+			    SimileAjax.DOM.registerEventWithObject(this._div, "click", this, "_onDivClick");
+			}
+			//*
 		} 
 	} this._innerDiv = this._timeline.getDocument().createElement("div");
 	this._innerDiv.className = "timeline-band-inner";
@@ -187,6 +246,60 @@ Timeline._Band.prototype.setBandShiftAndWidth = function(A, D) {
 	if (this._timeline.isHorizontal()) {	
 		this._div.style.top = A + "px";
 		this._div.style.height = D + "px";
+		//*New
+		var state1=document.getElementById('divouter-1').style.display;
+//		if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
+//		{
+//		    this._div.style.height="265px";
+//		}
+
+        if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
+        {
+            var t1Height = this._div.style.height;
+		    t1Height = t1Height.substring(0,t1Height.length-2);		    
+		            
+		    if(this._div.id=="timeline-band-1" && t1Height > 260)
+		    {
+		        this._div.style.height = parseInt(t1Height) + 30;
+		    }	
+		    if(this._div.id=="timeline-band-5" && t1Height > 260)
+		    {
+		        this._div.style.height = parseInt(t1Height) + 30;
+		    }	    
+        }           
+
+		if(this._div.id=="timeline-band-4")
+	    {	                    
+	        this._div.style.top="280px";
+	        this._div.style.height="30px";
+	        this._div.style.border="solid 1px #CCCCCC";
+	        
+	        if(state1=="none")
+	            this._div.style.top="10px";
+	    }
+	    if(this._div.id=="timeline-band-5")
+	    {
+	        //this._div.style.border="solid 1px #CCCCCC";
+	        this._div.style.top="0px";	
+	        this._div.parentNode.style.top="46px";
+	        	        
+	        if(state1=="none") 
+	        {  
+	            //this._div.style.top="45px";    
+	            this._div.parentNode.style.top="40px";
+	        }
+	        
+	        if(this._div.parentNode.id=="divouter-5_contentwrapper")
+	        {
+	            this._div.parentNode.style.top="0px";
+	        }
+	    }
+	    if(this._div.id=="timeline-band-2")
+	    {
+	        this._div.style.top="-15px";
+	        this._div.style.height="45px";
+	    }
+		//*
 		C.style.top = B + "px";
 		C.style.left = "-1em";
 	} else {
@@ -266,10 +379,35 @@ Timeline._Band.prototype.createLayerDiv = function(C, A) {
 	this._innerDiv.appendChild(D);
 	var B = this._timeline.getDocument().createElement("div");
 	B.className = "timeline-band-layer-inner";
+	//*New	
+	if((D.parentNode.parentNode.id=="timeline-band-1" && D.className=="timeline-band-layer timeline-band-events") || (D.parentNode.parentNode.id=="timeline-band-5" && D.className=="timeline-band-layer timeline-band-events"))
+	{
+	    //if(D.parentNode.parentNode.id=="timeline-band-1" && D.className=="timeline-band-layer timeline-band-events")
+	       //B.id == "T1";
+	    //else
+	       //B.id == "T5";
+	    B.style.top="45px";
+	    B.style.borderTop = "solid 1px #CCCCCC";
+	    //B.style.height="220px";
+	    //B.style.overflow="auto";
+	    //B.style.border="solid 1px #CCCCCC";
+	    //B.style.add("overflow-x","none");
+	}
+	//*
 	if (SimileAjax.Platform.browser.isIE) {
+	//*New
+	    if(D.parentNode.parentNode.id!="timeline-band-4")
+	    {
 		B.style.cursor = "move";
+		}
+	//*	
 	} else {
+	//*New
+	    if(D.parentNode.parentNode.id!="timeline-band-4")
+	    {
 		B.style.cursor = "-moz-grab";
+		}
+	//*	
 	} D.appendChild(B);	
 	return B;
 };
@@ -323,7 +461,9 @@ Timeline._Band.prototype._onMouseMove = function(D, A, E) {
 };
 Timeline._Band.prototype._onMouseUp = function(B, A, C) {
 	this._dragging = false;
-	this._keyboardInput.focus();
+	//*comment for New
+	//this._keyboardInput.focus();
+	//*
 };
 Timeline._Band.prototype._onMouseOut = function(C, B, D) {
 	var A = SimileAjax.DOM.getEventRelativeCoordinates(B, C);
@@ -422,6 +562,12 @@ Timeline._Band.prototype._moveEther = function(A) {
 	this._ether.shiftPixels(-A);
 	if (this._timeline.isHorizontal()) {
 		this._div.style.left = this._viewOffset + "px";
+		//*new
+		if(this._div.id=="timeline-band-2")
+		{
+		    this._div.style.left = (this._viewOffset - 300) + "px";
+		}
+		//*
 	} else {
 		this._div.style.top = this._viewOffset + "px";
 	} if (this._viewOffset > -this._viewLength * 0.5 || this._viewOffset < -this._viewLength * (Timeline._Band.SCROLL_MULTIPLES - 1.5)) {
@@ -481,6 +627,10 @@ Timeline._Band.prototype._recenterDiv = function() {
 	this._viewOffset = -this._viewLength * (Timeline._Band.SCROLL_MULTIPLES - 1) / 2;
 	if (this._timeline.isHorizontal()) {
 		this._div.style.left = this._viewOffset + "px";
+		if(this._div.id=="timeline-band-2")
+		{
+		this._div.style.left = (this._viewOffset - 300) + "px";
+		}
 		this._div.style.width = (Timeline._Band.SCROLL_MULTIPLES * this._viewLength) + "px";
 	} else {
 		this._div.style.top = this._viewOffset + "px";
@@ -694,7 +844,7 @@ Timeline.CompactEventPainter.prototype.paintPreciseInstantEvent = function(H, F,
 	} var J = { text: H.getText(), color: H.getTextColor() || H.getColor(), className: H.getClassName() };
 	var G = this.paintTapeIconLabel(H.getStart(), C, null, E, J, F, B, A);
 	var I = this;
-	var D = function(L, K, M) {	
+	var D = function(L, K, M) {
 		return I._onClickInstantEvent(G.iconElmtData.elmt, K, H);
 	};
 	SimileAjax.DOM.registerEvent(G.iconElmtData.elmt, "mousedown", D);
@@ -1198,7 +1348,29 @@ Timeline.SpanHighlightDecorator.prototype.paint = function() {
 			B.style.backgroundColor = this._color;
 		} if (this._opacity < 100) {
 			SimileAjax.Graphics.setOpacity(B, this._opacity);
-		} this._layerDiv.appendChild(B);
+		}
+		//*New		
+		if(this._layerDiv.parentNode.parentNode.parentNode.id=="timeline-band-1" ||this._layerDiv.parentNode.parentNode.parentNode.id=="timeline-band-5")
+		{		    
+		    var pHeight = this._layerDiv.parentNode.parentNode.parentNode.style.height;
+		    pHeight = pHeight.substring(0,pHeight.length-2);
+		    B.style.top = "30px";
+		    if(parseInt(pHeight) > 265)
+		    {		        
+		        B.style.height = parseInt(pHeight) + "px";
+		    }
+		    else
+		    {
+		        B.style.height="235px";
+		    }
+		}		
+		
+		if(this._layerDiv.parentNode.parentNode.parentNode.id=="timeline-band-4")
+		{
+		    this._layerDiv.parentNode.style.zIndex="116";
+		}		
+		//New
+		 this._layerDiv.appendChild(B);
 		var J = K();
 		J.className = "timeline-highlight-label timeline-highlight-label-start";
 		var C = J.rows[0].cells[0];
@@ -1207,12 +1379,52 @@ Timeline.SpanHighlightDecorator.prototype.paint = function() {
 			C.className = "label_" + this._cssClass;
 		} this._layerDiv.appendChild(J);
 		var G = K();
-		G.className = "timeline-highlight-label timeline-highlight-label-end";
+		G.className = "timeline-highlight-label timeline-highlight-label-end";				
+		
 		var D = G.rows[0].cells[0];
 		D.innerHTML = this._endLabel;
 		if (this._cssClass) {
 			D.className = "label_" + this._cssClass;
-		} this._layerDiv.appendChild(G);
+		}
+		
+		//*New
+		if(this._layerDiv.parentNode.parentNode.parentNode.id=="timeline-band-4" && D.className=="label_t-highlight2")
+		{		    
+		 if(document.getElementById('divouter-5').style.display!="none")
+		    {    
+		        G.rows[0].insertCell(1);
+		        var nCell=G.rows[0].cells[1];	
+		        nCell.style.width="37px";      
+	            var img = document.createElement('img');
+	            img.setAttribute('id','imgMngTN');
+                img.setAttribute('src', 'images/T_Close.jpg');                 
+                img.style.cursor = "pointer" ;
+	            nCell.appendChild(img);	        
+	   	    }
+	   	 else
+	   	    {
+	   	        G.rows[0].insertCell(1);
+		        var nCell=G.rows[0].cells[1];
+		        nCell.style.width="37px";	      
+	            var img = document.createElement('img');
+	            img.setAttribute('id','imgMngTN');
+                img.setAttribute('src', 'images/T_Open.jpg');
+                img.style.cursor = "pointer" ;
+	            nCell.appendChild(img);
+	   	    }
+         
+        if(SimileAjax.Platform.browser.isIE)
+            { img.attachEvent("onclick",fn); }
+          else
+            {                    
+              img.addEventListener('click',fn,false);
+              //document.captureEvents(Event.CLICK);
+              //document.getElementById('timeline-band-4').onclick = point_it;
+            }
+		}
+		//*
+		
+		 this._layerDiv.appendChild(G);
 		if (this._timeline.isHorizontal()) {
 			B.style.left = F + "px";
 			B.style.width = (I - F) + "px";
@@ -1220,6 +1432,19 @@ Timeline.SpanHighlightDecorator.prototype.paint = function() {
 			J.style.width = (this._startLabel.length) + "em";
 			G.style.left = I + "px";
 			G.style.width = (this._endLabel.length) + "em";
+			//* New
+			if(this._endLabel.length >=5)
+			{		
+			    G.style.background="none repeat scroll 0% 0% rgb(233, 251, 255)";
+			    G.style.height="30px";			    
+			    //G.style.width="42.2em";
+			    G.style.width="976px";
+			    G.style.borderLeft="solid 1px #CCCCCC";
+		        G.style.borderRight="solid 1px #CCCCCC";
+			    G.parentNode.style.background="none repeat scroll 0% 0% rgb(233, 251, 255)";
+			    G.parentNode.style.height="30px";
+			}
+			//*
 		} else {
 			B.style.top = F + "px";
 			B.style.height = (I - F) + "px";
@@ -2097,7 +2322,7 @@ Timeline.EtherIntervalMarkerLayout = function(I, L, C, E, M) {
 		var U = Math.round(L.dateToPixelOffset(T));
 		if (M && a != SimileAjax.DateTime.WEEK) {
 			var V = I.getDocument().createElement("div");
-			V.className = "timeline-ether-lines";
+			V.className = "timeline-ether-lines";			
 			if (K.opacity < 100) {
 				SimileAjax.Graphics.setOpacity(V, K.opacity);
 			} if (A) {
@@ -2105,6 +2330,24 @@ Timeline.EtherIntervalMarkerLayout = function(I, L, C, E, M) {
 			} else {
 				V.style.top = U + "px";
 			} P.appendChild(V);
+			
+			//* new			
+			if(P.parentNode.parentNode.parentNode.id=="timeline-band-1" ||P.parentNode.parentNode.parentNode.id=="timeline-band-5")
+		    {		    
+		        var pHeight = P.parentNode.parentNode.parentNode.style.height;
+		        pHeight = pHeight.substring(0,pHeight.length-2);
+		        V.style.top="30px";
+		        if(parseInt(pHeight) > 265)
+		            {		        
+		            V.style.height = parseInt(pHeight) + "px";
+		            }
+		        else
+		            {
+		            V.style.height="235px";
+		            }
+		       P.style.background= "#f0f1ec";
+		    }
+			//*
 		} if (a == SimileAjax.DateTime.WEEK) {
 			var N = C.firstDayOfWeek;
 			var R = new Date(T.getTime() + (6 - N - 7) * F);
@@ -2127,10 +2370,18 @@ Timeline.EtherIntervalMarkerLayout = function(I, L, C, E, M) {
 		var O = I.getDocument().createElement("div");
 		O.innerHTML = Z.text;
 		O.className = "timeline-date-label";
+		//*New
+		if(Y.parentNode.parentNode.parentNode.id=="timeline-band-2")
+		{
+		    //O.style.color="white";
+		    O.innerHTML="";
+		}
+		//*
 		if (Z.emphasized) {
 			O.className += " timeline-date-label-em";
 		} this.positionDiv(O, U);
 		Y.appendChild(O);
+		chkDiv=Y;		
 		return O;
 	};
 };
@@ -2151,17 +2402,43 @@ Timeline.EtherHighlight = function(B, E, D, C) {
 	};
 	this.position = function(H, J) {
 		this._createHighlightDiv();
+		//*New
+		    if(H.getMonth() > 8)
+		    {
+		      SetDivDate(H.getFullYear() + 1 , H.getFullYear() + 2);		
+		    }
+		    else
+		    {
+		      SetDivDate(H.getFullYear(), H.getFullYear() + 1); 
+		    }
+		//*		
 		var I = Math.round(E.dateToPixelOffset(H));
 		var G = Math.round(E.dateToPixelOffset(J));
 		var F = Math.max(G - I, 3);
 		if (A) {
 			this._highlightDiv.style.left = I + "px";
 			this._highlightDiv.style.width = F + "px";
-			this._highlightDiv.style.height = (E.getViewWidth() - 4) + "px";
+			//* comment for new code
+			//this._highlightDiv.style.height = (E.getViewWidth() - 4) + "px";			
+			if(this._highlightDiv.parentNode.parentNode.parentNode.parentNode.id=="timeline-band-2")
+			{
+			    //this._highlightDiv.style.width = F - 2 + "px";
+			    this._highlightDiv.style.top = 15 + "px";
+			    this._highlightDiv.style.height = 26 + "px";
+			    this._highlightDiv.parentNode.style.backgroundColor="white";
+			    this._highlightDiv.style.border="solid 2px #CCCCCC";
+			}			
+			//*
 		} else {
 			this._highlightDiv.style.top = I + "px";
 			this._highlightDiv.style.height = F + "px";
-			this._highlightDiv.style.width = (E.getViewWidth() - 4) + "px";
+			//* comment for new code
+			//this._highlightDiv.style.width = (E.getViewWidth() - 4) + "px";
+			if(this._highlightDiv.parentNode.parentNode.parentNode.parentNode.id=="timeline-band-2")
+			{  			    
+			    this._highlightDiv.style.width = (E.getViewWidth() - 4) + "px";			    
+			}
+			//*
 		}
 	};
 };
@@ -2437,8 +2714,7 @@ Timeline.GregorianDateLabeller.prototype.labelInterval = function(A, C) {
 Timeline.GregorianDateLabeller.prototype.labelPrecise = function(A) {
 	return SimileAjax.DateTime.removeTimeZoneOffset(A, this._timeZone).toUTCString().substr(0, 16);
 };
-Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
-    
+Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {    
 	var D;
 	var F = false;
 	B = SimileAjax.DateTime.removeTimeZoneOffset(B, this._timeZone);
@@ -2468,14 +2744,28 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 	    case SimileAjax.DateTime.YEAR: case SimileAjax.DateTime.DECADE: case SimileAjax.DateTime.CENTURY: case SimileAjax.DateTime.MILLENNIUM: var E = B.getUTCFullYear();
 			if (E > 0) {
 				D = B.getUTCFullYear();
-				  //*				        
-				 		if (BYr!=null && C == SimileAjax.DateTime.YEAR)
-				 		{		
-				            if(D > BYr)
-				             {				    
-				              var cYr = parseInt(D - BYr);
-				                D = D + ' <b style=color:black;>'+ String(cYr) + ' Yrs</b>' ;				                
-				             }
+				  //* New				        
+				 		if (BYr!=null && C != SimileAjax.DateTime.YEAR)
+				 		{	
+				 		    if(chkDiv.parentNode.parentNode.parentNode!=null)
+				 		    {
+				 		        if(chkDiv.parentNode.parentNode.parentNode.id!="timeline-band-5")	
+				 		        {
+				                    if(D > BYr)
+				                    {				    
+				                        var cYr = parseInt(D - BYr);
+				                        D = D + ' <b style=color:black;>'+ String(cYr) + ' years</b><br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;				                
+				                    }
+				                }
+				                else
+				                {
+				                    D = D + '<br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;
+				                }
+				            }   
+				        }
+				        else if(C != SimileAjax.DateTime.YEAR)
+				        {
+				            D = D + '<br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;				                
 				        }
 				  //*      
 			} else {
@@ -2715,7 +3005,8 @@ Timeline.OriginalEventPainter.prototype.paintPreciseDurationEvent = function(M, 
 		return N._onClickDurationEvent(B.elmt, Y, M);
 	};
 	
-	//*
+	//* new
+	SimileAjax.DOM.registerEvent(document.getElementById('container'),"mouseover",SimileAjax.WindowManager.popAllLayers);
 	SimileAjax.DOM.registerEvent(B.elmt, "mouseover", J);
 	SimileAjax.DOM.registerEvent(V.elmt, "mouseover", J);
     //*
@@ -2808,7 +3099,10 @@ Timeline.OriginalEventPainter.prototype._paintEventLabel = function(K, L, D, H, 
 	B.id = this._encodeEventElID("label", K);
 	B.style.left = D + "px";
 	B.style.width = A + "px";
-	B.style.top = H + "px";
+	//B.style.top = H + "px";
+	//*new
+	B.style.top = H + 60 + "px";
+	//*
 	B.innerHTML = L;	
 	if (K._title != null) {
 		B.title = K._title;
@@ -2819,7 +3113,7 @@ Timeline.OriginalEventPainter.prototype._paintEventLabel = function(K, L, D, H, 
 		B.style.color = F;
 	} if (G.event.highlightLabelBackground && C >= 0) {
 		B.style.background = this._getHighlightColor(C, G);
-	} this._eventLayer.appendChild(B);
+	} //this._eventLayer.appendChild(B);
 	return { left: D, top: H, width: A, height: J, elmt: B };
 };
 Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G, C, J, I, M) {
@@ -2830,13 +3124,37 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
 	O.className = this._getElClassName("timeline-event-tape", N, "tape");
 	O.id = this._encodeEventElID("tape" + M, N);
 	O.style.left = D + "px";
-	O.style.width = F + "px";
+	//O.style.width = F + "px";
 	//O.style.height=E+"px"; DJB: Let CSS control height of timelines
-	O.style.top = K + "px";
-	//*	
+	//O.style.top = K + "px";
+	
+	//* new
+	if(F > 12)
+	{
+	O.style.width = F-12 + "px";
+	}
+	//O.style.top = K + 60 + "px";
+	O.style.top = K + 10 + "px";
+		
+	var len = F-12;	
+	var str = N.getText();
+	var shortStr;    
+	
+    if (SimileAjax.Platform.browser.isIE)
+    {        
+        O.innerHTML = N.getText();
+        O.style.textOverflow = 'ellipsis';
+    }
+    else
+    {
+        shortStr = fitStringToWidth(str,len);
+        O.innerHTML = shortStr;
+    }
+    O.style.color="#ffffff";    
 	//O.innerHTML = N.getText();
 	//O.style.color="#ffffff";	
-	//*
+	//* New
+	
 	if (N._title != null) {
 		O.title = N._title;
 	} if (G != null) {
@@ -3447,7 +3765,11 @@ Timeline.DefaultEventSource.Event.prototype = { getID: function() {
 		var D = K.createElement("img");
 		D.src = B;
 		E.event.bubble.imageStyler(D);
-		A.appendChild(D);
+		//comment for new and new code
+		//A.appendChild(D);
+		D.style.height="50px";
+		D.style.width="50px";
+		//*
 	} var L = K.createElement("div");
 	var C = K.createTextNode(J);
 	if (H != null) {
@@ -3461,12 +3783,41 @@ Timeline.DefaultEventSource.Event.prototype = { getID: function() {
 	A.appendChild(L);
 	var N = K.createElement("div");
 	this.fillDescription(N);
+	//*New
+	var inText = N.innerHTML;
+    var in_array = inText.split("<br>");
+    
+    if (SimileAjax.Platform.browser.isIE)
+        var in_array = inText.split("<BR>");    
+        
+    if(in_array.length == 7)
+    {   
+        N.innerHTML = ""; 
+        var CT1 = K.createElement("div");
+        var CTImg = K.createElement("div");
+        CT1.className = "timeline-event-bubble-new";
+        CT1.innerHTML = in_array[0] + "<br/><br/>" + in_array[2] + "<br/>" + in_array[3] + "<br/>" + in_array[4] + "<br/>";
+        N.appendChild(CT1);
+        CTImg = K.createElement("div");
+        CTImg.appendChild(D);        
+        N.appendChild(CTImg);
+        var CT2 = K.createElement("div");
+        CT2.style.clear="both";
+        CT2.innerHTML = "<br/>" + in_array[5];
+    }
+	//*
 	E.event.bubble.bodyStyler(N);
 	A.appendChild(N);
+	//* New
+	if(in_array.length == 7)
+	    A.appendChild(CT2);
+	//
 	var G = K.createElement("div");
-	this.fillTime(G, M);
+	this.fillTime(G, M);	
 	E.event.bubble.timeStyler(G);
-	A.appendChild(G);
+	//* Comment for New
+	//A.appendChild(G);
+	//*
 	var F = K.createElement("div");
 	this.fillWikiInfo(F);
 	E.event.bubble.wikiStyler(F);
@@ -3536,8 +3887,8 @@ Timeline.createBandInfo = function(F) {
 	var H = new Timeline.LinearEther({ centersOn: ("date" in F) ? F.date : new Date(), interval: SimileAjax.DateTime.gregorianUnitLengths[F.intervalUnit], pixelsPerInterval: F.intervalPixels, theme: G });
 	var C = new Timeline.GregorianEtherPainter({ unit: F.intervalUnit, multiple: ("multiple" in F) ? F.multiple : 1, theme: G, align: ("align" in F) ? F.align : undefined });
 	var I = { showText: ("showEventText" in F) ? F.showEventText : true, theme: G };
-	//*
-	BYr = F.bdate;	
+	//* new
+	BYr = F.bdate;
 	//*
 	if ("eventPainterParams" in F) {
 		for (var A in F.eventPainterParams) {
@@ -3750,6 +4101,47 @@ Timeline._Impl.prototype._autoWidthCheck = function(C) {
 		var G = A.getWidthStyle();
 		if (B) {
 			A._containerDiv.style[G] = D + "px";
+			//*New
+			var sPath = window.location.pathname;
+            var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+            if(sPage=="search2.aspx")
+            {
+//                var state1=document.getElementById('timeline-band-1').style.display;
+//                var state5=document.getElementById('timeline-band-5').style.display;
+                var state1=document.getElementById('divouter-1').style.display;
+                var state5=document.getElementById('divouter-5').style.display;
+            }
+            else
+                //var state1=document.getElementById('timeline-band-1').style.display;
+                var state1=document.getElementById('divouter-1').style.display;
+                
+            var hCon =  A._containerDiv.style.height.substring(0,A._containerDiv.style.height.length-2) ;
+             
+            if(sPage=="search2.aspx")
+            {
+            if ((state1=="" || state1=="block")&&(state5=="" || state5=="block"))    
+                {         
+                A._containerDiv.parentNode.style.height="575px";
+                    if(hCon < 575)
+                    {
+                    A._containerDiv.style.height="575px";
+                    }
+                }
+            }
+			else
+			{
+			if (state1=="" || state1=="block")
+			    {            
+			    A._containerDiv.parentNode.style.height="265px";
+			    	if(hCon < 265)
+                    {		    
+			        A._containerDiv.style.height="265px";
+			        }
+			    }
+			}
+						
+			A._containerDiv.parentNode.style.overflow="hidden";			
+			//*
 		} else {
 			A._autoResizing = true;
 			var H = {};
@@ -3939,3 +4331,160 @@ Timeline.NativeDateUnit.later = function(B, A) {
 Timeline.NativeDateUnit.change = function(A, B) {
 	return new Date(A.getTime() + B);
 };
+
+//*	new
+function fitStringToWidth(str,width,className)
+    {  
+        function _escTag(s){ return s.replace("<","&lt;").replace(">","&gt;");}
+        var span = document.createElement("span");  
+        if (className) span.className=className;
+        span.style.display='inline';
+        span.style.visibility = 'hidden';
+        span.style.padding = '0px';
+        document.body.appendChild(span);
+ 
+        var result = _escTag(str); // default to the whole string
+        span.innerHTML = result;
+  
+        if (span.offsetWidth > width) {
+            var posStart = 0, posMid, posEnd = str.length, posLength;    
+            while (posLength = (posEnd - posStart) >> 1) {
+                posMid = posStart + posLength;      
+                span.innerHTML = _escTag(str.substring(0,posMid)) + '&hellip;';
+                if ( span.offsetWidth > width ) posEnd = posMid; else posStart=posMid;
+            } 
+            //result = '<abbr title="' + str.replace("\"","&quot;") + '">' +_escTag(str.substring(0,posStart)) + '&hellip;<\/abbr>';
+            result = _escTag(str.substring(0,posStart)) + '&hellip;';
+        }
+        document.body.removeChild(span);
+        return result;
+    }  
+    
+    function point_it(e)
+    {      
+	    pos_x = e.pageX-document.getElementById("timeline-band-4").offsetLeft;
+	    pos_y = e.pageY-document.getElementById("timeline-band-4").offsetTop;	
+	    
+	    p_xs = 2904;
+	    p_xe = 2928;
+	    p_ys = 651;
+	    p_ye = 677;
+	    
+	    if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
+	    {
+	        p_ys = 767;
+	        p_ye = 793;
+	    }	    
+	    
+	    //alert(pos_x+" "+pos_y);
+	    
+	    if((pos_x >= p_xs && pos_x <= p_xe)&& (pos_y >= p_ys && pos_y <= p_ye))
+	    {	     
+	     fn();
+	    }    
+    }
+    
+    function fn()	    
+	 {
+	 if(document.getElementById('imgMngTN').src.substring(document.getElementById("imgMngTN").src.lastIndexOf('/')+1) == "T_Close.jpg")
+	   {   
+	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Open.jpg');	     
+	     document.getElementById("divouter-5").style.display="none";
+	     document.getElementById("my-container").style.height="310px";
+	     if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display=="none")
+	     {
+	     document.getElementById("my-container").style.height="42px";
+	     }
+		 return false;
+	   }
+	 else if(document.getElementById('imgMngTN').src.substring(document.getElementById("imgMngTN").src.lastIndexOf('/')+1) == "T_Open.jpg")
+	   {	
+	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Close.jpg');
+		 document.getElementById("divouter-5").style.display="block";
+		 document.getElementById("my-container").style.height="575px";
+		 if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display!="none")
+		 {
+	     document.getElementById("my-container").style.height="308px";
+	     }		                        	
+		 return false;
+	   }	          
+    } 
+         
+    function SetDivDate(startYr,endYr)
+    { 
+        document.getElementById("dateRange").innerHTML = String(startYr) + " - " + String(endYr);        
+    }       
+    
+    
+    Timeline._Band.prototype._onDivClick = function(G, H, B) {
+	var A = new Date();
+	A = A.getTime();
+	if (!this._lastScrollTime || ((A - this._lastScrollTime) > 50)) {
+		this._lastScrollTime = A;
+		var I = 0;
+		if (H.wheelDelta) {
+			I = H.wheelDelta / 120;
+		} else {
+			if (H.detail) {
+				I = -H.detail / 3;
+			} 
+		} var F = this._theme.mouseWheel;
+		//if (this._zoomSteps || F === "zoom") {
+			var E = SimileAjax.DOM.getEventRelativeCoordinates(H, G);
+			//if (I != 0) {
+				var D;
+				if (I > 0) {
+					D = true;
+				} if (I < 0) {
+					D = false;
+				} this._timeline.zoom(zoomStatus,E.x,E.y,G);
+			//} 
+		//}  
+	} if (H.stopPropagation) {
+		H.stopPropagation();
+	} H.cancelBubble = true;
+	if (H.preventDefault) {
+		H.preventDefault();
+	} H.returnValue = false;
+    };                  
+    
+    
+    $(document).ready(function() {
+        $('#ZoomIn').click(function(event) {
+            zoomStatus = true;
+            if (SimileAjax.Platform.browser.isIE) {
+            $('#timeline-band-1').trigger('click'); 
+            }
+            else
+            {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("click", true, true);
+            document.getElementById('timeline-band-1').dispatchEvent(evt); 
+            }
+        });
+        
+        $('#ZoomOut').click(function(event) {
+            zoomStatus = false;
+            if (SimileAjax.Platform.browser.isIE) {
+            $('#timeline-band-1').trigger('click'); 
+            }
+            else
+            {
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent("click", true, true);
+            document.getElementById('timeline-band-1').dispatchEvent(evt);
+            }
+        });
+    });  
+    
+    
+    function dhtmlLoadScript(url)
+    {
+        var e = document.createElement("script");
+        e.src = url;
+        e.type="text/javascript";
+        document.getElementsByTagName("head")[0].appendChild(e);
+    }
+      
+           
+//* New   

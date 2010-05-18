@@ -200,6 +200,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 DateTime timelineStartDate = DateTime.MinValue;
                 DateTime timelineEndDate = DateTime.MinValue;
 
+                //*New
+                string eventPicThumbnail = "";
+                //
+
                 int eventID = int.Parse(rdr["EventID"].ToString());
                 string eventName = (string)rdr["EventName"];
                 if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
@@ -234,6 +238,13 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 }
 
                 SedogoUser eventUser = new SedogoUser("", eventUserID);
+
+                //*New
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicThumbnail")))
+                {
+                    eventPicThumbnail = (string)rdr["EventPicThumbnail"];
+                }
+                //
 
                 if (dateType == "D")
                 {
@@ -355,18 +366,41 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
 
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
-                string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+
+                //string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+                //linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
+                //linkURL = linkURL + messageCount.ToString() + " comments<br/>";
+                //linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                //linkURL += " - &lt;a href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
+                //linkURL += " - &lt;a href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
+
+                //* New
+                string linkURL = timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'") + "<br/><br/>";
+                linkURL = linkURL + trackingUserCount.ToString() + " following this goal<br/>";
                 linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
                 linkURL = linkURL + messageCount.ToString() + " comments<br/>";
-                linkURL = linkURL + "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" target=\"_top\" title=\"\"&gt;Goal details&lt;/a&gt;";
-                linkURL += " - &lt;a href=\"userProfile.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\" title=\"\"&gt;Profile&lt;/a&gt;";
-                linkURL += " - &lt;a href=\"userTimeline.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\" title=\"\"&gt;Timeline&lt;/a&gt;";
+                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                linkURL += " - &lt;a href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
+                linkURL += " - &lt;a href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
+                //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("isDuration", "true");
                 writer.WriteAttributeString("title", eventName + " - " + eventUser.firstName + " " + eventUser.lastName);
+
+                //* New
+                if (eventPicThumbnail == "")
+                {
+                    writer.WriteAttributeString("image", "./images/eventThumbnailBlank.png");
+                }
+                else
+                {
+                    writer.WriteAttributeString("image", "./assets/eventPics/" + eventPicThumbnail);
+                }
+                //*
+
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 writer.WriteAttributeString("color", timelineColour);
                 writer.WriteAttributeString("category", category);

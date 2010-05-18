@@ -3,11 +3,73 @@ $(document).ready(function() {
 	var zoomSpeed = 500;
 	var timlineScrollPixels = 500;
 
-
 	//Corners
 	//	$(".search, .button-sml, .button-lrg, #category-selector, .tl, .event-teaser, #modal-container, #controls, .refresh-timeline, .add-find, .advanced-search-table, .button").corner();
+	
+	//* New	
+    
+    $("#imgMngT").bind("click", function() {
+    
+                var myDiv4 = $("#timeline-band-4");	            
+	            var myDiv5 = $("#divouter-5");	 
+	            var myMain =  $("#my-container");	
+	            var sPath = window.location.pathname;
+                var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+        
+	    if($(this).attr("src") === "images/T_Close.jpg")
+	        {
+	            $(this).attr("src", "images/T_Open.jpg");
+	            $("#divouter-1").hide();
+                if(sPage=="search2.aspx")          
+                {
+            	    myDiv4.css("top","10px");
+            	    myDiv5.css("top","42px");
+            	    myMain.css("height","308px");
+            	    
+            	    if(document.getElementById('divouter-5').style.display == 'none')
+            	    {            	    
+            	        myMain.css("height","40px");
+            	    }
+            	}
+            	else
+            	{  
+            	    myMain.css("height","0px");
+            	}
+		        //$("#.tl-container").animate({ "height": "305" }, zoomSpeed);		        	        
+		        return false;
+	        }
+	    else
+	        {	            
+	            $(this).attr("src", "images/T_Close.jpg");
+		        $("#divouter-1").show();		        
+		        
+	            if(sPage=="search2.aspx")          
+                {          
+            	    myDiv4.css("top","280px");
+            	    myDiv5.css("top","46px");
+            	    myMain.css("height","579px");
+            	    
+            	    if(document.getElementById('divouter-5').style.display == 'none')
+            	    {            	        
+            	        myMain.css("height","310px");
+            	    }	
+            	    
+            	    if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
+                    {
+		            performFiltering(tl, [1, 2, 3, 4, 5, 6], document.getElementById("table-filter"));
+		            }
+            	}
+            	else
+            	{  
+            	    myMain.css("height","265px");            	
+            	}
+            	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
+		        return false;
+	        }	                     
+    });
 
-
+    //*
+    
 	$(".off").click(function() {
 		var originalHeight = $(".tl-container").height();
 		createCookie("originalHeight", originalHeight, 365);
@@ -15,35 +77,42 @@ $(document).ready(function() {
 		//		$(this).text("On");
 		return false;
 	});
+	
 	$(".on").click(function() {
 		var tlContainerHeight = readCookie("originalHeight");
-		$(".tl-container").animate({ "height": tlContainerHeight }, zoomSpeed);
+		$(".tl-container").animate({ "height": tlContainerHeight }, zoomSpeed);		
 		return false;
 	});
 
-
 	$("#show-categories, .close-controls").click(function() {
+	    if($.browser.msie)
+	      {
+	        $("#controls").css("top","215px");
+	      }
 		$("#controls").toggle();
 		return false;
 	});
 
+    //New*
+    $("#table-filter, .close-controls").click(function() {
+		$("#controls").toggle();
+		return false;
+	});
+	//*
 
 	$("#view-all").click(function() {
 		clearAll(tl, [1, 2, 4, 5], document.getElementById("table-filter"));
 	});
-
 
 	$("#scroll-back").click(function() {
 		tl.getBand(1)._autoScroll(timlineScrollPixels);
 		return false;
 	});
 
-
 	$("#scroll-forward").click(function() {
 		tl.getBand(1)._autoScroll(-timlineScrollPixels);
 		return false;
 	});
-
 
 	//Modal windows
 	//Create modal window from regular links with class '.modal'
@@ -56,6 +125,7 @@ $(document).ready(function() {
 		$("#modal-container, #modal-background").fadeIn();
 		return false;
 	});
+	
 	//Use livequery to bind modal to AJAX-created content links
 	$(".modal").livequery("click", function(event) {
 		//		var windowHeight = $(window).height();
@@ -67,11 +137,9 @@ $(document).ready(function() {
 		return false;
 	});
 
-
 	$(".refresh-timeline").livequery("click", function(event) {
 		reloadPage();
 	});
-
 
 	//Hide all modals if clicking outside
 	$("body, .close-modal").click(function() {
@@ -97,6 +165,7 @@ $(document).ready(function() {
 			$(this).attr("value", "");
 		}
 	});
+	
 	$("#what, #what2").blur(function() {
 		var currentValue = $(this).attr("value");
 		if (currentValue == "") {
@@ -104,29 +173,15 @@ $(document).ready(function() {
 		}
 	});
 
-
-
-
 	$('.misc-pop-up-link').click(function() {
 		$('.misc-pop-up').css('display', 'block');
 		return false;
 	});
+	
 	$('.misc-pop-up-link-close').click(function() {
 		$('.misc-pop-up').css('display', 'none');
 		return false;
 	});
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 function createCookie(name, value, days) {

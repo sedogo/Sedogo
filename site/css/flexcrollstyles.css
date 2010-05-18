@@ -1,0 +1,42 @@
+/* Scroll Bar Master Styling Starts Here */
+/* All comments can be freely removed from the css */
+
+.scrollgeneric {
+line-height: 1px;
+font-size: 1px;
+position: absolute;
+top: 0; left: 0;
+}
+
+.vscrollerbase {
+width: 10px;
+background-color: #D1D2CD;}
+/*border:solid 1px #D1D2CD;
+}
+.vscrollerbar {
+width: 10px;
+background-color: #FFFFFF;
+}*/
+/**/
+.vscrollerbar {
+/*background-image: url(../images/scroller.png);*/
+width: 7px;
+background-color: #FFFFFF;
+height: 50px !important;
+border:solid 2px #D1D2CD;
+border-right:none;
+}
+
+* html .vscrollerbar {
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop src='../images/scroller.png');
+background-image: none;
+}
+
+
+
+.scrollerjogbox {
+width: 8px;
+height: 10px;
+top: auto; left: auto;
+bottom: 0px; right: 0px;
+}

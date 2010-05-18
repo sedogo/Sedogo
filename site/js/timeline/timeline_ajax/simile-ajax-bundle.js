@@ -1746,6 +1746,10 @@ F.style.width=B+"px";
 document.body.appendChild(F);
 window.setTimeout(function(){var H=F.scrollWidth+10;
 var J=F.scrollHeight+10;
+//*New
+if(F.innerHTML.indexOf("timeline-event-bubble-image") > 0)
+    J = parseInt(J)-50;
+//*    
 var G=0;
 if(A>0&&J>A){J=A;
 G=H-25;
@@ -2438,7 +2442,7 @@ return false;
 SimileAjax.DOM.registerEvent(D,B,A);
 };
 SimileAjax.WindowManager.pushLayer=function(C,D,B){
-//*
+//*New
 SimileAjax.WindowManager.popAllLayers();
 //*
 var A={onPop:C,index:SimileAjax.WindowManager._layers.length,ephemeral:(D),elmt:B};

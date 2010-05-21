@@ -124,7 +124,8 @@ public partial class profile : SedogoPage
                 {
                     //int eventInviteID = EventInvite.GetEventInviteIDFromGUID(inviteGUID);
 
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
+                    Response.Redirect("invite.aspx");
+                    //Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"invite.aspx\");", true);
                     Session["EventInviteGUID"] = "";
                     Session["EventInviteUserID"] = "";
                 }
@@ -150,8 +151,15 @@ public partial class profile : SedogoPage
             }
             if (Session["EventID"] != null && Session["EventID"].ToString() != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"viewEvent.aspx?EID=" + Session["EventID"].ToString() + "\");", true);
+                string eventID = (string)Session["EventID"];
                 Session["EventID"] = "";
+                Response.Redirect("viewEvent.aspx?EID=" + eventID);
+            }
+            if (Session["ReplyID"] != null && Session["ReplyID"].ToString() != "")
+            {
+                string eventID = (string)Session["ReplyID"];
+                Session["ReplyID"] = "";
+                Response.Redirect("message.aspx?ReplyID=" + eventID);
             }
 
             what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");

@@ -117,6 +117,6 @@ public partial class feedback : System.Web.UI.Page
             emailHistory.Add();
         }
 
-        Response.Redirect("profileRedirect.aspx");
+        Response.Redirect("feedbackThanks.aspx");
     }
 }

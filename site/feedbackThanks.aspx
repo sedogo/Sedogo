@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="feedback.aspx.cs" Inherits="feedback" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="feedbackThanks.aspx.cs" Inherits="feedbackThanks" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -18,7 +18,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Feedback : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Feedback thanks : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -57,38 +57,11 @@
 			    <div class="three-col">
 
                     <h1>Feedback</h1>
-                    <p>Comments? Suggestions? We'd love to hear them.<br />&nbsp;</p>
-                    <fieldset>
-                        <ol>
-                            <li>
-                                <label for="">Your email address</label>
-                                <asp:Label id="yourEmailAddressLabel" runat="server" />
-                                <asp:TextBox ID="emailAddressTextBox" runat="server" Width="250" MaxLength="200" />
-                                <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
-                                ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 
-                                Display="Dynamic">
-                                </asp:RequiredFieldValidator>
-                            </li>
-                            <li>
-                                <br />
-                            </li>
-                            <li>
-                                <label for="">Feedback</label>
-                            </li>
-                            <li>
-                                <asp:TextBox ID="feedbackTextBox" runat="server" TextMode="MultiLine" 
-                                    Width="250" Rows="10"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="feedbackTextBoxValidator" runat="server"
-                                ControlToValidate="feedbackTextBox" ErrorMessage="Some feedback text is required" 
-                                Display="Dynamic">
-                                </asp:RequiredFieldValidator>
-                            </li>
-                        </ol>
-                    </fieldset>
+                    <p>Thankyou for your message.</p>
 
                     <div class="buttonsfullpage">
-                        <asp:LinkButton ID="sendFeedbackButton" runat="server" Text="Send to Sedogo team"
-                            OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
+                        <asp:LinkButton ID="continueButton" runat="server" Text="Return to home page"
+                            OnClick="continueButton_click" CssClass="button-lrg"></asp:LinkButton>
                     </div>
 
 		        </div>

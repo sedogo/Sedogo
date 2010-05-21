@@ -302,6 +302,7 @@ function preSaveClick()
                                 <td><asp:DropDownList ID="daterangePickList" runat="server" 
                                     OnSelectedIndexChanged="daterangePickList_changed" AutoPostBack="true">
                                     <asp:ListItem Text="Select timeframe:" Value="" />
+                                    <asp:ListItem Text="Within 1 year" Value="1" />
                                     <asp:ListItem Text="Within 5 years" Value="5" />
                                     <asp:ListItem Text="Within 10 years" Value="10" />
                                     <asp:ListItem Text="Within 20 years" Value="20" />

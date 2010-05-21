@@ -57,7 +57,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
             string deleteCommentLink = "viewEvent.aspx?A=&" + eventCommentID.ToString();
 
-
             sidebarControl.userID = userID;
             if (userID > 0)
             {
@@ -108,6 +107,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
             eventLabel1.Text = sedogoEvent.eventName;
+
+            if (sedogoEvent.deleted == true)
+            {
+                Response.Redirect("~/profile.aspx");
+            }
 
             pageTitleUserName.Text = sedogoEvent.eventName + " : Sedogo : Create your future and connect with others to make it happen";
             string timelineColour = "#cd3301";
@@ -186,6 +190,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     invitesLink.Visible = false;
                     invitesBox.Visible = false;
                     alertsHeader.Visible = false;
+                    alertsPlaceHolder.Visible = false;
                     alertsLink.Visible = false;
                     alertsSeperator.Visible = false;
                     //trackingHeader.Visible = false;
@@ -240,6 +245,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     invitesBox.Visible = true;
                     invitesLink.Visible = true;
                     alertsHeader.Visible = true;
+                    alertsPlaceHolder.Visible = true;
                     alertsLink.Visible = true;
                     alertsSeperator.Visible = true;
                     //trackingHeader.Visible = true;
@@ -322,6 +328,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 invitesLink.Visible = false;
                 invitesBox.Visible = false;
                 alertsHeader.Visible = false;
+                alertsPlaceHolder.Visible = false;
                 alertsLink.Visible = false;
                 alertsSeperator.Visible = false;
                 //trackingHeader.Visible = true;
@@ -821,7 +828,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 DateTime alertDate = (DateTime)rdr["AlertDate"];
                 string alertText = (string)rdr["AlertText"];
 
-                string outputText = "<a href=\"eventAlerts.aspx?EID=" + eventID.ToString() + "\">"
+                string outputText = "<a href=\"eventAlerts.aspx?EID=" + eventID.ToString() + "\" class=\"modal\">"
                     + alertDate.ToString("ddd d MMMM yyyy") + "</a> ";
 
                 alertsPlaceHolder.Controls.Add(new LiteralControl(outputText));
@@ -864,51 +871,65 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         string commentText = commentTextBox.Text;
 
-        SedogoEventComment comment = new SedogoEventComment(Session["loggedInUserFullName"].ToString());
-        if (eventPicFileUpload.PostedFile != null)
+        Boolean checkFailed = false;
+        if (commentText.Contains("<script") == true)
         {
-            if (eventPicFileUpload.PostedFile.ContentLength != 0)
+            checkFailed = true;
+        }
+
+        if (checkFailed == false)
+        {
+            SedogoEventComment comment = new SedogoEventComment(Session["loggedInUserFullName"].ToString());
+            if (eventPicFileUpload.PostedFile != null)
             {
-                int fileSizeBytes = eventPicFileUpload.PostedFile.ContentLength;
+                if (eventPicFileUpload.PostedFile.ContentLength != 0)
+                {
+                    int fileSizeBytes = eventPicFileUpload.PostedFile.ContentLength;
 
-                GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
-                string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
+                    GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+                    string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
 
-                string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
-                string destPath = Path.Combine(fileStoreFolder, originalFileName);
-                destPath = destPath.Replace(" ", "_");
-                destPath = MiscUtils.GetUniqueFileName(destPath);
-                string savedFilename = Path.GetFileName(destPath);
+                    string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
+                    string destPath = Path.Combine(fileStoreFolder, originalFileName);
+                    destPath = destPath.Replace(" ", "_");
+                    destPath = MiscUtils.GetUniqueFileName(destPath);
+                    string savedFilename = Path.GetFileName(destPath);
 
-                eventPicFileUpload.PostedFile.SaveAs(destPath);
+                    eventPicFileUpload.PostedFile.SaveAs(destPath);
 
-                string savedFileName = "";
-                string destFilename = "";
-                string destPreviewFilename = "";
-                MiscUtils.CreateEventCommentImagePreviews(Path.GetFileName(destPath),
-                    out savedFileName, out destFilename, out destPreviewFilename);
+                    string savedFileName = "";
+                    string destFilename = "";
+                    string destPreviewFilename = "";
+                    MiscUtils.CreateEventCommentImagePreviews(Path.GetFileName(destPath),
+                        out savedFileName, out destFilename, out destPreviewFilename);
 
-                comment.eventImageFilename = Path.GetFileName(savedFileName);
-                comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+                    comment.eventImageFilename = Path.GetFileName(savedFileName);
+                    comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+                }
             }
-        }
-        if (videoLinkText.Text != "")
-        {
-            comment.eventVideoLink = videoLinkText.Text;
-        }
-        if (linkTextBox.Text != "" && linkTextBox.Text != "http://")
-        {
-            comment.eventLink = linkTextBox.Text;
-        }
-        comment.eventID = eventID;
-        comment.postedByUserID = loggedInUserID;
-        comment.commentText = commentText;
-        comment.Add();
+            if (videoLinkText.Text != "")
+            {
+                comment.eventVideoLink = videoLinkText.Text;
+            }
+            if (linkTextBox.Text != "" && linkTextBox.Text != "http://")
+            {
+                comment.eventLink = linkTextBox.Text;
+            }
+            comment.eventID = eventID;
+            comment.postedByUserID = loggedInUserID;
+            comment.commentText = commentText;
+            comment.Add();
 
-        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-        sedogoEvent.SendEventUpdateEmail(loggedInUserID);
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            sedogoEvent.SendEventUpdateEmail(loggedInUserID);
 
-        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+            Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
+        }
+        else
+        {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
+                "alert(\"Invalid content detected in the comment\");", true);
+        }
     }
 
     //===============================================================
@@ -924,13 +945,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         trackedEvent.userID = userID;
         trackedEvent.Add();
 
-        //SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         //sedogoEvent.SendEventUpdateEmail();
 
         trackThisEventLink.Visible = false;
 
         PopulateTrackingList(eventID);
-        PopulateComments(eventID, trackedEvent.userID);
+        PopulateComments(eventID, sedogoEvent.userID);
         PopulateRequestsList(eventID);
     }
 

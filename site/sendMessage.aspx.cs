@@ -86,6 +86,9 @@ public partial class sendMessage : SedogoPage
         string eventURL = gd.GetStringValue("SiteBaseURL");
         eventURL = eventURL + "?EID=" + eventID.ToString();
 
+        string replyURL = gd.GetStringValue("SiteBaseURL");
+        replyURL = replyURL + "?ReplyID=" + eventID.ToString();
+
         emailBodyCopy.AppendLine("<html>");
         emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
         emailBodyCopy.AppendLine("<style type=\"text/css\">");
@@ -103,7 +106,7 @@ public partial class sendMessage : SedogoPage
         emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
         emailBodyCopy.AppendLine("				<tr>");
         emailBodyCopy.AppendLine("					<td width=\"60\">From:</td>");
-        emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"4\">&nbsp;</td>");
+        emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"5\">&nbsp;</td>");
         emailBodyCopy.AppendLine("					<td width=\"530\">" + currentUser.firstName + " " + currentUser.lastName + "</td>");
         emailBodyCopy.AppendLine("				</tr>");
         emailBodyCopy.AppendLine("				<tr>");
@@ -117,6 +120,10 @@ public partial class sendMessage : SedogoPage
         emailBodyCopy.AppendLine("				<tr>");
         emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
         emailBodyCopy.AppendLine("					<td><p style=\"color:black\">" + messageText.Replace("\n", "<br/>") + "</p></td>");
+        emailBodyCopy.AppendLine("				</tr>");
+        emailBodyCopy.AppendLine("				<tr>");
+        emailBodyCopy.AppendLine("					<td valign=\"top\"></td>");
+        emailBodyCopy.AppendLine("					<td><a style=\"color:black\" href=\"" + replyURL + "\">Click here to reply to this message</a></td>");
         emailBodyCopy.AppendLine("				</tr>");
         emailBodyCopy.AppendLine("			</table>");
         emailBodyCopy.AppendLine("			<br /><br />");

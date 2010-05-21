@@ -334,6 +334,40 @@ GRANT EXEC ON spSelectFullEventListIncludingAchieved TO sedogoUser
 GO
 
 /*===============================================================
+// Function: spSelectAchievedEventList
+// Description:
+//   Selects the achieved event list
+//=============================================================*/
+PRINT 'Creating spSelectAchievedEventList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectAchievedEventList')
+BEGIN
+	DROP Procedure spSelectAchievedEventList
+END
+GO
+
+CREATE Procedure spSelectAchievedEventList
+	@UserID			int
+AS
+BEGIN
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		EventDescription, EventVenue, MustDo,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM Events
+	WHERE Deleted = 0
+	AND EventAchieved = 1
+	AND UserID = @UserID
+	ORDER BY StartDate
+END
+GO
+
+GRANT EXEC ON spSelectAchievedEventList TO sedogoUser
+GO
+
+/*===============================================================
 // Function: spSelectFullEventListIncludingAchievedByCategory
 // Description:
 //   Selects the users event list

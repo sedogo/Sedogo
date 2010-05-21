@@ -44,12 +44,17 @@ public partial class _default : System.Web.UI.Page
             }
 
             Session["EventID"] = "";
+            Session["ReplyID"] = "";
             Session["EventInviteGUID"] = "";
             Session["EventInviteUserID"] = -1;
             Session["DefaultRedirect"] = "";
             if (Request.QueryString["EID"] != null)
             {
                 Session["EventID"] = (string)Request.QueryString["EID"];
+            }
+            if (Request.QueryString["ReplyID"] != null)
+            {
+                Session["ReplyID"] = (string)Request.QueryString["ReplyID"];
             }
             if (Request.QueryString["EIG"] != null)
             {

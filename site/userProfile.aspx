@@ -15,9 +15,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 	<meta http-equiv="content-script-type" content="text/javascript" />
 	<meta http-equiv="content-style-type" content="text/css" />
-	<meta http-equiv="cache-control" content="no-cache"/>
-	<meta http-equiv="expires" content="0"/>
-	<meta http-equiv="pragma" content="no-cache"/>
+	<meta http-equiv="cache-control" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
 
 	<title>View user profile : Sedogo : Create your future and connect with others to make it happen</title>
 
@@ -67,9 +67,9 @@
                     <br />&nbsp;
             
                     <div>
-                        <asp:LinkButton 
-                            ID="sendMessageToUserLink" runat="server" ToolTip="save" Text="Send message" 
-                            OnClick="sendMessageToUserLink_click" CssClass="button-lrg" />
+                        <asp:Hyperlink
+                            ID="sendMessageToUserLink" runat="server" ToolTip="Send message" Text="Send message" 
+                            CssClass="button-lrg modal" />
                     </div>
                     
                     <br />&nbsp;<br />&nbsp;

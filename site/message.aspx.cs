@@ -43,6 +43,19 @@ public partial class message : SedogoPage
             bannerAddFindControl.userID = userID;
 
             PopulateMessageList(userID);
+
+            string replyID = "";
+            if (Request.QueryString["ReplyID"] != null)
+            {
+                replyID = (string)Request.QueryString["ReplyID"];
+            }
+            if (replyID != "")
+            {
+                SedogoEvent sEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), int.Parse(replyID));
+
+                string url = "sendUserMessage.aspx?UID=" + sEvent.userID.ToString() + "&EID=" + replyID.ToString();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"" + url + "\");", true);
+            }
         }
     }
 

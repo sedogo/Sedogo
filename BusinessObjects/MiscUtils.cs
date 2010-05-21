@@ -250,9 +250,19 @@ namespace Sedogo.BusinessObjects
                     imageFmt = ImageFormat.Jpeg;
                     ripMethod = "Image";
                 }
+                if (filename.ToLower().IndexOf(".jpeg") > 0)
+                {
+                    imageFmt = ImageFormat.Jpeg;
+                    ripMethod = "Image";
+                }
                 if (filename.ToLower().IndexOf(".bmp") > 0)
                 {
                     imageFmt = ImageFormat.Bmp;
+                    ripMethod = "Image";
+                }
+                if (filename.ToLower().IndexOf(".png") > 0)
+                {
+                    imageFmt = ImageFormat.Png;
                     ripMethod = "Image";
                 }
 

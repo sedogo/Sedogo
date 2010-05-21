@@ -37,9 +37,17 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	
+<script language="JavaScript" type="text/javascript">
+    function preSaveClick()
+    {
+        document.forms[0].target = "_top";
+    }
+</script>
+	
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" target="_top">
     <div>
     
 	    <div id="modal">
@@ -67,7 +75,7 @@
         <div class="buttons">
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="Send message" Text="Send message" 
-                OnClick="saveChangesButton_click" CssClass="button-lrg" />
+                OnClick="saveChangesButton_click" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
         </div>    
 
     </div>

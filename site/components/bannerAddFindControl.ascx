@@ -6,17 +6,17 @@
     <script language="JavaScript" type="text/javascript">
     function loginRedirect(eventID)
     {
-        openModal("login.aspx?EID=" + eventID);
+        openModal("/login.aspx?EID=" + eventID);
     }
     function doLogin()
     {
-        openModal("login.aspx");
+        openModal("/login.aspx");
     }
     
     function doAddEvent()
     {
         var form = document.forms[0];
-        openModal("addEvent.aspx?Name=" + form.bannerAddFindControl_what.value);
+        openModal("/addEvent.aspx?Name=" + form.bannerAddFindControl_what.value);
     }
     function checkAddButtonEnter(e)
     {

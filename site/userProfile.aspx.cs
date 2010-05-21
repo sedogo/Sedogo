@@ -54,14 +54,7 @@ public partial class userProfile : SedogoPage
         {
             sendMessageToUserLink.Visible = false;
         }
-    }
 
-    //===============================================================
-    // Function: sendMessageToUserLink_click
-    //===============================================================
-    protected void sendMessageToUserLink_click(object sender, EventArgs e)
-    {
-        int userID = int.Parse(Request.QueryString["UID"].ToString());
-        Response.Redirect("sendUserMessage.aspx?EID=-1&UID=" + userID.ToString());
+        sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + userID.ToString();
     }
 }

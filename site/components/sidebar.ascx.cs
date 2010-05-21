@@ -101,11 +101,11 @@ public partial class sidebar : System.Web.UI.UserControl
                 int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
                 if (trackedEventCount == 1)
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal followed";
                 }
                 else
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals followed";
                 }
                 trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
@@ -137,6 +137,20 @@ public partial class sidebar : System.Web.UI.UserControl
                 addressBookLink.Text = "Friends";
                 addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+
+                int achievedEventCount = SedogoEvent.GetEventCountAchieved(userID);
+                if (achievedEventCount == 1)
+                {
+                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
+                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
+                }
+                else
+                {
+                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
+                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
+                }
+                achievedGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                achievedGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 if (viewArchivedEvents == true)
                 {

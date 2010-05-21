@@ -69,6 +69,7 @@
                     <div id="event-detail">
                         <div class="right-col">
                             <h3 ID="currentInvitesHeader" runat="server" style="color: #0cf; margin: 50px 0 0 0">Pending invitations</h3>
+                            <asp:PlaceHolder ID="pendingInvitesPlaceholder" runat="server" />
                             
                             <h3 id="H1" runat="server" style="color: #0cf; margin: 50px 0 0 0">Accepted invitations</h3>
                             <asp:PlaceHolder ID="currentInvitesPlaceholder" runat="server" />
@@ -141,7 +142,6 @@
         </div>
         <div id="modal-background"></div>
     
-    </div>
     </form>
 
     <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl1" runat="server" />

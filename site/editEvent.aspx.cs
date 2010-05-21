@@ -154,6 +154,11 @@ public partial class editEvent : SedogoPage
     //===============================================================
     protected void daterangePickList_changed(object sender, EventArgs e)
     {
+        if (daterangePickList.SelectedValue == "1")
+        {
+            CalendarRangeEndDate.SelectedDate = DateTime.Now.AddYears(1).AddDays(-1);
+            PickerRangeEndDate.SelectedDate = DateTime.Now.AddYears(1).AddDays(-1);
+        }
         if (daterangePickList.SelectedValue == "5")
         {
             CalendarRangeEndDate.SelectedDate = DateTime.Now.AddYears(5).AddDays(-1);

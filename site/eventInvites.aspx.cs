@@ -160,7 +160,14 @@ public partial class eventInvites : SedogoPage
                     }
                     outputText = outputText + "</p>";
 
-                    currentInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
+                    if (inviteAccepted == false)
+                    {
+                        pendingInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
+                    }
+                    else
+                    {
+                        currentInvitesPlaceholder.Controls.Add(new LiteralControl(outputText));
+                    }
                 }
             }
             else
@@ -422,6 +429,13 @@ public partial class eventInvites : SedogoPage
                             emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
+                            if (additionalInviteText != "")
+                            {
+                                emailBodyCopy.AppendLine("				<tr>");
+                                emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                                emailBodyCopy.AppendLine("					<td>" + additionalInviteText + "</td>");
+                                emailBodyCopy.AppendLine("				</tr>");
+                            }                            
                             emailBodyCopy.AppendLine("			</table>");
                             emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
                             emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
@@ -445,6 +459,13 @@ public partial class eventInvites : SedogoPage
                             emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
+                            if (additionalInviteText != "")
+                            {
+                                emailBodyCopy.AppendLine("				<tr>");
+                                emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                                emailBodyCopy.AppendLine("					<td>" + additionalInviteText + "</td>");
+                                emailBodyCopy.AppendLine("				</tr>");
+                            }
                             emailBodyCopy.AppendLine("			</table>");
                             emailBodyCopy.AppendLine("			<p><span class=\"blue\">" + currentUser.firstName + "</span> has created this future goal on <a href=\"http://www.sedogo.com\">sedogo.com</a> and wants you to join in.</p>");
                             emailBodyCopy.AppendLine("			<p>To be part of this event, <a href=\"" + inviteURL + "\">sign up</a> for a free sedogo account now.");

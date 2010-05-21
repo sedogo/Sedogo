@@ -1,14 +1,14 @@
 ﻿//===============================================================
-// Filename: invite.aspx.cs
-// Date: 23/10/09
+// Filename: goalsAchieved.aspx.cs
+// Date: 16/05/10
 // --------------------------------------------------------------
 // Description:
-//   View invite
+//   Achieved events
 // --------------------------------------------------------------
 // Dependencies:
 //   None
 // --------------------------------------------------------------
-// Original author: PRD 23/10/09
+// Original author: PRD 16/05/10
 // Revision history:
 //===============================================================
 
@@ -26,7 +26,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
 
-public partial class eventJoinRequests : SedogoPage
+public partial class goalsAchieved : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
@@ -42,42 +42,43 @@ public partial class eventJoinRequests : SedogoPage
             sidebarControl.user = user;
             bannerAddFindControl.userID = userID;
 
-            PopulateRequestList(userID);
+            PopulateCompletedGoalsList(userID);
         }
     }
 
     //===============================================================
-    // Function: PopulateRequestList
+    // Function: PopulateCompletedGoalsList
     //===============================================================
-    private void PopulateRequestList(int userID)
+    private void PopulateCompletedGoalsList(int userID)
     {
-        int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
+        int trackedEventCount = TrackedEvent.GetJoinedEventCount(userID);
 
-        if (pendingRequestsCount > 0)
+        if (trackedEventCount > 0)
         {
-            noRequestsDiv.Visible = false;
-            requestsDiv.Visible = true;
+            noAchievedEventsDiv.Visible = false;
+            achievedEventsDiv.Visible = true;
         }
         else
         {
-            noRequestsDiv.Visible = true;
-            requestsDiv.Visible = false;
+            noAchievedEventsDiv.Visible = true;
+            achievedEventsDiv.Visible = false;
         }
 
         try
         {
             SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
 
-            SqlCommand cmd = new SqlCommand("spSelectPendingMemberRequestsByUserID", conn);
+            SqlCommand cmd = new SqlCommand("spSelectAchievedEventList", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+
             cmd.CommandTimeout = 90;
             SqlDataAdapter da = new SqlDataAdapter();
             da.SelectCommand = cmd;
             DataSet ds = new DataSet();
             da.Fill(ds);
-            requestsRepeater.DataSource = ds;
-            requestsRepeater.DataBind();
+            achievedEventsRepeater.DataSource = ds;
+            achievedEventsRepeater.DataBind();
         }
         catch (Exception ex)
         {
@@ -86,9 +87,9 @@ public partial class eventJoinRequests : SedogoPage
     }
 
     //===============================================================
-    // Function: requestsRepeater_ItemDataBound
+    // Function: achievedEventsRepeater_ItemDataBound
     //===============================================================
-    protected void requestsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    protected void achievedEventsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.DataItem != null &&
             (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem))
@@ -97,7 +98,6 @@ public partial class eventJoinRequests : SedogoPage
 
             int eventID = int.Parse(row["EventID"].ToString());
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;
@@ -111,46 +111,21 @@ public partial class eventJoinRequests : SedogoPage
             Label eventDateLabel = e.Item.FindControl("eventDateLabel") as Label;
             eventDateLabel.Text = dateString;
 
-            HyperLink userNameLabel = e.Item.FindControl("userNameLabel") as HyperLink;
-            userNameLabel.NavigateUrl = "userProfile.aspx?UID=" + row["UserID"].ToString();
-            userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
+            //HyperLink userNameLabel = e.Item.FindControl("userNameLabel") as HyperLink;
+            //userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
+            //userNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + sedogoEvent.userID.ToString();
 
-            Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
-            string eventPicThumbnail = row["eventPicThumbnail"].ToString();
+            Image eventImage = e.Item.FindControl("eventImage") as Image;
+            string eventPicThumbnail = row["EventPicThumbnail"].ToString();
             if (eventPicThumbnail == "")
             {
-                eventPicThumbnailImage.ImageUrl = "./images/eventThumbnailBlank.png";
+                eventImage.ImageUrl = "~/images/eventThumbnailBlank.png";
             }
             else
             {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                eventImage.ImageUrl = "~/assets/eventPics/" + eventPicThumbnail;
             }
         }
-    }
-
-    //===============================================================
-    // Function: requestsRepeater_ItemCommand
-    //===============================================================
-    protected void requestsRepeater_ItemCommand(object sender, RepeaterCommandEventArgs e)
-    {
-        int trackedEventID = int.Parse(e.CommandArgument.ToString());
-
-        TrackedEvent trackedEvent = new TrackedEvent(Session["loggedInUserFullName"].ToString(), trackedEventID);
-
-        if (e.CommandName == "acceptButton")
-        {
-            trackedEvent.joinPending = false;
-            trackedEvent.Update();
-
-            trackedEvent.SendJoinAcceptedEmail();
-        }
-        if (e.CommandName == "declineButton")
-        {
-            trackedEvent.Delete();
-        }
-
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-        PopulateRequestList(userID);
     }
 
     //===============================================================

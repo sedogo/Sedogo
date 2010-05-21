@@ -82,7 +82,7 @@
                                 <tr>
                                     <td><asp:Image ID="eventImage" runat="server" /></td>
                                     <td>
-                                        <p>Goal: <asp:HyperLink ID="eventNameLabel" runat="server" /><br />
+                                        <p><asp:HyperLink ID="eventNameLabel" runat="server" CssClass="publicPageSelectedLetter" /><br />
                                         <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
                                     </td>
                                 </tr>

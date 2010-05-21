@@ -143,30 +143,28 @@
                             
 				                <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px; margin-top:10px">Edited <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
                                 <table class="summary">
-					                <tbody>
-						                <tr>
-							                <td colspan="2"><asp:Label ID="eventDescriptionLabel" runat="server" /></td>
-						                </tr>
-						                <tr>
-							                <th colspan="2">&nbsp;</th>
-						                </tr>
-						                <tr>
-							                <th>Who:</th>
-							                <td class="blue"><asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></td>
-						                </tr>
-						                <tr>
-							                <th>Goal:</th>
-							                <td><asp:Label ID="eventLabel1" runat="server" /></td>
-						                </tr>
-						                <tr>
-							                <th>Where:</th>
-							                <td><asp:Label ID="eventVenueLabel" runat="server" /></td>
-						                </tr>
-						                <tr>
-							                <th><asp:Label ID="dateLabel" runat="server" />:</th>
-							                <td><asp:Label ID="eventDateLabel" runat="server" /></td>
-						                </tr>
-					                </tbody>
+					                <tr>
+						                <td colspan="2"><asp:Label ID="eventDescriptionLabel" runat="server" /></td>
+					                </tr>
+					                <tr>
+						                <th colspan="2">&nbsp;</th>
+					                </tr>
+					                <tr>
+						                <th>Who:</th>
+						                <td class="blue"><asp:HyperLink ID="eventOwnersNameLabel" runat="server" Target="_top" /></td>
+					                </tr>
+					                <tr>
+						                <th>Goal:</th>
+						                <td><asp:Label ID="eventLabel1" runat="server" /></td>
+					                </tr>
+					                <tr>
+						                <th>Where:</th>
+						                <td><asp:Label ID="eventVenueLabel" runat="server" /></td>
+					                </tr>
+					                <tr>
+						                <th><asp:Label ID="dateLabel" runat="server" />:</th>
+						                <td><asp:Label ID="eventDateLabel" runat="server" /></td>
+					                </tr>
                                 </table>
                                 
                                 <table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -194,7 +192,7 @@
 		                        <div class="pinstripe-divider">&nbsp;</div>
 
                 		        <div class="eventCommentBox" id="eventCommentBox" runat="server">
-                		        <table width="100%" cellspacing="2" cellpadding="2">
+                		        <table width="100%" border="0" cellspacing="2" cellpadding="2">
                 		            <tr>
                 		                <td colspan="2">Add Comment</td>
                 		            </tr>
@@ -236,9 +234,9 @@
                                                 <asp:RegularExpressionValidator 
                                                 id="eventPicFileUploadValidator1" runat="server" 
                                                 ErrorMessage="Only .jpg .jpeg .gif and .png files are allowed" 
-                                                ValidationExpression="(.*\.jpg)|(.*\.jpeg)" 
+                                                ValidationExpression="(.*\.jpg)|(.*\.jpeg)|(.*\.gif)|(.*\.png)|(.*\.JPG)|(.*\.JPEG)|(.*\.GIF)|(.*\.PNG)" 
                                                 ControlToValidate="eventPicFileUpload"></asp:RegularExpressionValidator>
-                                                <p>I certify that I have the right to distribute these photos</p>
+                                                <p class="smallprint">I certify that I have the right to distribute these photos</p>
                 		                    </div>
                 		                    <div id="uploadVideoLinkDiv" style="display:none;padding-top:5px; padding-bottom:5px; margin-top: 5px; padding-left:4px; border:solid 1px #999999">
                 		                        <p>Enter code to embed a video</p>

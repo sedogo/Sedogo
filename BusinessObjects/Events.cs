@@ -540,6 +540,7 @@ namespace Sedogo.BusinessObjects
             string dateString = "";
             DateTime startDate = m_startDate;
             SedogoUser eventOwner = new SedogoUser(m_loggedInUser, m_userID);
+            SedogoUser updatingUser = new SedogoUser(m_loggedInUser, updatingUserID);
             MiscUtils.GetDateStringStartDate(eventOwner, m_dateType, m_rangeStartDate,
                 m_rangeEndDate, m_beforeBirthday, ref dateString, ref startDate);
 
@@ -560,7 +561,7 @@ namespace Sedogo.BusinessObjects
             //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
             emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-            emailBodyCopy.AppendLine("			<h1>The following event has been updated:</h1>");
+            emailBodyCopy.AppendLine("			<h1>" + updatingUser.firstName + " " + updatingUser.lastName + " has updated the following event has been updated:</h1>");
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
@@ -568,7 +569,7 @@ namespace Sedogo.BusinessObjects
             emailBodyCopy.AppendLine("					<td width=\"530\">" + m_eventName + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td valign=\"top\">Who:</td>");
+            emailBodyCopy.AppendLine("					<td valign=\"top\">Owner:</td>");
             emailBodyCopy.AppendLine("					<td>" + eventOwner.firstName + " " + eventOwner.lastName + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");

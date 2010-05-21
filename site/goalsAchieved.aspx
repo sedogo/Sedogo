@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="eventJoinRequests.aspx.cs" Inherits="eventJoinRequests" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="goalsAchieved.aspx.cs" Inherits="goalsAchieved" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -17,7 +17,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Goal invites : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Goals achieved : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -50,9 +50,9 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+
         <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
-    
+
 	    <div id="container">
 	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
 	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
@@ -63,37 +63,29 @@
 			    <div class="three-col">
 
                     <div class="page-banner-content">
-                        <div class="page-banner-header">Requests</div>
+                        <div class="page-banner-header">Goals achieved</div>
                         <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
 
-                    <div id="noRequestsDiv" runat="server">
-                    <p>You have no requests.</p>
+                    <div id="noAchievedEventsDiv" runat="server">
+                    <p>You have not completed any goals.</p>
                     </div>
                     
-                    <div id="requestsDiv" runat="server">
-                    <asp:Repeater ID="requestsRepeater" runat="server" OnItemDataBound="requestsRepeater_ItemDataBound"
-                        OnItemCommand="requestsRepeater_ItemCommand">
+                    <div id="achievedEventsDiv" runat="server">
+                    <asp:Repeater ID="achievedEventsRepeater" runat="server" 
+                        OnItemDataBound="achievedEventsRepeater_ItemDataBound">
                         <ItemTemplate>
                         
                             <table>
                                 <tr>
+                                    <td><asp:Image ID="eventImage" runat="server" /></td>
                                     <td>
-                                        <asp:Image id="eventPicThumbnailImage" runat="server" />
-                                    </td>
-                                    <td>
-                                        <p>Who: <asp:HyperLink ID="userNameLabel" runat="server" CssClass="blue" /><br />
-                                        Goal requested: <asp:HyperLink ID="eventNameLabel" runat="server" CssClass="blue" /><br />
-                                        Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br /></p>
+                                        <p>Goal: <asp:HyperLink ID="eventNameLabel" runat="server" /><br />
+                                        Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /></p>
                                     </td>
                                 </tr>
                             </table>
-                            
-                            <p style="text-align:right"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml" 
-                                Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' />
-                                <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml" 
-                                Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 

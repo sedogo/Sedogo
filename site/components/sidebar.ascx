@@ -40,6 +40,8 @@ function changeClass(id, newClass)
             <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal" CssClass="button-sml modal" 
                 Text="+ Goal" runat="server" />
         </p>
+        <asp:Label ID="goalsAchievedBelowProfileImageLabel" runat="server" 
+            CssClass="goalsAchievedBelowProfile" Visible="false" />
  
         <div id="sidebarMenuItems" runat="server">
         <ol class="items">
@@ -57,6 +59,8 @@ function changeClass(id, newClass)
                 <asp:HyperLink ID="groupGoalsLink" NavigateUrl="~/groupGoals.aspx" runat="server" /></li>
             <li class="addressbook">
                 <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
+            <li class="achievedgoals">
+                <asp:HyperLink ID="achievedGoalsLink" NavigateUrl="~/goalsAchieved.aspx" runat="server" /></li>
         </ol>
         </div>
         

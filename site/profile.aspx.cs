@@ -52,8 +52,9 @@ public partial class profile : SedogoPage
             eventsListControl.userID = userID;
             eventsListControl.user = user;
 
+            //By Rahul
             timelinebDate.Text = user.birthday.Year.ToString();
-
+            
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
 
             if (Session["EventInviteGUID"] != null)

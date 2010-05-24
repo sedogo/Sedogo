@@ -161,6 +161,8 @@ public partial class invite : SedogoPage
             eventInvite.inviteAcceptedDate = DateTime.Now;
             eventInvite.Update();
 
+            eventInvite.SendInviteAcceptedEmail();
+
             Response.Redirect("viewEvent.aspx?EID=" + eventInvite.eventID.ToString());
         }
         if (e.CommandName == "declineButton")

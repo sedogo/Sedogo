@@ -22,6 +22,7 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
+using System.Net.Mail;
 
 namespace Sedogo.BusinessObjects
 {
@@ -413,6 +414,121 @@ namespace Sedogo.BusinessObjects
             finally
             {
                 conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: GetInviteCount
+        //===============================================================
+        public void SendInviteAcceptedEmail()
+        {
+            GlobalData gd = new GlobalData("");
+            string SMTPServer = gd.GetStringValue("SMTPServer");
+            string mailFromAddress = gd.GetStringValue("MailFromAddress");
+            string mailFromUsername = gd.GetStringValue("MailFromUsername");
+            string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            string invitedUserFullName = m_emailAddress;
+            if( m_userID > 0 )
+            {
+                SedogoUser invitedUser = new SedogoUser(m_loggedInUser, m_userID);
+                invitedUserFullName = invitedUser.fullName;
+            }
+            SedogoEvent sedogoEvent = new SedogoEvent(m_loggedInUser, m_eventID);
+            SedogoUser eventOwner = new SedogoUser(m_loggedInUser, sedogoEvent.userID);
+
+            string emailSubject = "Sedogo invitation to " + sedogoEvent.eventName + " has been accepted by "
+                + invitedUserFullName;
+
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+            string inviteURL = gd.GetStringValue("SiteBaseURL");
+            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+
+            StringBuilder emailBodyCopy = new StringBuilder();
+            emailBodyCopy.AppendLine("<html>");
+            emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+            emailBodyCopy.AppendLine("<style type=\"text/css\">");
+            emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+            emailBodyCopy.AppendLine("	p { margin: 0 }");
+            emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+            emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
+            emailBodyCopy.AppendLine("</style></head>");
+            emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+            emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+            //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+            emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+            emailBodyCopy.AppendLine("			<h1>The following user has accepted your invitation:</h1>");
+            emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
+            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"4\">&nbsp;</td>");
+            emailBodyCopy.AppendLine("					<td width=\"530\"><a href=\"" + inviteURL + "\">" + sedogoEvent.eventName + "</a></td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
+            emailBodyCopy.AppendLine("					<td>" + sedogoEvent.eventVenue + "</td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td valign=\"top\">Who:</td>");
+            emailBodyCopy.AppendLine("					<td>" + eventOwner.firstName + " " + eventOwner.lastName + "</td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
+            emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("			</table>");
+            emailBodyCopy.AppendLine("			<p>To view this event, <a href=\"" + inviteURL + "\"><u>click here</u></a>.</p>");
+            emailBodyCopy.AppendLine("			<br /><br />");
+            emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+            emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\">");
+            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/logo.gif\" />");
+            emailBodyCopy.AppendLine("			</a></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for " + eventOwner.emailAddress + ". To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
+            emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+            if (eventOwner.enableSendEmails == true)
+            {
+                try
+                {
+                    MailMessage message = new MailMessage(mailFromAddress, eventOwner.emailAddress);
+                    message.ReplyTo = new MailAddress("noreply@sedogo.com");
+
+                    message.Subject = emailSubject;
+                    message.Body = emailBodyCopy.ToString();
+                    message.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = SMTPServer;
+                    if (mailFromPassword != "")
+                    {
+                        // If the password is blank, assume mail relay is permitted
+                        smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                    }
+                    smtp.Send(message);
+
+                    SentEmailHistory emailHistory = new SentEmailHistory("");
+                    emailHistory.subject = emailSubject;
+                    emailHistory.body = emailBodyCopy.ToString();
+                    emailHistory.sentFrom = mailFromAddress;
+                    emailHistory.sentTo = eventOwner.emailAddress;
+                    emailHistory.Add();
+                }
+                catch (Exception ex)
+                {
+                    SentEmailHistory emailHistory = new SentEmailHistory("");
+                    emailHistory.subject = emailSubject;
+                    emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                    emailHistory.sentFrom = mailFromAddress;
+                    emailHistory.sentTo = eventOwner.emailAddress;
+                    emailHistory.Add();
+                }
             }
         }
 

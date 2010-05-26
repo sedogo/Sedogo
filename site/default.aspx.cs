@@ -23,9 +23,15 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using Sedogo.BusinessObjects;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class _default : System.Web.UI.Page
 {
+    //Changes By Chetan
+    protected Int64 TGoals = 0;
+    static Random _random = new Random();
     //===============================================================
     // Function: Page_Load
     //===============================================================
@@ -69,7 +75,7 @@ public partial class _default : System.Web.UI.Page
                 Session["DefaultRedirect"] = Request.QueryString["Redir"].ToString();
             }
 
-            HttpCookie emailCookie = Request.Cookies["SedogoLoginEmailAddress"]; 
+            HttpCookie emailCookie = Request.Cookies["SedogoLoginEmailAddress"];
             HttpCookie passwordCookie = Request.Cookies["SedogoLoginPassword"];
             // Check to make sure the cookie exists
             if (emailCookie != null && passwordCookie != null)
@@ -94,7 +100,7 @@ public partial class _default : System.Web.UI.Page
                         string url = "./profile.aspx";
                         Response.Redirect(url);
                     }
-                }            
+                }
             }
 
             PopulateEvents();
@@ -132,6 +138,11 @@ public partial class _default : System.Web.UI.Page
             searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
             searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
             searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
+
+            BindLatestMembers();
+
+            eventRotator.DataSource = GetRotatorDataSource();
+            eventRotator.DataBind();
         }
     }
 
@@ -165,4 +176,134 @@ public partial class _default : System.Web.UI.Page
     protected void PopulateEvents()
     {
     }
+
+    private void BindLatestMembers()
+    {
+        int cnt = 0;
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtAllUsrs = new DataTable();
+        dtAllUsrs = objSNFun.GetAllEnableUserDetails();
+
+
+        if (dtAllUsrs.Rows.Count > 0)
+        {
+            DataTable dt = dtAllUsrs.Copy();
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
+            for (cnt = 0; cnt < dtAllUsrs.Rows.Count; cnt++)
+            {
+                if (Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != null && Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != "")
+                {
+                    TGoals = TGoals + Convert.ToInt64(dtAllUsrs.Rows[cnt]["gcount"]);
+                }
+            }
+        }
+        else
+        {
+            TGoals = 0;
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
+        }
+    }
+
+    protected string BindLatestAchievedGoals()
+    {
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtLGoal = objSNFun.GetLatestAchievedGoals();
+
+        StringBuilder LGoal = new StringBuilder();
+        int i;
+
+        if (dtLGoal.Rows.Count > 0)
+        {
+            LGoal.Append("<ul>");
+
+            if (dtLGoal.Rows.Count > 3)
+            {
+                for (i = 0; i < 3; i++)
+                {
+                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtLGoal.Rows[i]["EventName"]) + "</li>");
+                }
+                LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
+            }
+            else
+            {
+                for (i = 0; i < dtLGoal.Rows.Count; i++)
+                {
+                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtLGoal.Rows[i]["EventName"]) + "</li>");
+                }
+            }
+            LGoal.Append("</ul>");
+        }
+        return Convert.ToString(LGoal);
+    }
+
+    protected string BindGoalsHappeningToday()
+    {
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtHGoal = objSNFun.GetGoalsHappeningToday();
+
+        StringBuilder HGoal = new StringBuilder();
+        int i;
+
+        if (dtHGoal.Rows.Count > 0)
+        {
+            HGoal.Append("<ul>");
+            if (dtHGoal.Rows.Count > 3)
+            {
+                for (i = 0; i < 3; i++)
+                {
+                    HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtHGoal.Rows[i]["EventName"]) + "</li>");
+                }
+                HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
+            }
+            else
+            {
+                for (i = 0; i < dtHGoal.Rows.Count; i++)
+                {
+                    HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtHGoal.Rows[i]["EventName"]) + "</li>");
+                }
+            }
+            HGoal.Append("</ul>");
+        }
+        return Convert.ToString(HGoal);
+    }
+
+    //===============================================================
+    // Function: GetRotatorDataSource
+    //===============================================================
+    private string[] GetRotatorDataSource()
+    {
+        string[] images = {"go_brag", "go_fast", "go_high", "go_party", 
+                               "go_sailing", "go_speechless", "go_swimming", "go_traveling", "go_watch" };
+        //return images;
+        string[] shuffle = RandomizeStrings(images);
+        return shuffle;
+    }
+
+    private string[] RandomizeStrings(string[] arr)
+    {
+        List<KeyValuePair<int, string>> list = new List<KeyValuePair<int, string>>();
+
+        foreach (string s in arr)
+        {
+            list.Add(new KeyValuePair<int, string>(_random.Next(), s));
+        }
+
+        var sorted = from item in list
+                     orderby item.Key
+                     select item;
+
+        string[] result = new string[arr.Length];
+
+        int index = 0;
+        foreach (KeyValuePair<int, string> pair in sorted)
+        {
+            result[index] = pair.Value;
+            index++;
+        }
+
+        return result;
+    }
+
 }

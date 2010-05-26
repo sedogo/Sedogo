@@ -2,6 +2,7 @@
 
 <%@ OutputCache Location="None" VaryByParam="None" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -238,6 +239,32 @@
             return false;
         }
     }
+    
+    function ShowHideDiv(divId)
+     {
+        var shdiv = document.getElementsByTagName('div');
+        for(i=0; i < shdiv.length; i++)
+        {
+            if(shdiv.item(i).id.indexOf("dmpop") > -1)
+            {
+                document.getElementById(shdiv.item(i).id).style.display='none';
+            }
+        }
+		document.getElementById('dmpop' + divId).style.display='block';
+	 }
+	 
+    function CloseDiv()
+     {
+        var shdiv = document.getElementsByTagName('div');
+        for(i=0; i < shdiv.length; i++)
+        {
+            if(shdiv.item(i).id.indexOf("dmpop") > -1)
+            {
+                document.getElementById(shdiv.item(i).id).style.display='none';
+            }
+        }		
+	 }
+    
     </script>
 
     <script type="text/JavaScript">
@@ -250,6 +277,8 @@
     <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
 
     <form id="defaultForm" runat="server">
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <div>
         <div id="container">
             <ul id="account-options">
@@ -382,8 +411,23 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <div class="one-col">
-                    &nbsp;
+                <div class="one-col" style="background-color: #EFEFEF; height: 316px;">
+                    <div style="float: left; padding-left: 10px; padding-top: 15px;">
+                        <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
+                            Latest Achieved Goals
+                        </div>
+                        <div>
+                            <% = BindLatestAchievedGoals() %>
+                        </div>
+                    </div>
+                    <div style="float: left; padding-left: 10px; padding-top: 15px; margin-top: 15px;">
+                        <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
+                            Goals Happening Today
+                        </div>
+                        <div>
+                            <%= BindGoalsHappeningToday() %>
+                        </div>
+                    </div>
                 </div>
                 <div class="one-col">
                     <h2 class="col-header">
@@ -400,6 +444,69 @@
                     <p class="teaser">
                         Start creating personal goals right now. <a href="register.aspx" title="get started"
                             class="modal">Registering is fast, easy and free!</a></p>
+                    <div style="float: left; width: 100%; height: 216px;">
+                        <div style="width: 100%; height: 2px; background-color: #00BFFD;">
+                        </div>
+                        <div style="width: 100%;">
+                            <div style="color: #00BFFD; font-size: 14px; line-height: 30px; font-weight: bold;
+                                text-align: left; float: left;">
+                                Latest Members</div>
+                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; font-weight: bold;
+                                text-align: right;">
+                                <%=TGoals%>&nbsp; goals</div>
+                        </div>
+                        <div style="margin-left: 2px;">
+                            <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
+                                DataKeyField="UserId">
+                                <ItemTemplate>
+                                    <div>
+                                        <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
+                                            style="display: none; position: relative; z-index: 10;">
+                                            <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
+                                                style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
+                                                <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
+                                                    <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-top-right simileAjax-bubble-border-top-right-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-bottom-left simileAjax-bubble-border-bottom-left-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-bottom-right simileAjax-bubble-border-bottom-right-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-left simileAjax-bubble-border-left-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-right simileAjax-bubble-border-right-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-top simileAjax-bubble-border-top-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
+                                                        <div style="position: static; width: 160px;">
+                                                            <p style="font-size: 14px; font-weight: bold;">
+                                                                <span class="blue" style="line-height: 27px;">
+                                                                    <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
+                                                                </span>
+                                                                <br />
+                                                                <%# DataBinder.Eval(Container.DataItem, "GCount")+ " Goals" %><br />
+                                                                <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
+                                                                    View Timeline</a></span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
+                                                    </div>
+                                                    <div class="simileAjax-bubble-arrow-point-down simileAjax-bubble-arrow-point-down-pngTranslucent"
+                                                        style="left: 1px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="images/grayRect.jpg" alt="" height="39" width="39" style="cursor: pointer;"
+                                            onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                </ItemTemplate>
+                            </asp:DataList></div>
+                    </div>
                 </div>
                 <div class="one-col-end">
                     <h2 class="col-header">
@@ -407,6 +514,18 @@
                     <p class="teaser">
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
+                    <div class="rotatorBackground">
+                        <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
+                            CssClass="horizontalRotator" RotatorType="FromCode" ScrollDuration="500" FrameDuration="5000"
+                            ItemHeight="216" ItemWidth="232">
+                            <ItemTemplate>
+                                <div class="itemTemplate">
+                                    <a href="getInspired.aspx">
+                                        <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
+                                </div>
+                            </ItemTemplate>
+                        </telerik:RadRotator>
+                    </div>
                 </div>
             </div>
             <div id="footer">
@@ -447,6 +566,7 @@
         var pageTracker = _gat._getTracker("UA-12373356-1");
         pageTracker._trackPageview();
     } catch (err) { }
+    //
     </script>
 
 </body>

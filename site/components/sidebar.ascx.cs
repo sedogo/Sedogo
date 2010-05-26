@@ -26,12 +26,18 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Text;
 using Sedogo.BusinessObjects;
+using System.Collections.Generic;
+using System.Linq;
+
 
 public partial class sidebar : System.Web.UI.UserControl
 {
-    public Boolean      viewArchivedEvents = false;
-    public int          userID = -1;
-    public SedogoUser   user;
+    public Boolean viewArchivedEvents = false;
+    public int userID = -1;
+    public SedogoUser user;
+
+    //Changes By Chetan
+    static Random _random = new Random();
 
     //===============================================================
     // Function: Page_Load
@@ -101,11 +107,11 @@ public partial class sidebar : System.Web.UI.UserControl
                 int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
                 if (trackedEventCount == 1)
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
                 }
                 else
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
                 }
                 trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
@@ -137,20 +143,6 @@ public partial class sidebar : System.Web.UI.UserControl
                 addressBookLink.Text = "Friends";
                 addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
-
-                int achievedEventCount = SedogoEvent.GetEventCountAchieved(userID);
-                if (achievedEventCount == 1)
-                {
-                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
-                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
-                }
-                else
-                {
-                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
-                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
-                }
-                achievedGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                achievedGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 if (viewArchivedEvents == true)
                 {
@@ -198,7 +190,10 @@ public partial class sidebar : System.Web.UI.UserControl
     {
         string[] images = { "go_brag", "go_fast", "go_high", "go_party", 
                                "go_sailing", "go_speechless", "go_swimming", "go_traveling", "go_watch" };
-        return images;
+        //By Chetan
+        //return images;
+        string[] shuffle = RandomizeStrings(images);
+        return shuffle;
     }
 
     //===============================================================
@@ -273,8 +268,10 @@ public partial class sidebar : System.Web.UI.UserControl
                 cmdLatestEvents.CommandText = "spSelectLatestEvents";
                 cmdLatestEvents.Parameters.Add("@LoggedInUserID", SqlDbType.Int).Value = userID;
                 DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
+                int cnt = 0;
                 while (rdrLatestEvents.Read())
                 {
+                    cnt += 1;
                     int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
                     string eventName = (string)rdrLatestEvents["EventName"];
 
@@ -284,8 +281,18 @@ public partial class sidebar : System.Web.UI.UserControl
                     latestEventsPlaceholder.Controls.Add(eventHyperlink);
 
                     latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
+                    if (cnt >= 4)
+                        break;
                 }
                 rdrLatestEvents.Close();
+
+                //Changes by Chetan
+                HyperLink nHyperlink = new HyperLink();
+                nHyperlink.Text = "<b>More ></b>";
+                nHyperlink.NavigateUrl = "~/MoreDetail.aspx";
+                latestEventsPlaceholder.Controls.Add(nHyperlink);
+                latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
+                //
             }
         }
         catch (Exception ex)
@@ -316,4 +323,34 @@ public partial class sidebar : System.Web.UI.UserControl
         //Response.Redirect(Request.Url.PathAndQuery);
         Response.Redirect("~/profile.aspx");
     }
+
+
+    //===============================================================
+    // Function: Randomize Array By Chetan
+    //===============================================================
+    private string[] RandomizeStrings(string[] arr)
+    {
+        List<KeyValuePair<int, string>> list = new List<KeyValuePair<int, string>>();
+
+        foreach (string s in arr)
+        {
+            list.Add(new KeyValuePair<int, string>(_random.Next(), s));
+        }
+
+        var sorted = from item in list
+                     orderby item.Key
+                     select item;
+
+        string[] result = new string[arr.Length];
+
+        int index = 0;
+        foreach (KeyValuePair<int, string> pair in sorted)
+        {
+            result[index] = pair.Value;
+            index++;
+        }
+
+        return result;
+    }
+
 }

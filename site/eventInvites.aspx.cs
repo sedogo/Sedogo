@@ -220,7 +220,7 @@ public partial class eventInvites : SedogoPage
         {
             // Range
             dateString = "between " + currentEvent.rangeStartDate.ToString("ddd d MMMM yyyy");
-            dateString = "and " + currentEvent.rangeEndDate.ToString("ddd d MMMM yyyy");
+            dateString += "and " + currentEvent.rangeEndDate.ToString("ddd d MMMM yyyy");
         }
         if (currentEvent.dateType == "A")
         {

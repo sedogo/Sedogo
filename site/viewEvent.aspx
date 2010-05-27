@@ -85,6 +85,11 @@
 	    <asp:Literal id="sendMessageLiteral" runat="server" />
 	    openModal(url);
 	}
+	function shareEvent()
+	{
+	    <asp:Literal id="shareEventLiteral" runat="server" />
+	    openModal(url);
+	}
 	</script>
     <script language="javascript">
     var state = 'none';
@@ -281,6 +286,11 @@
                                 </div>
                                 
                                 <div id="eventLinksDiv" runat="server">
+                                    <div class="eventRightColBox" ID="actionsBox" runat="server">
+                                    <p><img src="images/share.gif" /> <asp:Hyperlink ID="shareButton" runat="server" 
+                                        Text="Share" CssClass="underline-bold" NavigateUrl="javascript:shareEvent();" /></p>
+                                    </div>
+
                                     <div class="eventRightColBox" ID="invitesBox" runat="server">
                                     <h3 ID="invitesHeader" runat="server" class="invites-header">Invites:</h3>
                                     <p><asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />

@@ -404,6 +404,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             messageTrackingUsersLiteral.Text = "var url = 'sendMessageToTrackers.aspx?EID=" + eventID.ToString() + "';";
             messageFollowingUsersLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
             sendMessageLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
+            shareEventLiteral.Text = "var url = 'shareEvent.aspx?EID=" + eventID.ToString() + "';";
             //uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
             //uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
 

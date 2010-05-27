@@ -132,12 +132,12 @@ public partial class _default : System.Web.UI.Page
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
-            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
+            //what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
-            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
-            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
-            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
-            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
+            //searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
+            //searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
+            //searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
+            //searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
 
             BindLatestMembers();
 
@@ -149,26 +149,26 @@ public partial class _default : System.Web.UI.Page
     //===============================================================
     // Function: searchButton_click
     //===============================================================
-    protected void searchButton_click(object sender, EventArgs e)
-    {
-        string searchText = what2.Text;
+    //protected void searchButton_click(object sender, EventArgs e)
+    //{
+    //    string searchText = what2.Text;
 
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-        {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-        }
-        else
-        {
-            if (searchText.Length >= 2)
-            {
-                Response.Redirect("search.aspx?Search=" + searchText.ToString());
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-            }
-        }
-    }
+    //    if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+    //    {
+    //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
+    //    }
+    //    else
+    //    {
+    //        if (searchText.Length >= 2)
+    //        {
+    //            Response.Redirect("search.aspx?Search=" + searchText.ToString());
+    //        }
+    //        else
+    //        {
+    //            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+    //        }
+    //    }
+    //}
 
     //===============================================================
     // Function: PopulateEvents

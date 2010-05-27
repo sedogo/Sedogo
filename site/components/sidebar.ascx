@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="sidebar.ascx.cs" Inherits="sidebar" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
 <script type="text/javascript">
 function changeClass(id, newClass)
 {
@@ -23,13 +24,17 @@ function changeClass(id, newClass)
 }
 </script>
 
+<script type="text/JavaScript">
+        DD_roundies.addRule('.button-sml', '5px', true);
+</script>
+
 <div class="one-col">
     <div style="width: 100%; float: left; border-bottom: 2px solid #0cf;">
         <div style="float: left;">
             <h2>
                 <asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" /></h2>
         </div>
-        <div style="padding: 4px; text-align:right; padding-top:8px;">
+        <div style="padding: 4px; text-align: right; padding-top: 8px;">
             <asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile"
                 Text="Edit" runat="server" />
         </div>
@@ -53,6 +58,8 @@ function changeClass(id, newClass)
         <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal"
             CssClass="button-sml modal" Text="+ Goal" runat="server" />
     </p>
+    <asp:Label ID="goalsAchievedBelowProfileImageLabel" runat="server" CssClass="goalsAchievedBelowProfile"
+        Visible="false" />
     <div id="sidebarMenuItems" runat="server">
         <ol class="items">
             <li class="messages">
@@ -69,6 +76,8 @@ function changeClass(id, newClass)
                 <asp:HyperLink ID="groupGoalsLink" NavigateUrl="~/groupGoals.aspx" runat="server" /></li>
             <li class="addressbook">
                 <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
+            <li class="achievedgoals">
+                <asp:HyperLink ID="achievedGoalsLink" NavigateUrl="~/goalsAchieved.aspx" runat="server" /></li>
         </ol>
     </div>
     <div class="latestGoals">

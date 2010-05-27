@@ -144,6 +144,20 @@ public partial class sidebar : System.Web.UI.UserControl
                 addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
+                int achievedEventCount = SedogoEvent.GetEventCountAchieved(userID);
+                if (achievedEventCount == 1)
+                {
+                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
+                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goal";
+                }
+                else
+                {
+                    achievedGoalsLink.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
+                    goalsAchievedBelowProfileImageLabel.Text = "<span>" + achievedEventCount.ToString() + "</span> Achieved goals";
+                }
+                achievedGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                achievedGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+
                 if (viewArchivedEvents == true)
                 {
                     viewArchiveLink.Text = "Hide Past Goals";

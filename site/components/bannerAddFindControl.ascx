@@ -42,6 +42,16 @@
             return false;
         }
     }
+    function clearWhat()
+    {
+        var form = document.forms[0];
+        form.bannerAddFindControl_what.value = "";
+    }
+    function clearWhat2()
+    {
+        var form = document.forms[0];
+        form.bannerAddFindControl_what2.value = "";
+    }
     </script>
 
     <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
@@ -51,8 +61,8 @@
                 <asp:Panel ID="Panel1" runat="server">
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td valign="top"><asp:TextBox ID="what" runat="server" Text="" 
-                                MaxLength="1000" /></td>
+                            <td valign="top"><asp:TextBox ID="what" runat="server" 
+                                MaxLength="1000" Text="e.g. Climb Everest" /></td>
                             <td valign="top" style="padding-top:4px"><asp:HyperLink runat="server"
                                 ID="addButtonLink"><asp:Image ID="addButtonImage" runat="server" 
                                 ImageUrl="~/images/addButton.png" /></asp:HyperLink></td>
@@ -65,8 +75,8 @@
                 <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td valign="top"><asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" 
-                                    ValidationGroup="what2Group" /></td>
+                                <td valign="top"><asp:TextBox ID="what2" runat="server" MaxLength="1000" 
+                                    ValidationGroup="what2Group" Text="e.g. Climb Everest" /></td>
                                 <td valign="top" style="padding-top:4px"><asp:ImageButton 
                                     ID="searchButton2" runat="server" OnClick="searchButton2_click" 
                                     ImageUrl="~/images/searchButton.png" /></td>

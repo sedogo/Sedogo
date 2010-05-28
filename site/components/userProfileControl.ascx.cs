@@ -52,6 +52,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";
 
+        /*
         if (user.birthday > DateTime.MinValue)
         {
             birthdayLabel.Text = user.birthday.ToString("d MMMM yyyy");
@@ -68,6 +69,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             birthdayLabel.Text = "";
             ageLabel.Text = "";
         }
+        */
 
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();

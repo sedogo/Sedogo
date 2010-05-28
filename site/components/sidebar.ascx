@@ -74,10 +74,10 @@ function changeClass(id, newClass)
                 <asp:HyperLink ID="trackingCountLink" NavigateUrl="~/tracking.aspx" runat="server" /></li>
             <li class="goal-groups">
                 <asp:HyperLink ID="groupGoalsLink" NavigateUrl="~/groupGoals.aspx" runat="server" /></li>
-            <li class="addressbook">
-                <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
             <li class="achievedgoals">
                 <asp:HyperLink ID="achievedGoalsLink" NavigateUrl="~/goalsAchieved.aspx" runat="server" /></li>
+            <li class="addressbook">
+                <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
         </ol>
     </div>
     <div class="latestGoals">

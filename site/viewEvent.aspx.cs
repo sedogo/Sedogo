@@ -159,6 +159,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
             pageBannerBarDiv.Style.Add("background-color", timelineColour);
 
+            addCommentLabel.Text = "Add a comment about " + sedogoEvent.eventName;
+
             if (userID > 0)
             {
                 int trackedEventID = TrackedEvent.GetTrackedEventID(eventID, userID);
@@ -404,7 +406,6 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             messageTrackingUsersLiteral.Text = "var url = 'sendMessageToTrackers.aspx?EID=" + eventID.ToString() + "';";
             messageFollowingUsersLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
             sendMessageLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
-            shareEventLiteral.Text = "var url = 'shareEvent.aspx?EID=" + eventID.ToString() + "';";
             //uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
             //uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
 
@@ -992,6 +993,16 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         newEvent.Add();
 
         Response.Redirect("viewEvent.aspx?EID=" + newEvent.eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: click_shareButton
+    //===============================================================
+    protected void click_shareButton(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("shareEvent.aspx?EID=" + eventID.ToString());
     }
 
     //===============================================================

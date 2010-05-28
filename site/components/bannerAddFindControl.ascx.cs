@@ -43,6 +43,9 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
         }
         what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
+        what.Attributes.Add("onfocus", "clearWhat();");
+        what2.Attributes.Add("onfocus", "clearWhat2();");
+
         addButtonImage.Attributes.Add("onmouseover", "this.src='/images/addButtonRollover.png'");
         addButtonImage.Attributes.Add("onmouseout", "this.src='/images/addButton.png'");
         searchButton2.Attributes.Add("onmouseover", "this.src='/images/searchButtonRollover.png'");

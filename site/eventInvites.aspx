@@ -62,7 +62,7 @@
 
                     <div class="page-banner-content">
                         <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
-                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Home" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
 

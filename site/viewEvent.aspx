@@ -85,11 +85,6 @@
 	    <asp:Literal id="sendMessageLiteral" runat="server" />
 	    openModal(url);
 	}
-	function shareEvent()
-	{
-	    <asp:Literal id="shareEventLiteral" runat="server" />
-	    openModal(url);
-	}
 	</script>
     <script language="javascript">
     var state = 'none';
@@ -138,7 +133,7 @@
 
                     <div class="page-banner-content" id="pageBannerBarDiv" runat="server">
                         <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
-                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Home" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
 
@@ -199,7 +194,7 @@
                 		        <div class="eventCommentBox" id="eventCommentBox" runat="server">
                 		        <table width="100%" border="0" cellspacing="2" cellpadding="2">
                 		            <tr>
-                		                <td colspan="2">Add Comment</td>
+                		                <td colspan="2"><asp:Label ID="addCommentLabel" runat="server"></asp:Label></td>
                 		            </tr>
                 		            <tr>
                 		                <td colspan="2">
@@ -255,7 +250,7 @@
                 		                </td>
                 		                <td align="right">
                 		                    <div style="padding-top:5px; padding-bottom:5px"><asp:LinkButton ID="postCommentButton" runat="server" 
-                                            ToolTip="Add comment" Text="Add comment" ValidationGroup="addCommentGroup" 
+                                            ToolTip="Add comment" Text="Comment" ValidationGroup="addCommentGroup" 
                                             OnClick="postCommentButton_click" CssClass="button-sml" /></div></td>
                 		            </tr>
                 		        </table>
@@ -287,8 +282,8 @@
                                 
                                 <div id="eventLinksDiv" runat="server">
                                     <div class="eventRightColBox" ID="actionsBox" runat="server">
-                                    <p><img src="images/share.gif" /> <asp:Hyperlink ID="shareButton" runat="server" 
-                                        Text="Share" CssClass="underline-bold" NavigateUrl="javascript:shareEvent();" /></p>
+                                    <p><img src="images/share.gif" /> <asp:LinkButton ID="shareButton" runat="server" 
+                                        Text="Share" CssClass="underline-bold" OnClick="click_shareButton" /></p>
                                     </div>
 
                                     <div class="eventRightColBox" ID="invitesBox" runat="server">

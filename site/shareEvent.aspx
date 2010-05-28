@@ -1,5 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="shareEvent.aspx.cs" Inherits="shareEvent" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -34,65 +38,109 @@
 	<![endif]-->
 
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-	
-<script language="JavaScript" type="text/javascript">
-    function preSaveClick()
-    {
-        document.forms[0].target = "_top";
-    }
-</script>
-	
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
     
-        <div id="event-detail">
-            <div class="right-col">
-            </div>
-            <div class="left-col">
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-                <p><asp:Label ID="eventNameLabel" runat="server" /><br />
-                <asp:Label ID="eventDateLabel" runat="server" /><br />
-                Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
-                &nbsp;</p>
-                
-                <table border="0" cellpadding="2" cellspacing="2">
-                    <tr>
-                        <td>Send message to (email):</td>
-                        <td><asp:TextBox ID="emailAddressTextBox" runat="server" Width="200px" /></td>
-                    </tr>
-                </table>
-                
-                <p>&nbsp;</p>
-                <p>Message:</p>   
-                <fieldset>
-                    <ol>
-                        <li>
-                            <asp:TextBox runat="server" TextMode="MultiLine" Rows="8"
-                                ID="messageTextBox" Width="400px" />
-                                <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
-                                ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
-                                </asp:RequiredFieldValidator>
-                        </li>
-                    </ol>
-                </fieldset>
+		    <div id="other-content">
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 
-                <div class="fullpagebuttons">
-                    <asp:LinkButton 
-                        ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
-                        OnClick="saveChangesButton_click" CssClass="button-sml" OnClientClick="javascript:preSaveClick()" />
-                </div>    
-                
+			    <div class="three-col">
+
+                    <div class="page-banner-content">
+                        <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Home" 
+                            CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
+                    </div>
+
+                    <div id="event-detail">
+                        <div class="right-col">
+
+                        </div>
+                        <div class="left-col">
+		                    <p style="font-style: italic; color: #ccc; margin: 0 0 4px 0; font-size: 11px">Edited <asp:Label ID="editedDateLabel" runat="server" /></p>
+		                    <p><asp:Label ID="eventDescriptionLabel" runat="server" /></p>
+
+				            <table class="summary">
+					            <tbody>
+						            <tr>
+							            <th>Who:</th>
+							            <td class="blue"><asp:Label ID="eventOwnersNameLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Goal:</th>
+							            <td><asp:Label ID="goalNameLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Where:</th>
+							            <td><asp:Label ID="goalVenueLabel" runat="server" /></td>
+						            </tr>
+						            <tr>
+							            <th>Before:</th>
+							            <td><asp:Label ID="eventDateLabel" runat="server" /></td>
+						            </tr>
+					            </tbody>
+				            </table>
+
+				            <div class="pinstripe-divider">&nbsp;</div>
+
+                            <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to share <asp:Label ID="eventNameLabel" runat="server" /> with</h3>
+                            <p>Type in friends or family email addresses or Sedogo account names.</p>
+
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /><br />
+                            <img src="images/profile/miniProfile.jpg" />
+                            <asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" />
+				            <div class="pinstripe-divider" style="margin: 20px 0 14px 0">&nbsp;</div>
+                            <p style="margin-bottom: 8px">Additional message <em>(optional)</em></p>
+
+                            <asp:TextBox ID="additionalInviteTextTextBox" runat="server" TextMode="MultiLine"
+                                Width="233px" Rows="3" />
+                            <p style="font-size: 11px"><br />Please note that anyone without a sedogo account <br />will be invited to join to connect with your goal</p>
+		                </div>
+		            </div>
+
+                    <div>
+                    <p>
+	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Share event" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
+                    </p>
+                    </div>
+                    
+                    <br />
+                    &nbsp;
+
+		        </div>
 		    </div>
-		</div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
     
-    </div>
     </form>
 
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl1" runat="server" />
+
 </body>
 </html>

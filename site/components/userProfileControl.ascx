@@ -23,18 +23,8 @@
 
                 <table border="0" cellspacing="2" cellpadding="2">
                     <tr>
-                        <td>Age</td>
-                        <td>&nbsp;&nbsp;</td>
-                        <td><asp:Label runat="server" ID="ageLabel" /></td>
-                    </tr>
-                    <tr>
-                        <td>Birthday</td>
-                        <td></td>
-                        <td><asp:Label runat="server" ID="birthdayLabel" /></td>
-                    </tr>
-                    <tr>
-                        <td>Home town</td>
-                        <td></td>
+                        <td>Home town:</td>
+                        <td>&nbsp;</td>
                         <td><asp:Label runat="server" ID="homeTownLabel" /></td>
                     </tr>
                 </table>

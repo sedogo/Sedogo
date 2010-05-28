@@ -216,13 +216,20 @@ public partial class _default : System.Web.UI.Page
 
         if (dtLGoal.Rows.Count > 0)
         {
+            string GName = string.Empty;
+
             LGoal.Append("<ul>");
 
             if (dtLGoal.Rows.Count > 3)
             {
                 for (i = 0; i < 3; i++)
                 {
-                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtLGoal.Rows[i]["EventName"]) + "</li>");
+                    GName = Convert.ToString(dtLGoal.Rows[i]["EventName"]);
+                    if (GName.Length > 27)
+                    {
+                        GName = GName.Substring(0, 27) + "...";
+                    }
+                    LGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
                 }
                 LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
             }
@@ -230,7 +237,12 @@ public partial class _default : System.Web.UI.Page
             {
                 for (i = 0; i < dtLGoal.Rows.Count; i++)
                 {
-                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtLGoal.Rows[i]["EventName"]) + "</li>");
+                    GName = Convert.ToString(dtLGoal.Rows[i]["EventName"]);
+                    if (GName.Length > 27)
+                    {
+                        GName = GName.Substring(0, 27) + "...";
+                    }
+                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + GName + "</li>");
                 }
             }
             LGoal.Append("</ul>");
@@ -248,12 +260,19 @@ public partial class _default : System.Web.UI.Page
 
         if (dtHGoal.Rows.Count > 0)
         {
+            string GName = string.Empty;
+
             HGoal.Append("<ul>");
             if (dtHGoal.Rows.Count > 3)
             {
                 for (i = 0; i < 3; i++)
                 {
-                    HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtHGoal.Rows[i]["EventName"]) + "</li>");
+                    GName = Convert.ToString(dtHGoal.Rows[i]["EventName"]);
+                    if (GName.Length > 27)
+                    {
+                        GName = GName.Substring(0, 27) + "...";
+                    }
+                    HGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
                 }
                 HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
             }
@@ -261,7 +280,13 @@ public partial class _default : System.Web.UI.Page
             {
                 for (i = 0; i < dtHGoal.Rows.Count; i++)
                 {
-                    HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + Convert.ToString(dtHGoal.Rows[i]["EventName"]) + "</li>");
+                    GName = Convert.ToString(dtHGoal.Rows[i]["EventName"]);
+                    if (GName.Length > 27)
+                    {
+                        GName = GName.Substring(0, 27) + "...";
+                    }
+
+                    HGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
                 }
             }
             HGoal.Append("</ul>");

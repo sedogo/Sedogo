@@ -209,15 +209,15 @@
     }
     function loginRedirect(eventID)
     {
-        openModal("login.aspx?EID=" + eventID);
+        location.href = "login.aspx?EID=" + eventID;
     }
     function openEvent(eventID) 
     {
-        openModal("viewEvent.aspx?EID=" + eventID);
+        location.href = "viewEvent.aspx?EID=" + eventID;
     }
     function doAddEvent()
     {
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }
     function checkAddButtonEnter(e)
     {
@@ -319,7 +319,6 @@
         <div id="container">
             <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
             <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
-            
             <div id="timelines">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -394,8 +393,9 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <div class="one-col" style="background-color: #EFEFEF; height: 316px;">
-                    <div style="float: left; padding-left: 10px; padding-top: 15px;">
+                <div class="one-col" style="background-color: #EFEFEF; height: 334px; padding-left: 10px;
+                    width: 211px;">
+                    <div style="float: left; padding-top: 15px;">
                         <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
                             Latest Achieved Goals
                         </div>
@@ -403,7 +403,7 @@
                             <% = BindLatestAchievedGoals() %>
                         </div>
                     </div>
-                    <div style="float: left; padding-left: 10px; padding-top: 15px; margin-top: 15px;">
+                    <div style="float: left; padding-top: 15px; margin-top: 15px;">
                         <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
                             Goals Happening Today
                         </div>
@@ -427,7 +427,7 @@
                     <p class="teaser">
                         Start creating personal goals right now. <a href="register.aspx" title="get started"
                             class="modal">Registering is fast, easy and free!</a></p>
-                    <div style="float: left; width: 100%; height: 216px;">
+                    <div style="float: left; width: 100%; height: 216px; margin-top: 0px;">
                         <div style="width: 100%; height: 2px; background-color: #00BFFD;">
                         </div>
                         <div style="width: 100%;">
@@ -438,7 +438,7 @@
                                 text-align: right;">
                                 <%=TGoals%>&nbsp; goals</div>
                         </div>
-                        <div style="margin-left: 2px;">
+                        <div style="margin-left: 2px; margin-top: 35px;">
                             <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
                                 DataKeyField="UserId">
                                 <ItemTemplate>
@@ -465,16 +465,20 @@
                                                     <div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent">
                                                     </div>
                                                     <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
-                                                        <div style="position: static; width: 160px;">
-                                                            <p style="font-size: 14px; font-weight: bold;">
+                                                        <div style="position: static; width: 160px; font-size: 14px;">
+                                                            <div style="float: left; width: 110px;">
                                                                 <span class="blue" style="line-height: 27px;">
                                                                     <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
                                                                 </span>
                                                                 <br />
                                                                 <%# DataBinder.Eval(Container.DataItem, "GCount")+ " Goals" %><br />
-                                                                <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
-                                                                    View Timeline</a></span>
-                                                            </p>
+                                                            </div>
+                                                            <div style="float: left; width: 50px;">
+                                                                <img width="25" height="25" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" />
+                                                            </div>
+                                                            <div style="width: 150px; float: left;">
+                                                                <span class="blue" style="line-height: 27px; font-weight: bold;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
+                                                                    View Timeline</a></span></div>
                                                         </div>
                                                     </div>
                                                     <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
@@ -485,8 +489,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="images/grayRect.jpg" alt="" height="39" width="39" style="cursor: pointer;"
-                                            onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                        <img src="images/grayRect.jpg" alt="" height="33" width="33" style="cursor: pointer;
+                                            padding-bottom: 6px; padding-right: 6px;" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                                 </ItemTemplate>
                             </asp:DataList></div>
                     </div>
@@ -497,7 +501,7 @@
                     <p class="teaser">
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
-                    <div class="rotatorBackground">
+                    <div class="rotatorBackground" style=" padding-top:20px;" >
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
                             CssClass="horizontalRotator" RotatorType="FromCode" ScrollDuration="500" FrameDuration="5000"
                             ItemHeight="216" ItemWidth="232">
@@ -522,6 +526,6 @@
         </div>
     </div>
     </form>
-   <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 </body>
 </html>

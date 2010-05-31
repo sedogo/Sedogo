@@ -2,7 +2,7 @@
     EnableEventValidation="false" ValidateRequest="false" %>
 
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
@@ -87,8 +87,6 @@
 
 				//Bug fix: scroll timeline programatically to trigger correct auto-height
 				tl.getBand(0)._autoScroll(1);
-				
-				$('#imgMngT').click();
 			}
 
 			function initiateTimeline() {
@@ -220,6 +218,9 @@
 
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
+
+    <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
+
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="scriptManager" runat="server">
@@ -293,73 +294,7 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <div class="one-col">
-                    <h2 class="col-header">
-                        <asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" />
-                        <span>
-                            <asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile"
-                                Text="Edit" runat="server" /></span></h2>
-                    <asp:Image ID="profileImage" runat="server" CssClass="profile" />
-                    <span style="font-size: 14px; font-weight: bold; color: Black">
-                        <asp:Label ID="userNameLabel" runat="server" /></span><br />
-                    <!--<p class="profile-intro">-->
-                    <!--<asp:Label ID="profileTextLabel" runat="server" /></p>-->
-                    <br />
-                    <p class="extra-buttons">
-                        <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
-                            OnClick="click_viewArchiveLink" />
-                        <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal"
-                            CssClass="button-sml modal" Text="+ Goal" runat="server" />
-                    </p>
-                    <div id="sidebarMenuItems" runat="server">
-                        <ol class="items">
-                            <li class="messages">
-                                <asp:HyperLink ID="messageCountLink" runat="server" NavigateUrl="~/message.aspx" /></li>
-                            <li class="alerts">
-                                <asp:HyperLink ID="alertCountLink" NavigateUrl="~/alert.aspx" runat="server" /></li>
-                            <li class="invites">
-                                <asp:HyperLink ID="inviteCountLink" NavigateUrl="~/invite.aspx" runat="server" /></li>
-                            <li class="requests">
-                                <asp:HyperLink ID="goalJoinRequestsLink" NavigateUrl="~/eventJoinRequests.aspx" runat="server" /></li>
-                            <li class="following">
-                                <asp:HyperLink ID="trackingCountLink" NavigateUrl="~/tracking.aspx" runat="server" /></li>
-                            <li class="goal-groups">
-                                <asp:HyperLink ID="groupGoalsLink" NavigateUrl="~/groupGoals.aspx" runat="server" /></li>
-                            <li class="addressbook">
-                                <asp:HyperLink ID="addressBookLink" NavigateUrl="~/addressBook.aspx" runat="server" /></li>
-                        </ol>
-                    </div>
-                    <div class="latestGoals">
-                        <h3>
-                            <asp:Label ID="myLatestGoalsLabel" runat="server" Text="My latest goals" /></h3>
-                        <p>
-                            <asp:PlaceHolder ID="latestEventsPlaceholder" runat="server" />
-                        </p>
-                        <div class="pinstripe-divider">
-                        </div>
-                        <!--<h3>Latest searches</h3>-->
-                        <!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
-                        <!--<div class="pinstripe-divider"></div>-->
-                        <h3>
-                            Popular goals</h3>
-                        <p>
-                            <asp:PlaceHolder ID="popularSearchesPlaceholder" runat="server" />
-                        </p>
-                    </div>
-                    <p>
-                        &nbsp;</p>
-                    <div class="rotatorBackground">
-                        <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
-                            CssClass="horizontalRotator" ItemHeight="216" ItemWidth="232" RotatorType="FromCode">
-                            <ItemTemplate>
-                                <div class="itemTemplate">
-                                    <a href="getInspired.aspx">
-                                        <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
-                                </div>
-                            </ItemTemplate>
-                        </telerik:RadRotator>
-                    </div>
-                </div>
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
                 <div style="width: 720px; float: left;">
                     <div style="width: 100%; height: 15px; background-color: #00CDFF; padding: 5px; padding-top: 2px;">
                         <div style="color: White; font-size: 14px; font-weight: bold; width: 50%; float: left;">

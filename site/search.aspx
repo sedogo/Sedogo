@@ -1,6 +1,9 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="search.aspx.cs" Inherits="search" %>
 
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -206,15 +209,15 @@
     }
     function loginRedirect(eventID)
     {
-        openModal("login.aspx?EID=" + eventID);
+        location.href = "login.aspx?EID=" + eventID;
     }
     function openEvent(eventID)
     {
-        openModal("viewEvent.aspx?EID=" + eventID);
+        location.href = "viewEvent.aspx?EID=" + eventID;
     }
     function doAddEvent()
     {
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }
     function checkAddButtonEnter(e)
     {
@@ -248,64 +251,12 @@
     <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
 
     <form id="form1" runat="server">
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <div>
         <div id="container">
-            <ul id="account-options">
-                <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-            </ul>
-            <div class="one-col">
-                <a href="profile.aspx" title="sedogo : home">
-                    <img src="images/sedogo.gif" title="sedogo" alt="sedogo logo" id="logo" /></a>
-                <p class="strapline">
-                    Create your future and connect<br />
-                    with others to make it happen
-                </p>
-            </div>
-            <div class="three-col">
-                <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
-                    <tr>
-                        <td>
-                            <h3 class="blue">
-                                <a href="login.aspx" class="modal">Add</a></h3>
-                            <p class="blue">
-                                to my goal list</p>
-                            <asp:Panel ID="Panel1" runat="server">
-                                <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                        <td valign="top">
-                                            <asp:TextBox ID="what" runat="server" Text="" MaxLength="1000" />
-                                        </td>
-                                        <td valign="top" style="padding-top: 4px">
-                                            <a href="login.aspx" class="modal">
-                                                <asp:Image ID="searchButton1" runat="server" ImageUrl="~/images/addButton.png" /></a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
-                        </td>
-                        <td>
-                            <h3 class="blue">
-                                <asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton_click" /></h3>
-                            <p class="blue">
-                                people with my goals</p>
-                            <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
-                                <table border="0" cellspacing="0" cellpadding="0">
-                                    <tr>
-                                        <td valign="top">
-                                            <asp:TextBox ID="what2" runat="server" Text="" MaxLength="1000" ValidationGroup="what2Group" />
-                                        </td>
-                                        <td valign="top" style="padding-top: 4px">
-                                            <asp:ImageButton ID="searchButton2" runat="server" OnClick="searchButton_click" ImageUrl="~/images/searchButton.png" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                <asp:RegularExpressionValidator ID="what2Validator" runat="server" ErrorMessage="Goal name must have at least 2 characters"
-                                    ControlToValidate="what2" ValidationGroup="what2Group" ValidationExpression="[\S\s]{2,200}" />
-                            </asp:Panel>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
             <div id="noSearchResultsDiv" runat="server" class="errorMessage">
                 <p>
                     <b>&nbsp;<br />
@@ -402,22 +353,7 @@
                 <div class="one-col-end">
                 </div>
             </div>
-            <div id="footer">
-                <ul>
-                    <li class="first">&copy; Sedogo Ltd 2008-2010</li>
-                    <li><a href="about.aspx" title="About" class="modal">About</a></li>
-                    <li><a href="faq.aspx" title="FAQ" class="modal">FAQ</a></li>
-                    <li><a href="privacy.aspx" title="Privacy Policy" class="modal">Privacy Policy</a></li>
-                    <li class="last"><a href="feedback.aspx" title="Feedback" class="modal">Feedback</a></li>
-                </ul>
-                <div style="text-align: right; margin-top: -25px">
-                    <div style="color: #0cf">
-                        Follow us <a target="_blank" style="padding-left: 7px" href="http://www.facebook.com/pages/Sedogo/261533591696">
-                            <img src="images/facebook.gif" /></a> <a style="padding-left: 7px" target="_blank"
-                                href="http://twitter.com/Sedogo">
-                                <img src="images/twitter.gif" /></a></div>
-                </div>
-            </div>
+            <Sedogo:FooterControl ID="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -428,19 +364,6 @@
         </div>
     </div>
     </form>
-
-    <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript">
-    try
-    {
-        var pageTracker = _gat._getTracker("UA-12373356-1");
-        pageTracker._trackPageview();
-    } catch (err) { }
-    </script>
-
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 </body>
 </html>

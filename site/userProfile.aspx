@@ -47,6 +47,9 @@
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    
+    
+	<script src="http://static.simile.mit.edu/ajax/api-2.2.0/simile-ajax-api.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -67,9 +70,9 @@
                     <br />&nbsp;
             
                     <div>
-                        <asp:Hyperlink
+                        <%--<asp:Hyperlink
                             ID="sendMessageToUserLink" runat="server" ToolTip="Send message" Text="Send message" 
-                            CssClass="button-lrg modal" />
+                            CssClass="button-lrg modal" />--%>
                     </div>
                     
                     <br />&nbsp;<br />&nbsp;

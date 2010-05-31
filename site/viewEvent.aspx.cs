@@ -763,14 +763,16 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     if (loggedInUserID == sedogoEvent.userID)
                     {
                         // This is my event!
-                        outputText = outputText + " <a href=\"viewEvent.aspx?A=AcceptRequest&EID="
-                            + eventID.ToString()
-                            + "&TEID=" + trackedEventID.ToString() + "\">"
-                            + "(Accept)</a> ";
                         outputText = outputText + " <a href=\"viewEvent.aspx?A=RejectRequest&EID="
                             + eventID.ToString()
                             + "&TEID=" + trackedEventID.ToString() + "\">"
-                            + "(Reject)</a> ";
+                            + "<img src=\"images/remove.gif\" /></a> ";
+
+                        outputText = outputText + " <a href=\"viewEvent.aspx?A=AcceptRequest&EID="
+                            + eventID.ToString()
+                            + "&TEID=" + trackedEventID.ToString() + "\">"
+                            + "<img src=\"images/acceptachieve.gif\" /></a> ";
+                        
                     }
                     else if (loggedInUserID == userID)
                     {

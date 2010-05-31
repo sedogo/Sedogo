@@ -307,6 +307,29 @@ public partial class sidebar : System.Web.UI.UserControl
                 latestEventsPlaceholder.Controls.Add(nHyperlink);
                 latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
                 //
+
+                SqlCommand cmdupComing = new SqlCommand("", conn);
+                cmdupComing.CommandType = CommandType.Text;
+                cmdupComing.CommandText = "select top 5 * from Events where userid=" + userID.ToString() + " and CONVERT(VARCHAR(10),rangestartdate,101) >CONVERT(VARCHAR(10), GETDATE(), 101) and Deleted=0 order by rangestartdate ";
+                DbDataReader rdrupComing = cmdupComing.ExecuteReader();
+                while (rdrupComing.Read())
+                {
+                    string searchText = (string)rdrupComing["EventID"].ToString();
+                    HyperLink searchHyperlink = new HyperLink();
+                    searchHyperlink.Text = rdrupComing["EventName"].ToString();
+                    if (userID > 0)
+                    {
+                        searchHyperlink.NavigateUrl = "~/viewevent.aspx?eid=" + searchText;
+                    }
+                    else
+                    {
+                        searchHyperlink.NavigateUrl = "~/viewevent.aspx?eid=" + searchText;
+                    }
+                    goalupcomingPlaceHolder.Controls.Add(searchHyperlink);
+
+                    goalupcomingPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                }
+                rdrupComing.Close();
             }
         }
         catch (Exception ex)

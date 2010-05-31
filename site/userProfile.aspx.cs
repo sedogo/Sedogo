@@ -52,9 +52,9 @@ public partial class userProfile : SedogoPage
 
         if( userID == loggedInUserID )
         {
-            sendMessageToUserLink.Visible = false;
+            //sendMessageToUserLink.Visible = false;
         }
 
-        sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + userID.ToString();
+        //sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + userID.ToString();
     }
 }

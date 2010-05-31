@@ -202,6 +202,17 @@
         top.location.href = document.location.href ;
       }
     }
+    
+    function doAddEvent()
+    {
+        var form = document.forms[0];
+        location.href = "addEvent.aspx?Name=" + form.what.value;
+    }    
+    function openEvent(eventID)
+    {
+        location.href = "viewEvent.aspx?EID=" + eventID;
+    }
+    
     </script>
 
     <script type="text/JavaScript">
@@ -210,6 +221,7 @@
 
 </head>
 <body onload="breakout_of_frame();onLoad();" onresize="onResize();">
+    <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="scriptManager" runat="server">

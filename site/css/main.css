@@ -270,7 +270,7 @@ input#bannerAddFindControl_what2:focus {
 {
 	font-size: 14px;
 	line-height: 20px;
-	margin-bottom: 22px
+	margin-bottom: 20px
 }
 .button,
 .button-sml,
@@ -1035,8 +1035,10 @@ img.profile
 		}
 		#controls {
 			position: absolute;
-			top: 184px;
-			left: 55px;
+			/*top: 184px;
+			left: 55px;*/
+			top:192px;
+			left:30px;
 			background: #fff;
 			border: 1px solid #ccc;
 			z-index: 1002;
@@ -1069,7 +1071,7 @@ img.profile
 		.filter {
 			margin: 0 6px 0 5px
 		}
-		.filter1 {
+	/*	.filter1 {
 			color: #CD3301
 		}
 		.filter2 {
@@ -1110,6 +1112,53 @@ img.profile
 		}
 		.filter14 {
 			color: #669
+		}*/
+		
+		/*new*/
+		.filter0 {
+			color: #15C7EB;margin-left:10px;font-weight:bold;
+		}		
+		.filter1 {
+			color: #CD3301;margin-left:10px;font-weight:bold;
+		}
+		.filter2 {
+			color: #FF0B0B;margin-left:10px;font-weight:bold;
+		}
+		.filter3 {
+			color: #FF6801;margin-left:10px;font-weight:bold;
+		}
+		.filter4 {
+			color: #FF8500;margin-left:10px;font-weight:bold;
+		}
+		.filter5 {
+			color: #D5B21A;margin-left:10px;font-weight:bold;
+		}
+		.filter6 {
+			color: #8DC406;margin-left:10px;font-weight:bold;
+		}
+		.filter7 {
+			color: #5B980C;margin-left:10px;font-weight:bold;
+		}
+		.filter8 {
+			color: #079ABC;margin-left:10px;font-weight:bold;
+		}
+		.filter9 {
+			color: #5AB6CD;margin-left:10px;font-weight:bold;
+		}
+		.filter10 {
+			color: #8A67C1;margin-left:10px;font-weight:bold;
+		}
+		.filter11 {
+			color: #E54ECF;margin-left:10px;font-weight:bold;
+		}
+		.filter12 {
+			color: #A5369C;margin-left:10px;font-weight:bold;
+		}
+		.filter13 {
+			color: #A32672;margin-left:10px;font-weight:bold;
+		}
+		.filter14 {
+			color: #669;margin-left:10px;font-weight:bold;
 		}
 
 
@@ -1433,6 +1482,17 @@ a.underline-bold {
 .misc-pop-up {
 	display: none;
 }
+
+/*New*/
+.catlogo {			
+			padding: 0px 4px 4px 1px;
+			margin: 0px 0 0 4px;			
+		}
+		.catlogo,
+		.catlogo img {
+			vertical-align: middle;
+		}
+/**/
 
 /*
 #sidebarMenuItems

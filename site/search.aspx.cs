@@ -37,13 +37,20 @@ public partial class search : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            int userID = -1;
+            if (Session["loggedInUserID"] != null)
+            {
+                userID = int.Parse(Session["loggedInUserID"].ToString());
+            }
+
             string searchText = "";
             if (Request.QueryString["Search"] != null)
             {
                 searchText = (string)Request.QueryString["Search"];
             }
 
-            what2.Text = searchText;
+            //SedogoUser user = new SedogoUser("", userID);
+            bannerAddFindControl.userID = userID;
 
             timelineURL.Text = "timelineSearchXML.aspx?Search=" + searchText;
 
@@ -70,12 +77,12 @@ public partial class search : System.Web.UI.Page
                 noSearchResultsDiv.Visible = false;
             }
 
-            what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
+            //what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
 
-            searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
-            searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
-            searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
-            searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
+            //searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
+            //searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
+            //searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
+            //searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
         }
     }
 
@@ -119,24 +126,24 @@ public partial class search : System.Web.UI.Page
     //===============================================================
     // Function: searchButton_click
     //===============================================================
-    protected void searchButton_click(object sender, EventArgs e)
-    {
-        string searchText = what2.Text;
+    //protected void searchButton_click(object sender, EventArgs e)
+    //{
+    //    string searchText = what2.Text;
 
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-        {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-        }
-        else
-        {
-            if (searchText.Length >= 2)
-            {
-                Response.Redirect("search.aspx?Search=" + searchText.ToString());
-            }
-            else
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-            }
-        }
-    }
+    //    if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+    //    {
+    //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
+    //    }
+    //    else
+    //    {
+    //        if (searchText.Length >= 2)
+    //        {
+    //            Response.Redirect("search.aspx?Search=" + searchText.ToString());
+    //        }
+    //        else
+    //        {
+    //            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
+    //        }
+    //    }
+    //}
 }

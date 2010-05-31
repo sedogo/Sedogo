@@ -70,10 +70,20 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             ageLabel.Text = "";
         }
         */
-
+        usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
         userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();
         userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
+        BindLatestMembers();
+    }
+    private void BindLatestMembers()
+    {
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtAllUsrs = new DataTable();
+        dtAllUsrs = objSNFun.GetAllEnableUserDetails();
+        DataTable dt = dtAllUsrs.Copy();
+        dlMember.DataSource = dtAllUsrs;
+        dlMember.DataBind();
     }
 }

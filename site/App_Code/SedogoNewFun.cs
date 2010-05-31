@@ -44,7 +44,7 @@ namespace Sedogo.BusinessObjects
         + "LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,"
         + "CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName "
     + "FROM Users u"
-    + " WHERE LoginEnabled = 1 and deleted = 0";
+    + " WHERE LoginEnabled = 1 and deleted = 0 order by createddate desc";
 
                 DbDataAdapter adp = new SqlDataAdapter();
                 adp.SelectCommand = cmd;

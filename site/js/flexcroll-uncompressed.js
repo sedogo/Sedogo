@@ -139,6 +139,11 @@ sC.createScrollBars=function(){
 		fleXenv.addTrggr(dC,'selectstart',retFalse);fleXenv.addTrggr(dC,'mousemove',mMoveBar);fleXenv.addTrggr(dC,'mouseup',mMouseUp);
 		return false;
 	};
+	
+	if(sPage=="HomeMoreDetail.aspx" || sPage=="MoreDetail.aspx")
+    {   
+        $('#imgMngT').click();   
+    }	
 };
 
 sC.goScroll=null;

@@ -419,14 +419,14 @@
                         Sedogo lets you create your own timeline of future goals and connect with others
                         to make them happen.</p>
                     <p>
-                        <a href="register.aspx" title="get started" class="button modal">get started</a></p>
+                        <a href="register.aspx" title="get started" class="button">get started</a></p>
                 </div>
                 <div class="one-col">
                     <h2 class="col-header">
                         join in today</h2>
                     <p class="teaser">
-                        Start creating personal goals right now. <a href="register.aspx" title="get started"
-                            class="modal">Registering is fast, easy and free!</a></p>
+                        Start creating personal goals right now. <a href="register.aspx" title="get started">Registering 
+                        is fast, easy and free!</a></p>
                     <div style="float: left; width: 100%; height: 216px; margin-top: 0px;">
                         <div style="width: 100%; height: 2px; background-color: #00BFFD;">
                         </div>

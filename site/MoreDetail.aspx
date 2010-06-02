@@ -299,7 +299,7 @@
                 <div style="width: 720px; float: left;">
                     <div style="width: 100%; height: 15px; background-color: #00CDFF; padding: 5px; padding-top: 2px;">
                         <div style="color: White; font-size: 14px; font-weight: bold; width: 50%; float: left;">
-                            Latest updated goals</div>
+                             <asp:Literal ID="ltHeading" Text="daskdhkasdjkas" runat="server"></asp:Literal></div>
                         <div style="text-align: right; width: 50%; padding: 0px; float: left;">
                             <asp:Button runat="server" BackColor="white" ID="backButton" BorderStyle="None" OnClick="backButton_Click"
                                 Text="Back" /></div>
@@ -308,19 +308,19 @@
                     </div>
                     <div style="width: 100%">
                         <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
-                            Today</h3>
+                            <a href="profile.aspx">Today</a></h3>
                         <asp:PlaceHolder ID="PlaceHolderToday" runat="server" />
                         <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
-                            This Week</h3>
+                            <a href="profile.aspx">This Week</a></h3>
                         <asp:PlaceHolder ID="PlaceHolderThisWeek" runat="server" />
                         <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
-                            Two Weeks Ago</h3>
+                            <a href="profile.aspx">Two Weeks Ago</a></h3>
                         <asp:PlaceHolder ID="PlaceHolderTwoWeekAgo" runat="server" />
                         <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
-                            Last Month</h3>
+                            <a href="profile.aspx">Last Month</a></h3>
                         <asp:PlaceHolder ID="PlaceHolderLastMonth" runat="server" />
                         <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
-                            Last Six Month</h3>
+                            <a href="profile.aspx">Last Six Month</a></h3>
                         <asp:PlaceHolder ID="PlaceHolderLastSixMonth" runat="server" />
                     </div>
                 </div>

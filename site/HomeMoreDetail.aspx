@@ -318,7 +318,8 @@
                 <div style="width: 720px; float: left;">
                     <div style="width: 100%; height: 15px; background-color: #00CDFF; padding: 5px; padding-top: 2px;">
                         <div style="color: White; font-size: 14px; font-weight: bold; width: 50%; float: left;">
-                            Latest updated goals</div>
+                            <asp:Literal ID="ltHeading" runat="server"></asp:Literal>
+                            </div>
                         <div style="text-align: right; width: 50%; padding: 0px; float: left;">
                             <asp:Button runat="server" BackColor="white" ID="backButton" BorderStyle="None" OnClick="backButton_Click"
                                 Text="Back" /></div>

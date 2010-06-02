@@ -303,7 +303,7 @@ public partial class sidebar : System.Web.UI.UserControl
                 //Changes by Chetan
                 HyperLink nHyperlink = new HyperLink();
                 nHyperlink.Text = "<b>More ></b>";
-                nHyperlink.NavigateUrl = "~/MoreDetail.aspx";
+                nHyperlink.NavigateUrl = "~/MoreDetail.aspx?type=latest";
                 latestEventsPlaceholder.Controls.Add(nHyperlink);
                 latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
                 //

@@ -87,7 +87,9 @@
 				performFiltering(tl, [1, 2], document.getElementById("table-filter"));
 
 				//Bug fix: scroll timeline programatically to trigger correct auto-height
-				tl.getBand(0)._autoScroll(1);				
+				tl.getBand(0)._autoScroll(1);	
+				
+				$('#imgMngT').click();			
 			}
 
 			function initiateTimeline() {

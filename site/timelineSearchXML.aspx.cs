@@ -227,19 +227,23 @@ public partial class timelineSearchXML : System.Web.UI.Page
                         category = "Hobbies";
                         break;
                     case 10:
-                        timelineColour = "#8a67c1";
-                        category = "Culture";
+                        timelineColour = "#8A67C1";
+                        category = "Work";
                         break;
                     case 11:
-                        timelineColour = "#e54ecf";
-                        category = "Charity";
+                        timelineColour = "#E54ECF";
+                        category = "Culture";
                         break;
                     case 12:
-                        timelineColour = "#a5369c";
-                        category = "Green";
+                        timelineColour = "#A5369C";
+                        category = "Charity";
                         break;
                     case 13:
-                        timelineColour = "#a32672";
+                        timelineColour = "#A32672";
+                        category = "Green";
+                        break;
+                    case 14:
+                        timelineColour = "#669";
                         category = "Misc";
                         break;
                 }

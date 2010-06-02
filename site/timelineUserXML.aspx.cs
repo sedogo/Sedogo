@@ -79,6 +79,10 @@ public partial class timelineUserXML : System.Web.UI.Page
                 DateTime timelineStartDate = DateTime.MinValue;
                 DateTime timelineEndDate = DateTime.MinValue;
 
+                //*New
+                string eventPicThumbnail = "";
+                //
+
                 int eventID = int.Parse(rdr["EventID"].ToString());
                 string eventName = (string)rdr["EventName"];
                 if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
@@ -107,6 +111,13 @@ public partial class timelineUserXML : System.Web.UI.Page
                     beforeBirthday = int.Parse(rdr["BeforeBirthday"].ToString());
                 }
                 privateEvent = (Boolean)rdr["PrivateEvent"];
+
+                //*New
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicThumbnail")))
+                {
+                    eventPicThumbnail = (string)rdr["EventPicThumbnail"];
+                }
+                //
 
                 if (dateType == "D")
                 {
@@ -208,38 +219,63 @@ public partial class timelineUserXML : System.Web.UI.Page
                         category = "Hobbies";
                         break;
                     case 10:
-                        timelineColour = "#8a67c1";
-                        category = "Culture";
+                        timelineColour = "#8A67C1";
+                        category = "Work";
                         break;
                     case 11:
-                        timelineColour = "#e54ecf";
-                        category = "Charity";
+                        timelineColour = "#E54ECF";
+                        category = "Culture";
                         break;
                     case 12:
-                        timelineColour = "#a5369c";
-                        category = "Green";
+                        timelineColour = "#A5369C";
+                        category = "Charity";
                         break;
                     case 13:
-                        timelineColour = "#a32672";
+                        timelineColour = "#A32672";
+                        category = "Green";
+                        break;
+                    case 14:
+                        timelineColour = "#669";
                         category = "Misc";
                         break;
                 }
+
                 int messageCount = SedogoEvent.GetCommentCount(eventID);
                 int trackingUserCount = SedogoEvent.GetTrackingUserCount(eventID);
                 int memberUserCount = SedogoEvent.GetMemberUserCount(eventID);
 
                 //string linkURL = "&lt;a href=\"viewEvent.aspx?EID=" + eventID.ToString() + "\" class=\"modal\" title=\"\"&gt;Full details&lt;/a&gt;";
-                string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+                //string linkURL = trackingUserCount.ToString() + " following this goal<br/>";
+                //linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
+                //linkURL = linkURL + messageCount.ToString() + " comments<br/>";
+                //linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+
+                //* New
+                string linkURL = timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'") + "<br/><br/>";
+                linkURL = linkURL + trackingUserCount.ToString() + " following this goal<br/>";
                 linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
                 linkURL = linkURL + messageCount.ToString() + " comments<br/>";
-                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
+                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("isDuration", "true");
                 writer.WriteAttributeString("title", eventName);
+
+                //* New
+                if (eventPicThumbnail == "")
+                {
+                    writer.WriteAttributeString("image", "./images/eventThumbnailBlank.png");
+                }
+                else
+                {
+                    writer.WriteAttributeString("image", "./assets/eventPics/" + eventPicThumbnail);
+                }
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
+                //*
+                
                 writer.WriteAttributeString("color", timelineColour);
                 writer.WriteAttributeString("category", category);
                 writer.WriteString(linkURL + " &lt;br /&gt;");

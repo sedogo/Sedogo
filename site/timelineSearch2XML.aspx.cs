@@ -345,18 +345,22 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                         category = "Hobbies";
                         break;
                     case 10:
+                        timelineColour = "#8A67C1";
+                        category = "Work";
+                        break;
+                    case 11:
                         timelineColour = "#8a67c1";
                         category = "Culture";
                         break;
-                    case 11:
+                    case 12:
                         timelineColour = "#e54ecf";
                         category = "Charity";
                         break;
-                    case 12:
+                    case 13:
                         timelineColour = "#a5369c";
                         category = "Green";
                         break;
-                    case 13:
+                    case 14:
                         timelineColour = "#a32672";
                         category = "Misc";
                         break;

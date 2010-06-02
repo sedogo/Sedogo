@@ -48,7 +48,8 @@ Timeline._Band = function(B, G, C) {
     
     if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
 	{  
-	    Divs.className="flexcroll";
+	    //Divs.className="flexcroll";
+	    Divs.className="div_scroll";
 	    Divs.id="divouter-" + C;
 	    this._div.style.position="relative";
 	    Divs.appendChild(this._div);

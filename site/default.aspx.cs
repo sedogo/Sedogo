@@ -231,7 +231,7 @@ public partial class _default : System.Web.UI.Page
                     }
                     LGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
                 }
-                LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
+                LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx?type=achieved' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
             }
             else
             {
@@ -274,7 +274,7 @@ public partial class _default : System.Web.UI.Page
                     }
                     HGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
                 }
-                HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
+                HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx?type=happening' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
             }
             else
             {

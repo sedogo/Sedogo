@@ -85,8 +85,20 @@
 	    <asp:Literal id="sendMessageLiteral" runat="server" />
 	    openModal(url);
 	}
+	
+	window.onload = function resetFlash() 
+	{
+        var flash = document.getElementsByTagName('embed');
+        
+        if(flash[0] != null)
+           {
+            flash[0].setAttribute("width", "300px"); 
+            flash[0].setAttribute("height", "270px");       
+           }            
+    }
+	
 	</script>
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
     var state = 'none';
     function showhide(layer_ref)
     {
@@ -115,7 +127,7 @@
     </script>     
 	
 </head>
-<body>
+<body >
     <form id="form1" runat="server">
     <div>
     

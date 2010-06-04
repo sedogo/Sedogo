@@ -13,6 +13,7 @@ $(document).ready(function() {
                 var myDiv4 = $("#timeline-band-4");	            
 	            var myDiv5 = $("#divouter-5");	 
 	            var myMain =  $("#my-container");	
+	            var mySMain =  $("#my-timeline");
 	            var sPath = window.location.pathname;
                 var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
         
@@ -20,15 +21,15 @@ $(document).ready(function() {
 	        {
 	            $(this).attr("src", "images/T_Open.jpg");
 	            $("#divouter-1").hide();
-                if(sPage=="search2.aspx")          
+                if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {
             	    myDiv4.css("top","10px");
             	    myDiv5.css("top","42px");
-            	    myMain.css("height","308px");
+            	    myMain.css("height","308px");            	    
             	    
             	    if(document.getElementById('divouter-5').style.display == 'none')
             	    {            	    
-            	        myMain.css("height","40px");
+            	        myMain.css("height","40px");            	        
             	    }
             	}
             	else
@@ -43,15 +44,16 @@ $(document).ready(function() {
 	            $(this).attr("src", "images/T_Close.jpg");
 		        $("#divouter-1").show();		        
 		        
-	            if(sPage=="search2.aspx")          
+	            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {          
             	    myDiv4.css("top","280px");
             	    myDiv5.css("top","46px");
             	    myMain.css("height","579px");
+            	    mySMain.css("height","579px");
             	    
             	    if(document.getElementById('divouter-5').style.display == 'none')
             	    {            	        
-            	        myMain.css("height","310px");
+            	        myMain.css("height","310px");            	        
             	    }	
             	    
             	    if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
@@ -61,8 +63,18 @@ $(document).ready(function() {
             	}
             	else
             	{  
-            	    myMain.css("height","265px");            	
+            	    myMain.css("height","265px");   
+            	    mySMain.css("height","265px");   
+            	    if(sPage=="MoreDetail.aspx" || sPage=="HomeMoreDetail.aspx")
+            	    {
+            	        if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
+                        {
+		                performFiltering(tl, [1, 2], document.getElementById("table-filter"));
+		                }            	
+            	    }         	
             	}
+            	
+            	 
             	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
 		        return false;
 	        }	                     

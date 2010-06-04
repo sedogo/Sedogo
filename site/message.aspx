@@ -84,26 +84,32 @@
                         OnItemCommand="messagesRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table>
+                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
                                     <td>
-                                        <asp:Image id="eventPicThumbnailImage" runat="server" />
+                                        <table>
+                                            <tr>
+                                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                                <td>
+                                                    <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
+                                                    <asp:Literal ID="eventNameLabel" runat="server" /><br />
+                                                    <asp:Literal ID="messageLabel" runat="server" /></p>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
-                                    <td>
-                                        <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
-                                        <asp:Literal ID="eventNameLabel" runat="server" /><br />
-                                        <asp:Literal ID="messageLabel" runat="server" /></p>
+                                    <td align="right">
+                                        <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
+                                            Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
+                                            <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 
+                                            Text="send reply" /></p>
                                     </td>
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
-                                Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                                <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 
-                                Text="send reply" /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
-                            
+
                         </ItemTemplate>
                     </asp:Repeater>
                     </div>

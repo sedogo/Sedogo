@@ -121,7 +121,7 @@
 
                     <div>
                     <p>
-	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Share event" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
+	                    <asp:LinkButton ID="sendInvitesLink" runat="server" Text="Share" OnClick="sendInvitesLink_click" CssClass="button-lrg" />
                     </p>
                     </div>
                     

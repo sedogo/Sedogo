@@ -154,13 +154,9 @@ p.blue
 {
 	clear:both;
 }
-#messagesDiv, 
 #noUnreadMessagesDiv,
-#invitesDiv, 
 #noInvitesDiv,
-#requestsDiv,
 #noRequestsDiv,
-#trackedEventsDiv,
 #noTrackedEventsDiv
 {
 	width: 430px;
@@ -169,6 +165,10 @@ p.blue
 	margin-top:10px;
 }
 
+#invitesDiv, 
+#trackedEventsDiv,
+#requestsDiv,
+#messagesDiv, 
 #alertsDiv,
 #noAlertsDiv,
 #contactsDiv,

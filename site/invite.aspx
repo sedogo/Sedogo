@@ -78,26 +78,31 @@
                         OnItemCommand="invitesRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table>
+                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
                                     <td>
-                                        <asp:Image id="eventPicThumbnailImage" runat="server" />
+                                        <table>
+                                            <tr>
+                                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                                <td>
+                                                    <p>
+									                    Goal creator: <span class="blue"><asp:Hyperlink ID="userNameLabel" runat="server" /></span><br />
+									                    Goal: <span class="blue"><asp:Hyperlink ID="eventNameLabel" runat="server" /></span><br />
+									                    Date: <span class="blue"><asp:Hyperlink ID="eventDateLabel" runat="server" /></span>
+								                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </td>
-                                    <td>
-								        <p>
-									        Goal creator: <span class="blue"><asp:Hyperlink ID="userNameLabel" runat="server" /></span><br />
-									        Goal: <span class="blue"><asp:Hyperlink ID="eventNameLabel" runat="server" /></span><br />
-									        Date: <span class="blue"><asp:Hyperlink ID="eventDateLabel" runat="server" /></span>
-								        </p>
-                                        <!--<asp:HyperLink ID="eventHyperlink" runat="server" Text="View" />-->
+                                    <td align="right">
+                                        <p style="text-align:right;margin-top:10px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
+                                            Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
+                                            <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
+                                            Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
                                     </td>
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right;margin-top:10px"><asp:LinkButton ID="acceptButton" runat="server" CssClass="button-sml-extra-padding" 
-                                Text="Accept" CommandName="acceptButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' />
-                                <asp:LinkButton ID="declineButton" runat="server" CssClass="button-sml-extra-padding" 
-                                Text="Decline" CommandName="declineButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventInviteID") %>' /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
                             

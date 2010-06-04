@@ -77,18 +77,26 @@
                         OnItemCommand="trackedEventsRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table>
+                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
-                                    <td><asp:Image ID="eventImage" runat="server" /></td>
                                     <td>
-                                        <p><asp:HyperLink ID="eventNameLabel" runat="server" CssClass="publicPageSelectedLetter" /><br />
-                                        <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
+                                        <table>
+                                            <tr>
+                                                <td valign="top"><asp:Image id="eventImage" runat="server" /></td>
+                                                <td>
+                                                    <p><asp:HyperLink ID="eventNameLabel" runat="server" CssClass="publicPageSelectedLetter" /><br />
+                                                        <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="right">
+                                        <p style="text-align:right"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
+                                            Text="stop following" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                                     </td>
                                 </tr>
                             </table>
                             
-                            <p style="text-align:right"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
-                                Text="stop following" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                             <br />
                             <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
 

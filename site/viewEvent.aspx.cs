@@ -525,7 +525,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     profileImage = "./assets/profilePics/" + profilePicThumbnail;
                 }
 
-                string outputText = "<p style=\"padding-top:15px\"><img src=\"" + profileImage + "\" width=\"17\" style=\"margin-right:4px\" />&nbsp;";
+                string outputText = "<p style=\"clear:both;border:solid 0px blue;width:499px;padding-top:15px\"><img src=\"" + profileImage + "\" width=\"17\" style=\"margin-right:4px\" />&nbsp;";
                 if( postedByUserID < 0 || postedByUserID == currentUserID )
                 {
                     outputText = outputText + "<a href=\"profile.aspx\"";

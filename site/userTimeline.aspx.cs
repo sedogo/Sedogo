@@ -78,7 +78,10 @@ public partial class userTimeline : SedogoPage
             //userTimelineLabel.Text = user.firstName + " " + user.lastName + "'s timeline";
             //sendMessageToUserLink.Text = "Send message to " + viewUser.firstName + " " + viewUser.lastName;
             //sendMessageToUserLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
-            timelineUserNameLiteral.Text = viewUser.firstName + " " + viewUser.lastName;
+            //timelineUserNameLiteral.Text = viewUser.firstName + " " + viewUser.lastName;
+            //*By Chetan
+            timelineUserNameLiteral.Text = "&nbsp;&nbsp;" + viewUser.firstName + " " + viewUser.lastName;
+
             
             // Populate the profile popup
             //usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";

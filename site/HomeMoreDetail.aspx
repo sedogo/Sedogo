@@ -87,9 +87,7 @@
 				performFiltering(tl, [1, 2], document.getElementById("table-filter"));
 
 				//Bug fix: scroll timeline programatically to trigger correct auto-height
-				tl.getBand(0)._autoScroll(1);	
-				
-				$('#imgMngT').click();			
+				tl.getBand(0)._autoScroll(1);				
 			}
 
 			function initiateTimeline() {
@@ -221,7 +219,7 @@
     function doAddEvent()
     {
         openModal("login.aspx");
-    }
+    }    
     </script>
 
     <script type="text/JavaScript">
@@ -233,7 +231,7 @@
 
     <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
 
-    <form id="defaultForm" runat="server">
+    <form id="HomeDetailForm" runat="server">
     <asp:ScriptManager ID="scriptManager" runat="server">
     </asp:ScriptManager>
     <div>

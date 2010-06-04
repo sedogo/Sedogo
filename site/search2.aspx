@@ -90,7 +90,7 @@
 				tl.getBand(0)._autoScroll(1);
 				
 				//*New				
-				  $('#imgMngT').click();
+				 // $('#imgMngT').click();
 				//*
 			}
 

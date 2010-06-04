@@ -48,8 +48,8 @@ Timeline._Band = function(B, G, C) {
     
     if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
 	{  
-	    //Divs.className="flexcroll";
-	    Divs.className="div_scroll";
+	    Divs.className="flexcroll";
+	    //Divs.className="div_scroll";
 	    Divs.id="divouter-" + C;
 	    this._div.style.position="relative";
 	    Divs.appendChild(this._div);
@@ -4105,7 +4105,7 @@ Timeline._Impl.prototype._autoWidthCheck = function(C) {
 			//*New
 			var sPath = window.location.pathname;
             var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
-            if(sPage=="search2.aspx")
+            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")
             {
 //                var state1=document.getElementById('timeline-band-1').style.display;
 //                var state5=document.getElementById('timeline-band-5').style.display;
@@ -4118,7 +4118,7 @@ Timeline._Impl.prototype._autoWidthCheck = function(C) {
                 
             var hCon =  A._containerDiv.style.height.substring(0,A._containerDiv.style.height.length-2) ;
              
-            if(sPage=="search2.aspx")
+            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")
             {
             if ((state1=="" || state1=="block")&&(state5=="" || state5=="block"))    
                 {         
@@ -4128,6 +4128,23 @@ Timeline._Impl.prototype._autoWidthCheck = function(C) {
                     A._containerDiv.style.height="575px";
                     }
                 }
+            else if ((state1=="none")&&(state5=="" || state5=="block"))  
+                {
+                    if(hCon < 306)
+                    {
+                    A._containerDiv.parentNode.style.height="306px";
+                    A._containerDiv.style.height="306px";
+                    }
+                }
+            else if ((state1=="" || state1=="block")&&(state5=="none"))  
+                {
+                    if(hCon < 308)
+                    {
+                    A._containerDiv.parentNode.style.height="308px";
+                    A._containerDiv.style.height="308px";
+                    }
+                }    
+                                  
             }
 			else
 			{
@@ -4402,11 +4419,15 @@ function fitStringToWidth(str,width,className)
 	   {	
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Close.jpg');
 		 document.getElementById("divouter-5").style.display="block";
-		 document.getElementById("my-container").style.height="575px";
+		 document.getElementById("my-container").style.height="578px";
 		 if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display!="none")
 		 {
 	     document.getElementById("my-container").style.height="308px";
-	     }		                        	
+	     }
+	     if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
+          {
+		   performFiltering(tl, [1, 2, 3, 4, 5, 6], document.getElementById("table-filter"));
+		  }		                        	
 		 return false;
 	   }	          
     } 

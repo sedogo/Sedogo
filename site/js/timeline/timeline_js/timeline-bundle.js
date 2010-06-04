@@ -4409,9 +4409,11 @@ function fitStringToWidth(str,width,className)
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Open.jpg');	     
 	     document.getElementById("divouter-5").style.display="none";
 	     document.getElementById("my-container").style.height="310px";
+	     document.getElementById("my-timeline").style.height="310px";
 	     if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display=="none")
 	     {
 	     document.getElementById("my-container").style.height="42px";
+	     document.getElementById("my-timeline").style.height="42px";
 	     }
 		 return false;
 	   }
@@ -4420,9 +4422,11 @@ function fitStringToWidth(str,width,className)
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Close.jpg');
 		 document.getElementById("divouter-5").style.display="block";
 		 document.getElementById("my-container").style.height="578px";
+		 document.getElementById("my-timeline").style.height="578px";
 		 if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display!="none")
 		 {
 	     document.getElementById("my-container").style.height="308px";
+	     document.getElementById("my-timeline").style.height="308px";
 	     }
 	     if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
           {

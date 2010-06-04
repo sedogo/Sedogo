@@ -136,7 +136,7 @@
                                 <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
                                     style="display: none; position: relative; z-index: 10;">
                                     <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
-                                        style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
+                                        style="width: 160px; height: 95px; left: 0px; bottom: 35px;">
                                         <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
                                             <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
                                             </div>
@@ -156,18 +156,19 @@
                                             </div>
                                             <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
                                                 <div style="position: static; width: 160px; font-size: 14px;">
-                                                    <div style="float: left; width: 110px;">
+                                                    <div style="float: left; width: 160px;">
+                                                        <img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" /><br />
                                                         <span class="blue" style="line-height: 27px;">
                                                             <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
                                                         </span>
                                                         <br />
                                                         <%# DataBinder.Eval(Container.DataItem, "GCount")+ " Goals" %><br />
                                                     </div>
-                                                    <div style="float: left; width: 50px;">
+                                                    <%--<div style="float: left; width: 50px;">
                                                         <img width="25" height="25" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" />
-                                                    </div>
-                                                    <div style="width: 150px; float: left;">
-                                                        <span class="blue" style="line-height: 27px; font-weight: bold;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
+                                                    </div>--%>
+                                                    <div style="width: 160px; float: left;">
+                                                        <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
                                                             View Timeline</a></span></div>
                                                 </div>
                                             </div>

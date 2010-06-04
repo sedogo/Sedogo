@@ -86,8 +86,7 @@
 				performFiltering(tl, [1, 2], document.getElementById("table-filter"));
 
 				//Bug fix: scroll timeline programatically to trigger correct auto-height
-				tl.getBand(0)._autoScroll(1);				
-				$('#imgMngT').click();
+				tl.getBand(0)._autoScroll(1);
 			}
 
 			function initiateTimeline() {
@@ -299,7 +298,7 @@
                 <div style="width: 720px; float: left;">
                     <div style="width: 100%; height: 15px; background-color: #00CDFF; padding: 5px; padding-top: 2px;">
                         <div style="color: White; font-size: 14px; font-weight: bold; width: 50%; float: left;">
-                             <asp:Literal ID="ltHeading" Text="daskdhkasdjkas" runat="server"></asp:Literal></div>
+                             <asp:Literal ID="ltHeading" runat="server"></asp:Literal></div>
                         <div style="text-align: right; width: 50%; padding: 0px; float: left;">
                             <asp:Button runat="server" BackColor="white" ID="backButton" BorderStyle="None" OnClick="backButton_Click"
                                 Text="Back" /></div>

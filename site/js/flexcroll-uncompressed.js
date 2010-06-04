@@ -21,7 +21,8 @@ End of license text---
 //fleXcroll v1.9.5f
 var fleXenv={
 //*New
-fleXcrollInit:function(){if (SimileAjax.Platform.browser.isIE) {this.addTrggr(window,'load',this.globalInit)}else{this.addTrggr(window,'load',setTimeout(this.globalInit,1728))};},
+//fleXcrollInit:function(){if (SimileAjax.Platform.browser.isIE) {this.addTrggr(window,'load',this.globalInit)}else{this.addTrggr(window,'load',setTimeout(this.globalInit,1828))};},
+fleXcrollInit:function(){this.addTrggr(window,'load',this.globalInit);},
 
 fleXcrollMain:function(dDv){
 
@@ -138,12 +139,8 @@ sC.createScrollBars=function(){
 		hrZ.sBr.moved=false;tDv.vrt.sBr.moved=false;
 		fleXenv.addTrggr(dC,'selectstart',retFalse);fleXenv.addTrggr(dC,'mousemove',mMoveBar);fleXenv.addTrggr(dC,'mouseup',mMouseUp);
 		return false;
-	};
+	};	
 	
-	if(sPage=="HomeMoreDetail.aspx" || sPage=="MoreDetail.aspx")
-    {   
-        $('#imgMngT').click();   
-    }	
 };
 
 sC.goScroll=null;
@@ -225,9 +222,15 @@ dDv.commitScroll=dDv.contentScroll=function(xPos,yPos,relative){
 	var reT=[[false,false],[false,false]],Bar;
 	if((xPos||xPos===0)&&sC.scroller[0]){xPos=calcCScrollVal(xPos,0);Bar=tDv.hrz.sBr;Bar.trgtScrll=(relative)?Math.min(Math.max(Bar.mxScroll,Bar.trgtScrll-xPos),0):-xPos;Bar.contentScrollPos();reT[0]=[-Bar.trgtScrll-Bar.targetSkew,-Bar.mxScroll]}
 	if((yPos||yPos===0)&&sC.scroller[1]){yPos=calcCScrollVal(yPos,1);Bar=tDv.vrt.sBr;Bar.trgtScrll=(relative)?Math.min(Math.max(Bar.mxScroll,Bar.trgtScrll-yPos),0):-yPos;Bar.contentScrollPos();reT[1]=[-Bar.trgtScrll-Bar.targetSkew,-Bar.mxScroll]}
-	if(!relative) sC.edge[0]=sC.edge[1]=false;
+	if(!relative) sC.edge[0]=sC.edge[1]=false;	
 	return reT;
 };
+
+if(sPage=="HomeMoreDetail.aspx" || sPage=="MoreDetail.aspx")
+        {
+            $('#imgMngT').click();        
+        }
+
 
 dDv.scrollToElement=function(tEM){
 if(tEM==null||!isddvChild(tEM)) return;
@@ -241,6 +244,7 @@ copyStyles(pDv,dDv,'0px',['border-left-width','border-right-width','border-top-w
 dDv.removeChild(pDv);
 dDv.scrollTop=0;dDv.scrollLeft=0;
 dDv.fleXcroll=true;
+
 classChange(dDv,'flexcrollactive',false);
 dDv.scrollUpdate();
 dDv.contentScroll(oScrollX,oScrollY,true);

@@ -425,17 +425,16 @@
                     <h2 class="col-header">
                         join in today</h2>
                     <p class="teaser">
-                        Start creating personal goals right now. <a href="register.aspx" title="get started">Registering 
-                        is fast, easy and free!</a></p>
+                        Start creating personal goals right now. <a href="register.aspx" title="get started">
+                            Registering is fast, easy and free!</a></p>
                     <div style="float: left; width: 100%; height: 216px; margin-top: 0px;">
                         <div style="width: 100%; height: 2px; background-color: #00BFFD;">
                         </div>
                         <div style="width: 100%;">
-                            <div style="color: #00BFFD; font-size: 14px; line-height: 30px; font-weight: bold;
-                                text-align: left; float: left;">
+                            <div style="color: #00BFFD; font-size: 14px; line-height: 30px; text-align: left;
+                                float: left;">
                                 Latest Members</div>
-                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; font-weight: bold;
-                                text-align: right;">
+                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; text-align: right;">
                                 <%=TGoals%>&nbsp; goals</div>
                         </div>
                         <div style="margin-left: 2px; margin-top: 35px;">
@@ -446,7 +445,7 @@
                                         <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
                                             style="display: none; position: relative; z-index: 10;">
                                             <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
-                                                style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
+                                                style="width: 160px; height: 95px; left: 0px; bottom: 35px;">
                                                 <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
                                                     <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
                                                     </div>
@@ -466,18 +465,19 @@
                                                     </div>
                                                     <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
                                                         <div style="position: static; width: 160px; font-size: 14px;">
-                                                            <div style="float: left; width: 110px;">
+                                                            <div style="float: left; width: 160px;">
+                                                                <img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" /><br />
                                                                 <span class="blue" style="line-height: 27px;">
                                                                     <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
                                                                 </span>
                                                                 <br />
                                                                 <%# DataBinder.Eval(Container.DataItem, "GCount")+ " Goals" %><br />
                                                             </div>
-                                                            <div style="float: left; width: 50px;">
+                                                            <%--<div style="float: left; width: 50px;">
                                                                 <img width="25" height="25" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" />
-                                                            </div>
-                                                            <div style="width: 150px; float: left;">
-                                                                <span class="blue" style="line-height: 27px; font-weight: bold;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
+                                                            </div>--%>
+                                                            <div style="width: 160px; float: left;">
+                                                                <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
                                                                     View Timeline</a></span></div>
                                                         </div>
                                                     </div>
@@ -501,7 +501,7 @@
                     <p class="teaser">
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
-                    <div class="rotatorBackground" style=" padding-top:20px;" >
+                    <div class="rotatorBackground" style="padding-top: 20px;">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
                             CssClass="horizontalRotator" RotatorType="FromCode" ScrollDuration="500" FrameDuration="5000"
                             ItemHeight="216" ItemWidth="232">

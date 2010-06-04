@@ -152,6 +152,7 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             GetTwoWeekAgo();
             GetLastMonth();
             GetLastSixMonth();
+            
         }
 
     }

@@ -870,6 +870,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     //===============================================================
     protected void postCommentButton_click(object sender, EventArgs e)
     {
+        if (Session["loggedInUserID"] == null)
+        {
+            Response.Redirect("~/profile.aspx");
+        }
+
         int eventID = int.Parse(Request.QueryString["EID"]);
         int loggedInUserID = int.Parse(Session["loggedInUserID"].ToString());
 

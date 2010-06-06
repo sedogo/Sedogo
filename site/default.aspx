@@ -508,7 +508,7 @@
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx">
-                                        <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
+                                        <img src='<%# Page.ResolveUrl("~/images/") %>' alt="Customer Image" /></a>
                                 </div>
                             </ItemTemplate>
                         </telerik:RadRotator>

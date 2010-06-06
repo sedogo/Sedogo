@@ -52,24 +52,34 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";
 
-        /*
-        if (user.birthday > DateTime.MinValue)
+        if( userID > 0 )
         {
-            birthdayLabel.Text = user.birthday.ToString("d MMMM yyyy");
-            int userAgeYears = DateTime.Now.Year - user.birthday.Year;
-            DateTime testDate = new DateTime(DateTime.Now.Year, user.birthday.Month, user.birthday.Day);
-            if (testDate > DateTime.Now)
+            birthdayRow.Visible = true;
+            ageLabel.Visible = true;
+
+            if (user.birthday > DateTime.MinValue)
             {
-                userAgeYears--;
+                birthdayLabel.Text = user.birthday.ToString("d MMMM yyyy");
+                int userAgeYears = DateTime.Now.Year - user.birthday.Year;
+                DateTime testDate = new DateTime(DateTime.Now.Year, user.birthday.Month, user.birthday.Day);
+                if (testDate > DateTime.Now)
+                {
+                    userAgeYears--;
+                }
+                ageLabel.Text = userAgeYears.ToString();
             }
-            ageLabel.Text = userAgeYears.ToString();
+            else
+            {
+                birthdayLabel.Text = "";
+                ageLabel.Text = "";
+            }
         }
         else
         {
-            birthdayLabel.Text = "";
-            ageLabel.Text = "";
+            birthdayRow.Visible = false;
+            ageLabel.Visible = false;
         }
-        */
+
         usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
@@ -77,6 +87,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
         BindLatestMembers();
     }
+
     private void BindLatestMembers()
     {
         SedogoNewFun objSNFun = new SedogoNewFun();

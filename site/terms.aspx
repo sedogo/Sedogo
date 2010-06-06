@@ -81,8 +81,6 @@
             <p>The Studio, 17 Blossom St, London, E1 6PL.</p>
             <p>Phone: +44 (0) 20 3393 8404</p>
             <p>Email: info@sedogo.com</p>
-            <br />&nbsp;<br />
-            <a href="javascript:window.close()">Close window</a>
     </div>
     </form>
 

@@ -193,7 +193,7 @@ function termsClientValidation(source, args)
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
-                        <label for=""><asp:HyperLink ID="termsLink" NavigateUrl="terms.aspx" Target="_blank" 
+                        <label for=""><asp:HyperLink ID="termsLink" NavigateUrl="terms.aspx" CssClass="modal" 
                             Text="Terms and conditions" ToolTip="Terms and conditions" runat="server" /></label>
                         <asp:Checkbox runat="server" ID="termsCheckbox"  />
                         <asp:CustomValidator runat="server" ErrorMessage="You must accept the terms and conditions" 

@@ -2,7 +2,6 @@
     Inherits="components_userProfileControl" %>
 
 <script type="text/javascript">	
-    
     function ShowHideDiv(divId)
      {
         var shdiv = document.getElementsByTagName('div');
@@ -27,7 +26,6 @@
             }
         }		
 	 }
-    
 </script>
 
 <div class="userProfileBox">
@@ -35,9 +33,9 @@
         <tr>
             <td>
                 <h1 class="blue">
-                    <asp:Label runat="server" ID="firstNameLabel" />'s profile&nbsp;<a href="mailto:"><img
-                        src="images/messages.gif" alt="" /></a>&nbsp;<asp:HyperLink ID="usersProfileNameLabel"
-                            Text="View Timeline" runat="server" /></h1>
+                    <asp:Label runat="server" ID="firstNameLabel" />'s profile<br />
+                    </h1>
+                    <asp:HyperLink ID="usersProfileNameLabel" Text="View Timeline" runat="server" CssClass="blue" />
             </td>
             <td align="right">
                 <table border="0" cellspacing="2" cellpadding="2">
@@ -59,53 +57,24 @@
             <td>
                 <table border="0" cellspacing="2" cellpadding="2">
                     <tr>
-                        <td>
-                            Age
-                        </td>
-                        <td>
-                            &nbsp;&nbsp;
-                        </td>
-                        <td>
-                            <asp:Label runat="server" ID="ageLabel" />
-                        </td>
+                        <td>Home town:</td>
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="homeTownLabel" /></td>
                     </tr>
-                    <tr>
-                        <td>
-                            Birthday
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <asp:Label runat="server" ID="birthdayLabel" />
-                        </td>
+                    <tr id="birthdayRow" runat="server">
+                        <td>Birthday:</td>
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="birthdayLabel" /></td>
                     </tr>
-                    <tr>
-                        <td>
-                            Home town
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <asp:Label runat="server" ID="homeTownLabel" />
-                        </td>
+                    <tr id="ageRow" runat="server">
+                        <td>Age:</td>
+                        <td>&nbsp;</td>
+                        <td><asp:Label runat="server" ID="ageLabel" /></td>
                     </tr>
                     <tr>
                         <td colspan="3">
                             <br />
                             <asp:Label runat="server" ID="headlineLabel" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <br />
-                            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="#" CssClass="blue" Font-Bold="true"
-                                Font-Size="14px" Text="www.test.com"></asp:HyperLink>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <asp:HyperLink ID="hyEdit" runat="server" NavigateUrl="~/editProfile.aspx" CssClass="blue"
-                                Font-Bold="true" Font-Size="15px" Text="Edit"></asp:HyperLink>
                         </td>
                     </tr>
                 </table>
@@ -122,13 +91,7 @@
                 &nbsp;
             </td>
             <td width="262">
-                <div style="width: 100%;">
-                    <div style="color: #00BFFD; font-size: 14px; line-height: 30px; font-weight: bold;
-                        text-align: left; float: left;">
-                        <img src="images/addpicture.gif">
-                        Add /View</div>
-                </div>
-                <div style="margin-left: 2px; clear: both;">
+                <div style="margin-left: 2px; clear: both;visibility:hidden;">
                     <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
                         DataKeyField="UserId">
                         <ItemTemplate>
@@ -186,12 +149,6 @@
                     </asp:DataList></div>
             </td>
             <td width="206">
-                <div style="width: 100%;">
-                    <div style="font-size: 14px; line-height: 17px; font-weight: bold; text-align: left;
-                        float: left;">
-                        <asp:HyperLink ID="uploadProfilePicButton" runat="server" ToolTip="save" Text="Upload profile picture"
-                            NavigateUrl="~/uploadProfilePic.aspx" CssClass="button-sml modal" /></div>
-                </div>
                 <br />
                 <br />
                 <div class="userProfileBox" style="height: 145px;">

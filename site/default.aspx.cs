@@ -147,30 +147,6 @@ public partial class _default : System.Web.UI.Page
     }
 
     //===============================================================
-    // Function: searchButton_click
-    //===============================================================
-    //protected void searchButton_click(object sender, EventArgs e)
-    //{
-    //    string searchText = what2.Text;
-
-    //    if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
-    //    {
-    //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
-    //    }
-    //    else
-    //    {
-    //        if (searchText.Length >= 2)
-    //        {
-    //            Response.Redirect("search.aspx?Search=" + searchText.ToString());
-    //        }
-    //        else
-    //        {
-    //            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a longer search term\");", true);
-    //        }
-    //    }
-    //}
-
-    //===============================================================
     // Function: PopulateEvents
     //===============================================================
     protected void PopulateEvents()

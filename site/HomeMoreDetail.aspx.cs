@@ -324,7 +324,30 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderToday.Controls.Add(eventHyperlink);
             Literal ltEvent6 = new Literal();
-            ltEvent6.Text = "<span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            string memberFollowerString = " - ";
+            if (MemCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += MemCount + " member ";
+                }
+                else
+                {
+                    memberFollowerString += MemCount + " members ";
+                }
+            }
+            if (FolCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += FolCount + " follower ";
+                }
+                else
+                {
+                    memberFollowerString += FolCount + " followers ";
+                }
+            }
+            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
             PlaceHolderToday.Controls.Add(ltEvent6);
             PlaceHolderToday.Controls.Add(new LiteralControl("<br/>"));
         }
@@ -364,7 +387,30 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderThisWeek.Controls.Add(eventHyperlink);
             Literal ltEvent6 = new Literal();
-            ltEvent6.Text = "<span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            string memberFollowerString = " - ";
+            if (MemCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += MemCount + " member ";
+                }
+                else
+                {
+                    memberFollowerString += MemCount + " members ";
+                }
+            }
+            if (FolCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += FolCount + " follower ";
+                }
+                else
+                {
+                    memberFollowerString += FolCount + " followers ";
+                }
+            }
+            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
             PlaceHolderThisWeek.Controls.Add(ltEvent6);
             PlaceHolderThisWeek.Controls.Add(new LiteralControl("<br/>"));
         }
@@ -406,7 +452,30 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
             Literal ltEvent6 = new Literal();
-            ltEvent6.Text = "<span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            string memberFollowerString = " - ";
+            if (MemCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += MemCount + " member ";
+                }
+                else
+                {
+                    memberFollowerString += MemCount + " members ";
+                }
+            }
+            if (FolCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += FolCount + " follower ";
+                }
+                else
+                {
+                    memberFollowerString += FolCount + " followers ";
+                }
+            }
+            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
             PlaceHolderTwoWeekAgo.Controls.Add(ltEvent6);
             PlaceHolderTwoWeekAgo.Controls.Add(new LiteralControl("<br/>"));
         }
@@ -448,7 +517,30 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderLastMonth.Controls.Add(eventHyperlink);
             Literal ltEvent = new Literal();
-            ltEvent.Text = "<span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            string memberFollowerString = " - ";
+            if (MemCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += MemCount + " member ";
+                }
+                else
+                {
+                    memberFollowerString += MemCount + " members ";
+                }
+            }
+            if (FolCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += FolCount + " follower ";
+                }
+                else
+                {
+                    memberFollowerString += FolCount + " followers ";
+                }
+            }
+            ltEvent.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
             PlaceHolderLastMonth.Controls.Add(ltEvent);
             PlaceHolderLastMonth.Controls.Add(new LiteralControl("<br/>"));
         }
@@ -492,7 +584,30 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);
             Literal ltEvent6 = new Literal();
-            ltEvent6.Text = "<span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            string memberFollowerString = " - ";
+            if (MemCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += MemCount + " member ";
+                }
+                else
+                {
+                    memberFollowerString += MemCount + " members ";
+                }
+            }
+            if (FolCount != "0")
+            {
+                if (MemCount == "1")
+                {
+                    memberFollowerString += FolCount + " follower ";
+                }
+                else
+                {
+                    memberFollowerString += FolCount + " followers ";
+                }
+            }
+            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
             PlaceHolderLastSixMonth.Controls.Add(ltEvent6);
             PlaceHolderLastSixMonth.Controls.Add(new LiteralControl("<br/>"));
         }

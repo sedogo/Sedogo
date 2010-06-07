@@ -489,7 +489,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="images/grayRect.jpg" alt="" height="33" width="33" style="cursor: pointer;
+                                        <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" alt="" height="33" width="33" style="cursor: pointer;
                                             padding-bottom: 6px; padding-right: 6px;" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                                 </ItemTemplate>
                             </asp:DataList></div>

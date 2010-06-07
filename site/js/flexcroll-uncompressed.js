@@ -227,10 +227,25 @@ dDv.commitScroll=dDv.contentScroll=function(xPos,yPos,relative){
 };
 
 if(sPage=="HomeMoreDetail.aspx" || sPage=="MoreDetail.aspx")
+    {
+        $('#imgMngT').click();        
+    }
+else if (sPage!="search2.aspx" || sPage!="userTimeline.aspx")   
+    {
+     try {
+      if (MyTimelineClose)
+      {
+        if(MyTimelineClose == 'yes')
         {
-            $('#imgMngT').click();        
+         $('#imgMngT').click();  
         }
-
+       }
+     }
+     catch (err)
+     {   
+        MyTimelineClose = "";
+     } 
+   }   
 
 dDv.scrollToElement=function(tEM){
 if(tEM==null||!isddvChild(tEM)) return;

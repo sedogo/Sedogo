@@ -166,13 +166,16 @@ public partial class _default : System.Web.UI.Page
             DataTable dt = dtAllUsrs.Copy();
             dlMember.DataSource = dtAllUsrs;
             dlMember.DataBind();
-            for (cnt = 0; cnt < dtAllUsrs.Rows.Count; cnt++)
-            {
-                if (Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != null && Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != "")
-                {
-                    TGoals = TGoals + Convert.ToInt64(dtAllUsrs.Rows[cnt]["gcount"]);
-                }
-            }
+
+            //for (cnt = 0; cnt < dtAllUsrs.Rows.Count; cnt++)
+            //{
+            //    if (Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != null && Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != "")
+            //    {
+            //        TGoals = TGoals + Convert.ToInt64(dtAllUsrs.Rows[cnt]["gcount"]);
+            //    }
+            //}
+
+            TGoals = Convert.ToInt64(dtAllUsrs.Rows[0]["mcount"]);
         }
         else
         {

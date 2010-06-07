@@ -66,13 +66,11 @@ $(document).ready(function() {
             	{  
             	    myMain.css("height","265px");   
             	    mySMain.css("height","265px");   
-            	    if(sPage=="MoreDetail.aspx" || sPage=="HomeMoreDetail.aspx")
-            	    {
-            	        if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
-                        {
-		                performFiltering(tl, [1, 2], document.getElementById("table-filter"));
-		                }            	
-            	    }         	
+
+        	        if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
+                    {
+	                    performFiltering(tl, [1, 2], document.getElementById("table-filter"));
+	                }
             	}
             	
             	 

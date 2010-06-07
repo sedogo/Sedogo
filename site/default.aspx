@@ -435,7 +435,7 @@
                                 float: left;">
                                 Latest Members</div>
                             <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; text-align: right;">
-                                <%=TGoals%>&nbsp; goals</div>
+                                <%=TGoals%>&nbsp; members</div>
                         </div>
                         <div style="margin-left: 2px; margin-top: 35px;">
                             <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"

@@ -26,6 +26,7 @@ $(document).ready(function() {
             	    myDiv4.css("top","10px");
             	    myDiv5.css("top","42px");
             	    myMain.css("height","308px");            	    
+            	    mySMain.css("height","308px");
             	    
             	    if(document.getElementById('divouter-5').style.display == 'none')
             	    {            	    

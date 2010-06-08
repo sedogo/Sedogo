@@ -34,8 +34,8 @@
             <td>
                 <h1 class="blue">
                     <asp:Label runat="server" ID="firstNameLabel" />'s profile<br />
-                    </h1>
-                    <asp:HyperLink ID="usersProfileNameLabel" Text="View Timeline" runat="server" CssClass="blue" />
+                </h1>
+                <asp:HyperLink ID="usersProfileNameLabel" Text="View Timeline" runat="server" CssClass="blue" />
             </td>
             <td align="right">
                 <table border="0" cellspacing="2" cellpadding="2">
@@ -57,19 +57,37 @@
             <td>
                 <table border="0" cellspacing="2" cellpadding="2">
                     <tr>
-                        <td>Home town:</td>
-                        <td>&nbsp;</td>
-                        <td><asp:Label runat="server" ID="homeTownLabel" /></td>
+                        <td>
+                            Home town:
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:Label runat="server" ID="homeTownLabel" />
+                        </td>
                     </tr>
                     <tr id="birthdayRow" runat="server">
-                        <td>Birthday:</td>
-                        <td>&nbsp;</td>
-                        <td><asp:Label runat="server" ID="birthdayLabel" /></td>
+                        <td>
+                            Birthday:
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:Label runat="server" ID="birthdayLabel" />
+                        </td>
                     </tr>
                     <tr id="ageRow" runat="server">
-                        <td>Age:</td>
-                        <td>&nbsp;</td>
-                        <td><asp:Label runat="server" ID="ageLabel" /></td>
+                        <td>
+                            Age:
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <asp:Label runat="server" ID="ageLabel" />
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="3">
@@ -91,7 +109,7 @@
                 &nbsp;
             </td>
             <td width="262">
-                <div style="margin-left: 2px; clear: both;visibility:hidden;">
+                <div style="margin-left: 2px; margin-top: 30px; clear: both; visibility: hidden;">
                     <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
                         DataKeyField="UserId">
                         <ItemTemplate>
@@ -143,8 +161,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img src="images/grayRect.jpg" alt="" height="33" width="33" style="cursor: pointer;
-                                    padding-bottom: 6px; padding-right: 6px;" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
+                                    alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
+                                    onerror="this.src='images/eventThumbnailBlank.png'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                         </ItemTemplate>
                     </asp:DataList></div>
             </td>

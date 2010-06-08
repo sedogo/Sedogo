@@ -125,7 +125,6 @@
         
         }
     </script>
-    
 
 </head>
 <body onload="resetFlash()">
@@ -149,7 +148,8 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="2">
                         <tr>
                             <td width="485px">
-                                <p style="font-style: italic; color: #ccc; margin: 10px 0 4px 0; font-size: 11px; width:485px;">
+                                <p style="font-style: italic; color: #ccc; margin: 10px 0 4px 0; font-size: 11px;
+                                    width: 485px;">
                                     Edited
                                     <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
                                 <table width="485px" class="summary">
@@ -216,12 +216,14 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div id="sendMessageDiv" runat="server" style="border:solid 0px green;width:485px;clear:both;">
+                                <div id="sendMessageDiv" runat="server" style="border: solid 0px green; width: 485px;
+                                    clear: both;">
                                     <asp:HyperLink ID="sendMessageButton" runat="server" Visible="false" NavigateUrl="javascript:sendMessage();">Send Message</asp:HyperLink>
                                 </div>
-                                <div class="pinstripe-divider" style="border:solid 0px green;width:485px;">
+                                <div class="pinstripe-divider" style="border: solid 0px green; width: 485px;">
                                     &nbsp;</div>
-                                <div class="eventCommentBox" style="float: left;width:485px;border:solid 0px red;" id="eventCommentBox" runat="server">
+                                <div class="eventCommentBox" style="float: left; width: 485px; border: solid 0px red;"
+                                    id="eventCommentBox" runat="server">
                                     <table width="485px" border="0" cellspacing="2" cellpadding="2">
                                         <tr>
                                             <td colspan="2">
@@ -306,12 +308,13 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div id="invitedPanel" runat="server" style="margin-top: 10px;border:solid 0px green;width:485px;clear:both;">
+                                <div id="invitedPanel" runat="server" style="margin-top: 10px; border: solid 0px green;
+                                    width: 485px; clear: both;">
                                     <asp:LinkButton ID="invitedButton" runat="server" ToolTip="join now" Text="You have been invited to join this goal - join now"
                                         OnClick="invitedButton_click" CssClass="button-sml" />
                                 </div>
-                                <div id="loginRegisterPanel" runat="server" style="border: solid 1px #CCCCCC;width:485px;padding-top: 10px;
-                                    margin-bottom: 10px;clear:both;">
+                                <div id="loginRegisterPanel" runat="server" style="border: solid 1px #CCCCCC; width: 485px;
+                                    padding-top: 10px; margin-bottom: 10px; clear: both;">
                                     <p>
                                         You must be logged in to view the full details or to add comments to this event.<br />
                                         <a href="login.aspx" class="modal">Click here to login</a><br />
@@ -329,29 +332,28 @@
                                         Text="Edit picture" CssClass="underline-bold" />
                                 </div>
                                 <div id="eventLinksDiv" runat="server">
-                                    <div class="eventRightColBox" id="actionsBox" runat="server">
-                                        <p>
-                                            <img src="images/share.gif" />
-                                            <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
-                                                OnClick="click_shareButton" /></p>
-                                    </div>
                                     <div class="eventRightColBox" id="invitesBox" runat="server">
                                         <h3 id="invitesHeader" runat="server" class="invites-header">
                                             Invites:</h3>
                                         <p>
                                             <asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
                                             <img src="images/invite.gif" />
-                                            <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite People"
+                                            <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
                                                 CssClass="underline-bold" /></p>
+                                        <p style="margin-bottom: 5px;">
+                                            <br />
+                                            <img src="images/share.gif" alt="" />
+                                            <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
+                                                OnClick="click_shareButton" /></p>
                                     </div>
-                                    <h3 id="trackingHeader" runat="server" class="requests-header">
+                                    <h3 id="trackingHeader" runat="server" class="requests-header" style="margin-top: 15px;">
                                         Members:</h3>
                                     <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
                                     <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:HyperLink
                                         ID="messageTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageTrackingUsers();" />
                                     <div class="pinstripe-divider">
                                         &nbsp;</div>
-                                    <h3 id="H1" runat="server" class="following-header">
+                                    <h3 id="H1" runat="server" class="following-header" style="margin-top: 15px;">
                                         Following:</h3>
                                     <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
                                     <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:HyperLink
@@ -361,17 +363,17 @@
                                         &nbsp;</div>
                                     <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                                     <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
-                                    <h3 id="alertsHeader" runat="server" class="reminders-header">
-                                        Reminders</h3>
-                                    <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
-                                    <div style="margin-top: 10px">
-                                        <asp:HyperLink ID="alertsLink" runat="server" NavigateUrl="javascript:eventAlerts();"
-                                            Text="Edit reminders" CssClass="underline-bold" /></div>
-                                    <div class="pinstripe-divider" id="alertsSeperator" runat="server">
-                                        &nbsp;</div>
-                                    <h3 id="requestsHeader" runat="server" class="requests-header">
+                                    <h3 id="requestsHeader" runat="server" class="requests-header" style="margin-top: 15px;">
                                         Requests:</h3>
                                     <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
+                                    <div class="pinstripe-divider" id="alertsSeperator" runat="server">
+                                        &nbsp;</div>
+                                    <h3 id="alertsHeader" runat="server" class="reminders-header" style="margin-top: 15px;">
+                                        Reminders</h3>
+                                    <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
+                                    <div style="margin-top: 10px; text-align: right;">
+                                        <asp:HyperLink ID="alertsLink" runat="server" NavigateUrl="javascript:eventAlerts();"
+                                            Text="Edit" CssClass="underline-bold" /></div>
                                     <div class="pinstripe-divider">
                                         &nbsp;</div>
                                     <div>
@@ -387,8 +389,8 @@
                                             CssClass="button-sml" /><br />
                                         &nbsp;<br />
                                         &nbsp;
-                                        <asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete goal"
-                                            OnClick="deleteEventButton_click" CssClass="button-sml" /><br />
+                                        <asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete Goal"
+                                            OnClick="deleteEventButton_click" CssClass="underline-bold" /><br />
                                         &nbsp;<br />
                                         &nbsp;
                                     </div>

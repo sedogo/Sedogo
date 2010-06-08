@@ -117,7 +117,7 @@
                                 <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
                                     style="display: none; position: relative; z-index: 10;">
                                     <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
-                                        style="width: 160px; height: 95px; left: 0px; bottom: 35px;">
+                                        style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
                                         <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
                                             <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
                                             </div>
@@ -138,8 +138,9 @@
                                             <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
                                                 <div style="position: static; width: 160px; font-size: 14px;">
                                                     <div style="float: left; width: 160px;">
-                                                        <img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" /><br />
-                                                        <span class="blue" style="line-height: 27px;">
+                                                        <%--<img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
+                                                            onerror="this.src='images/profile/blankProfile.jpg'" /><br />--%>
+                                                        <span class="blue" style="line-height: 20px;">
                                                             <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
                                                         </span>
                                                         <br />
@@ -149,8 +150,8 @@
                                                         <img width="25" height="25" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" />
                                                     </div>--%>
                                                     <div style="width: 160px; float: left;">
-                                                        <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'>
-                                                            View Timeline</a></span></div>
+                                                        <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'
+                                                            style="text-decoration: underline;">View Timeline</a></span></div>
                                                 </div>
                                             </div>
                                             <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
@@ -163,7 +164,7 @@
                                 </div>
                                 <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
                                     alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                    onerror="this.src='images/eventThumbnailBlank.png'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                    onerror="this.src='images/profile/blankProfile.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                         </ItemTemplate>
                     </asp:DataList></div>
             </td>

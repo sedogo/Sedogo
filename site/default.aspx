@@ -466,7 +466,8 @@
                                                     <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
                                                         <div style="position: static; width: 160px; font-size: 14px;">
                                                             <div style="float: left; width: 160px;">
-                                                                <img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" /><br />
+                                                                <img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
+                                                                    onerror="this.src='images/grayRect.jpg'" /><br />
                                                                 <span class="blue" style="line-height: 27px;">
                                                                     <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
                                                                 </span>
@@ -491,7 +492,7 @@
                                         </div>
                                         <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
                                             alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                         onerror="this.src='images/eventThumbnailBlank.png'"   onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                            onerror="this.src='images/grayRect.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                                 </ItemTemplate>
                             </asp:DataList></div>
                     </div>

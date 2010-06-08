@@ -121,7 +121,5 @@ namespace Sedogo.BusinessObjects
                 conn.Close();
             }
         }
-
-
     }
 }

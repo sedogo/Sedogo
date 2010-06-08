@@ -489,8 +489,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" alt="" height="33" width="33" style="cursor: pointer;
-                                            padding-bottom: 6px; padding-right: 6px;" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                        <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
+                                            alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
+                                         onerror="this.src='images/eventThumbnailBlank.png'"   onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
                                 </ItemTemplate>
                             </asp:DataList></div>
                     </div>
@@ -503,12 +504,11 @@
                             get ideas</a></p>
                     <div class="rotatorBackground" style="padding-top: 20px;">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
-                            CssClass="horizontalRotator" RotatorType="FromCode" ScrollDuration="500" FrameDuration="5000"
-                            ItemHeight="216" ItemWidth="232">
+                            CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx">
-                                        <img src='<%# Page.ResolveUrl("~/images/") %>' alt="Customer Image" /></a>
+                                        <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
                                 </div>
                             </ItemTemplate>
                         </telerik:RadRotator>

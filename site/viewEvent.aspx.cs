@@ -45,7 +45,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 loggedInUserName = Session["loggedInUserFullName"].ToString();
             }
             string action = "";
-            if( Request.QueryString["A"] != null )
+            if (Request.QueryString["A"] != null)
             {
                 action = (string)Request.QueryString["A"];
             }
@@ -286,7 +286,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         messagesLink.Text = "You have " + messageCount.ToString() + " new messages";
                     }
-                    inviteCountLabel.Text = pendingInviteCount.ToString() + " pending";
+                    inviteCountLabel.Text = "&nbsp;&nbsp;" + pendingInviteCount.ToString() + " pending";
 
                     trackThisEventLink.Visible = false;
                     joinThisEventLink.Visible = false;  // You cannot join your own event
@@ -365,7 +365,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             DateTime startDate = sedogoEvent.startDate;
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
-            
+
             eventTitleLabel.Text = sedogoEvent.eventName;
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
             if (sedogoEvent.userID != userID)
@@ -526,7 +526,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 }
 
                 string outputText = "<p style=\"clear:both;border:solid 0px blue;width:499px;padding-top:15px\"><img src=\"" + profileImage + "\" width=\"17\" style=\"margin-right:4px\" />&nbsp;";
-                if( postedByUserID < 0 || postedByUserID == currentUserID )
+                if (postedByUserID < 0 || postedByUserID == currentUserID)
                 {
                     outputText = outputText + "<a href=\"profile.aspx\"";
                     outputText = outputText + " target=\"_top\">" + postedByUsername + "</a>";
@@ -654,10 +654,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     if (loggedInUserID == sedogoEvent.userID)
                     {
                         // This is my event!
-                        outputText = outputText + " <a href=\"javascript:confirmDelete(" 
+                        outputText = outputText + " <a href=\"javascript:confirmDelete("
                             + eventID.ToString() + "," + trackedEventID.ToString() + ")\">"
                             + "<img src=\"images/remove.gif\" /></a> ";
-                    } 
+                    }
                     else if (loggedInUserID == userID)
                     {
                         // I am the tracker
@@ -772,7 +772,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                             + eventID.ToString()
                             + "&TEID=" + trackedEventID.ToString() + "\">"
                             + "<img src=\"images/acceptachieve.gif\" /></a> ";
-                        
+
                     }
                     else if (loggedInUserID == userID)
                     {

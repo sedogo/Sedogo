@@ -255,8 +255,8 @@
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            <sedogo:bannerlogincontrol id="bannerLogin" runat="server" />
+            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
             <div id="noSearchResultsDiv" runat="server" class="errorMessage">
                 <p>
                     <b>&nbsp;<br />
@@ -314,7 +314,7 @@
                             </div>
                         </div>
                         <div class="goal_cat_bg_co14">
-                            <a href="help.aspx" title="help" class="modal">
+                            <a href="help.aspx" title="help">
                                 <img src="images/help.png" onmouseover="this.src='images/help_rollover.png'; this.style.cursor='pointer';"
                                     onmouseout="this.src='images/help.png'" alt="" /></a></div>
                     </div>
@@ -353,7 +353,7 @@
                 <div class="one-col-end">
                 </div>
             </div>
-            <Sedogo:FooterControl ID="footerControl" runat="server" />
+            <sedogo:footercontrol id="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -364,6 +364,6 @@
         </div>
     </div>
     </form>
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
 </body>
 </html>

@@ -294,12 +294,7 @@
     function viewUserTimeline(eventUserID)
     {
         location.href = "userTimeline.aspx?UID=" + eventUserID;
-    }
-    function openEvent(eventID)
-    {
-        location.href = "viewEvent.aspx?EID=" + eventID;
-    }    
-        
+    }   
     function doSendMessage(srhUserID)
     {        
         openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
@@ -349,8 +344,8 @@ function showhide(layer_ref)
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            <sedogo:bannerlogincontrol id="bannerLogin" runat="server" />
+            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
             <div id="advSearchCriteria">
                 <table border="0" cellspacing="10" cellpadding="0" width="100%" class="advanced-search-table">
                     <tr>
@@ -531,7 +526,7 @@ function showhide(layer_ref)
                         </div>
                     </div>
                     <div class="goal_cat_bg_co14">
-                        <a href="help.aspx" title="help" class="modal">
+                        <a href="help.aspx" title="help">
                             <img src="images/help.png" onmouseover="this.src='images/help_rollover.png'; this.style.cursor='pointer';"
                                 onmouseout="this.src='images/help.png'" alt="" /></a></div>
                 </div>
@@ -558,10 +553,10 @@ function showhide(layer_ref)
                 <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
         </div>
         <div id="other-content">
-            <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
-            <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
+            <sedogo:sidebarcontrol id="sidebarControl" runat="server" />
+            <sedogo:eventslistcontrol id="eventsListControl" runat="server" />
         </div>
-        <Sedogo:FooterControl ID="footerControl" runat="server" />
+        <sedogo:footercontrol id="footerControl" runat="server" />
     </div>
     <div id="modal-container">
         <a href="#" class="close-modal">
@@ -571,6 +566,6 @@ function showhide(layer_ref)
     <div id="modal-background">
     </div>
     </form>
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
 </body>
 </html>

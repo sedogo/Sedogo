@@ -343,7 +343,7 @@
                             </div>
                         </div>
                         <div class="goal_cat_bg_co14">
-                            <a href="help.aspx" title="help" class="modal">
+                            <a href="help.aspx" title="help">
                                 <img src="images/help.png" onmouseover="this.src='images/help_rollover.png'; this.style.cursor='pointer';"
                                     onmouseout="this.src='images/help.png'" alt="" /></a></div>
                     </div>

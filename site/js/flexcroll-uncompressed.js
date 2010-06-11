@@ -21,7 +21,7 @@ End of license text---
 //fleXcroll v1.9.5f
 var fleXenv={
 //*New
-//fleXcrollInit:function(){if (SimileAjax.Platform.browser.isIE) {this.addTrggr(window,'load',this.globalInit)}else{this.addTrggr(window,'load',setTimeout(this.globalInit,1828))};},
+//fleXcrollInit:function(){if (SimileAjax.Platform.browser.isIE) {this.addTrggr(window,'load',this.globalInit)}else{this.addTrggr(window,'load',setTimeout(this.globalInit,2000))};},
 fleXcrollInit:function(){this.addTrggr(window,'load',this.globalInit);},
 
 fleXcrollMain:function(dDv){
@@ -222,28 +222,29 @@ dDv.commitScroll=dDv.contentScroll=function(xPos,yPos,relative){
 	var reT=[[false,false],[false,false]],Bar;
 	if((xPos||xPos===0)&&sC.scroller[0]){xPos=calcCScrollVal(xPos,0);Bar=tDv.hrz.sBr;Bar.trgtScrll=(relative)?Math.min(Math.max(Bar.mxScroll,Bar.trgtScrll-xPos),0):-xPos;Bar.contentScrollPos();reT[0]=[-Bar.trgtScrll-Bar.targetSkew,-Bar.mxScroll]}
 	if((yPos||yPos===0)&&sC.scroller[1]){yPos=calcCScrollVal(yPos,1);Bar=tDv.vrt.sBr;Bar.trgtScrll=(relative)?Math.min(Math.max(Bar.mxScroll,Bar.trgtScrll-yPos),0):-yPos;Bar.contentScrollPos();reT[1]=[-Bar.trgtScrll-Bar.targetSkew,-Bar.mxScroll]}
-	if(!relative) sC.edge[0]=sC.edge[1]=false;	
+	if(!relative) sC.edge[0]=sC.edge[1]=false;
+	
 	return reT;
 };
 
-if(sPage=="HomeMoreDetail.aspx" || sPage=="MoreDetail.aspx")
+if(sPage == "HomeMoreDetail.aspx" || sPage == "MoreDetail.aspx")
     {
         $('#imgMngT').click();        
     }
-else if (sPage!="search2.aspx" || sPage!="userTimeline.aspx")   
+if (sPage!="search2.aspx" || sPage!="userTimeline.aspx")   
     {
      try {
       if (MyTimelineClose)
-      {
+       {
         if(MyTimelineClose == 'yes')
-        {
+         {
          $('#imgMngT').click();  
-        }
+         }
        }
      }
      catch (err)
      {   
-        MyTimelineClose = "";
+        
      } 
    }   
 
@@ -499,9 +500,21 @@ function classChange(elem,addClass,remClass) {
 	if (remClass) clsnm = clsnm.replace(RegExp("((^|\\s)+"+remClass+")+($|\\s)","g"),'$2').replace(/\s$/,'');
 	elem.className=clsnm;
 	};
+	
+if (!SimileAjax.Platform.browser.isIE)
+    {
+    maxWindow();
+    }	
+	
 },
 //main code end
 globalInit:function(){
+
+if (!SimileAjax.Platform.browser.isIE)
+{
+    window.resizeTo(1000,1000);
+}
+
 if(fleXenv.catchFastInit) window.clearInterval(fleXenv.catchFastInit);
 var regg=/#([^#.]*)$/,urlExt=/(.*)#.*$/,matcH,i,anchoR,anchorList=document.getElementsByTagName("a"),urlBase=document.location.href;
 if(urlBase.match(urlExt)) urlBase=urlBase.match(urlExt)[1];
@@ -528,7 +541,7 @@ if(anchoR.href&&anchoR.href.match(regg)&&anchoR.href.match(urlExt)&&urlBase===an
 	};
 };
 fleXenv.initByClass();
-if(window.onfleXcrollRun) window.onfleXcrollRun();
+if(window.onfleXcrollRun) window.onfleXcrollRun();    
 },
 
 initByClass:function(){
@@ -569,3 +582,9 @@ remChckTrggr:function(elm,eventname,func){if(elm.removeEventListener){elm.remove
 
 function CSBfleXcroll(targetId){fleXenv.fleXcrollMain(targetId)};
 fleXenv.fleXcrollInit();
+
+function maxWindow()
+{
+window.moveTo(0,0);
+window.resizeTo(screen.width, screen.height);
+}

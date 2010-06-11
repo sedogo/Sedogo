@@ -59,7 +59,7 @@ $(document).ready(function() {
             	    
             	    if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
                     {
-		            performFiltering(tl, [1, 2, 3, 4, 5, 6], document.getElementById("table-filter"));
+		            performFiltering(tl, [1, 2, 3, 4, 5], document.getElementById("table-filter"));
 		            }
             	}
             	else
@@ -73,7 +73,12 @@ $(document).ready(function() {
 	                }
             	}
             	
-            	 
+            	if (!SimileAjax.Platform.browser.isIE)
+                {
+            	window.resizeTo(1000,1000);
+            	window.moveTo(0,0);
+                window.resizeTo(screen.width, screen.height);
+            	} 
             	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
 		        return false;
 	        }	                     

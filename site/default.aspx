@@ -215,6 +215,14 @@
     {
         location.href = "viewEvent.aspx?EID=" + eventID;
     }
+    function viewProfile(eventUserID)
+    {
+        location.href = "userProfile.aspx?UID=" + eventUserID;
+    }
+    function viewUserTimeline(eventUserID)
+    {
+        location.href = "userTimeline.aspx?UID=" + eventUserID;
+    }
     function doAddEvent()
     {
         location.href = "login.aspx";
@@ -317,8 +325,8 @@
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
-            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            <sedogo:bannerlogincontrol id="BannerLoginControl1" runat="server" />
+            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
             <div id="timelines">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -367,7 +375,7 @@
                             </div>
                         </div>
                         <div class="goal_cat_bg_co14">
-                            <a href="help.aspx" title="help" class="modal">
+                            <a href="help.aspx" title="help">
                                 <img src="images/help.png" onmouseover="this.src='images/help_rollover.png'; this.style.cursor='pointer';"
                                     onmouseout="this.src='images/help.png'" alt="" /></a></div>
                     </div>
@@ -501,19 +509,19 @@
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
                     <div class="rotatorBackground" style="padding-top: 20px;">
-                        <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
-                            CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
+                        <telerik:radrotator id="eventRotator" runat="server" width="232px" height="216px"
+                            cssclass="horizontalRotator" rotatortype="FromCode" itemheight="216" itemwidth="232">
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx">
                                         <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
                                 </div>
                             </ItemTemplate>
-                        </telerik:RadRotator>
+                        </telerik:radrotator>
                     </div>
                 </div>
             </div>
-            <Sedogo:FooterControl ID="footerControl" runat="server" />
+            <sedogo:footercontrol id="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -524,6 +532,6 @@
         </div>
     </div>
     </form>
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
 </body>
 </html>

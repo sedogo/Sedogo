@@ -277,11 +277,27 @@
 	{
 		location.href = "viewEvent.aspx?EID=" + eventID;
 	}
+	
+	function viewProfile(eventUserID)
+    {
+        location.href = "userProfile.aspx?UID=" + eventUserID;
+    }
 	function doAddEvent()
 	{
 	    var form = document.forms[0];
 	    location.href = "addEvent.aspx?Name=" + form.what.value;
-	}	
+	}
+	
+	function ShowDiv()
+     {         
+		document.getElementById ('divPSummary').style.display='block';
+	 }
+	 
+	function HideDiv()
+	{
+	    document.getElementById ('divPSummary').style.display='none';
+	} 
+		
     </script>
 
     <script type="text/JavaScript">
@@ -298,8 +314,8 @@
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            <sedogo:bannerlogincontrol id="bannerLogin" runat="server" />
+            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
             <div id="timelines" style="margin-bottom: 6px">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -366,9 +382,9 @@
                 </div>
             </div>
             <div style="height: 34px; position: relative">
-                <div class="misc-pop-up">
+                <div class="misc-pop-up" id="divPSummary">
                     <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
-                        style="width: 260px; height: 142px; left: 0px; bottom: 68px;">
+                        style="width: 260px; height: 190px; left: 0px; bottom: 68px;">
                         <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
                             <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
                             </div>
@@ -389,19 +405,19 @@
                             <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
                                 <div style="position: static; width: 260px;">
                                     <div class="timeline-event-bubble-title">
-                                        <asp:HyperLink ID="userProfilePopupMessageLink" ImageUrl="~/images/messages.gif"
-                                            runat="server" CssClass="modal" /></div>
+                                        <asp:Label ID="lblUName" runat="server" />&nbsp;&nbsp;<asp:HyperLink ID="userProfilePopupMessageLink"
+                                            ImageUrl="~/images/ico_messages.gif" runat="server" CssClass="modal" /></div>
                                     <div class="timeline-event-bubble-body">
                                         <asp:Image ID="userProfileThumbnailPic" runat="server" />
                                         <p style="font-size: 12px; color: #666; margin-bottom: 8px">
                                             <asp:Label ID="usersProfileDescriptionLabel" runat="server" /></p>
                                         <p style="font-size: 12px;">
-                                            Birthday: <span class="blue">
+                                            <%--Birthday: <span class="blue">
                                                 <asp:Label ID="birthdayLabel" runat="server" /></span><br />
                                             Home town: <span class="blue">
                                                 <asp:Label ID="homeTownLabel" runat="server" /></span><br />
-                                            <span class="blue">
-                                                <asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
+                                            <span class="blue">--%>
+                                            <asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
                                             <span class="blue">
                                                 <asp:Label ID="userProfilePopupGoalsAchievedLabel" runat="server" /></span>
                                             Goals Achieved<br />
@@ -413,6 +429,11 @@
                                             Goals Followed
                                         </p>
                                     </div>
+                                    <div style="clear: both;">
+                                        <br />
+                                        <asp:HyperLink ID="usersProfileNameLabel" runat="server" />&nbsp;&nbsp;
+                                        <asp:HyperLink ID="userViewProfile" runat="server" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
@@ -423,20 +444,18 @@
                         </div>
                     </div>
                 </div>
-                <asp:HyperLink ID="usersProfileNameLabel" runat="server" />
-                <%--<a href="#" title="" style="padding: 4px 24px 4px 0; background: url(images/messages.gif) no-repeat right"
-                    class="misc-pop-up-link">
-                    <asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>--%>
+                <a href="#" title="" class="misc-pop-up-link" onmouseover="ShowDiv()">
+                    <asp:Label ID="usersProfileLinkNameLabel" runat="server" /></a>
             </div>
             <div class="controls" id="controls" style="top: 432px">
                 <a href="#" class="close-controls">
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
-                <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
+                <sedogo:sidebarcontrol id="sidebarControl" runat="server" />
+                <sedogo:eventslistcontrol id="eventsListControl" runat="server" />
             </div>
-            <Sedogo:FooterControl ID="footerControl" runat="server" />
+            <sedogo:footercontrol id="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -447,6 +466,6 @@
         </div>
     </div>
     </form>
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
 </body>
 </html>

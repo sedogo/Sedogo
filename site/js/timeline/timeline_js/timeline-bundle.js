@@ -3760,6 +3760,17 @@ Timeline.DefaultEventSource.Event.prototype = { getID: function() {
 }, fillInfoBubble: function(A, E, M) {
 	var K = A.ownerDocument;
 	var J = this.getText();
+	
+	//*New	
+	var CFill = document.createElement("div");
+	this.fillDescription(CFill);
+	
+	if((CFill.innerHTML.split("|")).length == 2)
+	{
+	    CFill.innerHTML = this.getText()+ " - " +(CFill.innerHTML.split("|"))[1];	    
+	}	
+	//
+		
 	var H = this.getLink();
 	var B = this.getImage();
 	if (B != null) {
@@ -3777,15 +3788,19 @@ Timeline.DefaultEventSource.Event.prototype = { getID: function() {
 		var I = K.createElement("a");
 		I.href = H;
 		I.appendChild(C);
-		L.appendChild(I);
+		//L.appendChild(I);
+		L.appendChild(CFill);
 	} else {
-		L.appendChild(C);
+		//L.appendChild(C);
+		//*New
+		L.appendChild(CFill);
+		//
 	} E.event.bubble.titleStyler(L);
 	A.appendChild(L);
 	var N = K.createElement("div");
 	this.fillDescription(N);
 	//*New
-	var inText = N.innerHTML;
+	var inText = (N.innerHTML.split("|"))[0];
     var in_array = inText.split("<br>");
     
     if (SimileAjax.Platform.browser.isIE)

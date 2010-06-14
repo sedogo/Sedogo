@@ -82,15 +82,25 @@ public partial class userTimeline : SedogoPage
             //*By Chetan
             timelineUserNameLiteral.Text = "&nbsp;&nbsp;" + viewUser.firstName + " " + viewUser.lastName;
 
-            
+
             // Populate the profile popup
-            //usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
-            usersProfileNameLabel.NavigateUrl = "~/userprofile.aspx?UID=" + viewUserID.ToString();
+            usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
+            usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?UID=" + viewUserID.ToString();
             //usersProfileNameLabel.Text = viewUser.fullName;
-            usersProfileNameLabel.Text = viewUser.fullName + "'s profile";
-            usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>");
-            birthdayLabel.Text = viewUser.birthday.ToString("d MMMM yyyy");
-            homeTownLabel.Text = viewUser.homeTown;
+            usersProfileNameLabel.Text = "Timeline";
+            userViewProfile.NavigateUrl = "~/userprofile.aspx?UID=" + viewUserID.ToString();
+            userViewProfile.Text = "Profile";
+            lblUName.Text = viewUser.fullName;
+            if (viewUser.profileText.Replace("\n", "<br/>").Length > 120)
+            {
+                usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>").Substring(0, 120) + "...";
+            }
+            else
+            {
+                usersProfileDescriptionLabel.Text = viewUser.profileText.Replace("\n", "<br/>");
+            }
+            //birthdayLabel.Text = viewUser.birthday.ToString("d MMMM yyyy");
+            //homeTownLabel.Text = viewUser.homeTown;
             userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(viewUserID).ToString(); ;
             userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(viewUserID).ToString();
             userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(viewUserID).ToString();
@@ -103,8 +113,8 @@ public partial class userTimeline : SedogoPage
             {
                 userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
             }
-            userProfileThumbnailPic.Attributes.Add("style","float: right; margin: 0 0 8px 12px");
-            //userProfilePopupMessageLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
+            userProfileThumbnailPic.Attributes.Add("style", "float: right; margin: 0 0 8px 12px");
+            userProfilePopupMessageLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();
 
             sidebarControl.viewArchivedEvents = viewArchivedEvents;
             eventsListControl.userID = userID;

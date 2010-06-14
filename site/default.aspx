@@ -222,7 +222,11 @@
     function viewUserTimeline(eventUserID)
     {
         location.href = "userTimeline.aspx?UID=" + eventUserID;
-    }
+    }    
+    function doSendMessage(srhUserID)
+    {        
+        openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+    } 
     function doAddEvent()
     {
         location.href = "login.aspx";

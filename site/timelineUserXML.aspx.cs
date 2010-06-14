@@ -117,6 +117,12 @@ public partial class timelineUserXML : System.Web.UI.Page
                 {
                     eventPicThumbnail = (string)rdr["EventPicThumbnail"];
                 }
+
+                string EUserName = string.Empty;
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                {
+                    EUserName = (string)rdr["LastUpdatedByFullName"];                   
+                }
                 //
 
                 if (dateType == "D")
@@ -251,11 +257,14 @@ public partial class timelineUserXML : System.Web.UI.Page
                 //linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Full details&lt;/a&gt;";
 
                 //* New
-                string linkURL = timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'") + "<br/><br/>";
-                linkURL = linkURL + trackingUserCount.ToString() + " following this goal<br/>";
-                linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
-                linkURL = linkURL + messageCount.ToString() + " comments<br/>";
-                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                string linkURL = timelineStartDate.ToString("ddd dd MMM yyyy") + "<br/><br/>";
+                linkURL = linkURL + trackingUserCount.ToString() + " Followers<br/>";
+                linkURL = linkURL + memberUserCount.ToString() + " Members<br/>";
+                linkURL = linkURL + messageCount.ToString() + " Comments<br/>";
+                linkURL = linkURL + "&lt;a style=\"text-decoration:underline;\" href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + userID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
+
+                string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
                 //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
@@ -275,10 +284,10 @@ public partial class timelineUserXML : System.Web.UI.Page
                 }
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 //*
-                
+
                 writer.WriteAttributeString("color", timelineColour);
                 writer.WriteAttributeString("category", category);
-                writer.WriteString(linkURL + " &lt;br /&gt;");
+                writer.WriteString(linkURL + " &lt;br /&gt;" + ImgLink);
                 writer.WriteEndElement();
             }
             rdr.Close();

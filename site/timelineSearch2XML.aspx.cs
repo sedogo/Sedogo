@@ -123,7 +123,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
     // Function: CreateXMLContent
     //===============================================================
     private void CreateXMLContent(XmlTextWriter writer, string searchText,
-        string eventNameText, string eventVenue, string eventOwnerName, 
+        string eventNameText, string eventVenue, string eventOwnerName,
         int eventCategoryID, string dateSearch, int beforeBirthday,
         DateTime dateSearchStartDate, DateTime dateSearchEndDate,
         int recentlyAdded, int recentlyUpdated, string definitlyDo)
@@ -243,6 +243,16 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventPicThumbnail")))
                 {
                     eventPicThumbnail = (string)rdr["EventPicThumbnail"];
+                }
+
+                string EUserName = string.Empty;
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
+                {
+                    EUserName = (string)rdr["FirstName"];
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
+                    {
+                        EUserName = EUserName + " " + (string)rdr["LastName"];
+                    }
                 }
                 //
 
@@ -379,13 +389,15 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 //linkURL += " - &lt;a href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
 
                 //* New
-                string linkURL = timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'") + "<br/><br/>";
-                linkURL = linkURL + trackingUserCount.ToString() + " following this goal<br/>";
-                linkURL = linkURL + memberUserCount.ToString() + " members<br/>";
-                linkURL = linkURL + messageCount.ToString() + " comments<br/>";
-                linkURL = linkURL + "&lt;a href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
-                linkURL += " - &lt;a href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
-                linkURL += " - &lt;a href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
+                string linkURL = timelineStartDate.ToString("ddd dd MMM yyyy") + "<br/><br/>";
+                linkURL = linkURL + trackingUserCount.ToString() + " Followers<br/>";
+                linkURL = linkURL + memberUserCount.ToString() + " Members<br/>";
+                linkURL = linkURL + messageCount.ToString() + " Comments<br/>";
+                linkURL = linkURL + "&lt;a style=\"text-decoration:underline;\" href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
+                linkURL += "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
+                linkURL += "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
+
+                string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
                 //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
@@ -408,7 +420,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 writer.WriteAttributeString("color", timelineColour);
                 writer.WriteAttributeString("category", category);
-                writer.WriteString(linkURL + " &lt;br /&gt;");
+                writer.WriteString(linkURL + " &lt;br /&gt;" + ImgLink);
                 writer.WriteEndElement();
             }
             rdr.Close();

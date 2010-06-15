@@ -503,7 +503,7 @@ function classChange(elem,addClass,remClass) {
 	
 if (!SimileAjax.Platform.browser.isIE)
     {
-    maxWindow();
+         setTimeout("maxWindow();",80);
     }	
 	
 },
@@ -512,7 +512,7 @@ globalInit:function(){
 
 if (!SimileAjax.Platform.browser.isIE)
 {
-    window.resizeTo(1000,1000);
+    window.resizeTo(screen.width, parseInt(screen.height)- 25);
 }
 
 if(fleXenv.catchFastInit) window.clearInterval(fleXenv.catchFastInit);

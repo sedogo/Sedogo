@@ -288,6 +288,11 @@
 	    location.href = "addEvent.aspx?Name=" + form.what.value;
 	}
 	
+	function doSendMessage(srhUserID)
+    {        
+        openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+    } 
+	
 	function ShowDiv()
      {         
 		document.getElementById ('divPSummary').style.display='block';

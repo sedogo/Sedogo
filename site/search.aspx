@@ -218,7 +218,7 @@
     function viewProfile(eventUserID)
     {
         //location.href = "userProfile.aspx?UID=" + eventUserID;
-        openModal("login.aspx");
+        location.href = "publicProfile.aspx?UID=" + eventUserID;
     }
     function viewUserTimeline(eventUserID)
     {
@@ -227,7 +227,8 @@
     }
     function doSendMessage(srhUserID)
     {        
-        openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+        //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+        openModal("login.aspx");
     } 
     function doAddEvent()
     {

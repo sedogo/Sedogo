@@ -404,7 +404,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("end", timelineEndDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
                 writer.WriteAttributeString("isDuration", "true");
-                writer.WriteAttributeString("title", eventName + " - " + eventUser.firstName + " " + eventUser.lastName);
+                writer.WriteAttributeString("title", eventName);
 
                 //* New
                 if (eventPicThumbnail == "")

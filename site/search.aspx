@@ -217,7 +217,8 @@
     }
     function viewProfile(eventUserID)
     {
-        location.href = "userProfile.aspx?UID=" + eventUserID;
+        //location.href = "userProfile.aspx?UID=" + eventUserID;
+        openModal("login.aspx");
     }
     function viewUserTimeline(eventUserID)
     {

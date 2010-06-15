@@ -73,11 +73,11 @@ $(document).ready(function() {
 	                }
             	}
             	
-            	if (!SimileAjax.Platform.browser.isIE)
-                {
-            	window.resizeTo(1000,1000);
+            	if(!$.browser.msie)
+            	{
+            	window.resizeTo(screen.width, parseInt(screen.height)- 25);
             	window.moveTo(0,0);
-                window.resizeTo(screen.width, screen.height);
+                setTimeout("maxWindow();",80);
             	} 
             	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
 		        return false;
@@ -231,3 +231,9 @@ function openModal(modalURL) {
 	$("#modal-container, #modal-background").fadeIn();
 	return false;
 };
+
+function maxWindow()
+{
+window.moveTo(0,0);
+window.resizeTo(screen.width, screen.height);
+}

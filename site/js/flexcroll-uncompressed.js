@@ -503,7 +503,7 @@ function classChange(elem,addClass,remClass) {
 	
 if (!SimileAjax.Platform.browser.isIE)
     {
-         setTimeout("maxWindow();",80);
+     setTimeout("maxWindow();",200);
     }	
 	
 },

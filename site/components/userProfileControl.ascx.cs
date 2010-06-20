@@ -41,6 +41,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         firstNameLabel.Text = user.firstName + " " + user.lastName;
         homeTownLabel.Text = user.homeTown;
         headlineLabel.Text = user.profileText.Replace("\n", "<br/>");
+        lastUpdatedDateLabel.Text = user.lastUpdatedDate.ToString("ddd d MMMM yyyy");
 
         if (user.profilePicThumbnail != "")
         {
@@ -81,20 +82,11 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         }
 
         usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;
+        messageLink.NavigateUrl = "javascript:sendMessage(" + user.userID + ")";
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
         userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();
         userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
-        BindLatestMembers();
-    }
-
-    private void BindLatestMembers()
-    {
-        SedogoNewFun objSNFun = new SedogoNewFun();
-        DataTable dtAllUsrs = new DataTable();
-        dtAllUsrs = objSNFun.GetAllEnableUserDetails();
-        DataTable dt = dtAllUsrs.Copy();
-        dlMember.DataSource = dtAllUsrs;
-        dlMember.DataBind();
+        //BindLatestMembers();
     }
 }

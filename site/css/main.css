@@ -311,7 +311,7 @@ input#bannerAddFindControl_what2:focus {
 	background: #0cf;
 	padding: 8px 30px;
 	font-size: 16px;
-	font-weight: bold
+	font-weight: bold;
 }
 .extra-buttons 
 {
@@ -550,7 +550,7 @@ img.profile
 
 #buttons 
 {
-	float: right
+	float: right;
 }
 .tl {
 	width: 200px;
@@ -961,7 +961,7 @@ img.profile
 
     /*set the div in the bottom right corner*/
     position:absolute;
-    bottom:10px;
+    bottom:20px;
     right:10px;
 }
 .buttonsfullpage
@@ -1541,7 +1541,7 @@ a.underline-bold {
 
 .userProfileBox
 {
-	border:solid 1px #F0F0ED;
+	border:solid 1px #DDDDDD;
 	padding:2px 5px 2px 2px;
 }
 .eventListText

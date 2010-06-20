@@ -48,6 +48,7 @@ namespace Sedogo.BusinessObjects
         private Boolean     m_mustDo = false;
         private Boolean     m_deleted = false;
         private Boolean     m_eventAchieved = false;
+        private DateTime    m_eventAchievedDate = DateTime.MinValue;
         private string      m_eventPicFilename = "";
         private string      m_eventPicThumbnail = "";
         private string      m_eventPicPreview = "";
@@ -137,6 +138,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_eventAchieved; }
             set { m_eventAchieved = value; }
+        }
+        public DateTime eventAchievedDate
+        {
+            get { return m_eventAchievedDate; }
+            set { m_eventAchievedDate = value; }
         }
         public Boolean deleted
         {
@@ -264,6 +270,10 @@ namespace Sedogo.BusinessObjects
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventAchieved")))
                 {
                     m_eventAchieved = (Boolean)rdr["EventAchieved"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventAchievedDate")))
+                {
+                    m_eventAchievedDate = (DateTime)rdr["EventAchievedDate"];
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
                 {
@@ -447,6 +457,14 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@PrivateEvent", SqlDbType.Bit).Value = m_privateEvent;
                 cmd.Parameters.Add("@CreatedFromEventID", SqlDbType.Int).Value = m_createdFromEventID;
                 cmd.Parameters.Add("@EventAchieved", SqlDbType.Bit).Value = m_eventAchieved;
+                if (m_eventAchievedDate > DateTime.MinValue)
+                {
+                    cmd.Parameters.Add("@EventAchievedDate", SqlDbType.DateTime).Value = m_eventAchievedDate;
+                }
+                else
+                {
+                    cmd.Parameters.Add("@EventAchievedDate", SqlDbType.DateTime).Value = DBNull.Value;
+                }
                 cmd.Parameters.Add("@EventDescription", SqlDbType.NVarChar, -1).Value = m_eventDescription;
                 cmd.Parameters.Add("@EventVenue", SqlDbType.NVarChar, -1).Value = m_eventVenue;
                 cmd.Parameters.Add("@MustDo", SqlDbType.Bit).Value = m_mustDo;
@@ -561,7 +579,7 @@ namespace Sedogo.BusinessObjects
             //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
             emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-            emailBodyCopy.AppendLine("			<h1>" + updatingUser.firstName + " " + updatingUser.lastName + " has updated the following event has been updated:</h1>");
+            emailBodyCopy.AppendLine("			<h1>" + updatingUser.firstName + " " + updatingUser.lastName + " has updated the following event:</h1>");
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");

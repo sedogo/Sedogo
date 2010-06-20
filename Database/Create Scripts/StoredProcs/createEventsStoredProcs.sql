@@ -129,7 +129,7 @@ CREATE Procedure spSelectEventDetails
 AS
 BEGIN
 	SELECT UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, Deleted, 
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate, Deleted, 
 		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo, ShowOnDefaultPage,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
@@ -161,7 +161,8 @@ CREATE Procedure spSelectFullEventList
 AS
 BEGIN
 	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -194,7 +195,8 @@ CREATE Procedure spSelectAdministratorsEventList
 AS
 BEGIN
 	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
-		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate, 
+		E.PrivateEvent, E.CreatedFromEventID,
 		E.EventDescription, E.EventVenue, E.MustDo, E.UserID, E.ShowOnDefaultPage,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
@@ -230,7 +232,8 @@ CREATE Procedure spSelectFullEventListByCategory
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -242,7 +245,8 @@ BEGIN
 	UNION 
 	
 	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
-		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,
 		E.EventDescription, E.EventVenue, E.MustDo,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName
@@ -283,7 +287,8 @@ CREATE Procedure spSelectEventList
 AS
 BEGIN
 	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -319,7 +324,8 @@ CREATE Procedure spSelectFullEventListIncludingAchieved
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -352,7 +358,8 @@ CREATE Procedure spSelectAchievedEventList
 AS
 BEGIN
 	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -386,7 +393,8 @@ CREATE Procedure spSelectFullEventListIncludingAchievedByCategory
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -397,7 +405,8 @@ BEGIN
 	UNION 
 	
 	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
-		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,
 		E.EventDescription, E.EventVenue, E.MustDo,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName
@@ -439,7 +448,8 @@ CREATE Procedure spSelectEventListIncludingAchieved
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
@@ -482,6 +492,7 @@ CREATE Procedure spUpdateEvent
 	@PrivateEvent					bit,
 	@CreatedFromEventID				int,
 	@EventAchieved					bit,
+	@EventAchievedDate				datetime,
 	@EventDescription				nvarchar(max),
 	@EventVenue						nvarchar(max),
 	@MustDo							bit,
@@ -502,6 +513,7 @@ BEGIN
 		PrivateEvent			= @PrivateEvent,
 		CreatedFromEventID		= @CreatedFromEventID,
 		EventAchieved			= @EventAchieved,
+		EventAchievedDate		= @EventAchievedDate,
 		EventDescription		= @EventDescription,
 		EventVenue				= @EventVenue,
 		MustDo					= @MustDo,
@@ -880,7 +892,8 @@ CREATE Procedure spSearchEvents
 AS
 BEGIN
 	SELECT E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
-		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
@@ -1175,7 +1188,8 @@ BEGIN
 	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
 		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
-		E.EventAchieved, E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.EventAchieved, E.EventAchievedDate,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.FirstName, U.LastName, U.EmailAddress
 	FROM TrackedEvents T
 	JOIN Events E
@@ -1214,7 +1228,8 @@ BEGIN
 	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
 		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
-		E.EventAchieved, E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.EventAchieved, E.EventAchievedDate,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.FirstName, U.LastName, U.EmailAddress
 	FROM TrackedEvents T
 	JOIN Events E
@@ -2501,7 +2516,8 @@ AS
 BEGIN
 	SELECT TOP 5 EventID, UserID, EventName, EventVenue, DateType,
 		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
-		EventAchieved, CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
 	FROM Events
 	WHERE UserID = @LoggedInUserID
 	AND Deleted = 0
@@ -2563,7 +2579,8 @@ CREATE Procedure spSelectEventListByFirstLetter
 AS
 BEGIN
 	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
-		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, PrivateEvent, CreatedFromEventID,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
 		EventDescription, EventVenue, MustDo,
 		EventPicFilename, EventPicThumbnail, EventPicPreview,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName

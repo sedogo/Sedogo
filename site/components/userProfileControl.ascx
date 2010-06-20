@@ -26,16 +26,29 @@
             }
         }		
 	 }
+	 function sendMessage(userID)
+	 {
+	     openModal("sendUserMessage.aspx?EID=-1&UID=" + userID);
+	 } 
 </script>
 
 <div class="userProfileBox">
     <table width="100%" border="0" cellspacing="2" cellpadding="2">
         <tr>
             <td>
-                <h1 class="blue">
-                    <asp:Label runat="server" ID="firstNameLabel" />'s profile<br />
-                </h1>
-                <asp:HyperLink ID="usersProfileNameLabel" Text="View Timeline" runat="server" CssClass="blue" />
+                <table border="0">
+                    <tr>
+                        <td><h2 class="blue"><asp:Label runat="server" ID="firstNameLabel" />'s profile</h2</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td style="padding-top:5px"><asp:Hyperlink ID="messageLink" runat="server" ImageUrl="~/images/messages.gif" /></td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td style="padding-top:5px"><asp:HyperLink ID="usersProfileNameLabel" Text="View Timeline" runat="server" CssClass="blue" /></td>
+                    </tr>
+                </table>
+                
+                <p style="font-style: italic; color: #ccc; margin: 10px 0 4px 0; font-size: 11px;
+                width: 485px;">Edited <asp:Label ID="lastUpdatedDateLabel" runat="server"></asp:Label></p>
+                
             </td>
             <td align="right">
                 <table border="0" cellspacing="2" cellpadding="2">
@@ -100,94 +113,20 @@
             <td align="right">
                 <p style="display: block">
                     <asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-            </td>
-        </tr>
-    </table>
-    <table border="0" cellspacing="2" cellpadding="2" width="100%">
-        <tr>
-            <td width="262">
-                &nbsp;
-            </td>
-            <td width="262">
-                <div style="margin-left: 2px; margin-top: 30px; clear: both; visibility: hidden;">
-                    <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
-                        DataKeyField="UserId">
-                        <ItemTemplate>
-                            <div>
-                                <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
-                                    style="display: none; position: relative; z-index: 10;">
-                                    <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
-                                        style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
-                                        <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
-                                            <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-top-right simileAjax-bubble-border-top-right-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-bottom-left simileAjax-bubble-border-bottom-left-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-bottom-right simileAjax-bubble-border-bottom-right-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-left simileAjax-bubble-border-left-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-right simileAjax-bubble-border-right-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-top simileAjax-bubble-border-top-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent">
-                                            </div>
-                                            <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
-                                                <div style="position: static; width: 160px; font-size: 14px;">
-                                                    <div style="float: left; width: 160px;">
-                                                        <%--<img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
-                                                            onerror="this.src='images/profile/blankProfile.jpg'" /><br />--%>
-                                                        <span class="blue" style="line-height: 20px;">
-                                                            <%# DataBinder.Eval(Container.DataItem, "FirstName") %>
-                                                        </span>
-                                                        <br />
-                                                        <%# DataBinder.Eval(Container.DataItem, "GCount")+ " Goals" %><br />
-                                                    </div>
-                                                    <%--<div style="float: left; width: 50px;">
-                                                        <img width="25" height="25" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>" />
-                                                    </div>--%>
-                                                    <div style="width: 160px; float: left;">
-                                                        <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'
-                                                            style="text-decoration: underline;">View Timeline</a></span></div>
-                                                </div>
-                                            </div>
-                                            <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
-                                            </div>
-                                            <div class="simileAjax-bubble-arrow-point-down simileAjax-bubble-arrow-point-down-pngTranslucent"
-                                                style="left: 1px;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
-                                    alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                    onerror="this.src='images/profile/blankProfile.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
-                        </ItemTemplate>
-                    </asp:DataList></div>
-            </td>
-            <td width="206">
-                <br />
-                <br />
-                <div class="userProfileBox" style="height: 145px;">
+                    
+                <div class="clear-float"></div>
+                
+                <div class="userProfileBox" style="text-align:left">
                     <fieldset>
                         <ol style="line-height: 20px;">
-                            <li><span class="blue">
-                                <asp:Label runat="server" ID="userProfilePopupGoalsLabel" /></span> Goals </li>
-                            <li><span class="blue">
-                                <asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /></span> Goals
-                                achieved </li>
-                            <li><span class="blue">
-                                <asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /></span> Group goals
-                            </li>
-                            <li><span class="blue">
-                                <asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /></span> Goals
-                                followed </li>
+                            <li><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /> Goals</li>
+                            <li><asp:Label runat="server" ID="userProfilePopupGoalsAchievedLabel" /> Goals achieved </li>
+                            <li><asp:Label runat="server" ID="userProfilePopupGroupGoalsLabel" /> Group goals</li>
+                            <li><asp:Label runat="server" ID="userProfilePopupGoalsFollowedLabel" /> Goals followed </li>
                         </ol>
                     </fieldset>
                 </div>
+                    
             </td>
         </tr>
     </table>

@@ -512,7 +512,7 @@ globalInit:function(){
 
 if (!SimileAjax.Platform.browser.isIE)
 {
-    window.resizeTo(screen.width, parseInt(screen.height)- 25);
+    //window.resizeTo(screen.width, parseInt(screen.height)- 25);
 }
 
 if(fleXenv.catchFastInit) window.clearInterval(fleXenv.catchFastInit);
@@ -585,6 +585,6 @@ fleXenv.fleXcrollInit();
 
 function maxWindow()
 {
-window.moveTo(0,0);
-window.resizeTo(screen.width, screen.height);
+//window.moveTo(0,0);
+//window.resizeTo(screen.width, screen.height);
 }

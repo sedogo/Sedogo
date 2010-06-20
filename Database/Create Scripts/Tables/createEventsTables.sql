@@ -45,6 +45,8 @@ CREATE TABLE Events
 	BeforeBirthday					int					NULL,
 	
 	EventAchieved					bit					NOT NULL,
+	EventAchievedDate				datetime		    NULL,
+	
 	Deleted							bit					NOT NULL,
 	CategoryID						int					NULL,
 	PrivateEvent					bit					NOT NULL,

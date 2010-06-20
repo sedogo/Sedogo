@@ -86,7 +86,7 @@ function preSaveClick()
                     <li>
                         <div class="buttons">
                         <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
-                            Text="Upload picture" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
+                            Text="Add picture" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
                         </div>
                     </li>
                 </ol>

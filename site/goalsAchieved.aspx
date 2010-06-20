@@ -79,10 +79,11 @@
                         
                             <table>
                                 <tr>
-                                    <td><asp:Image ID="eventImage" runat="server" /></td>
-                                    <td>
+                                    <td width="80"><asp:Image ID="eventImage" runat="server" /></td>
+                                    <td width="400">
                                         <p>Goal: <asp:HyperLink ID="eventNameLabel" runat="server" /><br />
-                                        Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /></p>
+                                        Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br />
+                                        Date achieved: <asp:Label ID="dateAchievedLabel" runat="server" CssClass="blue" /></p>
                                     </td>
                                 </tr>
                             </table>

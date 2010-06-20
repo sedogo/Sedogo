@@ -111,6 +111,16 @@ public partial class goalsAchieved : SedogoPage
             Label eventDateLabel = e.Item.FindControl("eventDateLabel") as Label;
             eventDateLabel.Text = dateString;
 
+            Label dateAchievedLabel = e.Item.FindControl("dateAchievedLabel") as Label;
+            if (sedogoEvent.eventAchievedDate > DateTime.MinValue)
+            {
+                dateAchievedLabel.Text = sedogoEvent.eventAchievedDate.ToString("dd MMM yyyy");
+            }
+            else
+            {
+                dateAchievedLabel.Text = "";
+            }
+
             //HyperLink userNameLabel = e.Item.FindControl("userNameLabel") as HyperLink;
             //userNameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
             //userNameLabel.NavigateUrl = "userTimeline.aspx?UID=" + sedogoEvent.userID.ToString();

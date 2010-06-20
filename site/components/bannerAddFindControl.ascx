@@ -36,6 +36,7 @@
             e.returnValue = false;
             e.cancelBubble = true;
             <asp:Literal id="keyPressActionScript" runat="server" />
+            return false;
         }
         else
         {

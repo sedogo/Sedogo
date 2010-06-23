@@ -38,6 +38,7 @@
     <link href="css/tutorsty.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+    <script type="text/javascript" src="js/dom-drag.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 
@@ -102,7 +103,7 @@
 					}),
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-						width: "250",
+						width: "235",
 						intervalUnit: Timeline.DateTime.MONTH,
 						intervalPixels: 50,
 						theme: theme1,
@@ -119,7 +120,8 @@
 							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH }// DEFAULT zoomIndex
+							
 						)
 					}),
 					Timeline.createBandInfo({
@@ -321,11 +323,36 @@
     <script type="text/JavaScript">
         DD_roundies.addRule('.timeline-event-tape', '15px', true);
     </script>
+    
+   <script type="text/javascript">
+
+    function  scrl() {          
+     if(document.getElementById("scroller")!=null) 
+     var docH = document.getElementById("content").offsetHeight;
+     var contH = document.getElementById("contentmain").offsetHeight;
+     var scrollAreaH = document.getElementById("scrollArea").offsetHeight;      
+    
+     var scrollH = (contH * scrollAreaH) / docH;    
+     document.getElementById("scroller").style.height = Math.round(scrollH) + "px";
+    
+     var scrollDist = Math.round(scrollAreaH-scrollH);    
+    
+     Drag.init(document.getElementById("scroller"),null,0,0,-1,scrollDist);
+    
+     document.getElementById("scroller").onDrag = function (x,y) {
+     var scrollY = parseInt(document.getElementById("scroller").style.top);
+     var docY = 0 - (scrollY * (docH - contH) / scrollDist);
+     document.getElementById("content").style.top = docY + "px";     
+     scrl();
+    }
+  }
+
+    
+    
+</script>
 
 </head>
-<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
-
-    <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
+<body onload="breakout_of_frame();onLoad(); scrl();" onresize="onResize();">
 
     <form id="defaultForm" runat="server">
     <asp:ScriptManager ID="scriptManager" runat="server">

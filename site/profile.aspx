@@ -37,6 +37,7 @@
     <link href="css/tutorsty.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+    <script type="text/javascript" src="js/dom-drag.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 
@@ -50,7 +51,7 @@
 
     <script type="text/javascript" src="js/jquery.corner.js"></script>
 
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>  
 
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
@@ -102,12 +103,12 @@
 					
 					Timeline.createBandInfo({					    
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-						width: "250",
+						width: "235",
 						intervalUnit: Timeline.DateTime.MONTH,
 						intervalPixels: 50,
 						theme: theme1,
 						eventSource: eventSource,
-						zoomIndex: 10,
+						zoomIndex: 11,
 						zoomSteps: new Array(
 							{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
@@ -119,7 +120,7 @@
 							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH }// DEFAULT zoomIndex
 						)
 					}),
 					Timeline.createBandInfo({
@@ -231,10 +232,41 @@
     <script type="text/JavaScript">
         DD_roundies.addRule('.timeline-event-tape', '15px', true);
     </script>
+    
+    <script type="text/javascript">
+
+   function  scrl() {           
+    var docH = document.getElementById("content").offsetHeight;
+    var contH = document.getElementById("contentmain").offsetHeight;
+    var scrollAreaH = document.getElementById("scrollArea").offsetHeight;
+      
+    //calculate height of scroller and resize the scroller div
+    //(however, we make sure that it isn't to small for long pages)
+    var scrollH = (contH * scrollAreaH) / docH;
+    //if(scroller.scrollH < 15) scroller.scrollH = 15;
+    document.getElementById("scroller").style.height = Math.round(scrollH) + "px";
+    
+    //what is the effective scroll distance once the scoller's height has been taken into account
+     var scrollDist = Math.round(scrollAreaH-scrollH);
+    
+    //make the scroller div draggable
+     Drag.init(document.getElementById("scroller"),null,0,0,-1,scrollDist);
+    
+    //add ondrag function
+     document.getElementById("scroller").onDrag = function (x,y) {
+     var scrollY = parseInt(document.getElementById("scroller").style.top);
+     var docY = 0 - (scrollY * (docH - contH) / scrollDist);
+     document.getElementById("content").style.top = docY + "px";
+     scrl();
+    }
+  }
+    
+</script>
 
 </head>
-<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
+<body onload="breakout_of_frame();onLoad();scrl();" onresize="onResize();">
     <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
+    
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="scriptManager" runat="server">

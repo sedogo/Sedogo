@@ -21,6 +21,12 @@ $(document).ready(function() {
 	        {
 	            $(this).attr("src", "images/T_Open.jpg");
 	            $("#divouter-1").hide();
+	            
+	            if(document.getElementById("scrollArea")!=null)
+	            {
+	            document.getElementById("scrollArea").style.display = 'none';
+	            }
+	            
                 if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {
             	    myDiv4.css("top","10px");
@@ -30,7 +36,8 @@ $(document).ready(function() {
             	    
             	    if(document.getElementById('divouter-5').style.display == 'none')
             	    {            	    
-            	        myMain.css("height","40px");            	        
+            	        myMain.css("height","40px");      
+            	              	        
             	    }
             	}
             	else
@@ -43,7 +50,13 @@ $(document).ready(function() {
 	    else
 	        {	            
 	            $(this).attr("src", "images/T_Close.jpg");
-		        $("#divouter-1").show();		        
+		        $("#divouter-1").show();
+		        
+		        if(document.getElementById("scrollArea")!=null)
+	            {		        
+		        document.getElementById("scrollArea").style.display = 'block';
+		        }
+		        
 		        
 	            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {          
@@ -71,6 +84,9 @@ $(document).ready(function() {
                     {
 	                    performFiltering(tl, [1, 2], document.getElementById("table-filter"));
 	                }
+<<<<<<< .mine
+            	}            	            		        	        
+=======
             	}
             	
             	if(!$.browser.msie)
@@ -80,6 +96,7 @@ $(document).ready(function() {
                 //setTimeout("maxWindow();",80);
             	} 
             	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
+>>>>>>> .r242
 		        return false;
 	        }	                     
     });
@@ -122,11 +139,13 @@ $(document).ready(function() {
 
 	$("#scroll-back").click(function() {
 		tl.getBand(1)._autoScroll(timlineScrollPixels);
+		AdjustDiv();
 		return false;
 	});
 
 	$("#scroll-forward").click(function() {
 		tl.getBand(1)._autoScroll(-timlineScrollPixels);
+		AdjustDiv();
 		return false;
 	});
 

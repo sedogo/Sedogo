@@ -2,6 +2,8 @@
 var BYr;
 var chkDiv;
 var zoomStatus;
+var chkZStep;
+var shYear;
 
 /* band.js */
 Timeline._Band = function(B, G, C) {
@@ -45,17 +47,52 @@ Timeline._Band = function(B, G, C) {
 	//* new
 	
 	var Divs = this._timeline.getDocument().createElement("div");
-    
+	
+    var divSArea = this._timeline.getDocument().createElement("div");
+    var divScrl = this._timeline.getDocument().createElement("div");
+        
     if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
 	{  
-	    Divs.className="flexcroll";
-	    //Divs.className="div_scroll";
-	    Divs.id="divouter-" + C;
-	    this._div.style.position="relative";
-	    Divs.appendChild(this._div);
-	    Divs.style.zIndex="115";
-	    this._timeline.addDiv(Divs);
-	    //$("#divouter-" + C).css('zIndex', '115');  
+	   Divs.id="divouter-" + C;
+	   this._div.style.position="relative";
+	   Divs.appendChild(this._div);
+	   Divs.style.zIndex="115";
+	   this._timeline.addDiv(Divs);
+	    
+	   
+       divSArea.style.left = "966px";
+       divSArea.style.zIndex = "115";       
+       divSArea.style.width="9px";
+       divSArea.style.background = "#D1D2CD";
+       divSArea.style.borderLeft = "1px solid #D1D2CD";
+       divSArea.style.borderTop = "1px solid #D1D2CD";
+       divSArea.style.borderBottom = "1px solid #D1D2CD";
+       divSArea.style.overflow = "hidden";
+            
+       divScrl.style.position="absolute";    
+       divScrl.style.width = "8px";
+       divScrl.style.background = "#FFFFFF";
+       divScrl.style.height = "20px";
+	    
+	   if(C == 1)
+	   {
+         divSArea.style.top = "48px";            
+         divSArea.id = "scrollArea";
+         divScrl.id = "scroller";
+         divSArea.style.height="217px";
+         divSArea.style.position = "absolute";
+	   }
+	   else
+	   {
+	     divSArea.style.top = "359px";            
+         divSArea.id = "scrollArea1";
+         divScrl.id = "scroller1";
+         divSArea.style.height="217px";
+         divSArea.style.position = "absolute";  	    
+	   } 
+	        
+	    divSArea.appendChild(divScrl);
+	    this._timeline.addDiv(divSArea);
 	}
 	
 	if(this._div.id!="timeline-band-2" && this._div.id!="timeline-band-6" && this._div.id!="timeline-band-1" && this._div.id!="timeline-band-5")
@@ -252,22 +289,7 @@ Timeline._Band.prototype.setBandShiftAndWidth = function(A, D) {
 //		if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
 //		{
 //		    this._div.style.height="265px";
-//		}
-
-        if(this._div.id=="timeline-band-1" || this._div.id=="timeline-band-5")
-        {
-            var t1Height = this._div.style.height;
-		    t1Height = t1Height.substring(0,t1Height.length-2);		    
-		            
-		    if(this._div.id=="timeline-band-1" && t1Height > 260)
-		    {
-		        this._div.style.height = parseInt(t1Height) + 30;
-		    }	
-		    if(this._div.id=="timeline-band-5" && t1Height > 260)
-		    {
-		        this._div.style.height = parseInt(t1Height) + 30;
-		    }	    
-        }           
+//		}     
 
 		if(this._div.id=="timeline-band-4")
 	    {	                    
@@ -376,23 +398,34 @@ Timeline._Band.prototype.pixelOffsetToDate = function(A) {
 Timeline._Band.prototype.createLayerDiv = function(C, A) {
 	var D = this._timeline.getDocument().createElement("div");
 	D.className = "timeline-band-layer" + (typeof A == "string" ? (" " + A) : "");
-	D.style.zIndex = C;		
+	D.style.zIndex = C;	
+	
 	this._innerDiv.appendChild(D);
 	var B = this._timeline.getDocument().createElement("div");
 	B.className = "timeline-band-layer-inner";
 	//*New	
 	if((D.parentNode.parentNode.id=="timeline-band-1" && D.className=="timeline-band-layer timeline-band-events") || (D.parentNode.parentNode.id=="timeline-band-5" && D.className=="timeline-band-layer timeline-band-events"))
 	{
-	    //if(D.parentNode.parentNode.id=="timeline-band-1" && D.className=="timeline-band-layer timeline-band-events")
-	       //B.id == "T1";
-	    //else
-	       //B.id == "T5";
-	    B.style.top="45px";
-	    B.style.borderTop = "solid 1px #CCCCCC";
-	    //B.style.height="220px";
-	    //B.style.overflow="auto";
-	    //B.style.border="solid 1px #CCCCCC";
-	    //B.style.add("overflow-x","none");
+	    //*New
+	 if(C > 0) 
+	  {	    
+	   if(D.parentNode.parentNode.id=="timeline-band-1")
+	    {
+	        D.id = "contentmain";	
+	        D.style.borderTop = "solid 1px #CCCCCC";	   
+	        B.id="content";
+	        B.style.position="relative";
+	        B.style.height = document.getElementById('timeline-band-1').style.height;
+	    }
+	    else
+	    {
+	        D.id = "contentmain1";	
+	        D.style.borderTop = "solid 1px #CCCCCC";	   
+	        B.id="content1";
+	        B.style.position="relative";
+	        B.style.height = document.getElementById('timeline-band-5').style.height;	    
+	    }	    
+	  }	    
 	}
 	//*
 	if (SimileAjax.Platform.browser.isIE) {
@@ -445,6 +478,9 @@ Timeline._Band.prototype.zoom = function(C, A, F, E) {
 	this._moveEther(A);
 };
 Timeline._Band.prototype._onMouseDown = function(B, A, C) {
+    //*New
+     zoomStatus='none';
+    //*
 	this.closeBubble();
 	this._dragging = true;
 	this._dragX = A.clientX;
@@ -457,7 +493,8 @@ Timeline._Band.prototype._onMouseMove = function(D, A, E) {
 		this._dragX = A.clientX;
 		this._dragY = A.clientY;
 		this._moveEther(this._timeline.isHorizontal() ? C : B);
-		this._positionHighlight();
+		AdjustDiv();
+		this._positionHighlight();		
 	} 
 };
 Timeline._Band.prototype._onMouseUp = function(B, A, C) {
@@ -2370,6 +2407,24 @@ Timeline.EtherIntervalMarkerLayout = function(I, L, C, E, M) {
 		} var Z = c.labelInterval(T, a);
 		var O = I.getDocument().createElement("div");
 		O.innerHTML = Z.text;
+		//*New
+//		if(shYear == null)
+//		{   
+//		    shYear = parseInt(Z.text);
+//		}		
+//		if(chkZStep == null)
+//		{ 
+//		    if(parseInt(Z.text)== parseInt(shYear))
+//		    {
+//		      shYear = shYear + 10;
+//		    }
+//		    else
+//		    {
+//		     /O.innerHTML = "";
+//		    }
+//		}
+		//
+		
 		O.className = "timeline-date-label";
 		//*New
 		if(Y.parentNode.parentNode.parentNode.id=="timeline-band-2")
@@ -2404,14 +2459,14 @@ Timeline.EtherHighlight = function(B, E, D, C) {
 	this.position = function(H, J) {
 		this._createHighlightDiv();
 		//*New
-		    if(H.getMonth() > 8)
-		    {
-		      SetDivDate(H.getFullYear() + 1 , H.getFullYear() + 2);		
-		    }
-		    else
-		    {
-		      SetDivDate(H.getFullYear(), H.getFullYear() + 1); 
-		    }
+		    //if(H.getMonth() > 8)
+		    //{
+		    //  SetDivDate(H.getFullYear() + 1 , H.getFullYear() + 2);		
+		    //}
+		    //else
+		    //{
+		      SetDivDate(H.getFullYear(), J.getFullYear()); 
+		    //}
 		//*		
 		var I = Math.round(E.dateToPixelOffset(H));
 		var G = Math.round(E.dateToPixelOffset(J));
@@ -2748,8 +2803,10 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 				  //* New				        
 				 		if (BYr!=null && C != SimileAjax.DateTime.YEAR)
 				 		{	
+				 		  if(chkDiv != null)
+				 		   {
 				 		    if(chkDiv.parentNode.parentNode.parentNode!=null)
-				 		    {
+				 		      {
 				 		        if(chkDiv.parentNode.parentNode.parentNode.id!="timeline-band-5")	
 				 		        {
 				                    if(D > BYr)
@@ -2762,7 +2819,8 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 				                {
 				                    D = D + '<br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;
 				                }
-				            }   
+				              }   
+				           }
 				        }
 				        else if(C != SimileAjax.DateTime.YEAR)
 				        {
@@ -3136,7 +3194,8 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
 	}
 	//O.style.top = K + 60 + "px";
 	O.style.top = K + 10 + "px";
-		
+	if(F > 12)
+	{	
 	var len = F-12;	
 	var str = N.getText();
 	var shortStr;    
@@ -3151,6 +3210,11 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
         shortStr = fitStringToWidth(str,len);
         O.innerHTML = shortStr;
     }
+    }else
+    {
+     O.innerHTML = "..";
+    }
+    
     O.style.color="#ffffff";    
 	//O.innerHTML = N.getText();
 	//O.style.color="#ffffff";	
@@ -3168,6 +3232,46 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
 		O.style.backgroundRepeat = H;
 	} SimileAjax.Graphics.setOpacity(O, C);
 	this._eventLayer.appendChild(O);
+	
+	//*New
+	//debugger;
+	
+	if(O.parentNode.parentNode.parentNode.parentNode.id =="timeline-band-1")
+	{	   
+	   var wchld = O.style.width.substring(0,O.style.width.length-2);
+	   if( wchld > (Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft)-100))
+	   {
+	     if(O.style.left.substring(0,O.style.left.length-2) > Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft))
+	     {
+	        O.style.textIndent = "2px";
+	     }
+	     else
+	     {
+	        if(O.style.left.substring(0,O.style.left.length-2) > 0)
+	        {
+	        O.style.textIndent = Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft)- O.style.left.substring(0,O.style.left.length-2) + "px";
+	        }
+	        else
+	        {
+	          O.style.textIndent = (Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft)+ Math.abs(O.style.left.substring(0,O.style.left.length-2)))+ "px";
+	        }
+	     }	   
+	   }
+	   else
+	   {
+	    if(Math.abs(O.style.left.substring(0,O.style.left.length-2)) < Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft))
+	    {
+	        var TIn = Math.abs(O.parentNode.parentNode.parentNode.parentNode.offsetLeft) - Math.abs(O.style.left.substring(0,O.style.left.length-2))
+	        
+	        if(TIn < (wchld - 50))
+	        {
+	            O.style.textIndent = TIn + "px";
+	        }    
+	     }
+	   }
+	}
+	//*End New
+	
 	return { left: D, top: K, width: F, height: E, elmt: O };
 };
 Timeline.OriginalEventPainter.prototype._getLabelDivClassName = function(A) {
@@ -4423,6 +4527,7 @@ function fitStringToWidth(str,width,className)
 	   {   
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Open.jpg');	     
 	     document.getElementById("divouter-5").style.display="none";
+	     document.getElementById("scrollArea1").style.display ="none";
 	     document.getElementById("my-container").style.height="310px";
 	     document.getElementById("my-timeline").style.height="310px";
 	     if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display=="none")
@@ -4435,7 +4540,8 @@ function fitStringToWidth(str,width,className)
 	 else if(document.getElementById('imgMngTN').src.substring(document.getElementById("imgMngTN").src.lastIndexOf('/')+1) == "T_Open.jpg")
 	   {	
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Close.jpg');
-		 document.getElementById("divouter-5").style.display="block";
+		 document.getElementById("divouter-5").style.display ="block";
+		 document.getElementById("scrollArea1").style.display ="block";
 		 document.getElementById("my-container").style.height="578px";
 		 document.getElementById("my-timeline").style.height="578px";
 		 if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display!="none")
@@ -4457,7 +4563,8 @@ function fitStringToWidth(str,width,className)
     }       
     
     
-    Timeline._Band.prototype._onDivClick = function(G, H, B) {
+    Timeline._Band.prototype._onDivClick = function(G, H, B) {if(zoomStatus != 'none')
+    {
 	var A = new Date();
 	A = A.getTime();
 	if (!this._lastScrollTime || ((A - this._lastScrollTime) > 50)) {
@@ -4487,6 +4594,7 @@ function fitStringToWidth(str,width,className)
 	if (H.preventDefault) {
 		H.preventDefault();
 	} H.returnValue = false;
+	}
     };                  
     
     
@@ -4501,6 +4609,7 @@ function fitStringToWidth(str,width,className)
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent("click", true, true);
             document.getElementById('timeline-band-1').dispatchEvent(evt); 
+            tl.getBand(1)._autoScroll(0);
             }
         });
         
@@ -4514,6 +4623,7 @@ function fitStringToWidth(str,width,className)
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent("click", true, true);
             document.getElementById('timeline-band-1').dispatchEvent(evt);
+            tl.getBand(1)._autoScroll(0);
             }
         });
     });  
@@ -4526,6 +4636,67 @@ function fitStringToWidth(str,width,className)
         e.type="text/javascript";
         document.getElementsByTagName("head")[0].appendChild(e);
     }
-      
+    
+  function AdjustDiv()
+  {
+    var eveTape = document.getElementsByClassName('timeline-event-tape'); 
+         
+    for(var i = 0;i < eveTape.length;i++)
+    {       
+      var wchld = eveTape[i].style.width.substring(0,eveTape[i].style.width.length-2);	   
+	  if( wchld > (Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft)-100))
+	  {
+	      if(Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2)) > Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft))
+	      {
+	        eveTape[i].style.textIndent = "2px";
+	      }
+	      else
+	      {
+	        if(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2) > 0)
+	        {
+	        eveTape[i].style.textIndent = Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft)- Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2)) + "px";
+	        }
+	        else
+	        {
+	            eveTape[i].style.textIndent = Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft)+ Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2))+ "px";
+	            if(Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2))> Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft))
+	            {
+	                eveTape[i].style.textIndent = Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft)+ Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2))+ "px";
+	            }
+	        }
+	      }	   
+	  }
+	   else
+	  {
+	     if(Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2)) < Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft))
+	     {
+	       var TIn = Math.abs(Math.abs(eveTape[i].parentNode.parentNode.parentNode.parentNode.offsetLeft) - Math.abs(eveTape[i].style.left.substring(0,eveTape[i].style.left.length-2)))	        	       
+	       if(TIn < (wchld - 50))
+	       {
+	            eveTape[i].style.textIndent = TIn + "px";
+	       }    
+	     }
+	  }
+	}  
+  }
+         
+	   
+    
+    document.getElementsByClassName = function(clsName){
+    var retVal = new Array();
+    var elements = document.getElementsByTagName("*");
+    for(var i = 0;i < elements.length;i++){
+        if(elements[i].className.indexOf(" ") >= 0){
+            var classes = elements[i].className.split(" ");
+            for(var j = 0;j < classes.length;j++){
+                if(classes[j] == clsName)
+                    retVal.push(elements[i]);
+            }
+        }
+        else if(elements[i].className == clsName)
+            retVal.push(elements[i]);
+        }
+    return retVal;
+    }
            
 //* New   

@@ -57,7 +57,6 @@ $(document).ready(function() {
 		        document.getElementById("scrollArea").style.display = 'block';
 		        }
 		        
-		        
 	            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {          
             	    myDiv4.css("top","280px");
@@ -84,19 +83,7 @@ $(document).ready(function() {
                     {
 	                    performFiltering(tl, [1, 2], document.getElementById("table-filter"));
 	                }
-<<<<<<< .mine
             	}            	            		        	        
-=======
-            	}
-            	
-            	if(!$.browser.msie)
-            	{
-            	//window.resizeTo(screen.width, parseInt(screen.height)- 25);
-            	//window.moveTo(0,0);
-                //setTimeout("maxWindow();",80);
-            	} 
-            	//$("#.tl-container").animate({ "height": "595" }, zoomSpeed);	        	        
->>>>>>> .r242
 		        return false;
 	        }	                     
     });
@@ -253,6 +240,6 @@ function openModal(modalURL) {
 
 function maxWindow()
 {
-//window.moveTo(0,0);
-//window.resizeTo(screen.width, screen.height);
+window.moveTo(0,0);
+window.resizeTo(screen.width, screen.height);
 }

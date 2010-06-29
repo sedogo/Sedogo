@@ -296,9 +296,12 @@
 	/*New*/
 }
 
-/* new */
-.div_scroll {width:975px; height:265px;  overflow-y: scroll; position:relative; overflow-x:hidden;border:solid 1px #CCCCCC;}
- 
+/* new 
+.div_scroll {width:975px; height:265px;  overflow-y: scroll; position:relative; overflow-x:hidden;border:solid 1px #CCCCCC;}*/
+ .div_scroll {height:215px; overflow-y: scroll;overflow-x:hidden; border-top:solid 1px #CCCCCC; top:45px;}
+  
+ #divouter-1 {height:265px; overflow:hidden; border:solid 1px #CCCCCC;}
+ #divouter-5 {height:265px; overflow:hidden; border:solid 1px #CCCCCC;}
  
  .timeline-event-bubble-new
  {

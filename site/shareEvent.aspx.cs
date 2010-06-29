@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -43,17 +45,21 @@ public partial class shareEvent : SedogoPage
 
             int userID = int.Parse(Session["loggedInUserID"].ToString());
             sidebarControl.userID = userID;
+            string currentUserFullName = "";
             if (userID > 0)
             {
                 SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
                 sidebarControl.user = user;
                 bannerAddFindControl.userID = userID;
+                currentUserFullName = user.firstName + " " + user.lastName;
             }
 
             string dateString = "";
             DateTime startDate = sedogoEvent.startDate;
             MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
+            additionalInviteTextTextBox.Text = currentUserFullName + " thought you might be interested in this.";
 
             eventTitleLabel.Text = sedogoEvent.eventName;
             eventOwnersNameLabel.Text = eventOwner.firstName + " " + eventOwner.lastName;
@@ -191,6 +197,11 @@ public partial class shareEvent : SedogoPage
             }
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
 
+            string dateString = "";
+            DateTime startDate = sedogoEvent.startDate;
+            MiscUtils.GetDateStringStartDate(eventOwner, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
+                sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
+
             StringBuilder emailBodyCopy = new StringBuilder();
 
             string eventURL = gd.GetStringValue("SiteBaseURL");
@@ -212,13 +223,12 @@ public partial class shareEvent : SedogoPage
             //emailBodyCopy.AppendLine("			<h1>sedogo.com message</h1>");
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
             emailBodyCopy.AppendLine("				<tr>");
-            emailBodyCopy.AppendLine("					<td width=\"60\">From:</td>");
-            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"4\">&nbsp;</td>");
-            emailBodyCopy.AppendLine("					<td width=\"530\">" + currentUserFullName + "</td>");
-            emailBodyCopy.AppendLine("				</tr>");
-            emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td valign=\"top\">Goal:</td>");
             emailBodyCopy.AppendLine("					<td><a href=\"" + eventURL + "\">" + sedogoEvent.eventName + "</a></td>");
+            emailBodyCopy.AppendLine("				</tr>");
+            emailBodyCopy.AppendLine("				<tr>");
+            emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
+            emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
@@ -239,7 +249,7 @@ public partial class shareEvent : SedogoPage
             emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for " + emailAddress + ". To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
             emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
 
-            string emailSubject = "Sedogo goal " + sedogoEvent.eventName + " has been shared with you";
+            string emailSubject = currentUserFullName + " wants to tell you about " + sedogoEvent.eventName;
 
             string SMTPServer = gd.GetStringValue("SMTPServer");
             string mailFromAddress = gd.GetStringValue("MailFromAddress");

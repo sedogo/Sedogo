@@ -330,19 +330,19 @@
                     <div style="width: 100%">
                     </div>
                     <div style="width: 100%">
-                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;" id="todayHeader" runat="server">
                             Today</h3>
                         <asp:PlaceHolder ID="PlaceHolderToday" runat="server" />
-                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;" id="thisWeekHeader" runat="server">
                             This Week</h3>
                         <asp:PlaceHolder ID="PlaceHolderThisWeek" runat="server" />
-                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;" id="twoWeeksHeader" runat="server">
                             Two Weeks Ago</h3>
                         <asp:PlaceHolder ID="PlaceHolderTwoWeekAgo" runat="server" />
-                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;" id="lastMonthHeader" runat="server">
                             Last Month</h3>
                         <asp:PlaceHolder ID="PlaceHolderLastMonth" runat="server" />
-                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;">
+                        <h3 style="color: #00CDFF; margin: 0px; margin-top: 10px; margin-bottom: 5px;" id="sixMonthHeader" runat="server">
                             Last Six Month</h3>
                         <asp:PlaceHolder ID="PlaceHolderLastSixMonth" runat="server" />
                     </div>

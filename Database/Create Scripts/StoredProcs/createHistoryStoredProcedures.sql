@@ -56,9 +56,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddSearchHistory TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectSearchHistoryDetails
 // Description:
@@ -86,9 +83,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectSearchHistoryDetails TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spSelectSearchHistoryList
 // Description:
@@ -116,9 +110,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectSearchHistoryList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectSearchHistoryTop5
 // Description:
@@ -140,9 +131,6 @@ BEGIN
 	FROM SearchHistory
 	ORDER BY SearchDate DESC
 END
-GO
-
-GRANT EXEC ON spSelectSearchHistoryTop5 TO sedogoUser
 GO
 
 /*===============================================================
@@ -196,9 +184,6 @@ BEGIN
 	--ORDER BY SearchCount DESC
 	
 END
-GO
-
-GRANT EXEC ON spSelectSearchHistoryPopularTop5 TO sedogoUser
 GO
 
 PRINT '== Finished createHistoryStoredProcedures.sql =='

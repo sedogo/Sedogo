@@ -93,7 +93,7 @@
                 <h2>Changes to the Policy</h2>
                 <p>Sedogo reviews its privacy and data protection policy periodically. We reserve the right to modify our privacy and data protection policy at any time without notice. Any changes to the policy will be posted on this page.</p>
                 <h2>To update your details for this Website</h2>
-                <p>If your personal data changes you can update your profile for this Website when logged in to www.sedogo.com To Login to the site, please visit our Login Page.</p>
+                <p>If your personal data changes you can update your profile for this Website when logged in to www.sedogo.com To Log in to the site, please visit our Login Page.</p>
                 <h2>Contact Us</h2>
                 <p>If you have any comments or queries in connection with our privacy policy, please Contact Us.</p>
                 <p>We can be contacted at:</p>

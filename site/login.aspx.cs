@@ -52,6 +52,25 @@ public partial class login : System.Web.UI.Page
         string loginPassword = userPassword.Text;
         Boolean rememberMe = rememberMeCheckbox.Checked;
 
+        int redirectUserID = -1;
+        int redirectEventID = -1;
+        if (Request.QueryString["UID"] != null)
+        {
+            try
+            {
+                redirectUserID = int.Parse(Request.QueryString["UID"].ToString());
+            }
+            catch { }
+        }
+        if (Request.QueryString["EID"] != null)
+        {
+            try
+            {
+                redirectEventID = int.Parse(Request.QueryString["EID"].ToString());
+            }
+            catch { }
+        }
+
         HttpCookie cookie = new HttpCookie("SedogoLoginEmailAddress");
         // Set the cookies value
         cookie.Value = loginEmailAddress;
@@ -116,8 +135,21 @@ public partial class login : System.Web.UI.Page
                 //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
                 //FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
-                string url = "./profileRedirect.aspx";
-                Response.Redirect(url);
+                if (redirectUserID > 0)
+                {
+                    string url = "./userProfileRedirect.aspx?UID=" + redirectUserID.ToString();
+                    Response.Redirect(url);
+                }
+                else if (redirectEventID > 0)
+                {
+                    string url = "./viewEventRedirect.aspx?EID=" + redirectEventID.ToString();
+                    Response.Redirect(url);
+                }
+                else
+                {
+                    string url = "./profileRedirect.aspx";
+                    Response.Redirect(url);
+                }
             }
             // This counts as a successful login, however force a password change
             //if (checkResult == loginResults.passwordExpired)
@@ -145,5 +177,13 @@ public partial class login : System.Web.UI.Page
     public void forgotPasswordButton_click(object sender, EventArgs e)
     {
         Response.Redirect("./forgotPassword.aspx");
+    }
+
+    //===============================================================
+    // Function: lostActivationButton_click
+    //===============================================================
+    public void lostActivationButton_click(object sender, EventArgs e)
+    {
+        Response.Redirect("./lostActivation.aspx");
     }
 }

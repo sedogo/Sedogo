@@ -238,34 +238,6 @@
         //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
         openModal("login.aspx");
     } 
-    function doAddEvent()
-    {
-        location.href = "login.aspx";
-    }
-    function checkAddButtonEnter(e)
-    {
-        var characterCode;
-        if (e && e.which) // NN4 specific code
-        {
-            e = e;
-            characterCode = e.which;
-        }
-        else
-        {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
-        }
-        if (characterCode == 13) //// Enter key is 13
-        {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            doAddEvent();
-        }
-        else
-        {
-            return false;
-        }
-    }
     
     function ShowHideDiv(divId)
      {
@@ -490,13 +462,14 @@
                                                                 <%--<img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
                                                                     onerror="this.src='images/profile/blankProfile.jpg'" /><br />--%>
                                                                 <span class="blue" style="line-height: 22px;">
-                                                                    <%# DataBinder.Eval(Container.DataItem, "FirstName")%>&nbsp;<%# DataBinder.Eval(Container.DataItem, "LastName")%>
+                                                                    <a href="publicProfile.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>"><%# DataBinder.Eval(Container.DataItem, "FirstName")%>
+                                                                    &nbsp;<%# DataBinder.Eval(Container.DataItem, "LastName")%></a>
                                                                 </span>
                                                                 <br />
                                                                 <%# DataBinder.Eval(Container.DataItem, "GCount") + " Goals"%><br />
                                                             </div>
                                                             <div style="width: 160px; float: left;">
-                                                                <span class="blue" style="line-height: 27px;"><a href='userTimeline.aspx?UID=<%# DataBinder.Eval(Container.DataItem, "UserId") %>'
+                                                                <span class="blue" style="line-height: 27px;"><a href='javascript:viewUserTimeline(<%# DataBinder.Eval(Container.DataItem, "UserId") %>)'
                                                                     style="text-decoration: underline;">View timeline</a></span></div>
                                                         </div>
                                                     </div>

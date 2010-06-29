@@ -74,9 +74,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddAdministrator TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectAdministratorDetails
 // Description:
@@ -106,9 +103,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectAdministratorDetails TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spSelectAdministratorList
 // Description:
@@ -135,9 +129,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectAdministratorList TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spUpdateAdministrator
 // Description:
@@ -171,9 +162,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateAdministrator TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spDeleteAdministrator
 // Description:
@@ -198,9 +186,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spDeleteAdministrator TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spVerifyAdministratorLogin
 // Description:
@@ -227,9 +212,6 @@ BEGIN
 	AND Deleted = 0
 	
 END
-GO
-
-GRANT EXEC ON spVerifyAdministratorLogin TO sedogoUser
 GO
 
 /*===============================================================
@@ -259,9 +241,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectAdministratorPassword TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGetAdministratorIDFromEmailAddress
 // Description:
@@ -286,9 +265,6 @@ BEGIN
 	AND Deleted = 0
 	
 END
-GO
-
-GRANT EXEC ON spGetAdministratorIDFromEmailAddress TO sedogoUser
 GO
 
 /*===============================================================
@@ -321,9 +297,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateAdministratorPassword TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spIncrementAdministratorFailedLoginCount
 // Description:
@@ -348,9 +321,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spIncrementAdministratorFailedLoginCount TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spResetAdministratorFailedLoginCount
 // Description:
@@ -373,9 +343,6 @@ BEGIN
 	SET FailedLoginCount = 0
 	WHERE AdministratorID = @AdministratorID
 END
-GO
-
-GRANT EXEC ON spResetAdministratorFailedLoginCount TO sedogoUser
 GO
 
 /*===============================================================
@@ -413,9 +380,6 @@ BEGIN
 		@Source
 	)
 END
-GO
-
-GRANT EXEC ON spInsertAdministratorLoginHistory TO sedogoUser
 GO
 
 PRINT '== Finished createAdministratorsStoredProcs.sql =='

@@ -82,6 +82,8 @@
                                     </td>
                                     <td align="right">
                                         <p>
+                                        <asp:Hyperlink ID="sendMessageButton" 
+                                        runat="server" CssClass="button-sml" Text="Send message" />
                                         <asp:Hyperlink ID="viewProfileButton" 
                                         runat="server" CssClass="button-sml" Text="View profile" />
                                         <asp:Hyperlink ID="editContactButton" 

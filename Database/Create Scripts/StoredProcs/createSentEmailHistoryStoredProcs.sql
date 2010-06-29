@@ -62,9 +62,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddSentEmailHistory TO sedogoUser
-GO
-
 PRINT '== Finished createSentEmailHistoryStoredProcs.sql =='
 GO
  

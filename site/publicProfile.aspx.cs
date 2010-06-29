@@ -49,6 +49,7 @@ public partial class d_publicProfile : System.Web.UI.Page
 
             bannerAddFindControl.userID = userID;
 
+            userProfileControl.loggedInUserID = loggedInUserID;
             userProfileControl.userID = userID;
             userProfileControl.user = user;
         //}

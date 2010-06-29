@@ -95,6 +95,17 @@ public partial class profile : SedogoPage
                 Response.Redirect("viewEvent.aspx?EID=" + Session["EventID"].ToString());
             }
 
+
+            if (Session["AcheievedEventID"] != null)
+            {
+                int achievedEventID = int.Parse(Session["AcheievedEventID"].ToString());
+                Session["AcheievedEventID"] = null;
+
+                SedogoEvent achievedEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), achievedEventID);
+                string message = "Congratulations on completing the goal: " + achievedEvent.eventName + ". Why not create another goal now?";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"" + message + "\");", true);
+            }
+
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }
     }

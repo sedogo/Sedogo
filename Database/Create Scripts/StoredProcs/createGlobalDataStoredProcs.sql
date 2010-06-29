@@ -52,9 +52,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataAddIntegerValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataAddNumericValue
 // Description:
@@ -90,9 +87,6 @@ BEGIN
 		@Value
 	)
 END
-GO
-
-GRANT EXEC ON spGlobalDataAddNumericValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -132,9 +126,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataAddDateValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataAddStringValue
 // Description:
@@ -172,9 +163,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataAddStringValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataSelectIntegerValue
 // Description:
@@ -204,9 +192,6 @@ BEGIN
 	FROM GlobalData
 	WHERE KeyName = @KeyName
 END
-GO
-
-GRANT EXEC ON spGlobalDataSelectIntegerValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -239,9 +224,6 @@ BEGIN
 	FROM GlobalData
 	WHERE KeyName = @KeyName
 END
-GO
-
-GRANT EXEC ON spGlobalDataGetIntegerValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -284,9 +266,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataGetIntegerValueAndIncrement TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataGetNumericValue
 // Description:
@@ -316,9 +295,6 @@ BEGIN
 	FROM GlobalData
 	WHERE KeyName = @KeyName
 END
-GO
-
-GRANT EXEC ON spGlobalDataGetNumericValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -352,9 +328,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataGetDateValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataGetStringValue
 // Description:
@@ -384,9 +357,6 @@ BEGIN
 	FROM GlobalData
 	WHERE KeyName = @KeyName
 END
-GO
-
-GRANT EXEC ON spGlobalDataGetStringValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -420,9 +390,6 @@ BEGIN
 	WHERE KeyName = @KeyName
 
 END
-GO
-
-GRANT EXEC ON spGlobalDataGetStringValue2 TO sedogoUser
 GO
 
 /*===============================================================
@@ -460,9 +427,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataUpdateIntegerValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataUpdateNumericValue
 // Description:
@@ -496,9 +460,6 @@ BEGIN
 		RAISERROR('No such GlobalData value with requested key', 16, 1)
 	END
 END
-GO
-
-GRANT EXEC ON spGlobalDataUpdateNumericValue TO sedogoUser
 GO
 
 /*===============================================================
@@ -536,9 +497,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataUpdateDateValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataUpdateStringValue
 // Description:
@@ -574,9 +532,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGlobalDataUpdateStringValue TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGlobalDataDeleteValue
 // Description:
@@ -607,9 +562,6 @@ BEGIN
 		RAISERROR('No such GlobalData value with requested key', 16, 1)
 	END
 END
-GO
-
-GRANT EXEC ON spGlobalDataDeleteValue TO sedogoUser
 GO
 
 PRINT '== Finished createGlobalDataStoredProcs.sql =='

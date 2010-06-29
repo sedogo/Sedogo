@@ -56,9 +56,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddAddressBook TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectAddressBookDetails
 // Description:
@@ -86,9 +83,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectAddressBookDetails TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectAddressBookList
 // Description:
@@ -112,9 +106,6 @@ BEGIN
 	WHERE UserID = @UserID
 	ORDER BY LastName
 END
-GO
-
-GRANT EXEC ON spSelectAddressBookList TO sedogoUser
 GO
 
 /*===============================================================
@@ -146,9 +137,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateAddressBook TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteAddressBook
 // Description:
@@ -170,9 +158,6 @@ BEGIN
 	DELETE AddressBook
 	WHERE AddressBookID = @AddressBookID
 END
-GO
-
-GRANT EXEC ON spDeleteAddressBook TO sedogoUser
 GO
 
 /*===============================================================
@@ -197,9 +182,6 @@ BEGIN
 	FROM AddressBook
 	WHERE UserID = @UserID
 END
-GO
-
-GRANT EXEC ON spSelectAddressBookCountByUser TO sedogoUser
 GO
 
 PRINT '== Finished createAddressBookStoredProcs.sql =='

@@ -74,7 +74,7 @@ namespace Sedogo.BusinessObjects
                 //cmd.CommandType = CommandType.StoredProcedure;
                 //cmd.CommandText = "spGetLatestAchievedGoals";
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select * from events where EventAchieved = 1 order by LastUpdatedDate desc";                	
+                cmd.CommandText = "select * from events where EventAchieved = 1 order by EventAchievedDate desc";                	
                 DbDataAdapter adp = new SqlDataAdapter();
                 adp.SelectCommand = cmd;
                 adp.Fill(dtLGoal);
@@ -103,7 +103,12 @@ namespace Sedogo.BusinessObjects
                 //cmd.CommandType = CommandType.StoredProcedure;
                 //cmd.CommandText = "spGetGoalsHappeningToday";
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "select * from events where convert(varchar(10),RangeEndDate,103)> = convert(varchar(10),getdate(),103)";
+                cmd.CommandText = "select * from events ";
+                cmd.CommandText += "where ( convert(varchar(10),RangeEndDate,103) >= convert(varchar(10),getdate(),103)";
+                cmd.CommandText += "or convert(varchar(10),StartDate,103) = convert(varchar(10),getdate(),103) )";
+                cmd.CommandText += "AND EventAchieved = 0 ";
+                cmd.CommandText += "AND Deleted = 0 ";
+                cmd.CommandText += "AND PrivateEvent = 0 ";
 
                 DbDataAdapter adp = new SqlDataAdapter();
                 adp.SelectCommand = cmd;

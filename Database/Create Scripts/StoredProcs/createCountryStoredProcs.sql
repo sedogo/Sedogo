@@ -61,9 +61,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddCountry TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectCountryDetails
 // Description:
@@ -91,9 +88,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectCountryDetails TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectCountryList
 // Description:
@@ -116,9 +110,6 @@ BEGIN
 	WHERE Deleted = 0
 	ORDER BY CountryName
 END
-GO
-
-GRANT EXEC ON spSelectCountryList TO sedogoUser
 GO
 
 /*===============================================================
@@ -149,9 +140,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGetCountryIDFromName TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGetCountryIDFromCode
 // Description:
@@ -178,9 +166,6 @@ BEGIN
 	WHERE UPPER(CountryCode) = UPPER(@CountryCode)
 	AND Deleted = 0
 END
-GO
-
-GRANT EXEC ON spGetCountryIDFromCode TO sedogoUser
 GO
 
 /*===============================================================
@@ -218,9 +203,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateCountry TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteCountry
 // Description:
@@ -243,9 +225,6 @@ BEGIN
 	SET Deleted = 1
 	WHERE CountryID = @CountryID
 END
-GO
-
-GRANT EXEC ON spDeleteCountry TO sedogoUser
 GO
 
 /*===============================================================
@@ -273,9 +252,6 @@ BEGIN
 	FROM Countries
 	WHERE DefaultCountry = 1
 END
-GO
-
-GRANT EXEC ON spGetDefaultCountry TO sedogoUser
 GO
 
 /*===============================================================
@@ -324,9 +300,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddLanguage TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectLanguageDetails
 // Description:
@@ -354,9 +327,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectLanguageDetails TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectLanguageList
 // Description:
@@ -379,9 +349,6 @@ BEGIN
 	WHERE Deleted = 0
 	ORDER BY LanguageName
 END
-GO
-
-GRANT EXEC ON spSelectLanguageList TO sedogoUser
 GO
 
 /*===============================================================
@@ -412,9 +379,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGetLanguageIDFromName TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGetLanguageIDFromCode
 // Description:
@@ -441,9 +405,6 @@ BEGIN
 	WHERE UPPER(LanguageCode) = UPPER(@LanguageCode)
 	AND Deleted = 0
 END
-GO
-
-GRANT EXEC ON spGetLanguageIDFromCode TO sedogoUser
 GO
 
 /*===============================================================
@@ -483,9 +444,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateLanguage TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteLanguage
 // Description:
@@ -508,9 +466,6 @@ BEGIN
 	SET Deleted = 1
 	WHERE LanguageID = @LanguageID
 END
-GO
-
-GRANT EXEC ON spDeleteLanguage TO sedogoUser
 GO
 
 /*===============================================================
@@ -538,9 +493,6 @@ BEGIN
 	FROM Languages
 	WHERE DefaultLanguage = 1
 END
-GO
-
-GRANT EXEC ON spGetDefaultLanguage TO sedogoUser
 GO
 
 PRINT '== Finished createCountryStoredProcs.sql =='

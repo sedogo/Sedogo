@@ -287,8 +287,8 @@ public partial class timelineXML : System.Web.UI.Page
                     linkURL = linkURL + memberUserCount.ToString() + " Members<br/>";
                     linkURL = linkURL + messageCount.ToString() + " Comments<br/>";
                     linkURL = linkURL + "&lt;a style=\"text-decoration:underline;\" href=\"javascript:openEvent(" + eventID.ToString() + ")\" title=\"\"&gt;Goal details&lt;/a&gt;";
-                    linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewUserTimeline(" + userID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
-                    linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + userID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
+                    linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
+                    linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
 
                     string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
                     //*

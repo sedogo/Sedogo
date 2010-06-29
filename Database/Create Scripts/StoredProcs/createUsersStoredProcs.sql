@@ -103,9 +103,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectUserDetails
 // Description:
@@ -137,9 +134,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectUserDetails TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spSelectUserList
 // Description:
@@ -168,9 +162,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectUserList TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spUpdateUser
 // Description:
@@ -222,9 +213,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spUpdateUserProfilePic
 // Description:
@@ -258,9 +246,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateUserProfilePic TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spDeleteUser
 // Description:
@@ -285,9 +270,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spDeleteUser TO sedogoUser
-GO
- 
 /*===============================================================
 // Function: spVerifyUserLogin
 // Description:
@@ -319,9 +301,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spVerifyUserLogin TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectUserPassword
 // Description:
@@ -347,9 +326,6 @@ BEGIN
 	FROM Users
 	WHERE UserID = @UserID
 END
-GO
-
-GRANT EXEC ON spSelectUserPassword TO sedogoUser
 GO
 
 /*===============================================================
@@ -378,9 +354,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spGetUserIDFromEmailAddress TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGetUserIDFromGUID
 // Description:
@@ -405,9 +378,6 @@ BEGIN
 	AND Deleted = 0
 	
 END
-GO
-
-GRANT EXEC ON spGetUserIDFromGUID TO sedogoUser
 GO
 
 /*===============================================================
@@ -441,9 +411,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateUserPassword TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spIncrementFailedLoginCount
 // Description:
@@ -468,9 +435,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spIncrementFailedLoginCount TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spResetFailedLoginCount
 // Description:
@@ -493,9 +457,6 @@ BEGIN
 	SET FailedLoginCount = 0
 	WHERE UserID = @UserID
 END
-GO
-
-GRANT EXEC ON spResetFailedLoginCount TO sedogoUser
 GO
 
 /*===============================================================
@@ -535,9 +496,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spInsertUserLoginHistory TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectUsersWithLastName
 // Description:
@@ -567,10 +525,6 @@ BEGIN
 	ORDER BY LastName
 END
 GO
-
-GRANT EXEC ON spSelectUsersWithLastName TO sedogoUser
-GO
-
 
 PRINT '== Finished createUsersStoredProcs.sql =='
 GO

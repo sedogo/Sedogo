@@ -13,10 +13,10 @@
     <form id="form1" runat="server">
     <div>
     
-        Thankyou for verifying your email address, you can now login using your email address
+        Thankyou for verifying your email address, you can now log in using your email address
         and the password you entered when you signed up.
             
-        <a href="../default.aspx">Click here to go to the login page</a>
+        <a href="../default.aspx">Click here to go to the log in page</a>
     
     </div>
     </form>

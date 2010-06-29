@@ -72,9 +72,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddMessage TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectMessageDetails
 // Description:
@@ -101,9 +98,6 @@ BEGIN
 	FROM Messages
 	WHERE MessageID = @MessageID
 END
-GO
-
-GRANT EXEC ON spSelectMessageDetails TO sedogoUser
 GO
 
 /*===============================================================
@@ -133,9 +127,6 @@ BEGIN
 	AND Deleted = 0
 
 END
-GO
-
-GRANT EXEC ON spSelectMessageCountForEvent TO sedogoUser
 GO
 
 /*===============================================================
@@ -172,9 +163,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectUnreadMessageCountForUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectSentMessageCountForUser
 // Description:
@@ -205,9 +193,6 @@ BEGIN
 	AND ISNULL(E.Deleted,0) = 0
 	AND M.MessageRead = 0
 END
-GO
-
-GRANT EXEC ON spSelectSentMessageCountForUser TO sedogoUser
 GO
 
 /*===============================================================
@@ -246,9 +231,6 @@ BEGIN
 	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
-GO
-
-GRANT EXEC ON spSelectMessageList TO sedogoUser
 GO
 
 /*===============================================================
@@ -290,9 +272,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectUnreadMessageList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectReadMessageList
 // Description:
@@ -330,9 +309,6 @@ BEGIN
 	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
-GO
-
-GRANT EXEC ON spSelectReadMessageList TO sedogoUser
 GO
 
 /*===============================================================
@@ -373,9 +349,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectSentMessageList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spUpdateMessage
 // Description:
@@ -407,9 +380,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateMessage TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteMessage
 // Description:
@@ -438,8 +408,5 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spDeleteMessage TO sedogoUser
-GO
- 
 PRINT '== Finished createMessagesStoredProcs.sql =='
 GO

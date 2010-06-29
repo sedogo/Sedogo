@@ -53,9 +53,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddTimezone TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTimezoneDetails
 // Description:
@@ -83,9 +80,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTimezoneDetails TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTimezoneList
 // Description:
@@ -107,9 +101,6 @@ BEGIN
 	FROM Timezones
 	ORDER BY GMTOffset
 END
-GO
-
-GRANT EXEC ON spSelectTimezoneList TO sedogoUser
 GO
 
 /*===============================================================
@@ -141,9 +132,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateTimezone TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteTimezone
 // Description:
@@ -168,9 +156,6 @@ BEGIN
 	DELETE Timezones
 	WHERE TimezoneID = @TimezoneID
 END
-GO
-
-GRANT EXEC ON spDeleteTimezone TO sedogoUser
 GO
 
 PRINT '== Finished createTiemzoneStoredProcs.sql =='

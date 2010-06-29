@@ -31,6 +31,7 @@ using Sedogo.BusinessObjects;
 public partial class components_userProfileControl : System.Web.UI.UserControl
 {
     public int userID;
+    public int loggedInUserID;
     public SedogoUser user;
 
     //===============================================================
@@ -53,10 +54,11 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";
 
-        if( userID > 0 )
+        if (loggedInUserID > 0)
         {
             birthdayRow.Visible = true;
-            ageLabel.Visible = true;
+            ageRow.Visible = true;
+            loginRow.Visible = false;
 
             if (user.birthday > DateTime.MinValue)
             {
@@ -77,8 +79,12 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         }
         else
         {
+            ageRow.Visible = false;
             birthdayRow.Visible = false;
-            ageLabel.Visible = false;
+            loginRow.Visible = true;
+
+            loginLink.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
+            registerLink.NavigateUrl = "~/register.aspx";
         }
 
         usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;

@@ -104,16 +104,34 @@
                             <h3 class="blue" style="font-size: 12px; margin-bottom: 12px">Who do you want to invite to <asp:Label ID="eventNameLabel" runat="server" /></h3>
                             <p>Type in friends or family email addresses or Sedogo account names.</p>
 
-                            <img src="images/profile/miniProfile.jpg" />
-                            <asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /><br />
-                            <img src="images/profile/miniProfile.jpg" />
-                            <asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /><br />
-                            <img src="images/profile/miniProfile.jpg" />
-                            <asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /><br />
-                            <img src="images/profile/miniProfile.jpg" />
-                            <asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /><br />
-                            <img src="images/profile/miniProfile.jpg" />
-                            <asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" />
+                            <table border="0" cellpadding="2" cellspacing="4">
+                                <tr>
+                                    <td><img src="images/profile/miniProfile.jpg" /></td>
+                                    <td><asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox1" class="modal">Address book</a></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="images/profile/miniProfile.jpg" /></td>
+                                    <td><asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox2" class="modal">Address book</a></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="images/profile/miniProfile.jpg" /></td>
+                                    <td><asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox3" class="modal">Address book</a></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="images/profile/miniProfile.jpg" /></td>
+                                    <td><asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox4" class="modal">Address book</a></td>
+                                </tr>
+                                <tr>
+                                    <td><img src="images/profile/miniProfile.jpg" /></td>
+                                    <td><asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" /></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox5" class="modal">Address book</a></td>
+                                </tr>
+                            </table>
+
 				            <div class="pinstripe-divider" style="margin: 20px 0 14px 0">&nbsp;</div>
                             <p style="margin-bottom: 8px">Invite message <em>(optional)</em></p>
 

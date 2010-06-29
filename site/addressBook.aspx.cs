@@ -134,8 +134,9 @@ public partial class addressBook : SedogoPage
             HyperLink deleteContactButton = e.Item.FindControl("deleteContactButton") as HyperLink;
             deleteContactButton.NavigateUrl = "addressBook.aspx?ABID=" + row["AddressBookID"].ToString() + "&A=Delete";
 
-            HyperLink viewProfileButton = e.Item.FindControl("viewProfileButton") as HyperLink;
             int userID = SedogoUser.GetUserIDFromEmailAddress(row["EmailAddress"].ToString());
+
+            HyperLink viewProfileButton = e.Item.FindControl("viewProfileButton") as HyperLink;
             if (userID > 0)
             {
                 viewProfileButton.NavigateUrl = "userProfile.aspx?UID=" + userID.ToString();
@@ -145,6 +146,20 @@ public partial class addressBook : SedogoPage
             {
                 viewProfileButton.Visible = false;
             }
+
+            HyperLink sendMessageButton = e.Item.FindControl("sendMessageButton") as HyperLink;
+            if (userID > 0)
+            {
+                viewProfileButton.NavigateUrl = "sendMessage.aspx?UID=" + userID.ToString();
+                viewProfileButton.Visible = true;
+            }
+            else
+            {
+                viewProfileButton.Visible = false;
+            }
+
+            
+
 
             /*
 

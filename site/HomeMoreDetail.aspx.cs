@@ -51,6 +51,11 @@ public partial class HomeMoreDetail : System.Web.UI.Page
                 else if (Request["type"].ToString().ToLower() == "happening")
                 {
                     ltHeading.Text = "Goals Happening Today";
+
+                    thisWeekHeader.Visible = false;
+                    twoWeeksHeader.Visible = false;
+                    lastMonthHeader.Visible = false;
+                    sixMonthHeader.Visible = false;
                 }
             }
             if (Session["ResetPassword"] != null)
@@ -298,18 +303,37 @@ public partial class HomeMoreDetail : System.Web.UI.Page
         conn.Open();
         SqlCommand cmd = new SqlCommand("", conn);
         cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                            + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                            + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                            + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                            + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                            + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                            + " from events inner join users on users.userid=events.userid  "
-                            + " where convert(datetime,convert(varchar(10),events.lastupdateddate,102)) = convert(datetime,convert(varchar(10),getdate(),102)) "
-                            + " and events.deleted=0";
-
+        if (Request["type"].ToString().ToLower() == "happening")
+        {
+            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where ( ( RangeStartDate >= getdate() and RangeEndDate >= getdate() ) "
+                + " or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )"
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=0 "
+                + " and events.PrivateEvent=0 ";
+        }
+        else
+        {
+            // Latest achieved
+            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where convert(datetime,convert(varchar(11),events.EventAchievedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102)) "
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=1 "
+                + " and events.PrivateEvent=0 ";
+        }
         DbDataReader rdrToday = cmd.ExecuteReader();
-
         while (rdrToday.Read())
         {
             int eventID = int.Parse(rdrToday["EventID"].ToString());
@@ -319,7 +343,7 @@ public partial class HomeMoreDetail : System.Web.UI.Page
             string MemCount =(string)rdrToday["MemberCount"].ToString();
             string FolCount = (string)rdrToday["FollowerCount"].ToString();
             HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers";
+            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers";
             eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderToday.Controls.Add(eventHyperlink);
@@ -356,263 +380,294 @@ public partial class HomeMoreDetail : System.Web.UI.Page
     }
     private void GetThisWeek()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-        cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                            + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                            + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                            + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                            + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                            + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                            + " from events inner join users on users.userid=events.userid  "
-                            + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >= (select  convert(datetime,convert(varchar, DATEADD(wk, DATEDIFF(wk, 0, GETDATE()-1), 0),102))) and events.deleted=0";
-                           
-           // "select *,users.FirstName,users.LastName from events inner join users on users.userid=events.userid where convert(datetime,convert(varchar,events.lastupdateddate,102)) >= (select  convert(datetime,convert(varchar, DATEADD(wk, DATEDIFF(wk, 0, GETDATE()-1), 0),102))) and events.deleted=0";
-
-        DbDataReader rdrThisWeek = cmd.ExecuteReader();
-
-        while (rdrThisWeek.Read())
+        if (Request["type"].ToString().ToLower() == "happening")
         {
-            int eventID = int.Parse(rdrThisWeek["EventID"].ToString());
-            string eventName = (string)rdrThisWeek["EventName"];
-            string Fname = (string)rdrThisWeek["FirstName"];
-            string Lname = (string)rdrThisWeek["LastName"];
-            string MemCount = (string)rdrThisWeek["MemberCount"].ToString();
-            string FolCount = (string)rdrThisWeek["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderThisWeek.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderThisWeek.Controls.Add(ltEvent6);
-            PlaceHolderThisWeek.Controls.Add(new LiteralControl("<br/>"));
         }
+        else
+        {
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
+                + " and events.EventAchievedDate <= dateadd(hh,-datepart(hh,getdate()),getdate()) ) "
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=1 "
+                + " and events.PrivateEvent=0 ";
+            DbDataReader rdrThisWeek = cmd.ExecuteReader();
 
-        rdrThisWeek.Close();
+            while (rdrThisWeek.Read())
+            {
+                int eventID = int.Parse(rdrThisWeek["EventID"].ToString());
+                string eventName = (string)rdrThisWeek["EventName"];
+                string Fname = (string)rdrThisWeek["FirstName"];
+                string Lname = (string)rdrThisWeek["LastName"];
+                string MemCount = (string)rdrThisWeek["MemberCount"].ToString();
+                string FolCount = (string)rdrThisWeek["FollowerCount"].ToString();
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers</span>";
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderThisWeek.Controls.Add(eventHyperlink);
+                Literal ltEvent6 = new Literal();
+                string memberFollowerString = " - ";
+                if (MemCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += MemCount + " member ";
+                    }
+                    else
+                    {
+                        memberFollowerString += MemCount + " members ";
+                    }
+                }
+                if (FolCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += FolCount + " follower ";
+                    }
+                    else
+                    {
+                        memberFollowerString += FolCount + " followers ";
+                    }
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderThisWeek.Controls.Add(ltEvent6);
+                PlaceHolderThisWeek.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrThisWeek.Close();
+        }
     }
     private void GetTwoWeekAgo()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-
-        string dtAgo = DateTime.Now.Date.AddDays(-15).ToString("yyyy-MM-dd");
-
-        cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                            + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                            + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                            + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                            + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                            + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                            + " from events inner join users on users.userid=events.userid  "
-                            + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >= convert(datetime, convert(varchar,'" + dtAgo + "',102)) and events.deleted=0";
-            //"select *,users.FirstName,users.LastName from events inner join users on users.userid=events.userid where convert(datetime,convert(varchar,events.lastupdateddate,102)) >= convert(datetime, convert(varchar,'" + dtAgo + "',102)) and events.deleted=0";
-
-        DbDataReader rdrTwoWeekAgo = cmd.ExecuteReader();
-
-        while (rdrTwoWeekAgo.Read())
+        if (Request["type"].ToString().ToLower() == "happening")
         {
-            int eventID = int.Parse(rdrTwoWeekAgo["EventID"].ToString());
-            string eventName = (string)rdrTwoWeekAgo["EventName"];
-            string Fname = (string)rdrTwoWeekAgo["FirstName"];
-            string Lname = (string)rdrTwoWeekAgo["LastName"];
-            string MemCount = (string)rdrTwoWeekAgo["MemberCount"].ToString();
-            string FolCount = (string)rdrTwoWeekAgo["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderTwoWeekAgo.Controls.Add(ltEvent6);
-            PlaceHolderTwoWeekAgo.Controls.Add(new LiteralControl("<br/>"));
         }
+        else
+        {
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.Text;
 
-        rdrTwoWeekAgo.Close();
+            string dtAgo = DateTime.Now.Date.AddDays(-15).ToString("yyyy-MM-dd");
+
+            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
+                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=1 "
+                + " and events.PrivateEvent=0 ";
+
+            DbDataReader rdrTwoWeekAgo = cmd.ExecuteReader();
+
+            while (rdrTwoWeekAgo.Read())
+            {
+                int eventID = int.Parse(rdrTwoWeekAgo["EventID"].ToString());
+                string eventName = (string)rdrTwoWeekAgo["EventName"];
+                string Fname = (string)rdrTwoWeekAgo["FirstName"];
+                string Lname = (string)rdrTwoWeekAgo["LastName"];
+                string MemCount = (string)rdrTwoWeekAgo["MemberCount"].ToString();
+                string FolCount = (string)rdrTwoWeekAgo["FollowerCount"].ToString();
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
+                Literal ltEvent6 = new Literal();
+                string memberFollowerString = " - ";
+                if (MemCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += MemCount + " member ";
+                    }
+                    else
+                    {
+                        memberFollowerString += MemCount + " members ";
+                    }
+                }
+                if (FolCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += FolCount + " follower ";
+                    }
+                    else
+                    {
+                        memberFollowerString += FolCount + " followers ";
+                    }
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderTwoWeekAgo.Controls.Add(ltEvent6);
+                PlaceHolderTwoWeekAgo.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrTwoWeekAgo.Close();
+    }
     }
     private void GetLastMonth()
     {
-
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-        string dtLMnth = DateTime.Now.Date.AddMonths(-1).ToString("yyyy-MM-dd");
-        cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                            + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                            + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                            + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                            + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                            + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                            + " from events inner join users on users.userid=events.userid  "
-                            + " where month(events.lastupdateddate)= month('" + dtLMnth + "') and year(events.lastupdateddate)= year('" + dtLMnth + "') and events.deleted=0";
-         
-            //"select *,users.FirstName,users.LastName from events inner join users on users.userid=events.userid where month(events.lastupdateddate)= month('" + dtLMnth + "') and year(events.lastupdateddate)= year('" + dtLMnth + "') and events.deleted=0";
-
-        DbDataReader rdrLastMonth = cmd.ExecuteReader();
-
-        while (rdrLastMonth.Read())
+        if (Request["type"].ToString().ToLower() == "happening")
         {
-            int eventID = int.Parse(rdrLastMonth["EventID"].ToString());
-            string eventName = (string)rdrLastMonth["EventName"];
-            string Fname = (string)rdrLastMonth["FirstName"];
-            string Lname = (string)rdrLastMonth["LastName"];
-            string MemCount = (string)rdrLastMonth["MemberCount"].ToString();
-            string FolCount = (string)rdrLastMonth["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span> ";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderLastMonth.Controls.Add(eventHyperlink);
-            Literal ltEvent = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderLastMonth.Controls.Add(ltEvent);
-            PlaceHolderLastMonth.Controls.Add(new LiteralControl("<br/>"));
         }
+        else
+        {
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.Text;
+            string dtLMnth = DateTime.Now.Date.AddMonths(-1).ToString("yyyy-MM-dd");
+            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
+                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=1 "
+                + " and events.PrivateEvent=0 ";
+            //+ " where month(events.lastupdateddate)= month('" + dtLMnth + "') and year(events.lastupdateddate)= year('" + dtLMnth + "') "
 
-        rdrLastMonth.Close();
+            DbDataReader rdrLastMonth = cmd.ExecuteReader();
+
+            while (rdrLastMonth.Read())
+            {
+                int eventID = int.Parse(rdrLastMonth["EventID"].ToString());
+                string eventName = (string)rdrLastMonth["EventName"];
+                string Fname = (string)rdrLastMonth["FirstName"];
+                string Lname = (string)rdrLastMonth["LastName"];
+                string MemCount = (string)rdrLastMonth["MemberCount"].ToString();
+                string FolCount = (string)rdrLastMonth["FollowerCount"].ToString();
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span> ";
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderLastMonth.Controls.Add(eventHyperlink);
+                Literal ltEvent = new Literal();
+                string memberFollowerString = " - ";
+                if (MemCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += MemCount + " member ";
+                    }
+                    else
+                    {
+                        memberFollowerString += MemCount + " members ";
+                    }
+                }
+                if (FolCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += FolCount + " follower ";
+                    }
+                    else
+                    {
+                        memberFollowerString += FolCount + " followers ";
+                    }
+                }
+                ltEvent.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderLastMonth.Controls.Add(ltEvent);
+                PlaceHolderLastMonth.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrLastMonth.Close();
+        }
     }
     private void GetLastSixMonth()
     {
-
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-
-        string dtLMnth = DateTime.Now.Date.AddMonths(-6).ToString("yyyy-MM-dd");
-
-        cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                            + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                            + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                            + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                            + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                            + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                            + " from events inner join users on users.userid=events.userid  "
-                            + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >=(select convert(datetime, convert(varchar,'" + dtLMnth + "',102))) and events.deleted=0";
-         
-            //"select *,users.FirstName,users.LastName from events inner join users on users.userid=events.userid where convert(datetime,convert(varchar,events.lastupdateddate,102)) >=(select convert(datetime, convert(varchar,'" + dtLMnth + "',102))) and events.deleted=0";
-
-        DbDataReader rdrLastSixMonth = cmd.ExecuteReader();
-
-        while (rdrLastSixMonth.Read())
+        if (Request["type"].ToString().ToLower() == "happening")
         {
-            int eventID = int.Parse(rdrLastSixMonth["EventID"].ToString());
-            string eventName = (string)rdrLastSixMonth["EventName"];
-            string Fname = (string)rdrLastSixMonth["FirstName"];
-            string Lname = (string)rdrLastSixMonth["LastName"];
-            string MemCount = (string)rdrLastSixMonth["MemberCount"].ToString();
-            string FolCount = (string)rdrLastSixMonth["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderLastSixMonth.Controls.Add(ltEvent6);
-            PlaceHolderLastSixMonth.Controls.Add(new LiteralControl("<br/>"));
         }
+        else
+        {
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("", conn);
+            cmd.CommandType = CommandType.Text;
 
-        rdrLastSixMonth.Close();
+            string dtLMnth = DateTime.Now.Date.AddMonths(-6).ToString("yyyy-MM-dd");
+
+            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                + " from events inner join users on users.userid=events.userid  "
+                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
+                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
+                + " and events.deleted=0 "
+                + " and events.EventAchieved=1 "
+                + " and events.PrivateEvent=0 ";
+            DbDataReader rdrLastSixMonth = cmd.ExecuteReader();
+            //    + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >=(select convert(datetime, convert(varchar,'" + dtLMnth + "',102))) "
+
+            while (rdrLastSixMonth.Read())
+            {
+                int eventID = int.Parse(rdrLastSixMonth["EventID"].ToString());
+                string eventName = (string)rdrLastSixMonth["EventName"];
+                string Fname = (string)rdrLastSixMonth["FirstName"];
+                string Lname = (string)rdrLastSixMonth["LastName"];
+                string MemCount = (string)rdrLastSixMonth["MemberCount"].ToString();
+                string FolCount = (string)rdrLastSixMonth["FollowerCount"].ToString();
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);
+                Literal ltEvent6 = new Literal();
+                string memberFollowerString = " - ";
+                if (MemCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += MemCount + " member ";
+                    }
+                    else
+                    {
+                        memberFollowerString += MemCount + " members ";
+                    }
+                }
+                if (FolCount != "0")
+                {
+                    if (MemCount == "1")
+                    {
+                        memberFollowerString += FolCount + " follower ";
+                    }
+                    else
+                    {
+                        memberFollowerString += FolCount + " followers ";
+                    }
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderLastSixMonth.Controls.Add(ltEvent6);
+                PlaceHolderLastSixMonth.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrLastSixMonth.Close();
+        }
     }
     private string GetSubString(string inputstr, Int32 length)
     {

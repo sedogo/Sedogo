@@ -160,6 +160,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             pageBannerBarDiv.Style.Add("background-color", timelineColour);
 
             addCommentLabel.Text = "Add a comment about " + sedogoEvent.eventName;
+            if (sedogoEvent.privateEvent == true)
+            {
+                privateIcon.Visible = true;
+            }
 
             if (userID > 0)
             {
@@ -358,6 +362,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 eventOwnersNameLabel.NavigateUrl = "#";
 
                 loginRegisterPanel.Visible = true;
+
+                loginLink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
             }
 
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
@@ -535,7 +541,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     if (currentUserID > 0)
                     {
-                        outputText = outputText + "<a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\"";
+                        outputText = outputText + "<a href=\"userProfile.aspx?UID=" + postedByUserID.ToString() + "\"";
                         outputText = outputText + " target=\"_top\">" + postedByUsername + "</a>";
                     }
                     else
@@ -645,7 +651,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     }
 
                     string outputText = "<table width=\"100%\"><tr><td><img src=\"" + profileImagePath + "\" width=\"17\" />"
-                        + "<a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                        + "<a href=\"userProfile.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                         + firstName + " " + lastName + "</a>";
                     //string outputText = "<p><a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                     //    + "<img src=\"" + profileImagePath + "\" width=\"17\" style=\"margin-right:4px\" />"
@@ -861,7 +867,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         sedogoEvent.Update();
 
         //sedogoEvent.SendEventUpdateEmail();
-
+        Session["AcheievedEventID"] = eventID;
         Response.Redirect("profileRedirect.aspx");
     }
 

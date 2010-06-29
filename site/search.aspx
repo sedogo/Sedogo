@@ -237,37 +237,13 @@
     {        
         //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
         openModal("login.aspx");
-    } 
-    function doAddEvent()
-    {
-        location.href = "login.aspx";
     }
-    function checkAddButtonEnter(e)
+    function doSendMessage(srhUserID)
     {
-        var characterCode;
-        if (e && e.which) // NN4 specific code
-        {
-            e = e;
-            characterCode = e.which;
-        }
-        else
-        {
-            e = event;
-            characterCode = e.keyCode; // IE specific code
-        }
-        if (characterCode == 13) //// Enter key is 13
-        {
-            e.returnValue = false;
-            e.cancelBubble = true;
-            doAddEvent();
-        }
-        else
-        {
-            return false;
-        }
+        //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+        openModal("login.aspx");
     }
     </script>
-
 </head>
 <body onload="breakout_of_frame();onLoad();scrl();" onresize="onResize();">
 

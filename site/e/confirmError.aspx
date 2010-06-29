@@ -15,7 +15,7 @@
     
         <asp:Label id="confirmErrorText" runat="server" />
             
-        <a href="../default.aspx">Click here to go to the login page</a>
+        <a href="../default.aspx">Click here to go to the log in page</a>
     
     </div>
     </form>

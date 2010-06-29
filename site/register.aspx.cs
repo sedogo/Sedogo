@@ -110,7 +110,7 @@ public partial class register : System.Web.UI.Page
 
         if( testUserID > 0 )
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This email address is already registered, please login, or click on the forgot your password link on the home page.\");", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This email address is already registered, please log in, or click on the forgot your password link on the home page.\");", true);
         }
         else
         {

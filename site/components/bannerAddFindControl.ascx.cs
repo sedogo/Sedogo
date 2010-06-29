@@ -41,7 +41,7 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
             addButtonLink.NavigateUrl = "javascript:doLogin()";
             keyPressActionScript.Text = "javascript:doLogin()";
         }
-        what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
+        what.Attributes.Add("onkeypress", "return checkAddButtonEnter(event);");
 
         what.Attributes.Add("onfocus", "clearWhat();");
         what2.Attributes.Add("onfocus", "clearWhat2();");

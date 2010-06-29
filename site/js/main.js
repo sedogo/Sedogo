@@ -240,6 +240,13 @@ function openModal(modalURL) {
 	return false;
 };
 
+function closeModal()
+{
+    $("#modal-container, #modal-background").fadeOut();
+    $("#modal-container iframe").attr("src", "");
+    return false;
+};
+
 function maxWindow()
 {
 window.resizeTo(screen.width, screen.height - 20);

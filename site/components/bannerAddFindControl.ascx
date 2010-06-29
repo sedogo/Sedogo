@@ -12,7 +12,6 @@
     {
         openModal("/login.aspx");
     }
-    
     function doAddEvent()
     {
         var form = document.forms[0];
@@ -40,7 +39,6 @@
         }
         else
         {
-            return false;
         }
     }
     function clearWhat()
@@ -59,14 +57,15 @@
         <tr>
             <td><h3 class="blue"><asp:HyperLink ID="addLink" runat="server" Text="Add" /></h3>
                 <p class="blue">to my goal list</p>
-                <asp:Panel ID="Panel1" runat="server">
+                <asp:Panel ID="Panel1" DefaultButton="" runat="server">
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td valign="top"><asp:TextBox ID="what" runat="server" 
                                 MaxLength="1000" Text="e.g. Climb Everest" /></td>
                             <td valign="top" style="padding-top:4px"><asp:HyperLink runat="server"
                                 ID="addButtonLink"><asp:Image ID="addButtonImage" runat="server" 
-                                ImageUrl="~/images/addButton.png" /></asp:HyperLink></td>
+                                ImageUrl="~/images/addButton.png" /></asp:HyperLink>
+                                </td>
                         </tr>
                     </table>
                 </asp:Panel>

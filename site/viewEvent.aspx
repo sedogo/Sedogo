@@ -148,6 +148,8 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="2">
                         <tr>
                             <td width="485px">
+                                <div style="float:right;margin:5px 5px"><asp:Image ID="privateIcon" 
+                                    runat="server" ImageUrl="~/images/private.gif" Visible="false" /></div>
                                 <p style="font-style: italic; color: #ccc; margin: 10px 0 4px 0; font-size: 11px;
                                     width: 485px;">
                                     Edited
@@ -317,8 +319,10 @@
                                     padding-top: 10px; margin-bottom: 10px; clear: both;">
                                     <p>
                                         You must be logged in to view the full details or to add comments to this event.<br />
-                                        <a href="login.aspx" class="modal">Click here to login</a><br />
-                                        or <a href="register.aspx">click here to register</a> if you are a new user</p>
+                                        <asp:HyperLink ID="loginLink" NavigateUrl="~/login.aspx" 
+                                        runat="server" Text="Click here to login" CssClass="modal" /><br />
+                                        or <asp:HyperLink ID="registerLink" NavigateUrl="~/register.aspx" 
+                                        runat="server" Text="click here to register" CssClass="modal" /> if you are a new user</p>
                                 </div>
                                 <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
                             </td>

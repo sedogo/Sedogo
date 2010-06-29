@@ -108,6 +108,15 @@
                             <asp:Label runat="server" ID="headlineLabel" />
                         </td>
                     </tr>
+                    <tr id="loginRow" runat="server">
+                        <td colspan="3">
+                            &nbsp;<br />
+                            To see more, <asp:Hyperlink runat="server" CssClass="modal" ID="loginLink"
+                                Text="click here to login" /><br />or if you don't have a Sedogo account
+                                yet, <asp:Hyperlink runat="server" CssClass="modal" ID="registerLink"
+                                Text="click here to sign up" />
+                        </td>
+                    </tr>
                 </table>
             </td>
             <td align="right">
@@ -116,7 +125,7 @@
                     
                 <div class="clear-float"></div>
                 
-                <div class="userProfileBox" style="text-align:left">
+                <div class="userProfileBox" style="text-align:left; width:192px">
                     <fieldset>
                         <ol style="line-height: 20px;">
                             <li><asp:Label runat="server" ID="userProfilePopupGoalsLabel" /> Goals</li>

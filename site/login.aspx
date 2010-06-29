@@ -13,7 +13,7 @@
 	<meta http-equiv="expires" content="0"/>
 	<meta http-equiv="pragma" content="no-cache"/>
 
-	<title>Login : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Log in : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -92,6 +92,9 @@
             <br />
 		<p><asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
                 OnClick="forgotPasswordButton_click"
+                CausesValidation="false" CssClass="underline-bold" /></p>
+		<p><asp:LinkButton ID="lostActivationButton" runat="server" Text="Lost your activation email?" 
+                OnClick="lostActivationButton_click"
                 CausesValidation="false" CssClass="underline-bold" /></p>
     </div>
     </form>

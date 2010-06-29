@@ -127,6 +127,18 @@ public partial class d_default : System.Web.UI.Page
                     letterZLink.CssClass = "publicPageSelectedLetter";
                     break;
             }
+
+            if (Session["loggedInUserID"] != null)
+            {
+                int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+                sidebarControl.userID = userID;
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                sidebarControl.user = user;
+            }
+            else
+            {
+            }
         }
     }
 

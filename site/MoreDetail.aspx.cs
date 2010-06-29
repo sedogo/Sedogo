@@ -283,7 +283,7 @@ public partial class MoreDetail : SedogoPage
             string MemCount = (string)rdrThisWeek["MemberCount"].ToString();
             string FolCount = (string)rdrThisWeek["FollowerCount"].ToString();
             HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers</span>";
+            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers</span>";
             eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderThisWeek.Controls.Add(eventHyperlink);
@@ -348,7 +348,7 @@ public partial class MoreDetail : SedogoPage
             string MemCount = (string)rdrTwoWeekAgo["MemberCount"].ToString();
             string FolCount = (string)rdrTwoWeekAgo["FollowerCount"].ToString();
             HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
             eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
@@ -413,7 +413,7 @@ public partial class MoreDetail : SedogoPage
             string MemCount = (string)rdrLastMonth["MemberCount"].ToString();
             string FolCount = (string)rdrLastMonth["FollowerCount"].ToString();
             HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span> ";
+            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span> ";
             eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
             eventHyperlink.Attributes.Add("class" ,"event");
             PlaceHolderLastMonth.Controls.Add(eventHyperlink);
@@ -480,7 +480,7 @@ public partial class MoreDetail : SedogoPage
             string MemCount = (string)rdrLastSixMonth["MemberCount"].ToString();
             string FolCount = (string)rdrLastSixMonth["FollowerCount"].ToString();
             HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + "- <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
+            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
             eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
             eventHyperlink.Attributes.Add("class", "event");
             PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);

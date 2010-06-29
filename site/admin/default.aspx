@@ -33,7 +33,7 @@ function breakout_of_frame()
     Welcome to Sedogo Administration<br />
     <br />
     <br />
-    Sign in:<br />
+    Log in:<br />
     Email address: <asp:TextBox runat="server" ID="emailAddress" Width="200px" />
         <asp:RequiredFieldValidator ID="emailAddressValidator" runat="server"
             ControlToValidate="emailAddress" ErrorMessage="An email address is required"
@@ -44,7 +44,7 @@ function breakout_of_frame()
             ControlToValidate="userPassword" ErrorMessage="A password is required"
             Display="None" SetFocusOnError="true">
             </asp:RequiredFieldValidator><br />
-    <asp:Button runat="server" ID="loginButton" text="Login" OnClick="loginButton_Click" /><br />
+    <asp:Button runat="server" ID="loginButton" text="Log in" OnClick="loginButton_Click" /><br />
     <br />
     
     </div>

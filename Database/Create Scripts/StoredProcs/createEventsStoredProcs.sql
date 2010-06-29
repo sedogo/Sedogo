@@ -104,9 +104,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddEvent TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventDetails
 // Description:
@@ -137,9 +134,6 @@ BEGIN
 	FROM Events
 	WHERE EventID = @EventID
 END
-GO
-
-GRANT EXEC ON spSelectEventDetails TO sedogoUser
 GO
 
 /*===============================================================
@@ -174,9 +168,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectFullEventList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectAdministratorsEventList
 // Description:
@@ -208,9 +199,6 @@ BEGIN
 	AND U.Deleted = 0
 	ORDER BY E.StartDate
 END
-GO
-
-GRANT EXEC ON spSelectAdministratorsEventList TO sedogoUser
 GO
 
 /*===============================================================
@@ -263,9 +251,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectFullEventListByCategory TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventList
 // Description:
@@ -302,9 +287,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectFullEventListIncludingAchieved
 // Description:
@@ -334,9 +316,6 @@ BEGIN
 	AND UserID = @UserID
 	ORDER BY StartDate
 END
-GO
-
-GRANT EXEC ON spSelectFullEventListIncludingAchieved TO sedogoUser
 GO
 
 /*===============================================================
@@ -369,9 +348,6 @@ BEGIN
 	AND UserID = @UserID
 	ORDER BY StartDate
 END
-GO
-
-GRANT EXEC ON spSelectAchievedEventList TO sedogoUser
 GO
 
 /*===============================================================
@@ -424,9 +400,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectFullEventListIncludingAchievedByCategory TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventListIncludingAchieved
 // Description:
@@ -460,9 +433,6 @@ BEGIN
 	AND UserID = @UserID
 	ORDER BY StartDate
 END
-GO
-
-GRANT EXEC ON spSelectEventListIncludingAchieved TO sedogoUser
 GO
 
 /*===============================================================
@@ -524,9 +494,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateEvent TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spUpdateEventPics
 // Description:
@@ -560,9 +527,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateEventPics TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteEvent
 // Description:
@@ -585,9 +549,6 @@ BEGIN
 	SET Deleted = 1
 	WHERE EventID = @EventID
 END
-GO
-
-GRANT EXEC ON spDeleteEvent TO sedogoUser
 GO
 
 /*===============================================================
@@ -616,9 +577,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventCountNotAchievedByUserID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventCountAchievedByUserID
 // Description:
@@ -643,9 +601,6 @@ BEGIN
 	AND EventAchieved = 1
 	AND UserID = @UserID
 END
-GO
-
-GRANT EXEC ON spSelectEventCountAchievedByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -712,9 +667,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddEventComment TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventCommentDetails
 // Description:
@@ -742,9 +694,6 @@ BEGIN
 	FROM EventComments
 	WHERE EventCommentID = @EventCommentID
 END
-GO
-
-GRANT EXEC ON spSelectEventCommentDetails TO sedogoUser
 GO
 
 /*===============================================================
@@ -778,9 +727,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventCommentsList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventCommentCountForEvent
 // Description:
@@ -804,9 +750,6 @@ BEGIN
 	WHERE Deleted = 0
 	AND EventID = @EventID
 END
-GO
-
-GRANT EXEC ON spSelectEventCommentCountForEvent TO sedogoUser
 GO
 
 /*===============================================================
@@ -838,9 +781,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateEventComment TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteEventComment
 // Description:
@@ -867,9 +807,6 @@ BEGIN
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventCommentID = @EventCommentID
 END
-GO
-
-GRANT EXEC ON spDeleteEventComment TO sedogoUser
 GO
 
 /*===============================================================
@@ -909,9 +846,6 @@ BEGIN
 	 OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') ) 
 	ORDER BY E.StartDate
 END
-GO
-
-GRANT EXEC ON spSearchEvents TO sedogoUser
 GO
 
 /*===============================================================
@@ -1045,9 +979,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSearchEventsAdvanced TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectHomePageEvents
 // Description:
@@ -1081,9 +1012,6 @@ BEGIN
 	ORDER BY NEWID()
 	
 END
-GO
-
-GRANT EXEC ON spSelectHomePageEvents TO sedogoUser
 GO
 
 /*===============================================================
@@ -1133,9 +1061,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddTrackedEvent TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTrackedEventDetails
 // Description:
@@ -1162,9 +1087,6 @@ BEGIN
 	FROM TrackedEvents
 	WHERE TrackedEventID = @TrackedEventID
 END
-GO
-
-GRANT EXEC ON spSelectTrackedEventDetails TO sedogoUser
 GO
 
 /*===============================================================
@@ -1204,9 +1126,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTrackedEventListByUserID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectJoinedEventListByUserID
 // Description:
@@ -1244,9 +1163,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectJoinedEventListByUserID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTrackingUsersByEventID
 // Description:
@@ -1279,9 +1195,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTrackingUsersByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTrackingUserCountByEventID
 // Description:
@@ -1311,9 +1224,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTrackingUserCountByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTrackedEventIDFromEventIDUserID
 // Description:
@@ -1339,9 +1249,6 @@ BEGIN
 	AND UserID = @UserID
 	
 END
-GO
-
-GRANT EXEC ON spSelectTrackedEventIDFromEventIDUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1373,9 +1280,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectMemberUserCountByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectPendingMemberUserCountByEventID
 // Description:
@@ -1405,9 +1309,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingMemberUserCountByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectPendingMemberUserCountByUserID
 // Description:
@@ -1435,9 +1336,6 @@ BEGIN
 	AND T.JoinPending = 1
 	
 END
-GO
-
-GRANT EXEC ON spSelectPendingMemberUserCountByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1477,9 +1375,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingMemberRequestsByUserID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectPendingMemberRequestsByEventID
 // Description:
@@ -1517,9 +1412,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingMemberRequestsByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spUpdateTrackedEvent
 // Description:
@@ -1550,9 +1442,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateTrackedEvent TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteTrackedEvent
 // Description:
@@ -1575,9 +1464,6 @@ BEGIN
 	WHERE TrackedEventID = @TrackedEventID
 
 END
-GO
-
-GRANT EXEC ON spDeleteTrackedEvent TO sedogoUser
 GO
 
 /*===============================================================
@@ -1609,9 +1495,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTrackedEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectTrackedEventCountByUserID
 // Description:
@@ -1641,9 +1524,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectTrackedEventCountByUserID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectJoinedEventCountByUserID
 // Description:
@@ -1671,9 +1551,6 @@ BEGIN
 	AND T.ShowOnTimeline = 1
 	
 END
-GO
-
-GRANT EXEC ON spSelectJoinedEventCountByUserID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1747,9 +1624,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddEventInvite TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventInviteDetails
 // Description:
@@ -1780,9 +1654,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventInviteDetails TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventInvitesList
 // Description:
@@ -1810,9 +1681,6 @@ BEGIN
 	AND EventID = @EventID
 	ORDER BY EmailAddress
 END
-GO
-
-GRANT EXEC ON spSelectEventInvitesList TO sedogoUser
 GO
 
 /*===============================================================
@@ -1862,9 +1730,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateEventInvite TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteEventInvite
 // Description:
@@ -1891,9 +1756,6 @@ BEGIN
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventInviteID = @EventInviteID
 END
-GO
-
-GRANT EXEC ON spDeleteEventInvite TO sedogoUser
 GO
 
 /*===============================================================
@@ -1923,9 +1785,6 @@ BEGIN
 	AND I.Deleted = 0
 	
 END
-GO
-
-GRANT EXEC ON spSelectEventInviteCountByEventID TO sedogoUser
 GO
 
 /*===============================================================
@@ -1959,9 +1818,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingEventInviteCountByEventID TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventInviteCountByEventIDAndEmailAddress
 // Description:
@@ -1989,9 +1845,6 @@ BEGIN
 	AND EmailAddress = @InviteEmailSentEmailAddress
 	
 END
-GO
-
-GRANT EXEC ON spSelectEventInviteCountByEventIDAndEmailAddress TO sedogoUser
 GO
 
 /*===============================================================
@@ -2028,9 +1881,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingInviteCountForUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spCheckUserEventInviteExists
 // Description:
@@ -2060,9 +1910,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spCheckUserEventInviteExists TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spGetEventInviteIDFromUserIDEventID
 // Description:
@@ -2090,9 +1937,6 @@ BEGIN
 	AND InviteDeclined = 0
 	
 END
-GO
-
-GRANT EXEC ON spGetEventInviteIDFromUserIDEventID TO sedogoUser
 GO
 
 /*===============================================================
@@ -2140,9 +1984,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectPendingInviteListForUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventInviteIDFromGUID
 // Description:
@@ -2166,9 +2007,6 @@ BEGIN
 	AND Deleted = 0
 	
 END
-GO
-
-GRANT EXEC ON spSelectEventInviteIDFromGUID TO sedogoUser
 GO
 
 /*===============================================================
@@ -2227,9 +2065,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spAddEventAlert TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventAlertDetails
 // Description:
@@ -2253,9 +2088,6 @@ BEGIN
 	FROM EventAlerts
 	WHERE EventAlertID = @EventAlertID
 END
-GO
-
-GRANT EXEC ON spSelectEventAlertDetails TO sedogoUser
 GO
 
 /*===============================================================
@@ -2289,9 +2121,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventAlertList TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventAlertListPending
 // Description:
@@ -2321,9 +2150,6 @@ BEGIN
 	AND A.EventID = @EventID
 	ORDER BY A.CreatedDate DESC
 END
-GO
-
-GRANT EXEC ON spSelectEventAlertListPending TO sedogoUser
 GO
 
 /*===============================================================
@@ -2360,9 +2186,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventAlertListPendingByUser TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventAlertCountPending
 // Description:
@@ -2392,9 +2215,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectEventAlertCountPending TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectEventAlertCountPendingByUser
 // Description:
@@ -2422,9 +2242,6 @@ BEGIN
 	AND E.Deleted = 0
 	AND E.UserID = @UserID
 END
-GO
-
-GRANT EXEC ON spSelectEventAlertCountPendingByUser TO sedogoUser
 GO
 
 /*===============================================================
@@ -2462,9 +2279,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spUpdateEventAlert TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spDeleteEventAlert
 // Description:
@@ -2491,9 +2305,6 @@ BEGIN
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventAlertID = @EventAlertID
 END
-GO
-
-GRANT EXEC ON spDeleteEventAlert TO sedogoUser
 GO
 
 /*===============================================================
@@ -2527,9 +2338,6 @@ BEGIN
 END
 GO
 
-GRANT EXEC ON spSelectLatestEvents TO sedogoUser
-GO
-
 /*===============================================================
 // Function: spSelectAlertsToSendByEmail
 // Description:
@@ -2555,9 +2363,6 @@ BEGIN
 	AND ReminderEmailSent = 0
 	
 END
-GO
-
-GRANT EXEC ON spSelectAlertsToSendByEmail TO sedogoUser
 GO
 
 /*===============================================================
@@ -2590,9 +2395,6 @@ BEGIN
 	AND SUBSTRING(EventName, 1, 1) = @LetterFilter
 	ORDER BY StartDate
 END
-GO
-
-GRANT EXEC ON spSelectEventListByFirstLetter TO sedogoUser
 GO
 
 PRINT '== Finished createEventsStoredProcs.sql =='

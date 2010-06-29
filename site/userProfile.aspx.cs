@@ -44,6 +44,7 @@ public partial class userProfile : SedogoPage
         sidebarControl.userID = loggedInUserID;
         sidebarControl.user = loggedInUser;
 
+        userProfileControl.loggedInUserID = loggedInUserID;
         userProfileControl.userID = userID;
         userProfileControl.user = user;
 

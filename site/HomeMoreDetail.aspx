@@ -34,11 +34,12 @@
 	<![endif]-->
     <!--[if IE]>
 		<link rel="stylesheet" href="css/main_ie.css" />
-	<![endif]-->
-    <link href="css/flexcrollstyles.css" rel="stylesheet" />
+	<![endif]-->   
     <link href="css/tutorsty.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+    
+    <script type="text/javascript" src="js/dom-drag.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 
@@ -101,33 +102,39 @@
 						width: "0",
 						theme: theme1
 					}),
+					
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
-						width: "250",
-						intervalUnit: Timeline.DateTime.MONTH,
-						intervalPixels: 50,
+						width: "235",
+						intervalUnit: Timeline.DateTime.DECADE,
+						intervalPixels: 98,
 						theme: theme1,
 						eventSource: eventSource,
-						zoomIndex: 10,
+						zoomIndex: 14,
 						zoomSteps: new Array(
-							{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
+						    { pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
-							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },							
+							{ pixelsPerInterval: 40, unit: Timeline.DateTime.DAY },//New	
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH} // DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH },// DEFAULT zoomIndex old						
+							{ pixelsPerInterval: 50, unit: Timeline.DateTime.MONTH },//New
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR },//New
+							{ pixelsPerInterval: 98, unit: Timeline.DateTime.DECADE} //New DEFAULT zoomIndex
 						)
 					}),
+					
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 						width: "70",
-						intervalUnit: Timeline.DateTime.YEAR,
-						intervalPixels: 100,
+						intervalUnit: Timeline.DateTime.DECADE,
+						intervalPixels: 500,
 						showEventText: false,
 						trackHeight: 0.5,
 						trackGap: 0.2,
@@ -135,6 +142,7 @@
 						eventSource: eventSource,
 						overview: true
 					})
+					
 				];
 				//Synchronise band scrolling
 				bandInfos[2].syncWith = 1;
@@ -227,9 +235,7 @@
     </script>
 
 </head>
-<body onload="breakout_of_frame();onLoad();" onresize="onResize();">
-
-    <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>
+<body onload="breakout_of_frame();onLoad();scrl();CloseMyTimeline();" onresize="onResize();">
 
     <form id="HomeDetailForm" runat="server">
     <asp:ScriptManager ID="scriptManager" runat="server">

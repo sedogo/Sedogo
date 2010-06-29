@@ -101,34 +101,39 @@
 						theme: theme1						
 					}),
 					
-					Timeline.createBandInfo({					    
+					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.MONTH,
-						intervalPixels: 50,
+						intervalUnit: Timeline.DateTime.DECADE,
+						intervalPixels: 98,
 						theme: theme1,
 						eventSource: eventSource,
-						zoomIndex: 11,
+						zoomIndex: 14,
 						zoomSteps: new Array(
-							{ pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
+						    { pixelsPerInterval: 280, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 140, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 70, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 35, unit: Timeline.DateTime.HOUR },
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.DAY },
 							{ pixelsPerInterval: 100, unit: Timeline.DateTime.DAY },
-							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },
+							{ pixelsPerInterval: 50, unit: Timeline.DateTime.DAY },							
+							{ pixelsPerInterval: 40, unit: Timeline.DateTime.DAY },//New	
 							{ pixelsPerInterval: 400, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH }// DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH },// DEFAULT zoomIndex old						
+							{ pixelsPerInterval: 50, unit: Timeline.DateTime.MONTH },//New
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR },//New
+							{ pixelsPerInterval: 98, unit: Timeline.DateTime.DECADE} //New DEFAULT zoomIndex
 						)
 					}),
+					
 					Timeline.createBandInfo({
 					    bdate: "<asp:Literal id="timelinebDate" runat="server" />",
 						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 						width: "70",
-						intervalUnit: Timeline.DateTime.YEAR,
-						intervalPixels: 100,
+						intervalUnit: Timeline.DateTime.DECADE,
+						intervalPixels: 500,
 						showEventText: false,
 						trackHeight: 0.5,
 						trackGap: 0.2,
@@ -232,37 +237,6 @@
     <script type="text/JavaScript">
         DD_roundies.addRule('.timeline-event-tape', '15px', true);
     </script>
-    
-    <script type="text/javascript">
-
-   function  scrl() {           
-    var docH = document.getElementById("content").offsetHeight;
-    var contH = document.getElementById("contentmain").offsetHeight;
-    var scrollAreaH = document.getElementById("scrollArea").offsetHeight;
-      
-    //calculate height of scroller and resize the scroller div
-    //(however, we make sure that it isn't to small for long pages)
-    var scrollH = (contH * scrollAreaH) / docH;
-    //if(scroller.scrollH < 15) scroller.scrollH = 15;
-    document.getElementById("scroller").style.height = Math.round(scrollH) + "px";
-    
-    //what is the effective scroll distance once the scoller's height has been taken into account
-     var scrollDist = Math.round(scrollAreaH-scrollH);
-    
-    //make the scroller div draggable
-     Drag.init(document.getElementById("scroller"),null,0,0,-1,scrollDist);
-    
-    //add ondrag function
-     document.getElementById("scroller").onDrag = function (x,y) {
-     var scrollY = parseInt(document.getElementById("scroller").style.top);
-     var docY = 0 - (scrollY * (docH - contH) / scrollDist);
-     document.getElementById("content").style.top = docY + "px";
-     scrl();
-    }
-  }
-    
-</script>
-
 </head>
 <body onload="breakout_of_frame();onLoad();scrl();" onresize="onResize();">
     <script src="js/flexcroll-uncompressed.js" type="text/javascript"></script>

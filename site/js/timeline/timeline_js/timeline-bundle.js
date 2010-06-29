@@ -2,8 +2,6 @@
 var BYr;
 var chkDiv;
 var zoomStatus;
-var chkZStep;
-var shYear;
 
 /* band.js */
 Timeline._Band = function(B, G, C) {
@@ -417,7 +415,7 @@ Timeline._Band.prototype.createLayerDiv = function(C, A) {
 	        B.style.position="relative";
 	        B.style.height = document.getElementById('timeline-band-1').style.height;
 	    }
-	    else
+	    else if(D.parentNode.parentNode.id=="timeline-band-5")
 	    {
 	        D.id = "contentmain1";	
 	        D.style.borderTop = "solid 1px #CCCCCC";	   
@@ -472,6 +470,43 @@ Timeline._Band.prototype.zoom = function(C, A, F, E) {
 		return;
 	} A += this._viewOffset;
 	var D = this._ether.pixelOffsetToDate(A);
+	//*New		 
+	 var myDate = new Date();	  
+	 
+	 if(!SimileAjax.Platform.browser.isIE)
+	 { 
+	  if(C==true && this._zoomIndex==14)
+	  {	    
+	    myDate.setFullYear(myDate.getFullYear() - 5);	    
+	  }  
+	  if(C==false && (this._zoomIndex==14 || this._zoomIndex==13))
+	  {	    
+	    myDate.setFullYear(myDate.getFullYear() - 50);	    
+	  }	  
+	  if((C==true && this._zoomIndex==13)||(C==false && this._zoomIndex==12) )
+	  {
+	   myDate.setMonth(myDate.getMonth() - 10);
+	  }  
+	  if((C==true && this._zoomIndex==12) || (C==false && this._zoomIndex==11))
+	  {
+	   myDate.setMonth(myDate.getMonth() - 6);
+	  }
+	  if((C==true && this._zoomIndex==11) || (C==false && this._zoomIndex==10))
+	  {
+	   myDate.setMonth(myDate.getMonth() - 2);
+	  }
+	 }
+	 else
+	 {
+	 if(C == false && (this._zoomIndex==13 ||this._zoomIndex==14))
+	  {	    
+	    myDate.setFullYear(myDate.getFullYear() - 24);	    
+	  }	 
+	 }
+	 	 
+	  D = myDate; 	
+	//*
+	
 	var B = this._ether.zoom(C);
 	this._etherPainter.zoom(B);
 	this._moveEther(Math.round(-this._ether.dateToPixelOffset(D)));
@@ -2407,24 +2442,6 @@ Timeline.EtherIntervalMarkerLayout = function(I, L, C, E, M) {
 		} var Z = c.labelInterval(T, a);
 		var O = I.getDocument().createElement("div");
 		O.innerHTML = Z.text;
-		//*New
-//		if(shYear == null)
-//		{   
-//		    shYear = parseInt(Z.text);
-//		}		
-//		if(chkZStep == null)
-//		{ 
-//		    if(parseInt(Z.text)== parseInt(shYear))
-//		    {
-//		      shYear = shYear + 10;
-//		    }
-//		    else
-//		    {
-//		     /O.innerHTML = "";
-//		    }
-//		}
-		//
-		
 		O.className = "timeline-date-label";
 		//*New
 		if(Y.parentNode.parentNode.parentNode.id=="timeline-band-2")
@@ -2459,14 +2476,7 @@ Timeline.EtherHighlight = function(B, E, D, C) {
 	this.position = function(H, J) {
 		this._createHighlightDiv();
 		//*New
-		    //if(H.getMonth() > 8)
-		    //{
-		    //  SetDivDate(H.getFullYear() + 1 , H.getFullYear() + 2);		
-		    //}
-		    //else
-		    //{
-		      SetDivDate(H.getFullYear(), J.getFullYear()); 
-		    //}
+		      SetDivDate(H.getFullYear(), J.getFullYear());
 		//*		
 		var I = Math.round(E.dateToPixelOffset(H));
 		var G = Math.round(E.dateToPixelOffset(J));
@@ -2801,9 +2811,13 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 			if (E > 0) {
 				D = B.getUTCFullYear();
 				  //* New				        
-				 		if (BYr!=null && C != SimileAjax.DateTime.YEAR)
+				 		if (BYr!=null && C != SimileAjax.DateTime.YEAR && C != SimileAjax.DateTime.DECADE)
 				 		{	
 				 		  if(chkDiv != null)
+				 		   {
+				 		   if(chkDiv.parentNode!=null)
+				 		   {
+				 		   if(chkDiv.parentNode.parentNode != null)
 				 		   {
 				 		    if(chkDiv.parentNode.parentNode.parentNode!=null)
 				 		      {
@@ -2819,13 +2833,16 @@ Timeline.GregorianDateLabeller.prototype.defaultLabelInterval = function(B, C) {
 				                {
 				                    D = D + '<br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;
 				                }
-				              }   
-				           }
+				               }   
+				              }
+				            }
+				          }
 				        }
-				        else if(C != SimileAjax.DateTime.YEAR)
+				        else if(C != SimileAjax.DateTime.YEAR && C != SimileAjax.DateTime.DECADE)
 				        {
 				            D = D + '<br/><p style=color:#aaa;font-size:12px;font-weight:normal;margin-top:8px;>Jan</p>' ;				                
 				        }
+				        
 				  //*      
 			} else {
 				D = (1 - E) + "BC";
@@ -3233,8 +3250,7 @@ Timeline.OriginalEventPainter.prototype._paintEventTape = function(N, B, D, A, G
 	} SimileAjax.Graphics.setOpacity(O, C);
 	this._eventLayer.appendChild(O);
 	
-	//*New
-	//debugger;
+	//*New	
 	
 	if(O.parentNode.parentNode.parentNode.parentNode.id =="timeline-band-1")
 	{	   
@@ -4527,7 +4543,7 @@ function fitStringToWidth(str,width,className)
 	   {   
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Open.jpg');	     
 	     document.getElementById("divouter-5").style.display="none";
-	     document.getElementById("scrollArea1").style.display ="none";
+	     //document.getElementById("scrollArea1").style.display ="none";
 	     document.getElementById("my-container").style.height="310px";
 	     document.getElementById("my-timeline").style.height="310px";
 	     if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display=="none")
@@ -4541,7 +4557,7 @@ function fitStringToWidth(str,width,className)
 	   {	
 	     document.getElementById('imgMngTN').setAttribute('src', 'images/T_Close.jpg');
 		 document.getElementById("divouter-5").style.display ="block";
-		 document.getElementById("scrollArea1").style.display ="block";
+		 //document.getElementById("scrollArea1").style.display ="block";
 		 document.getElementById("my-container").style.height="578px";
 		 document.getElementById("my-timeline").style.height="578px";
 		 if(document.getElementById("divouter-1").style.display=="none" && document.getElementById("divouter-5").style.display!="none")
@@ -4560,8 +4576,7 @@ function fitStringToWidth(str,width,className)
     function SetDivDate(startYr,endYr)
     { 
         document.getElementById("dateRange").innerHTML = String(startYr) + " - " + String(endYr);        
-    }       
-    
+    }
     
     Timeline._Band.prototype._onDivClick = function(G, H, B) {if(zoomStatus != 'none')
     {
@@ -4609,7 +4624,7 @@ function fitStringToWidth(str,width,className)
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent("click", true, true);
             document.getElementById('timeline-band-1').dispatchEvent(evt); 
-            tl.getBand(1)._autoScroll(0);
+            //tl.getBand(1)._autoScroll(0);
             }
         });
         
@@ -4623,7 +4638,7 @@ function fitStringToWidth(str,width,className)
             var evt = document.createEvent("HTMLEvents");
             evt.initEvent("click", true, true);
             document.getElementById('timeline-band-1').dispatchEvent(evt);
-            tl.getBand(1)._autoScroll(0);
+            //tl.getBand(1)._autoScroll(0);
             }
         });
     });  
@@ -4697,6 +4712,49 @@ function fitStringToWidth(str,width,className)
             retVal.push(elements[i]);
         }
     return retVal;
+    }
+    
+    
+    function  scrl() {          
+     if(document.getElementById("scroller")!=null) 
+     var docH = document.getElementById("content").offsetHeight;
+     var contH = document.getElementById("contentmain").offsetHeight;
+     var scrollAreaH = document.getElementById("scrollArea").offsetHeight;      
+    
+     var scrollH = (contH * scrollAreaH) / docH;    
+     document.getElementById("scroller").style.height = Math.round(scrollH) + "px";
+    
+     var scrollDist = Math.round(scrollAreaH-scrollH);    
+    
+     Drag.init(document.getElementById("scroller"),null,0,0,-1,scrollDist);
+    
+     document.getElementById("scroller").onDrag = function (x,y) {
+     var scrollY = parseInt(document.getElementById("scroller").style.top);
+     var docY = 0 - (scrollY * (docH - contH) / scrollDist);
+     document.getElementById("content").style.top = docY + "px";     
+     scrl();
+    }
+  }
+  
+  
+  function  scrl1() {                   
+        var docH = document.getElementById("content1").offsetHeight;
+        var contH = document.getElementById("contentmain1").offsetHeight;
+        var scrollAreaH = document.getElementById("scrollArea1").offsetHeight;      
+    
+        var scrollH = (contH * scrollAreaH) / docH;    
+        document.getElementById("scroller1").style.height = Math.round(scrollH) + "px";    
+    
+        var scrollDist = Math.round(scrollAreaH-scrollH);    
+    
+        Drag.init(document.getElementById("scroller1"),null,0,0,-1,scrollDist);    
+    
+        document.getElementById("scroller1").onDrag = function (x,y) {
+        var scrollY = parseInt(document.getElementById("scroller1").style.top);
+        var docY = 0 - (scrollY * (docH - contH) / scrollDist);
+        document.getElementById("content1").style.top = docY + "px";
+        scrl1();
+        }
     }
            
 //* New   

@@ -239,3 +239,8 @@ var Drag1 = {
 	}
 };
 
+function CloseMyTimeline()
+    {    
+	 $('#imgMngT').click();	
+    }
+

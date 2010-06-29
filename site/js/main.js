@@ -22,16 +22,11 @@ $(document).ready(function() {
 	            $(this).attr("src", "images/T_Open.jpg");
 	            $("#divouter-1").hide();
 	            
-	            if(document.getElementById("scrollArea")!=null)
-	            {
-	            document.getElementById("scrollArea").style.display = 'none';
-	            }
-	            
                 if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {
             	    myDiv4.css("top","10px");
             	    myDiv5.css("top","42px");
-            	    myMain.css("height","308px");            	    
+            	    myMain.css("height","306px");            	    
             	    mySMain.css("height","308px");
             	    
             	    if(document.getElementById('divouter-5').style.display == 'none')
@@ -39,6 +34,11 @@ $(document).ready(function() {
             	        myMain.css("height","40px");      
             	              	        
             	    }
+            	    
+            	    if(document.getElementById("scrollArea1")!=null)
+	                {
+	                    document.getElementById("scrollArea1").style.top = '88px';
+	                }            	    
             	}
             	else
             	{  
@@ -52,10 +52,7 @@ $(document).ready(function() {
 	            $(this).attr("src", "images/T_Close.jpg");
 		        $("#divouter-1").show();
 		        
-		        if(document.getElementById("scrollArea")!=null)
-	            {		        
-		        document.getElementById("scrollArea").style.display = 'block';
-		        }
+		        maxWindow();
 		        
 	            if(sPage=="search2.aspx" || sPage=="userTimeline.aspx")          
                 {          
@@ -72,6 +69,11 @@ $(document).ready(function() {
             	    if($.browser.mozilla || $.browser.safari || $.browser.opera || $.browser.crome)
                     {
 		            performFiltering(tl, [1, 2, 3, 4, 5], document.getElementById("table-filter"));
+		            }
+		            
+		            if(document.getElementById("scrollArea1")!=null)
+	                {		        
+		              document.getElementById("scrollArea1").style.top = '359px';
 		            }
             	}
             	else
@@ -240,6 +242,7 @@ function openModal(modalURL) {
 
 function maxWindow()
 {
+window.resizeTo(screen.width, screen.height - 20);
 window.moveTo(0,0);
 window.resizeTo(screen.width, screen.height);
 }

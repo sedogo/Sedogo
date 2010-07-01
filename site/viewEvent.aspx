@@ -335,6 +335,13 @@
                                     <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()"
                                         Text="Edit picture" CssClass="underline-bold" />
                                 </div>
+                                <div>
+                                    <p style="margin-bottom: 5px;">
+                                        <br />
+                                        <img src="images/share.gif" alt="" />
+                                        <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
+                                            OnClick="click_shareButton" /></p>
+                                </div>
                                 <div id="eventLinksDiv" runat="server">
                                     <div class="eventRightColBox" id="invitesBox" runat="server">
                                         <h3 id="invitesHeader" runat="server" class="invites-header">
@@ -344,11 +351,6 @@
                                             <img src="images/invite.gif" />
                                             <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
                                                 CssClass="underline-bold" /></p>
-                                        <p style="margin-bottom: 5px;">
-                                            <br />
-                                            <img src="images/share.gif" alt="" />
-                                            <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
-                                                OnClick="click_shareButton" /></p>
                                     </div>
                                     <h3 id="trackingHeader" runat="server" class="requests-header" style="margin-top: 15px;">
                                         Members:</h3>

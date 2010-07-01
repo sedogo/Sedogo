@@ -108,27 +108,27 @@
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox1" class="modal">Address book</a></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox1" class="modal"><img src="images/friends.gif" /></a></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox2" class="modal">Address book</a></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox2" class="modal"><img src="images/friends.gif" /></a></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox3" class="modal">Address book</a></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox3" class="modal"><img src="images/friends.gif" /></a></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox4" class="modal">Address book</a></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox4" class="modal"><img src="images/friends.gif" /></a></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox5" class="modal">Address book</a></td>
+                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox5" class="modal"><img src="images/friends.gif" /></a></td>
                                 </tr>
                             </table>
 

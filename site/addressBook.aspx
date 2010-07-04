@@ -82,8 +82,8 @@
                                     </td>
                                     <td align="right">
                                         <p>
-                                        <asp:Hyperlink ID="sendMessageButton" 
-                                        runat="server" CssClass="button-sml" Text="Send message" />
+                                        <asp:Hyperlink ID="sendMessageButton"
+                                        runat="server" CssClass="button-sml modal" Text="Send message" />
                                         <asp:Hyperlink ID="viewProfileButton" 
                                         runat="server" CssClass="button-sml" Text="View profile" />
                                         <asp:Hyperlink ID="editContactButton" 
@@ -103,7 +103,7 @@
                     
                     <div style="margin-top:10px">
                     <asp:Hyperlink ID="addContactButton" runat="server" CssClass="button-sml modal"
-                        Text="Add person to friend list" NavigateUrl="addAddressBook.aspx" />
+                        Text="Add friend" NavigateUrl="addAddressBook.aspx" />
                     </div>       
                     
                     <br />&nbsp;

@@ -76,6 +76,14 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
                 birthdayLabel.Text = "";
                 ageLabel.Text = "";
             }
+
+            usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;
+            messageLink.NavigateUrl = "javascript:sendMessage(" + user.userID + ")";
+
+            if( userID == loggedInUserID )
+            {
+                messageLink.Visible = false;
+            }
         }
         else
         {
@@ -85,10 +93,13 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
 
             loginLink.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
             registerLink.NavigateUrl = "~/register.aspx";
+
+            messageLink.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
+            messageLink.CssClass = "modal";
+            usersProfileNameLabel.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
+            usersProfileNameLabel.CssClass = "blue modal";
         }
 
-        usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?uid=" + user.userID;
-        messageLink.NavigateUrl = "javascript:sendMessage(" + user.userID + ")";
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
         userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();

@@ -29,7 +29,7 @@ function breakout_of_frame()
         HeaderText="Please review the following errors:" />
     
     <img src="../images/sedogo.gif" alt="" />
-    
+        
     Welcome to Sedogo Administration<br />
     <br />
     <br />

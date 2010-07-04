@@ -41,10 +41,13 @@ public partial class feedback : System.Web.UI.Page
                 currentUserID = int.Parse(Session["loggedInUserID"].ToString());
                 SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
 
+                sidebarControl.user = currentUser;
+
                 yourEmailAddressLabel.Text = currentUser.emailAddress;
                 emailAddressTextBoxValidator.Enabled = false;
                 emailAddressTextBox.Visible = false;
             }
+            sidebarControl.userID = currentUserID;
         }
     }
 

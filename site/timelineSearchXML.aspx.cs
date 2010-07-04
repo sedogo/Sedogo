@@ -279,6 +279,7 @@ public partial class timelineSearchXML : System.Web.UI.Page
                 linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
 
                 string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + eventUserID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
+                //string ImgLink = "|" + EUserName;
                 //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT

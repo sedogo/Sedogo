@@ -83,7 +83,7 @@
                                     <td>
                                         <table>
                                             <tr>
-                                                <td valign="top"><asp:Image id="eventImage" runat="server" /></td>
+                                                <td valign="top" width="50"><asp:Image id="eventImage" runat="server" /></td>
                                                 <td>
                                                     <p><asp:HyperLink ID="eventNameLabel" runat="server" CssClass="publicPageSelectedLetter" /><br />
                                                         <i><asp:HyperLink ID="userNameLabel" runat="server" Target="_top" /></i></p>
@@ -98,8 +98,7 @@
                                 </tr>
                             </table>
                             
-                            <br />
-                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+                            <div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div>
                         
                         </ItemTemplate>
                     </asp:Repeater>

@@ -77,8 +77,6 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
                 }
-                messageCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                messageCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
                 if (pendingInviteCount == 1)
@@ -89,8 +87,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
                 }
-                inviteCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                inviteCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                //inviteCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                //inviteCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
                 if (pendingAlertCount == 1)
@@ -101,8 +99,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
                 }
-                alertCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                alertCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                //alertCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                //alertCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
                 if (trackedEventCount == 1)
@@ -113,8 +111,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
                 }
-                trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                //trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                //trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
                 if (pendingRequestsCount == 1)
@@ -125,8 +123,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
                 }
-                goalJoinRequestsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                goalJoinRequestsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                //goalJoinRequestsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                //goalJoinRequestsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
                 if (joinedEventCount == 1)
@@ -137,12 +135,12 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goals";
                 }
-                groupGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                groupGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                //groupGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                //groupGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 addressBookLink.Text = "Friends";
-                addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+//                addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                ////////////addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int achievedEventCount = SedogoEvent.GetEventCountAchieved(userID);
                 if (achievedEventCount == 1)
@@ -175,7 +173,6 @@ public partial class sidebar : System.Web.UI.UserControl
                 userNameLabel.Visible = true;
                 profileTextLabel.Visible = true;
                 myProfileTextLabel.Visible = true;
-                myLatestGoalsLabel.Visible = true;
             }
             else
             {
@@ -187,7 +184,6 @@ public partial class sidebar : System.Web.UI.UserControl
                 userNameLabel.Visible = false;
                 profileTextLabel.Visible = false;
                 myProfileTextLabel.Visible = false;
-                myLatestGoalsLabel.Visible = false;
             }
 
             PopulateLatestSearches();
@@ -220,117 +216,164 @@ public partial class sidebar : System.Web.UI.UserControl
         {
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectSearchHistoryTop5";
-            DbDataReader rdr = cmd.ExecuteReader();
-            while (rdr.Read())
+            SqlCommand cmdLatestEvents = new SqlCommand("", conn);
+            cmdLatestEvents.CommandType = CommandType.StoredProcedure;
+            cmdLatestEvents.CommandText = "spSelectLatestEvents";
+            DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
+            while (rdrLatestEvents.Read())
             {
-                string searchText = "";
+                int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
+                string eventName = (string)rdrLatestEvents["EventName"];
 
-                int searchHistoryID = int.Parse(rdr["SearchHistoryID"].ToString());
-                if (!rdr.IsDBNull(rdr.GetOrdinal("SearchText")))
-                {
-                    searchText = (string)rdr["SearchText"];
-                }
-
-                HyperLink searchHyperlink = new HyperLink();
-                searchHyperlink.Text = searchText;
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = eventName;
                 if (userID > 0)
                 {
-                    searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
+                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 }
                 else
                 {
-                    searchHyperlink.NavigateUrl = "~/search.aspx?Search=" + searchText;
+                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
+                    eventHyperlink.CssClass = "modal";
                 }
-                latestSearchesPlaceholder.Controls.Add(searchHyperlink);
+                eventHyperlink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                eventHyperlink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
-                latestSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
+                goalsAddedPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsAddedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
             }
-            rdr.Close();
+            rdrLatestEvents.Close();
 
-            SqlCommand cmdPopular = new SqlCommand("", conn);
-            cmdPopular.CommandType = CommandType.StoredProcedure;
-            cmdPopular.CommandText = "spSelectSearchHistoryPopularTop5";
-            DbDataReader rdrPopular = cmdPopular.ExecuteReader();
-            while (rdrPopular.Read())
-            {
-                string searchText = (string)rdrPopular["SearchText"];
-                //int searchCount = int.Parse(rdrPopular["SearchCount"].ToString());
-
-                HyperLink searchHyperlink = new HyperLink();
-                searchHyperlink.Text = searchText;
-                if (userID > 0)
-                {
-                    searchHyperlink.NavigateUrl = "~/search2.aspx?Search=" + searchText;
-                }
-                else
-                {
-                    searchHyperlink.NavigateUrl = "~/search.aspx?Search=" + searchText;
-                }
-                popularSearchesPlaceholder.Controls.Add(searchHyperlink);
-
-                popularSearchesPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-            }
-            rdrPopular.Close();
-
+            HyperLink nHyperlink = new HyperLink();
+            nHyperlink.Text = "<b>More ></b>";
             if (userID > 0)
             {
-                SqlCommand cmdLatestEvents = new SqlCommand("", conn);
-                cmdLatestEvents.CommandType = CommandType.StoredProcedure;
-                cmdLatestEvents.CommandText = "spSelectLatestEvents";
-                cmdLatestEvents.Parameters.Add("@LoggedInUserID", SqlDbType.Int).Value = userID;
-                DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
-                int cnt = 0;
-                while (rdrLatestEvents.Read())
-                {
-                    cnt += 1;
-                    int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
-                    string eventName = (string)rdrLatestEvents["EventName"];
-
-                    HyperLink eventHyperlink = new HyperLink();
-                    eventHyperlink.Text = eventName;
-                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                    latestEventsPlaceholder.Controls.Add(eventHyperlink);
-
-                    latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-                    if (cnt >= 4)
-                        break;
-                }
-                rdrLatestEvents.Close();
-
-                //Changes by Chetan
-                HyperLink nHyperlink = new HyperLink();
-                nHyperlink.Text = "<b>More ></b>";
                 nHyperlink.NavigateUrl = "~/MoreDetail.aspx?type=latest";
-                latestEventsPlaceholder.Controls.Add(nHyperlink);
-                latestEventsPlaceholder.Controls.Add(new LiteralControl("<br/>"));
-                //
-
-                SqlCommand cmdupComing = new SqlCommand("", conn);
-                cmdupComing.CommandType = CommandType.Text;
-                cmdupComing.CommandText = "select top 5 * from Events where userid=" + userID.ToString() + " and CONVERT(VARCHAR(10),rangestartdate,101) >CONVERT(VARCHAR(10), GETDATE(), 101) and Deleted=0 order by rangestartdate ";
-                DbDataReader rdrupComing = cmdupComing.ExecuteReader();
-                while (rdrupComing.Read())
-                {
-                    string searchText = (string)rdrupComing["EventID"].ToString();
-                    HyperLink searchHyperlink = new HyperLink();
-                    searchHyperlink.Text = rdrupComing["EventName"].ToString();
-                    if (userID > 0)
-                    {
-                        searchHyperlink.NavigateUrl = "~/viewevent.aspx?eid=" + searchText;
-                    }
-                    else
-                    {
-                        searchHyperlink.NavigateUrl = "~/viewevent.aspx?eid=" + searchText;
-                    }
-                    goalupcomingPlaceHolder.Controls.Add(searchHyperlink);
-
-                    goalupcomingPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
-                }
-                rdrupComing.Close();
             }
+            else
+            {
+                nHyperlink.NavigateUrl = "~/HomeMoreDetail.aspx?type=latest";
+            }
+            goalsAddedPlaceHolder.Controls.Add(nHyperlink);
+            goalsAddedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+            
+            SqlCommand cmdUpdatedEvents = new SqlCommand("", conn);
+            cmdUpdatedEvents.CommandType = CommandType.StoredProcedure;
+            cmdUpdatedEvents.CommandText = "spSelectLatestUpdatedEvents";
+            DbDataReader rdrUpdatedEvents = cmdUpdatedEvents.ExecuteReader();
+            while (rdrUpdatedEvents.Read())
+            {
+                int eventID = int.Parse(rdrUpdatedEvents["EventID"].ToString());
+                string eventName = (string)rdrUpdatedEvents["EventName"];
+
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = eventName;
+                if (userID > 0)
+                {
+                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                }
+                else
+                {
+                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
+                    eventHyperlink.CssClass = "modal";
+                }
+                goalsUpdatedPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsUpdatedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+            }
+            rdrUpdatedEvents.Close();
+
+            HyperLink nUpdatedHyperlink = new HyperLink();
+            nUpdatedHyperlink.Text = "<b>More ></b>";
+            if (userID > 0)
+            {
+                nUpdatedHyperlink.NavigateUrl = "~/MoreDetail.aspx?type=updated";
+            }
+            else
+            {
+                nUpdatedHyperlink.NavigateUrl = "~/HomeMoreDetail.aspx?type=updated";
+            }
+            goalsUpdatedPlaceHolder.Controls.Add(nUpdatedHyperlink);
+            goalsUpdatedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+
+            SqlCommand cmdNowEvents = new SqlCommand("", conn);
+            cmdNowEvents.CommandType = CommandType.StoredProcedure;
+            cmdNowEvents.CommandText = "spSelectHappeningNowEvents";
+            DbDataReader rdrNowEvents = cmdNowEvents.ExecuteReader();
+            while (rdrNowEvents.Read())
+            {
+                int eventID = int.Parse(rdrNowEvents["EventID"].ToString());
+                string eventName = (string)rdrNowEvents["EventName"];
+
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = eventName;
+                if (userID > 0)
+                {
+                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                }
+                else
+                {
+                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
+                    eventHyperlink.CssClass = "modal";
+                }
+                goalsHappeningNowPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsHappeningNowPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+            }
+            rdrNowEvents.Close();
+
+            HyperLink nNowHyperlink = new HyperLink();
+            nNowHyperlink.Text = "<b>More ></b>";
+            if (userID > 0)
+            {
+                nNowHyperlink.NavigateUrl = "~/MoreDetail.aspx?type=now";
+            }
+            else
+            {
+                nNowHyperlink.NavigateUrl = "~/HomeMoreDetail.aspx?type=now";
+            }
+            goalsHappeningNowPlaceHolder.Controls.Add(nNowHyperlink);
+            goalsHappeningNowPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+
+            SqlCommand cmdAchievedEvents = new SqlCommand("", conn);
+            cmdAchievedEvents.CommandType = CommandType.StoredProcedure;
+            cmdAchievedEvents.CommandText = "spSelectLatestAchievedEvents";
+            DbDataReader rdrAchievedEvents = cmdAchievedEvents.ExecuteReader();
+            while (rdrAchievedEvents.Read())
+            {
+                int eventID = int.Parse(rdrAchievedEvents["EventID"].ToString());
+                string eventName = (string)rdrAchievedEvents["EventName"];
+
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = eventName;
+                if (userID > 0)
+                {
+                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                }
+                else
+                {
+                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
+                    eventHyperlink.CssClass = "modal";
+                }
+                goalsAchievedPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsAchievedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+            }
+            rdrAchievedEvents.Close();
+
+            HyperLink nAchievedHyperlink = new HyperLink();
+            nAchievedHyperlink.Text = "<b>More ></b>";
+            if (userID > 0)
+            {
+                nAchievedHyperlink.NavigateUrl = "~/MoreDetail.aspx?type=achieved";
+            }
+            else
+            {
+                nAchievedHyperlink.NavigateUrl = "~/HomeMoreDetail.aspx?type=achieved";
+            }
+            goalsAchievedPlaceHolder.Controls.Add(nAchievedHyperlink);
+            goalsAchievedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
         }
         catch (Exception ex)
         {

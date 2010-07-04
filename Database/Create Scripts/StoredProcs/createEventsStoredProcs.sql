@@ -216,7 +216,8 @@ END
 GO
 
 CREATE Procedure spSelectFullEventListByCategory
-	@UserID			int
+	@UserID			int,
+	@ShowPrivate	bit
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
@@ -227,6 +228,7 @@ BEGIN
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
+	AND ( (@ShowPrivate = 1) OR (@ShowPrivate = 0 AND PrivateEvent = 0) )
 	AND EventAchieved = 0
 	AND UserID = @UserID
 	
@@ -242,6 +244,7 @@ BEGIN
 	JOIN TrackedEvents T
 	ON E.EventID = T.EventID
 	WHERE E.Deleted = 0
+	AND ( (@ShowPrivate = 1) OR (@ShowPrivate = 0 AND E.PrivateEvent = 0) )
 	AND E.EventAchieved = 0
 	AND T.UserID = @UserID
 	AND T.ShowOnTimeline = 1
@@ -346,7 +349,7 @@ BEGIN
 	WHERE Deleted = 0
 	AND EventAchieved = 1
 	AND UserID = @UserID
-	ORDER BY StartDate
+	ORDER BY StartDate DESC
 END
 GO
 
@@ -2322,18 +2325,140 @@ END
 GO
 
 CREATE Procedure spSelectLatestEvents
-	@LoggedInUserID	int
 AS
 BEGIN
-	SELECT TOP 5 EventID, UserID, EventName, EventVenue, DateType,
+	SELECT TOP 4 EventID, UserID, EventName, EventVenue, DateType,
 		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
 		EventAchieved, EventAchievedDate,
 		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
 	FROM Events
-	WHERE UserID = @LoggedInUserID
-	AND Deleted = 0
+	WHERE Deleted = 0
 	AND PrivateEvent = 0
+	AND EventAchieved = 0
 	ORDER BY CreatedDate DESC
+	
+END
+GO
+
+/*===============================================================
+// Function: spSelectLatestUpdatedEvents
+// Description:
+//   Gets most recent events
+//=============================================================*/
+PRINT 'Creating spSelectLatestUpdatedEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectLatestUpdatedEvents')
+BEGIN
+	DROP Procedure spSelectLatestUpdatedEvents
+END
+GO
+
+CREATE Procedure spSelectLatestUpdatedEvents
+AS
+BEGIN
+	SELECT TOP 4 EventID, UserID, EventName, EventVenue, DateType,
+		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+	FROM Events
+	WHERE Deleted = 0
+	AND PrivateEvent = 0
+	AND EventAchieved = 0
+	ORDER BY LastUpdatedDate DESC
+	
+END
+GO
+
+/*===============================================================
+// Function: spSelectHappeningNowEvents
+// Description:
+//   Gets most recent events
+//=============================================================*/
+PRINT 'Creating spSelectHappeningNowEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectHappeningNowEvents')
+BEGIN
+	DROP Procedure spSelectHappeningNowEvents
+END
+GO
+
+CREATE Procedure spSelectHappeningNowEvents
+AS
+BEGIN
+	SELECT TOP 4 EventID, UserID, EventName, EventVenue, DateType,
+		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+	FROM Events
+	WHERE Deleted = 0
+	AND PrivateEvent = 0
+	AND EventAchieved = 0
+    AND ( convert(varchar(11),RangeEndDate,103) >= convert(varchar(11),getdate(),103)
+       OR convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )
+	ORDER BY EventID
+	
+END
+GO
+
+/*===============================================================
+// Function: spSelectLatestAchievedEvents
+// Description:
+//   Gets most achieved events
+//=============================================================*/
+PRINT 'Creating spSelectLatestAchievedEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectLatestAchievedEvents')
+BEGIN
+	DROP Procedure spSelectLatestAchievedEvents
+END
+GO
+
+CREATE Procedure spSelectLatestAchievedEvents
+AS
+BEGIN
+	SELECT TOP 4 EventID, UserID, EventName, EventVenue, DateType,
+		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+	FROM Events
+	WHERE Deleted = 0
+	AND PrivateEvent = 0
+	AND EventAchieved = 1
+	order by EventAchievedDate desc
+	
+END
+GO
+
+
+/*===============================================================
+// Function: spSelectLatestAchievedEventsFullList
+// Description:
+//   Gets most achieved events
+//=============================================================*/
+PRINT 'Creating spSelectLatestAchievedEventsFullList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectLatestAchievedEventsFullList')
+BEGIN
+	DROP Procedure spSelectLatestAchievedEventsFullList
+END
+GO
+
+CREATE Procedure spSelectLatestAchievedEventsFullList
+AS
+BEGIN
+	SELECT TOP 20 EventID, UserID, EventName, EventVenue, DateType,
+		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+	FROM Events
+	WHERE Deleted = 0
+	AND PrivateEvent = 0
+	AND EventAchieved = 1
+	order by EventAchievedDate desc
 	
 END
 GO

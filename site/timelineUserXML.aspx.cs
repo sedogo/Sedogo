@@ -64,6 +64,8 @@ public partial class timelineUserXML : System.Web.UI.Page
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "spSelectFullEventListByCategory";
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+            cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = false;
+
             DbDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -119,9 +121,9 @@ public partial class timelineUserXML : System.Web.UI.Page
                 }
 
                 string EUserName = string.Empty;
-                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
                 {
-                    EUserName = (string)rdr["LastUpdatedByFullName"];                   
+                    EUserName = (string)rdr["CreatedByFullName"];                   
                 }
                 //
 
@@ -265,6 +267,7 @@ public partial class timelineUserXML : System.Web.UI.Page
                 linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + userID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
 
                 string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
+                //string ImgLink = "|" + EUserName;
                 //*
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT

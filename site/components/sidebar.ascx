@@ -81,28 +81,23 @@ function changeClass(id, newClass)
         </ol>
     </div>
     <div class="latestGoals">
-        <h3>
-            <asp:Label ID="myLatestGoalsLabel" runat="server" Text="My latest goals" /></h3>
-        <p>
-            <asp:PlaceHolder ID="latestEventsPlaceholder" runat="server" />
-        </p>
-        <div class="pinstripe-divider">
-        </div>
-        <!--<h3>Latest searches</h3>-->
-        <!--<p><asp:PlaceHolder id="latestSearchesPlaceholder" runat="server" /></p>-->
-        <!--<div class="pinstripe-divider"></div>-->
-        <h3>
-            Popular goals</h3>
-        <p>
-            <asp:PlaceHolder ID="popularSearchesPlaceholder" runat="server" />
-        </p>
-        <div class="pinstripe-divider">
-        </div>
-        <h3>
-            <asp:Label ID="goalupcomingLabel" runat="server" Text="Goals up and coming" /></h3>
-        <p>
-            <asp:PlaceHolder ID="goalupcomingPlaceHolder" runat="server" />
-        </p>
+        
+        <h2><asp:Label ID="Label1" runat="server" Text="Goals added" /></h2>
+        <asp:PlaceHolder ID="goalsAddedPlaceHolder" runat="server" />
+        <div class="pinstripe-divider"></div>
+
+        <h2><asp:Label ID="Label2" runat="server" Text="Goals updated" /></h2>
+        <asp:PlaceHolder ID="goalsUpdatedPlaceHolder" runat="server" />
+        <div class="pinstripe-divider"></div>
+
+        <h2><asp:Label ID="Label3" runat="server" Text="Goals happening now" /></h2>
+        <asp:PlaceHolder ID="goalsHappeningNowPlaceHolder" runat="server" />
+        <div class="pinstripe-divider"></div>
+
+        <h2><asp:Label ID="Label4" runat="server" Text="Goals achieved" /></h2>
+        <asp:PlaceHolder ID="goalsAchievedPlaceHolder" runat="server" />
+        <div class="pinstripe-divider"></div>
+        
     </div>
     <p>
         &nbsp;</p>

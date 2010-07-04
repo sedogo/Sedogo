@@ -32,5 +32,14 @@ public partial class privacy : System.Web.UI.Page
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        int userID = -1;
+        if (Session["loggedInUserID"] != null)
+        {
+            userID = int.Parse(Session["loggedInUserID"].ToString());
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.user = user;
+        }
+        sidebarControl.userID = userID;
     }
 }

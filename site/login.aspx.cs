@@ -53,12 +53,21 @@ public partial class login : System.Web.UI.Page
         Boolean rememberMe = rememberMeCheckbox.Checked;
 
         int redirectUserID = -1;
+        int redirectUserTimelineID = -1;
         int redirectEventID = -1;
         if (Request.QueryString["UID"] != null)
         {
             try
             {
                 redirectUserID = int.Parse(Request.QueryString["UID"].ToString());
+            }
+            catch { }
+        }
+        if (Request.QueryString["UTID"] != null)
+        {
+            try
+            {
+                redirectUserTimelineID = int.Parse(Request.QueryString["UTID"].ToString());
             }
             catch { }
         }
@@ -138,6 +147,11 @@ public partial class login : System.Web.UI.Page
                 if (redirectUserID > 0)
                 {
                     string url = "./userProfileRedirect.aspx?UID=" + redirectUserID.ToString();
+                    Response.Redirect(url);
+                }
+                else if (redirectUserTimelineID > 0)
+                {
+                    string url = "./userTimelineRedirect.aspx?UID=" + redirectUserTimelineID.ToString();
                     Response.Redirect(url);
                 }
                 else if (redirectEventID > 0)

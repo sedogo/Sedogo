@@ -231,7 +231,7 @@
     function viewUserTimeline(eventUserID)
     {
         //location.href = "userTimeline.aspx?UID=" + eventUserID;
-        openModal("login.aspx");
+        openModal("login.aspx?UTID=" + eventUserID);
     }    
     function doSendMessage(srhUserID)
     {        
@@ -386,25 +386,8 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <div class="one-col" style="background-color: #EFEFEF; height: 339px; padding-left: 10px;
-                    width: 211px;">
-                    <div style="float: left; padding-top: 15px;">
-                        <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
-                            Latest Achieved Goals
-                        </div>
-                        <div>
-                            <% = BindLatestAchievedGoals()%>
-                        </div>
-                    </div>
-                    <div style="float: left; padding-top: 15px; margin-top: 15px;">
-                        <div style="color: #00BFFD; font-weight: bold; font-size: 14px; margin-bottom: 2px;">
-                            Goals Happening Today
-                        </div>
-                        <div>
-                            <%= BindGoalsHappeningToday()%>
-                        </div>
-                    </div>
-                </div>
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+            
                 <div class="one-col">
                     <h2 class="col-header">
                         how does it work?</h2>

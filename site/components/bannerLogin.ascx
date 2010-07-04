@@ -13,8 +13,10 @@
         NavigateUrl="~/help.aspx" ToolTip="Help" Text="Help" /></li>
 </ul>
 <div class="one-col">
+    <div style="margin-top:20px">
 	<asp:HyperLink ID="profileLink" runat="server" NavigateUrl="~/profile.aspx" 
 	    ToolTip="sedogo : home" ImageUrl="~/images/sedogo.gif" />
+    </div>
 	<p class="strapline">
 	    Create your future and connect<br />
 	    with others to make it happen

@@ -150,30 +150,13 @@ public partial class addressBook : SedogoPage
             HyperLink sendMessageButton = e.Item.FindControl("sendMessageButton") as HyperLink;
             if (userID > 0)
             {
-                viewProfileButton.NavigateUrl = "sendMessage.aspx?UID=" + userID.ToString();
-                viewProfileButton.Visible = true;
+                sendMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + userID.ToString() + "&EID=-1";
+                sendMessageButton.Visible = true;
             }
             else
             {
-                viewProfileButton.Visible = false;
+                sendMessageButton.Visible = false;
             }
-
-            
-
-
-            /*
-
-            Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
-            string eventPicThumbnail = row["EventPicThumbnail"].ToString();
-            if (eventPicThumbnail == "")
-            {
-                eventPicThumbnailImage.ImageUrl = "./images/eventThumbnailBlank.png";
-            }
-            else
-            {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
-            }
-            */
         }
     }
 
@@ -183,7 +166,6 @@ public partial class addressBook : SedogoPage
     protected void addressBookRepeater_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         int addressBookID = int.Parse(e.CommandArgument.ToString());
-
     }
 
     //===============================================================

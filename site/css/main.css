@@ -39,7 +39,7 @@ h2
 	font-size: 16px;
 	font-weight: bold;
 	color: #0cf;
-	padding: 4px;
+	padding: 4px 4px 4px 0;
 	/*padding: 4px 12px;*/
 	/*margin-bottom: 18px;*/
 	-moz-border-radius: 8px;
@@ -1280,6 +1280,7 @@ li.achievedgoals a {
 	color: #0cf;
 	margin-top: 0;
 }
+.latestGoals a,
 .messages a,
 .alerts a,
 .invites a,
@@ -1290,6 +1291,7 @@ li.achievedgoals a {
 .following a {
 	color: #9b9885;
 }
+.latestGoals a:hover,
 .messages a:hover,
 .alerts a:hover,
 .invites a:hover,
@@ -1358,7 +1360,7 @@ a.underline-bold {
 	color: #0cf
 }
 .grey {
-	color: #666666
+	color: #9B9885
 }
 
 .calendar_button

@@ -397,8 +397,15 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 linkURL += "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
                 linkURL += "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
 
-                string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
-                //*
+                string ImgLink = "";
+                if (userID == eventUserID)
+                {
+                    ImgLink = "|" + EUserName;
+                }
+                else
+                {
+                    ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + eventUserID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
+                }
 
                 writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                 writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));

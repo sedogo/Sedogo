@@ -63,6 +63,7 @@ namespace Sedogo.BusinessObjects
             }
         }
 
+        /*
         public DataTable GetLatestAchievedGoals()
         {
             DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
@@ -91,7 +92,9 @@ namespace Sedogo.BusinessObjects
                 conn.Close();
             }
         }
+        */
 
+        /*
         public DataTable GetGoalsHappeningToday()
         {
             DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
@@ -126,5 +129,6 @@ namespace Sedogo.BusinessObjects
                 conn.Close();
             }
         }
+        */
     }
 }

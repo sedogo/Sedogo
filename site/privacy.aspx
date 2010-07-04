@@ -54,6 +54,7 @@
 	    <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
 		<div id="other-content">
+            <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
 			<div class="three-col">
 
                 <h1>Privacy Policy</h1>

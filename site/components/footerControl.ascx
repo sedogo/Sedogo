@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="footerControl.ascx.cs" Inherits="components_footerControl" %>
 
-<div id="footer">
+<div id="footer" style="margin-bottom:20px">
 	<ul>
 		<li class="first">&copy; Sedogo Ltd 2008-2010</li>
 		<li><asp:HyperLink ID="aboutLink" runat="server" NavigateUrl="~/about.aspx" ToolTip="About" Text="About" /></li>

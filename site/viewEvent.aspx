@@ -322,7 +322,7 @@
                                         <asp:HyperLink ID="loginLink" NavigateUrl="~/login.aspx" 
                                         runat="server" Text="Click here to login" CssClass="modal" /><br />
                                         or <asp:HyperLink ID="registerLink" NavigateUrl="~/register.aspx" 
-                                        runat="server" Text="click here to register" CssClass="modal" /> if you are a new user</p>
+                                        runat="server" Text="click here to register" /> if you are a new user</p>
                                 </div>
                                 <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
                             </td>
@@ -330,8 +330,8 @@
                                 &nbsp;
                             </td>
                             <td width="237px">
-                                <div style="width: 170px; padding-top: 10px; overflow: hidden">
-                                    <asp:Image ID="eventImage" runat="server" Width="170" />
+                                <div style="width: 237px; padding-top: 10px; overflow: hidden">
+                                    <asp:Image ID="eventImage" runat="server" Width="237" />
                                     <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()"
                                         Text="Edit picture" CssClass="underline-bold" />
                                 </div>
@@ -345,32 +345,31 @@
                                 <div id="eventLinksDiv" runat="server">
                                     <div class="eventRightColBox" id="invitesBox" runat="server">
                                         <h3 id="invitesHeader" runat="server" class="invites-header">
-                                            Invites:</h3>
+                                            Invites</h3>
                                         <p>
                                             <asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
-                                            <img src="images/invite.gif" />
-                                            <asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
+                                            &nbsp;&nbsp;<asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
                                                 CssClass="underline-bold" /></p>
                                     </div>
                                     <h3 id="trackingHeader" runat="server" class="requests-header" style="margin-top: 15px;">
-                                        Members:</h3>
+                                        Members</h3>
                                     <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                                    <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:HyperLink
+                                    <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/greyEnv.gif" />&nbsp;<asp:HyperLink
                                         ID="messageTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageTrackingUsers();" />
                                     <div class="pinstripe-divider">
                                         &nbsp;</div>
                                     <h3 id="H1" runat="server" class="following-header" style="margin-top: 15px;">
-                                        Following:</h3>
+                                        Following</h3>
                                     <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
                                     <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:HyperLink
                                         ID="followersTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageFollowingUsers();"
                                         CssClass="underline-bold" />
-                                    <div class="pinstripe-divider">
+                                    <div class="pinstripe-divider" id="requestsSeperator" runat="server">
                                         &nbsp;</div>
                                     <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->
                                     <!--<p><asp:HyperLink ID="messagesLink" runat="server" NavigateUrl="~/message.aspx" /></p>-->
                                     <h3 id="requestsHeader" runat="server" class="requests-header" style="margin-top: 15px;">
-                                        Requests:</h3>
+                                        Requests</h3>
                                     <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
                                     <div class="pinstripe-divider" id="alertsSeperator" runat="server">
                                         &nbsp;</div>
@@ -387,7 +386,7 @@
                                             CssClass="button-sml" Visible="false" /><br />
                                         &nbsp;<br />
                                         &nbsp;
-                                        <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow this goal" OnClick="trackThisEventLink_click"
+                                        <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow" OnClick="trackThisEventLink_click"
                                             CssClass="button-sml" /><br />
                                         &nbsp;<br />
                                         &nbsp;

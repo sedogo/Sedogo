@@ -84,6 +84,8 @@ public partial class timelineXML : System.Web.UI.Page
                     cmd.CommandText = "spSelectFullEventListByCategory";
                 }
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = true;
+
                 DbDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -145,9 +147,9 @@ public partial class timelineXML : System.Web.UI.Page
 
                     string EUserName = string.Empty;
 
-                    if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
                     {
-                        EUserName = (string)rdr["LastUpdatedByFullName"];                        
+                        EUserName = (string)rdr["CreatedByFullName"];                        
                     }
                     //
 
@@ -290,8 +292,15 @@ public partial class timelineXML : System.Web.UI.Page
                     linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewUserTimeline(" + eventUserID.ToString() + ")\" title=\"\"&gt;Timeline&lt;/a&gt;";
                     linkURL = linkURL + "  &lt;a style=\"text-decoration:underline;\" href=\"javascript:viewProfile(" + eventUserID.ToString() + ")\" title=\"\"&gt;Profile&lt;/a&gt;";
 
-                    string ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + userID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
-                    //*
+                    string ImgLink = "";
+                    if (userID == eventUserID)
+                    {
+                        ImgLink = "|" + EUserName;
+                    }
+                    else
+                    {
+                        ImgLink = "|" + EUserName + " &lt;a href=\"javascript:doSendMessage(" + eventUserID.ToString() + ")\"&gt;&lt;img src=\"images/ico_messages.gif\" title=\"Send Message\" alt=\"Send Message\" /&gt;&lt;/a&gt;";
+                    }
 
                     writer.WriteStartElement("event");      // Time format: Feb 27 2009 09:00:00 GMT
                     writer.WriteAttributeString("start", timelineStartDate.ToString("MMM dd yyyy HH:mm:ss 'GMT'"));
@@ -304,7 +313,7 @@ public partial class timelineXML : System.Web.UI.Page
                     else
                     {
                         SedogoUser eventUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), eventUserID);
-                        writer.WriteAttributeString("title", eventName + " - " + eventUser.firstName + " " + eventUser.lastName);
+                        writer.WriteAttributeString("title", eventName);
                     }
 
                     //* New

@@ -103,8 +103,7 @@
                                 </tr>
                             </table>
                             
-                            <br />
-                            <div class="pinstripe-divider" style="margin: 20px 0 12px 0; width: 430px">&nbsp;</div>
+                            <div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div>
                             
                         </ItemTemplate>
                     </asp:Repeater>

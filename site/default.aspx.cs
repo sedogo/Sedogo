@@ -139,138 +139,13 @@ public partial class _default : System.Web.UI.Page
             //searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
             //searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
 
-            BindLatestMembers();
+            //SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            sidebarControl.userID = -1;
+            //sidebarControl.user = user;
 
             eventRotator.DataSource = GetRotatorDataSource();
             eventRotator.DataBind();
         }
-    }
-
-    //===============================================================
-    // Function: PopulateEvents
-    //===============================================================
-    protected void PopulateEvents()
-    {
-    }
-
-    private void BindLatestMembers()
-    {
-        int cnt = 0;
-        SedogoNewFun objSNFun = new SedogoNewFun();
-        DataTable dtAllUsrs = new DataTable();
-        dtAllUsrs = objSNFun.GetAllEnableUserDetails();
-
-
-        if (dtAllUsrs.Rows.Count > 0)
-        {
-            DataTable dt = dtAllUsrs.Copy();
-            dlMember.DataSource = dtAllUsrs;
-            dlMember.DataBind();
-
-            //for (cnt = 0; cnt < dtAllUsrs.Rows.Count; cnt++)
-            //{
-            //    if (Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != null && Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != "")
-            //    {
-            //        TGoals = TGoals + Convert.ToInt64(dtAllUsrs.Rows[cnt]["gcount"]);
-            //    }
-            //}
-
-            TGoals = Convert.ToInt64(dtAllUsrs.Rows[0]["mcount"]);
-        }
-        else
-        {
-            TGoals = 0;
-            dlMember.DataSource = dtAllUsrs;
-            dlMember.DataBind();
-        }
-    }
-
-    protected string BindLatestAchievedGoals()
-    {
-        SedogoNewFun objSNFun = new SedogoNewFun();
-        DataTable dtLGoal = objSNFun.GetLatestAchievedGoals();
-
-        StringBuilder LGoal = new StringBuilder();
-        int i;
-
-        if (dtLGoal.Rows.Count > 0)
-        {
-            string GName = string.Empty;
-
-            LGoal.Append("<ul>");
-
-            if (dtLGoal.Rows.Count > 3)
-            {
-                for (i = 0; i < 3; i++)
-                {
-                    GName = Convert.ToString(dtLGoal.Rows[i]["EventName"]);
-                    if (GName.Length > 27)
-                    {
-                        GName = GName.Substring(0, 27) + "...";
-                    }
-                    LGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
-                }
-                LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx?type=achieved' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
-            }
-            else
-            {
-                for (i = 0; i < dtLGoal.Rows.Count; i++)
-                {
-                    GName = Convert.ToString(dtLGoal.Rows[i]["EventName"]);
-                    if (GName.Length > 27)
-                    {
-                        GName = GName.Substring(0, 27) + "...";
-                    }
-                    LGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'>" + GName + "</li>");
-                }
-            }
-            LGoal.Append("</ul>");
-        }
-        return Convert.ToString(LGoal);
-    }
-
-    protected string BindGoalsHappeningToday()
-    {
-        SedogoNewFun objSNFun = new SedogoNewFun();
-        DataTable dtHGoal = objSNFun.GetGoalsHappeningToday();
-
-        StringBuilder HGoal = new StringBuilder();
-        int i;
-
-        if (dtHGoal.Rows.Count > 0)
-        {
-            string GName = string.Empty;
-
-            HGoal.Append("<ul>");
-            if (dtHGoal.Rows.Count > 3)
-            {
-                for (i = 0; i < 3; i++)
-                {
-                    GName = Convert.ToString(dtHGoal.Rows[i]["EventName"]);
-                    if (GName.Length > 27)
-                    {
-                        GName = GName.Substring(0, 27) + "...";
-                    }
-                    HGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
-                }
-                HGoal.Append("<li style='line-height:25px;font-size:14px;font-weight:bold;'><a href='HomeMoreDetail.aspx?type=happening' title='Click here to view more achieved Goals' style='font-weight:bold;font-size:13px;'>More ></a></li>");
-            }
-            else
-            {
-                for (i = 0; i < dtHGoal.Rows.Count; i++)
-                {
-                    GName = Convert.ToString(dtHGoal.Rows[i]["EventName"]);
-                    if (GName.Length > 27)
-                    {
-                        GName = GName.Substring(0, 27) + "...";
-                    }
-
-                    HGoal.Append("<li style='line-height:25px;font-size:14px;'>" + GName + "</li>");
-                }
-            }
-            HGoal.Append("</ul>");
-        }
-        return Convert.ToString(HGoal);
     }
 
     //===============================================================
@@ -283,6 +158,13 @@ public partial class _default : System.Web.UI.Page
         //return images;
         string[] shuffle = RandomizeStrings(images);
         return shuffle;
+    }
+
+    //===============================================================
+    // Function: PopulateEvents
+    //===============================================================
+    protected void PopulateEvents()
+    {
     }
 
     private string[] RandomizeStrings(string[] arr)

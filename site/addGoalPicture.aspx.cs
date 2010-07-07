@@ -1,14 +1,14 @@
 ﻿//===============================================================
-// Filename: uploadProfilePic.aspx
-// Date: 05/09/09
+// Filename: addGoalPicture.aspx
+// Date: 05/07/10
 // --------------------------------------------------------------
 // Description:
-//   Upload profile pic
+//   Upload goal pic
 // --------------------------------------------------------------
 // Dependencies:
 //   None
 // --------------------------------------------------------------
-// Original author: PRD 05/09/09
+// Original author: PRD 05/07/10
 // Revision history:
 //===============================================================
 
@@ -27,7 +27,7 @@ using System.Text;
 using System.IO;
 using Sedogo.BusinessObjects;
 
-public partial class uploadProfilePic : SedogoPage
+public partial class addGoalPicture : SedogoPage
 {
     //===============================================================
     // Function: Page_Load
@@ -35,20 +35,9 @@ public partial class uploadProfilePic : SedogoPage
     protected void Page_Load(object sender, EventArgs e)
     {
         int userID = int.Parse(Session["loggedInUserID"].ToString());
+        int eventID = int.Parse(Request.QueryString["EID"]);
 
-        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-        if (user.profilePicThumbnail != "")
-        {
-            profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
-        }
-        else
-        {
-            profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
-        }
-        profileImage.ToolTip = user.fullName + "'s profile picture";
-
-        SetFocus(profilePicFileUpload);
+        SetFocus(goalPicFileUpload);
     }
 
     //===============================================================
@@ -56,27 +45,30 @@ public partial class uploadProfilePic : SedogoPage
     //===============================================================
     protected void uploadProfilePicButton_click(object sender, EventArgs e)
     {
-        if (profilePicFileUpload.PostedFile.ContentLength != 0)
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        int userID = int.Parse(Session["loggedInUserID"].ToString());
+
+        if (goalPicFileUpload.PostedFile.ContentLength != 0)
         {
-            int fileSizeBytes = profilePicFileUpload.PostedFile.ContentLength;
+            int fileSizeBytes = goalPicFileUpload.PostedFile.ContentLength;
 
             GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
             string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
 
-            string originalFileName = Path.GetFileName(profilePicFileUpload.PostedFile.FileName);
+            string originalFileName = Path.GetFileName(goalPicFileUpload.PostedFile.FileName);
             string destPath = Path.Combine(fileStoreFolder, originalFileName);
             destPath = destPath.Replace(" ", "_");
             destPath = MiscUtils.GetUniqueFileName(destPath);
             string savedFilename = Path.GetFileName(destPath);
 
-            profilePicFileUpload.PostedFile.SaveAs(destPath);
+            goalPicFileUpload.PostedFile.SaveAs(destPath);
 
-            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), 
-                int.Parse(Session["loggedInUserID"].ToString()));
+            int status = MiscUtils.CreateGoalPicPreviews(Path.GetFileName(destPath),
+                eventID, (string)Session["loggedInUserFullName"], userID);
 
             if (status >= 0)
             {
-                Response.Redirect("profileRedirect.aspx");
+                Response.Redirect("morePictures.aspx?EID=" + eventID.ToString());
             }
             else
             {
@@ -90,6 +82,7 @@ public partial class uploadProfilePic : SedogoPage
     //===============================================================
     protected void backButton_click(object sender, EventArgs e)
     {
-        Response.Redirect("profileRedirect.aspx");
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        Response.Redirect("morePictures.aspx?EID=" + eventID.ToString());
     }
 }

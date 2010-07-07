@@ -79,7 +79,7 @@ public partial class feedback : System.Web.UI.Page
         string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
         //MailMessage message = new MailMessage(mailFromAddress, "phil@axinteractive.com");
-        MailMessage message = new MailMessage(mailFromAddress, "help@sedogo.com");
+        MailMessage message = new MailMessage(mailFromAddress, "feedback@sedogo.com");
         message.ReplyTo = new MailAddress("noreply@sedogo.com");
 
         StringBuilder emailBody = new StringBuilder();
@@ -89,7 +89,7 @@ public partial class feedback : System.Web.UI.Page
         emailBody.AppendLine(feedbackText.Replace("\n", "<br/>") + "<br/>");
         emailBody.AppendLine("</body></html>");
 
-        message.Subject = "Sedogo help";
+        message.Subject = "Sedogo feedback";
         message.Body = emailBody.ToString();
         message.IsBodyHtml = true;
         SmtpClient smtp = new SmtpClient();
@@ -104,19 +104,19 @@ public partial class feedback : System.Web.UI.Page
             smtp.Send(message);
 
             SentEmailHistory emailHistory = new SentEmailHistory("");
-            emailHistory.subject = "Sedogo help";
+            emailHistory.subject = "Sedogo feedback";
             emailHistory.body = emailBody.ToString();
             emailHistory.sentFrom = mailFromAddress;
-            emailHistory.sentTo = "help@sedogo.com";
+            emailHistory.sentTo = "feedback@sedogo.com";
             emailHistory.Add();
         }
         catch (Exception ex)
         {
             SentEmailHistory emailHistory = new SentEmailHistory("");
-            emailHistory.subject = "Sedogo help";
+            emailHistory.subject = "Sedogo feedback";
             emailHistory.body = ex.Message + " -------- " + emailBody.ToString();
             emailHistory.sentFrom = mailFromAddress;
-            emailHistory.sentTo = "help@sedogo.com";
+            emailHistory.sentTo = "feedback@sedogo.com";
             emailHistory.Add();
         }
 

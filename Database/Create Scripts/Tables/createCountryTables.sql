@@ -36,9 +36,6 @@ CREATE TABLE Countries
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON Countries TO sedogoUser
-GO
-
 /*===============================================================
 // Table: Languages
 //=============================================================*/
@@ -59,9 +56,6 @@ CREATE TABLE Languages
 	Deleted							bit					NOT NULL,
 	DefaultLanguage					bit					NOT NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON Languages TO sedogoUser
 GO
 
 PRINT '== Finished createCountryTables.sql =='

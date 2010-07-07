@@ -63,7 +63,7 @@ public partial class uploadEventImage : SedogoPage
         {
             int fileSizeBytes = eventPicFileUpload.PostedFile.ContentLength;
 
-            GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+            GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
             string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
 
             string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);

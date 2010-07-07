@@ -36,7 +36,7 @@ public partial class admin_popularGoals : AdminPage
     {
         if (!IsPostBack)
         {
-            GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+            GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
             popularSearchString1TextBox.Text = gd.GetStringValue("PopularSearchString1");
             popularSearchString2TextBox.Text = gd.GetStringValue("PopularSearchString2");
             popularSearchString3TextBox.Text = gd.GetStringValue("PopularSearchString3");
@@ -50,7 +50,7 @@ public partial class admin_popularGoals : AdminPage
     //===============================================================
     protected void saveButton_Click(object sender, EventArgs e)
     {
-        GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+        GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
         gd.UpdateStringValue("PopularSearchString1", popularSearchString1TextBox.Text.Trim());
         gd.UpdateStringValue("PopularSearchString2", popularSearchString2TextBox.Text.Trim());
         gd.UpdateStringValue("PopularSearchString3", popularSearchString3TextBox.Text.Trim());

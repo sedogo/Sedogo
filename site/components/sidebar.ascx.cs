@@ -171,8 +171,12 @@ public partial class sidebar : System.Web.UI.UserControl
                 editProfileLink.Visible = true;
                 profileImage.Visible = true;
                 userNameLabel.Visible = true;
-                profileTextLabel.Visible = true;
+                //profileTextLabel.Visible = true;
                 myProfileTextLabel.Visible = true;
+                extraButtonsDiv.Visible = true;
+                rotatorBackgroundDiv.Visible = true;
+                myProfileDiv.Visible = true;
+                profileImageDiv.Visible = true;
             }
             else
             {
@@ -182,8 +186,12 @@ public partial class sidebar : System.Web.UI.UserControl
                 editProfileLink.Visible = false;
                 profileImage.Visible = false;
                 userNameLabel.Visible = false;
-                profileTextLabel.Visible = false;
+                //profileTextLabel.Visible = false;
                 myProfileTextLabel.Visible = false;
+                extraButtonsDiv.Visible = false;
+                rotatorBackgroundDiv.Visible = false;
+                myProfileDiv.Visible = false;
+                profileImageDiv.Visible = false;
             }
 
             PopulateLatestSearches();

@@ -49,9 +49,6 @@ CREATE TABLE Administrators
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON Administrators TO sedogoUser
-GO
-
 /*===============================================================
 // Table AdministratorsLoginHistory
 //=============================================================*/
@@ -72,9 +69,6 @@ CREATE TABLE AdministratorsLoginHistory
 	LoginDate						datetime		NOT NULL,
 	Source                  		nvarchar(200)   NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON AdministratorsLoginHistory TO sedogoUser
 GO
 
 IF EXISTS (SELECT name FROM sys.indexes WHERE name = 'IX_AdministratorsLoginHistory_AdministratorID')

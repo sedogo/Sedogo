@@ -39,8 +39,5 @@ CREATE TABLE SentEmailHistory
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON SentEmailHistory TO sedogoUser
-GO
-
 PRINT '== Finished createSentEmailHistoryTables.sql =='
   

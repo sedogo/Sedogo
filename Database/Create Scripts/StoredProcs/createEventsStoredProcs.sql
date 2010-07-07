@@ -2522,5 +2522,181 @@ BEGIN
 END
 GO
 
+/*===============================================================
+// Function: spSelectEventPictureDetails
+// Description:
+//   Gets picture details
+// --------------------------------------------------------------
+// Parameters
+//	 @EventID			int
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureDetails...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureDetails')
+BEGIN
+	DROP Procedure spSelectEventPictureDetails
+END
+GO
+
+CREATE Procedure spSelectEventPictureDetails
+	@EventPictureID		int
+AS
+BEGIN
+	SELECT EventID, PostedByUserID, ImageFilename, ImagePreview, 
+		ImageThumbnail, Deleted, 
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM EventPictures
+	WHERE EventPictureID = @EventPictureID
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPictureList
+// Description:
+//   Selects the list of pictures
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureList')
+BEGIN
+	DROP Procedure spSelectEventPictureList
+END
+GO
+
+CREATE Procedure spSelectEventPictureList
+	@EventID		int
+AS
+BEGIN
+	SELECT EventPictureID, EventID, PostedByUserID, ImageFilename, ImagePreview, 
+		ImageThumbnail, Deleted, 
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND Deleted = 0
+	ORDER BY CreatedDate
+END
+GO
+
+/*===============================================================
+// Function: spAddEventPicture
+// Description:
+//   Add a picture
+//=============================================================*/
+PRINT 'Creating spAddEventPicture...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddEventPicture')
+	BEGIN
+		DROP Procedure spAddEventPicture
+	END
+GO
+
+CREATE Procedure spAddEventPicture
+	@EventID					int,
+	@PostedByUserID				int,
+	@ImageFilename				nvarchar(200),
+	@ImageThumbnail				nvarchar(200),
+	@ImagePreview				nvarchar(200),
+	@CreatedDate				datetime,
+	@CreatedByFullName			nvarchar(200),
+	@LastUpdatedDate			datetime,
+	@LastUpdatedByFullName		nvarchar(200),
+	@EventPictureID				int OUTPUT
+AS
+BEGIN
+	INSERT INTO EventPictures
+	(
+		EventID,
+		PostedByUserID,
+		ImageFilename,
+		ImageThumbnail,
+		ImagePreview,
+		Deleted,
+		CreatedDate,
+		CreatedByFullName,
+		LastUpdatedDate,
+		LastUpdatedByFullName
+	)
+	VALUES
+	(
+		@EventID,
+		@PostedByUserID,
+		@ImageFilename,
+		@ImageThumbnail,
+		@ImagePreview,
+		0,		-- Deleted
+		@CreatedDate,
+		@CreatedByFullName,
+		@LastUpdatedDate,
+		@LastUpdatedByFullName
+	)
+	
+	SET @EventPictureID = @@IDENTITY
+END
+GO
+
+/*===============================================================
+// Function: spUpdateEventPicture
+// Description:
+//   Update event details
+//=============================================================*/
+PRINT 'Creating spUpdateEventPicture...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spUpdateEventPicture')
+BEGIN
+	DROP Procedure spUpdateEventPicture
+END
+GO
+
+CREATE Procedure spUpdateEventPicture
+	@EventPictureID					int,
+	@ImageFilename					nvarchar(200),
+	@ImageThumbnail					nvarchar(200),
+	@ImagePreview					nvarchar(200),
+	@LastUpdatedDate				datetime,
+	@LastUpdatedByFullName			nvarchar(200)
+AS
+BEGIN
+	UPDATE EventPictures
+	SET ImageFilename			= @ImageFilename,
+		ImageThumbnail			= @ImageThumbnail,
+		ImagePreview			= @ImagePreview,
+		LastUpdatedDate			= @LastUpdatedDate,
+		LastUpdatedByFullName	= @LastUpdatedByFullName
+	WHERE EventPictureID = @EventPictureID
+END
+GO
+
+/*===============================================================
+// Function: spDeleteEventComment
+// Description:
+//   Delete event picture
+//=============================================================*/
+PRINT 'Creating spDeleteEventComment...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteEventComment')
+BEGIN
+	DROP Procedure spDeleteEventComment
+END
+GO
+
+CREATE Procedure spDeleteEventComment
+	@EventPictureID					int,
+	@LastUpdatedDate				datetime,
+	@LastUpdatedByFullName			nvarchar(200)
+AS
+BEGIN
+	UPDATE EventPictures
+	SET Deleted					= 1,
+		LastUpdatedDate			= @LastUpdatedDate,
+		LastUpdatedByFullName	= @LastUpdatedByFullName
+	WHERE EventPictureID = @EventPictureID
+END
+GO
+
 PRINT '== Finished createEventsStoredProcs.sql =='
 GO

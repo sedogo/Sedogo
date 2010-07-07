@@ -111,8 +111,8 @@ public partial class invite : SedogoPage
             eventNameLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
             eventNameLabel.Text = row["EventName"].ToString();
 
-            HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
-            eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
+            //HyperLink eventHyperlink = e.Item.FindControl("eventHyperlink") as HyperLink;
+            //eventHyperlink.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();
 
             HyperLink eventDateLabel = e.Item.FindControl("eventDateLabel") as HyperLink;
             eventDateLabel.NavigateUrl = "viewEvent.aspx?EID=" + row["EventID"].ToString();

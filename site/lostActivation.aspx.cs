@@ -59,7 +59,7 @@ public partial class lostActivation : System.Web.UI.Page
             if (user.loginEnabled == false)
             {
                 // Send registration email
-                GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+                GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
 
                 string siteBaseURL = gd.GetStringValue("SiteBaseURL");
 

@@ -36,8 +36,5 @@ CREATE TABLE SearchHistory
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON SearchHistory TO sedogoUser
-GO
-
 PRINT '== Finished createHistoryTables.sql =='
     

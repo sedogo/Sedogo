@@ -38,9 +38,6 @@ CREATE TABLE GlobalData
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON GlobalData TO sedogoUser
-GO
-
 IF EXISTS (SELECT name FROM sys.indexes WHERE name = 'IX_GlobalData_KeyName')
     DROP INDEX IX_GlobalData_KeyName ON GlobalData
 GO

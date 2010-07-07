@@ -64,9 +64,6 @@ CREATE TABLE Users
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON Users TO sedogoUser
-GO
-
 /*===============================================================
 // Table UserLoginHistory
 //=============================================================*/
@@ -87,9 +84,6 @@ CREATE TABLE UserLoginHistory
 	LoginDate				datetime		NOT NULL,
 	Source                  nvarchar(200)   NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON UserLoginHistory TO sedogoUser
 GO
 
 IF EXISTS (SELECT name FROM sys.indexes WHERE name = 'IX_UserLoginHistory_UserID')
@@ -119,9 +113,6 @@ CREATE TABLE Timezones
 	Description			                nvarchar(200)		NOT NULL,
 	GMTOffset							int					NOT NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON Timezones TO sedogoUser
 GO
 
 PRINT '== Finished createUsersTables.sql =='

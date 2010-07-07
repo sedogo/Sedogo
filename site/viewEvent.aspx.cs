@@ -66,11 +66,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                 eventCommentBox.Visible = true;
                 eventLinksDiv.Visible = true;
+                eventLinksDiv2.Visible = true;
             }
             else
             {
                 eventCommentBox.Visible = false;
                 eventLinksDiv.Visible = false;
+                eventLinksDiv2.Visible = false;
             }
 
             if (action == "RemoveTracker")
@@ -220,29 +222,29 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                     if (trackedEventID < 0)
                     {
-                        trackThisEventLink.Visible = true;
-                        joinThisEventLink.Visible = true;
+                        trackThisEventDiv.Visible = true;
+                        joinThisEventDiv.Visible = true;
                     }
                     else
                     {
                         // Event is already being tracked
-                        trackThisEventLink.Visible = false;
+                        trackThisEventDiv.Visible = false;
 
                         TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
                         if (trackedEvent.showOnTimeline == true)
                         {
                             if (trackedEvent.joinPending == false)
                             {
-                                joinThisEventLink.Visible = false;
+                                joinThisEventDiv.Visible = false;
                             }
                             else
                             {
-                                joinThisEventLink.Visible = false;
+                                joinThisEventDiv.Visible = false;
                             }
                         }
                         else
                         {
-                            joinThisEventLink.Visible = true;
+                            joinThisEventDiv.Visible = true;
                         }
                     }
                     //createSimilarEventLink.Visible = true;
@@ -298,8 +300,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     }
                     inviteCountLabel.Text = "&nbsp;&nbsp;<span class=\"blue\">" + pendingInviteCount.ToString() + "<span> <span class=\"grey\">Pending</span>";
 
-                    trackThisEventLink.Visible = false;
-                    joinThisEventLink.Visible = false;  // You cannot join your own event
+                    trackThisEventDiv.Visible = false;
+                    joinThisEventDiv.Visible = false;  // You cannot join your own event
+
                 }
                 PopulateTrackingList(eventID);
                 PopulateAlertsList(eventID);
@@ -912,7 +915,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     int fileSizeBytes = eventPicFileUpload.PostedFile.ContentLength;
 
-                    GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+                    GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
                     string fileStoreFolder = gd.GetStringValue("FileStoreFolder") + @"\temp";
 
                     string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
@@ -1108,5 +1111,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     protected void backButton_click(object sender, EventArgs e)
     {
         Response.Redirect("profile.aspx");
+    }
+
+    //===============================================================
+    // Function: morePicturesButton_click
+    //===============================================================
+    protected void morePicturesButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+        Response.Redirect("morePictures.aspx?EID=" + eventID.ToString());
     }
 }

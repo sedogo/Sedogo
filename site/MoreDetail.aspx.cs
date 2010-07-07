@@ -45,13 +45,26 @@ public partial class MoreDetail : SedogoPage
 
             if (Request["type"] != null)
             {
-                if (Request["type"].ToString().ToLower() == "latest")
+                if (Request["type"].ToString().ToLower() == "achieved")
                 {
-                    ltHeading.Text = "My latest goals";
+                    ltHeading.Text = "Latest achieved goals";
                 }
-                else if (Request["type"].ToString().ToLower() == "popular")
+                else if (Request["type"].ToString().ToLower() == "now")
                 {
-                    ltHeading.Text = "Popular goals";
+                    ltHeading.Text = "Goals happening now";
+
+                    thisWeekHeader.Visible = false;
+                    twoWeeksHeader.Visible = false;
+                    lastMonthHeader.Visible = false;
+                    sixMonthHeader.Visible = false;
+                }
+                else if (Request["type"].ToString().ToLower() == "latest")
+                {
+                    ltHeading.Text = "Goals added";
+                }
+                else if (Request["type"].ToString().ToLower() == "updated")
+                {
+                    ltHeading.Text = "Goals updated";
                 }
             }
 

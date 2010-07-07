@@ -36,8 +36,5 @@ CREATE TABLE AddressBook
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON AddressBook TO sedogoUser
-GO
- 
 PRINT '== Finished createAddressBookTables.sql =='
  

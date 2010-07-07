@@ -151,7 +151,7 @@ public partial class register : System.Web.UI.Page
             newUser.UpdatePassword(userPassword);
 
             // Send registration email
-            GlobalData gd = new GlobalData((string)Session["loggedInContactName"]);
+            GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
 
             string siteBaseURL = gd.GetStringValue("SiteBaseURL");
 

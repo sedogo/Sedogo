@@ -329,28 +329,50 @@
                             <td width="7px">
                                 &nbsp;
                             </td>
-                            <td width="237px">
-                                <div style="width: 237px; padding-top: 10px; overflow: hidden">
+                            <td width="200px">
+                                <div style="width: 200px; padding-top: 10px; overflow: hidden">
                                     <asp:Image ID="eventImage" runat="server" Width="237" />
-                                    <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()"
-                                        Text="Edit picture" CssClass="underline-bold" />
+                                    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                        <tr>
+                                            <td><asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()"
+                                                Text="Edit picture" CssClass="underline-bold" /></td>
+                                            <td align="right"><asp:LinkButton ID="morePicturesButton" runat="server" 
+                                                OnClick="morePicturesButton_click"
+                                                Text="More pictures" CssClass="underline-bold" /></td>
+                                        </tr>
+                                    </table>
                                 </div>
-                                <div>
-                                    <p style="margin-bottom: 5px;">
-                                        <br />
-                                        <img src="images/share.gif" alt="" />
-                                        <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
-                                            OnClick="click_shareButton" /></p>
-                                </div>
-                                <div id="eventLinksDiv" runat="server">
-                                    <div class="eventRightColBox" id="invitesBox" runat="server">
-                                        <h3 id="invitesHeader" runat="server" class="invites-header">
-                                            Invites</h3>
-                                        <p>
-                                            <asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
-                                            &nbsp;&nbsp;<asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
-                                                CssClass="underline-bold" /></p>
+                                <div class="eventRightColBox">
+                                    <div id="eventLinksDiv" runat="server">
+                                        <div id="invitesBox" runat="server">
+                                            <h3 id="invitesHeader" runat="server" class="invites-header">
+                                                Invites</h3>
+                                            <p>
+                                                <asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
+                                                &nbsp;&nbsp;<asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
+                                                    CssClass="underline-bold" /></p>
+                                        </div>
                                     </div>
+                                    <div ID="joinThisEventDiv" runat="server">
+                                        <asp:Image ID="joinThisEventImage" runat="server" ImageUrl="~/images/goalsfollowed.gif" />
+                                        <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click"
+                                            CssClass="underline-bold" /><br />
+                                        &nbsp;
+                                    </div>
+                                    <div ID="trackThisEventDiv" runat="server">
+                                        <asp:Image ID="trackThisEventImage" runat="server" ImageUrl="~/images/requests.gif" />
+                                        <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow" OnClick="trackThisEventLink_click"
+                                            CssClass="underline-bold" /><br />
+                                        &nbsp;
+                                    </div>
+                                    <div>
+                                        <p style="margin-bottom: 5px;">
+                                            <img src="images/share.gif" alt="" />
+                                            <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
+                                                OnClick="click_shareButton" /></p>
+                                    </div>
+                                </div>
+                                <div id="eventLinksDiv2" runat="server">
                                     <h3 id="trackingHeader" runat="server" class="requests-header" style="margin-top: 15px;">
                                         Members</h3>
                                     <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
@@ -384,14 +406,6 @@
                                     <div>
                                         <asp:LinkButton ID="createSimilarEventLink" runat="server" Text="Copy Goal" OnClick="createSimilarEventLink_click"
                                             CssClass="button-sml" Visible="false" /><br />
-                                        &nbsp;<br />
-                                        &nbsp;
-                                        <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow" OnClick="trackThisEventLink_click"
-                                            CssClass="button-sml" /><br />
-                                        &nbsp;<br />
-                                        &nbsp;
-                                        <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click"
-                                            CssClass="button-sml" /><br />
                                         &nbsp;<br />
                                         &nbsp;
                                         <asp:LinkButton ID="deleteEventButton" runat="server" ToolTip="Delete Goal" Text="Delete Goal"

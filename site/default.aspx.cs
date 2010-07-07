@@ -145,6 +145,40 @@ public partial class _default : System.Web.UI.Page
 
             eventRotator.DataSource = GetRotatorDataSource();
             eventRotator.DataBind();
+
+            BindLatestMembers();
+        }
+    }
+
+    private void BindLatestMembers()
+    {
+        int cnt = 0;
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtAllUsrs = new DataTable();
+        dtAllUsrs = objSNFun.GetAllEnableUserDetails();
+
+
+        if (dtAllUsrs.Rows.Count > 0)
+        {
+            DataTable dt = dtAllUsrs.Copy();
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
+
+            //for (cnt = 0; cnt < dtAllUsrs.Rows.Count; cnt++)
+            //{
+            //    if (Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != null && Convert.ToString(dtAllUsrs.Rows[cnt]["gcount"]) != "")
+            //    {
+            //        TGoals = TGoals + Convert.ToInt64(dtAllUsrs.Rows[cnt]["gcount"]);
+            //    }
+            //}
+
+            TGoals = Convert.ToInt64(dtAllUsrs.Rows[0]["mcount"]);
+        }
+        else
+        {
+            TGoals = 0;
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
         }
     }
 

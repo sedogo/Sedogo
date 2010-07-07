@@ -29,7 +29,7 @@ function changeClass(id, newClass)
 </script>
 
 <div class="one-col">
-    <div style="width: 100%; float: left; border-bottom: 2px solid #0cf;">
+    <div style="width: 100%; float: left; border-bottom: 2px solid #0cf;" id="myProfileDiv" runat="server">
         <div style="float: left;">
             <h2>
                 <asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" /></h2>
@@ -41,23 +41,20 @@ function changeClass(id, newClass)
     </div>
     <div style="width: 100%; float: left; padding-bottom: 4px;">
     </div>
-    <%--<h2 class="col-header">
-        <asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" />
-        <span>
-            <asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile"
-                Text="Edit" runat="server" /></span></h2>--%>
+    <div id="profileImageDiv" runat="server">
     <asp:Image ID="profileImage" runat="server" CssClass="profile" />
     <span style="font-size: 14px; font-weight: bold; color: Black">
         <asp:Label ID="userNameLabel" runat="server" /></span><br />
-    <!--<p class="profile-intro">-->
-    <!--<asp:Label ID="profileTextLabel" runat="server" /></p>-->
     <br />
+    </div>
+    <div id="extraButtonsDiv" runat="server">
     <p class="extra-buttons">
         <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
             OnClick="click_viewArchiveLink" />
         <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal"
             CssClass="button-sml modal" Text="+ Goal" runat="server" />
     </p>
+    </div>
     <asp:Label ID="goalsAchievedBelowProfileImageLabel" runat="server" CssClass="goalsAchievedBelowProfile"
         Visible="false" />
     <div id="sidebarMenuItems" runat="server">
@@ -101,7 +98,7 @@ function changeClass(id, newClass)
     </div>
     <p>
         &nbsp;</p>
-    <div class="rotatorBackground">
+    <div class="rotatorBackground" id="rotatorBackgroundDiv" runat="server">
         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
             CssClass="horizontalRotator" ScrollDuration="500" FrameDuration="5000" ItemHeight="216"
             ItemWidth="232" RotatorType="FromCode">

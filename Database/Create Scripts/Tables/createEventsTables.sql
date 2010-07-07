@@ -65,9 +65,6 @@ CREATE TABLE Events
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON Events TO sedogoUser
-GO
-
 IF EXISTS (SELECT name FROM sys.indexes WHERE name = 'IX_Events_UserID')
     DROP INDEX IX_Events_UserID ON Events
 GO
@@ -101,9 +98,6 @@ CREATE TABLE TrackedEvents
 	CreatedDate						datetime		    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON TrackedEvents TO sedogoUser
 GO
 
 /*===============================================================
@@ -142,9 +136,6 @@ CREATE TABLE EventComments
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON EventComments TO sedogoUser
-GO
-
 /*===============================================================
 // Table: Messages
 //=============================================================*/
@@ -176,9 +167,6 @@ CREATE TABLE Messages
 	LastUpdatedDate					datetime		    NOT NULL,
 	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
 )
-GO
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON Messages TO sedogoUser
 GO
 
 /*===============================================================
@@ -220,9 +208,6 @@ CREATE TABLE EventInvites
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON EventInvites TO sedogoUser
-GO
-
 /*===============================================================
 // Table: EventAlerts
 //=============================================================*/
@@ -255,7 +240,36 @@ CREATE TABLE EventAlerts
 )
 GO
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON EventAlerts TO sedogoUser
+/*===============================================================
+// Table: EventPictures
+//=============================================================*/
+
+PRINT 'Creating EventPictures...'
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'U' AND name = 'EventPictures')
+	BEGIN
+		DROP Table EventPictures
+	END
+GO
+
+CREATE TABLE EventPictures
+(
+	EventPictureID					int					NOT NULL PRIMARY KEY IDENTITY,
+	
+	EventID							int					NOT NULL,
+	PostedByUserID					int					NOT NULL,
+	
+	Deleted							bit					NOT NULL,
+	
+	ImageFilename					nvarchar(200)	    NULL,
+	ImageThumbnail					nvarchar(200)	    NULL,
+	ImagePreview					nvarchar(200)	    NULL,
+	
+	CreatedDate						datetime		    NOT NULL,
+	CreatedByFullName				nvarchar(200)	    NOT NULL,
+	LastUpdatedDate					datetime		    NOT NULL,
+	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
+)
 GO
 
 PRINT '== Finished createEventsTables.sql =='

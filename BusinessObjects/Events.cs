@@ -1869,4 +1869,273 @@ namespace Sedogo.BusinessObjects
             }
         }
     }
+
+    //===============================================================
+    // Class: SedogoEventPicture
+    //===============================================================
+    public class SedogoEventPicture
+    {
+        private int         m_eventPictureID = -1;
+        private int         m_eventID = -1;
+        private int         m_postedByUserID = -1;
+        private string      m_eventImageFilename = "";
+        private string      m_eventImageThumbnail = "";
+        private string      m_eventImagePreview = "";
+        private Boolean     m_deleted = false;
+        private DateTime    m_createdDate = DateTime.MinValue;
+        private string      m_createdByFullName = "";
+        private DateTime    m_lastUpdatedDate = DateTime.MinValue;
+        private string      m_lastUpdatedByFullName = "";
+
+        private string      m_loggedInUser = "";
+
+        public int eventPictureID
+        {
+            get { return m_eventPictureID; }
+        }
+        public int eventID
+        {
+            get { return m_eventID; }
+            set { m_eventID = value; }
+        }
+        public int postedByUserID
+        {
+            get { return m_postedByUserID; }
+            set { m_postedByUserID = value; }
+        }
+        public string eventImageFilename
+        {
+            get { return m_eventImageFilename; }
+            set { m_eventImageFilename = value; }
+        }
+        public string eventImagePreview
+        {
+            get { return m_eventImagePreview; }
+            set { m_eventImagePreview = value; }
+        }
+        public string eventImageThumbnail
+        {
+            get { return m_eventImageThumbnail; }
+            set { m_eventImageThumbnail = value; }
+        }
+        public Boolean deleted
+        {
+            get { return m_deleted; }
+        }
+        public DateTime createdDate
+        {
+            get { return m_createdDate; }
+        }
+        public string createdByFullName
+        {
+            get { return m_createdByFullName; }
+        }
+        public DateTime lastUpdatedDate
+        {
+            get { return m_lastUpdatedDate; }
+        }
+        public string lastUpdatedByFullName
+        {
+            get { return m_lastUpdatedByFullName; }
+        }
+
+        //===============================================================
+        // Function: SedogoEventPicture (Constructor)
+        //===============================================================
+        public SedogoEventPicture(string loggedInUser)
+        {
+            m_loggedInUser = loggedInUser;
+        }
+
+        //===============================================================
+        // Function: SedogoEventPicture (Constructor)
+        //===============================================================
+        public SedogoEventPicture(string loggedInUser, int eventPictureID)
+        {
+            m_loggedInUser = loggedInUser;
+            m_eventPictureID = eventPictureID;
+
+            ReadEventPictureDetails();
+        }
+
+        //===============================================================
+        // Function: ReadEventPictureDetails
+        //===============================================================
+        public void ReadEventPictureDetails()
+        {
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectEventPictureDetails";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@EventPictureID";
+                param.Value = m_eventPictureID;
+                cmd.Parameters.Add(param);
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
+                {
+                    m_eventID = int.Parse(rdr["EventID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("PostedByUserID")))
+                {
+                    m_postedByUserID = int.Parse(rdr["PostedByUserID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImageFilename")))
+                {
+                    m_eventImageFilename = (string)rdr["ImageFilename"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImagePreview")))
+                {
+                    m_eventImagePreview = (string)rdr["ImagePreview"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImageThumbnail")))
+                {
+                    m_eventImageThumbnail = (string)rdr["ImageThumbnail"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
+                {
+                    m_deleted = (Boolean)rdr["Deleted"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
+                {
+                    m_createdDate = (DateTime)rdr["CreatedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
+                {
+                    m_createdByFullName = (string)rdr["CreatedByFullName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedDate")))
+                {
+                    m_lastUpdatedDate = (DateTime)rdr["LastUpdatedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                {
+                    m_lastUpdatedByFullName = (string)rdr["LastUpdatedByFullName"];
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventPicture", "ReadEventPictureDetails", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Add
+        //===============================================================
+        public void Add()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spAddEventPicture", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
+                cmd.Parameters.Add("@PostedByUserID", SqlDbType.Int).Value = m_postedByUserID;
+                cmd.Parameters.Add("@ImageFilename", SqlDbType.NVarChar, 200).Value = m_eventImageFilename;
+                cmd.Parameters.Add("@ImageThumbnail", SqlDbType.NVarChar, 200).Value = m_eventImageThumbnail;
+                cmd.Parameters.Add("@ImagePreview", SqlDbType.NVarChar, 200).Value = m_eventImagePreview;
+                cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+
+                SqlParameter paramEventPictureID = cmd.CreateParameter();
+                paramEventPictureID.ParameterName = "@EventPictureID";
+                paramEventPictureID.SqlDbType = SqlDbType.Int;
+                paramEventPictureID.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(paramEventPictureID);
+
+                cmd.ExecuteNonQuery();
+                m_eventPictureID = (int)paramEventPictureID.Value;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventPicture", "Add", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Update
+        //===============================================================
+        public void Update()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spUpdateEventPicture", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@EventPictureID", SqlDbType.Int).Value = m_eventPictureID;
+                cmd.Parameters.Add("@ImageFilename", SqlDbType.NVarChar, 200).Value = m_eventImageFilename;
+                cmd.Parameters.Add("@ImageThumbnail", SqlDbType.NVarChar, 200).Value = m_eventImageThumbnail;
+                cmd.Parameters.Add("@ImagePreview", SqlDbType.NVarChar, 200).Value = m_eventImagePreview;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventPicture", "Update", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: Delete
+        //===============================================================
+        public void Delete()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spDeleteEventComment", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@EventPictureID", SqlDbType.Int).Value = m_eventPictureID;
+                cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
+                cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoEventPicture", "Delete", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+    }
 }

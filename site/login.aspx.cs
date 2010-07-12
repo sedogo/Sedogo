@@ -79,6 +79,14 @@ public partial class login : System.Web.UI.Page
             }
             catch { }
         }
+        if ((string)Session["EventID"] != "")
+        {
+            try
+            {
+                redirectEventID = int.Parse((string)Session["EventID"]);
+            }
+            catch { }
+        }
 
         HttpCookie cookie = new HttpCookie("SedogoLoginEmailAddress");
         // Set the cookies value

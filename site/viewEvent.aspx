@@ -350,7 +350,8 @@
                                             <p>
                                                 <asp:LinkButton ID="inviteCountLabel" runat="server" OnClick="click_inviteUsersLink"></asp:LinkButton><br />
                                                 &nbsp;&nbsp;<asp:LinkButton ID="invitesLink" runat="server" OnClick="click_inviteUsersLink" Text="Invite more"
-                                                    CssClass="underline-bold" /></p>
+                                                    CssClass="underline-bold" /><br />
+                                        &nbsp;</p>
                                         </div>
                                     </div>
                                     <div ID="joinThisEventDiv" runat="server">
@@ -395,12 +396,17 @@
                                     <asp:PlaceHolder ID="requestsLinksPlaceholder" runat="server" />
                                     <div class="pinstripe-divider" id="alertsSeperator" runat="server">
                                         &nbsp;</div>
-                                    <h3 id="alertsHeader" runat="server" class="reminders-header" style="margin-top: 15px;">
-                                        Reminders</h3>
+                                      
+                                    <table width="100%" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td><h3 id="alertsHeader" runat="server" class="reminders-header" style="margin-top: 15px;">
+                                                Reminders</h3></td>
+                                            <td align="right"><div style="margin-top: 10px; text-align: right;"><asp:HyperLink ID="alertsLink" runat="server" NavigateUrl="javascript:eventAlerts();"
+                                                Text="Edit" CssClass="underline-bold" /></div></td>
+                                        </tr>
+                                    </table>  
+                                    
                                     <asp:PlaceHolder ID="alertsPlaceHolder" runat="server" />
-                                    <div style="margin-top: 10px; text-align: right;">
-                                        <asp:HyperLink ID="alertsLink" runat="server" NavigateUrl="javascript:eventAlerts();"
-                                            Text="Edit" CssClass="underline-bold" /></div>
                                     <div class="pinstripe-divider">
                                         &nbsp;</div>
                                     <div>

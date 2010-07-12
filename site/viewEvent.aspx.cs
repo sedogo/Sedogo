@@ -36,7 +36,20 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
     {
         if (!IsPostBack)
         {
-            int eventID = int.Parse(Request.QueryString["EID"]);
+            int eventID = -1;
+            if( Request.QueryString["EID"] != null )
+            {
+                try
+                {
+                    eventID = int.Parse(Request.QueryString["EID"].ToString());
+                }
+                catch { }
+            }
+            if (eventID < 0)
+            {
+                Response.Redirect("profile.aspx");
+            }
+            
             int userID = -1;
             string loggedInUserName = "";
             if (Session["loggedInUserID"] != null)
@@ -878,6 +891,14 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
         sedogoEvent.eventAchieved = !sedogoEvent.eventAchieved;
+        if (sedogoEvent.eventAchieved == true)
+        {
+            sedogoEvent.eventAchievedDate = DateTime.Now;
+        }
+        else
+        {
+            sedogoEvent.eventAchievedDate = DateTime.MinValue;
+        }
         sedogoEvent.Update();
 
         //sedogoEvent.SendEventUpdateEmail();

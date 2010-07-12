@@ -57,6 +57,13 @@ public partial class profile : SedogoPage
             
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
 
+            if (Session["EventID"] != null && Session["EventID"].ToString() != "")
+            {
+                string redirectEventID = Session["EventID"].ToString();
+                Session["EventID"] = null;
+                Response.Redirect("viewEvent.aspx?EID=" + redirectEventID);
+            }
+
             if (Session["EventInviteGUID"] != null)
             {
                 string inviteGUID = Session["EventInviteGUID"].ToString();

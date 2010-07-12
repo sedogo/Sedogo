@@ -100,15 +100,15 @@ public partial class sendMessageToTrackers : SedogoPage
                     trackerCheckBox.Checked = true;
                 }
 
-                string outputText = "<img src=\"" + profileImagePath + "\" />&nbsp;"
+                string outputText = "<img src=\"" + profileImagePath + "\" width=\"17\" style=\"margin-right:4px\" />&nbsp;"
                     + firstName + " " + lastName;
 
-                //trackingLinksPlaceholder.Controls.Add(new LiteralControl("<table><tr><td>"));
+                trackingLinksPlaceholder.Controls.Add(new LiteralControl("<span style=\"white-space:nowrap\">"));
                 trackingLinksPlaceholder.Controls.Add(trackerCheckBox);
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl("&nbsp;"));
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl(outputText));
                 trackingLinksPlaceholder.Controls.Add(new LiteralControl("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"));
-                //trackingLinksPlaceholder.Controls.Add(new LiteralControl("</td></tr></table>"));
+                trackingLinksPlaceholder.Controls.Add(new LiteralControl("</span>"));
             }
             rdr.Close();
 

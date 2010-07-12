@@ -225,6 +225,7 @@ public partial class MoreDetail : SedogoPage
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
+                + " and events.CreatedDate <> events.LastUpdatedDate "
                 + " ORDER BY events.LastUpdatedDate DESC ";
         }
         else if (Request["type"].ToString().ToLower() == "now")
@@ -306,7 +307,7 @@ public partial class MoreDetail : SedogoPage
                 + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
                 + " from events inner join users on users.userid=events.userid  "
                 + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.EventAchievedDate <= dateadd(hh,-datepart(hh,getdate()),getdate()) ) "
+                + " and events.EventAchievedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=1 "
                 + " and events.PrivateEvent=0 "
@@ -322,7 +323,7 @@ public partial class MoreDetail : SedogoPage
                 + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
                 + " from events inner join users on users.userid=events.userid  "
                 + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.CreatedDate <= dateadd(hh,-datepart(hh,getdate()),getdate()) ) "
+                + " and events.CreatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
@@ -338,10 +339,11 @@ public partial class MoreDetail : SedogoPage
                 + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
                 + " from events inner join users on users.userid=events.userid  "
                 + " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.LastUpdatedDate <= dateadd(hh,-datepart(hh,getdate()),getdate()) ) "
+                + " and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
+                + " and events.CreatedDate <> events.LastUpdatedDate "
                 + " ORDER BY events.LastUpdatedDate DESC ";
         }
 
@@ -446,6 +448,7 @@ public partial class MoreDetail : SedogoPage
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
+                + " and events.CreatedDate <> events.LastUpdatedDate "
                 + " ORDER BY events.LastUpdatedDate DESC ";
         }
 
@@ -550,6 +553,7 @@ public partial class MoreDetail : SedogoPage
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
+                + " and events.CreatedDate <> events.LastUpdatedDate "
                 + " ORDER BY events.LastUpdatedDate DESC ";
         }
 
@@ -656,6 +660,7 @@ public partial class MoreDetail : SedogoPage
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
+                + " and events.CreatedDate <> events.LastUpdatedDate "
                 + " ORDER BY events.LastUpdatedDate DESC ";
         }
 

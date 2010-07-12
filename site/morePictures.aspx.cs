@@ -148,6 +148,7 @@ public partial class morePictures : System.Web.UI.Page
     private void PopulateImages(int eventID)
     {
         DateTime loopDate = DateTime.MinValue;
+        Boolean firstRow = true;
         int columnNumber = 1;
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
@@ -171,11 +172,16 @@ public partial class morePictures : System.Web.UI.Page
 
                 if (createdDate.DayOfYear != loopDate.DayOfYear)
                 {
+                    if (firstRow == false)
+                    {
+                        imagesPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                    }
                     imagesPlaceHolder.Controls.Add(new LiteralControl("<i>" + createdDate.ToString("ddd d MMMM yyyy") + "</i><br/>"));
+                    firstRow = false;
                 }
                 loopDate = createdDate;
 
-                imagesPlaceHolder.Controls.Add(new LiteralControl("<img src=\"/assets/eventPics/" + imageThumbnail + "\"/>"));
+                imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EPID=" + eventPictureID.ToString() + "\" class=\"modal\"><img src=\"/assets/eventPics/" + imageThumbnail + "\"/></a>"));
                 imagesPlaceHolder.Controls.Add(new LiteralControl("&nbsp;&nbsp;&nbsp;"));
 
                 columnNumber++;

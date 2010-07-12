@@ -108,6 +108,13 @@
                             <asp:Label runat="server" ID="headlineLabel" />
                         </td>
                     </tr>
+                    <tr id="editProfileRow" runat="server" visible="false">
+                        <td colspan="3">
+                            <br />
+                            <asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile"
+                                Text="Edit" runat="server" />
+                        </td>
+                    </tr>
                     <tr id="loginRow" runat="server">
                         <td colspan="3">
                             &nbsp;<br />

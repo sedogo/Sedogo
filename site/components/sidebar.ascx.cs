@@ -105,11 +105,11 @@ public partial class sidebar : System.Web.UI.UserControl
                 int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
                 if (trackedEventCount == 1)
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal Followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goal followed";
                 }
                 else
                 {
-                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals Followed";
+                    trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals followed";
                 }
                 //trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 //trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
@@ -235,15 +235,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink eventHyperlink = new HyperLink();
                 eventHyperlink.Text = eventName;
-                if (userID > 0)
-                {
-                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                }
-                else
-                {
-                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
-                    eventHyperlink.CssClass = "modal";
-                }
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 eventHyperlink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 eventHyperlink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
@@ -277,15 +269,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink eventHyperlink = new HyperLink();
                 eventHyperlink.Text = eventName;
-                if (userID > 0)
-                {
-                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                }
-                else
-                {
-                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
-                    eventHyperlink.CssClass = "modal";
-                }
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 goalsUpdatedPlaceHolder.Controls.Add(eventHyperlink);
 
                 goalsUpdatedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
@@ -316,15 +300,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink eventHyperlink = new HyperLink();
                 eventHyperlink.Text = eventName;
-                if (userID > 0)
-                {
-                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                }
-                else
-                {
-                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
-                    eventHyperlink.CssClass = "modal";
-                }
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 goalsHappeningNowPlaceHolder.Controls.Add(eventHyperlink);
 
                 goalsHappeningNowPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
@@ -355,15 +331,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 HyperLink eventHyperlink = new HyperLink();
                 eventHyperlink.Text = eventName;
-                if (userID > 0)
-                {
-                    eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-                }
-                else
-                {
-                    eventHyperlink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
-                    eventHyperlink.CssClass = "modal";
-                }
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 goalsAchievedPlaceHolder.Controls.Add(eventHyperlink);
 
                 goalsAchievedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));

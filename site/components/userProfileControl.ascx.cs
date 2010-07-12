@@ -83,6 +83,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             if( userID == loggedInUserID )
             {
                 messageLink.Visible = false;
+                editProfileRow.Visible = true;
             }
         }
         else

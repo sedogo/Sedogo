@@ -222,7 +222,7 @@
     }
     function openEvent(eventID) 
     {
-        openModal("viewEvent.aspx?EID=" + eventID);
+        location.href = "viewEvent.aspx?EID=" + eventID;
     }
     function doAddEvent()
     {

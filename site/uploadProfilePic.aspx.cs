@@ -34,21 +34,24 @@ public partial class uploadProfilePic : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-
-        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-
-        if (user.profilePicThumbnail != "")
+        if (!IsPostBack)
         {
-            profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
-        }
-        else
-        {
-            profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
-        }
-        profileImage.ToolTip = user.fullName + "'s profile picture";
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
 
-        SetFocus(profilePicFileUpload);
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+
+            if (user.profilePicThumbnail != "")
+            {
+                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+            }
+            else
+            {
+                profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
+            }
+            profileImage.ToolTip = user.fullName + "'s profile picture";
+
+            SetFocus(profilePicFileUpload);
+        }
     }
 
     //===============================================================

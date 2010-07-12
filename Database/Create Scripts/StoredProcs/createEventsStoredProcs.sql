@@ -2365,6 +2365,7 @@ BEGIN
 	WHERE Deleted = 0
 	AND PrivateEvent = 0
 	AND EventAchieved = 0
+	AND CreatedDate <> LastUpdatedDate
 	ORDER BY LastUpdatedDate DESC
 	
 END

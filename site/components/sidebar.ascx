@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="sidebar.ascx.cs" Inherits="sidebar" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
-<script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+<script type="text/javascript" src="/js/DD_roundies_0.0.2a-min.js"></script>
+<script type="text/javascript" src="/js/DD_roundies_0.0.2a-min.js"></script>
 <script type="text/javascript">
 function changeClass(id, newClass)
 {

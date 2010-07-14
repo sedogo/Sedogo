@@ -29,7 +29,7 @@ using System.Globalization;
 using System.Net.Mail;
 using Sedogo.BusinessObjects;
 
-public partial class shareEvent : SedogoPage
+public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPage because this would not allow anonymous users
 {
     //===============================================================
     // Function: Page_Load
@@ -40,15 +40,19 @@ public partial class shareEvent : SedogoPage
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
 
-            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            SedogoEvent sedogoEvent = new SedogoEvent("", eventID);
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);
 
-            int userID = int.Parse(Session["loggedInUserID"].ToString());
+            int userID = -1;
+            if (Session["loggedInUserID"] != null)
+            {
+                userID = int.Parse(Session["loggedInUserID"].ToString());
+            }
             sidebarControl.userID = userID;
             string currentUserFullName = "";
             if (userID > 0)
             {
-                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                SedogoUser user = new SedogoUser("", userID);
                 sidebarControl.user = user;
                 bannerAddFindControl.userID = userID;
                 currentUserFullName = user.firstName + " " + user.lastName;
@@ -273,7 +277,7 @@ public partial class shareEvent : SedogoPage
                 }
                 smtp.Send(mailMessage);
 
-                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                SentEmailHistory emailHistory = new SentEmailHistory("");
                 emailHistory.subject = emailSubject;
                 emailHistory.body = emailBodyCopy.ToString();
                 emailHistory.sentFrom = mailFromAddress;
@@ -282,7 +286,7 @@ public partial class shareEvent : SedogoPage
             }
             catch (Exception ex)
             {
-                SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+                SentEmailHistory emailHistory = new SentEmailHistory("");
                 emailHistory.subject = emailSubject;
                 emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
                 emailHistory.sentFrom = mailFromAddress;

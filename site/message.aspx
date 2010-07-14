@@ -84,13 +84,13 @@
                         OnItemCommand="messagesRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table width="80%" border="0" cellspacing="2" cellpadding="0">
+                            <table width="600" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
-                                    <td>
+                                    <td width="360">
                                         <table>
                                             <tr>
-                                                <td valign="top"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
-                                                <td>
+                                                <td valign="top" width="60"><asp:Image id="eventPicThumbnailImage" runat="server" /></td>
+                                                <td width="300">
                                                     <p><i><asp:Literal ID="userNameLabel" runat="server" /></i><br />
                                                     <asp:Literal ID="eventNameLabel" runat="server" /><br />
                                                     <asp:Literal ID="messageLabel" runat="server" /></p>
@@ -98,7 +98,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td align="right">
+                                    <td align="right" width="240">
                                         <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
                                             Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
                                             <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 

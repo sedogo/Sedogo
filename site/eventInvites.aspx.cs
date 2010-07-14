@@ -418,21 +418,24 @@ public partial class eventInvites : SedogoPage
                             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"3\">&nbsp;</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td width=\"530\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             if (additionalInviteText != "")
                             {
                                 emailBodyCopy.AppendLine("				<tr>");
                                 emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                                emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                                 emailBodyCopy.AppendLine("					<td>" + additionalInviteText + "</td>");
                                 emailBodyCopy.AppendLine("				</tr>");
                             }                            
@@ -448,21 +451,24 @@ public partial class eventInvites : SedogoPage
                             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");
-                            emailBodyCopy.AppendLine("					<td width=\"10\" rowspan=\"3\">&nbsp;</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td width=\"530\">" + currentEvent.eventName + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">Where:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td>" + currentEvent.eventVenue + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             emailBodyCopy.AppendLine("				<tr>");
                             emailBodyCopy.AppendLine("					<td valign=\"top\">When:</td>");
+                            emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                             emailBodyCopy.AppendLine("					<td>" + dateString + "</td>");
                             emailBodyCopy.AppendLine("				</tr>");
                             if (additionalInviteText != "")
                             {
                                 emailBodyCopy.AppendLine("				<tr>");
                                 emailBodyCopy.AppendLine("					<td valign=\"top\">Message:</td>");
+                                emailBodyCopy.AppendLine("					<td width=\"10\">&nbsp;</td>");
                                 emailBodyCopy.AppendLine("					<td>" + additionalInviteText + "</td>");
                                 emailBodyCopy.AppendLine("				</tr>");
                             }

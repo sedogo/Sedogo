@@ -2396,7 +2396,7 @@ BEGIN
 	WHERE Deleted = 0
 	AND PrivateEvent = 0
 	AND EventAchieved = 0
-    AND ( convert(varchar(11),RangeEndDate,103) >= convert(varchar(11),getdate(),103)
+    AND ( ( RangeStartDate <= getdate() AND RangeEndDate >= getdate() )
        OR convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )
 	ORDER BY EventID
 	
@@ -2518,6 +2518,7 @@ BEGIN
 	FROM Events
 	WHERE PrivateEvent = 0
 	AND EventAchieved = 0
+	AND Deleted = 0
 	AND SUBSTRING(EventName, 1, 1) = @LetterFilter
 	ORDER BY StartDate
 END
@@ -2672,20 +2673,20 @@ END
 GO
 
 /*===============================================================
-// Function: spDeleteEventComment
+// Function: spDeleteEventPicture
 // Description:
 //   Delete event picture
 //=============================================================*/
-PRINT 'Creating spDeleteEventComment...'
+PRINT 'Creating spDeleteEventPicture...'
 GO
 
-IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteEventComment')
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spDeleteEventPicture')
 BEGIN
-	DROP Procedure spDeleteEventComment
+	DROP Procedure spDeleteEventPicture
 END
 GO
 
-CREATE Procedure spDeleteEventComment
+CREATE Procedure spDeleteEventPicture
 	@EventPictureID					int,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)

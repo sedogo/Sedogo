@@ -237,7 +237,7 @@ public partial class MoreDetail : SedogoPage
                 + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
                 + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
                 + " from events inner join users on users.userid=events.userid  "
-                + " where ( ( RangeStartDate >= getdate() and RangeEndDate >= getdate() ) "
+                + " where ( ( RangeStartDate <= getdate() and RangeEndDate >= getdate() ) "
                 + " or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )"
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "

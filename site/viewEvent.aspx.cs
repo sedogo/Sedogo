@@ -973,6 +973,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
             sedogoEvent.SendEventUpdateEmail(loggedInUserID);
 
+            // Update event to change lasst updated by date/name
+            sedogoEvent.Update();
+
             Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
         }
         else

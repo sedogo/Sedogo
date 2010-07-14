@@ -193,12 +193,12 @@ public partial class sidebar : System.Web.UI.UserControl
                 myProfileDiv.Visible = false;
                 profileImageDiv.Visible = false;
             }
-
-            PopulateLatestSearches();
-
-            eventRotator.DataSource = GetRotatorDataSource();
-            eventRotator.DataBind();
         }
+
+        PopulateLatestSearches();
+
+        eventRotator.DataSource = GetRotatorDataSource();
+        eventRotator.DataBind();
     }
 
     //===============================================================

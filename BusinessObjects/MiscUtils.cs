@@ -478,7 +478,10 @@ namespace Sedogo.BusinessObjects
             }
             else
             {
-                return Regex.IsMatch(emailAddress, @"
+                return true;
+                /*
+                 * There is a problem with this as it excludes underscores - not sure what else it excludes as well
+                Regex.IsMatch(emailAddress, @"
 ^
 [-a-zA-Z0-9][-.a-zA-Z0-9]*
 @
@@ -492,7 +495,8 @@ name|museum|coop|aero|pro
 [a-zA-Z]{2}
 )
 $",
-                RegexOptions.IgnorePatternWhitespace);
+                 RegexOptions.IgnorePatternWhitespace);
+                 */
             }
         }
     }

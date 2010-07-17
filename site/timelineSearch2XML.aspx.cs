@@ -284,7 +284,7 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                     timelineStartDate = DateTime.Now;
                     if (eventUser.birthday > DateTime.MinValue)
                     {
-                        timelineEndDate = user.birthday.AddYears(beforeBirthdayLoop);
+                        timelineEndDate = eventUser.birthday.AddYears(beforeBirthdayLoop);
 
                         TimeSpan ts = timelineEndDate - DateTime.Now;   // timelineStartDate.AddYears(beforeBirthdayLoop);
                         if (ts.Days < 0)

@@ -463,7 +463,7 @@ namespace Sedogo.BusinessObjects
             //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
             emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
             emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-            emailBodyCopy.AppendLine("			<h1>The following user has accepted your invitation:</h1>");
+            emailBodyCopy.AppendLine("			<h1>" + invitedUserFullName + " has accepted your invitation:</h1>");
             emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");

@@ -74,4 +74,12 @@ public partial class admin_main : AdminPage
     {
         Response.Redirect("defaultPageTimelineList.aspx");
     }
+
+    //===============================================================
+    // Function: homePageContentLink_click
+    //===============================================================
+    protected void homePageContentLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("homePageContent.aspx");
+    }
 }

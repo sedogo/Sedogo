@@ -369,7 +369,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 uploadEventImage.Visible = false;
                 //createSimilarEventLink.Visible = false;
 
+                trackThisEventDiv.Visible = false;
                 trackThisEventLink.Visible = false;
+                joinThisEventDiv.Visible = false;
                 joinThisEventLink.Visible = false;
                 invitedPanel.Visible = false;
                 sendMessageDiv.Visible = false;

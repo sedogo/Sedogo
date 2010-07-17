@@ -112,6 +112,17 @@ public partial class profile : SedogoPage
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"" + message + "\");", true);
             }
 
+            if (Session["PageRedirect"] != null)
+            {
+                string pageRedirect = Session["PageRedirect"].ToString();
+                Session["PageRedirect"] = null;
+
+                if (pageRedirect == "AddEvent")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"addEvent.aspx\");", true);
+                }
+            }
+
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }
     }

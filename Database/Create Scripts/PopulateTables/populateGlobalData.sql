@@ -90,4 +90,8 @@ EXECUTE spGlobalDataAddStringValue
 	@KeyName					= 'PopularSearchString5',
 	@Value						= ''
 
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'HomePageContent',
+	@Value						= ''
+
 GO 

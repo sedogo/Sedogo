@@ -147,6 +147,9 @@ public partial class _default : System.Web.UI.Page
             eventRotator.DataBind();
 
             BindLatestMembers();
+
+            GlobalData gd = new GlobalData("");
+            homePageContent.Text = gd.GetStringValue("HomePageContent");
         }
     }
 

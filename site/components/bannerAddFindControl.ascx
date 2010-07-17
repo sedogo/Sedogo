@@ -10,7 +10,7 @@
     }
     function doLogin()
     {
-        openModal("/login.aspx");
+        openModal("/login.aspx?Redirect=AddEvent");
     }
     function doAddEvent()
     {

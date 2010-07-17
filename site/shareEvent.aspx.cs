@@ -260,6 +260,8 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
             string mailFromUsername = gd.GetStringValue("MailFromUsername");
             string mailFromPassword = gd.GetStringValue("MailFromPassword");
 
+            sentOK = true;
+
             try
             {
                 MailMessage mailMessage = new MailMessage(mailFromAddress, emailAddress);
@@ -286,6 +288,9 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
             }
             catch (Exception ex)
             {
+                sentOK = false;
+                errorMessageDescription = emailAddress + " - invalid email address";
+
                 SentEmailHistory emailHistory = new SentEmailHistory("");
                 emailHistory.subject = emailSubject;
                 emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
@@ -293,8 +298,6 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
                 emailHistory.sentTo = emailAddress;
                 emailHistory.Add();
             }
-
-            sentOK = true;
         }
         else
         {

@@ -396,6 +396,10 @@
                         to make them happen.</p>
                     <p>
                         <a href="register.aspx" title="get started" class="button">get started</a></p>
+                        
+                    <div style="margin-top:20px">
+                    <asp:Literal ID="homePageContent" runat="server"></asp:Literal>
+                    </div>
                 </div>
                 <div class="one-col">
                     <h2 class="col-header">
@@ -410,7 +414,7 @@
                             <div style="color: #00BFFD; font-size: 14px; line-height: 30px; text-align: left;
                                 float: left;">
                                 Latest Members</div>
-                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; text-align: right;">
+                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; text-align: right; visibility:hidden">
                                 <%=TGoals%>&nbsp; members</div>
                         </div>
                         <div style="margin-left: 2px; margin-top: 28px;">

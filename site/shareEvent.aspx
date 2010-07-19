@@ -104,27 +104,27 @@
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox1" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox1" class="modal"><img src="images/friends.gif" /></a></td>
+                                    <td><asp:HyperLink ID="addressBookLink1" runat="server" NavigateUrl="addressBookSelect.aspx?F=inviteTextBox1" CssClass="modal" ImageUrl="images/friends.gif" /></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox2" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox2" class="modal"><img src="images/friends.gif" /></a></td>
+                                    <td><asp:HyperLink ID="addressBookLink2" runat="server" NavigateUrl="addressBookSelect.aspx?F=inviteTextBox2" CssClass="modal" ImageUrl="images/friends.gif" /></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox3" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox3" class="modal"><img src="images/friends.gif" /></a></td>
+                                    <td><asp:HyperLink ID="addressBookLink3" runat="server" NavigateUrl="addressBookSelect.aspx?F=inviteTextBox3" CssClass="modal" ImageUrl="images/friends.gif" /></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox4" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox4" class="modal"><img src="images/friends.gif" /></a></td>
+                                    <td><asp:HyperLink ID="addressBookLink4" runat="server" NavigateUrl="addressBookSelect.aspx?F=inviteTextBox4" CssClass="modal" ImageUrl="images/friends.gif" /></td>
                                 </tr>
                                 <tr>
                                     <td><img src="images/profile/miniProfile.jpg" /></td>
                                     <td><asp:TextBox ID="inviteTextBox5" runat="server" Width="210px" /></td>
-                                    <td><a href="addressBookSelect.aspx?F=inviteTextBox5" class="modal"><img src="images/friends.gif" /></a></td>
+                                    <td><asp:HyperLink ID="addressBookLink5" runat="server" NavigateUrl="addressBookSelect.aspx?F=inviteTextBox5" CssClass="modal" ImageUrl="images/friends.gif" /></td>
                                 </tr>
                             </table>
                             

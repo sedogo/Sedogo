@@ -25,7 +25,7 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
-        // Function: ReadUserDetails
+        // Function: GetAllEnableUserDetails
         //===============================================================
         public DataTable GetAllEnableUserDetails()
         {
@@ -55,6 +55,46 @@ namespace Sedogo.BusinessObjects
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("SedogoUser", "GetAllEnableUserDetails", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: GetProfileGoalPicsDetails
+        //===============================================================
+        public DataTable GetProfileGoalPicsDetails(int userID, Boolean showPrivate)
+        {
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+                DataTable dtUsers = new DataTable();
+                DbCommand cmd = conn.CreateCommand();
+                //cmd.CommandType = CommandType.StoredProcedure;
+                //cmd.CommandText = "spGetAllEnableUserDetails";
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT top 24 EventID,EventName, EventPicThumbnail, EventPicPreview "
+                    + "FROM Events "
+                    + " WHERE UserID = " + userID.ToString() + " and Deleted = 0 ";
+                if( showPrivate == false )
+                {
+                    cmd.CommandText += "and PrivateEvent = 0 ";
+                }
+                cmd.CommandText += "order by CreatedDate desc ";
+
+                DbDataAdapter adp = new SqlDataAdapter();
+                adp.SelectCommand = cmd;
+                adp.Fill(dtUsers);
+                return dtUsers;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoUser", "GetProfileGoalPicsDetails", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally

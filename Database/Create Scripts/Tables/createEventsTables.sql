@@ -265,6 +265,8 @@ CREATE TABLE EventPictures
 	ImageThumbnail					nvarchar(200)	    NULL,
 	ImagePreview					nvarchar(200)	    NULL,
 	
+	Caption							nvarchar(500)	    NULL,
+	
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL,

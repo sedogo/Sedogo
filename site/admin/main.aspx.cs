@@ -82,4 +82,12 @@ public partial class admin_main : AdminPage
     {
         Response.Redirect("homePageContent.aspx");
     }
+
+    //===============================================================
+    // Function: broadcastEmailLink_click
+    //===============================================================
+    protected void broadcastEmailLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("broadcastEmailContent.aspx");
+    }
 }

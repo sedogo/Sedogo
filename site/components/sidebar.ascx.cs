@@ -87,8 +87,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     inviteCountLink.Text = "<span>" + pendingInviteCount.ToString() + "</span> Invites";
                 }
-                //inviteCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                //inviteCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                inviteCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                inviteCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingAlertCount = EventAlert.GetEventAlertCountPendingByUser(userID);
                 if (pendingAlertCount == 1)
@@ -99,8 +99,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     alertCountLink.Text = "<span>" + pendingAlertCount.ToString() + "</span> Reminders";
                 }
-                //alertCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                //alertCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                alertCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                alertCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int trackedEventCount = TrackedEvent.GetTrackedEventCount(userID);
                 if (trackedEventCount == 1)
@@ -111,8 +111,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     trackingCountLink.Text = "<span>" + trackedEventCount.ToString() + "</span> Goals followed";
                 }
-                //trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                //trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                trackingCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                trackingCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingRequestsCount = SedogoEvent.GetPendingMemberUserCountByUserID(userID);
                 if (pendingRequestsCount == 1)
@@ -123,8 +123,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     goalJoinRequestsLink.Text = "<span>" + pendingRequestsCount.ToString() + "</span> Requests";
                 }
-                //goalJoinRequestsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                //goalJoinRequestsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                goalJoinRequestsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                goalJoinRequestsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int joinedEventCount = TrackedEvent.GetJoinedEventCount(userID);
                 if (joinedEventCount == 1)
@@ -135,12 +135,12 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     groupGoalsLink.Text = "<span>" + joinedEventCount.ToString() + "</span> Group goals";
                 }
-                //groupGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                //groupGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                groupGoalsLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                groupGoalsLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 addressBookLink.Text = "Friends";
-//                addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
-                ////////////addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+                addressBookLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                addressBookLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int achievedEventCount = SedogoEvent.GetEventCountAchieved(userID);
                 if (achievedEventCount == 1)

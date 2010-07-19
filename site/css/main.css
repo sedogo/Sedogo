@@ -1291,14 +1291,6 @@ li.achievedgoals a {
 .following a {
 	color: #9b9885;
 }
-.latestGoals a:hover,
-.messages a:hover,
-.alerts a:hover,
-.invites a:hover,
-.requests a:hover,
-.following a:hover,
-.goal-groups a:hover,
-.addressbook a:hover,
 .messages a span,
 .alerts a span,
 .invites a span,

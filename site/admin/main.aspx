@@ -18,6 +18,7 @@
     <asp:LinkButton ID="popularGoalsLink" runat="server" Text="Popular goals" OnClick="popularGoalsLink_click" /><br />
     <asp:LinkButton ID="defaultPageTimelineLink" runat="server" Text="Default page timeline" OnClick="defaultPageTimelineLink_click" /><br />
     <asp:LinkButton ID="homePageContentLink" runat="server" Text="Home page content" OnClick="homePageContentLink_click" /><br />
+    <asp:LinkButton ID="broadcastEmailLink" runat="server" Text="Send all user email" OnClick="broadcastEmailLink_click" /><br />
 
 </asp:Content>
 

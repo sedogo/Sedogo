@@ -2546,7 +2546,7 @@ CREATE Procedure spSelectEventPictureDetails
 AS
 BEGIN
 	SELECT EventID, PostedByUserID, ImageFilename, ImagePreview, 
-		ImageThumbnail, Deleted, 
+		ImageThumbnail, Deleted, Caption,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM EventPictures
 	WHERE EventPictureID = @EventPictureID
@@ -2572,12 +2572,112 @@ CREATE Procedure spSelectEventPictureList
 AS
 BEGIN
 	SELECT EventPictureID, EventID, PostedByUserID, ImageFilename, ImagePreview, 
-		ImageThumbnail, Deleted, 
+		ImageThumbnail, Deleted, Caption,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM EventPictures
 	WHERE EventID = @EventID
 	AND Deleted = 0
-	ORDER BY CreatedDate
+	ORDER BY EventPictureID
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPicturePrevious
+// Description:
+//=============================================================*/
+PRINT 'Creating spSelectEventPicturePrevious...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPicturePrevious')
+BEGIN
+	DROP Procedure spSelectEventPicturePrevious
+END
+GO
+
+CREATE Procedure spSelectEventPicturePrevious
+	@EventID			int,
+	@EventPictureID		int
+AS
+BEGIN
+	SELECT MAX(EventPictureID)
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND EventPictureID < @EventPictureID
+	AND Deleted = 0
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPictureNext
+// Description:
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureNext...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureNext')
+BEGIN
+	DROP Procedure spSelectEventPictureNext
+END
+GO
+
+CREATE Procedure spSelectEventPictureNext
+	@EventID			int,
+	@EventPictureID		int
+AS
+BEGIN
+	SELECT MIN(EventPictureID)
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND EventPictureID > @EventPictureID
+	AND Deleted = 0
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPictureFirst
+// Description:
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureFirst...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureFirst')
+BEGIN
+	DROP Procedure spSelectEventPictureFirst
+END
+GO
+
+CREATE Procedure spSelectEventPictureFirst
+	@EventID			int
+AS
+BEGIN
+	SELECT MIN(EventPictureID)
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND Deleted = 0
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPictureLast
+// Description:
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureLast...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureLast')
+BEGIN
+	DROP Procedure spSelectEventPictureLast
+END
+GO
+
+CREATE Procedure spSelectEventPictureLast
+	@EventID			int
+AS
+BEGIN
+	SELECT MAX(EventPictureID)
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND Deleted = 0
 END
 GO
 
@@ -2601,6 +2701,7 @@ CREATE Procedure spAddEventPicture
 	@ImageFilename				nvarchar(200),
 	@ImageThumbnail				nvarchar(200),
 	@ImagePreview				nvarchar(200),
+	@Caption					nvarchar(500),
 	@CreatedDate				datetime,
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
@@ -2615,6 +2716,7 @@ BEGIN
 		ImageFilename,
 		ImageThumbnail,
 		ImagePreview,
+		Caption,
 		Deleted,
 		CreatedDate,
 		CreatedByFullName,
@@ -2628,6 +2730,7 @@ BEGIN
 		@ImageFilename,
 		@ImageThumbnail,
 		@ImagePreview,
+		@Caption,
 		0,		-- Deleted
 		@CreatedDate,
 		@CreatedByFullName,
@@ -2658,6 +2761,7 @@ CREATE Procedure spUpdateEventPicture
 	@ImageFilename					nvarchar(200),
 	@ImageThumbnail					nvarchar(200),
 	@ImagePreview					nvarchar(200),
+	@Caption						nvarchar(500),
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200)
 AS
@@ -2666,6 +2770,7 @@ BEGIN
 	SET ImageFilename			= @ImageFilename,
 		ImageThumbnail			= @ImageThumbnail,
 		ImagePreview			= @ImagePreview,
+		Caption					= @Caption,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName
 	WHERE EventPictureID = @EventPictureID
@@ -2699,6 +2804,36 @@ BEGIN
 	WHERE EventPictureID = @EventPictureID
 END
 GO
+
+/*===============================================================
+// Function: spSelectEventsWithPicturesList
+// Description:
+//   Selects the list of pictures
+//=============================================================*/
+PRINT 'Creating spSelectEventsWithPicturesList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventsWithPicturesList')
+BEGIN
+	DROP Procedure spSelectEventsWithPicturesList
+END
+GO
+
+CREATE Procedure spSelectEventsWithPicturesList
+	@UserID		int
+AS
+BEGIN
+	SELECT DISTINCT(P.EventID) AS EventID
+	FROM EventPictures P
+	JOIN Events E
+	ON P.EventID = E.EventID
+	WHERE UserID = @UserID
+	AND E.Deleted = 0
+	AND P.Deleted = 0
+	
+END
+GO
+
 
 PRINT '== Finished createEventsStoredProcs.sql =='
 GO

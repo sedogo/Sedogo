@@ -222,6 +222,9 @@
                                     clear: both;">
                                     <asp:HyperLink ID="sendMessageButton" runat="server" Visible="false" NavigateUrl="javascript:sendMessage();">Send Message</asp:HyperLink>
                                 </div>
+                                <div>
+                                    <asp:Label id="facebookLikeURL" runat="server" />
+                                </div>
                                 <div class="pinstripe-divider" style="border: solid 0px green; width: 485px;">
                                     &nbsp;</div>
                                 <div class="eventCommentBox" style="float: left; width: 485px; border: solid 0px red;"
@@ -377,16 +380,26 @@
                                     <h3 id="trackingHeader" runat="server" class="requests-header" style="margin-top: 15px;">
                                         Members</h3>
                                     <asp:PlaceHolder ID="trackingLinksPlaceholder" runat="server" />
-                                    <asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/greyEnv.gif" />&nbsp;<asp:HyperLink
-                                        ID="messageTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageTrackingUsers();" />
+                                    <table border="0" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td><asp:Image ID="messageTrackingImage" runat="server" ImageUrl="./images/greyEnv.gif" /></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:HyperLink ID="messageTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageTrackingUsers();" /></td>
+                                        </tr>
+                                    </table>
                                     <div class="pinstripe-divider">
                                         &nbsp;</div>
                                     <h3 id="H1" runat="server" class="following-header" style="margin-top: 15px;">
                                         Following</h3>
                                     <asp:PlaceHolder ID="followersLinksPlaceholder" runat="server" />
-                                    <asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /><asp:HyperLink
-                                        ID="followersTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageFollowingUsers();"
-                                        CssClass="underline-bold" />
+
+                                    <table border="0" cellspacing="0" cellpadding="2">
+                                        <tr>
+                                            <td><asp:Image ID="followersTrackingImage" runat="server" ImageUrl="./images/messages.gif" /></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:HyperLink ID="followersTrackingUsersLink" runat="server" Text="Message All" NavigateUrl="javascript:messageFollowingUsers();" CssClass="underline-bold" /></td>
+                                        </tr>
+                                    </table>
                                     <div class="pinstripe-divider" id="requestsSeperator" runat="server">
                                         &nbsp;</div>
                                     <!--<h3 ID="messagesHeader" runat="server">Messages</h3>-->

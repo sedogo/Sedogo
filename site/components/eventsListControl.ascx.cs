@@ -133,6 +133,7 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     string eventPicThumbnail = "";
 
                     int eventID = int.Parse(rdr["EventID"].ToString());
+                    int eventUserID = int.Parse(rdr["UserID"].ToString());
                     string eventName = (string)rdr["EventName"];
                     if (!rdr.IsDBNull(rdr.GetOrdinal("DateType")))
                     {
@@ -212,10 +213,23 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                         }
                         dateString = "Before " + beforeBirthday.ToString() + dateSuffix + " birthday";
 
-                        //timelineStartDate = DateTime.Now;
-                        if (user.birthday > DateTime.MinValue)
+                        startDate = DateTime.Now;
+                        if (userID != eventUserID)
                         {
-                            startDate = user.birthday.AddYears(beforeBirthday);
+                            // Use the event users birthday
+                            SedogoUser eventUser = new SedogoUser("", eventUserID);
+                            if (eventUser.birthday > DateTime.MinValue)
+                            {
+                                startDate = eventUser.birthday.AddYears(beforeBirthday);
+                            }
+                        }
+                        else
+                        {
+                            // My event/my birthday
+                            if (user.birthday > DateTime.MinValue)
+                            {
+                                startDate = user.birthday.AddYears(beforeBirthday);
+                            }
                         }
                     }
 

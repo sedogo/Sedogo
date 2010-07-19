@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="morePictures.aspx.cs" Inherits="morePictures" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="editEventPics.aspx.cs" Inherits="editEventPics" %>
 
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
@@ -113,7 +113,7 @@
                         <div class="page-banner-header">
                             <asp:Literal ID="eventTitleLabel" runat="server" /></div>
                         <div class="page-banner-backbutton">
-                            <asp:LinkButton ID="backButton" runat="server" Text="Home" CssClass="page-banner-linkstyle"
+                            <asp:LinkButton ID="backButton" runat="server" Text="Back" CssClass="page-banner-linkstyle"
                                 OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
                     <table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -121,32 +121,32 @@
                             <td width="100%">
                                 <div style="float:right;margin:5px 5px"><asp:Image ID="privateIcon" 
                                     runat="server" ImageUrl="~/images/private.gif" Visible="false" /></div>
-                                <table width="100%" class="summary">
+                                
+                                <table width="80%" border="0" cellspacing="2" cellpadding="0" style="margin:15px 0">
                                     <tr>
-                                        <td><div style="float:right;margin:5px 5px">
-                                        <asp:LinkButton ID="editPicsButton" runat="server" OnClick="editPicsButton_click"
-                                            Text="Edit pictures" CssClass="underline-bold" />&nbsp;&nbsp;
-                                        <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:addPicture()"
-                                            Text="Add new picture" CssClass="underline-bold" />
-                                        </div></td>
+                                        <td></td>
+                                        <td><p>Caption</p></td>
+                                    </tr>
+                                <asp:Repeater ID="imagesRepeater" runat="server" OnItemDataBound="imagesRepeater_ItemDataBound"
+                                    OnItemCommand="imagesRepeater_ItemCommand">
+                                    <ItemTemplate>
+
+                                    <tr>
+                                        <td><asp:Image id="eventImage" runat="server" /></td>
+                                        <td><asp:TextBox ID="imageCaptionTextBox" runat="server" Width="200" MaxLength="200" /></td>
+                                        <td><asp:LinkButton ID="saveButton" runat="server" CssClass="button-sml" 
+                                            Text="Save caption" CommandName="saveButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventPictureID") %>' />
+                                            <asp:LinkButton ID="deleteButton" runat="server" CssClass="button-sml" 
+                                            Text="Delete image" CommandName="deleteButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventPictureID") %>' /></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <asp:PlaceHolder ID="imagesPlaceHolder" runat="server"></asp:PlaceHolder>
-                                        </td>
+                                        <td colspan="3"><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
                                     </tr>
-                                    <tr>
-                                        <td><div class="pinstripe-divider" style="margin: 30px 0 5px 0; width: 100%">&nbsp;</div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h2>My goal albumns</h2></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:PlaceHolder ID="albumnsPlaceHolder" runat="server"></asp:PlaceHolder>
-                                        </td>
-                                    </tr>
+
+                                    </ItemTemplate>
+                                </asp:Repeater>
                                 </table>
+                                
                             </td>
                         </tr>
                     </table>

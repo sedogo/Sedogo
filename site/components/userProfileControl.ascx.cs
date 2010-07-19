@@ -105,6 +105,35 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
         userProfilePopupGoalsAchievedLabel.Text = SedogoEvent.GetEventCountAchieved(userID).ToString();
         userProfilePopupGroupGoalsLabel.Text = TrackedEvent.GetJoinedEventCount(userID).ToString();
         userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(userID).ToString();
-        //BindLatestMembers();
+
+        ShowGoalPics();
+    }
+
+    //===============================================================
+    // Function: ShowGoalPics
+    //===============================================================
+    private void ShowGoalPics()
+    {
+        Boolean showPrivate = false;
+        if( userID == loggedInUserID )
+        {
+            showPrivate = true;
+        }
+
+        SedogoNewFun objSNFun = new SedogoNewFun();
+        DataTable dtAllUsrs = new DataTable();
+        dtAllUsrs = objSNFun.GetProfileGoalPicsDetails(userID, showPrivate);
+
+        if (dtAllUsrs.Rows.Count > 0)
+        {
+            DataTable dt = dtAllUsrs.Copy();
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
+        }
+        else
+        {
+            dlMember.DataSource = dtAllUsrs;
+            dlMember.DataBind();
+        }
     }
 }

@@ -126,6 +126,64 @@
                     </tr>
                 </table>
             </td>
+            <td>
+                <img src="../images/1x1trans.gif" height="180" width="1" />
+                <div style="margin-left: 2px; margin-top: 28px;">
+                    <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
+                        DataKeyField="EventID">
+                        <ItemTemplate>
+                            <div>
+                                <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "EventID") %>"
+                                    style="display: none; position: relative; z-index: 10;">
+                                    <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
+                                        style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
+                                        <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
+                                            <div class="simileAjax-bubble-border-top-left simileAjax-bubble-border-top-left-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-top-right simileAjax-bubble-border-top-right-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-bottom-left simileAjax-bubble-border-bottom-left-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-bottom-right simileAjax-bubble-border-bottom-right-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-left simileAjax-bubble-border-left-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-right simileAjax-bubble-border-right-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-top simileAjax-bubble-border-top-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-border-bottom simileAjax-bubble-border-bottom-pngTranslucent">
+                                            </div>
+                                            <div class="simileAjax-bubble-contentContainer simileAjax-bubble-contentContainer-pngTranslucent">
+                                                <div style="position: static; width: 160px; font-size: 14px;">
+                                                    <div style="float: left; width: 160px;">
+                                                        <%--<img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
+                                                            onerror="this.src='images/profile/blankProfile.jpg'" /><br />--%>
+                                                        <span class="blue" style="line-height: 22px;">
+                                                            <a href="viewEvent.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>">
+                                                            <%# DataBinder.Eval(Container.DataItem, "EventName")%></a>
+                                                        </span>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="simileAjax-bubble-close simileAjax-bubble-close-pngTranslucent misc-pop-up-link-close">
+                                            </div>
+                                            <div class="simileAjax-bubble-arrow-point-down simileAjax-bubble-arrow-point-down-pngTranslucent"
+                                                style="left: 1px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <img src="assets/eventPics/<%# DataBinder.Eval(Container.DataItem, "EventPicThumbnail") %>"
+                                    alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
+                                    onerror="this.src='images/grayRect.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "EventID") %>)" /></div>
+                        </ItemTemplate>
+                    </asp:DataList></div>
+            </div>
+            
+            </td>
             <td align="right">
                 <p style="display: block">
                     <asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>

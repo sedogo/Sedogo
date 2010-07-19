@@ -94,4 +94,16 @@ EXECUTE spGlobalDataAddStringValue
 	@KeyName					= 'HomePageContent',
 	@Value						= ''
 
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'BroadcastEmailContent',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'BroadcastEmailSubject',
+	@Value						= ''
+
+EXECUTE spGlobalDataAddStringValue
+	@KeyName					= 'BroadcastEmailWaiting',
+	@Value						= 'N'
+
 GO 

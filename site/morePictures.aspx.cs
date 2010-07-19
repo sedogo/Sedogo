@@ -115,6 +115,7 @@ public partial class morePictures : System.Web.UI.Page
             }
             pageBannerBarDiv.Style.Add("background-color", timelineColour);
 
+            uploadEventImage.Visible = false;
             if (userID > 0)
             {
                 if (sedogoEvent.userID != userID)
@@ -126,6 +127,7 @@ public partial class morePictures : System.Web.UI.Page
                     // Viewing own event
 
                     addPictureLiteral.Text = "var url = 'addGoalPicture.aspx?EID=" + eventID.ToString() + "';";
+                    uploadEventImage.Visible = true;
                 }
             }
             else
@@ -138,14 +140,14 @@ public partial class morePictures : System.Web.UI.Page
                 }
             }
 
-            PopulateImages(eventID);
+            PopulateImages(eventID, userID);
         }
     }
 
     //===============================================================
     // Function: PopulateImages
     //===============================================================
-    private void PopulateImages(int eventID)
+    private void PopulateImages(int eventID, int userID)
     {
         DateTime loopDate = DateTime.MinValue;
         Boolean firstRow = true;
@@ -165,32 +167,155 @@ public partial class morePictures : System.Web.UI.Page
             {
                 int eventPictureID = int.Parse(rdr["EventPictureID"].ToString());
                 int postedByUserID = int.Parse(rdr["PostedByUserID"].ToString());
-                string imageFilename = (string)rdr["ImageFilename"];
-                string imagePreview = (string)rdr["ImagePreview"];
-                string imageThumbnail = (string)rdr["ImageThumbnail"];
+                string imageFilename = "";
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImageFilename")))
+                {
+                    imageFilename = (string)rdr["ImageFilename"];
+                }
+                string imagePreview = "";
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImagePreview")))
+                {
+                    imagePreview = (string)rdr["ImagePreview"];
+                }
+                string imageThumbnail = "";
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ImageThumbnail")))
+                {
+                    imageThumbnail = (string)rdr["ImageThumbnail"];
+                }
+                string caption = "";
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Caption")))
+                {
+                    caption = (string)rdr["Caption"];
+                }
                 DateTime createdDate = (DateTime)rdr["CreatedDate"];
 
                 if (createdDate.DayOfYear != loopDate.DayOfYear)
                 {
                     if (firstRow == false)
                     {
-                        imagesPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                        imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"clear: both;\" />"));
                     }
                     imagesPlaceHolder.Controls.Add(new LiteralControl("<i>" + createdDate.ToString("ddd d MMMM yyyy") + "</i><br/>"));
                     firstRow = false;
                 }
                 loopDate = createdDate;
 
-                imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EPID=" + eventPictureID.ToString() + "\" class=\"modal\"><img src=\"/assets/eventPics/" + imageThumbnail + "\"/></a>"));
-                imagesPlaceHolder.Controls.Add(new LiteralControl("&nbsp;&nbsp;&nbsp;"));
+                imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:150px; float:left; margin:0 10px 0 0\">"));
+                imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EID=" + eventID.ToString()
+                    + "&EPID=" + eventPictureID.ToString() + "\"><img src=\"/assets/eventPics/" + imageThumbnail + "\"/></a>"));
+                if( caption != "" )
+                {
+                    if (caption.Length > 30)
+                    {
+                        caption = caption.Substring(0, 30) + "...";
+                    }
+                    imagesPlaceHolder.Controls.Add(new LiteralControl("<br/>" + caption));
+                }
+                imagesPlaceHolder.Controls.Add(new LiteralControl("</div>"));
 
                 columnNumber++;
                 if (columnNumber > 4)
                 {
-                    imagesPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                    imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"clear: both;\" />"));
                 }
             }
             rdr.Close();
+
+            if( userID > 0 )
+            {
+                columnNumber = 1;
+
+                SqlCommand cmdEventsWithPics = new SqlCommand("", conn);
+                cmdEventsWithPics.CommandType = CommandType.StoredProcedure;
+                cmdEventsWithPics.CommandText = "spSelectEventsWithPicturesList";
+                cmdEventsWithPics.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+                DbDataReader rdrEventsWithPics = cmdEventsWithPics.ExecuteReader();
+                while (rdrEventsWithPics.Read())
+                {
+                    int loopEventID = int.Parse(rdrEventsWithPics["EventID"].ToString());
+
+                    SedogoEvent loopEvent = new SedogoEvent("", loopEventID);
+
+                    string timelineColour = "#cd3301";
+                    switch (loopEvent.categoryID)
+                    {
+                        case 1:
+                            timelineColour = "#cd3301";
+                            break;
+                        case 2:
+                            timelineColour = "#ff0b0b";
+                            break;
+                        case 3:
+                            timelineColour = "#ff6801";
+                            break;
+                        case 4:
+                            timelineColour = "#ff8500";
+                            break;
+                        case 5:
+                            timelineColour = "#d5b21a";
+                            break;
+                        case 6:
+                            timelineColour = "#8dc406";
+                            break;
+                        case 7:
+                            timelineColour = "#5b980c";
+                            break;
+                        case 8:
+                            timelineColour = "#079abc";
+                            break;
+                        case 9:
+                            timelineColour = "#5ab6cd";
+                            break;
+                        case 10:
+                            timelineColour = "#8a67c1";
+                            break;
+                        case 11:
+                            timelineColour = "#e54ecf";
+                            break;
+                        case 12:
+                            timelineColour = "#a5369c";
+                            break;
+                        case 13:
+                            timelineColour = "#a32672";
+                            break;
+                    }
+
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:150px; float:left; margin:0 10px 0 0\" "));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("onMouseOver=\"setColor('colourBar_" + loopEventID.ToString() + "','" + timelineColour + "'); "
+                        + "setColor('colourBar2_" + loopEventID.ToString() + "','#EEEEEE');\" "));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("onMouseOut=\"setColor('colourBar_" + loopEventID.ToString() + "','#FFFFFF');"
+                        + "setColor('colourBar2_" + loopEventID.ToString() + "','#FFFFFF');\" "));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("> "));
+                    string displayName = loopEvent.eventName;
+                    if (displayName != "")
+                    {
+                        if (displayName.Length > 30)
+                        {
+                            displayName = displayName.Substring(0, 30) + "...";
+                        }
+                    }
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<div id=\"colourBar2_" + loopEventID.ToString() + "\" width=\"150px\">"));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString() + "\">" + displayName + "</a>"));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("</div>"));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()
+                        + "\"><img width=\"100\" src=\"/assets/eventPics/" + loopEvent.eventPicPreview + "\"/></a>"));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<span id=\"colourBar_" + loopEventID.ToString() + "\"><img src=\"/images/1x1trans.gif\" height=\"6px\" width=\"150px\" ></span> "));
+                    if (loopEvent.eventAchieved == true)
+                    {
+                        albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()
+                            + "\">Achieved <img src=\"images/acceptachieve.gif\" /></a>"));
+                    }
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("</div>"));
+
+                    columnNumber++;
+                    if (columnNumber > 4)
+                    {
+                        albumnsPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                    }
+
+                }
+                rdrEventsWithPics.Close();
+            }
         }
         catch (Exception ex)
         {
@@ -208,5 +333,15 @@ public partial class morePictures : System.Web.UI.Page
     protected void backButton_click(object sender, EventArgs e)
     {
         Response.Redirect("profile.aspx");
+    }
+
+    //===============================================================
+    // Function: editPicsButton_click
+    //===============================================================
+    protected void editPicsButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("editEventPics.aspx?EID=" + eventID.ToString());
     }
 }

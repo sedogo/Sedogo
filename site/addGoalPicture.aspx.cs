@@ -64,7 +64,7 @@ public partial class addGoalPicture : SedogoPage
             goalPicFileUpload.PostedFile.SaveAs(destPath);
 
             int status = MiscUtils.CreateGoalPicPreviews(Path.GetFileName(destPath),
-                eventID, (string)Session["loggedInUserFullName"], userID);
+                eventID, (string)Session["loggedInUserFullName"], userID, captionTextBox.Text);
 
             if (status >= 0)
             {

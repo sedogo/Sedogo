@@ -13,6 +13,9 @@
 //===============================================================
 
 using System;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -20,6 +23,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
+using System.Web.Security;
+using System.Net.Mail;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -225,12 +230,12 @@ namespace Sedogo.BusinessObjects
         // Description:
         //===============================================================
         public static int CreateGoalPicPreviews(string filename, int eventID, string loggedInContactName,
-            int postedByUserID)
+            int postedByUserID, string caption)
         {
             int returnStatus = -1;
 
             GlobalData gd = new GlobalData("");
-            int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
+            int thumbnailSize = 100;    // gd.GetIntegerValue("ThumbnailSize");
             int previewSize = 500;  // gd.GetIntegerValue("PreviewSize");
             string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
             string fileStoreFolderTemp = fileStoreFolder + "\\temp";
@@ -262,9 +267,10 @@ namespace Sedogo.BusinessObjects
                 pic.eventImageFilename = Path.GetFileName(destFilename);
                 pic.eventImagePreview = Path.GetFileName(destPreviewFilename);
                 pic.eventImageThumbnail = Path.GetFileName(destThumbnailFilename);
+                pic.caption = caption;
                 pic.Add();
 
-                returnStatus = 0;
+                returnStatus = pic.eventPictureID;
             }
 
             return returnStatus;
@@ -497,6 +503,208 @@ name|museum|coop|aero|pro
 $",
                  RegexOptions.IgnorePatternWhitespace);
                  */
+            }
+        }
+
+        //===============================================================
+        // Function: BuildBroadcastEmail
+        //===============================================================
+        public static string BuildBroadcastEmail(string broadcastEmailContent)
+        {
+            string emailBody = "";
+
+            GlobalData gd = new GlobalData("");
+            string linkURL = gd.GetStringValue("SiteBaseURL");
+
+            StringBuilder emailBodyCopy = new StringBuilder();
+
+            emailBodyCopy.AppendLine("<html>");
+            emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+            emailBodyCopy.AppendLine("<style type=\"text/css\">");
+            emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+            emailBodyCopy.AppendLine("	p { margin: 0 }");
+            emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+            emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+            emailBodyCopy.AppendLine("	img { border: 0; }");
+            emailBodyCopy.AppendLine("</style></head>");
+            emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+            emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+            //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+            emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+
+            emailBodyCopy.AppendLine("			<p>" + broadcastEmailContent.Replace("\n", "<br/>") + "</p>");
+
+            emailBodyCopy.AppendLine("			<p>To login to Seodgo, <a href=\"" + linkURL + "\"><u>click here</u></a>.</p>");
+            emailBodyCopy.AppendLine("			<br /><br />");
+            emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+            emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\">");
+            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/logo.gif\" />");
+            emailBodyCopy.AppendLine("			</a></td>");
+            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+            emailBodyCopy.AppendLine("		</td></tr><tr><td colspan=\"3\"><small>This message was intended for <<RECIPIENT>>. To stop receiving these emails, go to your profile and uncheck the 'Enable email notifications' option.<br/>Sedogo offices are located at Sedogo Ltd, The Studio, 17 Blossom St, London E1 6PL.</small></td></tr>");
+            emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+            emailBody = emailBodyCopy.ToString();
+
+            return emailBody;
+        }
+
+        //===============================================================
+        // Function: SendBroadcastEmail
+        //===============================================================
+        public static void SendBroadcastEmail()
+        {
+            GlobalData gd = new GlobalData("");
+            string broadcastEmailWaiting = gd.GetStringValue("BroadcastEmailWaiting");
+            if (broadcastEmailWaiting == "Y")
+            {
+                // update this straight away - if the broadcast fails then it will not send again to all users
+                gd.UpdateStringValue("BroadcastEmailWaiting", "N");
+
+                string broadcastEmailSubject = gd.GetStringValue("BroadcastEmailSubject");
+                string broadcastEmailContent = gd.GetStringValue("BroadcastEmailContent");
+
+                string emailBodyCopy = BuildBroadcastEmail(broadcastEmailContent);
+
+                string SMTPServer = gd.GetStringValue("SMTPServer");
+                string mailFromAddress = gd.GetStringValue("MailFromAddress");
+                string mailFromUsername = gd.GetStringValue("MailFromUsername");
+                string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+                // Get a list of all users
+                SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "spSelectUserList";
+                    DbDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        string emailAddress = "";
+                        string firstName = "";
+                        string lastName = "";
+
+                        int userID = int.Parse(rdr["UserID"].ToString());
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
+                        {
+                            emailAddress = (string)rdr["EmailAddress"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
+                        {
+                            firstName = (string)rdr["FirstName"];
+                        }
+                        if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
+                        {
+                            lastName = (string)rdr["LastName"];
+                        }
+                        Boolean enableSendEmails = (Boolean)rdr["EnableSendEmails"];
+
+                        if (enableSendEmails == true)
+                        {
+                            try
+                            {
+                                MailMessage message = new MailMessage(mailFromAddress, emailAddress);
+                                message.ReplyTo = new MailAddress("noreply@sedogo.com");
+
+                                message.Subject = broadcastEmailSubject;
+                                message.Body = emailBodyCopy.Replace("<<RECIPIENT>>", emailAddress);
+                                message.IsBodyHtml = true;
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = SMTPServer;
+                                if (mailFromPassword != "")
+                                {
+                                    // If the password is blank, assume mail relay is permitted
+                                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                                }
+                                smtp.Send(message);
+
+                                SentEmailHistory emailHistory = new SentEmailHistory("");
+                                emailHistory.subject = broadcastEmailSubject;
+                                emailHistory.body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", emailAddress);
+                                emailHistory.sentFrom = mailFromAddress;
+                                emailHistory.sentTo = emailAddress;
+                                emailHistory.Add();
+                            }
+                            catch (Exception ex)
+                            {
+                                SentEmailHistory emailHistory = new SentEmailHistory("");
+                                emailHistory.subject = broadcastEmailSubject;
+                                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString().Replace("<<RECIPIENT>>", emailAddress);
+                                emailHistory.sentFrom = mailFromAddress;
+                                emailHistory.sentTo = emailAddress;
+                                emailHistory.Add();
+                            }
+                        }
+                    }
+                    rdr.Close();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog errorLog = new ErrorLog();
+                    errorLog.WriteLog("MiscUtils", "SendBroadcastEmail", ex.Message, logMessageLevel.errorMessage);
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        //===============================================================
+        // Function: SendBroadcastTestEmail
+        //===============================================================
+        public static void SendBroadcastTestEmail(string recipientEmailAddress)
+        {
+            GlobalData gd = new GlobalData("");
+
+            string broadcastEmailSubject = gd.GetStringValue("BroadcastEmailSubject");
+            string broadcastEmailContent = gd.GetStringValue("BroadcastEmailContent");
+
+            string emailBodyCopy = BuildBroadcastEmail(broadcastEmailContent);
+
+            string SMTPServer = gd.GetStringValue("SMTPServer");
+            string mailFromAddress = gd.GetStringValue("MailFromAddress");
+            string mailFromUsername = gd.GetStringValue("MailFromUsername");
+            string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+            try
+            {
+                MailMessage message = new MailMessage(mailFromAddress, recipientEmailAddress);
+                message.ReplyTo = new MailAddress("noreply@sedogo.com");
+
+                message.Subject = broadcastEmailSubject;
+                message.Body = emailBodyCopy.Replace("<<RECIPIENT>>", recipientEmailAddress);
+                message.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = SMTPServer;
+                if (mailFromPassword != "")
+                {
+                    // If the password is blank, assume mail relay is permitted
+                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                }
+                smtp.Send(message);
+
+                SentEmailHistory emailHistory = new SentEmailHistory("");
+                emailHistory.subject = broadcastEmailSubject;
+                emailHistory.body = emailBodyCopy.ToString().Replace("<<RECIPIENT>>", recipientEmailAddress);
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = recipientEmailAddress;
+                emailHistory.Add();
+            }
+            catch (Exception ex)
+            {
+                SentEmailHistory emailHistory = new SentEmailHistory("");
+                emailHistory.subject = broadcastEmailSubject;
+                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString().Replace("<<RECIPIENT>>", recipientEmailAddress);
+                emailHistory.sentFrom = mailFromAddress;
+                emailHistory.sentTo = recipientEmailAddress;
+                emailHistory.Add();
             }
         }
     }

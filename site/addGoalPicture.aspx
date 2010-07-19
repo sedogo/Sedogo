@@ -75,6 +75,10 @@
                             Display="None" SetFocusOnError="true">
                             </asp:RequiredFieldValidator>
                     </li>
+                    <li>
+                        <label for="">Caption</label>
+                        <asp:TextBox ID="captionTextBox" runat="server"></asp:TextBox>
+                    </li>
                 </ol>
             </fieldset>
 

@@ -56,6 +56,20 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
                 sidebarControl.user = user;
                 bannerAddFindControl.userID = userID;
                 currentUserFullName = user.firstName + " " + user.lastName;
+
+                addressBookLink1.Visible = true;
+                addressBookLink2.Visible = true;
+                addressBookLink3.Visible = true;
+                addressBookLink4.Visible = true;
+                addressBookLink5.Visible = true;
+            }
+            else
+            {
+                addressBookLink1.Visible = false;
+                addressBookLink2.Visible = false;
+                addressBookLink3.Visible = false;
+                addressBookLink4.Visible = false;
+                addressBookLink5.Visible = false;
             }
 
             string dateString = "";

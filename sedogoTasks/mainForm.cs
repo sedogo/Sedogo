@@ -55,6 +55,11 @@ namespace sedogoTasks
                     EventAlert.SendAlertEmails();
                     Environment.Exit(0);
                 }
+                if (arg == "-sendBroadcast")
+                {
+                    MiscUtils.SendBroadcastEmail();
+                    Environment.Exit(0);
+                }
             }
         }
 
@@ -64,6 +69,14 @@ namespace sedogoTasks
         private void sendAlertsButton_Click(object sender, EventArgs e)
         {
             EventAlert.SendAlertEmails();
+        }
+
+        //===============================================================
+        // Function: sendBroadcastEmailButton_Click
+        //===============================================================
+        private void sendBroadcastEmailButton_Click(object sender, EventArgs e)
+        {
+            MiscUtils.SendBroadcastEmail();
         }
     }
 }

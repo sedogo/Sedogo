@@ -438,7 +438,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             sendMessageLiteral.Text = "var url = 'sendMessage.aspx?EID=" + eventID.ToString() + "';";
             //uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
             //uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
-
+            facebookLikeURL.Text = "<iframe src=\"";
+            facebookLikeURL.Text += "http://www.facebook.com/plugins/like.php?href=www.sedogo.com%2FviewEvent.aspx%3FEID%3D" + eventID.ToString() + "&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80";
+            facebookLikeURL.Text += "\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:450px; height:80px;\" allowTransparency=\"true\"></iframe>";
             if (sedogoEvent.dateType == "D")
             {
                 dateLabel.Text = "On";

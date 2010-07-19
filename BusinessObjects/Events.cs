@@ -1881,6 +1881,7 @@ namespace Sedogo.BusinessObjects
         private string      m_eventImageFilename = "";
         private string      m_eventImageThumbnail = "";
         private string      m_eventImagePreview = "";
+        private string      m_caption = "";
         private Boolean     m_deleted = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
@@ -1912,6 +1913,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_eventImagePreview; }
             set { m_eventImagePreview = value; }
+        }
+        public string caption
+        {
+            get { return m_caption; }
+            set { m_caption = value; }
         }
         public string eventImageThumbnail
         {
@@ -1997,6 +2003,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_eventImageThumbnail = (string)rdr["ImageThumbnail"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Caption")))
+                {
+                    m_caption = (string)rdr["Caption"];
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
                 {
                     m_deleted = (Boolean)rdr["Deleted"];
@@ -2049,6 +2059,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@ImageFilename", SqlDbType.NVarChar, 200).Value = m_eventImageFilename;
                 cmd.Parameters.Add("@ImageThumbnail", SqlDbType.NVarChar, 200).Value = m_eventImageThumbnail;
                 cmd.Parameters.Add("@ImagePreview", SqlDbType.NVarChar, 200).Value = m_eventImagePreview;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 500).Value = m_caption;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
@@ -2092,6 +2103,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@ImageFilename", SqlDbType.NVarChar, 200).Value = m_eventImageFilename;
                 cmd.Parameters.Add("@ImageThumbnail", SqlDbType.NVarChar, 200).Value = m_eventImageThumbnail;
                 cmd.Parameters.Add("@ImagePreview", SqlDbType.NVarChar, 200).Value = m_eventImagePreview;
+                cmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 500).Value = m_caption;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
 
@@ -2119,7 +2131,7 @@ namespace Sedogo.BusinessObjects
             {
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand("spDeleteEventComment", conn);
+                SqlCommand cmd = new SqlCommand("spDeleteEventPicture", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@EventPictureID", SqlDbType.Int).Value = m_eventPictureID;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;

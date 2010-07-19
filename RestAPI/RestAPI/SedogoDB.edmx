@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sedogoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="sedogoDBModelStoreContainer" />
+        <Function Name="spAddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="GUID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nchar" Mode="In" />
+          <Parameter Name="HomeTown" Type="nvarchar" Mode="In" />
+          <Parameter Name="Birthday" Type="datetime" Mode="In" />
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="ProfileText" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spGetUserIDFromEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectAdministratorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventAlertID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCommentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventCommentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInviteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventInviteID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectMessageDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MessageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="UserPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUserProfilePic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="ProfilePicFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProfilePicThumbnail" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProfilePicPreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spVerifyAdministratorLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spVerifyUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sedogoDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SedogoDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="spSelectUserDetails" ReturnType="Collection(sedogoDBModel.spSelectUserDetails_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spVerifyUserLogin" ReturnType="Collection(sedogoDBModel.spVerifyUserLogin_Result)">
+          <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spAddUser">
+            <Parameter Name="EmailAddress" Mode="In" Type="String" />
+            <Parameter Name="GUID" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="HomeTown" Mode="In" Type="String" />
+            <Parameter Name="Birthday" Mode="In" Type="DateTime" />
+            <Parameter Name="CountryID" Mode="In" Type="Int32" />
+            <Parameter Name="LanguageID" Mode="In" Type="Int32" />
+            <Parameter Name="TimezoneID" Mode="In" Type="Int32" />
+            <Parameter Name="ProfileText" Mode="In" Type="String" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatedByFullName" Mode="In" Type="String" />
+            <Parameter Name="LastUpdatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="LastUpdatedByFullName" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spVerifyAdministratorLogin" ReturnType="Collection(sedogoDBModel.spVerifyAdministratorLogin_Result)">
+          <Parameter Name="EmailAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spSelectAdministratorDetails" ReturnType="Collection(sedogoDBModel.spSelectAdministratorDetails_Result)">
+          <Parameter Name="AdministratorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateUserProfilePic">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="ProfilePicFilename" Mode="In" Type="String" />
+            <Parameter Name="ProfilePicThumbnail" Mode="In" Type="String" />
+            <Parameter Name="ProfilePicPreview" Mode="In" Type="String" />
+            <Parameter Name="LastUpdatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="LastUpdatedByFullName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdateUserPassword">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="UserPassword" Mode="In" Type="String" />
+            <Parameter Name="LastUpdatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="LastUpdatedByFullName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spSelectUserDetails_Result">
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="DeletedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="HomeTown" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="Birthday" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ProfilePicFilename" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProfilePicThumbnail" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProfilePicPreview" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="ProfileText" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="Int32" Name="LanguageID" Nullable="false" />
+          <Property Type="Int32" Name="TimezoneID" Nullable="false" />
+          <Property Type="Boolean" Name="EnableSendEmails" Nullable="false" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="UserPassword" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="spVerifyUserLogin_Result">
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="UserPassword" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="spVerifyAdministratorLogin_Result">
+          <Property Type="Int32" Name="AdministratorID" Nullable="false" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="AdministratorPassword" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="spSelectAdministratorDetails_Result">
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="AdministratorName" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="DeletedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="AdministratorPassword" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastLoginDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sedogoDBModelStoreContainer" CdmEntityContainer="SedogoDBEntities" >
+          <FunctionImportMapping FunctionImportName="spSelectUserDetails" FunctionName="sedogoDBModel.Store.spSelectUserDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sedogoDBModel.spSelectUserDetails_Result">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="ProfilePicFilename" ColumnName="ProfilePicFilename" />
+                <ScalarProperty Name="ProfilePicThumbnail" ColumnName="ProfilePicThumbnail" />
+                <ScalarProperty Name="ProfilePicPreview" ColumnName="ProfilePicPreview" />
+                <ScalarProperty Name="ProfileText" ColumnName="ProfileText" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+                <ScalarProperty Name="EnableSendEmails" ColumnName="EnableSendEmails" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spVerifyUserLogin" FunctionName="sedogoDBModel.Store.spVerifyUserLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sedogoDBModel.spVerifyUserLogin_Result">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spAddUser" FunctionName="sedogoDBModel.Store.spAddUser" />
+          <FunctionImportMapping FunctionImportName="spVerifyAdministratorLogin" FunctionName="sedogoDBModel.Store.spVerifyAdministratorLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sedogoDBModel.spVerifyAdministratorLogin_Result">
+                <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="AdministratorPassword" ColumnName="AdministratorPassword" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spSelectAdministratorDetails" FunctionName="sedogoDBModel.Store.spSelectAdministratorDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sedogoDBModel.spSelectAdministratorDetails_Result">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="AdministratorName" ColumnName="AdministratorName" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="AdministratorPassword" ColumnName="AdministratorPassword" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spUpdateUserProfilePic" FunctionName="sedogoDBModel.Store.spUpdateUserProfilePic" />
+          <FunctionImportMapping FunctionImportName="spUpdateUserPassword" FunctionName="sedogoDBModel.Store.spUpdateUserPassword" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SedogoDB" />
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

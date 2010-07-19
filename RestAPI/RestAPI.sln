@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestAPI", "RestAPI\RestAPI.csproj", "{10A99AAC-F3ED-4839-8282-746CE7EA1C30}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Testing", "Testing\", "{2F7A1F11-86BA-485B-A3A6-8D2A47411CF2}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/Testing"
+		Debug.AspNetCompiler.PhysicalPath = "Testing\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Testing\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Testing"
+		Release.AspNetCompiler.PhysicalPath = "Testing\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Testing\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "55960"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "..\BusinessObjects\BusinessObjects.csproj", "{5E398C45-A480-4546-92DA-79DD26FADB8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10A99AAC-F3ED-4839-8282-746CE7EA1C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A99AAC-F3ED-4839-8282-746CE7EA1C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A99AAC-F3ED-4839-8282-746CE7EA1C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A99AAC-F3ED-4839-8282-746CE7EA1C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7A1F11-86BA-485B-A3A6-8D2A47411CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7A1F11-86BA-485B-A3A6-8D2A47411CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7A1F11-86BA-485B-A3A6-8D2A47411CF2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7A1F11-86BA-485B-A3A6-8D2A47411CF2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

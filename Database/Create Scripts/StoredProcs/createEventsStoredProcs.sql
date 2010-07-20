@@ -1113,7 +1113,7 @@ BEGIN
 	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
 		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
-		E.EventAchieved, E.EventAchievedDate,
+		E.EventAchieved, E.EventAchievedDate,E.MustDo, E.PrivateEvent,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.FirstName, U.LastName, U.EmailAddress
 	FROM TrackedEvents T

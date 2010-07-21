@@ -2873,5 +2873,173 @@ END
 GO
 
 
+-- =============================================
+-- Author:		Nikita Knyazev
+-- Create date: 21.07.2010
+-- Description:	search procedure that uses only text. The number of results is limited
+-- =============================================
+PRINT 'Creating spSearchLimitedEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSearchLimitedEvents')
+BEGIN
+	DROP Procedure spSearchLimitedEvents
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[spSearchLimitedEvents] 
+	@SearchText nvarchar(100),
+	@Start int = 0,
+	@Count int = 10
+as
+BEGIN
+	SET NOCOUNT ON;
+	
+	select EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,MustDo,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName,
+		EmailAddress, FirstName, LastName, Gender, HomeTown, ProfilePicThumbnail
+	 from(
+		select ROW_NUMBER() over (order by StartDate) as rn, 
+		E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,E.MustDo,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+		FROM Events E
+		JOIN Users U
+		ON E.UserID = U.UserID
+		WHERE E.Deleted = 0
+		AND E.EventAchieved = 0
+		AND E.PrivateEvent = 0
+		AND ( (@SearchText is null or @SearchText = '') 
+		 OR (UPPER(E.EventName) LIKE '%'+UPPER(@SearchText)+'%')
+		 OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') ) 
+		 
+		
+		
+	
+	) as t where t.rn BETWEEN (isnull(@Start,0)+1) AND (isnull(@Start,0) + isnull(@Count, 10))
+	--ORDER BY t.Coords.STDistance(@point) asc
+    ORDER BY StartDate
+    
+END
+
+GO
+
+
+-- =============================================
+-- Author:		Nikita Knyazev
+-- Create date: 21.07.2010
+-- Description:	search procedure that returns a limited amount of random events
+-- =============================================
+PRINT 'Creating spSearchLimitedRandomEvents...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSearchLimitedRandomEvents')
+BEGIN
+	DROP Procedure spSearchLimitedRandomEvents
+END
+GO
+
+CREATE PROCEDURE [dbo].[spSearchLimitedRandomEvents] 
+	@Count int = 10
+as
+BEGIN
+	SET NOCOUNT ON;
+	
+	select top (isnull(@Count,10)) 
+		E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,E.MustDo,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+		FROM Events E
+		JOIN Users U
+		ON E.UserID = U.UserID
+		WHERE E.Deleted = 0
+		AND E.EventAchieved = 0
+		AND E.PrivateEvent = 0
+		
+		
+	
+	--ORDER BY t.Coords.STDistance(@point) asc
+    ORDER BY NEWID(), StartDate
+    
+END
+
+GO
+
+-- =============================================
+-- Author:		Nikita Knyazev
+-- Create date: 21.07.2010
+-- Description:	search procedure that uses location
+-- =============================================
+PRINT 'Creating spSearchEventsByLocation...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSearchEventsByLocation')
+BEGIN
+	DROP Procedure spSearchEventsByLocation
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[spSearchEventsByLocation] 
+	@SearchText nvarchar(100),
+	@Latitude float,
+	@Longitude float,
+	@RadiusInMeters int, --Radius in meters!
+	@Start int =  0,
+	@Count int = 10
+as
+BEGIN
+	SET NOCOUNT ON;
+	select EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,MustDo,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName,
+		EmailAddress, FirstName, LastName, Gender, HomeTown, ProfilePicThumbnail
+	 from(
+		select ROW_NUMBER() over (order by StartDate) as rn, 
+		E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate,
+		E.PrivateEvent, E.CreatedFromEventID,E.MustDo,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.ProfilePicThumbnail
+		FROM Events E
+		JOIN Users U
+		ON E.UserID = U.UserID
+		WHERE E.Deleted = 0
+		AND E.EventAchieved = 0
+		AND E.PrivateEvent = 0
+		AND ( (@SearchText is null or @SearchText = '') 
+		 OR (UPPER(E.EventName) LIKE '%'+UPPER(@SearchText)+'%')
+		 OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') ) 
+		 
+		and Geography::Point(@Latitude, @Longitude, 4326).STBuffer(@RadiusInMeters).STIntersects(e.Coords)=1 
+		--STBuffer would create a x-meters buffer around @Radius then the STIntersects would return e.Coords points that fall within that x-meters radius.
+		--SRID 4326 is the default and the one that is used by GPS systems.
+	
+		
+		
+	
+	) as t where t.rn BETWEEN (isnull(@Start,0)+1) AND (isnull(@Start,0) + isnull(@Count, 10))
+	--ORDER BY t.Coords.STDistance(@point) asc
+    ORDER BY StartDate
+    
+END
+
+GO
+
+
+
 PRINT '== Finished createEventsStoredProcs.sql =='
 GO

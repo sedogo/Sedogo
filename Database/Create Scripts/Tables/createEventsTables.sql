@@ -61,7 +61,8 @@ CREATE TABLE Events
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL,
-	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
+	LastUpdatedByFullName			nvarchar(200)	    NOT NULL,
+	Coords							Geography			NULL
 )
 GO
 

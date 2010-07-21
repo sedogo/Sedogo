@@ -354,6 +354,44 @@ END
 GO
 
 /*===============================================================
+// Function: spSelectNotAchievedEventList
+// Description:
+//   Selects the achieved event list
+//=============================================================*/
+PRINT 'Creating spSelectNotAchievedEventList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectNotAchievedEventList')
+BEGIN
+	DROP Procedure spSelectNotAchievedEventList
+END
+GO
+
+-- =============================================
+-- Author:		Nikita Knyazev
+-- Create date: 21.07.2010
+-- Description:	get a list of events not yet achieved by a user
+-- =============================================
+CREATE Procedure [dbo].[spSelectNotAchievedEventList]
+	@UserID			int
+AS
+BEGIN
+	SELECT EventID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
+		BeforeBirthday, CategoryID, TimezoneID, EventAchieved, EventAchievedDate,
+		PrivateEvent, CreatedFromEventID,
+		EventDescription, EventVenue, MustDo,
+		EventPicFilename, EventPicThumbnail, EventPicPreview,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM Events
+	WHERE Deleted = 0
+	AND EventAchieved = 0
+	AND UserID = @UserID
+	ORDER BY StartDate DESC
+END
+
+GO
+
+/*===============================================================
 // Function: spSelectFullEventListIncludingAchievedByCategory
 // Description:
 //   Selects the users event list

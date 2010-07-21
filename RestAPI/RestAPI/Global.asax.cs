@@ -25,6 +25,11 @@ namespace RestAPI
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+            routes.MapRoute("UsersConsumption", "{controller}/users/{id}/consumption", new { controller = "API", action="UsersConsumption", id = UrlParameter.Optional });
+            routes.MapRoute("UsersEvents", "{controller}/users/{id}/events", new { controller = "API", action = "UsersEvents", id = UrlParameter.Optional });
+            routes.MapRoute("UsersAchieved", "{controller}/users/{id}/achieved", new { controller = "API", action = "UsersAchieved", id = UrlParameter.Optional });
+            routes.MapRoute("UsersFollowed", "{controller}/users/{id}/followed", new { controller = "API", action = "UsersFollowed", id = UrlParameter.Optional });
+            routes.MapRoute("EventsComments", "{controller}/events/{id}/comments", new { controller = "API", action="EventsComments", id = UrlParameter.Optional });
 
         }
 

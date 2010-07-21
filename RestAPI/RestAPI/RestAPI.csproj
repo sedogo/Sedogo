@@ -76,7 +76,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\SedogoUser.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CommentModel.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\InviteModel.cs" />
+    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SedogoDB.Designer.cs">
       <AutoGen>True</AutoGen>

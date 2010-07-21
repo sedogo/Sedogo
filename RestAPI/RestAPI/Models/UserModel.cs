@@ -40,12 +40,9 @@ Write only:
     /// <summary>
     /// A class for JSON representation of the User
     /// </summary>
-    public class SedogoUser
+    public class UserModel  : BaseModel
     {
-        public int id {get;set;}
-        public DateTime created{get;set;}
-        public DateTime updated{get;set;}
-        public string firstName{get;set;}
+       public string firstName{get;set;}
         public string lastName{get;set;}
         public string gender{get;set;}
         public string image{get;set;}
@@ -66,20 +63,12 @@ Write only:
         public string CreatedByFullName { get; set; }
         public string LastUpdatedByFullName { get; set; }
 
-        public SedogoUser()
+        
+
+
+        public override Dictionary<string, object> GetDetails()
         {
-            created = DateTime.Now;
-            updated = DateTime.Now;
-        }
-
-
-
-        public Dictionary<string, object> GetDetails()
-        {
-            Dictionary<string, object> rv = new Dictionary<string, object>();
-            rv.Add("id", id);
-            rv.Add("created", Assistant.ConvertDateTime(created));
-            rv.Add("updated", Assistant.ConvertDateTime(updated));
+            Dictionary<string, object> rv = InitializeDictionary();
             if (!string.IsNullOrEmpty(firstName))
                 rv.Add("firstName", firstName);
             if (!string.IsNullOrEmpty(lastName))
@@ -126,7 +115,7 @@ Write only:
         /// <param name="updatedByFullName"></param>
         /// <param name="error"></param>
         /// <returns></returns>
-        public static SedogoUser CreateUser(string email, string password, string firstName, string lastName,
+        public static UserModel CreateUserModel(string email, string password, string firstName, string lastName,
             string gender, string homeTown, string birthday, int? country, int? language, int? timezone, string profile,
             string image, string imageThumbnail, string imagePreview, string createdByFullName, string updatedByFullName, out string error)
         {
@@ -181,7 +170,7 @@ Write only:
             if (!string.IsNullOrEmpty(error))
                 return null;
 
-            SedogoUser user = new SedogoUser
+            UserModel user = new UserModel
             {
                 created = DateTime.Now,
                 updated = DateTime.Now,
@@ -218,27 +207,27 @@ Write only:
         /// </summary>
         /// <param name="user">a basic set of user's properties</param>
         /// <returns></returns>
-        public static Sedogo.BusinessObjects.SedogoUser CreateDBUser(SedogoUser user)
+        public static Sedogo.BusinessObjects.SedogoUser CreateUserBO(UserModel user)
         {
             Sedogo.BusinessObjects.SedogoUser dbUser = new Sedogo.BusinessObjects.SedogoUser(user.CreatedByFullName);
-            dbUser.firstName = string.IsNullOrEmpty(user.firstName)?string.Empty:user.firstName;
-            dbUser.lastName = string.IsNullOrEmpty(user.lastName)?string.Empty:user.lastName;
+            if(!string.IsNullOrEmpty(user.firstName)) dbUser.firstName = user.firstName;
+            if(!string.IsNullOrEmpty(user.lastName)) dbUser.lastName = user.lastName;
             dbUser.gender = user.gender;
-            dbUser.birthday = (user.birthday.HasValue)?user.birthday.Value:DateTime.MinValue;
-            //see Sedogo.BusinesOsObjects.SedogoUser.Add(): if birthday is DateTime.MinValue, then DBNull is inserted
-
+            if (user.birthday.HasValue) dbUser.birthday = user.birthday.Value;
+            
             dbUser.languageID = user.language;
             dbUser.countryID = user.country;
             dbUser.timezoneID = user.timezone;
 
             dbUser.emailAddress = user.email;
             
-            dbUser.profileText = string.IsNullOrEmpty(user.profile)?string.Empty:user.profile;
-            dbUser.profilePicFilename = string.IsNullOrEmpty(user.image)?string.Empty:user.image;
-            dbUser.profilePicThumbnail = string.IsNullOrEmpty(user.imageThumbnail)?string.Empty:user.imageThumbnail;
-            dbUser.profilePicPreview = string.IsNullOrEmpty(user.imagePreview)?string.Empty:user.imagePreview;
+            if(!string.IsNullOrEmpty(user.profile)) dbUser.profileText = user.profile;
+            if(!string.IsNullOrEmpty(user.image)) dbUser.profilePicFilename = user.image;
+            if(!string.IsNullOrEmpty(user.imageThumbnail)) dbUser.profilePicThumbnail = user.imageThumbnail;
+            if(!string.IsNullOrEmpty(user.imagePreview)) dbUser.profilePicPreview = user.imagePreview;
 
-            dbUser.homeTown = string.IsNullOrEmpty(user.homeTown)?string.Empty:user.homeTown;
+            if (!string.IsNullOrEmpty(user.homeTown)) dbUser.homeTown = user.homeTown; 
+
             return dbUser;
 
         }

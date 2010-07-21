@@ -49,13 +49,15 @@ namespace RestAPI
         /// <param name="db">database access object</param>
         /// <param name="role">user role</param>
         /// <param name="email">email acts like a login</param>
-        /// <param name="id">output</param>
+        /// <param name="id">output user's identifier</param>
+        /// <param name="fullName">output user's name</param>
         /// <returns>true if authentication is successful</returns>
-        public static bool TryAuthenticate(HttpRequestBase Request, SedogoDBEntities db, UserRole role, out string email,out int? id)
+        public static bool TryAuthenticate(HttpRequestBase Request, SedogoDBEntities db, UserRole role, out string email,out int? id, out string fullName)
         {
             email = null;
             string password = null;
             id = null;
+            fullName = null;
             string authHeader = Request.Headers["Authorization"];
             if (!string.IsNullOrEmpty(authHeader))
             {
@@ -76,15 +78,15 @@ namespace RestAPI
                     switch (role)
                     {
                         case UserRole.Admin:
-                            return VerifyAdminLogin(email, password, db, out id);
+                            return VerifyAdminLogin(email, password, db, out id, out fullName);
                             break;
                         case UserRole.User:
-                            return VerifyUserLogin(email, password, db, out id);
+                            return VerifyUserLogin(email, password, db, out id, out fullName);
                             break;
                         case UserRole.Any:
-                            bool v1 = VerifyUserLogin(email, password, db, out id);
+                            bool v1 = VerifyUserLogin(email, password, db, out id, out fullName);
                             if (!v1)
-                                return VerifyAdminLogin(email, password, db, out id);
+                                return VerifyAdminLogin(email, password, db, out id, out fullName);
                             else
                                 return v1;
                             break;
@@ -106,16 +108,20 @@ namespace RestAPI
         /// <param name="emailAddress">email is the login</param>
         /// <param name="password">password</param>
         /// <param name="db">database access object</param>
-        /// <param name="adminID">output - admin id</param>                       
+        /// <param name="adminID">output - admin id</param>    
+        /// <param name="fullName">output - admin's name</param>
         /// <returns>authentication is successful</returns>
-        public static bool VerifyAdminLogin(string emailAddress, string password, SedogoDBEntities db, out int? adminID)
+        public static bool VerifyAdminLogin(string emailAddress, string password, SedogoDBEntities db, out int? adminID,
+            out string fullName)
         {
             adminID = null;
+            fullName = null;
             Administrator admin = new Administrator("");
             loginResults lr = admin.VerifyLogin(emailAddress, password, false, true, "API. VerifyAdminLogin");
             if (lr == loginResults.loginSuccess)
             {
                 adminID = admin.administratorID;
+                fullName = admin.administratorName;
                 return true;
             }
             return false;
@@ -138,16 +144,19 @@ namespace RestAPI
         /// <param name="password">password</param>
         /// <param name="db">database access object</param>
         /// <param name="userID">output - user id</param>
+        /// <param name="fullName">output - user's name</param>
         /// <returns>authentication is successful</returns>
-        public static bool VerifyUserLogin(string emailAddress, string password, SedogoDBEntities db, out int? userID)
+        public static bool VerifyUserLogin(string emailAddress, string password, SedogoDBEntities db, out int? userID, out string fullName)
         {
             userID = null;
+            fullName = null;
             SedogoUser user = new SedogoUser("");
             loginResults checkResult;
             checkResult = user.VerifyLogin(emailAddress, password, false, true, "API. VerifyUserLogin");
             if ((checkResult == loginResults.loginSuccess))
             {
                 userID = user.userID;
+                fullName = user.firstName + " " + user.lastName;
                 return true;
             }
             return false;
@@ -176,6 +185,15 @@ namespace RestAPI
         public static Object ErrorUnauthorized
         {
             get { return new { error = "unauthorized" }; }
+        }
+
+
+        /// <summary>
+        /// An object that is converted into JSON format. It is returned if the user cannot access a resource
+        /// </summary>
+        public static Object ErrorForbidden
+        {
+            get { return new { error="forbidden"}; }
         }
 
         /// <summary>

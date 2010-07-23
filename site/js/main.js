@@ -249,7 +249,7 @@ function closeModal()
 
 function maxWindow()
 {
-window.resizeTo(screen.width, screen.height - 20);
-window.moveTo(0,0);
-window.resizeTo(screen.width, screen.height);
+//window.resizeTo(screen.width, screen.height - 20);
+//window.moveTo(0,0);
+//window.resizeTo(screen.width, screen.height);
 }

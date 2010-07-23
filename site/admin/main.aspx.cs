@@ -90,4 +90,12 @@ public partial class admin_main : AdminPage
     {
         Response.Redirect("broadcastEmailContent.aspx");
     }
+
+    //===============================================================
+    // Function: allGoalsLink_click
+    //===============================================================
+    protected void allGoalsLink_click(object sender, EventArgs e)
+    {
+        Response.Redirect("allGoals.aspx");
+    }
 }

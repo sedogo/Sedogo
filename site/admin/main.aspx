@@ -12,13 +12,14 @@
     
     Admin menu<br />&nbsp;<br />
     
-    <asp:LinkButton ID="administratorsLink" runat="server" Text="Administrators" OnClick="administratorsLink_click" /><br />
-    <asp:LinkButton ID="usersLink" runat="server" Text="Users" OnClick="usersLink_click" /><br />
-    <asp:LinkButton ID="timezonesLink" runat="server" Text="Timezones" OnClick="timezonesLink_click" /><br />
-    <asp:LinkButton ID="popularGoalsLink" runat="server" Text="Popular goals" OnClick="popularGoalsLink_click" /><br />
-    <asp:LinkButton ID="defaultPageTimelineLink" runat="server" Text="Default page timeline" OnClick="defaultPageTimelineLink_click" /><br />
-    <asp:LinkButton ID="homePageContentLink" runat="server" Text="Home page content" OnClick="homePageContentLink_click" /><br />
-    <asp:LinkButton ID="broadcastEmailLink" runat="server" Text="Send all user email" OnClick="broadcastEmailLink_click" /><br />
+    <asp:LinkButton ID="administratorsLink" runat="server" Text="Administrators" OnClick="administratorsLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="usersLink" runat="server" Text="Users" OnClick="usersLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="timezonesLink" runat="server" Text="Timezones" OnClick="timezonesLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="popularGoalsLink" runat="server" Text="Popular goals" OnClick="popularGoalsLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="allGoalsLink" runat="server" Text="All goals" OnClick="allGoalsLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="defaultPageTimelineLink" runat="server" Text="Default page timeline" OnClick="defaultPageTimelineLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="homePageContentLink" runat="server" Text="Home page content" OnClick="homePageContentLink_click" /><br />&nbsp;<br />
+    <asp:LinkButton ID="broadcastEmailLink" runat="server" Text="Send all user email" OnClick="broadcastEmailLink_click" /><br />&nbsp;<br />
 
 </asp:Content>
 

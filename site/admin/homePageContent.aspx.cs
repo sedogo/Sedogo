@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -46,10 +48,32 @@ public partial class admin_homePageContent : AdminPage
     //===============================================================
     protected void saveButton_Click(object sender, EventArgs e)
     {
-        GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
-        gd.UpdateStringValue("HomePageContent", homePageContentTextBox.Text.Trim());
+        SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+        try
+        {
+            conn.Open();
 
-        Response.Redirect("main.aspx");
+            string sql = "DELETE HomePageContent ";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+
+            string sql2 = "INSERT INTO HomePageContent ( HomePageContent ) VALUES ( @HomePageContent ) ";
+            SqlCommand cmd2 = new SqlCommand(sql2, conn);
+            cmd2.CommandType = CommandType.Text;
+            cmd2.Parameters.Add("@HomePageContent", SqlDbType.NVarChar, -1).Value = homePageContentTextBox.Text.Trim();
+            cmd2.ExecuteNonQuery();
+        }
+        catch (Exception ex)
+        {
+            ErrorLog errorLog = new ErrorLog();
+            errorLog.WriteLog("", "", ex.Message, logMessageLevel.errorMessage);
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
+        }
     }
 
     //===============================================================

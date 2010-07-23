@@ -34,6 +34,7 @@ Begin DataProject = "Database"
          Script = "createEventsTables.sql"
          Script = "createGlobalDataTables.sql"
          Script = "createHistoryTables.sql"
+         Script = "createHomePageContent.sql"
          Script = "createSentEmailHistoryTables.sql"
          Script = "createUsersTables.sql"
       End

@@ -16,6 +16,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -148,8 +150,29 @@ public partial class _default : System.Web.UI.Page
 
             BindLatestMembers();
 
-            GlobalData gd = new GlobalData("");
-            homePageContent.Text = gd.GetStringValue("HomePageContent");
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT HomePageContent FROM HomePageContent ";
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                homePageContent.Text = (string)rdr["HomePageContent"];
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("", "", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 

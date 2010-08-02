@@ -79,19 +79,19 @@ function changeClass(id, newClass)
     </div>
     <div class="latestGoals">
         
-        <h2><asp:Label ID="Label1" runat="server" Text="Goals added" /></h2>
+        <h2><asp:Label ID="Label1" runat="server" Text="Added" /></h2>
         <asp:PlaceHolder ID="goalsAddedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
 
-        <h2><asp:Label ID="Label2" runat="server" Text="Goals updated" /></h2>
+        <h2><asp:Label ID="Label2" runat="server" Text="Updated" /></h2>
         <asp:PlaceHolder ID="goalsUpdatedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
 
-        <h2><asp:Label ID="Label3" runat="server" Text="Goals happening now" /></h2>
+        <h2><asp:Label ID="Label3" runat="server" Text="Happening now" /></h2>
         <asp:PlaceHolder ID="goalsHappeningNowPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
 
-        <h2><asp:Label ID="Label4" runat="server" Text="Goals achieved" /></h2>
+        <h2><asp:Label ID="Label4" runat="server" Text="Achieved" /></h2>
         <asp:PlaceHolder ID="goalsAchievedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
         

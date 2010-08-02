@@ -55,11 +55,12 @@
             </div>
             <div class="left-col">
 
-                <p><asp:Label ID="eventNameLabel" runat="server" /><br />
-                <asp:Label ID="eventDateLabel" runat="server" /><br />
-                Where: <asp:Label ID="eventVenueLabel" runat="server" /><br />
+                <p>To: <asp:Label ID="messageToLabel" runat="server" /><br />
                 &nbsp;<br />
-                Send message to <asp:Label ID="messageToLabel" runat="server" /></p>
+                About: <asp:Label ID="eventNameLabel" runat="server" /><br />
+                Date: <asp:Label ID="eventDateLabel" runat="server" /><br />
+                Where: <asp:Label ID="eventVenueLabel" runat="server" />
+                </p>
                             
                 <fieldset>
                     <ol>
@@ -73,9 +74,9 @@
                     </ol>
                 </fieldset>
 
-                <div class="fullpagebuttons">
+                <div class="buttons">
                     <asp:LinkButton 
-                        ID="saveChangesButton" runat="server" ToolTip="save" Text="Send message" 
+                        ID="saveChangesButton" runat="server" ToolTip="save" Text="Send" 
                         OnClick="saveChangesButton_click" CssClass="button-sml" OnClientClick="javascript:preSaveClick()" />
                 </div>    
                 

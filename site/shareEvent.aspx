@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="shareEvent.aspx.cs" Inherits="shareEvent" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="shareEvent.aspx.cs" Inherits="shareEvent" ValidateRequest="false" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>

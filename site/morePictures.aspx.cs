@@ -121,13 +121,16 @@ public partial class morePictures : System.Web.UI.Page
                 if (sedogoEvent.userID != userID)
                 {
                     // Viewing someone elses event
+                    SedogoUser eventUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), sedogoEvent.userID);
+                    goalOwnerNameLabel.Text = eventUser.firstName + " " + eventUser.lastName + "'s goal albums";
                 }
                 else
                 {
                     // Viewing own event
-
                     addPictureLiteral.Text = "var url = 'addGoalPicture.aspx?EID=" + eventID.ToString() + "';";
                     uploadEventImage.Visible = true;
+                    editPicsButton.Visible = true;
+                    goalOwnerNameLabel.Text = "My goal albums";
                 }
             }
             else
@@ -138,9 +141,10 @@ public partial class morePictures : System.Web.UI.Page
                     // Viewing private events is not permitted
                     Response.Redirect("profile.aspx");
                 }
+                goalOwnerNameLabel.Text = "My goal albums";
             }
 
-            PopulateImages(eventID, userID);
+            PopulateImages(eventID, sedogoEvent.userID);
         }
     }
 
@@ -195,12 +199,12 @@ public partial class morePictures : System.Web.UI.Page
                     {
                         imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"clear: both;\" />"));
                     }
-                    imagesPlaceHolder.Controls.Add(new LiteralControl("<i>" + createdDate.ToString("ddd d MMMM yyyy") + "</i><br/>"));
+                    imagesPlaceHolder.Controls.Add(new LiteralControl("<i><span style=\"font-size:80%\">" + createdDate.ToString("ddd d MMMM yyyy") + "</span></i><br/>"));
                     firstRow = false;
                 }
                 loopDate = createdDate;
 
-                imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:150px; float:left; margin:0 10px 0 0\">"));
+                imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:110px; float:left; margin:0 10px 20px 0\">"));
                 imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EID=" + eventID.ToString()
                     + "&EPID=" + eventPictureID.ToString() + "\"><img src=\"/assets/eventPics/" + imageThumbnail + "\"/></a>"));
                 if( caption != "" )
@@ -213,11 +217,11 @@ public partial class morePictures : System.Web.UI.Page
                 }
                 imagesPlaceHolder.Controls.Add(new LiteralControl("</div>"));
 
-                columnNumber++;
-                if (columnNumber > 4)
+                if ((columnNumber % 6) == 0)
                 {
                     imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"clear: both;\" />"));
                 }
+                columnNumber++;
             }
             rdr.Close();
 
@@ -307,12 +311,11 @@ public partial class morePictures : System.Web.UI.Page
                     }
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("</div>"));
 
-                    columnNumber++;
-                    if (columnNumber > 4)
+                    if ((columnNumber % 4) == 0)
                     {
-                        albumnsPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                        albumnsPlaceHolder.Controls.Add(new LiteralControl("<div style=\"clear: both;\" />"));
                     }
-
+                    columnNumber++;
                 }
                 rdrEventsWithPics.Close();
             }
@@ -332,7 +335,9 @@ public partial class morePictures : System.Web.UI.Page
     //===============================================================
     protected void backButton_click(object sender, EventArgs e)
     {
-        Response.Redirect("profile.aspx");
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 
     //===============================================================

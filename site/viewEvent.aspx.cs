@@ -455,6 +455,31 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
 
             PopulateComments(eventID, sedogoEvent.userID);
+
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spSelectEventPictureList", conn);
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 90;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                dlImages.DataSource = ds;
+                dlImages.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 
@@ -906,7 +931,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
         sedogoEvent.Update();
 
         //sedogoEvent.SendEventUpdateEmail();
-        Session["AcheievedEventID"] = eventID;
+        if (sedogoEvent.eventAchieved == true)
+        {
+            Session["AcheievedEventID"] = eventID;
+        }
         Response.Redirect("profileRedirect.aspx");
     }
 

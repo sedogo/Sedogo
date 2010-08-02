@@ -50,6 +50,9 @@ public partial class addGoalPicture : SedogoPage
 
         if (goalPicFileUpload.PostedFile.ContentLength != 0)
         {
+            SedogoEvent sedogoEvent = new SedogoEvent((string)Session["loggedInUserFullName"], eventID);
+            sedogoEvent.Update();
+
             int fileSizeBytes = goalPicFileUpload.PostedFile.ContentLength;
 
             GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);

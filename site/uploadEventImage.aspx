@@ -85,6 +85,8 @@ function preSaveClick()
                     </li>
                     <li>
                         <div class="buttons">
+                        <asp:LinkButton id="deleteImageButton" runat="server" OnClick="deleteImageButton_click" 
+                            Text="Delete picture" CssClass="button-lrg" CausesValidation="false" OnClientClick="javascript:preSaveClick()" />
                         <asp:LinkButton id="uploadEventPicButton" runat="server" OnClick="uploadEventPicButton_click" 
                             Text="Add picture" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
                         </div>

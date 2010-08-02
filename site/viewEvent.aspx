@@ -225,6 +225,27 @@
                                 <div>
                                     <asp:Label id="facebookLikeURL" runat="server" />
                                 </div>
+                                <div>
+                                
+                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td></td>
+                                            <td align="right">
+                                                <asp:DataList ID="dlImages" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
+                                                    DataKeyField="EventPictureID">
+                                                    <ItemTemplate>
+                                                        <div>
+                                                            <a href="morePictures.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>"><img src="assets/eventPics/<%# DataBinder.Eval(Container.DataItem, "ImageThumbnail") %>"
+                                                                alt="" height="33" width="33" style="padding-bottom: 6px; padding-right: 6px;" /></a>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </asp:DataList>
+                                            </td>
+                                            <td><img src="images/1x1trans.gif" width="15px" height="1" /></td>
+                                        </tr>
+                                    </table>
+                                                            
+                                </div>
                                 <div class="pinstripe-divider" style="border: solid 0px green; width: 485px;">
                                     &nbsp;</div>
                                 <div class="eventCommentBox" style="float: left; width: 485px; border: solid 0px red;"
@@ -334,7 +355,7 @@
                             </td>
                             <td width="200px">
                                 <div style="width: 200px; padding-top: 10px; overflow: hidden">
-                                    <asp:Image ID="eventImage" runat="server" Width="237" />
+                                    <asp:Image ID="eventImage" runat="server" />
                                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
                                         <tr>
                                             <td><asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:uploadEventImage()"

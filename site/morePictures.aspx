@@ -113,7 +113,7 @@
                         <div class="page-banner-header">
                             <asp:Literal ID="eventTitleLabel" runat="server" /></div>
                         <div class="page-banner-backbutton">
-                            <asp:LinkButton ID="backButton" runat="server" Text="Home" CssClass="page-banner-linkstyle"
+                            <asp:LinkButton ID="backButton" runat="server" Text="Back" CssClass="page-banner-linkstyle"
                                 OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
                     <table width="100%" border="0" cellspacing="0" cellpadding="2">
@@ -125,9 +125,10 @@
                                     <tr>
                                         <td><div style="float:right;margin:5px 5px">
                                         <asp:LinkButton ID="editPicsButton" runat="server" OnClick="editPicsButton_click"
+                                            Visible="false"
                                             Text="Edit pictures" CssClass="underline-bold" />&nbsp;&nbsp;
                                         <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:addPicture()"
-                                            Text="Add new picture" CssClass="underline-bold" />
+                                            Text="Add picture" CssClass="underline-bold" />
                                         </div></td>
                                     </tr>
                                     <tr>
@@ -139,7 +140,7 @@
                                         <td><div class="pinstripe-divider" style="margin: 30px 0 5px 0; width: 100%">&nbsp;</div></td>
                                     </tr>
                                     <tr>
-                                        <td><h2>My goal albumns</h2></td>
+                                        <td><h2><asp:Label ID="goalOwnerNameLabel" runat="server" /></h2></td>
                                     </tr>
                                     <tr>
                                         <td>

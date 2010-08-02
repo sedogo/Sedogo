@@ -38,8 +38,29 @@ public partial class admin_homePageContent : AdminPage
     {
         if (!IsPostBack)
         {
-            GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
-            homePageContentTextBox.Text = gd.GetStringValue("HomePageContent");
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT HomePageContent FROM HomePageContent ";
+                DbDataReader rdr = cmd.ExecuteReader();
+                rdr.Read();
+                homePageContentTextBox.Text = (string)rdr["HomePageContent"];
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("", "", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 

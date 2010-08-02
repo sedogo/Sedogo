@@ -426,18 +426,18 @@
                                             <%--Birthday: <span class="blue">
                                                 <asp:Label ID="birthdayLabel" runat="server" /></span><br />
                                             Home town: <span class="blue">
-                                                <asp:Label ID="homeTownLabel" runat="server" /></span><br />
-                                            <span class="blue">--%>
+                                                <asp:Label ID="homeTownLabel" runat="server" /></span><br />--%>
+                                            <span class="blue">
                                             <asp:Label ID="userProfilePopupGoalsLabel" runat="server" /></span> Goals<br />
                                             <span class="blue">
                                                 <asp:Label ID="userProfilePopupGoalsAchievedLabel" runat="server" /></span>
-                                            Goals Achieved<br />
+                                            Goals achieved<br />
                                             <span class="blue">
                                                 <asp:Label ID="userProfilePopupGroupGoalsLabel" runat="server" /></span> Group
-                                            Goals<br />
+                                            goals<br />
                                             <span class="blue">
                                                 <asp:Label ID="userProfilePopupGoalsFollowedLabel" runat="server" /></span>
-                                            Goals Followed
+                                            Goals followed
                                         </p>
                                     </div>
                                     <div style="clear: both;">

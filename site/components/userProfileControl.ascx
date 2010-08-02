@@ -65,9 +65,9 @@
             </td>
         </tr>
     </table>
-    <table width="100%">
+    <table width="100%" border="0">
         <tr>
-            <td>
+            <td rowspan="2">
                 <table border="0" cellspacing="2" cellpadding="2">
                     <tr>
                         <td>
@@ -127,8 +127,15 @@
                 </table>
             </td>
             <td>
-                <img src="../images/1x1trans.gif" height="180" width="1" />
-                <div style="margin-left: 2px; margin-top: 28px;">
+            </td>
+            <td align="right">
+                <p style="display: block">
+                    <asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="margin-left: 2px;">
                     <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
                         DataKeyField="EventID">
                         <ItemTemplate>
@@ -180,16 +187,10 @@
                                     alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
                                     onerror="this.src='images/grayRect.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "EventID") %>)" /></div>
                         </ItemTemplate>
-                    </asp:DataList></div>
-            </div>
-            
+                    </asp:DataList>
+                </div>
             </td>
-            <td align="right">
-                <p style="display: block">
-                    <asp:Image ID="profileImage" runat="server" CssClass="profile" /></p>
-                    
-                <div class="clear-float"></div>
-                
+            <td>
                 <div class="userProfileBox" style="text-align:left; width:192px">
                     <fieldset>
                         <ol style="line-height: 20px;">
@@ -200,7 +201,6 @@
                         </ol>
                     </fieldset>
                 </div>
-                    
             </td>
         </tr>
     </table>

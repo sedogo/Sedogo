@@ -51,9 +51,9 @@
     <div>
     
 	    <div id="modal">
-            <h1>send message</h1>
+            <h1>Send message</h1>
 
-            <p>Send message to <asp:Label ID="messageToLabel" runat="server" />
+            <p>To: <asp:Label ID="messageToLabel" runat="server" />
             <div id="goalNameDiv" runat="server">
             <br />
             Regarding goal: <asp:Label ID="eventNameLabel" runat="server" />
@@ -74,7 +74,7 @@
     
         <div class="buttons">
             <asp:LinkButton 
-                ID="saveChangesButton" runat="server" ToolTip="Send message" Text="Send message" 
+                ID="saveChangesButton" runat="server" ToolTip="Send message" Text="Send" 
                 OnClick="saveChangesButton_click" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
         </div>    
 

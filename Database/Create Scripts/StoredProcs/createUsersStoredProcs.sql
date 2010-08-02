@@ -521,6 +521,7 @@ BEGIN
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Users
 	WHERE Deleted = 0
+	AND LoginEnabled = 1
 	AND SUBSTRING(LastName, 1, 1) = @LetterFilter
 	ORDER BY LastName
 END

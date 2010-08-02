@@ -51,6 +51,13 @@ public partial class uploadEventImage : SedogoPage
             eventDateLabel.Text = dateString;
             eventVenueLabel.Text = sedogoEvent.eventVenue.Replace("\n", "<br/>");
 
+            deleteImageButton.Attributes.Add("onclick", "if(confirm('Are you sure you want to delete this picture?')){}else{return false}");
+
+            if (sedogoEvent.eventPicFilename == "")
+            {
+                deleteImageButton.Visible = false;
+            }
+
             SetFocus(eventPicFileUpload);
         }
     }
@@ -81,5 +88,21 @@ public partial class uploadEventImage : SedogoPage
 
             Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
         }
+    }
+
+    //===============================================================
+    // Function: deleteImageButton_click
+    //===============================================================
+    protected void deleteImageButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+        sedogoEvent.eventPicFilename = "";
+        sedogoEvent.eventPicPreview = "";
+        sedogoEvent.eventPicThumbnail = "";
+        sedogoEvent.UpdateEventPic();
+
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 }

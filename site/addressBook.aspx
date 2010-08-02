@@ -64,6 +64,11 @@
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
                 
+                    <div style="margin-top:10px">
+                    <asp:Hyperlink ID="addContactButton" runat="server" CssClass="button-sml modal"
+                        Text="Add friend" NavigateUrl="addAddressBook.aspx" />
+                    </div>       
+                
                     <div id="noContactsDiv" runat="server">
                     <p>You have no entries in your friends list.</p>
                     </div>
@@ -83,13 +88,13 @@
                                     <td align="right">
                                         <p>
                                         <asp:Hyperlink ID="sendMessageButton"
-                                        runat="server" CssClass="button-sml modal" Text="Send message" />
+                                        runat="server" CssClass="modal" Text="Send message |" />
                                         <asp:Hyperlink ID="viewProfileButton" 
-                                        runat="server" CssClass="button-sml" Text="View profile" />
+                                        runat="server" CssClass="" Text="View profile |" />
                                         <asp:Hyperlink ID="editContactButton" 
-                                        runat="server" CssClass="button-sml modal" Text="Edit" />
+                                        runat="server" CssClass="modal" Text="Edit |" />
                                         <asp:Hyperlink ID="deleteContactButton" 
-                                        runat="server" CssClass="button-sml" Text="Delete" />
+                                        runat="server" CssClass="" Text="Delete" />
                                         </p>
                                     </td>
                                 </tr>
@@ -100,11 +105,6 @@
                         </ItemTemplate>
                     </asp:Repeater>
                     </div>
-                    
-                    <div style="margin-top:10px">
-                    <asp:Hyperlink ID="addContactButton" runat="server" CssClass="button-sml modal"
-                        Text="Add friend" NavigateUrl="addAddressBook.aspx" />
-                    </div>       
                     
                     <br />&nbsp;
                     

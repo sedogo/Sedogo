@@ -349,7 +349,7 @@ BEGIN
 	WHERE Deleted = 0
 	AND EventAchieved = 1
 	AND UserID = @UserID
-	ORDER BY StartDate DESC
+	ORDER BY EventAchievedDate DESC
 END
 GO
 
@@ -2610,6 +2610,34 @@ CREATE Procedure spSelectEventPictureList
 AS
 BEGIN
 	SELECT EventPictureID, EventID, PostedByUserID, ImageFilename, ImagePreview, 
+		ImageThumbnail, Deleted, Caption,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+	FROM EventPictures
+	WHERE EventID = @EventID
+	AND Deleted = 0
+	ORDER BY EventPictureID
+END
+GO
+
+/*===============================================================
+// Function: spSelectEventPictureListTop18
+// Description:
+//   Selects the list of pictures
+//=============================================================*/
+PRINT 'Creating spSelectEventPictureListTop18...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectEventPictureListTop18')
+BEGIN
+	DROP Procedure spSelectEventPictureListTop18
+END
+GO
+
+CREATE Procedure spSelectEventPictureListTop18
+	@EventID		int
+AS
+BEGIN
+	SELECT TOP 18 EventPictureID, EventID, PostedByUserID, ImageFilename, ImagePreview, 
 		ImageThumbnail, Deleted, Caption,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM EventPictures

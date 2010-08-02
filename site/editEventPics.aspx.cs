@@ -211,6 +211,9 @@ public partial class editEventPics : System.Web.UI.Page
 
         if (e.CommandName == "deleteButton")
         {
+            SedogoEvent sedogoEvent = new SedogoEvent((string)Session["loggedInUserFullName"], eventID);
+            sedogoEvent.Update();
+
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
 
             eventPic.Delete();
@@ -219,6 +222,9 @@ public partial class editEventPics : System.Web.UI.Page
         }
         if (e.CommandName == "saveButton")
         {
+            SedogoEvent sedogoEvent = new SedogoEvent((string)Session["loggedInUserFullName"], eventID);
+            sedogoEvent.Update();
+
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
 
             TextBox imageCaptionTextBox = e.Item.FindControl("imageCaptionTextBox") as TextBox;

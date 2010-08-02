@@ -77,6 +77,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 {
                     messageCountLink.Text = "<span>" + messageCount.ToString() + "</span> Messages";
                 }
+                messageCountLink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                messageCountLink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
 
                 int pendingInviteCount = EventInvite.GetPendingInviteCountForUser(userID);
                 if (pendingInviteCount == 1)

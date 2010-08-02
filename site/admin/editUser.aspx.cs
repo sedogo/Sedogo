@@ -40,6 +40,8 @@ public partial class admin_editUser : AdminPage
             firstNameTextBox.Text = sedogoUser.firstName;
             lastNameTextBox.Text = sedogoUser.lastName;
             emailAddress.Text = sedogoUser.emailAddress;
+
+            deleteButton.Attributes.Add("onclick", "if(confirm('Are you sure you want to delete this user?')){document.forms[0].target = '_top';return true;}else{return false}");
         }
     }
 
@@ -63,6 +65,20 @@ public partial class admin_editUser : AdminPage
             sedogoUser.UpdatePassword(userPassword.Text);
         }
         userPassword.Text = "";
+    }
+
+    //===============================================================
+    // Function: deleteButton_Click
+    //===============================================================
+    protected void deleteButton_Click(object sender, EventArgs e)
+    {
+        int userID = int.Parse(Request.QueryString["UID"]);
+
+        SedogoUser sedogoUser = new SedogoUser(Session["loggedInAdministratorName"].ToString(),
+            userID);
+        sedogoUser.Delete();
+
+        Response.Redirect("usersList.aspx");
     }
 
     //===============================================================

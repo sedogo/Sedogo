@@ -31,7 +31,10 @@
             
     <asp:Button runat="server" ID="saveButton" text="Save" OnClick="saveButton_Click" />
     <asp:Button runat="server" ID="cancelButton" text="Back" OnClick="cancelButton_Click"
-        CausesValidation="false" /><br />
+        CausesValidation="false" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Button runat="server" ID="deleteButton" text="Delete" OnClick="deleteButton_Click"
+        CausesValidation="false" />
+
 
 </asp:Content>
 

@@ -57,6 +57,6 @@ public partial class admin_usersList : AdminPage
     //===============================================================
     protected void onRowSelect(object sender, ComponentArt.Web.UI.GridItemEventArgs e)
     {
-        Response.Redirect("editUsers.aspx?UID=" + e.Item["UserID"]);
+        Response.Redirect("editUser.aspx?UID=" + e.Item["UserID"]);
     }
 }

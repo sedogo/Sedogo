@@ -109,8 +109,8 @@
 					    bdate: bdate,
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 98,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
 						theme: theme1,
 						eventSource: eventSource,
 						zoomIndex: 14,
@@ -128,16 +128,15 @@
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH },// DEFAULT zoomIndex old						
 							{ pixelsPerInterval: 50, unit: Timeline.DateTime.MONTH },//New
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR },//New
-							{ pixelsPerInterval: 98, unit: Timeline.DateTime.DECADE} //New DEFAULT zoomIndex							
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR }						
 						)
 					}),
 					Timeline.createBandInfo({
 					    bdate: bdate,
 						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 						width: "70",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 500,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 35,
 						showEventText: false,
 						trackHeight: 0.5,
 						trackGap: 0.2,
@@ -179,8 +178,8 @@
 					    bdate: bdate,
 						date: "<asp:Literal id="timelineStartDate3" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.MONTH,
-						intervalPixels: 50,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
 						theme: theme1,
 						eventSource: eventSourceSearch
 					}),
@@ -512,14 +511,16 @@ function showhide(layer_ref)
                         <div class="arrow_strip">
                             <div class="arrow_previous">
                                 <a href="#" title="Scroll left" class="left" id="scroll-back">
-                                    <img src="images/arrow_previous.jpg" alt="" /></a></div>
+                                    <img src="images/arrow_previous1.jpg" onmouseover="this.src='images/arrow_previous.jpg'; this.style.cursor='pointer';"
+                                    onmouseout="this.src='images/arrow_previous1.jpg'" alt="" /></a></div>
                             <div class="arrow_midbg">
                                 <div id="smallScroll" class="inner_arrow_midbg">
                                 </div>
                             </div>
                             <div class="arrow_next">
                                 <a href="#" title="Scroll right" class="right" id="scroll-forward">
-                                    <img src="images/arrow_next.jpg" alt="" /></a></div>
+                                    <img src="images/arrow_next1.jpg" onmouseover="this.src='images/arrow_next.jpg'; this.style.cursor='pointer';"
+                                    onmouseout="this.src='images/arrow_next1.jpg'" alt="" /></a></div>
                             <div id="dateRange" style="text-align: center;">
                             </div>
                         </div>

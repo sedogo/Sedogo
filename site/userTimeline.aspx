@@ -37,7 +37,7 @@
     <link href="css/tutorsty.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
-    
+
     <script type="text/javascript" src="js/dom-drag.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
@@ -106,8 +106,8 @@
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 98,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
 						theme: theme1,
 						eventSource: eventSource,
 						zoomIndex: 14,
@@ -125,16 +125,15 @@
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH },// DEFAULT zoomIndex old						
 							{ pixelsPerInterval: 50, unit: Timeline.DateTime.MONTH },//New
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR },//New
-							{ pixelsPerInterval: 98, unit: Timeline.DateTime.DECADE} //New DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR }
 						)
 					}),
 					
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 						width: "70",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 500,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 35,
 						showEventText: false,
 						trackHeight: 0.5,
 						trackGap: 0.2,
@@ -169,8 +168,8 @@
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate3" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.MONTH,
-						intervalPixels: 50,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
 						theme: theme1,
 						eventSource: eventSourceSearch
 					}),
@@ -319,14 +318,13 @@
 
 </head>
 <body onload="breakout_of_frame();onLoad();scrl();scrl1();CloseMyTimeline();" onresize="onResize();">
-
     <form id="form1" runat="server">
     <asp:ScriptManager ID="scriptManager" runat="server">
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <sedogo:bannerlogincontrol id="bannerLogin" runat="server" />
-            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
+            <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
             <div id="timelines" style="margin-bottom: 6px">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -357,14 +355,16 @@
                             <div class="arrow_strip">
                                 <div class="arrow_previous">
                                     <a href="#" title="Scroll left" class="left" id="scroll-back">
-                                        <img src="images/arrow_previous.jpg" alt="" /></a></div>
+                                        <img src="images/arrow_previous1.jpg" onmouseover="this.src='images/arrow_previous.jpg'; this.style.cursor='pointer';"
+                                            onmouseout="this.src='images/arrow_previous1.jpg'" alt="" /></a></div>
                                 <div class="arrow_midbg">
                                     <div id="smallScroll" class="inner_arrow_midbg">
                                     </div>
                                 </div>
                                 <div class="arrow_next">
                                     <a href="#" title="Scroll right" class="right" id="scroll-forward">
-                                        <img src="images/arrow_next.jpg" alt="" /></a></div>
+                                        <img src="images/arrow_next1.jpg" onmouseover="this.src='images/arrow_next.jpg'; this.style.cursor='pointer';"
+                                            onmouseout="this.src='images/arrow_next1.jpg'" alt="" /></a></div>
                                 <div id="dateRange" style="text-align: center;">
                                 </div>
                             </div>
@@ -463,10 +463,10 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <sedogo:sidebarcontrol id="sidebarControl" runat="server" />
-                <sedogo:eventslistcontrol id="eventsListControl" runat="server" />
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
             </div>
-            <sedogo:footercontrol id="footerControl" runat="server" />
+            <Sedogo:FooterControl ID="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -477,6 +477,6 @@
         </div>
     </div>
     </form>
-    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 </body>
 </html>

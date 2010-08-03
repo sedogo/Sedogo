@@ -123,7 +123,8 @@ public partial class userTimeline : SedogoPage
             timelineURL.Text = "timelineXML.aspx?G=" + Guid.NewGuid().ToString();
             searchTimelineURL.Text = "timelineUserXML.aspx?UID=" + viewUserID.ToString();
 
-            DateTime timelineStartDate = DateTime.Now.AddMonths(8);
+            //DateTime timelineStartDate = DateTime.Now.AddMonths(8);
+            DateTime timelineStartDate = DateTime.Now.AddYears(4);
 
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");

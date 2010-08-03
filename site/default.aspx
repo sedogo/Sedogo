@@ -38,6 +38,7 @@
     <link href="css/tutorsty.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+
     <script type="text/javascript" src="js/dom-drag.js"></script>
 
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
@@ -57,9 +58,9 @@
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
 
     <script type="text/javascript">
-		Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
-		Timeline_urlPrefix = 'js/timeline/timeline_js/';
-		Timeline_parameters = 'bundle=true';
+        Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
+        Timeline_urlPrefix = 'js/timeline/timeline_js/';
+        Timeline_parameters = 'bundle=true';
 	</script>
 
     <script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
@@ -105,8 +106,8 @@
                     Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate1" runat="server" />",
 						width: "235",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 98,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 100,
 						theme: theme1,
 						eventSource: eventSource,
 						zoomIndex: 14,
@@ -124,16 +125,15 @@
 							{ pixelsPerInterval: 200, unit: Timeline.DateTime.MONTH },
 							{ pixelsPerInterval: 100, unit: Timeline.DateTime.MONTH },// DEFAULT zoomIndex old						
 							{ pixelsPerInterval: 50, unit: Timeline.DateTime.MONTH },//New
-							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR },//New
-							{ pixelsPerInterval: 98, unit: Timeline.DateTime.DECADE} //New DEFAULT zoomIndex
+							{ pixelsPerInterval: 100, unit: Timeline.DateTime.YEAR }//New							
 						)
 					}),
 					
 					Timeline.createBandInfo({
 						date: "<asp:Literal id="timelineStartDate2" runat="server" />",
 						width: "70",
-						intervalUnit: Timeline.DateTime.DECADE,
-						intervalPixels: 500,
+						intervalUnit: Timeline.DateTime.YEAR,
+						intervalPixels: 35,
 						showEventText: false,
 						trackHeight: 0.5,
 						trackGap: 0.2,
@@ -193,26 +193,49 @@
     </script>
 
     <script type="text/javascript">
-	$(document).ready(function(){
-	});
-    function breakout_of_frame()
-    {
-      if (top.location != location)
-      {
-        top.location.href = document.location.href ;
-      }
-    }
-    function getElementID( name )
-    {
-	    var form = document.forms[0];
-        var nID = -1;
-        for( i=0 ; i < form.elements.length ; i++ )
-        {
-            if( form.elements[i].name == name )
-            {
-                nID = i;
+        $(document).ready(function() {
+        });
+        function breakout_of_frame() {
+            if (top.location != location) {
+                top.location.href = document.location.href;
             }
         }
+<<<<<<< .mine
+        function getElementID(name) {
+            var form = document.forms[0];
+            var nID = -1;
+            for (i = 0; i < form.elements.length; i++) {
+                if (form.elements[i].name == name) {
+                    nID = i;
+                }
+            }
+            return nID;
+        }
+        function loginRedirect(eventID) {
+            location.href = "login.aspx?EID=" + eventID;
+        }
+        function openEvent(eventID) {
+            location.href = "viewEvent.aspx?EID=" + eventID;
+        }
+        function viewProfile(eventUserID) {
+            //location.href = "userProfile.aspx?UID=" + eventUserID;
+            location.href = "publicProfile.aspx?UID=" + eventUserID;
+        }
+        function viewUserTimeline(eventUserID) {
+            //location.href = "userTimeline.aspx?UID=" + eventUserID;
+            openModal("login.aspx");
+        }
+        function doSendMessage(srhUserID) {
+            //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+            openModal("login.aspx");
+        }
+        function doAddEvent() {
+            location.href = "login.aspx";
+        }
+        function checkAddButtonEnter(e) {
+            var characterCode;
+            if (e && e.which) // NN4 specific code
+=======
         return nID;
     }
     function loginRedirect(eventID)
@@ -245,24 +268,44 @@
         for(i=0; i < shdiv.length; i++)
         {
             if(shdiv.item(i).id.indexOf("dmpop") > -1)
+>>>>>>> .r271
             {
-                document.getElementById(shdiv.item(i).id).style.display='none';
+                e = e;
+                characterCode = e.which;
+            }
+            else {
+                e = event;
+                characterCode = e.keyCode; // IE specific code
+            }
+            if (characterCode == 13) //// Enter key is 13
+            {
+                e.returnValue = false;
+                e.cancelBubble = true;
+                doAddEvent();
+            }
+            else {
+                return false;
             }
         }
-		document.getElementById('dmpop' + divId).style.display='block';
-	 }
-	 
-    function CloseDiv()
-     {
-        var shdiv = document.getElementsByTagName('div');
-        for(i=0; i < shdiv.length; i++)
-        {
-            if(shdiv.item(i).id.indexOf("dmpop") > -1)
-            {
-                document.getElementById(shdiv.item(i).id).style.display='none';
+
+        function ShowHideDiv(divId) {
+            var shdiv = document.getElementsByTagName('div');
+            for (i = 0; i < shdiv.length; i++) {
+                if (shdiv.item(i).id.indexOf("dmpop") > -1) {
+                    document.getElementById(shdiv.item(i).id).style.display = 'none';
+                }
             }
-        }		
-	 }
+            document.getElementById('dmpop' + divId).style.display = 'block';
+        }
+
+        function CloseDiv() {
+            var shdiv = document.getElementsByTagName('div');
+            for (i = 0; i < shdiv.length; i++) {
+                if (shdiv.item(i).id.indexOf("dmpop") > -1) {
+                    document.getElementById(shdiv.item(i).id).style.display = 'none';
+                }
+            }
+        }
     
     </script>
 
@@ -304,14 +347,13 @@
 
 </head>
 <body onload="breakout_of_frame();onLoad(); scrl();" onresize="onResize();">
-
     <form id="defaultForm" runat="server">
     <asp:ScriptManager ID="scriptManager" runat="server">
     </asp:ScriptManager>
     <div>
         <div id="container">
-            <sedogo:bannerlogincontrol id="BannerLoginControl1" runat="server" />
-            <sedogo:banneraddfindcontrol id="bannerAddFindControl" runat="server" />
+            <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
+            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
             <div id="timelines">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -347,14 +389,16 @@
                             <div class="arrow_strip">
                                 <div class="arrow_previous">
                                     <a href="#" title="Scroll left" class="left" id="scroll-back">
-                                        <img src="images/arrow_previous.jpg" alt="" /></a></div>
+                                        <img src="images/arrow_previous1.jpg" onmouseover="this.src='images/arrow_previous.jpg'; this.style.cursor='pointer';"
+                                    onmouseout="this.src='images/arrow_previous1.jpg'" alt="" /></a></div>
                                 <div class="arrow_midbg">
                                     <div id="smallScroll" class="inner_arrow_midbg">
                                     </div>
                                 </div>
                                 <div class="arrow_next">
                                     <a href="#" title="Scroll right" class="right" id="scroll-forward">
-                                        <img src="images/arrow_next.jpg" alt="" /></a></div>
+                                        <img src="images/arrow_next1.jpg" onmouseover="this.src='images/arrow_next.jpg'; this.style.cursor='pointer';"
+                                    onmouseout="this.src='images/arrow_next1.jpg'" alt="" /></a></div>
                                 <div id="dateRange" style="text-align: center;">
                                 </div>
                             </div>
@@ -482,19 +526,19 @@
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
                     <div class="rotatorBackground" style="padding-top: 20px;">
-                        <telerik:radrotator id="eventRotator" runat="server" width="232px" height="216px"
-                            cssclass="horizontalRotator" rotatortype="FromCode" itemheight="216" itemwidth="232">
+                        <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
+                            CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx">
                                         <img src='<%# Page.ResolveUrl("~/images/") + Container.DataItem %>.png' alt="Customer Image" /></a>
                                 </div>
                             </ItemTemplate>
-                        </telerik:radrotator>
+                        </telerik:RadRotator>
                     </div>
                 </div>
             </div>
-            <sedogo:footercontrol id="footerControl" runat="server" />
+            <Sedogo:FooterControl ID="footerControl" runat="server" />
         </div>
         <div id="modal-container">
             <a href="#" class="close-modal">
@@ -505,6 +549,6 @@
         </div>
     </div>
     </form>
-    <sedogo:googleanalyticscontrol id="googleAnalyticsControl" runat="server" />
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 </body>
 </html>

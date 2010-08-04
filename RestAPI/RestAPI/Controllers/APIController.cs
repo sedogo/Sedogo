@@ -110,20 +110,22 @@ namespace RestAPI.Controllers
             string gender, string homeTown, string birthday, int? country, int? language, int? timezone, string profile, 
             string image, string imageThumbnail, string imagePreview)
         {
-            #region initial steps
+            //no authentication for registration
+
+            /*#region initial steps
             Response.ContentType = Assistant.MimeType;
             if (!CheckAuthentication(UserRole.Admin))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 return Json(Assistant.ErrorUnauthorized);
             }
-            #endregion
+            #endregion  */
             
-            spSelectAdministratorDetails_Result adminDetails = db.spSelectAdministratorDetails(currentUserID).FirstOrDefault();
+            //spSelectAdministratorDetails_Result adminDetails = db.spSelectAdministratorDetails(currentUserID).FirstOrDefault();
             string error;
              //let's try to create a user object
             UserModel modelUser = UserModel.CreateUserModel(email, password, firstName, lastName, gender, homeTown, birthday, country, language, timezone, profile, image,
-            imageThumbnail, imagePreview, adminDetails.AdministratorName, adminDetails.AdministratorName, out error);
+            imageThumbnail, imagePreview, "","", /*adminDetails.AdministratorName, adminDetails.AdministratorName, */out error);
 
             if (!string.IsNullOrEmpty(error))
             {

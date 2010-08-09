@@ -200,7 +200,6 @@
                 top.location.href = document.location.href;
             }
         }
-<<<<<<< .mine
         function getElementID(name) {
             var form = document.forms[0];
             var nID = -1;
@@ -235,40 +234,6 @@
         function checkAddButtonEnter(e) {
             var characterCode;
             if (e && e.which) // NN4 specific code
-=======
-        return nID;
-    }
-    function loginRedirect(eventID)
-    {
-        location.href = "login.aspx?EID=" + eventID;
-    }
-    function openEvent(eventID) 
-    {
-        location.href = "viewEvent.aspx?EID=" + eventID;
-    }
-    function viewProfile(eventUserID)
-    {
-        //location.href = "userProfile.aspx?UID=" + eventUserID;
-        location.href = "publicProfile.aspx?UID=" + eventUserID;        
-    }
-    function viewUserTimeline(eventUserID)
-    {
-        //location.href = "userTimeline.aspx?UID=" + eventUserID;
-        openModal("login.aspx?UTID=" + eventUserID);
-    }    
-    function doSendMessage(srhUserID)
-    {        
-        //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
-        openModal("login.aspx");
-    } 
-    
-    function ShowHideDiv(divId)
-     {
-        var shdiv = document.getElementsByTagName('div');
-        for(i=0; i < shdiv.length; i++)
-        {
-            if(shdiv.item(i).id.indexOf("dmpop") > -1)
->>>>>>> .r271
             {
                 e = e;
                 characterCode = e.which;

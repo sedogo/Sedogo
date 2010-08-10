@@ -9,7 +9,7 @@
 <body>
     <div>
         hello world<br />
-        <%: Html.LabelFor(o=>o.Ex) %>
+        <%: Model.Ex %>
     </div>
 </body>
 </html>

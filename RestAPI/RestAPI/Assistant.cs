@@ -196,6 +196,12 @@ namespace RestAPI
             get { return new { error="forbidden"}; }
         }
 
+        public class WriteLongException
+        {
+            public string Ex { get; set; }
+            public WriteLongException() { }
+        }
+
         /// <summary>
         /// A function similair to the one from original site
         /// </summary>

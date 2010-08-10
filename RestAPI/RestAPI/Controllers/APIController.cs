@@ -27,8 +27,35 @@ namespace RestAPI.Controllers
 
         public ActionResult HelloWorld()
         {
-            Assistant.WriteLog("hello world");
-            return View();
+            Assistant.WriteLongException e = new Assistant.WriteLongException();
+            try
+            {
+                DateTime now = DateTime.Now;
+                string strDate = now.Year + "/" + now.Month + "/" + now.Day + " ";
+                if (now.Minute > 9)
+                {
+                    strDate += now.Hour + ":" + now.Minute;
+                }
+                else
+                {
+                    strDate += now.Hour + ":0" + now.Minute;
+                }
+
+                string logContents = strDate + " - Hello world";
+                // All error messages are written to the event log
+                //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
+                //appLog.Source = "Sedogo";
+                //appLog.WriteEntry(logContents);
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["logFile"], true);
+                sw.WriteLine(logContents);
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+                e.Ex = ex.Message;
+            }
+            return View(e);
         }
 
         #region Item Methods

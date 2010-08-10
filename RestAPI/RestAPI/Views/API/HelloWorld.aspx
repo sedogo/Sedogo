@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<RestAPI.Models.BaseModel>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<RestAPI.Assistant.WriteLongException>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +8,8 @@
 </head>
 <body>
     <div>
-        hello world
+        hello world<br />
+        <%: Html.LabelFor(o=>o.Ex) %>
     </div>
 </body>
 </html>

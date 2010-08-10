@@ -202,26 +202,32 @@ namespace RestAPI
         /// <param name="logText"></param>
         public static void WriteLog(string logText)
         {
-            DateTime now = DateTime.Now;
-            string strDate = now.Year + "/" + now.Month + "/" + now.Day + " ";
-            if (now.Minute > 9)
+            try
             {
-                strDate += now.Hour + ":" + now.Minute;
-            }
-            else
-            {
-                strDate += now.Hour + ":0" + now.Minute;
-            }
+                DateTime now = DateTime.Now;
+                string strDate = now.Year + "/" + now.Month + "/" + now.Day + " ";
+                if (now.Minute > 9)
+                {
+                    strDate += now.Hour + ":" + now.Minute;
+                }
+                else
+                {
+                    strDate += now.Hour + ":0" + now.Minute;
+                }
 
-            string logContents = strDate + " - " + logText;
-            // All error messages are written to the event log
-            System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
-            appLog.Source = "Sedogo";
-            appLog.WriteEntry(logContents);
-            StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["logFile"],true);
-            sw.WriteLine(logContents);
-            sw.Flush();
-            sw.Close();
+                string logContents = strDate + " - " + logText;
+                // All error messages are written to the event log
+                //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
+                //appLog.Source = "Sedogo";
+                //appLog.WriteEntry(logContents);
+                StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["logFile"], true);
+                sw.WriteLine(logContents);
+                sw.Flush();
+                sw.Close();
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
     }

@@ -25,6 +25,11 @@ namespace RestAPI.Controllers
             return Assistant.TryAuthenticate(Request, db, role, out email, out currentUserID, out fullName);
         }
 
+        public ActionResult HelloWorld()
+        {
+            return View();
+        }
+
         #region Item Methods
 
         /// <summary>

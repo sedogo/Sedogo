@@ -223,9 +223,9 @@ namespace RestAPI
 
                 string logContents = strDate + " - " + logText;
                 // All error messages are written to the event log
-                System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
-                appLog.Source = "Sedogo";
-                appLog.WriteEntry(logContents);
+                //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
+                //appLog.Source = "Sedogo";
+                //appLog.WriteEntry(logContents);
                 StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["ErrorLogFile"], true);
                 sw.WriteLine(logContents);
                 sw.Flush();

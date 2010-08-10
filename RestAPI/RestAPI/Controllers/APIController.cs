@@ -43,9 +43,9 @@ namespace RestAPI.Controllers
 
                 string logContents = strDate + " - Hello world";
                 // All error messages are written to the event log
-                System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
-                appLog.Source = "Sedogo";
-                appLog.WriteEntry(logContents);
+                //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
+               // appLog.Source = "Sedogo";
+                //appLog.WriteEntry(logContents);
                 System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["ErrorLogFile"], true);
                 sw.WriteLine(logContents);
                 sw.Flush();

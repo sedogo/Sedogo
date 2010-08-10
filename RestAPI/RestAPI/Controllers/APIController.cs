@@ -27,6 +27,7 @@ namespace RestAPI.Controllers
 
         public ActionResult HelloWorld()
         {
+            Assistant.WriteLog("hello world");
             return View();
         }
 

@@ -24,7 +24,7 @@ namespace RestAPI
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "API", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
             routes.MapRoute("UsersConsumption", "{controller}/users/{id}/consumption", new { controller = "API", action="UsersConsumption", id = UrlParameter.Optional });
             routes.MapRoute("UsersEvents", "{controller}/users/{id}/events", new { controller = "API", action = "UsersEvents", id = UrlParameter.Optional });

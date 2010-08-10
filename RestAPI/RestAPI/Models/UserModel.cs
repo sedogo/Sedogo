@@ -128,7 +128,7 @@ Write only:
             //now let's check individual parameters
             else if (string.IsNullOrEmpty(email))
                 error = "email-attribute-required";
-            else if(Regex.IsMatch(email,@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase))
+            else if(!Regex.IsMatch(email,@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase))
                 error = "email-does-not-match-regex";
             else if (string.IsNullOrEmpty(password))
                 error = "password-attribute-required";

@@ -108,7 +108,7 @@ namespace RestAPI
 
         }
 
-        protected void Application_EndRequest(object sender, EventArgs e)
+        /*protected void Application_EndRequest(object sender, EventArgs e)
         {
             HttpContext context = HttpContext.Current;
             if (Response.StatusCode != 200)
@@ -117,6 +117,6 @@ namespace RestAPI
                 // http://www.west-wind.com/weblog/posts/745738.aspx
                 Response.TrySkipIisCustomErrors = true;
             }
-        } 
+        }*/ 
     }
 }

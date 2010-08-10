@@ -179,7 +179,7 @@ public partial class _default : System.Web.UI.Page
 
     private void BindLatestMembers()
     {
-        int cnt = 0;
+        //int cnt = 0;
         SedogoNewFun objSNFun = new SedogoNewFun();
         DataTable dtAllUsrs = new DataTable();
         dtAllUsrs = objSNFun.GetAllEnableUserDetails();

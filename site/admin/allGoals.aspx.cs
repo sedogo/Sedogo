@@ -39,6 +39,32 @@ public partial class admin_allGoals : System.Web.UI.Page
                 }
             }
 
+            DbConnection conn2 = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn2.Open();
+
+                DbCommand cmdCount = conn2.CreateCommand();
+                cmdCount.CommandType = CommandType.StoredProcedure;
+                cmdCount.CommandText = "spSelectAdministratorsEventCount";
+                DbDataReader rdrCount = cmdCount.ExecuteReader();
+                rdrCount.Read();
+                int goalCount = int.Parse(rdrCount[0].ToString());
+                rdrCount.Close();
+
+                goalCountLabel.Text = goalCount.ToString();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("admin_allGoals", "Page_Load", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn2.Close();
+            }
+
             try
             {
                 SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
@@ -74,6 +100,20 @@ public partial class admin_allGoals : System.Web.UI.Page
             HyperLink nameLabel = e.Item.FindControl("nameLabel") as HyperLink;
             nameLabel.NavigateUrl = "../viewEvent.aspx?EID=" + row["EventID"].ToString();
             nameLabel.Text = row["EventName"].ToString() + " - " + row["FirstName"].ToString() + " " + row["LastName"].ToString();
+            if( row["PrivateEvent"].ToString() == "True" )
+            {
+                nameLabel.Text += " - Private";
+            }
+
+            /*
+	SELECT E.EventID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.EventAchievedDate, 
+		E., E.CreatedFromEventID,
+		E.EventDescription, E.EventVenue, E.MustDo, E.UserID, E.ShowOnDefaultPage,
+		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
+		U.FirstName, U.LastName, U.EmailAddress
+            */
 
             HyperLink deleteGoalButton = e.Item.FindControl("deleteGoalButton") as HyperLink;
             deleteGoalButton.NavigateUrl = "allGoals.aspx?A=Delete&EID=" + row["EventID"].ToString();

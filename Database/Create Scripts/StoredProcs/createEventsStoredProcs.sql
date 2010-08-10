@@ -202,6 +202,32 @@ END
 GO
 
 /*===============================================================
+// Function: spSelectAdministratorsEventCount
+// Description:
+//   Selects the event count
+//=============================================================*/
+PRINT 'Creating spSelectAdministratorsEventCount...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectAdministratorsEventCount')
+BEGIN
+	DROP Procedure spSelectAdministratorsEventCount
+END
+GO
+
+CREATE Procedure spSelectAdministratorsEventCount
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Events E
+	JOIN Users U
+	ON E.UserID = U.UserID
+	WHERE E.Deleted = 0
+	AND U.Deleted = 0
+END
+GO
+
+/*===============================================================
 // Function: spSelectFullEventListByCategory
 // Description:
 //   Selects the users event list
@@ -879,7 +905,7 @@ BEGIN
 	JOIN Users U
 	ON E.UserID = U.UserID
 	WHERE E.Deleted = 0
-	AND E.EventAchieved = 0
+	--AND E.EventAchieved = 0
 	AND E.PrivateEvent = 0
 	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
 	AND ( (@SearchText = '') 
@@ -975,7 +1001,7 @@ BEGIN
 	JOIN Users U
 	ON E.UserID = U.UserID
 	WHERE E.Deleted = 0
-	AND E.EventAchieved = 0
+	--AND E.EventAchieved = 0
 	AND E.PrivateEvent = 0
 	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
 	AND ( (UPPER(E.EventName) LIKE '%'+UPPER(@EventName)+'%')
@@ -2435,8 +2461,8 @@ BEGIN
 	AND PrivateEvent = 0
 	AND EventAchieved = 0
     AND ( ( RangeStartDate <= getdate() AND RangeEndDate >= getdate() )
-       OR convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )
-	ORDER BY EventID
+       OR convert(varchar(10),StartDate,103) = convert(varchar(10),getdate(),103) )
+	ORDER BY StartDate DESC, RangeEndDate ASC
 	
 END
 GO

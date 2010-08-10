@@ -86,6 +86,8 @@ public partial class _default : System.Web.UI.Page
             {
                 FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
+                Session.Add("SuperUserID", adminUser.administratorID);
+
                 string url = "~/admin/main.aspx";
                 Response.Redirect(url);
             }

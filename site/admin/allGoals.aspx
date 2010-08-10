@@ -11,6 +11,7 @@
     <div>
     
     All goals<br />
+    Goal count: <asp:Label ID="goalCountLabel" runat="server" /><br />
     
             <table width="80%" border="0" cellspacing="2" cellpadding="0">
     <asp:Repeater ID="allGoalsRepeater" runat="server" 

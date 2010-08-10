@@ -101,133 +101,136 @@ public partial class register : System.Web.UI.Page
     //===============================================================
     protected void registerUserButton_click(object sender, EventArgs e)
     {
-        string emailAddress = emailAddressTextBox.Text;
-        emailAddress = emailAddress.Trim().ToLower();
-        string userPassword = passwordTextBox1.Text.Trim();
-
-        // Verify this email has not been used before
-        int testUserID = SedogoUser.GetUserIDFromEmailAddress(emailAddress);
-
-        if( testUserID > 0 )
+        if (registerCaptcha.IsValid == true)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This email address is already registered, please log in, or click on the forgot your password link on the home page.\");", true);
-        }
-        else
-        {
-            // Create the user
-            SedogoUser newUser = new SedogoUser("");
+            string emailAddress = emailAddressTextBox.Text;
+            emailAddress = emailAddress.Trim().ToLower();
+            string userPassword = passwordTextBox1.Text.Trim();
 
-            DateTime dateOfBirth;
-            if (dateOfBirthYear.SelectedIndex > 0 && dateOfBirthMonth.SelectedIndex > 0
-                && dateOfBirthDay.SelectedIndex > 0)
+            // Verify this email has not been used before
+            int testUserID = SedogoUser.GetUserIDFromEmailAddress(emailAddress);
+
+            if (testUserID > 0)
             {
-                dateOfBirth = new DateTime(int.Parse(dateOfBirthYear.SelectedValue),
-                    int.Parse(dateOfBirthMonth.SelectedValue), int.Parse(dateOfBirthDay.SelectedValue));
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This email address is already registered, please log in, or click on the forgot your password link on the home page.\");", true);
             }
             else
             {
-                dateOfBirth = DateTime.MinValue;
+                // Create the user
+                SedogoUser newUser = new SedogoUser("");
+
+                DateTime dateOfBirth;
+                if (dateOfBirthYear.SelectedIndex > 0 && dateOfBirthMonth.SelectedIndex > 0
+                    && dateOfBirthDay.SelectedIndex > 0)
+                {
+                    dateOfBirth = new DateTime(int.Parse(dateOfBirthYear.SelectedValue),
+                        int.Parse(dateOfBirthMonth.SelectedValue), int.Parse(dateOfBirthDay.SelectedValue));
+                }
+                else
+                {
+                    dateOfBirth = DateTime.MinValue;
+                }
+
+                newUser.firstName = firstNameTextBox.Text;
+                newUser.lastName = lastNameTextBox.Text;
+                newUser.emailAddress = emailAddress;
+                if (genderMaleRadioButton.Checked == true)
+                {
+                    newUser.gender = "M";
+                }
+                else
+                {
+                    newUser.gender = "F";
+                }
+                newUser.homeTown = homeTownTextBox.Text;
+                if (dateOfBirth > DateTime.MinValue)
+                {
+                    newUser.birthday = dateOfBirth;
+                }
+                newUser.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
+                newUser.Add();
+
+                newUser.UpdatePassword(userPassword);
+
+                // Send registration email
+                GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
+
+                string siteBaseURL = gd.GetStringValue("SiteBaseURL");
+
+                StringBuilder emailBodyCopy = new StringBuilder();
+
+                emailBodyCopy.AppendLine("<html>");
+                emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
+                emailBodyCopy.AppendLine("<style type=\"text/css\">");
+                emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
+                emailBodyCopy.AppendLine("	p { margin: 0 }");
+                emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
+                emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
+                emailBodyCopy.AppendLine("	img { border: 0; }");
+                emailBodyCopy.AppendLine("</style></head>");
+                emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
+                emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
+                //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
+                emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
+                emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
+                emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo</h1>");
+                emailBodyCopy.AppendLine("			<p>Please click on the link below to confirm your email.</p>");
+                emailBodyCopy.AppendLine("			<p><a href=\"" + siteBaseURL + "/e/?G=" + newUser.GUID + "\"><u>click here</u></a>.</p>");
+                emailBodyCopy.AppendLine("			<br /><br />");
+                emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+                emailBodyCopy.AppendLine("			<br /></td>");
+                emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr></table></body></html>");
+
+                // Old version, removed because of spam filters
+                //emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
+                //emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
+                //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
+                //emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
+
+                string SMTPServer = gd.GetStringValue("SMTPServer");
+                string mailFromAddress = gd.GetStringValue("MailFromAddress");
+                string mailFromUsername = gd.GetStringValue("MailFromUsername");
+                string mailFromPassword = gd.GetStringValue("MailFromPassword");
+
+                string mailToEmailAddress = emailAddress;
+
+                MailMessage message = new MailMessage(mailFromAddress, mailToEmailAddress);
+                message.ReplyTo = new MailAddress("noreply@sedogo.com");
+
+                message.Subject = "Sedogo registration";
+                message.Body = emailBodyCopy.ToString();
+                message.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = SMTPServer;
+                if (mailFromPassword != "")
+                {
+                    // If the password is blank, assume mail relay is permitted
+                    smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
+                }
+
+                try
+                {
+                    smtp.Send(message);
+
+                    SentEmailHistory emailHistory = new SentEmailHistory("");
+                    emailHistory.subject = "Sedogo registration";
+                    emailHistory.body = emailBodyCopy.ToString();
+                    emailHistory.sentFrom = mailFromAddress;
+                    emailHistory.sentTo = emailAddress;
+                    emailHistory.Add();
+                }
+                catch (Exception ex)
+                {
+                    SentEmailHistory emailHistory = new SentEmailHistory("");
+                    emailHistory.subject = "Sedogo registration";
+                    emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
+                    emailHistory.sentFrom = mailFromAddress;
+                    emailHistory.sentTo = emailAddress;
+                    emailHistory.Add();
+                }
+
+                Response.Redirect("registerWait.aspx");
             }
-
-            newUser.firstName = firstNameTextBox.Text;
-            newUser.lastName = lastNameTextBox.Text;
-            newUser.emailAddress = emailAddress;
-            if( genderMaleRadioButton.Checked == true )
-            {
-                newUser.gender = "M";
-            }
-            else
-            {
-                newUser.gender = "F";
-            }
-            newUser.homeTown = homeTownTextBox.Text;
-            if (dateOfBirth > DateTime.MinValue)
-            {
-                newUser.birthday = dateOfBirth;
-            }
-            newUser.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
-            newUser.Add();
-
-            newUser.UpdatePassword(userPassword);
-
-            // Send registration email
-            GlobalData gd = new GlobalData((string)Session["loggedInUserFullName"]);
-
-            string siteBaseURL = gd.GetStringValue("SiteBaseURL");
-
-            StringBuilder emailBodyCopy = new StringBuilder();
-
-            emailBodyCopy.AppendLine("<html>");
-            emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
-            emailBodyCopy.AppendLine("<style type=\"text/css\">");
-            emailBodyCopy.AppendLine("	body, td, p { font-size: 15px; color: #9B9885; font-family: Arial, Helvetica, Sans-Serif }");
-            emailBodyCopy.AppendLine("	p { margin: 0 }");
-            emailBodyCopy.AppendLine("	h1 { color: #00ccff; font-size: 18px; font-weight: bold; }");
-            emailBodyCopy.AppendLine("	a, .blue { color: #00ccff; text-decoration: none; }");
-            emailBodyCopy.AppendLine("	img { border: 0; }");
-            emailBodyCopy.AppendLine("</style></head>");
-            emailBodyCopy.AppendLine("<body bgcolor=\"#f0f1ec\">");
-            emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
-            //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
-            emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
-            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-            emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo</h1>");
-            emailBodyCopy.AppendLine("			<p>Please click on the link below to confirm your email.</p>");
-            emailBodyCopy.AppendLine("			<p><a href=\"" + siteBaseURL + "/e/?G=" + newUser.GUID + "\"><u>click here</u></a>.</p>");
-            emailBodyCopy.AppendLine("			<br /><br />");
-            emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
-            emailBodyCopy.AppendLine("			<br /></td>");
-            emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr></table></body></html>");
-
-            // Old version, removed because of spam filters
-            //emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\"><img src=\"http://www.sedogo.com/email-template/images/logo.gif\" /></a></td>");
-            //emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr><tr><td colspan=\"3\">");
-            //emailBodyCopy.AppendLine("			<img src=\"http://www.sedogo.com/email-template/images/email-template_05.png\" width=\"692\" height=\"32\" alt=\"\">");
-            //emailBodyCopy.AppendLine("		</td></tr></table></body></html>");
-
-            string SMTPServer = gd.GetStringValue("SMTPServer");
-            string mailFromAddress = gd.GetStringValue("MailFromAddress");
-            string mailFromUsername = gd.GetStringValue("MailFromUsername");
-            string mailFromPassword = gd.GetStringValue("MailFromPassword");
-
-            string mailToEmailAddress = emailAddress;
-
-            MailMessage message = new MailMessage(mailFromAddress, mailToEmailAddress);
-            message.ReplyTo = new MailAddress("noreply@sedogo.com");
-
-            message.Subject = "Sedogo registration";
-            message.Body = emailBodyCopy.ToString();
-            message.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = SMTPServer;
-            if (mailFromPassword != "")
-            {
-                // If the password is blank, assume mail relay is permitted
-                smtp.Credentials = new System.Net.NetworkCredential(mailFromAddress, mailFromPassword);
-            }
-
-            try
-            {
-                smtp.Send(message);
-
-                SentEmailHistory emailHistory = new SentEmailHistory("");
-                emailHistory.subject = "Sedogo registration";
-                emailHistory.body = emailBodyCopy.ToString();
-                emailHistory.sentFrom = mailFromAddress;
-                emailHistory.sentTo = emailAddress;
-                emailHistory.Add();
-            }
-            catch(Exception ex)
-            {
-                SentEmailHistory emailHistory = new SentEmailHistory("");
-                emailHistory.subject = "Sedogo registration";
-                emailHistory.body = ex.Message + " -------- " + emailBodyCopy.ToString();
-                emailHistory.sentFrom = mailFromAddress;
-                emailHistory.sentTo = emailAddress;
-                emailHistory.Add();
-            }
-
-            Response.Redirect("registerWait.aspx");
         }
     }
 }

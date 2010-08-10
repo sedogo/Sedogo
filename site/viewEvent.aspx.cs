@@ -50,6 +50,12 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 Response.Redirect("profile.aspx");
             }
             
+            int superUserID = -1;
+            if (Session["SuperUserID"] != null)
+            {
+                superUserID = int.Parse(Session["SuperUserID"].ToString());
+            }
+
             int userID = -1;
             string loggedInUserName = "";
             if (Session["loggedInUserID"] != null)
@@ -202,7 +208,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                             TrackedEvent trackedEvent = new TrackedEvent(loggedInUserName, trackedEventID);
                             showOnTimeline = trackedEvent.showOnTimeline;
                         }
-                        if (eventInviteCount <= 0 && showOnTimeline == false)
+                        if (eventInviteCount <= 0 && showOnTimeline == false
+                            && superUserID < 0)
                         {
                             // Viewing private events is not permitted
                             Response.Redirect("profileRedirect.aspx");
@@ -344,7 +351,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             else
             {
                 // Setup the window for a user who is not registered/logged in
-                if (sedogoEvent.privateEvent == true)
+                if (sedogoEvent.privateEvent == true
+                    && superUserID < 0)
                 {
                     // Viewing private events is not permitted
                     Response.Redirect("profile.aspx");

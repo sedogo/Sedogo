@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="register.aspx.cs" Inherits="register" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -190,6 +191,16 @@ function termsClientValidation(source, args)
                             ErrorMessage="The two passwords do not match" 
                             ControlToValidate="passwordTextBox1" Display="Dynamic" 
                             ControlToCompare="passwordTextBox2"></asp:CompareValidator>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
+                        <telerik:RadCaptcha ID="registerCaptcha" runat="server"
+                            ErrorMessage="The code entered is not valid"
+                            CaptchaImage-EnableCaptchaAudio="true" Display="Dynamic"
+                            CaptchaImage-TextChars="LettersAndNumbers"
+                            CaptchaImage-TextColor="Green"
+                        >
+                        </telerik:RadCaptcha>
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>

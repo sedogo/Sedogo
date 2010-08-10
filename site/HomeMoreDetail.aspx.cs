@@ -223,7 +223,7 @@ public partial class HomeMoreDetail : System.Web.UI.Page
                 + " and events.deleted=0 "
                 + " and events.EventAchieved=0 "
                 + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
+                + " ORDER BY events.StartDate DESC, events.RangeEndDate ASC ";
         }
         DbDataReader rdrToday = cmd.ExecuteReader();
         while (rdrToday.Read())

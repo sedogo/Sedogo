@@ -107,6 +107,16 @@ namespace RestAPI
             // Response.Redirect(String.Format("~/Error/{0}/?message={1}", action, exception.Message));
 
         }
-        
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            HttpContext context = HttpContext.Current;
+            if (Response.StatusCode != 200)
+            {
+                Assistant.WriteLog("endrequest. status = " + Response.StatusCode.ToString());
+                // http://www.west-wind.com/weblog/posts/745738.aspx
+                Response.TrySkipIisCustomErrors = true;
+            }
+        } 
     }
 }

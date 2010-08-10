@@ -70,11 +70,9 @@ namespace RestAPI.Controllers
         {
             #region initial steps
             Response.ContentType = Assistant.MimeType;
-            Assistant.WriteLog("GET /users/"+id);
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                Assistant.WriteLog("unauth");
                 return Json(Assistant.ErrorUnauthorized,JsonRequestBehavior.AllowGet);
             }
             #endregion

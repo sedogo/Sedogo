@@ -46,7 +46,7 @@ namespace RestAPI.Controllers
                 //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
                 //appLog.Source = "Sedogo";
                 //appLog.WriteEntry(logContents);
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["logFile"], true);
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["ErrorLogFile"], true);
                 sw.WriteLine(logContents);
                 sw.Flush();
                 sw.Close();

@@ -226,7 +226,7 @@ namespace RestAPI
                 //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
                 //appLog.Source = "Sedogo";
                 //appLog.WriteEntry(logContents);
-                StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["logFile"], true);
+                StreamWriter sw = new StreamWriter(ConfigurationManager.AppSettings["ErrorLogFile"], true);
                 sw.WriteLine(logContents);
                 sw.Flush();
                 sw.Close();

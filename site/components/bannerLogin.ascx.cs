@@ -22,6 +22,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using Sedogo.BusinessObjects;
 
 public partial class components_bannerLogin : System.Web.UI.UserControl
 {
@@ -32,6 +33,9 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
     {
         if( !IsPostBack )
         {
+            facebookAuthLink.NavigateUrl = "https://graph.facebook.com/oauth/authorize?client_id=" + ConfigurationManager.AppSettings["FacebookAppId"] +
+                "&redirect_uri="+HttpUtility.UrlEncode(MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx"));
+
             int loggedInUserID = -1;
             if (Session["loggedInUserID"] != null && Page.Form.ID != "defaultForm")
             {

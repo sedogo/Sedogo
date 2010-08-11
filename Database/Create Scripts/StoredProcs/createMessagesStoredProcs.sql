@@ -224,7 +224,7 @@ BEGIN
 	FROM Messages M
 	LEFT OUTER JOIN Events E
 	ON M.EventID = E.EventID
-	JOIN Users U
+	LEFT OUTER JOIN Users U
 	ON U.UserID = E.UserID
 	WHERE M.Deleted = 0
 	AND M.UserID = @UserID

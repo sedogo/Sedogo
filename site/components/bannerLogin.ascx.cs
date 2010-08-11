@@ -36,7 +36,7 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
             facebookAuthLink.NavigateUrl = "https://graph.facebook.com/oauth/authorize?"+
                 "client_id=" +ConfigurationManager.AppSettings["FacebookAppId"] +
                 "&redirect_uri="+HttpUtility.UrlEncode(
-                    MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")+"?a=b"//"?ReturnUrl="+
+                    MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")+"?ReturnUrl=http://windev.ntrlab.ru/testfbauth/default.aspx"+
                     //Request.Url.ToString()
                     //HttpUtility.UrlEncode(Request.Url.ToString())
                     )+

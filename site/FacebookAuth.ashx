@@ -9,8 +9,9 @@ using System.Text.RegularExpressions;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using Sedogo.BusinessObjects;
+using System.Web.SessionState;
 
-public class FacebookAuth : IHttpHandler {
+public class FacebookAuth : IHttpHandler, IRequiresSessionState {
     string client_secret = ConfigurationManager.AppSettings["FacebookAppSecret"];
     string client_id = ConfigurationManager.AppSettings["FacebookAppId"];
         
@@ -43,7 +44,7 @@ public class FacebookAuth : IHttpHandler {
         string reqUrl = "https://graph.facebook.com/oauth/access_token?" +
             "client_id=" + client_id +
             "&redirect_uri=" + HttpUtility.UrlEncode(
-                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?a=b"//"?ReturnUrl=" + 
+                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?ReturnUrl=http://windev.ntrlab.ru/testfbauth/default.aspx" 
                 //context.Request.QueryString["ReturnUrl"]
                 //HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])
                 ) +

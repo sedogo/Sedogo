@@ -39,13 +39,17 @@ public class FacebookAuth : IHttpHandler {
     private void OnUserAuthorizedThisApplication(HttpContext context)
     {
         string code = context.Request.QueryString["code"];
-        
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://graph.facebook.com/oauth/access_token?"+
-            "client_id="+client_id+
-            "&redirect_uri="+HttpUtility.UrlEncode(MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")+"?ReturnUrl="+
-                HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"]))+
-            "&client_secret="+client_secret+
-            "&code="+HttpUtility.UrlEncode(code));
+
+        string reqUrl = "https://graph.facebook.com/oauth/access_token?" +
+            "client_id=" + client_id +
+            "&redirect_uri=" + HttpUtility.UrlEncode(
+                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")// + "?ReturnUrl=" +
+                //HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])
+                ) +
+            "&client_secret=" + client_secret +
+            "&code=" + HttpUtility.UrlEncode(code);
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(reqUrl);
 
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         Encoding enc = Encoding.UTF8;

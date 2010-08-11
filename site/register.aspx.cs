@@ -28,6 +28,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Globalization;
 using Sedogo.BusinessObjects;
+using Newtonsoft.Json.Linq;
 
 public partial class register : System.Web.UI.Page
 {
@@ -92,7 +93,56 @@ public partial class register : System.Web.UI.Page
                 dateString1.Text = "m + \"/\" + d + \"/\" + y";
             }
 
+            if (Request.QueryString["from"] == "facebook")
+                FillControlsWithDetailsFromFacebook();
+
             SetFocus(firstNameTextBox);
+        }
+    }
+
+    /// <summary>
+    /// loads details from facebook
+    /// </summary>
+    protected void FillControlsWithDetailsFromFacebook()
+    {
+        try
+        {
+            JObject fbuser = SedogoUser.GetFacebookUserDetails((string)Session["facebookUserAccessToken"]);
+            if (fbuser == null)
+                return;
+
+            if(fbuser["first_name"]!=null)
+                firstNameTextBox.Text = (string)fbuser["first_name"];
+            if(fbuser["last_name"]!=null)
+                lastNameTextBox.Text = (string)fbuser["last_name"];
+            if (fbuser["email"] != null)
+                emailAddressTextBox.Text = (string)fbuser["email"];
+            if (fbuser["birthday"] != null)
+            {
+            }
+            if (fbuser["hometown"] != null)
+                homeTownTextBox.Text = (string)fbuser["hometown"];
+            if (fbuser["gender"] != null)
+            {
+
+            }
+            if (fbuser["timezone"] != null)
+            {
+                int tz = (int)fbuser["timezone"];
+                ListItem li = timezoneDropDownList.Items.FindByValue(tz.ToString());
+                if (li != null)
+                {
+                    timezoneDropDownList.ClearSelection();
+                    li.Selected = true;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Sedogo.BusinessObjects.ErrorLog errorLog = new Sedogo.BusinessObjects.ErrorLog();
+            errorLog.WriteLog("Register", "FillControlsWithDetailsFromFacebook", ex.Message,
+                Sedogo.BusinessObjects.logMessageLevel.errorMessage);
         }
     }
 

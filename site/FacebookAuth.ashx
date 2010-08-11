@@ -7,6 +7,8 @@ using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Text;
+using Newtonsoft.Json.Linq;
+using Sedogo.BusinessObjects;
 
 public class FacebookAuth : IHttpHandler {
     string client_secret = ConfigurationManager.AppSettings["FacebookAppSecret"];
@@ -28,6 +30,8 @@ public class FacebookAuth : IHttpHandler {
             Sedogo.BusinessObjects.ErrorLog errorLog = new Sedogo.BusinessObjects.ErrorLog();
             errorLog.WriteLog("FacebookAuth", "ProcessRequest", ex.Message, 
                 Sedogo.BusinessObjects.logMessageLevel.errorMessage);
+
+            context.Response.Redirect("~/default.aspx", false);
         }
     }
 
@@ -38,7 +42,8 @@ public class FacebookAuth : IHttpHandler {
         
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://graph.facebook.com/oauth/access_token?"+
             "client_id="+client_id+
-            "&redirect_uri="+Sedogo.BusinessObjects.MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")+
+            "&redirect_uri="+HttpUtility.UrlEncode(MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx?ReturnUrl="+
+                HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])))+
             "&client_secret="+client_secret+
             "&code="+HttpUtility.UrlEncode(code));
 
@@ -58,27 +63,42 @@ public class FacebookAuth : IHttpHandler {
         if(m.Success)
         {
             access_token = m.Groups["access_token"].Value;
-            GetUsersDetails(access_token);
+            GetUsersDetails(access_token,context);
         }
         
         
         
     }
 
-    private void GetUsersDetails(string access_token)
+    
+    private void GetUsersDetails(string access_token, HttpContext context)
     {
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://graph.facebook.com/me?access_token=" + HttpUtility.UrlEncode(access_token));
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        Encoding enc = Encoding.UTF8;
-        try
+        JObject fbuser = SedogoUser.GetFacebookUserDetails(access_token);
+        if (fbuser == null)
+            throw new NullReferenceException("No user found at facebook");
+        int id = (int)fbuser["id"];
+        context.Session.Add("facebookUserID", id);
+        SedogoUser suser = new SedogoUser("");
+        if (suser.ReadUserDetailsByFacebookUserID(id))
         {
-            enc = Encoding.GetEncoding(response.CharacterSet);
-        }
-        catch (Exception ex)
-        {
+            //there is a user with this facebook id
+            var checkResult = suser.VerifyLogin(suser.emailAddress, suser.userPassword, false, true, "FacebookAuth.ashx");
+            if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
+            {
+                context.Session.Add("loggedInUserID", suser.userID);
+                context.Session.Add("loggedInUserFirstName", suser.firstName);
+                context.Session.Add("loggedInUserLastName", suser.lastName);
+                context.Session.Add("loggedInUserEmailAddress", suser.emailAddress);
+                context.Session.Add("loggedInUserFullName", suser.firstName + " " + suser.lastName);
 
+                context.Response.Redirect(context.Request.QueryString["ReturnUrl"], false);
+            }
         }
-        string body = (new StreamReader(response.GetResponseStream(), enc)).ReadToEnd();
+        else
+        {
+            context.Session.Add("facebookUserAccessToken", access_token);
+            context.Response.Redirect("~/register.aspx?from=facebook", false);    
+        }
         
     }
     

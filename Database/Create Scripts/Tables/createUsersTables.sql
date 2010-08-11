@@ -60,7 +60,8 @@ CREATE TABLE Users
 	CreatedDate						datetime		    NOT NULL,
 	CreatedByFullName				nvarchar(200)	    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL,
-	LastUpdatedByFullName			nvarchar(200)	    NOT NULL
+	LastUpdatedByFullName			nvarchar(200)	    NOT NULL,
+	FacebookUserID					int					NULL
 )
 GO
 

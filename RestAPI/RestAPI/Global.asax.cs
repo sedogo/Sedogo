@@ -117,6 +117,15 @@ namespace RestAPI
                 // http://www.west-wind.com/weblog/posts/745738.aspx
                 Response.TrySkipIisCustomErrors = true;
             }
-        }*/ 
+        }*/
+
+       /* protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext context = HttpContext.Current;
+            if (Request.HttpMethod == "POST" && string.IsNullOrEmpty(Request.ContentType))
+                Request.ContentType = "application/json; charset=utf-8"; 
+                
+            
+        } */
     }
 }

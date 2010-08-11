@@ -9,3 +9,6 @@ C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.Properties.Resources.res
 C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.csproj.GenerateResource.Cache
 C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.exe
 C:\Development\Sedogo\sedogoTasks\obj\Debug\sedogoTasks.pdb
+C:\My\Programing\sedogo\sedogoTasks\bin\Debug\sedogoTasks.exe.config
+C:\My\Programing\sedogo\sedogoTasks\obj\Debug\sedogoTasks.exe
+C:\My\Programing\sedogo\sedogoTasks\obj\Debug\sedogoTasks.pdb

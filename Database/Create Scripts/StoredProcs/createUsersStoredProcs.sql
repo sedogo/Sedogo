@@ -532,5 +532,34 @@ BEGIN
 END
 GO
 
+/*===============================================================
+// Function: spSelectUserDetailsByFacebookID
+// Description:
+//   Selects the user details by facebook id
+//=============================================================*/
+PRINT 'Creating spSelectUserDetailsByFacebookID...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectUserDetailsByFacebookID')
+BEGIN
+	DROP Procedure spSelectUserDetailsByFacebookID
+END
+GO
+
+CREATE Procedure spSelectUserDetailsByFacebookID
+	@FacebookUserID			int
+AS
+BEGIN
+	SELECT UserID,GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
+		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
+		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,
+		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
+	FROM Users
+	WHERE FacebookUserID = @FacebookUserID
+END
+GO
+
+
 PRINT '== Finished createUsersStoredProcs.sql =='
 GO

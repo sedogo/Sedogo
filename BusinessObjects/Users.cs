@@ -22,6 +22,9 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.IO;
 
 namespace Sedogo.BusinessObjects
 {
@@ -50,6 +53,7 @@ namespace Sedogo.BusinessObjects
     public class SedogoUser
     {
         private int         m_userID = -1;
+        private int         m_facebookUserID = -1;
         private string      m_GUID = "";
         private string      m_emailAddress = "";
         private string      m_firstName = "";
@@ -82,6 +86,10 @@ namespace Sedogo.BusinessObjects
         public int userID
         {
             get { return m_userID; }
+        }
+        public int facebookUserID
+        {
+            get { return m_facebookUserID; }
         }
         public string GUID
         {
@@ -349,12 +357,164 @@ namespace Sedogo.BusinessObjects
                 {
                     m_lastUpdatedByFullName = (string)rdr["LastUpdatedByFullName"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FacebookUserID")))
+                {
+                    m_facebookUserID = int.Parse(rdr["FacebookUserID"].ToString());
+                }
                 rdr.Close();
             }
             catch (Exception ex)
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("SedogoUser", "ReadUserDetails", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: ReadUserDetailsByFacebookID
+        //===============================================================
+        public bool ReadUserDetailsByFacebookUserID(int facebookUserId)
+        {
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectUserDetailsByFacebookID";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@FacebookUserID";
+                param.Value = facebookUserId;
+                cmd.Parameters.Add(param);
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (!rdr.HasRows)
+                    return false;
+                rdr.Read();
+                if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                {
+                    m_userID = int.Parse(rdr["UserID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("GUID")))
+                {
+                    m_GUID = (string)rdr["GUID"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
+                {
+                    m_emailAddress = (string)rdr["EmailAddress"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
+                {
+                    m_firstName = (string)rdr["FirstName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastName")))
+                {
+                    m_lastName = (string)rdr["LastName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("HomeTown")))
+                {
+                    m_homeTown = (string)rdr["HomeTown"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Birthday")))
+                {
+                    m_birthday = (DateTime)rdr["Birthday"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicFilename")))
+                {
+                    m_profilePicFilename = (string)rdr["ProfilePicFilename"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
+                {
+                    m_profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicPreview")))
+                {
+                    m_profilePicPreview = (string)rdr["ProfilePicPreview"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
+                {
+                    m_gender = (string)rdr["Gender"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
+                {
+                    m_deleted = (Boolean)rdr["Deleted"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("DeletedDate")))
+                {
+                    m_deletedDate = (DateTime)rdr["DeletedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CountryID")))
+                {
+                    m_countryID = int.Parse(rdr["CountryID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LanguageID")))
+                {
+                    m_languageID = int.Parse(rdr["LanguageID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("TimezoneID")))
+                {
+                    m_timezoneID = int.Parse(rdr["TimezoneID"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ProfileText")))
+                {
+                    m_profileText = (string)rdr["ProfileText"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LoginEnabled")))
+                {
+                    m_loginEnabled = (Boolean)rdr["LoginEnabled"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EnableSendEmails")))
+                {
+                    m_enableSendEmails = (Boolean)rdr["EnableSendEmails"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("UserPassword")))
+                {
+                    m_userPassword = (string)rdr["UserPassword"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FailedLoginCount")))
+                {
+                    m_failedLoginCount = int.Parse(rdr["FailedLoginCount"].ToString());
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("PasswordExpiryDate")))
+                {
+                    m_passwordExpiryDate = (DateTime)rdr["PasswordExpiryDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastLoginDate")))
+                {
+                    m_lastLoginDate = (DateTime)rdr["LastLoginDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
+                {
+                    m_createdDate = (DateTime)rdr["CreatedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
+                {
+                    m_createdByFullName = (string)rdr["CreatedByFullName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedDate")))
+                {
+                    m_lastUpdatedDate = (DateTime)rdr["LastUpdatedDate"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                {
+                    m_lastUpdatedByFullName = (string)rdr["LastUpdatedByFullName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FacebookUserID")))
+                {
+                    m_facebookUserID = int.Parse(rdr["FacebookUserID"].ToString());
+                }
+                rdr.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoUser", "ReadUserDetailsByFacebookUserID", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally
@@ -400,6 +560,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (int?)null : m_facebookUserID);
 
                 SqlParameter paramUserID = cmd.CreateParameter();
                 paramUserID.ParameterName = "@UserID";
@@ -459,6 +620,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (int?)null : m_facebookUserID);
 
                 cmd.ExecuteNonQuery();
             }
@@ -797,7 +959,7 @@ namespace Sedogo.BusinessObjects
         //===============================================================
         // Function: UpdateLoginHistory
         //===============================================================
-        private void UpdateLoginHistory(int userID, string status, string source)
+        public void UpdateLoginHistory(int userID, string status, string source)
         {
             DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
             try
@@ -1075,6 +1237,41 @@ namespace Sedogo.BusinessObjects
 
             return returnStatus;
         }
+
+        /// <summary>
+        /// loads details from facebook
+        /// </summary>
+        /// <param name="access_token">facebook access token</param>
+        /// <returns>a json object</returns>
+        public static JObject GetFacebookUserDetails(string access_token)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://graph.facebook.com/me?access_token=" + HttpUtility.UrlEncode(access_token));
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Encoding enc = Encoding.UTF8;
+                try
+                {
+                    enc = Encoding.GetEncoding(response.CharacterSet);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                string body = (new StreamReader(response.GetResponseStream(), enc)).ReadToEnd();
+                JObject fbuser = JObject.Parse(body);
+                return fbuser;
+            }
+            catch (Exception ex)
+            {
+                Sedogo.BusinessObjects.ErrorLog errorLog = new Sedogo.BusinessObjects.ErrorLog();
+                errorLog.WriteLog("User", "GetFacebookUserDetails", ex.Message,
+                    Sedogo.BusinessObjects.logMessageLevel.errorMessage);
+
+            }
+            return null;
+
+        }
     }
 
     //===============================================================
@@ -1172,5 +1369,8 @@ namespace Sedogo.BusinessObjects
             }
             return hashedPassword.ToString();
         }
+
+        
+    
     }
 }

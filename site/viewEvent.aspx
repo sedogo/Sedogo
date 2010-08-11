@@ -8,7 +8,8 @@
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head id="Head1" runat="server">
+<head id="Head1" runat="server" xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:fb="http://www.facebook.com/2008/fbml">
     <link rel="shortcut icon" href="favicon.ico">
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="content-script-type" content="text/javascript" />

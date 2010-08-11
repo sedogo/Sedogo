@@ -27,6 +27,7 @@ using System.Web.Security;
 using System.Net.Mail;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Web;
 
 namespace Sedogo.BusinessObjects
 {
@@ -706,6 +707,25 @@ $",
                 emailHistory.sentTo = recipientEmailAddress;
                 emailHistory.Add();
             }
+        }
+
+
+        /// <summary>
+        /// Returns the absolute url
+        /// </summary>
+        /// <param name="relativeUrl">url</param>
+        /// <returns>url</returns>
+        public static string GetAbsoluteUrl(string relativeUrl)
+        {
+            HttpRequest Request = HttpContext.Current.Request;
+            if (string.IsNullOrEmpty(relativeUrl))
+                return null;
+            string port = string.Empty;
+            if (!Request.Url.IsDefaultPort)
+                port = ":" + Request.Url.Port.ToString();
+            string start = (Request.IsSecureConnection) ? "https://" : "http://";
+            string result = string.Format("{0}{1}{2}{3}", start, Request.Url.Host, port, VirtualPathUtility.ToAbsolute(relativeUrl)).Replace('\\', '/');
+            return result;
         }
     }
 }

@@ -128,12 +128,15 @@ public partial class register : System.Web.UI.Page
             }
             if (fbuser["timezone"] != null)
             {
-                int tz = (int)fbuser["timezone"];
-                ListItem li = timezoneDropDownList.Items.FindByValue(tz.ToString());
-                if (li != null)
+                int tz = -1;
+                if (int.TryParse((string)fbuser["timezone"], out tz))
                 {
-                    timezoneDropDownList.ClearSelection();
-                    li.Selected = true;
+                    ListItem li = timezoneDropDownList.Items.FindByValue(tz.ToString());
+                    if (li != null)
+                    {
+                        timezoneDropDownList.ClearSelection();
+                        li.Selected = true;
+                    }
                 }
             }
 

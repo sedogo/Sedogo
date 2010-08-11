@@ -43,7 +43,8 @@ public class FacebookAuth : IHttpHandler {
         string reqUrl = "https://graph.facebook.com/oauth/access_token?" +
             "client_id=" + client_id +
             "&redirect_uri=" + HttpUtility.UrlEncode(
-                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")// + "?ReturnUrl=" +
+                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?ReturnUrl=" + 
+                context.Request.QueryString["ReturnUrl"]
                 //HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])
                 ) +
             "&client_secret=" + client_secret +
@@ -80,7 +81,7 @@ public class FacebookAuth : IHttpHandler {
         JObject fbuser = SedogoUser.GetFacebookUserDetails(access_token);
         if (fbuser == null)
             throw new NullReferenceException("No user found at facebook");
-        int id = (int)fbuser["id"];
+        int id = int.Parse((string)fbuser["id"]);
         context.Session.Add("facebookUserID", id);
         SedogoUser suser = new SedogoUser("");
         if (suser.ReadUserDetailsByFacebookUserID(id))

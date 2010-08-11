@@ -45,6 +45,7 @@ CREATE Procedure spAddUser
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
 	@LastUpdatedByFullName		nvarchar(200),
+	@FacebookUserID				int,
 	@UserID						int OUTPUT
 AS
 BEGIN
@@ -71,7 +72,8 @@ BEGIN
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
-		LastUpdatedByFullName
+		LastUpdatedByFullName,
+		FacebookUserID
 	)
 	VALUES
 	(
@@ -96,7 +98,8 @@ BEGIN
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
-		@LastUpdatedByFullName
+		@LastUpdatedByFullName,
+		@FacebookUserID
 	)
 	
 	SET @UserID = @@IDENTITY
@@ -128,7 +131,7 @@ BEGIN
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
 		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
 	FROM Users
 	WHERE UserID = @UserID
 END
@@ -155,7 +158,7 @@ BEGIN
 		HomeTown, Birthday, ProfileText, TimezoneID,
 		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
 	FROM Users
 	WHERE Deleted = 0
 	ORDER BY LastName
@@ -191,7 +194,8 @@ CREATE Procedure spUpdateUser
 	@LoginEnabled					bit,
 	@EnableSendEmails				bit,
 	@LastUpdatedDate				datetime,
-	@LastUpdatedByFullName			nvarchar(200)
+	@LastUpdatedByFullName			nvarchar(200),
+	@FacebookUserID					int
 AS
 BEGIN
 	UPDATE Users
@@ -208,7 +212,8 @@ BEGIN
 		LoginEnabled			= @LoginEnabled,
 		EnableSendEmails		= @EnableSendEmails,
 		LastUpdatedDate			= @LastUpdatedDate,
-		LastUpdatedByFullName	= @LastUpdatedByFullName
+		LastUpdatedByFullName	= @LastUpdatedByFullName,
+		FacebookUserID			= @FacebookUserID
 	WHERE UserID = @UserID
 END
 GO
@@ -518,7 +523,7 @@ BEGIN
 		HomeTown, Birthday, ProfileText, TimezoneID,
 		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
-		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
+		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
 	FROM Users
 	WHERE Deleted = 0
 	AND LoginEnabled = 1

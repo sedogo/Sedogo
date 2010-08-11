@@ -44,7 +44,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         string reqUrl = "https://graph.facebook.com/oauth/access_token?" +
             "client_id=" + client_id +
             "&redirect_uri=" + HttpUtility.UrlEncode(
-                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?ReturnUrl=http://windev.ntrlab.ru/testfbauth/default.aspx" 
+                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?ReturnUrl=http" 
                 //context.Request.QueryString["ReturnUrl"]
                 //HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])
                 ) +
@@ -52,7 +52,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
             "&code=" + HttpUtility.UrlEncode(code);
 
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(reqUrl);
-
+        
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         Encoding enc = Encoding.UTF8;
         try

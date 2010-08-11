@@ -311,11 +311,11 @@ namespace RestAPI.Controllers
                 author = m.PostedByUserID,
                 user = userId
             }.GetDetails()).ToList();
-            if (messages.Count == 0)
+            /*if (messages.Count == 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
+            } */
 
             
             return Json(messages,JsonRequestBehavior.AllowGet);
@@ -370,11 +370,11 @@ namespace RestAPI.Controllers
                     }.GetDetails()
                 ).ToList();
 
-            if (comments.Count == 0)
+            /*if (comments.Count == 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
+            }  */
 
 
             return Json(comments, JsonRequestBehavior.AllowGet);
@@ -486,11 +486,11 @@ namespace RestAPI.Controllers
             }.GetDetails()
             ).ToList();
 
-            if (events.Count == 0)
+           /* if (events.Count == 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
+            }*/
 
 
             return Json(events, JsonRequestBehavior.AllowGet);
@@ -552,11 +552,11 @@ namespace RestAPI.Controllers
                 }.GetDetails()
             ).ToList();
 
-            if (events.Count == 0)
+            /*if (events.Count == 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
+            }*/
 
 
             return Json(events, JsonRequestBehavior.AllowGet);
@@ -621,11 +621,11 @@ namespace RestAPI.Controllers
             }.GetDetails()
             ).ToList();
 
-            if (events.Count == 0)
+            /*if (events.Count == 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
+            } */
 
 
             return Json(events, JsonRequestBehavior.AllowGet);

@@ -447,29 +447,31 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             //uploadEventCommentImageLink.NavigateUrl = "uploadEventCommentImage.aspx?EID=" + eventID.ToString();
             //uploadEventCommentVideoLinkLink.NavigateUrl = "uploadEventCommentVideoLink.aspx?EID=" + eventID.ToString();
             facebookLikeURL.Text = "<iframe src=\"";
-            facebookLikeURL.Text += "http://www.facebook.com/plugins/like.php?href=www.sedogo.com%2FviewEvent.aspx%3FEID%3D" + eventID.ToString() + "&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80";
+            facebookLikeURL.Text += "http://www.facebook.com/plugins/like.php?href=" + HttpUtility.UrlEncode(Request.Url.ToString()) + "&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80";
             facebookLikeURL.Text += "\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:450px; height:80px;\" allowTransparency=\"true\"></iframe>";
             /*Nikita Knyazev: facebook LIKE button. Start*/
-            AddFacebookMeta("og:title",  sedogoEvent.eventName);
+            AddFacebookMeta("og:title", sedogoEvent.eventName);
             string type = "activity";
-            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["FacebookEventType"]))
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["FacebookEventType"]))
                 type = ConfigurationManager.AppSettings["FacebookEventType"];
 
             AddFacebookMeta("og:type", type);
             AddFacebookMetaNoEncode("og:url", Request.Url.AbsoluteUri);
-            if(!string.IsNullOrEmpty(sedogoEvent.eventPicPreview))
+            string ImageUrl = ConfigurationManager.AppSettings["FacebookDefaultImageRelativePath"];
+            if (!string.IsNullOrEmpty(sedogoEvent.eventPicPreview))
             {
-                string ImageUrl = "~/assets/eventPics/" + sedogoEvent.eventPicPreview;
-            
-                AddFacebookMetaNoEncode("og:image", MiscUtils.GetAbsoluteUrl(ImageUrl));
+                ImageUrl = "~/assets/eventPics/" + sedogoEvent.eventPicPreview;
             }
+
+            AddFacebookMetaNoEncode("og:image", MiscUtils.GetAbsoluteUrl(ImageUrl));
+
             string siteName = "Sedogo";
-            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["FacebookSiteName"]))
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["FacebookSiteName"]))
                 siteName = ConfigurationManager.AppSettings["FacebookSiteName"];
-            AddFacebookMeta("og:site_name",siteName);
+            AddFacebookMeta("og:site_name", siteName);
             string fbAppId = ConfigurationManager.AppSettings["FacebookAppId"];
-            AddFacebookMeta("fb:app_id" ,fbAppId);
-            AddFacebookMeta("og:description",sedogoEvent.eventDescription);
+            AddFacebookMeta("fb:app_id", fbAppId);
+            AddFacebookMeta("og:description", sedogoEvent.eventDescription);
 
 
             /*Nikita Knyazev: facebook LIKE button. Finish*/

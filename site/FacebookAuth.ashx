@@ -43,8 +43,8 @@ public class FacebookAuth : IHttpHandler {
         string reqUrl = "https://graph.facebook.com/oauth/access_token?" +
             "client_id=" + client_id +
             "&redirect_uri=" + HttpUtility.UrlEncode(
-                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?ReturnUrl=" + 
-                context.Request.QueryString["ReturnUrl"]
+                MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx") + "?a=b"//"?ReturnUrl=" + 
+                //context.Request.QueryString["ReturnUrl"]
                 //HttpUtility.UrlEncode(context.Request.QueryString["ReturnUrl"])
                 ) +
             "&client_secret=" + client_secret +

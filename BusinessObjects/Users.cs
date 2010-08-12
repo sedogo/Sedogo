@@ -561,7 +561,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
-                cmd.Parameters.Add("@FacebookUserID", SqlDbType.BigInt).Value = (m_facebookUserID == -1 ? (long?)null : m_facebookUserID);
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.BigInt).Value = (m_facebookUserID == -1 ? (object)DBNull.Value : (object)m_facebookUserID);
 
                 SqlParameter paramUserID = cmd.CreateParameter();
                 paramUserID.ParameterName = "@UserID";
@@ -621,7 +621,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
-                cmd.Parameters.Add("@FacebookUserID", SqlDbType.BigInt).Value = (m_facebookUserID == -1 ? (long?)null : m_facebookUserID);
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.BigInt).Value = (m_facebookUserID == -1 ? (object)DBNull.Value : (object)m_facebookUserID);
 
                 cmd.ExecuteNonQuery();
             }

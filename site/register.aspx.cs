@@ -242,6 +242,16 @@ public partial class register : System.Web.UI.Page
                     newUser.birthday = dateOfBirth;
                 }
                 newUser.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
+                //Nikita Knyazev. Facebook Authentication. Start
+                try
+                {
+                    if (Session["facebookUserID"] != null)
+                        newUser.facebookUserID = (long)Session["facebookUserID"];
+                }
+                catch (Exception ex)
+                {
+                }
+                //Nikita Knyazev. Facebook Authentication. Finish
                 newUser.Add();
 
                 newUser.UpdatePassword(userPassword);

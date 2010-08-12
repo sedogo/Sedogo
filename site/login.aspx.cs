@@ -215,7 +215,7 @@ public partial class login : System.Web.UI.Page
 
             if (user.facebookUserID < 0 && Session["facebookUserID"] != null)
             {
-                user.facebookUserID = long(Session["facebookUserID"]);
+                user.facebookUserID = (long)Session["facebookUserID"];
                 user.Update();
             }
         }

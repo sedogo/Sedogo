@@ -102,7 +102,7 @@ p.blue
 {
 	width: 486px;
 	margin-left: 246px;
-	padding-top: 6px;
+	padding-top: 25px;
 	/*padding-top: 26px*/
 }
 .three-col 
@@ -390,7 +390,8 @@ img.profile
 /* Account options */
 #account-options 
 {
-	float: right
+	float: right;
+	padding-top:1px;
 }
 #account-options li 
 {

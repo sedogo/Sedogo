@@ -4,7 +4,7 @@
     <li class="login" id="loggedInAsLi" runat="server"><asp:Label ID="loggedInAsLabel" runat="server"></asp:Label></li>
     <li class="login" id="logoutLi" runat="server"><asp:HyperLink ID="logoutLink" runat="server" 
         NavigateUrl="~/logout.aspx" ToolTip="Logout" Text="Logout" /></li>
-    <li class="login" id="facebookAuthLi" runat="server"><asp:HyperLink ID="facebookAuthLink" runat="server"
+    <li id="facebookAuthLi" runat="server"><asp:HyperLink ID="facebookAuthLink" runat="server"
         ToolTip="Facebook Authentication"><asp:Image ID="facebookLoginImg" runat="server" ImageUrl="~/images/facebook-login-button.png" /></asp:HyperLink></li>
     <li class="login" id="loginLI" runat="server"><asp:HyperLink ID="loginLink" runat="server" 
         NavigateUrl="~/login.aspx" ToolTip="Login" Text="Login" CssClass="modal" /></li>

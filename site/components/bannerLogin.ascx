@@ -5,7 +5,7 @@
     <li class="login" id="logoutLi" runat="server"><asp:HyperLink ID="logoutLink" runat="server" 
         NavigateUrl="~/logout.aspx" ToolTip="Logout" Text="Logout" /></li>
     <li id="facebookAuthLi" runat="server"><asp:HyperLink ID="facebookAuthLink" runat="server"
-        ToolTip="Facebook Authentication" onclick="$.cookie('facebookLoginReturnUrl', <%=Request.Url.ToString() %>);"><asp:Image ID="facebookLoginImg" runat="server" ImageUrl="~/images/facebook-login-button.png" /></asp:HyperLink></li>
+        ToolTip="Facebook Authentication"><asp:Image ID="facebookLoginImg" runat="server" ImageUrl="~/images/facebook-login-button.png" /></asp:HyperLink></li>
     <li class="login" id="loginLI" runat="server"><asp:HyperLink ID="loginLink" runat="server" 
         NavigateUrl="~/login.aspx" ToolTip="Login" Text="Login" CssClass="modal" /></li>
     <li class="sign-up" id="signUpLI" runat="server"><asp:HyperLink ID="registerLink" runat="server" 

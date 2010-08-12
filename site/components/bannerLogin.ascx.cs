@@ -33,14 +33,16 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
     {
         if( !IsPostBack )
         {
-            facebookAuthLink.NavigateUrl = "https://graph.facebook.com/oauth/authorize?"+
+            string script = "$.cookie('facebookLoginReturnUrl', "+Request.Url.ToString()+");"+
+            "window.location='"+"https://graph.facebook.com/oauth/authorize?"+
                 "client_id=" +ConfigurationManager.AppSettings["FacebookAppId"] +
                 "&redirect_uri="+HttpUtility.UrlEncode(
                     MiscUtils.GetAbsoluteUrl("~/FacebookAuth.ashx")+"?ReturnUrl=http"
                     //Request.Url.ToString()
                     //HttpUtility.UrlEncode(Request.Url.ToString())
                     )+
-                "&scope=email,user_birthday,user_hometown";
+                "&scope=email,user_birthday,user_hometown"+"'";
+            facebookAuthLink.Attributes["onclick"] = script;
 
             int loggedInUserID = -1;
             if (Session["loggedInUserID"] != null && Page.Form.ID != "defaultForm")

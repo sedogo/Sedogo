@@ -102,6 +102,16 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
 
                 context.Response.Redirect(returnUrl, false);
             }
+            else if (checkResult == loginResults.loginFailed)
+            {
+                context.Response.Write("<p>Username or password is not correct.</p>");
+                context.Response.Write("<a href=\"" + HttpUtility.UrlEncode(MiscUtils.GetAbsoluteUrl("~/default.aspx")) + "\">Sedogo</a>");
+            }
+            else if (checkResult == loginResults.loginNotActivated)
+            {
+                context.Response.Write("<p>This account has not yet been activated, please check your email.</p>");
+                context.Response.Write("<a href=\"" + HttpUtility.UrlEncode(MiscUtils.GetAbsoluteUrl("~/default.aspx")) + "\">Sedogo</a>");
+            }
         }
         else
         {

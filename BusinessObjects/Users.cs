@@ -90,6 +90,7 @@ namespace Sedogo.BusinessObjects
         public long facebookUserID
         {
             get { return m_facebookUserID; }
+            set { m_facebookUserID = value; }
         }
         public string GUID
         {

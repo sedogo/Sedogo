@@ -88,7 +88,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         if (suser.ReadUserDetailsByFacebookUserID(id))
         {
             //there is a user with this facebook id
-            var checkResult = suser.VerifyLogin(suser.emailAddress, suser.userPassword, false, true, "FacebookAuth.ashx");
+            var checkResult = suser.VerifyLogin(suser.emailAddress, suser.userPassword, true, true, "FacebookAuth.ashx");
             if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
             {
                 context.Session.Add("loggedInUserID", suser.userID);

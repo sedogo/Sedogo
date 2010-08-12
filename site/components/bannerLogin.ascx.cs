@@ -33,7 +33,7 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
     {
         if( !IsPostBack )
         {
-            string script = "alert(1);$.cookie('facebookLoginReturnUrl', '"+Request.Url.ToString()+"');"+
+            string script = "$.cookie('facebookLoginReturnUrl', '"+Request.Url.ToString()+"');"+
             "window.location='"+"https://graph.facebook.com/oauth/authorize?"+
                 "client_id=" +ConfigurationManager.AppSettings["FacebookAppId"] +
                 "&redirect_uri="+HttpUtility.UrlEncode(

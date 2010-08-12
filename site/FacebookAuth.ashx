@@ -98,7 +98,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
                 context.Session.Add("loggedInUserFullName", suser.firstName + " " + suser.lastName);
                 string returnUrl = "~/default.aspx";
                 if(context.Request.Cookies["facebookLoginReturnUrl"]!=null)
-                    returnUrl = context.Request.Cookies["facebookLoginReturnUrl"].Value;
+                    returnUrl = HttpUtility.UrlDecode(context.Request.Cookies["facebookLoginReturnUrl"].Value);
 
                 context.Response.Redirect(returnUrl, false);
             }

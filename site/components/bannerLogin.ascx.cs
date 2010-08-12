@@ -33,7 +33,7 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
     {
         if( !IsPostBack )
         {
-            string script = "alert(1);$.cookie('facebookLoginReturnUrl', "+Request.Url.ToString()+");"+
+            string script = "alert(1);$.cookie('facebookLoginReturnUrl', '"+Request.Url.ToString()+"');"+
             "window.location='"+"https://graph.facebook.com/oauth/authorize?"+
                 "client_id=" +ConfigurationManager.AppSettings["FacebookAppId"] +
                 "&redirect_uri="+HttpUtility.UrlEncode(
@@ -43,7 +43,7 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
                     )+
                 "&scope=email,user_birthday,user_hometown"+"'";
             facebookAuthLink.Attributes["onclick"] = script;
-            facebookAuthLi.Attributes["href"] = "javascript:void(0)";
+            facebookAuthLink.Attributes["href"] = "javascript:void(0)";
 
             int loggedInUserID = -1;
             if (Session["loggedInUserID"] != null && Page.Form.ID != "defaultForm")

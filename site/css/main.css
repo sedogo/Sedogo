@@ -395,9 +395,14 @@ img.profile
 }
 #account-options li 
 {
-	display: inline;
+	display: block;
+	float:left;
 	padding: 0 10px 0 6px;
-	background: url(../images/account-options.gif) no-repeat right
+	background: url(../images/account-options.gif) no-repeat right 8px;
+}
+#account-options li.help, #account-options li.login, #account-options li.sign-up
+{
+	padding-top: 6px;
 }
 #account-options li.help 
 {

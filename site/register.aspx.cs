@@ -141,6 +141,7 @@ public partial class register : System.Web.UI.Page
                         dateOfBirthYear.ClearSelection();
                         yearItem.Selected = true;
                     }
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "setDate", "setHiddenDateField();", true);
                 }
                 catch (Exception ex)
                 {

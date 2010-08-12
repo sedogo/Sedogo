@@ -53,7 +53,7 @@ namespace Sedogo.BusinessObjects
     public class SedogoUser
     {
         private int         m_userID = -1;
-        private int         m_facebookUserID = -1;
+        private long         m_facebookUserID = -1;
         private string      m_GUID = "";
         private string      m_emailAddress = "";
         private string      m_firstName = "";
@@ -87,7 +87,7 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_userID; }
         }
-        public int facebookUserID
+        public long facebookUserID
         {
             get { return m_facebookUserID; }
         }
@@ -359,7 +359,7 @@ namespace Sedogo.BusinessObjects
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("FacebookUserID")))
                 {
-                    m_facebookUserID = int.Parse(rdr["FacebookUserID"].ToString());
+                    m_facebookUserID = long.Parse(rdr["FacebookUserID"].ToString());
                 }
                 rdr.Close();
             }
@@ -378,7 +378,7 @@ namespace Sedogo.BusinessObjects
         //===============================================================
         // Function: ReadUserDetailsByFacebookID
         //===============================================================
-        public bool ReadUserDetailsByFacebookUserID(int facebookUserId)
+        public bool ReadUserDetailsByFacebookUserID(long facebookUserId)
         {
             DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
             try
@@ -506,7 +506,7 @@ namespace Sedogo.BusinessObjects
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("FacebookUserID")))
                 {
-                    m_facebookUserID = int.Parse(rdr["FacebookUserID"].ToString());
+                    m_facebookUserID = long.Parse(rdr["FacebookUserID"].ToString());
                 }
                 rdr.Close();
                 return true;
@@ -560,7 +560,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
-                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (int?)null : m_facebookUserID);
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (long?)null : m_facebookUserID);
 
                 SqlParameter paramUserID = cmd.CreateParameter();
                 paramUserID.ParameterName = "@UserID";
@@ -620,7 +620,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
-                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (int?)null : m_facebookUserID);
+                cmd.Parameters.Add("@FacebookUserID", SqlDbType.Int).Value = (m_facebookUserID == -1 ? (long?)null : m_facebookUserID);
 
                 cmd.ExecuteNonQuery();
             }

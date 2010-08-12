@@ -5,5 +5,5 @@
 -- =============================================
 
 ALTER TABLE [dbo].Users 
-Add FacebookUserID int NULL
+Add FacebookUserID bigint NULL
 go 

@@ -45,7 +45,7 @@ CREATE Procedure spAddUser
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
 	@LastUpdatedByFullName		nvarchar(200),
-	@FacebookUserID				int,
+	@FacebookUserID				bigint,
 	@UserID						int OUTPUT
 AS
 BEGIN
@@ -195,7 +195,7 @@ CREATE Procedure spUpdateUser
 	@EnableSendEmails				bit,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200),
-	@FacebookUserID					int
+	@FacebookUserID					bigint
 AS
 BEGIN
 	UPDATE Users
@@ -547,7 +547,7 @@ END
 GO
 
 CREATE Procedure spSelectUserDetailsByFacebookID
-	@FacebookUserID			int
+	@FacebookUserID			bigint
 AS
 BEGIN
 	SELECT UserID,GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,

@@ -158,6 +158,9 @@ public partial class login : System.Web.UI.Page
                 //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
                 //FormsAuthentication.SetAuthCookie(loginEmailAddress, false);
 
+                //Nikita Knyazev. Facebook authentication. Start.
+                SaveFacebookID(user);
+                //Nikita Knyazev. Facebook authentication. Finish
                 if (redirectUserID > 0)
                 {
                     string url = "./userProfileRedirect.aspx?UID=" + redirectUserID.ToString();
@@ -205,6 +208,25 @@ public partial class login : System.Web.UI.Page
         }
         //}
     }
+
+    private void SaveFacebookID(SedogoUser user)
+    {
+        try{
+
+            if (user.facebookUserID < 0 && Session["facebookUserID"] != null)
+            {
+                user.facebookUserID = long(Session["facebookUserID"]);
+                user.Update();
+            }
+        }
+        catch(Exception ex)
+        {
+            Sedogo.BusinessObjects.ErrorLog errorLog = new Sedogo.BusinessObjects.ErrorLog();
+            errorLog.WriteLog("login", "SaveFacebookID", ex.Message, 
+                Sedogo.BusinessObjects.logMessageLevel.errorMessage);
+        }
+    }
+
 
     //===============================================================
     // Function: forgotPasswordButton_click

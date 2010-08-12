@@ -120,8 +120,8 @@ public partial class register : System.Web.UI.Page
             if (fbuser["birthday"] != null)
             {
             }
-            if (fbuser["hometown"] != null)
-                homeTownTextBox.Text = (string)fbuser["hometown"];
+            if (fbuser["hometown"] != null && fbuser["hometown"]["name"]!=null)
+                homeTownTextBox.Text = (string)fbuser["hometown"]["name"];
             if (fbuser["gender"] != null)
             {
 

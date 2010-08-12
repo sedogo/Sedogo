@@ -119,12 +119,53 @@ public partial class register : System.Web.UI.Page
                 emailAddressTextBox.Text = (string)fbuser["email"];
             if (fbuser["birthday"] != null)
             {
+                try
+                {
+                    string bdStr = (string)fbuser["birthday"];
+                    DateTime dt = DateTime.ParseExact(bdStr, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                    ListItem dayItem = dateOfBirthDay.Items.FindByValue(dt.Day.ToString());
+                    if (dayItem != null)
+                    {
+                        dateOfBirthDay.ClearSelection();
+                        dayItem.Selected = true;
+                    }
+                    ListItem monthItem = dateOfBirthMonth.Items.FindByValue(dt.Month.ToString());
+                    if(monthItem!=null)
+                    {
+                        dateOfBirthMonth.ClearSelection();
+                        monthItem.Selected = true;
+                    }
+                    ListItem yearItem = dateOfBirthYear.Items.FindByValue(dt.Year.ToString());
+                    if (yearItem != null)
+                    {
+                        dateOfBirthYear.ClearSelection();
+                        yearItem.Selected = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             if (fbuser["hometown"] != null && fbuser["hometown"]["name"]!=null)
                 homeTownTextBox.Text = (string)fbuser["hometown"]["name"];
             if (fbuser["gender"] != null)
             {
-
+                string gender = (string)fbuser["gender"];
+                switch (gender)
+                {
+                    case "male":
+                        genderMaleRadioButton.Checked = true;
+                        genderFemaleRadioButton.Checked = false;
+                        break;
+                    case "female":
+                        genderMaleRadioButton.Checked = false;
+                        genderFemaleRadioButton.Checked = true;
+                        
+                        break;
+                    default:
+                        break;
+                }
             }
             if (fbuser["timezone"] != null)
             {

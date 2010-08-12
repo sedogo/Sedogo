@@ -1249,6 +1249,7 @@ namespace Sedogo.BusinessObjects
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://graph.facebook.com/me?access_token=" + HttpUtility.UrlEncode(access_token));
+                request.Headers[HttpRequestHeader.AcceptLanguage] = "en-us,en;";
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 Encoding enc = Encoding.UTF8;
                 try

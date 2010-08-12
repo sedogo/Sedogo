@@ -121,8 +121,9 @@ namespace RestAPI
         /// <param name="createdByFullName">No Metadata Documentation available.</param>
         /// <param name="lastUpdatedDate">No Metadata Documentation available.</param>
         /// <param name="lastUpdatedByFullName">No Metadata Documentation available.</param>
+        /// <param name="facebookUserID">No Metadata Documentation available.</param>
         /// <param name="userID">No Metadata Documentation available.</param>
-        public int spAddUser(global::System.String emailAddress, global::System.String gUID, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.String homeTown, Nullable<global::System.DateTime> birthday, Nullable<global::System.Int32> countryID, Nullable<global::System.Int32> languageID, Nullable<global::System.Int32> timezoneID, global::System.String profileText, Nullable<global::System.DateTime> createdDate, global::System.String createdByFullName, Nullable<global::System.DateTime> lastUpdatedDate, global::System.String lastUpdatedByFullName, ObjectParameter userID)
+        public int spAddUser(global::System.String emailAddress, global::System.String gUID, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.String homeTown, Nullable<global::System.DateTime> birthday, Nullable<global::System.Int32> countryID, Nullable<global::System.Int32> languageID, Nullable<global::System.Int32> timezoneID, global::System.String profileText, Nullable<global::System.DateTime> createdDate, global::System.String createdByFullName, Nullable<global::System.DateTime> lastUpdatedDate, global::System.String lastUpdatedByFullName, Nullable<global::System.Int64> facebookUserID, ObjectParameter userID)
         {
             ObjectParameter emailAddressParameter;
             if (emailAddress != null)
@@ -274,7 +275,17 @@ namespace RestAPI
                 lastUpdatedByFullNameParameter = new ObjectParameter("LastUpdatedByFullName", typeof(global::System.String));
             }
     
-            return base.ExecuteFunction("spAddUser", emailAddressParameter, gUIDParameter, firstNameParameter, lastNameParameter, genderParameter, homeTownParameter, birthdayParameter, countryIDParameter, languageIDParameter, timezoneIDParameter, profileTextParameter, createdDateParameter, createdByFullNameParameter, lastUpdatedDateParameter, lastUpdatedByFullNameParameter, userID);
+            ObjectParameter facebookUserIDParameter;
+            if (facebookUserID.HasValue)
+            {
+                facebookUserIDParameter = new ObjectParameter("FacebookUserID", facebookUserID);
+            }
+            else
+            {
+                facebookUserIDParameter = new ObjectParameter("FacebookUserID", typeof(global::System.Int64));
+            }
+    
+            return base.ExecuteFunction("spAddUser", emailAddressParameter, gUIDParameter, firstNameParameter, lastNameParameter, genderParameter, homeTownParameter, birthdayParameter, countryIDParameter, languageIDParameter, timezoneIDParameter, profileTextParameter, createdDateParameter, createdByFullNameParameter, lastUpdatedDateParameter, lastUpdatedByFullNameParameter, facebookUserIDParameter, userID);
         }
     
         /// <summary>
@@ -439,25 +450,6 @@ namespace RestAPI
             }
     
             return base.ExecuteFunction("spUpdateUserPassword", userIDParameter, userPasswordParameter, lastUpdatedDateParameter, lastUpdatedByFullNameParameter);
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        /// <param name="userID">No Metadata Documentation available.</param>
-        public ObjectResult<spSelectMessageList_Result> spSelectMessageList(Nullable<global::System.Int32> userID)
-        {
-            ObjectParameter userIDParameter;
-            if (userID.HasValue)
-            {
-                userIDParameter = new ObjectParameter("UserID", userID);
-            }
-            else
-            {
-                userIDParameter = new ObjectParameter("UserID", typeof(global::System.Int32));
-            }
-    
-            return base.ExecuteFunction<spSelectMessageList_Result>("spSelectMessageList", userIDParameter);
         }
     
         /// <summary>
@@ -668,6 +660,25 @@ namespace RestAPI
             }
     
             return base.ExecuteFunction<AnySearchEventsProcedure_Result>("spSearchEventsByLocation", searchTextParameter, latitudeParameter, longitudeParameter, radiusInMetersParameter, startParameter, countParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="userID">No Metadata Documentation available.</param>
+        public ObjectResult<spSelectMessageList_Result> spSelectMessageList(Nullable<global::System.Int32> userID)
+        {
+            ObjectParameter userIDParameter;
+            if (userID.HasValue)
+            {
+                userIDParameter = new ObjectParameter("UserID", userID);
+            }
+            else
+            {
+                userIDParameter = new ObjectParameter("UserID", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<spSelectMessageList_Result>("spSelectMessageList", userIDParameter);
         }
 
         #endregion
@@ -2822,9 +2833,7 @@ namespace RestAPI
         /// <param name="createdByFullName">Initial value of the CreatedByFullName property.</param>
         /// <param name="lastUpdatedDate">Initial value of the LastUpdatedDate property.</param>
         /// <param name="lastUpdatedByFullName">Initial value of the LastUpdatedByFullName property.</param>
-        /// <param name="emailAddress">Initial value of the EmailAddress property.</param>
-        /// <param name="gender">Initial value of the Gender property.</param>
-        public static spSelectMessageList_Result CreatespSelectMessageList_Result(global::System.Int32 messageID, global::System.Int32 postedByUserID, global::System.Boolean messageRead, global::System.DateTime createdDate, global::System.String createdByFullName, global::System.DateTime lastUpdatedDate, global::System.String lastUpdatedByFullName, global::System.String emailAddress, global::System.String gender)
+        public static spSelectMessageList_Result CreatespSelectMessageList_Result(global::System.Int32 messageID, global::System.Int32 postedByUserID, global::System.Boolean messageRead, global::System.DateTime createdDate, global::System.String createdByFullName, global::System.DateTime lastUpdatedDate, global::System.String lastUpdatedByFullName)
         {
             spSelectMessageList_Result spSelectMessageList_Result = new spSelectMessageList_Result();
             spSelectMessageList_Result.MessageID = messageID;
@@ -2834,8 +2843,6 @@ namespace RestAPI
             spSelectMessageList_Result.CreatedByFullName = createdByFullName;
             spSelectMessageList_Result.LastUpdatedDate = lastUpdatedDate;
             spSelectMessageList_Result.LastUpdatedByFullName = lastUpdatedByFullName;
-            spSelectMessageList_Result.EmailAddress = emailAddress;
-            spSelectMessageList_Result.Gender = gender;
             return spSelectMessageList_Result;
         }
 
@@ -3421,7 +3428,7 @@ namespace RestAPI
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String EmailAddress
         {
@@ -3433,7 +3440,7 @@ namespace RestAPI
             {
                 OnEmailAddressChanging(value);
                 ReportPropertyChanging("EmailAddress");
-                _EmailAddress = StructuralObject.SetValidValue(value, false);
+                _EmailAddress = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("EmailAddress");
                 OnEmailAddressChanged();
             }
@@ -3493,7 +3500,7 @@ namespace RestAPI
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Gender
         {
@@ -3505,7 +3512,7 @@ namespace RestAPI
             {
                 OnGenderChanging(value);
                 ReportPropertyChanging("Gender");
-                _Gender = StructuralObject.SetValidValue(value, false);
+                _Gender = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Gender");
                 OnGenderChanged();
             }

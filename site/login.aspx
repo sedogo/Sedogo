@@ -50,35 +50,40 @@
             <h1>Login</h1>
             <p>Enter your email address and password below to log in to your sedogo account</p>
              <br />
-           <fieldset>
-                <ol class="width-constrain">
-                    <li>
-                        <label for="">Email address</label>
-                        <asp:TextBox runat="server" ID="emailAddress" Width="200px" />
+             
+             <table>
+                <tr>
+                    <td>Email address</td>
+                    <td><asp:TextBox runat="server" ID="emailAddress" Width="200px" />
                         <asp:RequiredFieldValidator ID="emailAddressValidator" runat="server"
-                            ControlToValidate="emailAddress" ErrorMessage="An email address is required"
-                            Display="None" SetFocusOnError="true">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                     <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Password</label>
-                        <asp:TextBox runat="server" ID="userPassword" TextMode="password" Width="200px" />
+                        ControlToValidate="emailAddress" ErrorMessage="An email address is required"
+                        Display="None" SetFocusOnError="true">
+                        </asp:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div class="pinstripe-divider">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><asp:TextBox runat="server" ID="userPassword" TextMode="password" Width="200px" />
 	                    <asp:RequiredFieldValidator ID="userPasswordValidator" runat="server"
                             ControlToValidate="userPassword" ErrorMessage="A password is required"
                             Display="None" SetFocusOnError="true">
-                            </asp:RequiredFieldValidator>
-                    </li>
-                    <li>
-                        <label for="">&nbsp;</label><p>passwords are case sensitive</p>
-                    </li>
-                     <div class="pinstripe-divider">&nbsp;</div>
-                    <li>
-                        <label for="">Remember me</label>
-                        <asp:CheckBox ID="rememberMeCheckbox" runat="server" />
-                    </li>
-                </ol>
-            </fieldset>
+                            </asp:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><p>passwords are case sensitive</p></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><div class="pinstripe-divider">&nbsp;</div></td>
+                </tr>
+                <tr>
+                    <td>Remember me</td>
+                    <td><asp:CheckBox ID="rememberMeCheckbox" runat="server" /></td>
+                </tr>
+             </table>
+
 		</div>
     
         <div class="buttons">

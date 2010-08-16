@@ -741,7 +741,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                     string outputText = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"200\"><tr>"
                         + "<td width=\"22\"><img src=\"" + profileImagePath + "\" width=\"17\" />"
-                        + "</td><td width=\"132\"><a href=\"userProfile.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                        + "</td><td width=\"132\"><a style=\"padding-top:2px\" href=\"userProfile.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                         + firstName + " " + lastName + "</a>";
                     //string outputText = "<p><a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
                     //    + "<img src=\"" + profileImagePath + "\" width=\"17\" style=\"margin-right:4px\" />"

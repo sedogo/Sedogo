@@ -609,6 +609,7 @@ $",
                         {
                             try
                             {
+                                //MailMessage message = new MailMessage(mailFromAddress, "phil@tuclix.com");
                                 MailMessage message = new MailMessage(mailFromAddress, emailAddress);
                                 message.ReplyTo = new MailAddress("noreply@sedogo.com");
 

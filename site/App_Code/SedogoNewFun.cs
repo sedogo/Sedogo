@@ -38,7 +38,7 @@ namespace Sedogo.BusinessObjects
                 //cmd.CommandType = CommandType.StoredProcedure;
                 //cmd.CommandText = "spGetAllEnableUserDetails";
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT top 24 userid,[guid],(select count(*) as gcount from events where userid = u.userid group by userid)gcount,(select count(*) as mcount from Users WHERE LoginEnabled = 1 and deleted = 0)mcount, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,"
+                cmd.CommandText = "SELECT top 24 userid,[guid],(select count(*) as gcount from events where deleted = 0 and userid = u.userid group by userid)gcount,(select count(*) as mcount from Users WHERE LoginEnabled = 1 and deleted = 0)mcount, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,"
         + "HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,"
         + "ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,"
         + "LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,"

@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="sendUserMessage.aspx.cs" Inherits="sendUserMessage" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -50,6 +51,8 @@
     <form id="form1" runat="server" target="_top">
     <div>
     
+    <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
 	    <div id="modal">
             <h1>Send message</h1>
 
@@ -67,6 +70,15 @@
                             <asp:RequiredFieldValidator ID="messageTextBoxValidator" runat="server"
                             ControlToValidate="messageTextBox" ErrorMessage="A message is required" Display="Dynamic">
                             </asp:RequiredFieldValidator>
+                    </li>
+                    <li>
+                        <telerik:RadCaptcha ID="registerCaptcha" runat="server"
+                            ErrorMessage="The code entered is not valid"
+                            CaptchaImage-EnableCaptchaAudio="false" Display="Dynamic"
+                            CaptchaImage-TextChars="LettersAndNumbers"
+                            CaptchaImage-TextColor="Green"
+                        >
+                        </telerik:RadCaptcha>
                     </li>
                 </ol>
             </fieldset>

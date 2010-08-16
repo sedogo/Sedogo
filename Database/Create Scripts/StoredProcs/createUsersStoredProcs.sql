@@ -45,7 +45,7 @@ CREATE Procedure spAddUser
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
 	@LastUpdatedByFullName		nvarchar(200),
-	@FacebookUserID				bigint,
+	--@FacebookUserID				bigint,
 	@UserID						int OUTPUT
 AS
 BEGIN
@@ -72,8 +72,8 @@ BEGIN
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
-		LastUpdatedByFullName,
-		FacebookUserID
+		LastUpdatedByFullName
+		--,		FacebookUserID
 	)
 	VALUES
 	(
@@ -98,8 +98,8 @@ BEGIN
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
-		@LastUpdatedByFullName,
-		@FacebookUserID
+		@LastUpdatedByFullName
+		--,		@FacebookUserID
 	)
 	
 	SET @UserID = @@IDENTITY

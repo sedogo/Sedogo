@@ -1,4 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="registerWait.aspx.cs" Inherits="registerWait" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
@@ -40,14 +43,36 @@
 </head>
 
 <body>
-    <form id="form1" runat="server">
+    <form id="form2" runat="server">
     <div>
-		<p>Thank you for registering, you will shortly receive an email asking you to confirm your email address.</p>
-		<p><a href="default.aspx" target="_top">Click here to return to the home page</a></p>
+    
+        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
+	    <div id="container">
+	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		    <div id="other-content">
+
+			    <div class="three-col">
+
+		            <h1 style="margin-top:100px; width:400px">Thank you for registering, you will shortly receive an email asking you to confirm your email address.</h1>
+		            <p style="margin-top:10px; width:400px"><a href="default.aspx" style="font-size:16pt" target="_top">Click here to return to the home page</a></p>
+
+		        </div>
+
+		    </div>
+		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+		</div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="../images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
+    
     </div>
     </form>
 
-    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
-
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl1" runat="server" />
 </body>
 </html>

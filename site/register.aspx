@@ -196,7 +196,7 @@ function termsClientValidation(source, args)
                     <li>
                         <telerik:RadCaptcha ID="registerCaptcha" runat="server"
                             ErrorMessage="The code entered is not valid"
-                            CaptchaImage-EnableCaptchaAudio="true" Display="Dynamic"
+                            CaptchaImage-EnableCaptchaAudio="false" Display="Dynamic"
                             CaptchaImage-TextChars="LettersAndNumbers"
                             CaptchaImage-TextColor="Green"
                         >

@@ -50,6 +50,17 @@
     <form id="form1" runat="server">
     <div>
 
+<script language="JavaScript" type="text/javascript">
+function stopTrackingClick()
+{
+    if (!confirm('Are you sure you want to leave this goal?'))
+    {
+        return false;
+    }
+}
+</script>
+
+
         <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
 
 	    <div id="container">
@@ -92,7 +103,9 @@
                                     </td>
                                     <td align="right">
                                         <p style="text-align:right"><asp:LinkButton ID="stopTrackingButton" runat="server" CssClass="button-sml" 
-                                            Text="stop following" CommandName="stopTrackingButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
+                                            Text="stop following" CommandName="stopTrackingButton"
+                                            OnClientClick="return stopTrackingClick()"
+                                            CommandArgument='<%# DataBinder.Eval(Container.DataItem, "TrackedEventID") %>' /></p>
                                     </td>
                                 </tr>
                             </table>

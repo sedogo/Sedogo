@@ -25,6 +25,9 @@ using System.Web.UI.WebControls.WebParts;
 
 public partial class e_confirmError : System.Web.UI.Page
 {
+    //===============================================================
+    // Function: Page_Load
+    //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
         if( !IsPostBack )

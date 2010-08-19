@@ -61,7 +61,7 @@ CREATE TABLE Users
 	CreatedByFullName				nvarchar(200)	    NOT NULL,
 	LastUpdatedDate					datetime		    NOT NULL,
 	LastUpdatedByFullName			nvarchar(200)	    NOT NULL,
-	FacebookUserID					bigint					NULL
+	FacebookUserID					bigint				NULL
 )
 GO
 

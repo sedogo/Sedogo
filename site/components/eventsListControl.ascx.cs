@@ -296,14 +296,18 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     eventString.AppendLine("<tr style=\"background-color:#EEEEEE\" >");
                     eventString.AppendLine("<td>");
                         eventString.AppendLine("<p class=\"eventListText\"><b>");
-                        if (eventAchieved == true)
-                        {
-                            eventString.Append(" (Achieved)");
-                        }
+                        //if (eventAchieved == true)
+                        //{
+                        //    eventString.AppendLine(" <img src=\"./images/acceptachieve.gif\" alt=\"Achieved\" />");
+                        //}
                         eventString.Append(eventName);
                         eventString.Append("</b></p>");
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("<td align=\"right\">");
+                        if (eventAchieved == true)
+                        {
+                            eventString.AppendLine(" <img src=\"./images/acceptachieve.gif\" alt=\"Achieved\" />");
+                        }
                         if (privateEvent == true)
                         {
                             eventString.AppendLine("<img src=\"./images/private.gif\" alt=\"Private event\" />");

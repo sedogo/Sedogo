@@ -60,7 +60,8 @@
                     <h1>about</h1>
                     <p>Sedogo is the future of social networking. Literally.</p>
                     <p>Create tomorrow's goals for your life and connect with others to achieve them.</p>
-
+                    <p>&nbsp;</p>
+                    <a href="default.aspx">Return to home page</a>
 		        </div>
 
 		    </div>

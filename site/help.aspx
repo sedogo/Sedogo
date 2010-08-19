@@ -58,9 +58,23 @@
 
                     <h1>Help</h1>
                     <p>If you have any questions, just ask. We aim to reply to all queries within 48 hours.</p>
+                    <p>&nbsp;</p>
                     
                     <fieldset>
                         <ol>
+                            <li>
+                                <label for="">Your email address</label>
+                            </li>
+                            <li>
+                                <asp:TextBox ID="emailAddressTextBox" runat="server" Width="400" MaxLength="200" />
+                                <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
+                                ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 
+                                Display="Dynamic">
+                                </asp:RequiredFieldValidator>
+                            </li>
+                            <li>
+                                <br />
+                            </li>
                             <li>
                                 <br />
                             </li>

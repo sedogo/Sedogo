@@ -190,7 +190,7 @@
                     </asp:DataList>
                 </div>
             </td>
-            <td>
+            <td align="right">
                 <div class="userProfileBox" style="text-align:left; width:192px">
                     <fieldset>
                         <ol style="line-height: 20px;">

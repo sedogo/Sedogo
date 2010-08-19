@@ -64,6 +64,8 @@
                             <li>
                                 <label for="">Your email address</label>
                                 <asp:Label id="yourEmailAddressLabel" runat="server" />
+                            </li>
+                            <li>
                                 <asp:TextBox ID="emailAddressTextBox" runat="server" Width="250" MaxLength="200" />
                                 <asp:RequiredFieldValidator ID="emailAddressTextBoxValidator" runat="server"
                                 ControlToValidate="emailAddressTextBox" ErrorMessage="Your email address is required" 

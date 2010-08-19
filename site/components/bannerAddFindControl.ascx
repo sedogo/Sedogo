@@ -61,7 +61,7 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td valign="top"><asp:TextBox ID="what" runat="server" 
-                                MaxLength="1000" Text="e.g. Climb Everest" /></td>
+                                MaxLength="1000" Text="name your goal" /></td>
                             <td valign="top" style="padding-top:4px"><asp:HyperLink runat="server"
                                 ID="addButtonLink"><asp:Image ID="addButtonImage" runat="server" 
                                 ImageUrl="~/images/addButton.png" /></asp:HyperLink>
@@ -76,7 +76,7 @@
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td valign="top"><asp:TextBox ID="what2" runat="server" MaxLength="1000" 
-                                    ValidationGroup="what2Group" Text="e.g. Climb Everest" /></td>
+                                    ValidationGroup="what2Group" Text="search goals or people" /></td>
                                 <td valign="top" style="padding-top:4px"><asp:ImageButton 
                                     ID="searchButton2" runat="server" OnClick="searchButton2_click" 
                                     ImageUrl="~/images/searchButton.png" /></td>

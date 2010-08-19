@@ -33,6 +33,22 @@ public partial class help : System.Web.UI.Page
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            int currentUserID = -1;
+            SedogoUser currentUser = null;
+            if (Session["loggedInUserID"] != null)
+            {
+                currentUserID = int.Parse(Session["loggedInUserID"].ToString());
+                currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
+
+                emailAddressTextBox.Text = currentUser.emailAddress;
+            }
+            else
+            {
+                emailAddressTextBox.Text = "";
+            }
+        }
     }
 
     //===============================================================
@@ -42,10 +58,16 @@ public partial class help : System.Web.UI.Page
     {
         int currentUserID = -1;
         SedogoUser currentUser = null;
+        string userEmailAddress = "";
         if (Session["loggedInUserID"] != null)
         {
             currentUserID = int.Parse(Session["loggedInUserID"].ToString());
             currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), currentUserID);
+            userEmailAddress = currentUser.emailAddress;
+        }
+        else
+        {
+            userEmailAddress = emailAddressTextBox.Text;
         }
 
         string feedbackText = feedbackTextBox.Text;
@@ -63,10 +85,7 @@ public partial class help : System.Web.UI.Page
         StringBuilder emailBody = new StringBuilder();
         emailBody.AppendLine("<html><body>");
         emailBody.AppendLine("Help:<br/>");
-        if (currentUser != null)
-        {
-            emailBody.AppendLine(currentUser.emailAddress + "<br/>");
-        }
+        emailBody.AppendLine(userEmailAddress + "<br/>");
         emailBody.AppendLine(feedbackText.Replace("\n", "<br/>") + "<br/>");
         emailBody.AppendLine("</body></html>");
 

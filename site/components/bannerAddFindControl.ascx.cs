@@ -65,7 +65,7 @@ public partial class components_bannerAddFindControl : System.Web.UI.UserControl
 
         string searchText = what.Text;
 
-        if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+        if (searchText.Trim() == "" || searchText.Trim() == "name your goal")
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
         }

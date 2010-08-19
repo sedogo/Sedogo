@@ -910,7 +910,10 @@ BEGIN
 	AND E.UserID <> @UserID			-- Do not return events belonging to the searching user
 	AND ( (@SearchText = '') 
 	 OR (UPPER(E.EventName) LIKE '%'+UPPER(@SearchText)+'%')
-	 OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') ) 
+	 OR (UPPER(CONVERT(nvarchar(1000),E.EventVenue)) LIKE '%'+UPPER(@SearchText)+'%')
+	 OR (UPPER(CONVERT(nvarchar(1000),E.EventDescription)) LIKE '%'+UPPER(@SearchText)+'%')
+	 OR (UPPER(U.FirstName) + ' ' + UPPER(U.LastName) LIKE '%'+UPPER(@SearchText)+'%') 
+	) 
 	ORDER BY E.StartDate
 END
 GO

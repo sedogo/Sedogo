@@ -131,7 +131,7 @@ public partial class search : System.Web.UI.Page
     //{
     //    string searchText = what2.Text;
 
-    //    if (searchText.Trim() == "" || searchText.Trim() == "e.g. climb Everest")
+    //    if (searchText.Trim() == "" || searchText.Trim() == "name your goal")
     //    {
     //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Please enter a search term\");", true);
     //    }

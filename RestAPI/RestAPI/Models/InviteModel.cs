@@ -35,6 +35,7 @@ Hidden:
     /// <summary>
     /// model of an invite
     /// </summary>
+    [Serializable]
     public class InviteModel  : BaseModel
     {
         /*included*/

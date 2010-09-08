@@ -43,10 +43,10 @@ namespace RestAPI
             //this line is used for Microsoft.Web.Mvc
             ValueProviderFactories.Factories.Add(new JsonValueProviderFactory());
             //copying Global.asax from Sedogo
-            string environment = ConfigurationManager.AppSettings["EnvironmentName"].ToString();
-            string connectionString = ConfigurationManager.ConnectionStrings[environment].ToString();
-            string errorLogFile = ConfigurationManager.AppSettings["ErrorLogFile"].ToString();
-            string errorLogLevel = ConfigurationManager.AppSettings["ErrorLogLevel"].ToString();
+            var environment = ConfigurationManager.AppSettings["EnvironmentName"];
+            var connectionString = ConfigurationManager.ConnectionStrings[environment].ToString();
+            var errorLogFile = ConfigurationManager.AppSettings["ErrorLogFile"];
+            var errorLogLevel = ConfigurationManager.AppSettings["ErrorLogLevel"];
 
             Application.Add("connectionString", connectionString);
             Application.Add("ErrorLogFile", errorLogFile);
@@ -65,7 +65,7 @@ namespace RestAPI
         {
             Exception exception = Server.GetLastError();
             Response.Clear();
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (exception is HttpException)
             {
 

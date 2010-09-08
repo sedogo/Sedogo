@@ -5,7 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="sedogoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="sedogoDBModelStoreContainer" />
+        <EntityContainer Name="sedogoDBModelStoreContainer">
+        </EntityContainer>
         <Function Name="spAddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="GUID" Type="nvarchar" Mode="In" />
@@ -176,7 +177,7 @@
             <Parameter Name="Count" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spSelectMessageList" ReturnType="Collection(sedogoDBModel.spSelectMessageList_Result)">
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spSelectUserDetails_Result">
@@ -723,7 +724,8 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SedogoDB" />
+      <Diagram Name="SedogoDB" >
+      </Diagram>
     </Diagrams>
   </Designer>
 </edmx:Edmx>

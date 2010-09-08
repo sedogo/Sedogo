@@ -78,6 +78,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="JsonValueProviderFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\EventModel.cs" />
@@ -94,7 +95,14 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.4.2.js" />
+    <Content Include="Scripts\jquery-1.4.2.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.base64.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Styles\Site.css" />
     <Content Include="Views\API\HelloWorld.aspx" />
+    <Content Include="Views\API\Test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

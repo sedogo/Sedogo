@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Objects;
 using System.Text;
+using System.Web.UI.WebControls;
 using System.Xml;
 using System.Net;
 using RestAPI.Models;
@@ -58,6 +59,11 @@ namespace RestAPI.Controllers
             return View(e);
         }
 
+        public ActionResult Index()
+        {
+            return View("Test");
+        }
+
         #region Item Methods
 
         /// <summary>
@@ -69,7 +75,7 @@ namespace RestAPI.Controllers
         public ActionResult Users(string id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -147,7 +153,7 @@ namespace RestAPI.Controllers
             //no authentication for registration
 
             /*#region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Admin))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -203,7 +209,7 @@ namespace RestAPI.Controllers
         public ActionResult Events(int? id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -274,7 +280,7 @@ namespace RestAPI.Controllers
         public ActionResult UsersConsumption(string id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -334,7 +340,7 @@ namespace RestAPI.Controllers
         public ActionResult EventsComments(int? id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -393,7 +399,7 @@ namespace RestAPI.Controllers
             string imagePreview, string video, string videoThumbnail, string link)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -439,7 +445,7 @@ namespace RestAPI.Controllers
         public ActionResult UsersEvents(string id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -506,7 +512,7 @@ namespace RestAPI.Controllers
         public ActionResult UsersAchieved(string id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -573,7 +579,7 @@ namespace RestAPI.Controllers
         public ActionResult UsersFollowed(string id)
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -631,6 +637,74 @@ namespace RestAPI.Controllers
             return Json(events, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPut]
+        public  ActionResult Messages(int? id)
+        {
+            try
+            {
+                #region initial steps
+                Response.ContentType = Assistant.JsonMimeType;
+                if (!CheckAuthentication(UserRole.Any))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
+
+                new Message(fullName, id ?? 0) { messageRead = true }.Update();
+
+                return Json(new {read = 1}, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return HelloWorld();
+            }
+        }
+
+        /// <summary>
+        /// POST /invites. creates a request to join a goal (an invitation)
+        /// the request body is the JSON representation of the Invite resource
+        /// </summary>
+        /// <param name="eventId">The event id.</param>
+        /// <param name="inviteAdditionalText">The invite additional text.</param>
+        /// <param name="inviteEmailSent">if set to <c>true</c> [invite email sent].</param>
+        /// <param name="inviteEmailSentEmailAddress">The invite email sent email address.</param>
+        /// <param name="inviteEmailSentDate">The invite email sent date.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Invites(int? eventId, string inviteAdditionalText, bool? inviteEmailSent, string inviteEmailSentEmailAddress, DateTime? inviteEmailSentDate)
+        {
+            #region initial steps
+            Response.ContentType = Assistant.JsonMimeType;
+            if (!CheckAuthentication(UserRole.Admin))
+            {
+                Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                return Json(Assistant.ErrorUnauthorized);
+            }
+            #endregion
+
+            try
+            {
+                var invite = new EventInvite(fullName)
+                                     {
+                                         emailAddress = email,
+                                         eventID = eventId ?? 0,
+                                         userID = currentUserID ?? 0,
+                                         inviteAdditionalText = inviteAdditionalText,
+                                         inviteEmailSent = inviteEmailSent ?? false,
+                                         inviteEmailSentEmailAddress = inviteEmailSentEmailAddress,
+                                         inviteEmailSentDate = inviteEmailSentDate ?? DateTime.Now,
+                                     };
+                invite.Add();
+
+                return Json(new { id = invite.eventInviteID });
+            }
+            catch
+            {
+                return HelloWorld();
+            }
+        }
+
 
         #endregion
 
@@ -640,7 +714,7 @@ namespace RestAPI.Controllers
         public ActionResult Search()
         {
             #region initial steps
-            Response.ContentType = Assistant.MimeType;
+            Response.ContentType = Assistant.JsonMimeType;
             if (!CheckAuthentication(UserRole.Any))
             {
                 Response.StatusCode = (int)HttpStatusCode.Unauthorized;

@@ -75,14 +75,14 @@ public partial class timelineXML : System.Web.UI.Page
 
                 SqlCommand cmd = new SqlCommand("", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                if (viewArchivedEvents == true)
-                {
+                //if (viewArchivedEvents == true)
+                //{
                     cmd.CommandText = "spSelectFullEventListIncludingAchievedByCategory";
-                }
-                else
-                {
-                    cmd.CommandText = "spSelectFullEventListByCategory";
-                }
+                //}
+                //else
+                //{
+                //    cmd.CommandText = "spSelectFullEventListByCategory";
+                //}
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
                 if (viewArchivedEvents == false)
                 {

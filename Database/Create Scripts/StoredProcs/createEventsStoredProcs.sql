@@ -1066,7 +1066,7 @@ GO
 CREATE Procedure spSelectHomePageEvents
 AS
 BEGIN
-	SELECT TOP 20 E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
+	SELECT TOP 50 E.EventID, E.UserID, E.EventName, E.DateType, E.StartDate, E.RangeStartDate, E.RangeEndDate,
 		E.BeforeBirthday, E.CategoryID, E.TimezoneID, E.EventAchieved, E.PrivateEvent, E.CreatedFromEventID,
 		E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		E.CreatedDate, E.CreatedByFullName, E.LastUpdatedDate, E.LastUpdatedByFullName,
@@ -1077,9 +1077,10 @@ BEGIN
 	WHERE E.Deleted = 0
 	AND E.ShowOnDefaultPage = 1
 	--AND E.EventAchieved = 0
-	--AND E.PrivateEvent = 0
+	AND E.PrivateEvent = 0
 	--AND E.CategoryID = 1
-	ORDER BY NEWID()
+	--ORDER BY NEWID()
+	ORDER BY CreatedDate DESC
 	
 END
 GO

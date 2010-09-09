@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="faq.aspx.cs" Inherits="faq" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="faq.aspx.cs" Inherits="faq" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -72,7 +72,12 @@
                     <p>Add your goal. On the 'Create goal' page, you'll see a 'Nature of goal' option. Select 'private'. You can also change the privacy setting on existing goals. Just select the goal you want to change and choose 'edit'.</p>
                     <h2>How do I create a goal that only the people I invite can see?</h2>
                     <p>Make sure you select 'private' when you create your goal (see above). After that, only those you invite to join the goal will be able to see it. You can change the privacy settings of existing goals by selecting the goal and choosing 'edit'.</p>
-
+                    <h2>Can I add a picture to go with my goal?</h2>
+                    <p>Yes. Just select your goal (or create a new one) and click 'add picture'. You can also create your very own photo album by clicking 'more pictures'.</p>
+                    <h2>How do I add more photos or links?</h2>
+                    <p>Simply use the 'comment' box on your goal page to add photos, video or links — click on the little blue icons and you're away! Any friends who comment on your goal are free to add whatever they like too!</p>
+                    <h2>Can I add video?</h2>
+                    <p>Yes, all you need is a YouTube account. Just upload your video there and you can embed it into your 'comment' box on your goal page by clicking the blue video icon. Friends can add video this way as well.</p>
 		        </div>
 
 		    </div>

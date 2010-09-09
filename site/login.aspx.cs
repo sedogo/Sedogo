@@ -56,6 +56,7 @@ public partial class login : System.Web.UI.Page
         int redirectUserTimelineID = -1;
         int redirectEventID = -1;
         string redirectPage = "";
+        int redirectReplyID = -1;
 
         if (Request.QueryString["UID"] != null)
         {
@@ -89,7 +90,15 @@ public partial class login : System.Web.UI.Page
             }
             catch { }
         }
-        if( Request.QueryString["Redirect"] != null )
+        if ((string)Session["ReplyID"] != "")
+        {
+            try
+            {
+                redirectReplyID = int.Parse((string)Session["ReplyID"]);
+            }
+            catch { }
+        }
+        if (Request.QueryString["Redirect"] != null)
         {
             redirectPage = (string)Request.QueryString["Redirect"];
         }
@@ -153,6 +162,9 @@ public partial class login : System.Web.UI.Page
             Session.Add("loggedInUserEmailAddress", user.emailAddress);
             Session.Add("loggedInUserFullName", user.firstName + " " + user.lastName);
 
+            Session["EventID"] = "";
+            Session["ReplyID"] = "";
+
             if ((checkResult == loginResults.loginSuccess) || (checkResult == loginResults.passwordExpired))
             {
                 //FormsAuthentication.RedirectFromLoginPage(loginEmailAddress, false);
@@ -174,6 +186,11 @@ public partial class login : System.Web.UI.Page
                 else if (redirectEventID > 0)
                 {
                     string url = "./viewEventRedirect.aspx?EID=" + redirectEventID.ToString();
+                    Response.Redirect(url);
+                }
+                else if (redirectReplyID > 0)
+                {
+                    string url = "./message.aspx?ReplyID=" + redirectReplyID.ToString();
                     Response.Redirect(url);
                 }
                 else if (redirectPage == "AddEvent")

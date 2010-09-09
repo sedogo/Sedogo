@@ -331,16 +331,16 @@ namespace Sedogo.BusinessObjects
 
                     // Correct the sizes taking into account the aspect ratio of the image
                     double pictureAspectRatio = (double)sourceImage.Width / (double)sourceImage.Height;
-                    if (pictureAspectRatio < 1)
-                    {
-                        // Portrait orientation
-                        thumbnailWidth = (int)(thumbnailWidth * pictureAspectRatio);
-                    }
-                    else
-                    {
-                        // Landscape orientation
+                    //if (pictureAspectRatio < 1)
+                    //{
+                    //    // Portrait orientation
+                    //    thumbnailWidth = (int)(thumbnailWidth * pictureAspectRatio);
+                    //}
+                    //else
+                    //{
+                    //    // Landscape orientation
                         thumbnailHeight = (int)(thumbnailHeight / pictureAspectRatio);
-                    }
+                    //}
                     System.Drawing.Image imageThumbnail = new Bitmap(thumbnailWidth, thumbnailHeight, sourceImage.PixelFormat);
                     Graphics oGraphic = Graphics.FromImage(imageThumbnail);
                     oGraphic.CompositingQuality = CompositingQuality.HighQuality;
@@ -357,16 +357,16 @@ namespace Sedogo.BusinessObjects
 
                     // Create preview
                     System.Drawing.Image sourceImagePreview = System.Drawing.Image.FromFile(fileStoreFolder + @"\" + filename);
-                    if (pictureAspectRatio < 1)
-                    {
-                        // Portrait orientation
-                        previewWidth = (int)(previewWidth * pictureAspectRatio);
-                    }
-                    else
-                    {
-                        // Landscape orientation
+                    //if (pictureAspectRatio < 1)
+                    //{
+                    //    // Portrait orientation
+                    //    previewWidth = (int)(previewWidth * pictureAspectRatio);
+                    //}
+                    //else
+                    //{
+                    //    // Landscape orientation
                         previewHeight = (int)(previewHeight / pictureAspectRatio);
-                    }
+                    //}
                     System.Drawing.Image imageThumbnailPreview = new Bitmap(previewWidth, previewHeight, sourceImagePreview.PixelFormat);
                     Graphics oGraphicPreview = Graphics.FromImage(imageThumbnailPreview);
                     oGraphicPreview.CompositingQuality = CompositingQuality.HighQuality;

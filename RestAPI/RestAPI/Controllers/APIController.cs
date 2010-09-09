@@ -303,28 +303,75 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorForbidden, JsonRequestBehavior.AllowGet);
             }
 
-            System.Data.Objects.ObjectResult<spSelectMessageList_Result> sr = db.spSelectMessageList(userId);
+            //System.Data.Objects.ObjectResult<spSelectMessageList_Result> sr = db.spSelectMessageList(userId);
 
             
-            List<Dictionary<string, object>> messages = sr.Select(m => new MessageModel
-            {
-                id = m.MessageID,
-                created = m.CreatedDate,
-                updated = m.LastUpdatedDate,
-                message = m.MessageText,
-                read = m.MessageRead,
-                Event = m.EventID,
-                author = m.PostedByUserID,
-                user = userId
-            }.GetDetails()).ToList();
-            /*if (messages.Count == 0)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            } */
+            //List<Dictionary<string, object>> messages = sr.Select(m => new MessageModel
+            //{
+            //    id = m.MessageID,
+            //    created = m.CreatedDate,
+            //    updated = m.LastUpdatedDate,
+            //    message = m.MessageText,
+            //    read = m.MessageRead,
+            //    Event = m.EventID,
+            //    author = m.PostedByUserID,
+            //    user = userId
+            //}.GetDetails()).ToList();
 
+            var messages =
+                ((from m in db.Messages
+                  where !m.Deleted && m.UserID == userId
+                  select
+                      new
+                          {
+                              id = m.MessageID,
+                              eventId = m.EventID,
+                              user = m.PostedByUserID,
+                              text = m.MessageText,
+                              created = m.CreatedDate,
+                              updated = m.LastUpdatedDate,
+                              read = (bool?)m.MessageRead
+                          }).Union
+                    (from c in db.EventComments
+                     where c.Event.UserID == userId && !c.Deleted && !c.Event.Deleted
+                     select new
+                                {
+                                    id = c.EventCommentID,
+                                    eventId = (int?)c.EventID,
+                                    user = c.PostedByUserID,
+                                    text = c.CommentText, 
+                                    created = c.CreatedDate,
+                                    updated = c.LastUpdatedDate,
+                                    read = (bool?)null
+                                }).Union
+                    (from c in db.EventComments
+                     join te in db.TrackedEvents on c.EventID equals te.EventID
+                     where te.Event.UserID == userId && !c.Deleted && !c.Event.Deleted
+                     select new
+                                {
+                                    id = c.EventCommentID,
+                                    eventId = (int?)c.EventID,
+                                    user = c.PostedByUserID,
+                                    text = c.CommentText, 
+                                    created = c.CreatedDate, 
+                                    updated = c.LastUpdatedDate,
+                                    read = (bool?)null
+                                })).OrderBy(x => x.created).ToList();
+            var result =
+                messages.Select(
+                    x =>
+                    new
+                        {
+                            x.id,
+                            created = x.created.ToString("u"),
+                            updated = x.updated.ToString("u"),
+                            message = x.text,
+                            x.eventId,
+                            x.user,
+                            x.read
+                        });
             
-            return Json(messages,JsonRequestBehavior.AllowGet);
+            return Json(result,JsonRequestBehavior.AllowGet);
             
         }
 
@@ -651,7 +698,7 @@ namespace RestAPI.Controllers
                 }
                 #endregion
 
-                new Message(fullName, id ?? 0) { messageRead = true }.Update();
+                new Sedogo.BusinessObjects.Message(fullName, id ?? 0) { messageRead = true }.Update();
 
                 return Json(new {read = 1}, JsonRequestBehavior.AllowGet);
             }

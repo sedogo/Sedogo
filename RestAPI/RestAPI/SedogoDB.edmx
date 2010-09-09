@@ -6,7 +6,96 @@
     <edmx:StorageModels>
     <Schema Namespace="sedogoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="sedogoDBModelStoreContainer">
+          <EntitySet Name="EventComments" EntityType="sedogoDBModel.Store.EventComments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Events" EntityType="sedogoDBModel.Store.Events" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Messages" EntityType="sedogoDBModel.Store.Messages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TrackedEvents" EntityType="sedogoDBModel.Store.TrackedEvents" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
+        <EntityType Name="EventComments">
+          <Key>
+            <PropertyRef Name="EventCommentID" />
+          </Key>
+          <Property Name="EventCommentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="PostedByUserID" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="EventCommentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventImageFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventImagePreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventVideoFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventVideoLink" Type="nvarchar" MaxLength="1000" />
+          <Property Name="EventLink" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6005: The data type 'geography' is not supported; the column 'Coords' in table 'sedogoDb.dbo.Events' was excluded.
+      -->
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="EventPicFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventPicThumbnail" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventPicPreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventAchieved" Type="bit" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="DateType" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="RangeStartDate" Type="datetime" />
+          <Property Name="RangeEndDate" Type="datetime" />
+          <Property Name="BeforeBirthday" Type="int" />
+          <Property Name="PrivateEvent" Type="bit" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar(max)" />
+          <Property Name="MustDo" Type="bit" Nullable="false" />
+          <Property Name="CreatedFromEventID" Type="int" />
+          <Property Name="EventVenue" Type="nvarchar(max)" />
+          <Property Name="TimezoneID" Type="int" Nullable="false" />
+          <Property Name="EventGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShowOnDefaultPage" Type="bit" Nullable="false" />
+          <Property Name="EventAchievedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PostedByUserID" Type="int" Nullable="false" />
+          <Property Name="MessageText" Type="nvarchar(max)" />
+          <Property Name="MessageRead" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="MessageGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedEvents">
+          <Key>
+            <PropertyRef Name="TrackedEventID" />
+          </Key>
+          <Property Name="TrackedEventID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ShowOnTimeline" Type="bit" Nullable="false" />
+          <Property Name="JoinPending" Type="bit" Nullable="false" />
+          <Property Name="TrackedEventGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <Function Name="spAddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
           <Parameter Name="GUID" Type="nvarchar" Mode="In" />
@@ -179,6 +268,22 @@
           <FunctionImport Name="spSelectMessageList" ReturnType="Collection(sedogoDBModel.spSelectMessageList_Result)">
           <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="EventComments" EntityType="sedogoDBModel.EventComment" />
+          <EntitySet Name="Events" EntityType="sedogoDBModel.Event" />
+          <EntitySet Name="Messages" EntityType="sedogoDBModel.Message" />
+          <EntitySet Name="TrackedEvents" EntityType="sedogoDBModel.TrackedEvent" />
+          <AssociationSet Name="EventEventComment" Association="sedogoDBModel.EventEventComment">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventComment" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="EventMessage" Association="sedogoDBModel.EventMessage">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="EventTrackedEvent" Association="sedogoDBModel.EventTrackedEvent">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="TrackedEvent" EntitySet="TrackedEvents" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="spSelectUserDetails_Result">
           <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" />
@@ -399,6 +504,130 @@
           <Property Type="String" Name="ProfilePicPreview" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="ProfileText" Nullable="true" MaxLength="200" />
         </ComplexType>
+        <EntityType Name="EventComment">
+          <Key>
+            <PropertyRef Name="EventCommentID" />
+          </Key>
+          <Property Type="Int32" Name="EventCommentID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
+          <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
+          <Property Type="String" Name="CommentText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="EventCommentGUID" Nullable="false" />
+          <Property Type="String" Name="EventImageFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventImagePreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventVideoFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventVideoLink" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventLink" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Event" Relationship="sedogoDBModel.EventEventComment" FromRole="EventComment" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Type="Int32" Name="EventID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="StartDate" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicThumbnail" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicPreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="EventAchieved" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" />
+          <Property Type="String" Name="DateType" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="RangeStartDate" />
+          <Property Type="DateTime" Name="RangeEndDate" />
+          <Property Type="Int32" Name="BeforeBirthday" />
+          <Property Type="Boolean" Name="PrivateEvent" Nullable="false" />
+          <Property Type="String" Name="EventDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="MustDo" Nullable="false" />
+          <Property Type="Int32" Name="CreatedFromEventID" />
+          <Property Type="String" Name="EventVenue" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TimezoneID" Nullable="false" />
+          <Property Type="Guid" Name="EventGUID" Nullable="false" />
+          <Property Type="Boolean" Name="ShowOnDefaultPage" Nullable="false" />
+          <Property Type="DateTime" Name="EventAchievedDate" />
+          <NavigationProperty Name="EventComments" Relationship="sedogoDBModel.EventEventComment" FromRole="Event" ToRole="EventComment" />
+          <NavigationProperty Name="Messages" Relationship="sedogoDBModel.EventMessage" FromRole="Event" ToRole="Message" />
+          <NavigationProperty Name="TrackedEvents" Relationship="sedogoDBModel.EventTrackedEvent" FromRole="Event" ToRole="TrackedEvent" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Type="Int32" Name="MessageID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EventID" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
+          <Property Type="String" Name="MessageText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="MessageRead" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="MessageGUID" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="sedogoDBModel.EventMessage" FromRole="Message" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="TrackedEvent">
+          <Key>
+            <PropertyRef Name="TrackedEventID" />
+          </Key>
+          <Property Type="Int32" Name="TrackedEventID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="Boolean" Name="ShowOnTimeline" Nullable="false" />
+          <Property Type="Boolean" Name="JoinPending" Nullable="false" />
+          <Property Type="Guid" Name="TrackedEventGUID" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="sedogoDBModel.EventTrackedEvent" FromRole="TrackedEvent" ToRole="Event" />
+        </EntityType>
+        <Association Name="EventEventComment">
+          <End Type="sedogoDBModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="sedogoDBModel.EventComment" Role="EventComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventComment">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EventMessage">
+          <End Type="sedogoDBModel.Event" Role="Event" Multiplicity="0..1" />
+          <End Type="sedogoDBModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EventTrackedEvent">
+          <End Type="sedogoDBModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="sedogoDBModel.TrackedEvent" Role="TrackedEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="TrackedEvent">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -704,6 +933,92 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EventComments">
+            <EntityTypeMapping TypeName="sedogoDBModel.EventComment">
+              <MappingFragment StoreEntitySet="EventComments">
+                <ScalarProperty Name="EventLink" ColumnName="EventLink" />
+                <ScalarProperty Name="EventVideoLink" ColumnName="EventVideoLink" />
+                <ScalarProperty Name="EventVideoFilename" ColumnName="EventVideoFilename" />
+                <ScalarProperty Name="EventImagePreview" ColumnName="EventImagePreview" />
+                <ScalarProperty Name="EventImageFilename" ColumnName="EventImageFilename" />
+                <ScalarProperty Name="EventCommentGUID" ColumnName="EventCommentGUID" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="sedogoDBModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EventAchievedDate" ColumnName="EventAchievedDate" />
+                <ScalarProperty Name="ShowOnDefaultPage" ColumnName="ShowOnDefaultPage" />
+                <ScalarProperty Name="EventGUID" ColumnName="EventGUID" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+                <ScalarProperty Name="EventVenue" ColumnName="EventVenue" />
+                <ScalarProperty Name="CreatedFromEventID" ColumnName="CreatedFromEventID" />
+                <ScalarProperty Name="MustDo" ColumnName="MustDo" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="PrivateEvent" ColumnName="PrivateEvent" />
+                <ScalarProperty Name="BeforeBirthday" ColumnName="BeforeBirthday" />
+                <ScalarProperty Name="RangeEndDate" ColumnName="RangeEndDate" />
+                <ScalarProperty Name="RangeStartDate" ColumnName="RangeStartDate" />
+                <ScalarProperty Name="DateType" ColumnName="DateType" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="EventAchieved" ColumnName="EventAchieved" />
+                <ScalarProperty Name="EventPicPreview" ColumnName="EventPicPreview" />
+                <ScalarProperty Name="EventPicThumbnail" ColumnName="EventPicThumbnail" />
+                <ScalarProperty Name="EventPicFilename" ColumnName="EventPicFilename" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="sedogoDBModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MessageGUID" ColumnName="MessageGUID" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="MessageRead" ColumnName="MessageRead" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackedEvents">
+            <EntityTypeMapping TypeName="sedogoDBModel.TrackedEvent">
+              <MappingFragment StoreEntitySet="TrackedEvents">
+                <ScalarProperty Name="TrackedEventGUID" ColumnName="TrackedEventGUID" />
+                <ScalarProperty Name="JoinPending" ColumnName="JoinPending" />
+                <ScalarProperty Name="ShowOnTimeline" ColumnName="ShowOnTimeline" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -725,6 +1040,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="SedogoDB" >
+        <EntityTypeShape EntityType="sedogoDBModel.EventComment" Width="1.5" PointX="0.75" PointY="0.75" Height="3.9033007812499996" />
+        <EntityTypeShape EntityType="sedogoDBModel.Event" Width="1.5" PointX="2.75" PointY="0.75" Height="6.21091796875" />
+        <EntityTypeShape EntityType="sedogoDBModel.Message" Width="1.5" PointX="4.75" PointY="0.75" Height="3.3263964843749996" />
+        <EntityTypeShape EntityType="sedogoDBModel.TrackedEvent" Width="1.5" PointX="4.75" PointY="5.75" Height="2.5571907552083335" />
+        <AssociationConnector Association="sedogoDBModel.EventEventComment">
+          <ConnectorPoint PointX="2.75" PointY="2.7978011067708328" />
+          <ConnectorPoint PointX="2.25" PointY="2.7978011067708328" />
+        </AssociationConnector>
+        <AssociationConnector Association="sedogoDBModel.EventMessage">
+          <ConnectorPoint PointX="4.25" PointY="2.5093489583333328" />
+          <ConnectorPoint PointX="4.75" PointY="2.5093489583333328" />
+        </AssociationConnector>
+        <AssociationConnector Association="sedogoDBModel.EventTrackedEvent">
+          <ConnectorPoint PointX="4.25" PointY="6.6439111328125" />
+          <ConnectorPoint PointX="4.75" PointY="6.6439111328125" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

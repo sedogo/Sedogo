@@ -148,7 +148,7 @@ Hidden:
                 returnObject =  Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
                 return false;
             }
-            int trackedEventID = TrackedEvent.GetTrackedEventID(sevent.eventID, currentUserID);
+            int trackedEventID = Sedogo.BusinessObjects.TrackedEvent.GetTrackedEventID(sevent.eventID, currentUserID);
             if (sevent.userID != currentUserID)
             {
                 // Viewing someone elses event
@@ -161,7 +161,7 @@ Hidden:
                     bool showOnTimeline = false;
                     if (trackedEventID > 0)
                     {
-                        TrackedEvent trackedEvent = new TrackedEvent(fullName, trackedEventID);
+                        var trackedEvent = new Sedogo.BusinessObjects.TrackedEvent(fullName, trackedEventID);
                         showOnTimeline = trackedEvent.showOnTimeline;
                     }
                     if (eventInviteCount <= 0 && !showOnTimeline)

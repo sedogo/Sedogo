@@ -105,9 +105,9 @@ Hidden:
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static Message CreateMessageBO(MessageModel model)
+        public static Sedogo.BusinessObjects.Message CreateMessageBO(MessageModel model)
         {
-            Message msg = new Message(model.CreatedByFullName);
+            var msg = new Sedogo.BusinessObjects.Message(model.CreatedByFullName);
             
             if(!string.IsNullOrEmpty(model.message)) msg.messageText = model.message;
             if(model.Event.HasValue) msg.eventID = model.Event.Value;

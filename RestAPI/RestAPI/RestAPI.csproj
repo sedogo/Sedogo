@@ -78,7 +78,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="JsonValueProviderFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\EventModel.cs" />

@@ -53,7 +53,7 @@
             <li><a href="#getEventsId"><span>GET /events/{id}</span></a></li>
             <li><a href="#postInvite"><span>POST /invites</span></a></li>
             <li><a href="#updateMessage"><span>PUT /messages/{id}</span></a></li>
-            <li><a href="#createEvent"><span>POST /events</span></a></li>
+            <li><a href="#createEventDiv"><span>POST /events</span></a></li>
             <li><a href="#createFollow"><span>POST /users/{id}/followed</span></a></li>
         </ul>
         <div id="getUsersId">
@@ -459,6 +459,275 @@
                 }
             </script>
         </div>
+        <div id="createEventDiv">
+            <table>
+                <tr>
+                    <td>
+                        id (userId int):
+                    </td>
+                    <td>
+                        <input id="event_userId" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        created (datetime):
+                    </td>
+                    <td>
+                        <input id="created" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        updated (datetime):
+                    </td>
+                    <td>
+                        <input id="updated" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        name (string):
+                    </td>
+                    <td>
+                        <input id="name" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        venue (string):
+                    </td>
+                    <td>
+                        <input id="venue" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        description (string):
+                    </td>
+                    <td>
+                        <input id="description" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        mustDo (bool):
+                    </td>
+                    <td>
+                        <input id="mustDo" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        dateType (nchar(1)):
+                    </td>
+                    <td>
+                        <input id="dateType" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        start (datetime):
+                    </td>
+                    <td>
+                        <input id="start" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        rangeStart (datetime):
+                    </td>
+                    <td>
+                        <input id="rangeStart" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        rangeEnd (datetime):
+                    </td>
+                    <td>
+                        <input id="rangeEnd" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        beforeBirthday (int):
+                    </td>
+                    <td>
+                        <input id="beforeBirthday" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        privateEvent (bool):
+                    </td>
+                    <td>
+                        <input id="privateEvent" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        category (int):
+                    </td>
+                    <td>
+                        <input id="category" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        createdFromEvent (int):
+                    </td>
+                    <td>
+                        <input id="createdFromEvent" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        timeZone (int):
+                    </td>
+                    <td>
+                        <input id="timeZone" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="button" value="Add" onclick="createNewEvent()" />
+                    </td>
+                </tr>
+            </table>
+            <div id="createEventResult">
+            </div>
+            <script type="text/javascript">
+                function createNewEvent() {
+
+                    $('#createEventResult').html('');
+
+                    var data =
+                    {
+                        id: $('#event_userId').val(),
+                        created: $('#created').val(),
+                        updated: $('#updated').val(),
+                        name: $('#name').val(),
+                        venue: $('#venue').val(),
+                        description: $('#description').val(),
+                        mustDo: $('#mustDo').val(),
+                        dateType: $('#dateType').val(),
+                        start: $('#start').val(),
+                        rangeStart: $('#rangeStart').val(),
+                        rangeEnd: $('#rangeEnd').val(),
+                        beforeBirthday: $('#beforeBirthday').val(),
+                        privateEvent: $('#privateEvent').val(),
+                        category: $('#category').val(),
+                        createdFromEvent: $('#createdFromEvent').val(),
+                        timeZone: $('#timeZone').val()
+                    }
+
+
+                    $.ajax({
+                        url: '<%=Url.Action("Events", "API") %>',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            if (result != null && typeof (result) != 'undefined') {
+                                $('#createEventResult').html(JSON.stringify(result));
+                            } else {
+                                alert('not :' + result);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var result = eval('(' + XMLHttpRequest.responseText + ')');
+                            if (result.error) {
+                                alert(result.error);
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
+        <div id="createFollow">
+            <table>
+                <tr>
+                    <td>
+                        userId:
+                    </td>
+                    <td>
+                        <input id="userId" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        eventId:
+                    </td>
+                    <td>
+                        <input id="eventId" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        showOnTimeline:
+                    </td>
+                    <td>
+                        <input id="showOnTimeline" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        joinPending:
+                    </td>
+                    <td>
+                        <input id="joinPending" type="text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="button" value="Add" onclick="createFollow()" />
+                    </td>
+                </tr>
+            </table>
+            <div id="createFollowResult">
+            </div>
+            <script type="text/javascript">
+                function createFollow() {
+
+                    $('#createFollowResult').html('');
+
+                    var data =
+                    {
+                        eventId: $('#eventId').val(),
+                        showOnTimeline: $('#showOnTimeline').val(),
+                        joinPending: $('#joinPending').val()
+                    }
+
+
+                    $.ajax({
+                        url: '<%=Url.Action("Users", "API") %>/' + $('#userId').val() + '/followed/',
+                        dataType: "json",
+                        type: "POST",
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(data),
+                        success: function (result) {
+                            if (result != null && typeof (result) != 'undefined') {
+                                $('#createFollowResult').html(JSON.stringify(result));
+                            } else {
+                                alert('not :' + result);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var result = eval('(' + XMLHttpRequest.responseText + ')');
+                            if (result.error) {
+                                alert(result.error);
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
     </div>
     <h2>
         Collection methods</h2>
@@ -496,7 +765,7 @@
                     $('#getUsersIdConsumption_resultDiv').html('');
 
                     $.ajax({
-                        url: 'http://nikita/sedogo/api/users/' + $('#getUsersIdConsumption_userId').val() + '/consumption',
+                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdConsumption_userId').val() + '/consumption',
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))
@@ -613,7 +882,7 @@
                     $('#getUsersIdEvents_result').html('');
 
                     $.ajax({
-                        url: 'http://nikita/sedogo/api/users/' + $('#getUsersIdEvents_userId').val() + '/events/',
+                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdEvents_userId').val() + '/events/',
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))
@@ -671,7 +940,7 @@
                     $('#getUsersIdAchieved_result').html('');
 
                     $.ajax({
-                        url: 'http://nikita/sedogo/api/users/' + $('#getUsersIdAchieved_userId').val() + '/achieved/',
+                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdAchieved_userId').val() + '/achieved/',
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))
@@ -729,7 +998,7 @@
                     $('#getUsersIdFollowed_result').html('');
 
                     $.ajax({
-                        url: 'http://nikita/sedogo/api/users/' + $('#getUsersIdFollowed_userId').val() + '/followed/',
+                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdFollowed_userId').val() + '/followed/',
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))

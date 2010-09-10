@@ -52,7 +52,9 @@
             <li><a href="#postUsers"><span>POST /users</span></a></li>
             <li><a href="#getEventsId"><span>GET /events/{id}</span></a></li>
             <li><a href="#postInvite"><span>POST /invites</span></a></li>
-            <li><a href="#updateMessage"><span>PUT /messages</span></a></li>
+            <li><a href="#updateMessage"><span>PUT /messages/{id}</span></a></li>
+            <li><a href="#createEvent"><span>POST /events</span></a></li>
+            <li><a href="#createFollow"><span>POST /users/{id}/followed</span></a></li>
         </ul>
         <div id="getUsersId">
             <div>

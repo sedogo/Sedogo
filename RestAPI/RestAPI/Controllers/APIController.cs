@@ -1,34 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Objects;
 using System.Text;
-using System.Web.UI.WebControls;
-using System.Xml;
 using System.Net;
 using RestAPI.Models;
-using System.Data.EntityClient; 
 using Sedogo.BusinessObjects;
 
 namespace RestAPI.Controllers
 {
     public class APIController : Controller
     {
-        protected SedogoDBEntities db = new SedogoDBEntities();
+        private readonly SedogoDBEntities _db = new SedogoDBEntities();
 
         string email;
         int? currentUserID;
         string fullName;
         private bool CheckAuthentication(UserRole role)
         {
-            return Assistant.TryAuthenticate(Request, db, role, out email, out currentUserID, out fullName);
+            return Assistant.TryAuthenticate(Request, _db, role, out email, out currentUserID, out fullName);
         }
 
         public ActionResult HelloWorld()
         {
-            Assistant.WriteLongException e = new Assistant.WriteLongException();
+            var e = new Assistant.WriteLongException();
             try
             {
                 DateTime now = DateTime.Now;
@@ -47,7 +43,7 @@ namespace RestAPI.Controllers
                 //System.Diagnostics.EventLog appLog = new System.Diagnostics.EventLog();
                // appLog.Source = "Sedogo";
                 //appLog.WriteEntry(logContents);
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["ErrorLogFile"], true);
+                var sw = new System.IO.StreamWriter(System.Configuration.ConfigurationManager.AppSettings["ErrorLogFile"], true);
                 sw.WriteLine(logContents);
                 sw.Flush();
                 sw.Close();
@@ -82,14 +78,14 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized,JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int userId = 0;
-            JsonResult jr = null;
+
+            JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
                 return jr;
-            userId = ui.Value;
+            int userId = ui.Value;
 
-            SedogoUser user = null;  
+            SedogoUser user;  
             //id is the user's id
             try
             {
@@ -103,18 +99,12 @@ namespace RestAPI.Controllers
                     Response.StatusCode = (int)HttpStatusCode.NotFound;
                     return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
                 }
-                else
-                    throw ex;
+                throw;
             }
-            
-            
+
+
             //check if any object contains user details
-            if(user == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                return Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-            }
-            UserModel suser = new UserModel { 
+            var suser = new UserModel { 
                 id = userId,
                 created= user.createdDate,
                 updated = user.lastUpdatedDate,
@@ -138,8 +128,6 @@ namespace RestAPI.Controllers
                 
            
         }
-
-        
 
         /// <summary>
         /// POST /users. Registers a new user. The request body is the JSON representation of the User resource
@@ -171,14 +159,14 @@ namespace RestAPI.Controllers
             {
                 //some error occurred while attempting to create the user object
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return Json(new { error = error });
+                return Json(new {error });
             }
             //the object was created successfully, now we can add it to the database
 
             //check the unique email
-            int testUserID = Sedogo.BusinessObjects.SedogoUser.GetUserIDFromEmailAddress(modelUser.email);
+            int testUserId = SedogoUser.GetUserIDFromEmailAddress(modelUser.email);
 
-            if (testUserID > 0)
+            if (testUserId > 0)
             {
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 return Json(new{error="email-not-unique"});
@@ -194,8 +182,6 @@ namespace RestAPI.Controllers
             return Json(new { id=dbUser.userID});
             
         }
-
-
 
         /// <summary>
         /// GET /events/{id}. 
@@ -216,22 +202,16 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int eventId = 0;
 
-            JsonResult jr = null;
-            SedogoEvent sevent = null;
+            JsonResult jr;
+            SedogoEvent sevent;
             int? e = PrepareForEvent(id, out jr, out sevent);
             if (!e.HasValue)
                 return jr;
-            eventId = e.Value;
-            
-            //the event is available. Let's check its details
-
-            
 
 
             //everything is fine, let's create a model and return it in JSON
-            EventModel model = new EventModel {
+            var model = new EventModel {
                 id = sevent.eventID,
                 created = sevent.createdDate,
                 updated = sevent.lastUpdatedDate,
@@ -260,12 +240,121 @@ namespace RestAPI.Controllers
            
         }
 
+        /// <summary>
+        /// Gets the Events action result.
+        /// </summary>
+        /// <param name="id">The user id.</param>
+        /// <param name="created">The created date .</param>
+        /// <param name="updated">The updated date .</param>
+        /// <param name="name">The event name.</param>
+        /// <param name="venue">The event venue.</param>
+        /// <param name="description">The event description.</param>
+        /// <param name="mustDo">must do.</param>
+        /// <param name="dateType">Type of the date.</param>
+        /// <param name="start">The start date.</param>
+        /// <param name="rangeStart">The range start.</param>
+        /// <param name="rangeEnd">The range end.</param>
+        /// <param name="beforeBirthday">The before birthday.</param>
+        /// <param name="privateEvent">if set to <c>true</c> the event is private.</param>
+        /// <param name="category">The category id.</param>
+        /// <param name="createdFromEvent">The created from event id.</param>
+        /// <param name="timeZone">The time zone id.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Events(int? id, DateTime created, DateTime updated, string name, string venue, 
+                                   string description, bool mustDo, string dateType, DateTime? start, DateTime? rangeStart,
+                                   DateTime? rangeEnd, int? beforeBirthday, bool privateEvent, int? category,
+                                   int? createdFromEvent, int timeZone)
+        {
+            Response.ContentType = Assistant.JsonMimeType;
+            if (!id.HasValue)
+            {
+                return GetInvalidUserIdResult();
+            }
+            if (!CheckAuthentication(UserRole.Any))
+            {
+                return GetUnauthorizedActionResult();
+            }
+            if (currentUserID != id)
+            {
+                return GetForbiddenActionResult();
+            }
 
+            try
+            {
+                var newEvent = new SedogoEvent(fullName)
+                                       {
+                                           beforeBirthday = beforeBirthday ?? default(int),
+                                           categoryID = category ?? default(int),
+                                           createdFromEventID = createdFromEvent ?? default(int),
+                                           dateType = dateType,
+                                           eventDescription = description,
+                                           mustDo = mustDo,
+                                           startDate = start ?? DateTime.MinValue,
+                                           rangeStartDate = rangeStart ?? DateTime.MinValue,
+                                           rangeEndDate = rangeEnd ?? DateTime.MinValue,
+                                           privateEvent = privateEvent,
+                                           timezoneID = timeZone,
+                                           eventVenue = venue,
+                                           eventName = name,
+                                           userID = id.Value,
+                                       };
+                newEvent.Add();
+                return Json(new { id = newEvent.eventID });
+            }
+            catch (Exception ex)
+            {
+                return GetExceptionResult(ex, "POST Events (Create)");
+            }
+        }
 
+        /// <summary>
+        /// Userses the followed.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="eventId">The event id.</param>
+        /// <param name="showOnTimeline">The show on timeline.</param>
+        /// <param name="joinPending">The join pending.</param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UsersFollowed(int? id, int? eventId, bool? showOnTimeline, bool? joinPending)
+        {
+            Response.ContentType = Assistant.JsonMimeType;
+            if (!id.HasValue)
+            {
+                return GetInvalidUserIdResult();
+            }
+            if (!eventId.HasValue)
+            {
+                return GetErrorActionResult("eventId is null");
+            }
+            if (!CheckAuthentication(UserRole.Any))
+            {
+                return GetUnauthorizedActionResult();
+            }
+            if (currentUserID != id)
+            {
+                return GetForbiddenActionResult();
+            }
+
+            try
+            {
+                var trackedEvent = new Sedogo.BusinessObjects.TrackedEvent(fullName)
+                                       {
+                                           eventID = eventId.Value,
+                                           joinPending = joinPending ?? false,
+                                           showOnTimeline = showOnTimeline ?? true
+                                       };
+                trackedEvent.Add();
+                return Json(new { id = trackedEvent.trackedEventID });
+            }
+            catch (Exception ex)
+            {
+                return GetExceptionResult(ex, "POST users/{id}/follwed");
+            }
+        }
 
         #endregion
-
-
 
         #region Collection methods
 
@@ -287,14 +376,13 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int userId = 0;
 
-            JsonResult jr = null;
+            JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
                 return jr;
             
-            userId = ui.Value;
+            int userId = ui.Value;
 
             //now userID is the user's identifier
             if (userId != currentUserID)
@@ -319,7 +407,7 @@ namespace RestAPI.Controllers
             //}.GetDetails()).ToList();
 
             var messages =
-                ((from m in db.Messages
+                ((from m in _db.Messages
                   where !m.Deleted && m.UserID == userId
                   select
                       new
@@ -332,7 +420,7 @@ namespace RestAPI.Controllers
                               updated = m.LastUpdatedDate,
                               read = (bool?)m.MessageRead
                           }).Union
-                    (from c in db.EventComments
+                    (from c in _db.EventComments
                      where c.Event.UserID == userId && !c.Deleted && !c.Event.Deleted
                      select new
                                 {
@@ -344,8 +432,8 @@ namespace RestAPI.Controllers
                                     updated = c.LastUpdatedDate,
                                     read = (bool?)null
                                 }).Union
-                    (from c in db.EventComments
-                     join te in db.TrackedEvents on c.EventID equals te.EventID
+                    (from c in _db.EventComments
+                     join te in _db.TrackedEvents on c.EventID equals te.EventID
                      where te.Event.UserID == userId && !c.Deleted && !c.Event.Deleted
                      select new
                                 {
@@ -395,18 +483,16 @@ namespace RestAPI.Controllers
             }
             #endregion
 
-            int eventId = 0;
-
-            JsonResult jr = null;
-            SedogoEvent sevent = null;
+            JsonResult jr;
+            SedogoEvent sevent;
             int? e = PrepareForEvent(id, out jr, out sevent);
             if (!e.HasValue)
                 return jr;
-            eventId = e.Value;
+            int eventId = e.Value;
 
             //the event is available. Let's check its details
 
-            System.Data.Objects.ObjectResult<spSelectEventCommentsList_Result> sr = db.spSelectEventCommentsList(eventId);
+            System.Data.Objects.ObjectResult<spSelectEventCommentsList_Result> sr = _db.spSelectEventCommentsList(eventId);
             List<Dictionary<string, object>> comments = sr.Select(m => new CommentModel { 
                         id = m.EventCommentID,
                         created = m.CreatedDate,
@@ -454,18 +540,16 @@ namespace RestAPI.Controllers
             }
             #endregion
 
-            int eventId = 0;
-
-            JsonResult jr = null;
-            SedogoEvent sevent = null;
+            JsonResult jr;
+            SedogoEvent sevent;
             int? e = PrepareForEvent(id, out jr, out sevent);
             if (!e.HasValue)
                 return jr;
-            eventId = e.Value;
+            int eventId = e.Value;
 
             //the event is available. Let's check its details
 
-            string error = null;
+            string error;
             CommentModel model = CommentModel.CreateCommentModel(text,eventId,user,
                 image, imagePreview,video, videoThumbnail,link,fullName, fullName,out error);
 
@@ -473,13 +557,13 @@ namespace RestAPI.Controllers
             {
                 //some error occurred while attempting to create the user object
                 Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return Json(new { error = error });
+                return Json(new {error});
             }
             //the object was created successfully, now we can add it to the database
-            SedogoEventComment commentBO = CommentModel.CreateCommentBO(model);
-            commentBO.Add();
+            SedogoEventComment commentBo = CommentModel.CreateCommentBO(model);
+            commentBo.Add();
 
-            return Json(new { id = commentBO.eventCommentID });
+            return Json(new { id = commentBo.eventCommentID });
         }
 
         /// <summary>
@@ -499,19 +583,18 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int userId = 0;
 
-            JsonResult jr = null;
+            JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
                 return jr;
 
-            userId = ui.Value;
+            int userId = ui.Value;
 
             //now userID is the user's identifier
 
             System.Data.Objects.ObjectResult<spSelectNotAchievedEventList_Result> sr =
-                db.spSelectNotAchievedEventList(userId);
+                _db.spSelectNotAchievedEventList(userId);
 
             List<Dictionary<string, object>> events = sr.Select(m => new EventModel
             {
@@ -566,19 +649,18 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int userId = 0;
 
-            JsonResult jr = null;
+            JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
                 return jr;
 
-            userId = ui.Value;
+            int userId = ui.Value;
 
             //now userID is the user's identifier
 
             System.Data.Objects.ObjectResult<spSelectAchievedEventList_Result> sr =
-                db.spSelectAchievedEventList(userId);
+                _db.spSelectAchievedEventList(userId);
 
             List<Dictionary<string, object>> events = sr.Select(m => new EventModel {
                     id = m.EventID,
@@ -633,19 +715,18 @@ namespace RestAPI.Controllers
                 return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
             }
             #endregion
-            int userId = 0;
 
-            JsonResult jr = null;
+            JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
                 return jr;
 
-            userId = ui.Value;
+            int userId = ui.Value;
 
             //now userID is the user's identifier
 
             System.Data.Objects.ObjectResult<spSelectTrackedEventListByUserID_Result> sr =
-                db.spSelectTrackedEventListByUserID(userId);
+                _db.spSelectTrackedEventListByUserID(userId);
 
             List<Dictionary<string, object>> events = sr.Select(m => new EventModel
             {
@@ -802,30 +883,24 @@ namespace RestAPI.Controllers
                     return Json(new { error = "radius-attribute-required" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            int? start = null, count = null;
             int temp;
-            if (!int.TryParse(startStr, out temp))
-                start = null;
-            else
-                start = temp;
+            var start = !int.TryParse(startStr, out temp) ? (int?) null : temp;
 
-            if (!int.TryParse(countStr, out temp))
-                count = null;
-            else
-                count = temp;
+            var count = !int.TryParse(countStr, out temp) ? (int?) null : temp;
+
             #endregion
 
-            System.Data.Objects.ObjectResult<AnySearchEventsProcedure_Result> searchResult = null;
+            ObjectResult<AnySearchEventsProcedure_Result> searchResult = null;
             switch(type)
             {
                 case "text":
-                    searchResult = db.spSearchLimitedEvents(query, start, count);
+                    searchResult = _db.spSearchLimitedEvents(query, start, count);
                     break;
                 case "location":
-                    searchResult = db.spSearchEventsByLocation(query, lat, lng, radius, start, count);
+                    searchResult = _db.spSearchEventsByLocation(query, lat, lng, radius, start, count);
                     break;
                 case "random":
-                    searchResult = db.spSearchLimitedRandomEvents(count);
+                    searchResult = _db.spSearchLimitedRandomEvents(count);
                     break;
                 default: break;
             }
@@ -887,7 +962,6 @@ namespace RestAPI.Controllers
         /// <returns>null, if we cannot resume work with this event, or event's id otherwise</returns>
         private int? PrepareForEvent(int? id, out JsonResult returnObject, out SedogoEvent sevent)
         {
-            int eventId = 0;
             returnObject = null;
             sevent = null;
             if (!id.HasValue)
@@ -897,7 +971,7 @@ namespace RestAPI.Controllers
                 return null;
             }
 
-            eventId = id.Value;
+            var eventId = id.Value;
             
             //id is the event's id
             try
@@ -912,20 +986,11 @@ namespace RestAPI.Controllers
                     returnObject =  Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
                     return null;
                 }
-                else
-                    throw ex;
-            }
-
-            //check if the object contains event details
-            if (sevent == null)
-            {
-                Response.StatusCode = (int)HttpStatusCode.NotFound;
-                returnObject =  Json(Assistant.ErrorNotFound, JsonRequestBehavior.AllowGet);
-                return null;
+                throw;
             }
 
             //Copying business logic from viewEvent.aspx.cx
-            if (!EventModel.CanContinueAccordingToBusinessLogic(sevent, currentUserID.Value, fullName, Response,
+            if (!EventModel.CanContinueAccordingToBusinessLogic(sevent, currentUserID ?? 0, fullName, Response,
                 Json, out returnObject))
             {
                 //EventModel.CanContinueAccordingToBusinessLogic has already set the response code
@@ -949,12 +1014,11 @@ namespace RestAPI.Controllers
         /// <returns>null if checks fail, user's id otherwise</returns>
         private int? PrepareForUserMinimal(string id, out JsonResult returnObject)
         {
-            int userId = 0;
+            int userId;
             returnObject = null;
             if (string.IsNullOrEmpty(id))
             {
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                returnObject =  Json(new { error = "user-id-required" }, JsonRequestBehavior.AllowGet);
+                returnObject = GetInvalidUserIdResult();
                 return null;
             }
 
@@ -966,6 +1030,77 @@ namespace RestAPI.Controllers
             }
 
             return userId;
+        }
+
+        /// <summary>
+        /// Gets the invalid user id result.
+        /// </summary>
+        /// <returns></returns>
+        private JsonResult GetInvalidUserIdResult()
+        {
+            Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            return Json(new { error = "user-id-required" }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets the exception action result.
+        /// </summary>
+        /// <param name="ex">The exception.</param>
+        /// <param name="routineName">Name of the routine.</param>
+        /// <returns></returns>
+        private JsonResult GetExceptionResult(Exception ex, string routineName)
+        {
+            var message = new StringBuilder();
+            var exception = ex;
+            while (exception != null)
+            {
+                message.AppendFormat("Message: " + ex.Message);
+                message.AppendLine();
+                message.AppendFormat("StackTrace: " + ex.StackTrace);
+                message.AppendLine();
+                message.AppendFormat("Data: " + ex.Data);
+                message.AppendLine();
+                message.AppendFormat("Help Link: " + ex.HelpLink);
+                message.AppendLine();
+                exception = exception.InnerException;
+            }
+
+            new ErrorLog().WriteLog("APIController", routineName, message.ToString(),logMessageLevel.errorMessage);
+
+            return GetErrorActionResult("internal server error");
+        }
+
+        /// <summary>
+        /// Gets the error action result.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        /// <returns></returns>
+        private JsonResult GetErrorActionResult(string error)
+        {
+            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return Json(new {error}, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        /// <summary>
+        /// Gets the forbidden action result.
+        /// </summary>
+        /// <returns></returns>
+        private ActionResult GetForbiddenActionResult()
+        {
+            Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            return Json(Assistant.ErrorForbidden, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets the unauthorized action result.
+        /// </summary>
+        /// <returns></returns>
+        private ActionResult GetUnauthorizedActionResult()
+        {
+            Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            return Json(Assistant.ErrorUnauthorized, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

@@ -90,6 +90,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SedogoDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />

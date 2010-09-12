@@ -174,6 +174,10 @@ namespace RestAPI.Controllers
             SedogoUser dbUser = UserModel.CreateUserBO(modelUser);
             dbUser.Add();
             dbUser.UpdatePassword(modelUser.password);
+
+            dbUser.loginEnabled = true;
+            dbUser.Update();
+
             //if all image refereces are available, update the profile
             if(!string.IsNullOrEmpty(dbUser.profilePicFilename) && !string.IsNullOrEmpty(dbUser.profilePicThumbnail) &&
                 !string.IsNullOrEmpty(dbUser.profilePicPreview))
@@ -243,7 +247,7 @@ namespace RestAPI.Controllers
         /// <summary>
         /// Gets the Events action result.
         /// </summary>
-        /// <param name="id">The user id.</param>
+        /// <param name="user">The user id.</param>
         /// <param name="created">The created date .</param>
         /// <param name="updated">The updated date .</param>
         /// <param name="name">The event name.</param>
@@ -261,13 +265,13 @@ namespace RestAPI.Controllers
         /// <param name="timeZone">The time zone id.</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Events(int? id, DateTime created, DateTime updated, string name, string venue, 
+        public ActionResult Events(int? user, DateTime created, DateTime updated, string name, string venue, 
                                    string description, bool mustDo, string dateType, DateTime? start, DateTime? rangeStart,
                                    DateTime? rangeEnd, int? beforeBirthday, bool privateEvent, int? category,
                                    int? createdFromEvent, int timeZone)
         {
             Response.ContentType = Assistant.JsonMimeType;
-            if (!id.HasValue)
+            if (!user.HasValue)
             {
                 return GetInvalidUserIdResult();
             }
@@ -275,7 +279,7 @@ namespace RestAPI.Controllers
             {
                 return GetUnauthorizedActionResult();
             }
-            if (currentUserID != id)
+            if (currentUserID != user)
             {
                 return GetForbiddenActionResult();
             }
@@ -288,16 +292,16 @@ namespace RestAPI.Controllers
                                            categoryID = category ?? default(int),
                                            createdFromEventID = createdFromEvent ?? default(int),
                                            dateType = dateType,
-                                           eventDescription = description,
+                                           eventDescription = description ?? string.Empty,
                                            mustDo = mustDo,
                                            startDate = start ?? DateTime.MinValue,
                                            rangeStartDate = rangeStart ?? DateTime.MinValue,
                                            rangeEndDate = rangeEnd ?? DateTime.MinValue,
                                            privateEvent = privateEvent,
                                            timezoneID = timeZone,
-                                           eventVenue = venue,
+                                           eventVenue = venue ?? string.Empty,
                                            eventName = name,
-                                           userID = id.Value,
+                                           userID = user.Value,
                                        };
                 newEvent.Add();
                 return Json(new { id = newEvent.eventID });
@@ -306,6 +310,28 @@ namespace RestAPI.Controllers
             {
                 return GetExceptionResult(ex, "POST Events (Create)");
             }
+        }
+
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (filterContext.ActionDescriptor.ActionName == "Events" && HttpContext.Request.HttpMethod == "POST")
+            {
+                var valueProviderCollection = (ValueProviderCollection) (filterContext.Controller).ValueProvider;
+                var dictionaryValueProvider =
+                    (DictionaryValueProvider<object>)
+                    valueProviderCollection.Where(x => x is DictionaryValueProvider<object> && !(x is RouteDataValueProvider)).First();
+                if (dictionaryValueProvider.ContainsPrefix("private"))
+                {
+                    var isPrivate = dictionaryValueProvider.GetValue("private").RawValue;
+                    filterContext.ActionParameters["privateEvent"] = Convert.ToBoolean(isPrivate);
+                }
+                else
+                {
+                    filterContext.ActionParameters["privateEvent"] = filterContext.ActionParameters["privateEvent"] ??
+                                                                     false;
+                }
+            }
+            base.OnActionExecuting(filterContext);
         }
 
         /// <summary>
@@ -454,12 +480,12 @@ namespace RestAPI.Controllers
                             created = x.created.ToString("u"),
                             updated = x.updated.ToString("u"),
                             message = x.text,
-                            x.eventId,
+                            _event = x.eventId,
                             x.user,
                             x.read
                         });
             
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return Json(result.ToDictionary(),JsonRequestBehavior.AllowGet);
             
         }
 

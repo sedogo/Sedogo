@@ -606,7 +606,7 @@
 
                     var data =
                     {
-                        id: $('#event_userId').val(),
+                        user: $('#event_userId').val(),
                         created: $('#created').val(),
                         updated: $('#updated').val(),
                         name: $('#name').val(),
@@ -618,7 +618,7 @@
                         rangeStart: $('#rangeStart').val(),
                         rangeEnd: $('#rangeEnd').val(),
                         beforeBirthday: $('#beforeBirthday').val(),
-                        privateEvent: $('#privateEvent').val(),
+                        private: $('#privateEvent').val(),
                         category: $('#category').val(),
                         createdFromEvent: $('#createdFromEvent').val(),
                         timeZone: $('#timeZone').val()

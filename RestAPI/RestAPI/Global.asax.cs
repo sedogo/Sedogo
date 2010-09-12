@@ -55,8 +55,6 @@ namespace RestAPI
             GlobalSettings.connectionString = (string)Application["connectionString"];
             GlobalSettings.errorLogFile = (string)Application["ErrorLogFile"];
             GlobalSettings.errorLogLevel = (logMessageLevel)int.Parse(Application["ErrorLogLevel"].ToString());
-
-
             
         }
 

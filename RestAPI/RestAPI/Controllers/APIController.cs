@@ -483,9 +483,9 @@ namespace RestAPI.Controllers
                             _event = x.eventId,
                             x.user,
                             x.read
-                        });
+                        }.ToDictionary());
             
-            return Json(result.ToDictionary(),JsonRequestBehavior.AllowGet);
+            return Json(result,JsonRequestBehavior.AllowGet);
             
         }
 

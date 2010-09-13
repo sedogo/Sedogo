@@ -120,7 +120,13 @@ public partial class profile : SedogoPage
 
                 if (pageRedirect == "AddEvent")
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"addEvent.aspx\");", true);
+                    string url = "addEvent.aspx";
+                    if (Session["PageRedirectDetails"] != null)
+                    {
+                        url += "?Name=" + (string)Session["PageRedirectDetails"];
+                    }
+
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"" + url + "\");", true);
                 }
             }
 

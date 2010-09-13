@@ -10,7 +10,8 @@
     }
     function doLogin()
     {
-        openModal("/login.aspx?Redirect=AddEvent");
+        var form = document.forms[0];
+        openModal("/login.aspx?Redirect=AddEvent&Details=" + form.bannerAddFindControl_what.value);
     }
     function doAddEvent()
     {

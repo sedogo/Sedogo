@@ -244,6 +244,7 @@ public partial class editEvent : SedogoPage
 
         sedogoEvent.SendEventUpdateEmail(loggedInUserID);
 
-        Response.Redirect("profileRedirect.aspx");
+        //Response.Redirect("profileRedirect.aspx");
+        Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 }

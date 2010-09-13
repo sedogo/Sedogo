@@ -120,18 +120,20 @@
                         you. Add as many as take your fancy. After all, you only get one life.</strong><br />
                         &nbsp;<br />
                         <span style="color: #0cf">
-	                        &gt; Fly the double decker airbus A380<br />
-                            &gt; Own an exotic pet<br />
-                            &gt; Try zorbing<br />
-                            &gt; Go on a Murder Mystery Weekend<br />
-                            &gt; Form the ultimate Pub Quiz team<br />
-                            &gt; Learn to ballroom waltz, Jane Austen style<br />
-                            &gt; Go skinning dipping in a natural spa<br />
-                            &gt; Experiment with a faddy diet<br />
-                            &gt; Rent a remote cabin<br />
-                            &gt; Sleep under the stars<br />
-                            &gt; Watch a play in the West End every month
+	                        &gt; <a href="viewEvent.aspx?EID=395">Flight of fancy</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=658">Own an exotic pet</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=607">Watch the whole movie</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=15">Get high</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=638">Get behind the wheel</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=650">Cycle the round trip</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=34"></a>Snowboard Mont Blanc<br />
+                            &gt; <a href="viewEvent.aspx?EID=557">Do the Duke of Edinburgh</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=657"></a>Do some DIY<br />
+                            &gt; <a href="viewEvent.aspx?EID=578">Sweet music</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=741">Get into the swing</a><br />
+                            &gt; <a href="viewEvent.aspx?EID=523">Cycle to work</a>
                         </span>
+                        
                     </p>
 				</div>
 				

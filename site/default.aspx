@@ -416,7 +416,7 @@
                     <p class="teaser">
                         Start creating personal goals right now. <a href="register.aspx" title="get started">
                             Registering is fast, easy and free!</a></p>
-                    <div style="float: left; width: 100%; height: 216px; margin-top: 0px;">
+                    <div style="float: left; width: 100%; height: 216px; margin-top: 39px;">
                         <div style="width: 100%; height: 2px; background-color: #00BFFD;">
                         </div>
                         <div style="width: 100%;">
@@ -490,7 +490,7 @@
                     <p class="teaser">
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
-                    <div class="rotatorBackground" style="padding-top: 20px;">
+                    <div class="rotatorBackground" style="padding-top: 58px;">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
                             CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
                             <ItemTemplate>

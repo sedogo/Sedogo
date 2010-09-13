@@ -97,11 +97,18 @@
 			                OnClick="sendFeedbackButton_click" CssClass="button-lrg"></asp:LinkButton>
                     </div>
 
+                    <a href="faq.aspx">See frequently asked questions here</a>
+
 		        </div>
     			
 		    </div>
 		    <Sedogo:FooterControl ID="footerControl" runat="server" />
 	    </div>
+        <div id="modal-container">
+			<a href="#" class="close-modal"><img src="../images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background"></div>
    
     </div>
     </form>

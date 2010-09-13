@@ -230,9 +230,8 @@
                                 
                                     <table width="100%" cellpadding="0" cellspacing="0">
                                         <tr>
-                                            <td></td>
-                                            <td align="right">
-                                                <asp:DataList ID="dlImages" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
+                                            <td>
+                                                <asp:DataList ID="dlImages" runat="server" RepeatColumns="12" RepeatDirection="Horizontal"
                                                     DataKeyField="EventPictureID">
                                                     <ItemTemplate>
                                                         <div>

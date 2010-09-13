@@ -56,6 +56,7 @@ public partial class login : System.Web.UI.Page
         int redirectUserTimelineID = -1;
         int redirectEventID = -1;
         string redirectPage = "";
+        string redirectPageDetails = "";
         int redirectReplyID = -1;
 
         if (Request.QueryString["UID"] != null)
@@ -101,6 +102,10 @@ public partial class login : System.Web.UI.Page
         if (Request.QueryString["Redirect"] != null)
         {
             redirectPage = (string)Request.QueryString["Redirect"];
+            if (Request.QueryString["Details"] != null)
+            {
+                redirectPageDetails = (string)Request.QueryString["Details"];
+            }
         }
 
         HttpCookie cookie = new HttpCookie("SedogoLoginEmailAddress");
@@ -196,6 +201,7 @@ public partial class login : System.Web.UI.Page
                 else if (redirectPage == "AddEvent")
                 {
                     Session["PageRedirect"] = "AddEvent";
+                    Session["PageRedirectDetails"] = redirectPageDetails;
 
                     string url = "./profileRedirect.aspx";
                     Response.Redirect(url);

@@ -88,6 +88,10 @@ function popupCalendarRangeEndDate(image)
     }
     <%=CalendarRangeEndDate.ClientObjectId%>.Show(image);    
 }
+function preSaveClick()
+{
+    document.forms[0].target = "_top";
+}
 </script>
 	
 </head>
@@ -362,7 +366,7 @@ function popupCalendarRangeEndDate(image)
         <div class="buttons">
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="save" Text="Save" 
-                OnClick="saveChangesButton_click" CssClass="button-lrg" />
+                OnClick="saveChangesButton_click" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
         </div>
     
     </div>

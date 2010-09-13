@@ -268,6 +268,42 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         }
                     }
                     //createSimilarEventLink.Visible = true;
+
+                    // Get the image count - if zero, hide the link
+                    int imageCount = 0;
+                    SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+                    try
+                    {
+                        conn.Open();
+
+                        SqlCommand cmd = new SqlCommand("", conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "spSelectEventPictureList";
+                        cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                        DbDataReader rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            imageCount++;
+                            //int eventPictureID = int.Parse(rdr["EventPictureID"].ToString());
+                        }
+                        rdr.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    if (imageCount > 0)
+                    {
+                        morePicturesButton.Visible = true;
+                    }
+                    else
+                    {
+                        morePicturesButton.Visible = false;
+                    }
                 }
                 else
                 {
@@ -490,12 +526,12 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
             PopulateComments(eventID, sedogoEvent.userID);
 
-            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            SqlConnection conn2 = new SqlConnection((string)Application["connectionString"]);
             try
             {
-                conn.Open();
+                conn2.Open();
 
-                SqlCommand cmd = new SqlCommand("spSelectEventPictureList", conn);
+                SqlCommand cmd = new SqlCommand("spSelectEventPictureList", conn2);
                 cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 90;
@@ -512,7 +548,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
             finally
             {
-                conn.Close();
+                conn2.Close();
             }
         }
     }

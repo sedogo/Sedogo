@@ -284,7 +284,7 @@ public partial class morePictures : System.Web.UI.Page
                             break;
                     }
 
-                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:150px; float:left; margin:0 10px 0 0\" "));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:150px; float:left; margin:0 10px 10px 0\" "));
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("onMouseOver=\"setColor('colourBar_" + loopEventID.ToString() + "','" + timelineColour + "'); "
                         + "setColor('colourBar2_" + loopEventID.ToString() + "','#EEEEEE');\" "));
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("onMouseOut=\"setColor('colourBar_" + loopEventID.ToString() + "','#FFFFFF');"
@@ -303,7 +303,7 @@ public partial class morePictures : System.Web.UI.Page
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("</div>"));
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()
                         + "\"><img width=\"100\" src=\"/assets/eventPics/" + loopEvent.eventPicPreview + "\"/></a>"));
-                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<span id=\"colourBar_" + loopEventID.ToString() + "\"><img src=\"/images/1x1trans.gif\" height=\"6px\" width=\"150px\" ></span> "));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<span id=\"colourBar_" + loopEventID.ToString() + "\"><img src=\"/images/1x1trans.gif\" height=\"6px\" width=\"100px\" ></span> "));
                     if (loopEvent.eventAchieved == true)
                     {
                         albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()

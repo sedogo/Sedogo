@@ -194,7 +194,8 @@ public partial class sendUserMessage : SedogoPage
                 }
             }
 
-            Response.Redirect("message.aspx");
+            Response.Redirect("userTimeline.aspx?UID=" + messageToUserID.ToString());
+            //Response.Redirect("message.aspx");
         }
     }
 }

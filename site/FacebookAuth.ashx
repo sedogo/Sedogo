@@ -166,7 +166,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         user.gender = facebookUser["gender"] != null ? ((string) facebookUser["gender"] == "male" ? "M" : "F") : "M";
         if (facebookUser["timezone"] != null)
         {
-            user.timezoneID = GetTimezoneId(context, Convert.ToInt32(facebookUser["timezone"]));
+            user.timezoneID = GetTimezoneId(context, Convert.ToInt32(facebookUser["timezone"]), user.fullName);
         }
         user.facebookUserID = id;
         user.Add();
@@ -194,7 +194,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         context.Response.Redirect(returnUrl, false);
     }
 
-    private static int GetTimezoneId(HttpContext context, int gmtOffset)
+    private static int GetTimezoneId(HttpContext context, int gmtOffset, string fullName)
     {
         var timezoneList = new Dictionary<int, int>();
         using (var conn = new SqlConnection((string) context.Application["connectionString"]))
@@ -215,7 +215,24 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
                 }
             }
         }
-        return timezoneList.ToList().Find(x => x.Value == gmtOffset).Key;
+        if (timezoneList.Values.Contains(gmtOffset))
+        {
+            return timezoneList.ToList().Find(x => x.Value == gmtOffset).Key;
+        }
+        var timezone = GetTimezone(gmtOffset, fullName);
+        return timezone.timezoneID;
+    }
+
+    private static SedogoTimezone GetTimezone(int gmtOffset, string fullName)
+    {
+        var timezone = new SedogoTimezone(fullName)
+                           {
+                               GMTOffset = gmtOffset,
+                               description = TimeZoneInfo.GetSystemTimeZones().Where(x => x.BaseUtcOffset.TotalHours == gmtOffset).First().Id,
+                               shortCode = "UTC" + (gmtOffset < 0 ? "-" + gmtOffset : (gmtOffset > 0 ? "+" + gmtOffset : string.Empty))
+                           };
+        timezone.Add();
+        return timezone;
     }
 
     private static void SendRegisterEmail(string emailAddress, string fullName, string password)

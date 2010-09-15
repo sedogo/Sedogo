@@ -17,7 +17,6 @@ public class StringHelper
     /// <returns>Password</returns>
     public static string GenerateRandomPassword()
     {
-        global::System.TimeZoneInfo.FindSystemTimeZoneById("-1");
         var rnd = new Random();
         string[] s = {
                              "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 

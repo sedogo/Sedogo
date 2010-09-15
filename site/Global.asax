@@ -1,6 +1,7 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="System.Xml.XPath" %>
 <%@ Import Namespace="Sedogo.BusinessObjects" %>
+<%@ Import Namespace="System.IO" %>
 
 <script runat="server">
 
@@ -23,8 +24,8 @@
         GlobalSettings.errorLogFile = (string)Application["ErrorLogFile"];
         GlobalSettings.errorLogLevel = (logMessageLevel)int.Parse(Application["ErrorLogLevel"].ToString());
 
-        XPathDocument document = new XPathDocument(Server.MapPath(Application["SystemRootPath"] + "/version.xml"));
-        XPathNavigator navigator = document.CreateNavigator();
+        var document = new XPathDocument(Path.Combine(Server.MapPath(Application["SystemRootPath"] as string), "version.xml"));
+        var navigator = document.CreateNavigator();
         string strVersionNumber = navigator.SelectSingleNode("/version/number").Value;
         string strBuildNumber = navigator.SelectSingleNode("/version/build").Value;
         string strBuildDate = navigator.SelectSingleNode("/version/date").Value;

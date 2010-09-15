@@ -33,9 +33,8 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         }
         catch (Exception ex)
         {
-            Sedogo.BusinessObjects.ErrorLog errorLog = new Sedogo.BusinessObjects.ErrorLog();
-            errorLog.WriteLog("FacebookAuth", "ProcessRequest", ex.Message, 
-                Sedogo.BusinessObjects.logMessageLevel.errorMessage);
+            var errorLog = new ErrorLog();
+            errorLog.WriteLog("FacebookAuth", "ProcessRequest", ex.Message, logMessageLevel.errorMessage);
 
             context.Response.Redirect("~/default.aspx", false);
         }
@@ -110,11 +109,11 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         else
         {
             //Note: Old version. Made by Nikita. Redicrects to register page.
-            context.Session.Add("facebookUserAccessToken", accessToken);
-            context.Response.Redirect("~/register.aspx?from=facebook", false);    
+            //context.Session.Add("facebookUserAccessToken", accessToken);
+            //context.Response.Redirect("~/register.aspx?from=facebook", false);    
             
             //Note: New version. Register user right here and redirect to the home page.
-            //RegisterNewUser(accessToken, context, id);
+            RegisterNewUser(accessToken, context, id);
         }
         
     }
@@ -123,8 +122,14 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
     {
         string password;
         var user = CreateUser(accessToken, context, id, out password);
-        SendRegisterEmail(user.emailAddress, string.Format("{0} {1}", user.firstName, user.lastName), password);
-        RedirectToHomePage(context, user);
+        SendRegisterEmail(user.emailAddress, user.fullName, password);
+        
+        context.Session.Add("loggedInUserID", user.userID);
+        context.Session.Add("loggedInUserFirstName", user.firstName);
+        context.Session.Add("loggedInUserLastName", user.lastName);
+        context.Session.Add("loggedInUserEmailAddress", user.emailAddress);
+        context.Session.Add("loggedInUserFullName", user.fullName);
+        context.Response.Redirect("~/profileRedirect.aspx", false);
     }
 
     private static SedogoUser CreateUser(string accessToken, HttpContext context, long id, out string password)
@@ -166,13 +171,17 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         user.gender = facebookUser["gender"] != null ? ((string) facebookUser["gender"] == "male" ? "M" : "F") : "M";
         if (facebookUser["timezone"] != null)
         {
-            user.timezoneID = GetTimezoneId(context, Convert.ToInt32(facebookUser["timezone"]), user.fullName);
+            var gmtOffset = facebookUser["timezone"] is int ? (int) facebookUser["timezone"] : 0;
+            user.timezoneID = GetTimezoneId(context, gmtOffset, user.fullName);
         }
         user.facebookUserID = id;
         user.Add();
 
         password = StringHelper.GenerateRandomPassword();
         user.UpdatePassword(password);
+
+        user.loginEnabled = true;
+        user.Update();
         return user;
     }
 

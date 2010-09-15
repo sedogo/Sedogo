@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "site", "D:\Projects\Sedogo\site\", "{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		ProjectReferences = "{5E398C45-A480-4546-92DA-79DD26FADB8A}|BusinessObjects.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/site"
+		Debug.AspNetCompiler.PhysicalPath = "D:\Projects\Sedogo\site\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\site\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/site"
+		Release.AspNetCompiler.PhysicalPath = "D:\Projects\Sedogo\site\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\site\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2445"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "D:\Projects\Sedogo\BusinessObjects\BusinessObjects.csproj", "{5E398C45-A480-4546-92DA-79DD26FADB8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E398C45-A480-4546-92DA-79DD26FADB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

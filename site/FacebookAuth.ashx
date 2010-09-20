@@ -192,15 +192,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         context.Session.Add("loggedInUserLastName", suser.lastName);
         context.Session.Add("loggedInUserEmailAddress", suser.emailAddress);
         context.Session.Add("loggedInUserFullName", suser.firstName + " " + suser.lastName);
-        var returnUrl = "~/profileRedirect.aspx";
-        if(context.Request.Cookies["facebookLoginReturnUrl"]!=null)
-        {
-// ReSharper disable PossibleNullReferenceException
-            returnUrl = HttpUtility.UrlDecode(context.Request.Cookies["facebookLoginReturnUrl"].Value);
-// ReSharper restore PossibleNullReferenceException
-        }
-
-        context.Response.Redirect(returnUrl, false);
+        context.Response.Redirect("~/profileRedirect.aspx", false);
     }
 
     private static int GetTimezoneId(HttpContext context, int gmtOffset, string fullName)

@@ -87,24 +87,25 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         if (suser.ReadUserDetailsByFacebookUserID(id))
         {
             //there is a user with this facebook id
-            var checkResult = suser.VerifyLogin(suser.emailAddress, suser.userPassword, true, true, "FacebookAuth.ashx");
-            switch (checkResult)
-            {
-                case loginResults.passwordExpired:
-                case loginResults.loginSuccess:
-                    {
-                        RedirectToHomePage(context, suser);
-                    }
-                    break;
-                case loginResults.loginFailed:
-                    context.Response.Write("<p>Username or password is not correct.</p>");
-                    context.Response.Write("<a href=\"" + MiscUtils.GetAbsoluteUrl("~/default.aspx") + "\">Sedogo</a>");
-                    break;
-                case loginResults.loginNotActivated:
-                    context.Response.Write("<p>This account has not yet been activated, please check your email.</p>");
-                    context.Response.Write("<a href=\"" + MiscUtils.GetAbsoluteUrl("~/default.aspx") + "\">Sedogo</a>");
-                    break;
-            }
+            //var checkResult = suser.VerifyLogin(suser.emailAddress, suser.userPassword, true, true, "FacebookAuth.ashx");
+            //switch (checkResult)
+            //{
+            //    case loginResults.passwordExpired:
+            //    case loginResults.loginSuccess:
+            //        {
+            //            RedirectToHomePage(context, suser);
+            //        }
+            //        break;
+            //    case loginResults.loginFailed:
+            //        context.Response.Write("<p>Username or password is not correct.</p>");
+            //        context.Response.Write("<a href=\"" + MiscUtils.GetAbsoluteUrl("~/default.aspx") + "\">Sedogo</a>");
+            //        break;
+            //    case loginResults.loginNotActivated:
+            //        context.Response.Write("<p>This account has not yet been activated, please check your email.</p>");
+            //        context.Response.Write("<a href=\"" + MiscUtils.GetAbsoluteUrl("~/default.aspx") + "\">Sedogo</a>");
+            //        break;
+            //}
+            RedirectToHomePage(context, suser);
         }
         else
         {
@@ -123,13 +124,8 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         string password;
         var user = CreateUser(accessToken, context, id, out password);
         SendRegisterEmail(user.emailAddress, user.fullName, password);
-        
-        context.Session.Add("loggedInUserID", user.userID);
-        context.Session.Add("loggedInUserFirstName", user.firstName);
-        context.Session.Add("loggedInUserLastName", user.lastName);
-        context.Session.Add("loggedInUserEmailAddress", user.emailAddress);
-        context.Session.Add("loggedInUserFullName", user.fullName);
-        context.Response.Redirect("~/profileRedirect.aspx", false);
+
+        RedirectToHomePage(context, user);
     }
 
     private static SedogoUser CreateUser(string accessToken, HttpContext context, long id, out string password)
@@ -255,10 +251,18 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         emailBodyCopy.AppendLine("  <table width=\"692\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">");
         emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
         emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-        emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo</h1>");
-        emailBodyCopy.AppendLine("			<p>Your password: " + password + "</p>");
+        emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo!</h1>");
+        emailBodyCopy.AppendLine("			<p>Your login details are:</p>");
+        emailBodyCopy.AppendLine("			<p>Username: " + emailAddress + "</p>");
+        emailBodyCopy.AppendLine("			<pPassword: " + password + "</p>");
         emailBodyCopy.AppendLine("			<br /><br />");
-        emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
+        emailBodyCopy.AppendLine("			<p>Now you can start creating goals, sharing them with others and building your personal timeline at <a href=\"http://www.sedogo.com\">http://www.sedogo.com</a>");
+        emailBodyCopy.AppendLine("			<br /><br />");
+        emailBodyCopy.AppendLine("			<p>Fancy a challenge right now? Download our new Sedogo iPhone app from the app store.");
+        emailBodyCopy.AppendLine("			<br /><br />");
+        emailBodyCopy.AppendLine("			<p>Have fun."); 
+        emailBodyCopy.AppendLine("			<br /><br />");
+        emailBodyCopy.AppendLine("			<a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
         emailBodyCopy.AppendLine("			<br /></td>");
         emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"30\"></td></tr></table></body></html>");
 

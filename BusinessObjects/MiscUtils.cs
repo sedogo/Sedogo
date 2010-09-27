@@ -197,6 +197,15 @@ namespace Sedogo.BusinessObjects
             thumbnailFileName = "";
             previewFileName = "";
 
+            // Just for the goal comments, if the image is smaller than 500, leave it at its
+            // original size
+            System.Drawing.Image sourceImagePreview = System.Drawing.Image.FromFile(fileStoreFolderTemp + @"\" + filename);
+            if (sourceImagePreview.Width < previewSize)
+            {
+                previewSize = sourceImagePreview.Width;
+            }
+            sourceImagePreview.Dispose();
+
             int thumbnailStatus = GenerateThumbnail(fileStoreFolderTemp,
                 filename, thumbnailSize, thumbnailSize, previewSize, previewSize,
                 out thumbnailFileName, out previewFileName);

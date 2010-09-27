@@ -679,7 +679,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         outputText = outputText + "<br/>";
                     }
-                    outputText = outputText + "<img src=\"../assets/eventPics/" + eventImagePreview + "\" /><br/>";
+                    outputText = outputText + "<img src=\"../assets/eventPics/" + eventImagePreview + "\" ";
+                    outputText = outputText + " /><br/>";
                 }
                 if (eventVideoLink != "")
                 {

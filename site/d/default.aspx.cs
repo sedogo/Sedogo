@@ -166,6 +166,7 @@ public partial class d_default : System.Web.UI.Page
                     string profilePicThumbnail = "";
                     //string birthday = "";
                     string homeTown = "";
+                    int avatarNumber = -1;
 
                     int userID = int.Parse(rdr["UserID"].ToString());
                     if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
@@ -188,6 +189,10 @@ public partial class d_default : System.Web.UI.Page
                     {
                         homeTown = (string)rdr["HomeTown"];
                     }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                    {
+                        avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                    }
 
                     Literal userLink = new Literal();
 
@@ -195,7 +200,15 @@ public partial class d_default : System.Web.UI.Page
                     userLink.Text += "<tr><td width=\"50\">";
                     if (profilePicThumbnail == "")
                     {
-                        userLink.Text += "<img src=\"../images/profile/blankProfile.jpg\" />";
+                        if (avatarNumber > 0)
+                        {
+                            userLink.Text += "<img src=\"../images/avatars/avatar" + avatarNumber.ToString() + ".gif\" />";
+                        }
+                        else
+                        {
+                            userLink.Text += "<img src=\"../images/avatars/avatar1.gif\" />";
+                            //userLink.Text += "<img src=\"../images/profile/blankProfile.jpg\" />";
+                        }
                     }
                     else
                     {

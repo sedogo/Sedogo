@@ -27,6 +27,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Net.Mail;
 using System.Text;
 using System.Globalization;
+using Telerik.Web.UI;
 using Sedogo.BusinessObjects;
 using Newtonsoft.Json.Linq;
 
@@ -95,6 +96,25 @@ public partial class register : System.Web.UI.Page
 
             if (Request.QueryString["from"] == "facebook")
                 FillControlsWithDetailsFromFacebook();
+
+            RadComboBoxItem avatarItem1 = new RadComboBoxItem("Avatar 1", "1");
+            avatarItem1.ImageUrl = "/images/avatars/avatar1.gif";
+            avatarComboBox.Items.Add(avatarItem1);
+            RadComboBoxItem avatarItem2 = new RadComboBoxItem("Avatar 2", "2");
+            avatarItem2.ImageUrl = "/images/avatars/avatar2.gif";
+            avatarComboBox.Items.Add(avatarItem2);
+            RadComboBoxItem avatarItem3 = new RadComboBoxItem("Avatar 3", "3");
+            avatarItem3.ImageUrl = "/images/avatars/avatar3.gif";
+            avatarComboBox.Items.Add(avatarItem3);
+            RadComboBoxItem avatarItem4 = new RadComboBoxItem("Avatar 4", "4");
+            avatarItem4.ImageUrl = "/images/avatars/avatar4.gif";
+            avatarComboBox.Items.Add(avatarItem4);
+            RadComboBoxItem avatarItem5 = new RadComboBoxItem("Avatar 5", "5");
+            avatarItem5.ImageUrl = "/images/avatars/avatar5.gif";
+            avatarComboBox.Items.Add(avatarItem5);
+            RadComboBoxItem avatarItem6 = new RadComboBoxItem("Avatar 6", "6");
+            avatarItem6.ImageUrl = "/images/avatars/avatar6.gif";
+            avatarComboBox.Items.Add(avatarItem6);
 
             SetFocus(firstNameTextBox);
         }
@@ -253,6 +273,7 @@ public partial class register : System.Web.UI.Page
                 {
                 }
                 //Nikita Knyazev. Facebook Authentication. Finish
+                newUser.avatarNumber = int.Parse(avatarComboBox.SelectedValue);
                 newUser.Add();
 
                 newUser.UpdatePassword(userPassword);

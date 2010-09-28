@@ -116,6 +116,13 @@ function termsClientValidation(source, args)
                     </li>
                     <div class="pinstripe-divider">&nbsp;</div>
                     <li>
+                        <label for="">Avatar image</label><br />
+                        <telerik:RadComboBox ID="avatarComboBox" CssClass="ComboBox" runat="server" 
+                            Height="200px" Width="200px">
+                            </telerik:RadComboBox>
+                    </li>
+                    <div class="pinstripe-divider">&nbsp;</div>
+                    <li>
                         <label for="">Date of birth</label>
                         <asp:DropDownList ID="dateOfBirthDay" runat="server">
                         </asp:DropDownList><asp:DropDownList ID="dateOfBirthMonth" runat="server">

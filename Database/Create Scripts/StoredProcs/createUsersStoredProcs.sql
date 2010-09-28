@@ -41,6 +41,7 @@ CREATE Procedure spAddUser
 	@LanguageID					int,
 	@TimezoneID					int,
 	@ProfileText				nvarchar(200),
+	@AvatarNumber				int,
 	@CreatedDate				datetime,
 	@CreatedByFullName			nvarchar(200),
 	@LastUpdatedDate			datetime,
@@ -69,6 +70,7 @@ BEGIN
 		PasswordExpiryDate,
 		LastLoginDate,
 		EnableSendEmails,
+		AvatarNumber,
 		CreatedDate,
 		CreatedByFullName,
 		LastUpdatedDate,
@@ -95,6 +97,7 @@ BEGIN
 		NULL,	-- PasswordExpiryDate
 		NULL,	-- LastLoginDate
 		1,		-- EnableSendEmails
+		@AvatarNumber,
 		@CreatedDate,
 		@CreatedByFullName,
 		@LastUpdatedDate,
@@ -129,7 +132,7 @@ AS
 BEGIN
 	SELECT GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
-		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,
+		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails, AvatarNumber,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
 	FROM Users
@@ -155,7 +158,7 @@ CREATE Procedure spSelectUserList
 AS
 BEGIN
 	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
-		HomeTown, Birthday, ProfileText, TimezoneID,
+		HomeTown, Birthday, ProfileText, TimezoneID, AvatarNumber,
 		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
@@ -193,6 +196,7 @@ CREATE Procedure spUpdateUser
 	@TimezoneID						int,
 	@LoginEnabled					bit,
 	@EnableSendEmails				bit,
+	@AvatarNumber					int,
 	@LastUpdatedDate				datetime,
 	@LastUpdatedByFullName			nvarchar(200),
 	@FacebookUserID					bigint
@@ -211,6 +215,7 @@ BEGIN
 		ProfileText				= @ProfileText,
 		LoginEnabled			= @LoginEnabled,
 		EnableSendEmails		= @EnableSendEmails,
+		AvatarNumber			= @AvatarNumber,
 		LastUpdatedDate			= @LastUpdatedDate,
 		LastUpdatedByFullName	= @LastUpdatedByFullName,
 		FacebookUserID			= @FacebookUserID
@@ -520,7 +525,7 @@ CREATE Procedure spSelectUsersWithLastName
 AS
 BEGIN
 	SELECT UserID, EmailAddress, FirstName, LastName, Gender, CountryID, LanguageID,
-		HomeTown, Birthday, ProfileText, TimezoneID,
+		HomeTown, Birthday, ProfileText, TimezoneID, AvatarNumber,
 		ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview, EnableSendEmails,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
@@ -552,7 +557,7 @@ AS
 BEGIN
 	SELECT UserID,GUID, EmailAddress, FirstName, LastName, Gender, Deleted, DeletedDate,
 		HomeTown, Birthday, ProfilePicFilename, ProfilePicThumbnail, ProfilePicPreview,
-		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails,
+		ProfileText, CountryID, LanguageID, TimezoneID, EnableSendEmails, AvatarNumber,
 		LoginEnabled, UserPassword, FailedLoginCount, PasswordExpiryDate, LastLoginDate,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName, FacebookUserID
 	FROM Users

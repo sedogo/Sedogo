@@ -96,11 +96,28 @@ public partial class sendMessageToTrackers : SedogoPage
                     profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
                 }
                 //string profilePicPreview = (string)rdr["ProfilePicPreview"];
+                int avatarNumber = -1;
+                if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                {
+                    avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                }
 
                 string profileImagePath = "./images/profile/blankProfile.jpg";
                 if (profilePicThumbnail != "")
                 {
                     profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                }
+                else
+                {
+                    if (avatarNumber > 0)
+                    {
+                        profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                    }
+                    else
+                    {
+                        profileImagePath = "./images/avatars/avatar1.gif";
+                        //profileImagePath = "./images/profile/blankProfile.jpg";
+                    }
                 }
 
                 CheckBox trackerCheckBox = new CheckBox();

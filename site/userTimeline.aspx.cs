@@ -111,7 +111,15 @@ public partial class userTimeline : SedogoPage
             }
             else
             {
-                userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
+                if (user.avatarNumber > 0)
+                {
+                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + ".gif";
+                }
+                else
+                {
+                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar1.gif";
+                    //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
+                }
             }
             userProfileThumbnailPic.Attributes.Add("style", "float: right; margin: 0 0 8px 12px");
             userProfilePopupMessageLink.NavigateUrl = "sendUserMessage.aspx?EID=-1&UID=" + viewUserID.ToString();

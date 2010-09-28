@@ -63,7 +63,15 @@ public partial class sidebar : System.Web.UI.UserControl
                 }
                 else
                 {
-                    profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    if (user.avatarNumber > 0)
+                    {
+                        profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + ".gif";
+                    }
+                    else
+                    {
+                        profileImage.ImageUrl = "~/images/avatars/avatar1.gif";
+                        //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    }
                 }
                 profileImage.ToolTip = user.fullName + "'s profile picture";
                 myProfileTextLabel.NavigateUrl = "~/userProfile.aspx?UID=" + userID.ToString();

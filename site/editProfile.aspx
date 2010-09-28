@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -116,6 +117,13 @@ function setHiddenDateField()
                                                 <asp:RequiredFieldValidator ID="lastNameTextBoxValidator" runat="server"
                                                 ControlToValidate="lastNameTextBox" ErrorMessage="A last name is required" Display="Dynamic">
                                                 </asp:RequiredFieldValidator>
+                                        </li>
+                                        <div class="pinstripe-divider">&nbsp;</div>
+                                        <li>
+                                            <label for="">Avatar image</label><br />
+                                            <telerik:RadComboBox ID="avatarComboBox" CssClass="ComboBox" runat="server" 
+                                                Height="200px" Width="200px">
+                                                </telerik:RadComboBox>
                                         </li>
                                         <div class="pinstripe-divider">&nbsp;</div>
                                         <li>

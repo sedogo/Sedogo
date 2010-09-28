@@ -42,6 +42,7 @@ CREATE TABLE Users
 	ProfilePicThumbnail				nvarchar(200)		NULL,
 	ProfilePicPreview				nvarchar(200)		NULL,
 	ProfileText						nvarchar(200)		NULL,
+	AvatarNumber					int					NULL,
 
 	Deleted							bit				    NOT NULL,
 	DeletedDate						datetime		    NULL,

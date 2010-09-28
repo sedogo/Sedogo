@@ -432,7 +432,8 @@ END
 GO
 
 CREATE Procedure spSelectFullEventListIncludingAchievedByCategory
-	@UserID			int
+	@UserID			int,
+	@ShowPrivate	bit
 AS
 BEGIN
 	SELECT EventID, UserID, EventName, DateType, StartDate, RangeStartDate, RangeEndDate,
@@ -443,6 +444,7 @@ BEGIN
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Events
 	WHERE Deleted = 0
+	AND ( (@ShowPrivate = 1) OR (@ShowPrivate = 0 AND PrivateEvent = 0) )
 	AND UserID = @UserID
 	
 	UNION 
@@ -457,6 +459,7 @@ BEGIN
 	JOIN TrackedEvents T
 	ON E.EventID = T.EventID
 	WHERE E.Deleted = 0
+	AND ( (@ShowPrivate = 1) OR (@ShowPrivate = 0 AND E.PrivateEvent = 0) )
 	AND E.EventAchieved = 0
 	AND T.UserID = @UserID
 	AND T.ShowOnTimeline = 1
@@ -784,7 +787,7 @@ BEGIN
 	SELECT C.EventCommentID, C.PostedByUserID, C.CommentText, 
 		C.EventImageFilename, C.EventImagePreview, C.EventVideoFilename, C.EventVideoLink, C.EventLink,
 		C.CreatedDate, C.CreatedByFullName, C.LastUpdatedDate, C.LastUpdatedByFullName,
-		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview
+		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber
 	FROM EventComments C
 	JOIN Users U
 	ON C.PostedByUserID = U.UserID
@@ -1255,7 +1258,7 @@ BEGIN
 	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
 		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.Birthday,
-		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview
+		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber
 	FROM TrackedEvents T
 	JOIN Users U
 	ON T.UserID = U.UserID
@@ -1470,7 +1473,7 @@ BEGIN
 		E.EventPicPreview, E.CategoryID, E.DateType, E.StartDate,
 		E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday, 
 		E.EventDescription, E.MustDo, E.EventVenue,
-		U.FirstName, U.LastName, U.ProfilePicThumbnail
+		U.FirstName, U.LastName, U.ProfilePicThumbnail, U.AvatarNumber
 	FROM TrackedEvents T
 	JOIN Events E
 	ON T.EventID = E.EventID

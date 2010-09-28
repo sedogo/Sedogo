@@ -590,6 +590,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string eventVideoFilename = "";
                 string eventVideoLink = "";
                 string eventLink = "";
+                int avatarNumber = -1;
 
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CommentText")))
                 {
@@ -643,13 +644,29 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     eventLink = (string)rdr["EventLink"];
                 }
-
+                if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                {
+                    avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                }
+                
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
                 string profileImage = "./images/profile/blankProfile.jpg";
                 if (profilePicThumbnail != "")
                 {
                     profileImage = "./assets/profilePics/" + profilePicThumbnail;
+                }
+                else
+                {
+                    if (avatarNumber > 0)
+                    {
+                        profileImage = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                    }
+                    else
+                    {
+                        profileImage = "./images/avatars/avatar1.gif";
+                        //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    }
                 }
 
                 string outputText = "<p style=\"clear:both;border:solid 0px blue;width:499px;padding-top:15px\"><img src=\"" + profileImage + "\" width=\"17\" style=\"margin-right:4px\" />&nbsp;";
@@ -882,11 +899,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
                     }
+                    int avatarNumber = -1;
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                    {
+                        avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                    }
 
                     string profileImagePath = "./images/profile/blankProfile.jpg";
                     if (profilePicThumbnail != "")
                     {
                         profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                    }
+                    else
+                    {
+                        if (avatarNumber > 0)
+                        {
+                            profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                        }
+                        else
+                        {
+                            profileImagePath = "./images/avatars/avatar1.gif";
+                            //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
+                        }
                     }
 
                     string outputText = "<p>"

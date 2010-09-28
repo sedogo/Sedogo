@@ -26,6 +26,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Text;
 using System.Globalization;
+using Telerik.Web.UI;
 using Sedogo.BusinessObjects;
 
 public partial class editProfile : SedogoPage
@@ -85,6 +86,25 @@ public partial class editProfile : SedogoPage
                 throw ex;
             }
 
+            RadComboBoxItem avatarItem1 = new RadComboBoxItem("Avatar 1", "1");
+            avatarItem1.ImageUrl = "/images/avatars/avatar1.gif";
+            avatarComboBox.Items.Add(avatarItem1);
+            RadComboBoxItem avatarItem2 = new RadComboBoxItem("Avatar 2", "2");
+            avatarItem2.ImageUrl = "/images/avatars/avatar2.gif";
+            avatarComboBox.Items.Add(avatarItem2);
+            RadComboBoxItem avatarItem3 = new RadComboBoxItem("Avatar 3", "3");
+            avatarItem3.ImageUrl = "/images/avatars/avatar3.gif";
+            avatarComboBox.Items.Add(avatarItem3);
+            RadComboBoxItem avatarItem4 = new RadComboBoxItem("Avatar 4", "4");
+            avatarItem4.ImageUrl = "/images/avatars/avatar4.gif";
+            avatarComboBox.Items.Add(avatarItem4);
+            RadComboBoxItem avatarItem5 = new RadComboBoxItem("Avatar 5", "5");
+            avatarItem5.ImageUrl = "/images/avatars/avatar5.gif";
+            avatarComboBox.Items.Add(avatarItem5);
+            RadComboBoxItem avatarItem6 = new RadComboBoxItem("Avatar 6", "6");
+            avatarItem6.ImageUrl = "/images/avatars/avatar6.gif";
+            avatarComboBox.Items.Add(avatarItem6);
+
             firstNameTextBox.Text = user.firstName;
             lastNameTextBox.Text = user.lastName;
             homeTownTextBox.Text = user.homeTown;
@@ -106,6 +126,14 @@ public partial class editProfile : SedogoPage
             headlineTextBox.Text = user.profileText;
             timezoneDropDownList.SelectedValue = user.timezoneID.ToString();
             enableEmailCheckbox.Checked = user.enableSendEmails;
+            if (user.avatarNumber > 0)
+            {
+                avatarComboBox.SelectedValue = user.avatarNumber.ToString();
+            }
+            else
+            {
+                avatarComboBox.SelectedValue = "1";
+            }
 
             if (user.profilePicThumbnail != "")
             {
@@ -113,7 +141,15 @@ public partial class editProfile : SedogoPage
             }
             else
             {
-                profileImage.ImageUrl = "~/images/profile/blankProfilePreview.jpg";
+                if (user.avatarNumber > 0)
+                {
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + ".gif";
+                }
+                else
+                {
+                    profileImage.ImageUrl = "~/images/avatars/avatar1.gif";
+                    //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                }
             }
             profileImage.ToolTip = user.fullName + "'s profile picture";
 
@@ -163,6 +199,7 @@ public partial class editProfile : SedogoPage
         user.profileText = headlineTextBox.Text;
         user.timezoneID = int.Parse(timezoneDropDownList.SelectedValue);
         user.enableSendEmails = enableEmailCheckbox.Checked;
+        user.avatarNumber = int.Parse(avatarComboBox.SelectedValue);
         user.Update();
 
         Session["loggedInUserFirstName"] = user.firstName;

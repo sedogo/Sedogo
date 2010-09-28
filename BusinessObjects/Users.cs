@@ -63,6 +63,7 @@ namespace Sedogo.BusinessObjects
         private string      m_profilePicFilename = "";
         private string      m_profilePicThumbnail = "";
         private string      m_profilePicPreview = "";
+        private int         m_avatarNumber = -1;
         private string      m_gender = "U";
         private Boolean     m_deleted = false;
         private DateTime    m_deletedDate = DateTime.MinValue;
@@ -139,6 +140,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_profilePicPreview; }
             set { m_profilePicPreview = value; }
+        }
+        public int avatarNumber
+        {
+            get { return m_avatarNumber; }
+            set { m_avatarNumber = value; }
         }
         public string gender
         {
@@ -290,6 +296,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_profilePicPreview = (string)rdr["ProfilePicPreview"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                {
+                    m_avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
                 {
                     m_gender = (string)rdr["Gender"];
@@ -437,6 +447,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_profilePicPreview = (string)rdr["ProfilePicPreview"];
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("AvatarNumber")))
+                {
+                    m_avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("Gender")))
                 {
                     m_gender = (string)rdr["Gender"];
@@ -556,6 +570,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = m_countryID;
                 cmd.Parameters.Add("@LanguageID", SqlDbType.Int).Value = m_languageID;
                 cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
+                cmd.Parameters.Add("@AvatarNumber", SqlDbType.Int).Value = m_avatarNumber;
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@CreatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@CreatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;
@@ -618,6 +633,7 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add("@TimezoneID", SqlDbType.Int).Value = m_timezoneID;
                 cmd.Parameters.Add("@LoginEnabled", SqlDbType.Bit).Value = m_loginEnabled;
                 cmd.Parameters.Add("@EnableSendEmails", SqlDbType.Bit).Value = m_enableSendEmails;
+                cmd.Parameters.Add("@AvatarNumber", SqlDbType.Int).Value = m_avatarNumber;
                 cmd.Parameters.Add("@ProfileText", SqlDbType.NVarChar, 200).Value = m_profileText;
                 cmd.Parameters.Add("@LastUpdatedDate", SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@LastUpdatedByFullName", SqlDbType.NVarChar, 200).Value = m_loggedInUser;

@@ -254,7 +254,7 @@ public class FacebookAuth : IHttpHandler, IRequiresSessionState {
         emailBodyCopy.AppendLine("			<h1>Thanks for registering with Sedogo!</h1>");
         emailBodyCopy.AppendLine("			<p>Your login details are:</p>");
         emailBodyCopy.AppendLine("			<p>Username: " + emailAddress + "</p>");
-        emailBodyCopy.AppendLine("			<pPassword: " + password + "</p>");
+        emailBodyCopy.AppendLine("			<p>Password: " + password + "</p>");
         emailBodyCopy.AppendLine("			<br /><br />");
         emailBodyCopy.AppendLine("			<p>Now you can start creating goals, sharing them with others and building your personal timeline at <a href=\"http://www.sedogo.com\">http://www.sedogo.com</a>");
         emailBodyCopy.AppendLine("			<br /><br />");

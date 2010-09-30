@@ -181,17 +181,18 @@ public partial class g_default : System.Web.UI.Page
                     //CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 
                     Literal userLink = new Literal();
-                    userLink.Text = "<div class=\"directory\">";
+                    userLink.Text = "<table><tr><td width=\"50\">";    // <div class=\"directory\">
                     if (eventPicThumbnail == "")
                     {
-                        userLink.Text += "<img src=\"../images/goalimage_small.jpg\" />";
+                        userLink.Text += "<img src=\"../images/1x1trans.gif\" width=\"50\" height=\"1\" />";
+                        //userLink.Text += "<img src=\"../images/goalimage_small.jpg\" />";
                     }
                     else
                     {
                         userLink.Text += "<img src=\"../assets/eventPics/" + eventPicThumbnail + "\" />";
                     }
-                    userLink.Text += "&nbsp;<a href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a>";
-                    userLink.Text += "</div>";
+                    userLink.Text += "</td><td>&nbsp;<a class=\"event\" href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a></td>";
+                    userLink.Text += "</tr></table>";
 
                     goalPlaceHolder.Controls.Add(userLink);
                 }

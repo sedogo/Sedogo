@@ -87,22 +87,22 @@ public partial class editProfile : SedogoPage
             }
 
             RadComboBoxItem avatarItem1 = new RadComboBoxItem("Avatar 1", "1");
-            avatarItem1.ImageUrl = "/images/avatars/avatar1.gif";
+            avatarItem1.ImageUrl = "/images/avatars/avatar1sm.gif";
             avatarComboBox.Items.Add(avatarItem1);
             RadComboBoxItem avatarItem2 = new RadComboBoxItem("Avatar 2", "2");
-            avatarItem2.ImageUrl = "/images/avatars/avatar2.gif";
+            avatarItem2.ImageUrl = "/images/avatars/avatar2sm.gif";
             avatarComboBox.Items.Add(avatarItem2);
             RadComboBoxItem avatarItem3 = new RadComboBoxItem("Avatar 3", "3");
-            avatarItem3.ImageUrl = "/images/avatars/avatar3.gif";
+            avatarItem3.ImageUrl = "/images/avatars/avatar3sm.gif";
             avatarComboBox.Items.Add(avatarItem3);
             RadComboBoxItem avatarItem4 = new RadComboBoxItem("Avatar 4", "4");
-            avatarItem4.ImageUrl = "/images/avatars/avatar4.gif";
+            avatarItem4.ImageUrl = "/images/avatars/avatar4sm.gif";
             avatarComboBox.Items.Add(avatarItem4);
             RadComboBoxItem avatarItem5 = new RadComboBoxItem("Avatar 5", "5");
-            avatarItem5.ImageUrl = "/images/avatars/avatar5.gif";
+            avatarItem5.ImageUrl = "/images/avatars/avatar5sm.gif";
             avatarComboBox.Items.Add(avatarItem5);
             RadComboBoxItem avatarItem6 = new RadComboBoxItem("Avatar 6", "6");
-            avatarItem6.ImageUrl = "/images/avatars/avatar6.gif";
+            avatarItem6.ImageUrl = "/images/avatars/avatar6sm.gif";
             avatarComboBox.Items.Add(avatarItem6);
 
             firstNameTextBox.Text = user.firstName;
@@ -143,11 +143,11 @@ public partial class editProfile : SedogoPage
             {
                 if (user.avatarNumber > 0)
                 {
-                    profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + ".gif";
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + "sm.gif";
                 }
                 else
                 {
-                    profileImage.ImageUrl = "~/images/avatars/avatar1.gif";
+                    profileImage.ImageUrl = "~/images/avatars/avatar1sm.gif";
                     //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
                 }
             }

@@ -202,11 +202,11 @@ public partial class d_default : System.Web.UI.Page
                     {
                         if (avatarNumber > 0)
                         {
-                            userLink.Text += "<img src=\"../images/avatars/avatar" + avatarNumber.ToString() + ".gif\" />";
+                            userLink.Text += "<img src=\"../images/avatars/avatar" + avatarNumber.ToString() + "sm.gif\" />";
                         }
                         else
                         {
-                            userLink.Text += "<img src=\"../images/avatars/avatar1.gif\" />";
+                            userLink.Text += "<img src=\"../images/avatars/avatar1sm.gif\" />";
                             //userLink.Text += "<img src=\"../images/profile/blankProfile.jpg\" />";
                         }
                     }

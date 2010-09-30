@@ -213,6 +213,36 @@ public partial class _default : System.Web.UI.Page
         }
     }
 
+    protected void dlMember_ItemDataBound(Object sender, DataListItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item ||
+            e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+
+            // Retrieve the Label control in the current DataListItem.
+            Image profilePicImage = (Image)e.Item.FindControl("profilePicImage");
+
+            string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[12].ToString();
+            int userID = int.Parse(((DataRowView)e.Item.DataItem).Row.ItemArray[0].ToString());
+
+            if (profilePicThumbnail != "")
+            {
+                profilePicImage.ImageUrl = "assets/profilePics/" + profilePicThumbnail;
+            }
+            else
+            {
+                profilePicImage.ImageUrl = "images/avatars/avatar1sm.gif";
+                //images/profile/blankProfile.jpg
+            }
+            profilePicImage.Height = 33;
+            profilePicImage.Width = 33;
+            profilePicImage.Style.Add("cursor", "pointer");
+            profilePicImage.Style.Add("padding-bottom", "6px");
+            profilePicImage.Style.Add("padding-right", "6px");
+            profilePicImage.Attributes.Add("onmouseover", "ShowHideDiv(" + userID.ToString() + ")");
+        }
+    }
+
     //===============================================================
     // Function: GetRotatorDataSource
     //===============================================================

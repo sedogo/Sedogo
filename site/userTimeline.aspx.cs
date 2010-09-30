@@ -113,11 +113,11 @@ public partial class userTimeline : SedogoPage
             {
                 if (user.avatarNumber > 0)
                 {
-                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + ".gif";
+                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + "sm.gif";
                 }
                 else
                 {
-                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar1.gif";
+                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar1sm.gif";
                     //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
                 }
             }

@@ -67,7 +67,7 @@
     </table>
     <table width="100%" border="0">
         <tr>
-            <td rowspan="2">
+            <td>
                 <table border="0" cellspacing="2" cellpadding="2">
                     <tr>
                         <td>
@@ -136,7 +136,7 @@
         <tr>
             <td>
                 <div style="margin-left: 2px;">
-                    <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
+                    <asp:DataList ID="dlMember" runat="server" RepeatColumns="12" RepeatDirection="Horizontal"
                         DataKeyField="EventID">
                         <ItemTemplate>
                             <div>
@@ -190,6 +190,7 @@
                     </asp:DataList>
                 </div>
             </td>
+            <td></td>
             <td align="right">
                 <div class="userProfileBox" style="text-align:left; width:192px">
                     <fieldset>

@@ -2,8 +2,12 @@
 Begin DataProject = "Database"
    MSDTVersion = "80"
    Begin Folder = "Change Scripts"
-      Script = "Coords column in Events table.sql"
-      Script = "facebook user ID column in Users table.sql"
+      Begin Folder = "V001_to_V010"
+         Script = "Coords column in Events table.sql"
+         Script = "facebook user ID column in Users table.sql"
+      End
+      Begin Folder = "V010_to_V011"
+      End
    End
    Begin Folder = "Create Scripts"
       Begin Folder = "CreateDatabase"

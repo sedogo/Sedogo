@@ -130,6 +130,11 @@ public partial class profile : SedogoPage
                 }
             }
 
+            if (user.profilePicFilename == "" && user.avatarNumber < 0)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"setProfileImage.aspx\");", true);
+            }
+
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));
         }
     }

@@ -428,7 +428,7 @@
                         </div>
                         <div style="margin-left: 2px; margin-top: 28px;">
                             <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
-                                DataKeyField="UserId">
+                                DataKeyField="UserId" OnItemDataBound="dlMember_ItemDataBound">
                                 <ItemTemplate>
                                     <div>
                                         <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
@@ -477,9 +477,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
-                                            alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                            onerror="this.src='images/profile/blankProfile.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "userId") %>)" /></div>
+                                        <asp:Image ID="profilePicImage" runat="server" /></div>
                                 </ItemTemplate>
                             </asp:DataList></div>
                     </div>

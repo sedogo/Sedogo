@@ -660,11 +660,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     if (avatarNumber > 0)
                     {
-                        profileImage = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                        profileImage = "./images/avatars/avatar" + avatarNumber.ToString() + "sm.gif";
                     }
                     else
                     {
-                        profileImage = "./images/avatars/avatar1.gif";
+                        profileImage = "./images/avatars/avatar1sm.gif";
                         //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
                     }
                 }
@@ -914,11 +914,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         if (avatarNumber > 0)
                         {
-                            profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                            profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + "sm.gif";
                         }
                         else
                         {
-                            profileImagePath = "./images/avatars/avatar1.gif";
+                            profileImagePath = "./images/avatars/avatar1sm.gif";
                             //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
                         }
                     }

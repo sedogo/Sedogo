@@ -111,11 +111,11 @@ public partial class sendMessageToTrackers : SedogoPage
                 {
                     if (avatarNumber > 0)
                     {
-                        profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + ".gif";
+                        profileImagePath = "./images/avatars/avatar" + avatarNumber.ToString() + "sm.gif";
                     }
                     else
                     {
-                        profileImagePath = "./images/avatars/avatar1.gif";
+                        profileImagePath = "./images/avatars/avatar1sm.gif";
                         //profileImagePath = "./images/profile/blankProfile.jpg";
                     }
                 }

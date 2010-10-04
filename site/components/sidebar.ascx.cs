@@ -69,7 +69,28 @@ public partial class sidebar : System.Web.UI.UserControl
                     }
                     else
                     {
-                        profileImage.ImageUrl = "~/images/avatars/avatar1sm.gif";
+                        if (user.gender == "M")
+                        {
+                            // 1,2,5
+                            int avatarID = 5;
+                            switch ((userID % 6))
+                            {
+                                case 0: case 1: avatarID = 1; break;
+                                case 2: case 3: avatarID = 2; break;
+                            }
+                            profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            // 3,4,6
+                            int avatarID = 6;
+                            switch ((userID % 6))
+                            {
+                                case 0: case 1: avatarID = 3; break;
+                                case 2: case 3: avatarID = 4; break;
+                            }
+                            profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
                         //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
                     }
                     profileImage.Height = 50;

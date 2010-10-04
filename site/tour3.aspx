@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="forgotPassword.aspx.cs" Inherits="forgotPassword" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="tour3.aspx.cs" Inherits="tour3" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 
@@ -14,7 +14,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Forgot password : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Tour : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -40,34 +40,23 @@
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server" target="_top">
+    <form id="form1" runat="server">
     <div>
-
+    
 	    <div id="modal">
-            <h1>Forgot your password?</h1>
-            <p>Enter your email address below and we will create a new password and email it to you</p>
-            <br />
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Email address</label>
-                        <asp:TextBox runat="server"
-                            ID="emailAddressTextBox" Width="200px" MaxLength="200" />
-                            <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
-                            runat="server" ControlToValidate="emailAddressTextBox" 
-                            ErrorMessage="The email address is not valid" 
-                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-                    </li>
-                </ol>
-            </fieldset>
+            <p><a href="tour.aspx"><b>1</b></a>&nbsp;&nbsp;<a href="tour2.aspx"><b>2</b></a>&nbsp;&nbsp;<b>3</b>&nbsp;&nbsp;<a href="tour4.aspx"><b>4</b></a>&nbsp;&nbsp;<a href="tour5.aspx"><b>5</b></a></p> 
+            <div style="padding:10px 50px">
+            <h2>Invite people to share your goal...</h2>
+            <img src="images/Tour3image.jpg" />
+            </div>
 		</div>
     
-        <div class="buttons">
-            <asp:LinkButton 
-                ID="forgotPasswordButton" runat="server" ToolTip="Reset password" Text="Reset password" 
-                OnClick="forgotPasswordButton_click" CssClass="button-lrg" />
+        <div id="tourButtonLeft">
+        <a href="tour2.aspx"><img src="images/buttonL.jpg" /></a>
         </div>
-    
+        <div id="tourButtonRight">
+        <a href="tour4.aspx"><img src="images/buttonR.jpg" /></a>
+        </div>
     </div>
     </form>
 

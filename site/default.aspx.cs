@@ -139,21 +139,11 @@ public partial class _default : System.Web.UI.Page
             timelineStartDate1.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");     // "Jan 08 2010 00:00:00 GMT"
             timelineStartDate2.Text = timelineStartDate.ToString("MMM dd yyyy HH:MM:ss 'GMT'");
 
-            //what.Attributes.Add("onkeypress", "checkAddButtonEnter(event);");
-
-            //searchButton1.Attributes.Add("onmouseover", "this.src='images/addButtonRollover.png'");
-            //searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
-            //searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
-            //searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
-
-            //SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-            sidebarControl.userID = -1;
-            //sidebarControl.user = user;
-
             eventRotator.DataSource = GetRotatorDataSource();
             eventRotator.DataBind();
 
             BindLatestMembers();
+            PopulateLatestSearches();
 
             DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
             try
@@ -178,6 +168,47 @@ public partial class _default : System.Web.UI.Page
             {
                 conn.Close();
             }
+        }
+    }
+
+    //===============================================================
+    // Function: PopulateLatestSearches
+    //===============================================================
+    private void PopulateLatestSearches()
+    {
+        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        try
+        {
+            conn.Open();
+
+            SqlCommand cmdLatestEvents = new SqlCommand("", conn);
+            cmdLatestEvents.CommandType = CommandType.StoredProcedure;
+            cmdLatestEvents.CommandText = "spSelectLatestEventsDefaultPage";
+            DbDataReader rdrLatestEvents = cmdLatestEvents.ExecuteReader();
+            while (rdrLatestEvents.Read())
+            {
+                int eventID = int.Parse(rdrLatestEvents["EventID"].ToString());
+                string eventName = (string)rdrLatestEvents["EventName"];
+
+                HyperLink eventHyperlink = new HyperLink();
+                eventHyperlink.Text = eventName;
+                eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
+                eventHyperlink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
+                eventHyperlink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
+
+                goalsAddedPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsAddedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+            }
+            rdrLatestEvents.Close();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            conn.Close();
         }
     }
 
@@ -218,7 +249,6 @@ public partial class _default : System.Web.UI.Page
         if (e.Item.ItemType == ListItemType.Item ||
             e.Item.ItemType == ListItemType.AlternatingItem)
         {
-
             // Retrieve the Label control in the current DataListItem.
             Image profilePicImage = (Image)e.Item.FindControl("profilePicImage");
 
@@ -231,8 +261,29 @@ public partial class _default : System.Web.UI.Page
             }
             else
             {
-                profilePicImage.ImageUrl = "images/avatars/avatar1sm.gif";
-                //images/profile/blankProfile.jpg
+                SedogoUser user = new SedogoUser("", userID);
+                if (user.gender == "M")
+                {
+                    // 1,2,5
+                    int avatarID = 5;
+                    switch ((userID % 6))
+                    {
+                        case 0: case 1: avatarID = 1; break;
+                        case 2: case 3: avatarID = 2; break;
+                    }
+                    profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                }
+                else
+                {
+                    // 3,4,6
+                    int avatarID = 6;
+                    switch ((userID % 6))
+                    {
+                        case 0: case 1: avatarID = 3; break;
+                        case 2: case 3: avatarID = 4; break;
+                    }
+                    profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                }
             }
             profilePicImage.Height = 33;
             profilePicImage.Width = 33;

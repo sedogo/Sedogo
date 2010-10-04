@@ -787,7 +787,8 @@ BEGIN
 	SELECT C.EventCommentID, C.PostedByUserID, C.CommentText, 
 		C.EventImageFilename, C.EventImagePreview, C.EventVideoFilename, C.EventVideoLink, C.EventLink,
 		C.CreatedDate, C.CreatedByFullName, C.LastUpdatedDate, C.LastUpdatedByFullName,
-		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber
+		U.FirstName, U.LastName, U.EmailAddress, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber,
+		U.Gender
 	FROM EventComments C
 	JOIN Users U
 	ON C.PostedByUserID = U.UserID
@@ -1258,7 +1259,7 @@ BEGIN
 	SELECT T.TrackedEventID, T.EventID, T.UserID, T.ShowOnTimeline, 
 		T.JoinPending, T.CreatedDate, T.LastUpdatedDate,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown, U.Birthday,
-		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber
+		U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber, U.Gender
 	FROM TrackedEvents T
 	JOIN Users U
 	ON T.UserID = U.UserID
@@ -1473,7 +1474,7 @@ BEGIN
 		E.EventPicPreview, E.CategoryID, E.DateType, E.StartDate,
 		E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday, 
 		E.EventDescription, E.MustDo, E.EventVenue,
-		U.FirstName, U.LastName, U.ProfilePicThumbnail, U.AvatarNumber
+		U.FirstName, U.LastName, U.ProfilePicThumbnail, U.AvatarNumber, U.Gender
 	FROM TrackedEvents T
 	JOIN Events E
 	ON T.EventID = E.EventID
@@ -2399,6 +2400,36 @@ CREATE Procedure spSelectLatestEvents
 AS
 BEGIN
 	SELECT TOP 4 EventID, UserID, EventName, EventVenue, DateType,
+		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
+		EventAchieved, EventAchievedDate,
+		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview
+	FROM Events
+	WHERE Deleted = 0
+	AND PrivateEvent = 0
+	AND EventAchieved = 0
+	ORDER BY CreatedDate DESC
+	
+END
+GO
+
+/*===============================================================
+// Function: spSelectLatestEventsDefaultPage
+// Description:
+//   Gets most recent events
+//=============================================================*/
+PRINT 'Creating spSelectLatestEventsDefaultPage...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectLatestEventsDefaultPage')
+BEGIN
+	DROP Procedure spSelectLatestEventsDefaultPage
+END
+GO
+
+CREATE Procedure spSelectLatestEventsDefaultPage
+AS
+BEGIN
+	SELECT TOP 10 EventID, UserID, EventName, EventVenue, DateType,
 		StartDate, RangeStartDate, RangeEndDate, BeforeBirthday,
 		EventAchieved, EventAchievedDate,
 		CategoryID, TimezoneID, EventPicFilename, EventPicThumbnail, EventPicPreview

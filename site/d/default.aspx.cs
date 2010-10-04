@@ -177,6 +177,7 @@ public partial class d_default : System.Web.UI.Page
                     {
                         lastName = (string)rdr["LastName"];
                     }
+                    string gender = (string)rdr["Gender"];
                     if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
                     {
                         profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
@@ -206,8 +207,28 @@ public partial class d_default : System.Web.UI.Page
                         }
                         else
                         {
-                            userLink.Text += "<img src=\"../images/avatars/avatar1sm.gif\" />";
-                            //userLink.Text += "<img src=\"../images/profile/blankProfile.jpg\" />";
+                            if (gender == "M")
+                            {
+                                // 1,2,5
+                                int avatarID = 5;
+                                switch ((userID % 6))
+                                {
+                                    case 0: case 1: avatarID = 1; break;
+                                    case 2: case 3: avatarID = 2; break;
+                                }
+                                userLink.Text += "<img src=\"../images/avatars/avatar" + avatarID.ToString() + "sm.gif\" />";
+                            }
+                            else
+                            {
+                                // 3,4,6
+                                int avatarID = 6;
+                                switch ((userID % 6))
+                                {
+                                    case 0: case 1: avatarID = 3; break;
+                                    case 2: case 3: avatarID = 4; break;
+                                }
+                                userLink.Text += "<img src=\"../images/avatars/avatar" + avatarID.ToString() + "sm.gif\" />";
+                            }
                         }
                     }
                     else

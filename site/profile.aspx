@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="profile.aspx.cs" Inherits="profile" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="profile.aspx.cs" Inherits="profile" %>
 
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
@@ -326,6 +326,12 @@
             </div>
             <div id="other-content">
                 <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                <div id="welcomeMessageDiv" runat="server"><h2>Welcome to your lifes timeline</h2>
+                <p class="teaser">Now you've joined, it's time to add your first goal. It can be big or small. 
+                Just click 'Add goal' at the top and you're away. If you can't think of one, why not 
+                make 'Adding a goal' your goal. It could be the very first goal you achieve 
+                (and the beginning of much greater things…).</p>
+                <a href="addEvent.aspx" class="modal">Add you're first goal here</a><p>&nbsp;</p></div>
                 <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
             </div>
             <Sedogo:FooterControl ID="footerControl" runat="server" />

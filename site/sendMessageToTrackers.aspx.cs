@@ -88,7 +88,7 @@ public partial class sendMessageToTrackers : SedogoPage
                 int userID = int.Parse(rdr["UserID"].ToString());
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
-                //string gender = (string)rdr["Gender"];
+                string gender = (string)rdr["Gender"];
                 //string homeTown = (string)rdr["HomeTown"];
                 //string emailAddress = (string)rdr["EmailAddress"];
                 if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
@@ -115,8 +115,28 @@ public partial class sendMessageToTrackers : SedogoPage
                     }
                     else
                     {
-                        profileImagePath = "./images/avatars/avatar1sm.gif";
-                        //profileImagePath = "./images/profile/blankProfile.jpg";
+                        if (gender == "M")
+                        {
+                            // 1,2,5
+                            int avatarID = 5;
+                            switch ((userID % 6))
+                            {
+                                case 0: case 1: avatarID = 1; break;
+                                case 2: case 3: avatarID = 2; break;
+                            }
+                            profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            // 3,4,6
+                            int avatarID = 6;
+                            switch ((userID % 6))
+                            {
+                                case 0: case 1: avatarID = 3; break;
+                                case 2: case 3: avatarID = 4; break;
+                            }
+                            profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
                     }
                 }
 

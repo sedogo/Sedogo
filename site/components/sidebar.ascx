@@ -6,21 +6,6 @@
 function changeClass(id, newClass)
 {
     document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
-
-    //sidebarControl_messageCountLink
-    //sidebarControl_alertCountLink
-    //sidebarControl_inviteCountLink
-    //sidebarControl_goalJoinRequestsLink
-    //sidebarControl_trackingCountLink
-    //sidebarControl_groupGoalsLink
-    //sidebarControl_addressBookLink
-     
-    
-    //alert("Params: " + id + ":" + newClass);
-    //element = document.getElementById(id);
-    //alert(element);
-    //event.cancelBubble = true;
-    //element.style.className = newClass;
 }
 </script>
 

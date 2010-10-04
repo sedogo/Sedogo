@@ -130,6 +130,17 @@ public partial class profile : SedogoPage
                 }
             }
 
+            int eventCountNotAchieved = SedogoEvent.GetEventCountNotAchieved(userID);
+            int eventCountAchieved = SedogoEvent.GetEventCountAchieved(userID);
+            if( eventCountNotAchieved == 0 && eventCountAchieved == 0 )
+            {
+                welcomeMessageDiv.Visible = true;
+            }
+            else
+            {
+                welcomeMessageDiv.Visible = false;
+            }
+
             if (user.profilePicFilename == "" && user.avatarNumber < 0)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"setProfileImage.aspx\");", true);

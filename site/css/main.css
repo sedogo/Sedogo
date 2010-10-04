@@ -29,6 +29,10 @@ a
 	color: #0cf;
 	outline: none
 }
+a.grey
+{
+	color: #9b9885;
+}
 img 
 {
 	border: none
@@ -266,6 +270,12 @@ input#bannerAddFindControl_what2:focus {
 	font-weight: bold;
 	width: 232px
 }
+.bannerLoginSignup
+{
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 12px
+}
 .teaser 
 {
 	font-size: 14px;
@@ -399,6 +409,11 @@ img.profile
 	float:left;
 	padding: 0 10px 0 6px;
 	background: url(../images/account-options.gif) no-repeat right 8px;
+}
+#account-options li.iphone
+{
+	padding: 0 0 0 6px;
+	background: white;
 }
 #account-options li.help, #account-options li.login, #account-options li.sign-up
 {
@@ -1564,3 +1579,48 @@ a.underline-bold {
 
 a.event{color:#00CDFF; text-decoration:none;}
 a.event:hover{color:#00CDFF;  background-color:#F0F0ED; text-decoration:none;}
+
+#tourButtonLeft
+{
+	position:absolute;
+	left:0px;
+	top:360px;
+}
+#tourButtonRight
+{
+	position:absolute;
+	left:545px;
+	top:360px;
+}
+
+a.signuprollover 
+{
+	display: block;
+	width: 143px;
+	height: 47px;
+	text-decoration: none;
+	background: url("/images/signup.jpg");
+}
+a.signuprollover:hover 
+{
+	background-position: -143px 0;
+}
+a.takethetourrollover 
+{
+	display: block;
+	width: 219px;
+	height: 47px;
+	text-decoration: none;
+	background: url("/images/takethetour.jpg");
+}
+a.takethetourrollover:hover 
+{
+	background-position: -219px 0;
+}
+.displace 
+{
+	position: absolute;
+	left: -5000px;
+}
+
+

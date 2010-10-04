@@ -56,8 +56,28 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             }
             else
             {
-                profileImage.ImageUrl = "~/images/avatars/avatar1.gif";
-                //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                if (user.gender == "M")
+                {
+                    // 1,2,5
+                    int avatarID = 5;
+                    switch ((userID % 6))
+                    {
+                        case 0: case 1: avatarID = 1; break;
+                        case 2: case 3: avatarID = 2; break;
+                    }
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                }
+                else
+                {
+                    // 3,4,6
+                    int avatarID = 6;
+                    switch ((userID % 6))
+                    {
+                        case 0: case 1: avatarID = 3; break;
+                        case 2: case 3: avatarID = 4; break;
+                    }
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                }
             }
         }
         profileImage.ToolTip = user.fullName + "'s profile picture";

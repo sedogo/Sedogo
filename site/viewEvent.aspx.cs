@@ -648,6 +648,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
                 }
+                string gender = (string)rdr["Gender"];
                 
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
@@ -664,8 +665,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     }
                     else
                     {
-                        profileImage = "./images/avatars/avatar1sm.gif";
-                        //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                        if (gender == "M")
+                        {
+                            // 1,2,5
+                            int avatarID = 5;
+                            switch ((postedByUserID % 6))
+                            {
+                                case 0: case 1: avatarID = 1; break;
+                                case 2: case 3: avatarID = 2; break;
+                            }
+                            profileImage = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            // 3,4,6
+                            int avatarID = 6;
+                            switch ((postedByUserID % 6))
+                            {
+                                case 0: case 1: avatarID = 3; break;
+                                case 2: case 3: avatarID = 4; break;
+                            }
+                            profileImage = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
                     }
                 }
 
@@ -790,7 +811,41 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     }
                     else
                     {
-                        profileImagePath = "./images/profile/miniProfile.jpg";
+                        SedogoUser trackingUser = new SedogoUser("", userID);
+
+                        if (trackingUser.avatarNumber > 0)
+                        {
+                            profileImagePath = "./images/avatars/avatar" + trackingUser.avatarNumber.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            if (trackingUser.gender == "M")
+                            {
+                                // 1,2,5
+                                int avatarID = 5;
+                                switch ((userID % 6))
+                                {
+                                    case 0:
+                                    case 1: avatarID = 1; break;
+                                    case 2:
+                                    case 3: avatarID = 2; break;
+                                }
+                                profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                            }
+                            else
+                            {
+                                // 3,4,6
+                                int avatarID = 6;
+                                switch ((userID % 6))
+                                {
+                                    case 0:
+                                    case 1: avatarID = 3; break;
+                                    case 2:
+                                    case 3: avatarID = 4; break;
+                                }
+                                profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                            }
+                        }
                     }
 
                     string outputText = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"200\"><tr>"
@@ -895,6 +950,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     int userID = int.Parse(rdr["UserID"].ToString());
                     string firstName = (string)rdr["FirstName"];
                     string lastName = (string)rdr["LastName"];
+                    string gender = (string)rdr["Gender"];
                     if (!rdr.IsDBNull(rdr.GetOrdinal("ProfilePicThumbnail")))
                     {
                         profilePicThumbnail = (string)rdr["ProfilePicThumbnail"];
@@ -918,7 +974,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         }
                         else
                         {
-                            profileImagePath = "./images/avatars/avatar1sm.gif";
+                            if (gender == "M")
+                            {
+                                // 1,2,5
+                                int avatarID = 5;
+                                switch ((userID % 6))
+                                {
+                                    case 0: case 1: avatarID = 1; break;
+                                    case 2: case 3: avatarID = 2; break;
+                                }
+                                profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                            }
+                            else
+                            {
+                                // 3,4,6
+                                int avatarID = 6;
+                                switch ((userID % 6))
+                                {
+                                    case 0: case 1: avatarID = 3; break;
+                                    case 2: case 3: avatarID = 4; break;
+                                }
+                                profileImagePath = "./images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                            }
                             //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
                         }
                     }

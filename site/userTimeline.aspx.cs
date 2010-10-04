@@ -82,7 +82,6 @@ public partial class userTimeline : SedogoPage
             //*By Chetan
             timelineUserNameLiteral.Text = "&nbsp;&nbsp;" + viewUser.firstName + " " + viewUser.lastName;
 
-
             // Populate the profile popup
             usersProfileLinkNameLabel.Text = viewUser.fullName + "'s profile";
             usersProfileNameLabel.NavigateUrl = "~/userTimeline.aspx?UID=" + viewUserID.ToString();
@@ -117,8 +116,28 @@ public partial class userTimeline : SedogoPage
                 }
                 else
                 {
-                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar1sm.gif";
-                    //userProfileThumbnailPic.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    if (viewUser.gender == "M")
+                    {
+                        // 1,2,5
+                        int avatarID = 5;
+                        switch ((viewUserID % 6))
+                        {
+                            case 0: case 1: avatarID = 1; break;
+                            case 2: case 3: avatarID = 2; break;
+                        }
+                        userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
+                    else
+                    {
+                        // 3,4,6
+                        int avatarID = 6;
+                        switch ((viewUserID % 6))
+                        {
+                            case 0: case 1: avatarID = 3; break;
+                            case 2: case 3: avatarID = 4; break;
+                        }
+                        userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
                 }
             }
             userProfileThumbnailPic.Attributes.Add("style", "float: right; margin: 0 0 8px 12px");

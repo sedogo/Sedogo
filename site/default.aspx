@@ -271,8 +271,18 @@
                 }
             }
         }
-    
-    </script>
+    function changeClass(id, newClass)
+    {
+        document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
+    }
+    if (document.images)
+    {
+        button1 = new Image;
+        button2 = new Image;
+        button1.src = 'images/takethetour_over.jpg'
+        button2.src = 'signup_over.jpg'
+     }
+</script>
 
     <style type="text/css">
         .itemTemplate
@@ -318,7 +328,24 @@
     <div>
         <div id="container">
             <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
-            <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            
+            <div class="three-col">
+            <table border="0" cellspacing="10" cellpadding="0" align="right" width="300">
+                <tr>
+                    <td>&nbsp;</td>            
+                </tr>
+                <tr>
+                    <td><a href="register.aspx" class="signuprollover" title="signup"><span 
+                        class="displace">Signup</span></a></td> 
+                    <td>&nbsp;</td>            
+                    <td><p class="bannerLoginSignup">or</p></td>            
+                    <td>&nbsp;</td>            
+                    <td><a href="tour.aspx" class="takethetourrollover modal" title="takethetour"><span 
+                        class="displace">Signup</span></a></td>      
+                </tr>
+            </table>
+            </div>
+            
             <div id="timelines">
                 <div id="tools">
                     <ul class="timeline-options">
@@ -395,16 +422,25 @@
                     <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
             </div>
             <div id="other-content">
-                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                <div class="one-col">
+                <div class="latestGoals">
+                    
+                    <h2><asp:Label ID="Label1" runat="server" Text="Recent activity" /></h2>
+                    <asp:PlaceHolder ID="goalsAddedPlaceHolder" runat="server" />
+
+                </div>
+                </div>
             
                 <div class="one-col">
                     <h2 class="col-header">
-                        how does it work?</h2>
-                    <p class="teaser">
-                        Sedogo lets you create your own timeline of future goals and connect with others
-                        to make them happen.</p>
-                    <p>
-                        <a href="register.aspx" title="get started" class="button">get started</a></p>
+                        Fancy a challenge?</h2>
+                    <table>
+                        <tr>
+                            <td><img src="images/iphoneLogo.jpg" /></td>
+                            <td>&nbsp;</td>
+                            <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="#">Download here</a></p></td>
+                        </tr>
+                    </table>
                         
                     <div style="margin-top:20px">
                     <asp:Literal ID="homePageContent" runat="server"></asp:Literal>
@@ -501,6 +537,24 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="three-col">
+            <table border="0" cellspacing="10" cellpadding="0" align="right" width="300">
+                <tr>
+                    <td>&nbsp;</td>            
+                </tr>
+                <tr>
+                    <td><a href="register.aspx" class="signuprollover" title="signup"><span 
+                        class="displace">Signup</span></a></td> 
+                    <td>&nbsp;</td>            
+                    <td><p class="bannerLoginSignup">or</p></td>            
+                    <td>&nbsp;</td>            
+                    <td><a href="tour.aspx" class="takethetourrollover modal" title="takethetour"><span 
+                        class="displace">Signup</span></a></td>      
+                </tr>
+            </table>
+            </div>
+            
             <Sedogo:FooterControl ID="footerControl" runat="server" />
         </div>
         <div id="modal-container">

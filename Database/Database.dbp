@@ -7,6 +7,7 @@ Begin DataProject = "Database"
          Script = "facebook user ID column in Users table.sql"
       End
       Begin Folder = "V010_to_V011"
+         Script = "upgrade.sql"
       End
    End
    Begin Folder = "Create Scripts"

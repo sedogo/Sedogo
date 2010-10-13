@@ -141,6 +141,16 @@ public partial class message : SedogoPage
             {
                 eventID = int.Parse(row["EventID"].ToString());
             }
+            int parentMessageID = -1;
+            if (row["ParentMessageID"].ToString() != "")
+            {
+                parentMessageID = int.Parse(row["ParentMessageID"].ToString());
+            }
+            int messageID = -1;
+            if (row["MessageID"].ToString() != "")
+            {
+                messageID = int.Parse(row["MessageID"].ToString());
+            }
 
             int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
             SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
@@ -185,7 +195,31 @@ public partial class message : SedogoPage
 
             HyperLink sendReplyMessageButton = e.Item.FindControl("sendReplyMessageButton") as HyperLink;
             sendReplyMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + postedByUserID.ToString()
-                + "&EID=" + eventID.ToString();
+                + "&EID=" + eventID.ToString() + "&PMID=" + parentMessageID.ToString() + "&MID=" + messageID.ToString()
+                + "&Redir=Messages";
+
+            Repeater threadMessagesRepeater = e.Item.FindControl("threadMessagesRepeater") as Repeater;
+            try
+            {
+                SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "spSelectThreadedMessageList";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ParentMessageID", SqlDbType.Int).Value = messageID;
+                cmd.CommandTimeout = 90;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                threadMessagesRepeater.DataSource = ds;
+                threadMessagesRepeater.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 
@@ -205,6 +239,47 @@ public partial class message : SedogoPage
             int userID = int.Parse(Session["loggedInUserID"].ToString());
             PopulateMessageList(userID);
         }
+    }
+
+    //===============================================================
+    // Function: threadMessagesRepeater_ItemDataBound
+    //===============================================================
+    protected void threadMessagesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.DataItem != null &&
+            (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem))
+        {
+            DataRowView row = e.Item.DataItem as DataRowView;
+
+            int eventUserID = -1;
+            if (row["UserID"].ToString() != "")
+            {
+                eventUserID = int.Parse(row["UserID"].ToString());
+            }
+            int eventID = -1;
+            if (row["EventID"].ToString() != "")
+            {
+                eventID = int.Parse(row["EventID"].ToString());
+            }
+
+            int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
+            SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
+
+            Literal threadUserNameLabel = e.Item.FindControl("threadUserNameLabel") as Literal;
+
+            threadUserNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\" target=\"_top\">"
+                + messageFromUser.firstName + " " + messageFromUser.lastName + "</a> ";
+
+            Literal threadMessageLabel = e.Item.FindControl("threadMessageLabel") as Literal;
+            threadMessageLabel.Text = row["MessageText"].ToString();
+        }
+    }
+
+    //===============================================================
+    // Function: threadMessagesRepeater_ItemCommand
+    //===============================================================
+    protected void threadMessagesRepeater_ItemCommand(object sender, RepeaterCommandEventArgs e)
+    {
     }
 
     //===============================================================

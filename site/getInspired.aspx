@@ -126,9 +126,9 @@
                             &gt; <a href="viewEvent.aspx?EID=15">Get high</a><br />
                             &gt; <a href="viewEvent.aspx?EID=638">Get behind the wheel</a><br />
                             &gt; <a href="viewEvent.aspx?EID=650">Cycle the round trip</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=34"></a>Snowboard Mont Blanc<br />
+                            &gt; <a href="viewEvent.aspx?EID=34">Snowboard Mont Blanc</a><br />
                             &gt; <a href="viewEvent.aspx?EID=557">Do the Duke of Edinburgh</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=657"></a>Do some DIY<br />
+                            &gt; <a href="viewEvent.aspx?EID=657">Do some DIY</a><br />
                             &gt; <a href="viewEvent.aspx?EID=578">Sweet music</a><br />
                             &gt; <a href="viewEvent.aspx?EID=741">Get into the swing</a><br />
                             &gt; <a href="viewEvent.aspx?EID=523">Cycle to work</a>

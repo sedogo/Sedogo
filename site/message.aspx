@@ -96,6 +96,18 @@
                                                     <asp:Literal ID="messageLabel" runat="server" /></p>
                                                 </td>
                                             </tr>
+                                            <asp:Repeater ID="threadMessagesRepeater" runat="server" OnItemDataBound="threadMessagesRepeater_ItemDataBound"
+                                                OnItemCommand="threadMessagesRepeater_ItemCommand">
+                                                <ItemTemplate>
+                                                <tr>
+                                                    <td></td>
+                                                    <td width="300">
+                                                        <p style="margin-left:20px"><i><asp:Literal ID="threadUserNameLabel" runat="server" /></i><br />
+                                                        <asp:Literal ID="threadMessageLabel" runat="server" /></p>
+                                                    </td>
+                                                </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
                                         </table>
                                     </td>
                                     <td align="right" width="240">

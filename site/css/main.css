@@ -26,7 +26,7 @@ ul, ol
 a 
 {
 	text-decoration: none;
-	color: #0cf;
+    color: #0cf;
 	outline: none
 }
 a.grey
@@ -42,7 +42,8 @@ h2
 	/*background: #9b9885;*/
 	font-size: 16px;
 	font-weight: bold;
-	color: #0cf;
+	/*color: #0cf;*/
+	color: #666;
 	padding: 4px 4px 4px 0;
 	/*padding: 4px 12px;*/
 	/*margin-bottom: 18px;*/
@@ -264,17 +265,36 @@ input#bannerAddFindControl_what2:focus {
 	margin-bottom: 20px
 }
 
+/*
 .strapline 
 {
 	font-size: 14px;
 	font-weight: bold;
-	width: 232px
+	width: 232px;
 }
-.bannerLoginSignup
+*/
+.strapline 
 {
 	font-size: 14px;
 	font-weight: bold;
-	padding-top: 12px
+	width: 232px;
+	color: #666;
+}
+.strapline2
+{
+	font-size: 24px;
+	font-weight: bold;
+	width: 370px;
+	color: #666;
+}
+.bannerLoginSignup
+{
+	font-size: 24px;
+	font-weight: bold;
+	padding-top: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: #666;
 }
 .teaser 
 {
@@ -1249,7 +1269,7 @@ td.bottom-align {
 h2.col-header {
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
-	border-bottom: 2px solid #0cf;
+	/*border-bottom: 2px solid #0cf;*/
 	padding-left: 0;
 	margin-top: 0;
 	margin-bottom: 8px
@@ -1303,6 +1323,7 @@ li.achievedgoals a {
 	color: #0cf;
 	margin-top: 0;
 }
+/*
 .latestGoals a,
 .messages a,
 .alerts a,
@@ -1314,6 +1335,7 @@ li.achievedgoals a {
 .following a {
 	color: #9b9885;
 }
+*/
 .messages a span,
 .alerts a span,
 .invites a span,
@@ -1580,19 +1602,6 @@ a.underline-bold {
 a.event{color:#00CDFF; text-decoration:none;}
 a.event:hover{color:#00CDFF;  background-color:#F0F0ED; text-decoration:none;}
 
-#tourButtonLeft
-{
-	position:absolute;
-	left:0px;
-	top:360px;
-}
-#tourButtonRight
-{
-	position:absolute;
-	left:545px;
-	top:360px;
-}
-
 a.signuprollover 
 {
 	display: block;
@@ -1621,6 +1630,22 @@ a.takethetourrollover:hover
 {
 	position: absolute;
 	left: -5000px;
+}
+.tourSelected
+{
+	font-weight: bold;
+	font-family: Arial,Helvetica,Sans-serif;
+	font-size: 14px;
+	color: #000;
+	padding: 0 5px;
+}
+.tourNotSelected
+{
+	font-weight: bold;
+	font-family: Arial,Helvetica,Sans-serif;
+	font-size: 14px;
+    color: #0cf;
+	padding: 0 5px;
 }
 
 

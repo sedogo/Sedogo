@@ -153,6 +153,7 @@ CREATE TABLE Messages
 (
 	MessageID						int					NOT NULL PRIMARY KEY IDENTITY,
 	MessageGUID						uniqueidentifier	NOT NULL,
+	ParentMessageID					int					NULL,		-- For threaded messages
 	
 	EventID							int					NULL,		-- Null incase we add non-event messages
 	UserID							int					NOT NULL,

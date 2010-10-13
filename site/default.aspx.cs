@@ -192,6 +192,7 @@ public partial class _default : System.Web.UI.Page
 
                 HyperLink eventHyperlink = new HyperLink();
                 eventHyperlink.Text = eventName;
+                eventHyperlink.CssClass = "blue";
                 eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
                 eventHyperlink.Attributes.Add("onmouseover", "changeClass(this.id, 'sideBarBGHighlight')");
                 eventHyperlink.Attributes.Add("onmouseout", "changeClass(this.id, 'sideBarBGNormal')");
@@ -199,6 +200,7 @@ public partial class _default : System.Web.UI.Page
                 goalsAddedPlaceHolder.Controls.Add(eventHyperlink);
 
                 goalsAddedPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                goalsAddedPlaceHolder.Controls.Add(new LiteralControl("<div style=\"height:5px\"></div>"));
             }
             rdrLatestEvents.Close();
         }
@@ -252,7 +254,8 @@ public partial class _default : System.Web.UI.Page
             // Retrieve the Label control in the current DataListItem.
             Image profilePicImage = (Image)e.Item.FindControl("profilePicImage");
 
-            string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[12].ToString();
+            string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[13].ToString();
+            //string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[12].ToString();
             int userID = int.Parse(((DataRowView)e.Item.DataItem).Row.ItemArray[0].ToString());
 
             if (profilePicThumbnail != "")

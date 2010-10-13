@@ -20,3 +20,8 @@
 .inner_arrow_midbg{width: 368px; position: absolute; z-index: 1; height: 30px; overflow: hidden;}
 .goal_cat_bg_co14 {width:96px; float:left; text-align:center; padding:15px 0 0 0;}
 .timeline {float:left; width:946px; padding:0 14px; background-color:#e9fbff;color: #0cf;font-size: 18px; font-weight: bold;height: 27px; border-left: solid 1px #CCCCCC;border-right: solid 1px #CCCCCC;padding-top:3px;}
+.timelinelink
+{
+	font-size: 14px; 
+	font-weight:normal;
+}

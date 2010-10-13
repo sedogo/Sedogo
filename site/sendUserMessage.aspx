@@ -40,15 +40,11 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	
 <script language="JavaScript" type="text/javascript">
-    function preSaveClick()
-    {
-        document.forms[0].target = "_top";
-    }
 </script>
 	
 </head>
 <body>
-    <form id="form1" runat="server" target="_top">
+    <form id="form1" runat="server">
     <div>
     
     <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
@@ -87,7 +83,7 @@
         <div class="buttons">
             <asp:LinkButton 
                 ID="saveChangesButton" runat="server" ToolTip="Send message" Text="Send" 
-                OnClick="saveChangesButton_click" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
+                OnClick="saveChangesButton_click" CssClass="button-lrg" />
         </div>    
 
     </div>

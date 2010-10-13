@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<link href="css/cadialog.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">

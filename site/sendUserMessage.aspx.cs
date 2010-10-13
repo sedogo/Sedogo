@@ -42,8 +42,15 @@ public partial class sendUserMessage : SedogoPage
             if( eventID > 0 )
             {
                 goalNameDiv.Visible = true;
-                SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
-                eventNameLabel.Text = sedogoEvent.eventName;
+                try
+                {
+                    SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+                    eventNameLabel.Text = sedogoEvent.eventName;
+                }
+                catch
+                {
+                    eventNameLabel.Text = "";
+                }
             }
             else
             {
@@ -89,6 +96,21 @@ public partial class sendUserMessage : SedogoPage
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
             int messageToUserID = int.Parse(Request.QueryString["UID"]);
+            int parentMessageID = -1;
+            if( Request.QueryString["PMID"] != null )
+            {
+                parentMessageID = int.Parse(Request.QueryString["PMID"]);
+            }
+            int messageID = -1;
+            if( Request.QueryString["MID"] != null )
+            {
+                messageID = int.Parse(Request.QueryString["MID"]);
+            }
+            string redir = "";
+            if( Request.QueryString["Redir"] != null )
+            {
+                redir = (string)Request.QueryString["Redir"];
+            }
 
             string messageText = messageTextBox.Text;
 
@@ -97,6 +119,14 @@ public partial class sendUserMessage : SedogoPage
             message.eventID = eventID;
             message.postedByUserID = int.Parse(Session["loggedInUserID"].ToString());
             message.messageText = messageText;
+            if (parentMessageID > 0)
+            {
+                message.parentMessageID = parentMessageID;
+            }
+            else if (messageID > 0)
+            {
+                message.parentMessageID = messageID;
+            }
             message.Add();
 
             SedogoUser currentUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), int.Parse(Session["loggedInUserID"].ToString()));
@@ -192,10 +222,21 @@ public partial class sendUserMessage : SedogoPage
                     emailHistory.sentTo = messageToUser.emailAddress;
                     emailHistory.Add();
                 }
-            }
 
-            Response.Redirect("userTimeline.aspx?UID=" + messageToUserID.ToString());
-            //Response.Redirect("message.aspx");
+                if (redir == "Messages")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect",
+                        "parent.window.location='message.aspx';", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect",
+                        "parent.window.location='userTimeline.aspx?UID=" + messageToUserID.ToString() + "';", true);
+                }
+            }
+            else
+            {
+            }
         }
     }
 }

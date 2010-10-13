@@ -25,7 +25,7 @@
 	<asp:HyperLink ID="profileLink" runat="server" NavigateUrl="~/profile.aspx" 
 	    ToolTip="sedogo : home" ImageUrl="~/images/sedogo.gif" />
     </div>
-	<p class="strapline">
+	<p id="strapLineText" runat="server">
 	    Create your future and connect<br />
 	    with others to make it happen
 	</p>

@@ -88,13 +88,19 @@
                                     <td align="right">
                                         <p>
                                         <asp:Hyperlink ID="sendMessageButton"
-                                        runat="server" CssClass="modal" Text="Send message |" />
+                                        runat="server" CssClass="modal" Text="Send message" />
+                                        <asp:Label ID="seperator1" runat="server" Text=" | " Visible="false" />
                                         <asp:Hyperlink ID="viewProfileButton" 
-                                        runat="server" CssClass="" Text="View profile |" />
+                                        runat="server" CssClass="" Text="View profile" />
+                                        <asp:Label ID="seperator2" runat="server" Text=" | " Visible="false" />
                                         <asp:Hyperlink ID="editContactButton" 
-                                        runat="server" CssClass="modal" Text="Edit |" />
+                                        runat="server" CssClass="modal" Text="Edit" />
+                                        <asp:Label ID="seperator3" runat="server" Text=" | " Visible="false" />
                                         <asp:Hyperlink ID="deleteContactButton" 
                                         runat="server" CssClass="" Text="Delete" />
+                                        <asp:Label ID="seperator4" runat="server" Text=" | " Visible="false" />
+                                        <asp:Hyperlink ID="addToAddressBookButton" 
+                                        runat="server" CssClass="" Text="Add to address book" />
                                         </p>
                                     </td>
                                 </tr>

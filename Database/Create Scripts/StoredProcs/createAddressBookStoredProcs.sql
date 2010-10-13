@@ -101,10 +101,46 @@ CREATE Procedure spSelectAddressBookList
 	@UserID		int
 AS
 BEGIN
-	SELECT AddressBookID, FirstName, LastName, EmailAddress
+	CREATE TABLE #TempAddressBook (
+		UserID int, 
+		AddressBookID int, 
+		FirstName nvarchar(200), 
+		LastName nvarchar(200), 
+		EmailAddress nvarchar(200)
+	)
+
+	INSERT INTO #TempAddressBook
+	(
+		UserID, AddressBookID, FirstName, LastName, EmailAddress
+	)
+	SELECT -1 AS UserID, AddressBookID, FirstName, LastName, EmailAddress
 	FROM AddressBook
 	WHERE UserID = @UserID
+	
+	UNION
+	
+	SELECT DISTINCT(T.UserID) AS UserID, -1 AS AddressBookID, U.FirstName, U.LastName, U.EmailAddress
+	FROM Events E
+	JOIN TrackedEvents T
+	ON E.EventID = T.EventID
+	JOIN Users U
+	ON U.UserID = T.UserID
+	WHERE E.UserID = @UserID
+	
+	DELETE #TempAddressBook
+	WHERE UserID < 0
+	AND EmailAddress IN
+	(
+		SELECT EmailAddress
+		FROM #TempAddressBook
+		WHERE UserID > 0
+	) 
+	
+	SELECT UserID, AddressBookID, FirstName, LastName, EmailAddress
+	FROM #TempAddressBook
 	ORDER BY LastName
+	
+	DROP TABLE #TempAddressBook
 END
 GO
 

@@ -31,6 +31,7 @@ namespace Sedogo.BusinessObjects
     public class Message
     {
         private int         m_messageID = -1;
+        private int         m_parentMessageID = -1;
         private int         m_eventID = -1;
         private int         m_userID = -1;
         private int         m_postedByUserID = -1;
@@ -44,6 +45,11 @@ namespace Sedogo.BusinessObjects
 
         private string      m_loggedInUser = "";
 
+        public int parentMessageID
+        {
+            get { return m_parentMessageID; }
+            set { m_parentMessageID = value; }
+        }
         public int messageID
         {
             get { return m_messageID; }
@@ -132,6 +138,10 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add(param);
                 DbDataReader rdr = cmd.ExecuteReader();
                 rdr.Read();
+                if (!rdr.IsDBNull(rdr.GetOrdinal("ParentMessageID")))
+                {
+                    m_parentMessageID = int.Parse(rdr["ParentMessageID"].ToString());
+                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
                 {
                     m_eventID = int.Parse(rdr["EventID"].ToString());
@@ -199,6 +209,7 @@ namespace Sedogo.BusinessObjects
                 SqlCommand cmd = new SqlCommand("spAddMessage", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
+                cmd.Parameters.Add("@ParentMessageID", SqlDbType.Int).Value = m_parentMessageID;
                 cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = m_eventID;
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
                 cmd.Parameters.Add("@PostedByUserID", SqlDbType.Int).Value = m_postedByUserID;

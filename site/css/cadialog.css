@@ -1,0 +1,30 @@
+﻿.dialog
+{
+	border:solid 3px #0cf;
+	height:400px;
+	width:630px;
+	background-color:white;	/*#ECECD9;*/
+}
+.contentCss
+{
+	/*border:solid 3px #0cf;*/
+}
+
+.tourButtonLeft
+{
+	position:absolute;
+	left:0px;
+	top:340px;
+}
+.tourButtonRight
+{
+	position:absolute;
+	left:577px;
+	top:340px;
+}
+.tourButtonClose
+{
+	position:absolute;
+	left:570px;
+	top:10px;
+}

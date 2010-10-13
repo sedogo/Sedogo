@@ -72,6 +72,16 @@ public partial class components_bannerLogin : System.Web.UI.UserControl
                 loggedInAsLi.Visible = false;
                 logoutLi.Visible = false;
             }
+
+            string sPath = System.Web.HttpContext.Current.Request.Url.AbsolutePath;
+            if (sPath == "/default.aspx")
+            {
+                strapLineText.Attributes.Add("class", "strapline2");
+            }
+            else
+            {
+                strapLineText.Attributes.Add("class", "strapline");
+            }
         }
     }
 }

@@ -56,8 +56,8 @@
 
     <table border="0" cellspacing="10" cellpadding="0" width="100%" class="add-find">
         <tr>
-            <td><h3 class="blue"><asp:HyperLink ID="addLink" runat="server" Text="Add" /></h3>
-                <p class="blue">to my goal list</p>
+            <td><h3 class="blue"><asp:HyperLink ID="addLink" runat="server" Text="Add goal" /></h3>
+                <p class="blue">to my timeline</p>
                 <asp:Panel ID="Panel1" DefaultButton="" runat="server">
                     <table border="0" cellspacing="0" cellpadding="0">
                         <tr>
@@ -71,8 +71,8 @@
                     </table>
                 </asp:Panel>
             </td>
-            <td><h3 class="blue"><asp:LinkButton ID="findButton" runat="server" Text="Find" OnClick="searchButton2_click" /></h3>
-                <p class="blue">people with my goals</p>
+            <td><h3 class="blue"><asp:LinkButton ID="findButton" runat="server" Text="Find people" OnClick="searchButton2_click" /></h3>
+                <p class="blue">with my goals</p>
                 <asp:Panel ID="Panel2" DefaultButton="searchButton2" runat="server">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>

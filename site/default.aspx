@@ -3,6 +3,7 @@
 <%@ OutputCache Location="None" VaryByParam="None" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
@@ -36,6 +37,7 @@
 	<![endif]-->
     <link href="css/flexcrollstyles.css" rel="stylesheet" />
     <link href="css/tutorsty.css" rel="stylesheet" />
+    <link href="css/cadialog.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
 
@@ -275,13 +277,57 @@
     {
         document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
     }
+    function showTour1()
+    {
+        tourDialog2.Close();
+        tourDialog3.Close();
+        tourDialog4.Close();
+        tourDialog5.Close();
+        tourDialog1.Show();
+    }
+    function showTour2()
+    {
+        tourDialog1.Close();
+        tourDialog3.Close();
+        tourDialog4.Close();
+        tourDialog5.Close();
+        tourDialog2.Show();
+    }
+    function showTour3()
+    {
+        tourDialog1.Close();
+        tourDialog2.Close();
+        tourDialog4.Close();
+        tourDialog5.Close();
+        tourDialog3.Show();
+    }
+    function showTour4()
+    {
+        tourDialog1.Close();
+        tourDialog2.Close();
+        tourDialog3.Close();
+        tourDialog5.Close();
+        tourDialog4.Show();
+    }
+    function showTour5()
+    {
+        tourDialog1.Close();
+        tourDialog2.Close();
+        tourDialog3.Close();
+        tourDialog4.Close();
+        tourDialog5.Show();
+    }
     if (document.images)
     {
         button1 = new Image;
         button2 = new Image;
         button1.src = 'images/takethetour_over.jpg'
         button2.src = 'signup_over.jpg'
-     }
+    }
+    function toggleTimeline()
+    {
+        $('#imgMngT').click();
+    }
 </script>
 
     <style type="text/css">
@@ -330,18 +376,13 @@
             <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
             
             <div class="three-col">
-            <table border="0" cellspacing="10" cellpadding="0" align="right" width="300">
-                <tr>
-                    <td>&nbsp;</td>            
-                </tr>
+            <table border="0" cellspacing="0" cellpadding="0" align="right" width="300" style="margin-top:55px">
                 <tr>
                     <td><a href="register.aspx" class="signuprollover" title="signup"><span 
                         class="displace">Signup</span></a></td> 
-                    <td>&nbsp;</td>            
                     <td><p class="bannerLoginSignup">or</p></td>            
-                    <td>&nbsp;</td>            
-                    <td><a href="tour.aspx" class="takethetourrollover modal" title="takethetour"><span 
-                        class="displace">Signup</span></a></td>      
+                    <td><a href="javascript:showTour1()" class="takethetourrollover" title="takethetour"><span 
+                        class="displace">Tour</span></a></td>      
                 </tr>
             </table>
             </div>
@@ -402,10 +443,18 @@
                     </div>
                     <div class="timeline">
                         <div class="float_left">
+                        <h2>Goal timeline</h2>
                         </div>
                         <div class="float_right">
-                            <img id="imgMngT" src="images/T_Close.jpg" title="Open/Close timeline" alt="Open/Close timeline"
-                                style="cursor: pointer;" /></div>
+                            <table>
+                                <tr>
+                                    <td style="padding-top:3px"><a href="javascript:toggleTimeline();" class="timelinelink">Close timeline</a></td>
+                                    <td>&nbsp;</td>
+                                    <td><img id="imgMngT" src="images/T_Close.jpg" title="Open/Close timeline" alt="Open/Close timeline"
+                                        style="cursor: pointer;" /></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="tl-container" id="my-container" style="clear: both;">
@@ -423,11 +472,11 @@
             </div>
             <div id="other-content">
                 <div class="one-col">
-                <div class="latestGoals">
+                <div>
                     
                     <h2><asp:Label ID="Label1" runat="server" Text="Recent activity" /></h2>
                     <asp:PlaceHolder ID="goalsAddedPlaceHolder" runat="server" />
-
+                    
                 </div>
                 </div>
             
@@ -448,27 +497,15 @@
                 </div>
                 <div class="one-col">
                     <h2 class="col-header">
-                        join in today</h2>
-                    <p class="teaser">
-                        Start creating personal goals right now. <a href="register.aspx" title="get started">
-                            Registering is fast, easy and free!</a></p>
-                    <div style="float: left; width: 100%; height: 216px; margin-top: 39px;">
-                        <div style="width: 100%; height: 2px; background-color: #00BFFD;">
-                        </div>
-                        <div style="width: 100%;">
-                            <div style="color: #00BFFD; font-size: 14px; line-height: 30px; text-align: left;
-                                float: left;">
-                                Latest Members</div>
-                            <div style="color: #A9ADA6; font-size: 14px; line-height: 30px; text-align: right; visibility:hidden">
-                                <%=TGoals%>&nbsp; members</div>
-                        </div>
-                        <div style="margin-left: 2px; margin-top: 28px;">
+                        Latest members</h2>
+                    <div style="float: left; width: 100%; height: 216px;">
+                        <div style="margin-left: 2px;">
                             <asp:DataList ID="dlMember" runat="server" RepeatColumns="6" RepeatDirection="Horizontal"
                                 DataKeyField="UserId" OnItemDataBound="dlMember_ItemDataBound">
                                 <ItemTemplate>
                                     <div>
                                         <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "userId") %>"
-                                            style="display: none; position: relative; z-index: 10;">
+                                            style="display: none; position: relative; z-index: 500;">
                                             <div class="simileAjax-bubble-container simileAjax-bubble-container-pngTranslucent"
                                                 style="width: 160px; height: 70px; left: 0px; bottom: 35px;">
                                                 <div class="simileAjax-bubble-innerContainer simileAjax-bubble-innerContainer-pngTranslucent">
@@ -520,11 +557,11 @@
                 </div>
                 <div class="one-col-end">
                     <h2 class="col-header">
-                        get inspired</h2>
+                        Get inspired</h2>
                     <p class="teaser">
                         Need help getting started? <a href="getInspired.aspx">See popular goal searches and
                             get ideas</a></p>
-                    <div class="rotatorBackground" style="padding-top: 58px;">
+                    <div class="rotatorBackground">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
                             CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
                             <ItemTemplate>
@@ -536,23 +573,6 @@
                         </telerik:RadRotator>
                     </div>
                 </div>
-            </div>
-            
-            <div class="three-col">
-            <table border="0" cellspacing="10" cellpadding="0" align="right" width="300">
-                <tr>
-                    <td>&nbsp;</td>            
-                </tr>
-                <tr>
-                    <td><a href="register.aspx" class="signuprollover" title="signup"><span 
-                        class="displace">Signup</span></a></td> 
-                    <td>&nbsp;</td>            
-                    <td><p class="bannerLoginSignup">or</p></td>            
-                    <td>&nbsp;</td>            
-                    <td><a href="tour.aspx" class="takethetourrollover modal" title="takethetour"><span 
-                        class="displace">Signup</span></a></td>      
-                </tr>
-            </table>
             </div>
             
             <Sedogo:FooterControl ID="footerControl" runat="server" />
@@ -567,6 +587,218 @@
 
     </div>
     </form>
+    
+    <ComponentArt:Dialog HeaderCssClass="headerCss" CssClass="dialog" AllowDrag="false" 
+        ContentCssClass="contentCss" FooterCssClass="footerCss"
+        Alignment="MiddleCentre" ID="tourDialog1" runat="server">
+    <Header>
+    
+    </Header>
+    <Content>
+    
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="background-color:white;font-size:12px;font-family:Arial;padding:10px;">
+                
+                    <p><span class="tourSelected">1</span>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour2()">2</a>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour3()">3</a>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour4()">4</a>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour5()">5</a></p> 
+                    <div style="padding:10px 50px">
+                    <h2>Create goals, big or small...</h2>
+                    <img src="images/Tour1image.jpg" />
+                    </div>
+                    
+                    <div class="tourButtonClose">
+                    <p><a href="javascript:tourDialog1.Close()">Close</a> <a 
+                        href="javascript:tourDialog1.Close()"><img src="images/close-controls.gif" /></a></p>
+                    </div>
+                    <div class="tourButtonLeft">
+                    <img src="images/buttonL.jpg" />
+                    </div>
+                    <div class="tourButtonRight">
+                    <a href="javascript:showTour2()"><img src="images/buttonR.jpg" /></a>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+
+    </Content>
+    <Footer>
+    
+    </Footer>
+    </ComponentArt:Dialog>
+    
+    <ComponentArt:Dialog HeaderCssClass="headerCss" CssClass="dialog" AllowDrag="false" 
+        ContentCssClass="contentCss" FooterCssClass="footerCss"
+        Alignment="MiddleCentre" ID="tourDialog2" runat="server">
+    <Header>
+    
+    </Header>
+    <Content>
+    
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="background-color:white;font-size:12px;font-family:Arial;padding:10px;">
+                
+                    <p><a href="javascript:showTour1()" class="tourNotSelected">1</a>&nbsp;&nbsp;<span class="tourSelected">2</span>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour3()">3</a>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour4()">4</a>&nbsp;&nbsp;<a class="tourNotSelected"
+                        href="javascript:showTour5()">5</a></p> 
+                    <div style="padding:10px 50px">
+                    <h2>...or look for people with the same goals.</h2>
+                    <img src="images/Tour2image.jpg" />
+                    </div>
+                    
+                    <div class="tourButtonClose">
+                    <p><a href="javascript:tourDialog2.Close()">Close</a> <a 
+                        href="javascript:tourDialog2.Close()"><img src="images/close-controls.gif" /></a></p>
+                    </div>
+                    <div class="tourButtonLeft">
+                    <a href="javascript:showTour1()"><img src="images/buttonL.jpg" /></a>
+                    </div>
+                    <div class="tourButtonRight">
+                    <a href="javascript:showTour3()"><img src="images/buttonR.jpg" /></a>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+
+    </Content>
+    <Footer>
+    
+    </Footer>
+    </ComponentArt:Dialog>
+
+    <ComponentArt:Dialog HeaderCssClass="headerCss" CssClass="dialog" AllowDrag="false" 
+        ContentCssClass="contentCss" FooterCssClass="footerCss"
+        Alignment="MiddleCentre" ID="tourDialog3" runat="server">
+    <Header>
+    
+    </Header>
+    <Content>
+    
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="background-color:white;font-size:12px;font-family:Arial;padding:10px;">
+                
+                    <p><a href="javascript:showTour1()" class="tourNotSelected">1</a>&nbsp;&nbsp;<a 
+                        href="javascript:showTour2()" class="tourNotSelected">2</a>&nbsp;&nbsp;<span class="tourSelected">3</span>&nbsp;&nbsp;<a 
+                        href="javascript:showTour4()" class="tourNotSelected">4</a>&nbsp;&nbsp;<a 
+                        href="javascript:showTour5()" class="tourNotSelected">5</a></p> 
+                    <div style="padding:10px 50px">
+                    <h2>Invite people to share your goal...</h2>
+                    <img src="images/Tour3image.jpg" />
+                    </div>
+                    
+                    <div class="tourButtonClose">
+                    <p><a href="javascript:tourDialog3.Close()">Close</a> <a 
+                        href="javascript:tourDialog3.Close()"><img src="images/close-controls.gif" /></a></p>
+                    </div>
+                    <div class="tourButtonLeft">
+                    <a href="javascript:showTour2()"><img src="images/buttonL.jpg" /></a>
+                    </div>
+                    <div class="tourButtonRight">
+                    <a href="javascript:showTour4()"><img src="images/buttonR.jpg" /></a>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+
+    </Content>
+    <Footer>
+    
+    </Footer>
+    </ComponentArt:Dialog>
+
+    <ComponentArt:Dialog HeaderCssClass="headerCss" CssClass="dialog" AllowDrag="false" 
+        ContentCssClass="contentCss" FooterCssClass="footerCss"
+        Alignment="MiddleCentre" ID="tourDialog4" runat="server">
+    <Header>
+    
+    </Header>
+    <Content>
+    
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="background-color:white;font-size:12px;font-family:Arial;padding:10px;">
+                
+                    <p><a href="javascript:showTour1()" class="tourNotSelected">1</a>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour2()">2</a>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour3()">3</a>&nbsp;&nbsp;<span class="tourSelected">4</span>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour5()">5</a></p> 
+                    <div style="padding:10px 50px">
+                    <h2>Keep track of your goals on your personal timeline.</h2>
+                    <img src="images/Tour4image.jpg" />
+                    </div>
+                    
+                    <div class="tourButtonClose">
+                    <p><a href="javascript:tourDialog4.Close()">Close</a> <a 
+                        href="javascript:tourDialog4.Close()"><img src="images/close-controls.gif" /></a></p>
+                    </div>
+                    <div class="tourButtonLeft">
+                    <a href="javascript:showTour3()"><img src="images/buttonL.jpg" /></a>
+                    </div>
+                    <div class="tourButtonRight">
+                    <a href="javascript:showTour5()"><img src="images/buttonR.jpg" /></a>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+
+    </Content>
+    <Footer>
+    
+    </Footer>
+    </ComponentArt:Dialog>
+
+    <ComponentArt:Dialog HeaderCssClass="headerCss" CssClass="dialog" AllowDrag="false" 
+        ContentCssClass="contentCss" FooterCssClass="footerCss"
+        Alignment="MiddleCentre" ID="tourDialog5" runat="server">
+    <Header>
+    
+    </Header>
+    <Content>
+    
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="background-color:white;font-size:12px;font-family:Arial;padding:10px;">
+                
+                    <p><a href="javascript:showTour1()" class="tourNotSelected">1</a>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour2()">2</a>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour3()">3</a>&nbsp;&nbsp;<a class="tourNotSelected" 
+                        href="javascript:showTour4()">4</a>&nbsp;&nbsp;<span class="tourSelected">5</span></p> 
+                    <div style="padding:10px 50px">
+                    <h2>Share pictures and videos of your goals<br />as you achieve them.</h2>
+                    <img src="images/Tour5image.jpg" />
+                    </div>
+                    
+                    <div class="tourButtonClose">
+                    <p><a href="javascript:tourDialog5.Close()">Close</a> <a 
+                        href="javascript:tourDialog5.Close()"><img src="images/close-controls.gif" /></a></p>
+                    </div>
+                    <div class="tourButtonLeft">
+                    <a href="javascript:showTour4()"><img src="images/buttonL.jpg" /></a>
+                    </div>
+                    <div class="tourButtonRight">
+                    <a target="_top" href="register.aspx"><img src="images/buttonR.jpg" /></a>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+
+    </Content>
+    <Footer>
+    
+    </Footer>
+    </ComponentArt:Dialog>
+
     <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
 </body>
 </html>

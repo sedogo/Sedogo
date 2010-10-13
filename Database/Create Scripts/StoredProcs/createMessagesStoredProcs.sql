@@ -30,6 +30,7 @@ IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spAddMessage')
 GO
 
 CREATE Procedure spAddMessage
+	@ParentMessageID		int,
 	@EventID				int,
 	@UserID					int,
 	@PostedByUserID			int,
@@ -43,6 +44,7 @@ AS
 BEGIN
 	INSERT INTO Messages
 	(
+		ParentMessageID,
 		EventID,
 		UserID,
 		PostedByUserID,
@@ -56,6 +58,7 @@ BEGIN
 	)
 	VALUES
 	(
+		@ParentMessageID,
 		@EventID,
 		@UserID,
 		@PostedByUserID,
@@ -93,7 +96,7 @@ CREATE Procedure spSelectMessageDetails
 	@MessageID			int
 AS
 BEGIN
-	SELECT EventID, UserID, PostedByUserID, MessageText, MessageRead, Deleted,
+	SELECT ParentMessageID, EventID, UserID, PostedByUserID, MessageText, MessageRead, Deleted,
 		CreatedDate, CreatedByFullName, LastUpdatedDate, LastUpdatedByFullName
 	FROM Messages
 	WHERE MessageID = @MessageID
@@ -213,7 +216,7 @@ CREATE Procedure spSelectMessageList
 	@UserID		int
 AS
 BEGIN
-	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+	SELECT M.ParentMessageID, M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
 		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
@@ -251,7 +254,7 @@ CREATE Procedure spSelectUnreadMessageList
 	@UserID		int
 AS
 BEGIN
-	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+	SELECT M.ParentMessageID, M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
 		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
@@ -267,6 +270,7 @@ BEGIN
 	WHERE M.Deleted = 0
 	AND M.MessageRead = 0
 	AND M.UserID = @UserID
+	AND ISNULL(M.ParentMessageID,-1) < 0
 	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
@@ -290,7 +294,7 @@ CREATE Procedure spSelectReadMessageList
 	@UserID		int
 AS
 BEGIN
-	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+	SELECT M.ParentMessageID, M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
 		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
@@ -306,6 +310,7 @@ BEGIN
 	WHERE M.Deleted = 0
 	AND M.MessageRead = 1
 	AND M.UserID = @UserID
+	AND ISNULL(M.ParentMessageID,-1) < 0
 	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
 END
@@ -329,7 +334,7 @@ CREATE Procedure spSelectSentMessageList
 	@UserID		int
 AS
 BEGIN
-	SELECT M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+	SELECT M.ParentMessageID, M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
 		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
 		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
@@ -344,8 +349,72 @@ BEGIN
 	ON U.UserID = M.UserID
 	WHERE M.Deleted = 0
 	AND M.PostedByUserID = @UserID
+	AND ISNULL(M.ParentMessageID,-1) < 0
 	AND ISNULL(E.Deleted,0) = 0
 	ORDER BY M.CreatedDate DESC
+END
+GO
+
+/*===============================================================
+// Function: spSelectThreadedMessageCount
+// Description:
+//   
+//=============================================================*/
+PRINT 'Creating spSelectThreadedMessageCount...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectThreadedMessageCount')
+BEGIN
+	DROP Procedure spSelectThreadedMessageCount
+END
+GO
+
+CREATE Procedure spSelectThreadedMessageCount
+	@ParentMessageID		int
+AS
+BEGIN
+	SELECT COUNT(*)
+	FROM Messages
+	WHERE Deleted = 0
+	AND ParentMessageID = @ParentMessageID
+END
+GO
+
+/*===============================================================
+// Function: spSelectThreadedMessageList
+// Description:
+//   Selects messages
+//=============================================================*/
+PRINT 'Creating spSelectThreadedMessageList...'
+GO
+
+IF EXISTS (SELECT * FROM sysobjects WHERE type = 'P' AND name = 'spSelectThreadedMessageList')
+BEGIN
+	DROP Procedure spSelectThreadedMessageList
+END
+GO
+
+CREATE Procedure spSelectThreadedMessageList
+	@ParentMessageID		int
+AS
+BEGIN
+	SELECT M.ParentMessageID, M.MessageID, M.EventID, M.PostedByUserID, M.MessageText, M.MessageRead,
+		M.CreatedDate, M.CreatedByFullName, M.LastUpdatedDate, M.LastUpdatedByFullName,
+		E.EventName, E.EventDescription, E.EventVenue, E.MustDo, E.DateType, E.UserID,
+		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
+		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
+		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.ProfileText
+	FROM Messages M
+	LEFT OUTER JOIN Events E
+	ON M.EventID = E.EventID
+	JOIN Users U
+	ON U.UserID = M.UserID
+	WHERE M.Deleted = 0
+	AND ISNULL(M.ParentMessageID,-1) = @ParentMessageID
+	AND ISNULL(E.Deleted,0) = 0
+	ORDER BY M.CreatedDate ASC
 END
 GO
 

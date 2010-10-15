@@ -1,11 +1,24 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="sidebar.ascx.cs" Inherits="sidebar" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<script type="text/javascript" src="/js/DD_roundies_0.0.2a-min.js"></script>
-<script type="text/javascript" src="/js/DD_roundies_0.0.2a-min.js"></script>
 <script type="text/javascript">
 function changeClass(id, newClass)
 {
     document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
+
+    //sidebarControl_messageCountLink
+    //sidebarControl_alertCountLink
+    //sidebarControl_inviteCountLink
+    //sidebarControl_goalJoinRequestsLink
+    //sidebarControl_trackingCountLink
+    //sidebarControl_groupGoalsLink
+    //sidebarControl_addressBookLink
+     
+    
+    //alert("Params: " + id + ":" + newClass);
+    //element = document.getElementById(id);
+    //alert(element);
+    //event.cancelBubble = true;
+    //element.style.className = newClass;
 }
 </script>
 
@@ -35,7 +48,7 @@ function changeClass(id, newClass)
     <div id="extraButtonsDiv" runat="server">
     <p class="extra-buttons">
         <asp:LinkButton ID="viewArchiveLink" runat="server" Text="view archive" CssClass="button-sml"
-            OnClick="click_viewArchiveLink" />
+            OnClick="ClickViewArchiveLink" />
         <asp:HyperLink ID="addGoalLink" NavigateUrl="~/addEvent.aspx" ToolTip="add goal"
             CssClass="button-sml modal" Text="+ Goal" runat="server" />
     </p>
@@ -80,6 +93,16 @@ function changeClass(id, newClass)
         <asp:PlaceHolder ID="goalsAchievedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
         
+        <asp:Panel runat="server" ID="similarPanel">
+            <h2><asp:Label ID="Label5" runat="server" Text="Similar" /></h2>
+            <asp:PlaceHolder ID="goalsSimilarPlaceHolder" runat="server" />
+            <div class="pinstripe-divider"></div>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="otherPanel">
+            <h2><asp:Label ID="Label6" runat="server" Text="Other" /></h2>
+            <asp:PlaceHolder ID="goalsOtherPlaceHolder" runat="server" />
+            <div class="pinstripe-divider"></div>
+        </asp:Panel>
     </div>
     <p>
         &nbsp;</p>

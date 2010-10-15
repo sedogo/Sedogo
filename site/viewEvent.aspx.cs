@@ -49,6 +49,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             {
                 Response.Redirect("profile.aspx");
             }
+            sidebarControl.EventId = eventID;
             
             int superUserID = -1;
             if (Session["SuperUserID"] != null)

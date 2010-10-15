@@ -28,6 +28,7 @@ using System.Text;
 using Sedogo.BusinessObjects;
 using System.Collections.Generic;
 using System.Linq;
+using Sedogo.DAL;
 
 
 public partial class sidebar : System.Web.UI.UserControl
@@ -35,9 +36,23 @@ public partial class sidebar : System.Web.UI.UserControl
     public Boolean viewArchivedEvents = false;
     public int userID = -1;
     public SedogoUser user;
+    
+    /// <summary>
+    /// Gets or sets the event id.
+    /// </summary>
+    /// <value>The event id.</value>
+    public int EventId { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is similar visible.
+    /// </summary>
+    /// <value>
+    /// 	<c>true</c> if this instance is similar visible; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsSimilarVisible { get; set; }
 
     //Changes By Chetan
-    static Random _random = new Random();
+    static readonly Random _random = new Random();
 
     //===============================================================
     // Function: Page_Load
@@ -392,12 +407,108 @@ public partial class sidebar : System.Web.UI.UserControl
         {
             conn.Close();
         }
+		CreateSimilarEvents();
+        CreateOtherEvents();
+    }
+
+    /// <summary>
+    /// Creates the similar events.
+    /// </summary>
+    private void CreateSimilarEvents()
+    {
+        similarPanel.Visible = IsSimilarVisible;
+        if (!IsSimilarVisible)
+        {
+            return;
+        }
+        using (var sedogoDbEntities = new SedogoDbEntities())
+        {
+            var searchWord = sedogoDbEntities.Events.First(x => x.EventID == EventId).EventName;
+            var events = sedogoDbEntities.SelectSimilarEvents(searchWord, EventId);
+            if (events == null)
+            {
+                return;
+            }
+            foreach (var @event in events)
+            {
+                {
+                    var eventID = int.Parse(@event.EventID.ToString());
+                    var eventName = @event.EventName;
+
+                    var eventHyperlink = new HyperLink
+                                             {
+                                                 Text = eventName,
+                                                 NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                             };
+                    goalsSimilarPlaceHolder.Controls.Add(eventHyperlink);
+
+                    goalsSimilarPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                }
+
+            }
+        }
+        var nSimilarHyperlink = new HyperLink
+                                         {
+                                             Text = "<b>More ></b>",
+                                             NavigateUrl = userID > 0
+                                                               ? "~/MoreDetail.aspx?type=similar&EID=" + EventId
+                                                               : "~/HomeMoreDetail.aspx?type=similar&EID=" + EventId
+                                         };
+        goalsSimilarPlaceHolder.Controls.Add(nSimilarHyperlink);
+        goalsSimilarPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+    }
+
+
+    /// <summary>
+    /// Creates the other events.
+    /// </summary>
+    private void CreateOtherEvents()
+    {
+        otherPanel.Visible = IsSimilarVisible;
+        if (!IsSimilarVisible)
+        {
+            return;
+        }
+        using (var sedogoDbEntities = new SedogoDbEntities())
+        {
+            var events = sedogoDbEntities.SelectOtherEvents(EventId);
+            if (events == null)
+            {
+                return;
+            }
+            foreach (var @event in events)
+            {
+                {
+                    var eventID = int.Parse(@event.EventID.ToString());
+                    var eventName = @event.EventName;
+
+                    var eventHyperlink = new HyperLink
+                    {
+                        Text = eventName,
+                        NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                    };
+                    goalsOtherPlaceHolder.Controls.Add(eventHyperlink);
+
+                    goalsOtherPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                }
+
+            }
+        }
+        var nSimilarHyperlink = new HyperLink
+        {
+            Text = "<b>More ></b>",
+            NavigateUrl = userID > 0
+                              ? "~/MoreDetail.aspx?type=other&EID=" + EventId
+                              : "~/HomeMoreDetail.aspx?type=other&EID=" + EventId
+        };
+        goalsOtherPlaceHolder.Controls.Add(nSimilarHyperlink);
+        goalsOtherPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
     }
 
     //===============================================================
     // Function: click_viewArchiveLink
     //===============================================================
-    protected void click_viewArchiveLink(object sender, EventArgs e)
+    protected void ClickViewArchiveLink(object sender, EventArgs e)
     {
         //Boolean viewArchivedEvents = false;
         if (Session["ViewArchivedEvents"] != null)

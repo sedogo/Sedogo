@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server" xmlns:og="http://opengraphprotocol.org/schema/"
       xmlns:fb="http://www.facebook.com/2008/fbml">
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico"/>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="content-script-type" content="text/javascript" />
     <meta http-equiv="content-style-type" content="text/css" />
@@ -137,7 +137,7 @@
             <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
             <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
             <div id="other-content">
-                <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                <Sedogo:SidebarControl ID="sidebarControl" runat="server" IsSimilarVisible="true"/>
                 <div class="three-col">
                     <div class="page-banner-content" id="pageBannerBarDiv" runat="server">
                         <div class="page-banner-header">

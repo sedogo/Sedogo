@@ -28,6 +28,7 @@ using System.IO;
 using Sedogo.BusinessObjects;
 using System.Collections.Generic;
 using System.Linq;
+using Sedogo.DAL;
 
 public partial class MoreDetail : SedogoPage
 {
@@ -45,36 +46,36 @@ public partial class MoreDetail : SedogoPage
 
             if (Request["type"] != null)
             {
-                if (Request["type"].ToString().ToLower() == "achieved")
+                switch (Request["type"].ToLower())
                 {
-                    ltHeading.Text = "Latest achieved goals";
-                }
-                else if (Request["type"].ToString().ToLower() == "now")
-                {
-                    ltHeading.Text = "Goals happening now";
-
-                    thisWeekHeader.Visible = false;
-                    twoWeeksHeader.Visible = false;
-                    lastMonthHeader.Visible = false;
-                    sixMonthHeader.Visible = false;
-                }
-                else if (Request["type"].ToString().ToLower() == "latest")
-                {
-                    ltHeading.Text = "Goals added";
-                }
-                else if (Request["type"].ToString().ToLower() == "updated")
-                {
-                    ltHeading.Text = "Goals updated";
+                    case "achieved":
+                        ltHeading.Text = "Latest achieved goals";
+                        break;
+                    case "now":
+                        ltHeading.Text = "Goals happening now";
+                        thisWeekHeader.Visible = false;
+                        twoWeeksHeader.Visible = false;
+                        lastMonthHeader.Visible = false;
+                        sixMonthHeader.Visible = false;
+                        break;
+                    case "latest":
+                        ltHeading.Text = "Goals added";
+                        break;
+                    case "updated":
+                        ltHeading.Text = "Goals updated";
+                        break;
+                    case "similar":
+                        ltHeading.Text = "Similar goals";
+                        break;
                 }
             }
-
             Boolean viewArchivedEvents = false;
             if (Session["ViewArchivedEvents"] != null)
             {
                 viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
             }
 
-            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+            var user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
             sidebarControl.userID = userID;
             sidebarControl.user = user;
             bannerAddFindControl.userID = userID;
@@ -177,550 +178,843 @@ public partial class MoreDetail : SedogoPage
 
     private void GetToday()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+        var conn = new SqlConnection((string)Application["connectionString"]);
         conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
+        var cmd = new SqlCommand("", conn) { CommandType = CommandType.Text };
 
-        if (Request["type"].ToString().ToLower() == "achieved")
+        switch (Request["type"].ToLower())
         {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where convert(datetime,convert(varchar(11),events.EventAchievedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102)) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=1 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.EventAchievedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "latest")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where convert(datetime,convert(varchar(11),events.CreatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102)) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "updated")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where convert(datetime,convert(varchar(11),events.LastUpdatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102)) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " and events.CreatedDate <> events.LastUpdatedDate "
-                + " ORDER BY events.LastUpdatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "now")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( ( RangeStartDate <= getdate() and RangeEndDate >= getdate() ) "
-                + " or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) )"
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
+            case "achieved":
+                cmd.CommandText =
+                    @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (
+                                        SELECT count(1)  
+                                        FROM TrackedEvents T   
+                                        JOIN Users U   ON T.UserID = U.UserID   
+                                        WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+                                        SELECT count(1)  
+                                        FROM TrackedEvents T   
+                                        JOIN Users U   ON T.UserID = U.UserID   
+                                        WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    FROM events 
+                                    INNER JOIN users on users.userid=events.userid   
+                                    WHERE convert(datetime,convert(varchar(11),events.EventAchievedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102))  
+                                          and events.deleted=0  and events.EventAchieved=1  and events.PrivateEvent=0  
+                                    ORDER BY events.EventAchievedDate DESC ";
+                break;
+            case "latest":
+                cmd.CommandText =
+                    @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1  ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount  from events inner join users on users.userid=events.userid   where convert(datetime,convert(varchar(11),events.CreatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102))  and events.deleted=0  and events.EventAchieved=0  and events.PrivateEvent=0  ORDER BY events.CreatedDate DESC ";
+                break;
+            case "updated":
+                cmd.CommandText =
+                    @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1  ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount  from events inner join users on users.userid=events.userid   where convert(datetime,convert(varchar(11),events.LastUpdatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102))  and events.deleted=0  and events.EventAchieved=0  and events.PrivateEvent=0  and events.CreatedDate <> events.LastUpdatedDate  ORDER BY events.LastUpdatedDate DESC ";
+                break;
+            case "now":
+                cmd.CommandText =
+                    @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1  ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount  from events inner join users on users.userid=events.userid   where ( ( RangeStartDate <= getdate() and RangeEndDate >= getdate() )  or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) ) and events.deleted=0  and events.EventAchieved=0  and events.PrivateEvent=0  ORDER BY events.CreatedDate DESC ";
+                break;
+            case "similar":
+                using (var sedogoDbEntities = new SedogoDbEntities())
+                {
+                    var eventId = Convert.ToInt32(Request["EID"]);
+                    var searchWord = sedogoDbEntities.Events.First(x => x.EventID == eventId).EventName;
+
+                    cmd.CommandText =
+                        @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+	                                    ( 
+		                                    RangeStartDate <= getdate() and RangeEndDate >= getdate() 
+	                                    )  
+	                                    or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) 
+                                    ) and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                      and FREETEXT(EventName, '" +
+                        searchWord + @"') 
+                                    ORDER BY events.CreatedDate DESC ";
+                }
+                break;
+            case "other":
+                var eId = Convert.ToInt32(Request["EID"]);
+                cmd.CommandText =
+                    @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+	                                    ( 
+		                                    RangeStartDate <= getdate() and RangeEndDate >= getdate() 
+	                                    )  
+	                                    or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) 
+                                    ) and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                      and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
+                                    ORDER BY events.CreatedDate DESC ";
+                break;
         }
         DbDataReader rdrToday = cmd.ExecuteReader();
-        while (rdrToday.Read())
+        if (rdrToday != null)
         {
-            int eventID = int.Parse(rdrToday["EventID"].ToString());
-            string eventName = (string)rdrToday["EventName"];
-            string Fname = (string)rdrToday["FirstName"];
-            string Lname = (string)rdrToday["LastName"];
-            string MemCount = (string)rdrToday["MemberCount"].ToString();
-            string FolCount = (string)rdrToday["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderToday.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
+            while (rdrToday.Read())
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
+                var eventID = int.Parse(rdrToday["EventID"].ToString());
+                var eventName = (string)rdrToday["EventName"];
+                var fname = (string)rdrToday["FirstName"];
+                var lname = (string)rdrToday["LastName"];
+                var memCount = rdrToday["MemberCount"].ToString();
+                var folCount = rdrToday["FollowerCount"].ToString();
+                CreateGoalLink(eventName, fname, lname, eventID, memCount, folCount);
             }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderToday.Controls.Add(ltEvent6);
-            PlaceHolderToday.Controls.Add(new LiteralControl("<br/>"));
-        }
 
-        rdrToday.Close();
+            rdrToday.Close();
+        }
+    }
+
+    private void CreateGoalLink(string eventName, string fname, string lname, int eventID, string memCount, string folCount)
+    {
+        var eventHyperlink = new HyperLink
+                                 {
+                                     Text =
+                                         GetSubString(eventName, 100) + " <span style=color:grey>" + fname + " " +
+                                         lname + "</span>",
+                                     NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                 };
+        eventHyperlink.Attributes.Add("class", "event");
+        PlaceHolderToday.Controls.Add(eventHyperlink);
+        var ltEvent6 = new Literal();
+        var memberFollowerString = " - ";
+        if (memCount != "0")
+        {
+            memberFollowerString += memCount == "1" ? memCount + " member " : memCount + " members ";
+        }
+        if (folCount != "0")
+        {
+            memberFollowerString += memCount == "1" ? folCount + " follower " : folCount + " followers ";
+        }
+        ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+        PlaceHolderToday.Controls.Add(ltEvent6);
+        PlaceHolderToday.Controls.Add(new LiteralControl("<br/>"));
     }
 
     private void GetThisWeek()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
+        SqlCommand cmd;
+        using (var conn = new SqlConnection((string)Application["connectionString"]))
+        {
+            conn.Open();
+            cmd = new SqlCommand("", conn) { CommandType = CommandType.Text };
 
-        if (Request["type"].ToString().ToLower() == "achieved")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.EventAchievedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=1 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.EventAchievedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "latest")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.CreatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "updated")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
-                + " and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " and events.CreatedDate <> events.LastUpdatedDate "
-                + " ORDER BY events.LastUpdatedDate DESC ";
-        }
 
-        DbDataReader rdrThisWeek = cmd.ExecuteReader();
-
-        while (rdrThisWeek.Read())
-        {
-            int eventID = int.Parse(rdrThisWeek["EventID"].ToString());
-            string eventName = (string)rdrThisWeek["EventName"];
-            string Fname = (string)rdrThisWeek["FirstName"];
-            string Lname = (string)rdrThisWeek["LastName"];
-            string MemCount = (string)rdrThisWeek["MemberCount"].ToString();
-            string FolCount = (string)rdrThisWeek["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> -" + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderThisWeek.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
+            switch (Request["type"].ToLower())
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderThisWeek.Controls.Add(ltEvent6);
-            PlaceHolderThisWeek.Controls.Add(new LiteralControl("<br/>"));
-        }
+                case "achieved":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
+                                      +
+                                      " and events.EventAchievedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=1 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.EventAchievedDate DESC ";
+                    break;
+                case "latest":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
+                                      +
+                                      " and events.CreatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.CreatedDate DESC ";
+                    break;
+                case "updated":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) "
+                                      +
+                                      " and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " and events.CreatedDate <> events.LastUpdatedDate "
+                                      + " ORDER BY events.LastUpdatedDate DESC ";
+                    break;
+                case "similar":
+                    using (var sedogoDbEntities = new SedogoDbEntities())
+                    {
+                        var eventId = Convert.ToInt32(Request["EID"]);
+                        var searchWord = sedogoDbEntities.Events.First(x => x.EventID == eventId).EventName;
 
-        rdrThisWeek.Close();
+                        cmd.CommandText =
+                            @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+                                        events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) 
+                                        and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) 
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                        and FREETEXT(EventName, '" +
+                            searchWord + @"') 
+                                    ORDER BY events.CreatedDate DESC ";
+                    }
+                    break;
+                case "other":
+                    var eId = Convert.ToInt32(Request["EID"]);
+
+                    cmd.CommandText =
+                        @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                (	
+	                                SELECT count(1)  
+	                                FROM TrackedEvents T   
+	                                JOIN Users U ON T.UserID = U.UserID   
+	                                WHERE T.EventID = events.eventid   
+		                                AND U.Deleted = 0 
+		                                and T.showontimeline=1  
+                                ) as MemberCount, 
+                                (
+	                                SELECT count(1)  
+	                                FROM TrackedEvents T   
+	                                JOIN Users U   ON T.UserID = U.UserID   
+	                                WHERE T.EventID = events.eventid   
+		                                AND U.Deleted = 0 
+		                                and T.showontimeline=0 
+                                ) as FollowerCount  
+                                from events 
+                                inner join users on users.userid=events.userid   
+                                where 
+                                ( 
+                                    events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) 
+                                    and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) 
+                                )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                    and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
+                                ORDER BY events.CreatedDate DESC ";
+                    break;
+            }
+
+            DbDataReader rdrThisWeek = cmd.ExecuteReader();
+
+            if (rdrThisWeek == null) { return; }
+            while (rdrThisWeek.Read())
+            {
+                var eventID = int.Parse(rdrThisWeek["EventID"].ToString());
+                var eventName = (string)rdrThisWeek["EventName"];
+                var fname = (string)rdrThisWeek["FirstName"];
+                var lname = (string)rdrThisWeek["LastName"];
+                var memCount = rdrThisWeek["MemberCount"].ToString();
+                var folCount = rdrThisWeek["FollowerCount"].ToString();
+                var eventHyperlink = new HyperLink
+                                         {
+                                             Text =
+                                                 GetSubString(eventName, 100) + " <span style=color:grey>" + fname +
+                                                 " " +
+                                                 lname + "</span>",
+                                             NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                         };
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderThisWeek.Controls.Add(eventHyperlink);
+                var ltEvent6 = new Literal();
+                var memberFollowerString = " - ";
+                if (memCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? memCount + " member " : memCount + " members ";
+                }
+                if (folCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? folCount + " follower " : folCount + " followers ";
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderThisWeek.Controls.Add(ltEvent6);
+                PlaceHolderThisWeek.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrThisWeek.Close();
+        }
     }
     private void GetTwoWeekAgo()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-
-        string dtAgo = DateTime.Now.Date.AddDays(-15).ToString("yyyy-MM-dd");
-
-        if (Request["type"].ToString().ToLower() == "achieved")
+        SqlCommand cmd;
+        using (var conn = new SqlConnection((string)Application["connectionString"]))
         {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
-                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=1 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.EventAchievedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "latest")
-        {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
-                + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "updated")
-        {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
-                + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " and events.CreatedDate <> events.LastUpdatedDate "
-                + " ORDER BY events.LastUpdatedDate DESC ";
-        }
+            conn.Open();
+            cmd = new SqlCommand("", conn) { CommandType = CommandType.Text };
 
-        DbDataReader rdrTwoWeekAgo = cmd.ExecuteReader();
-
-        while (rdrTwoWeekAgo.Read())
-        {
-            int eventID = int.Parse(rdrTwoWeekAgo["EventID"].ToString());
-            string eventName = (string)rdrTwoWeekAgo["EventName"];
-            string Fname = (string)rdrTwoWeekAgo["FirstName"];
-            string Lname = (string)rdrTwoWeekAgo["LastName"];
-            string MemCount = (string)rdrTwoWeekAgo["MemberCount"].ToString();
-            string FolCount = (string)rdrTwoWeekAgo["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
+            switch (Request["type"].ToLower())
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderTwoWeekAgo.Controls.Add(ltEvent6);
-            PlaceHolderTwoWeekAgo.Controls.Add(new LiteralControl("<br/>"));
-        }
+                case "achieved":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
+                                      + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=1 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.EventAchievedDate DESC ";
+                    break;
+                case "latest":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
+                                      + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.CreatedDate DESC ";
+                    break;
+                case "updated":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) "
+                                      + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " and events.CreatedDate <> events.LastUpdatedDate "
+                                      + " ORDER BY events.LastUpdatedDate DESC ";
+                    break;
+                case "similar":
+                    using (var sedogoDbEntities = new SedogoDbEntities())
+                    {
+                        var eventId = Convert.ToInt32(Request["EID"]);
+                        var searchWord = sedogoDbEntities.Events.First(x => x.EventID == eventId).EventName;
 
-        rdrTwoWeekAgo.Close();
+                        cmd.CommandText =
+                            @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+                                        events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) 
+                                        and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) 
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                        and FREETEXT(EventName, '" +
+                            searchWord + @"') 
+                                    ORDER BY events.CreatedDate DESC ";
+                    }
+                    break;
+                case "other":
+                    var eId = Convert.ToInt32(Request["EID"]);
+
+                    cmd.CommandText =
+                        @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+                                        events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) 
+                                        and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) 
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                        and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
+                                    ORDER BY events.CreatedDate DESC ";
+                    break;
+            }
+
+            DbDataReader rdrTwoWeekAgo = cmd.ExecuteReader();
+
+            if (rdrTwoWeekAgo == null)
+            {
+                return;
+            }
+            while (rdrTwoWeekAgo.Read())
+            {
+                var eventID = int.Parse(rdrTwoWeekAgo["EventID"].ToString());
+                var eventName = (string)rdrTwoWeekAgo["EventName"];
+                var fname = (string)rdrTwoWeekAgo["FirstName"];
+                var lname = (string)rdrTwoWeekAgo["LastName"];
+                var memCount = rdrTwoWeekAgo["MemberCount"].ToString();
+                var folCount = rdrTwoWeekAgo["FollowerCount"].ToString();
+                var eventHyperlink = new HyperLink
+                                         {
+                                             Text =
+                                                 GetSubString(eventName, 100) + " <span style=color:grey>" + fname + " " +
+                                                 lname + "</span>",
+                                             NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                         };
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderTwoWeekAgo.Controls.Add(eventHyperlink);
+                var ltEvent6 = new Literal();
+                var memberFollowerString = " - ";
+                if (memCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? memCount + " member " : memCount + " members ";
+                }
+                if (folCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? folCount + " follower " : folCount + " followers ";
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderTwoWeekAgo.Controls.Add(ltEvent6);
+                PlaceHolderTwoWeekAgo.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrTwoWeekAgo.Close();
+        }
     }
 
     private void GetLastMonth()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-        string dtLMnth = DateTime.Now.Date.AddMonths(-1).ToString("yyyy-MM-dd");
-
-        if (Request["type"].ToString().ToLower() == "achieved")
+        SqlCommand cmd;
+        using (var conn = new SqlConnection((string)Application["connectionString"]))
         {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
-                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=1 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.EventAchievedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "latest")
-        {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
-                + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "updated")
-        {
-            cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
-                + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " and events.CreatedDate <> events.LastUpdatedDate "
-                + " ORDER BY events.LastUpdatedDate DESC ";
-        }
+            conn.Open();
+            cmd = new SqlCommand("", conn) { CommandType = CommandType.Text };
 
-        //+ " where month(events.lastupdateddate)= month('" + dtLMnth + "') and year(events.lastupdateddate)= year('" + dtLMnth + "') "
-
-        DbDataReader rdrLastMonth = cmd.ExecuteReader();
-
-        while (rdrLastMonth.Read())
-        {
-            int eventID = int.Parse(rdrLastMonth["EventID"].ToString());
-            string eventName = (string)rdrLastMonth["EventName"];
-            string Fname = (string)rdrLastMonth["FirstName"];
-            string Lname = (string)rdrLastMonth["LastName"];
-            string MemCount = (string)rdrLastMonth["MemberCount"].ToString();
-            string FolCount = (string)rdrLastMonth["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span> ";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderLastMonth.Controls.Add(eventHyperlink);
-            Literal ltEvent = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
+            switch (Request["type"].ToLower())
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
+                case "achieved":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
+                                      +
+                                      " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=1 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.EventAchievedDate DESC ";
+                    break;
+                case "latest":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
+                                      + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.CreatedDate DESC ";
+                    break;
+                case "updated":
+                    cmd.CommandText = "select top 20  events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-31,0) "
+                                      + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " and events.CreatedDate <> events.LastUpdatedDate "
+                                      + " ORDER BY events.LastUpdatedDate DESC ";
+                    break;
+                case "similar":
+                    using (var sedogoDbEntities = new SedogoDbEntities())
+                    {
+                        var eventId = Convert.ToInt32(Request["EID"]);
+                        var searchWord = sedogoDbEntities.Events.First(x => x.EventID == eventId).EventName;
+
+                        cmd.CommandText =
+                            @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+                                        events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-31,0)
+                                        and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) 
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                        and FREETEXT(EventName, '" +
+                            searchWord + @"') 
+                                    ORDER BY events.CreatedDate DESC ";
+                    }
+                    break;
+                case "other":
+
+                    var eId = Convert.ToInt32(Request["EID"]);
+
+                    cmd.CommandText =
+                        @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                        (	
+	                        SELECT count(1)  
+	                        FROM TrackedEvents T   
+	                        JOIN Users U ON T.UserID = U.UserID   
+	                        WHERE T.EventID = events.eventid   
+		                        AND U.Deleted = 0 
+		                        and T.showontimeline=1  
+                        ) as MemberCount, 
+                        (
+	                        SELECT count(1)  
+	                        FROM TrackedEvents T   
+	                        JOIN Users U   ON T.UserID = U.UserID   
+	                        WHERE T.EventID = events.eventid   
+		                        AND U.Deleted = 0 
+		                        and T.showontimeline=0 
+                        ) as FollowerCount  
+                        from events 
+                        inner join users on users.userid=events.userid   
+                        where 
+                        ( 
+                            events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-31,0)
+                            and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) 
+                        )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                            and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @") 
+                        ORDER BY events.CreatedDate DESC ";
+                    break;
             }
-            if (FolCount != "0")
+
+            //+ " where month(events.lastupdateddate)= month('" + dtLMnth + "') and year(events.lastupdateddate)= year('" + dtLMnth + "') "
+
+            DbDataReader rdrLastMonth = cmd.ExecuteReader();
+
+            if (rdrLastMonth == null)
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
+                return;
             }
-            ltEvent.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderLastMonth.Controls.Add(ltEvent);
-            PlaceHolderLastMonth.Controls.Add(new LiteralControl("<br/>"));
+            while (rdrLastMonth.Read())
+            {
+                var eventID = int.Parse(rdrLastMonth["EventID"].ToString());
+                var eventName = (string)rdrLastMonth["EventName"];
+                var fname = (string)rdrLastMonth["FirstName"];
+                var lname = (string)rdrLastMonth["LastName"];
+                var memCount = rdrLastMonth["MemberCount"].ToString();
+                var folCount = rdrLastMonth["FollowerCount"].ToString();
+                var eventHyperlink = new HyperLink
+                                         {
+                                             Text =
+                                                 GetSubString(eventName, 100) + " <span style=color:grey>" + fname + " " +
+                                                 lname + "</span> ",
+                                             NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                         };
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderLastMonth.Controls.Add(eventHyperlink);
+                var ltEvent = new Literal();
+                var memberFollowerString = " - ";
+                if (memCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? memCount + " member " : memCount + " members ";
+                }
+                if (folCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? folCount + " follower " : folCount + " followers ";
+                }
+                ltEvent.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderLastMonth.Controls.Add(ltEvent);
+                PlaceHolderLastMonth.Controls.Add(new LiteralControl("<br/>"));
+            }
+            rdrLastMonth.Close();
         }
-        rdrLastMonth.Close();
     }
 
     private void GetLastSixMonth()
     {
-        SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
-        conn.Open();
-        SqlCommand cmd = new SqlCommand("", conn);
-        cmd.CommandType = CommandType.Text;
-
-        string dtLMnth = DateTime.Now.Date.AddMonths(-6).ToString("yyyy-MM-dd");
-
-        if (Request["type"].ToString().ToLower() == "achieved")
+        SqlCommand cmd;
+        using (var conn = new SqlConnection((string)Application["connectionString"]))
         {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
-                + " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=1 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.EventAchievedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "latest")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
-                + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " ORDER BY events.CreatedDate DESC ";
-        }
-        else if (Request["type"].ToString().ToLower() == "updated")
-        {
-            cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
-                + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
-                + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
-                + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
-                + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
-                + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
-                + " from events inner join users on users.userid=events.userid  "
-                + " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
-                + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
-                + " and events.deleted=0 "
-                + " and events.EventAchieved=0 "
-                + " and events.PrivateEvent=0 "
-                + " and events.CreatedDate <> events.LastUpdatedDate "
-                + " ORDER BY events.LastUpdatedDate DESC ";
-        }
+            conn.Open();
+            cmd = new SqlCommand("", conn) { CommandType = CommandType.Text };
 
-        DbDataReader rdrLastSixMonth = cmd.ExecuteReader();
-        //    + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >=(select convert(datetime, convert(varchar,'" + dtLMnth + "',102))) "
-
-        while (rdrLastSixMonth.Read())
-        {
-            int eventID = int.Parse(rdrLastSixMonth["EventID"].ToString());
-            string eventName = (string)rdrLastSixMonth["EventName"];
-            string Fname = (string)rdrLastSixMonth["FirstName"];
-            string Lname = (string)rdrLastSixMonth["LastName"];
-            string MemCount = (string)rdrLastSixMonth["MemberCount"].ToString();
-            string FolCount = (string)rdrLastSixMonth["FollowerCount"].ToString();
-            HyperLink eventHyperlink = new HyperLink();
-            eventHyperlink.Text = GetSubString(eventName, 100) + " <span style=color:grey>" + Fname + " " + Lname + "</span>";// <span style=color:#cccccc> - " + MemCount + " members " + FolCount + " followers</span>";
-            eventHyperlink.NavigateUrl = "~/viewEvent.aspx?EID=" + eventID.ToString();
-            eventHyperlink.Attributes.Add("class", "event");
-            PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);
-            Literal ltEvent6 = new Literal();
-            string memberFollowerString = " - ";
-            if (MemCount != "0")
+            switch (Request["type"].ToLower())
             {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += MemCount + " member ";
-                }
-                else
-                {
-                    memberFollowerString += MemCount + " members ";
-                }
-            }
-            if (FolCount != "0")
-            {
-                if (MemCount == "1")
-                {
-                    memberFollowerString += FolCount + " follower ";
-                }
-                else
-                {
-                    memberFollowerString += FolCount + " followers ";
-                }
-            }
-            ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
-            PlaceHolderLastSixMonth.Controls.Add(ltEvent6);
-            PlaceHolderLastSixMonth.Controls.Add(new LiteralControl("<br/>"));
-        }
+                case "achieved":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.EventAchievedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
+                                      +
+                                      " and events.EventAchievedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=1 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.EventAchievedDate DESC ";
+                    break;
+                case "latest":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      + " where ( events.CreatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
+                                      + " and events.CreatedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " ORDER BY events.CreatedDate DESC ";
+                    break;
+                case "updated":
+                    cmd.CommandText = "select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,(SELECT count(1) "
+                                      + " FROM TrackedEvents T   JOIN Users U   ON T.UserID = U.UserID  "
+                                      + " WHERE T.EventID = events.eventid   AND U.Deleted = 0 and T.showontimeline=1 "
+                                      + " ) as MemberCount , (SELECT count(1)  FROM TrackedEvents T  "
+                                      + " JOIN Users U   ON T.UserID = U.UserID   WHERE T.EventID = events.eventid  "
+                                      + " AND U.Deleted = 0 and T.showontimeline=0 ) as FollowerCount "
+                                      + " from events inner join users on users.userid=events.userid  "
+                                      +
+                                      " where ( events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) "
+                                      + " and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-31,0) ) "
+                                      + " and events.deleted=0 "
+                                      + " and events.EventAchieved=0 "
+                                      + " and events.PrivateEvent=0 "
+                                      + " and events.CreatedDate <> events.LastUpdatedDate "
+                                      + " ORDER BY events.LastUpdatedDate DESC ";
+                    break;
+                case "similar":
+                    using (var sedogoDbEntities = new SedogoDbEntities())
+                    {
+                        var eventId = Convert.ToInt32(Request["EID"]);
+                        var searchWord = sedogoDbEntities.Events.First(x => x.EventID == eventId).EventName;
 
-        rdrLastSixMonth.Close();
+                        cmd.CommandText =
+                            @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                                    (	
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=1  
+                                    ) as MemberCount, 
+                                    (
+	                                    SELECT count(1)  
+	                                    FROM TrackedEvents T   
+	                                    JOIN Users U   ON T.UserID = U.UserID   
+	                                    WHERE T.EventID = events.eventid   
+		                                    AND U.Deleted = 0 
+		                                    and T.showontimeline=0 
+                                    ) as FollowerCount  
+                                    from events 
+                                    inner join users on users.userid=events.userid   
+                                    where 
+                                    ( 
+                                        events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) 
+                                        and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-31,0)
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                                        and FREETEXT(EventName, '" + searchWord + @"') 
+                                    ORDER BY events.CreatedDate DESC ";
+                    }
+                    break;
+                case "other":
+                    
+                    var eId = Convert.ToInt32(Request["EID"]);
+                    cmd.CommandText =
+                        @"select top 20 events.eventid,events.eventname,users.FirstName,users.LastName,
+                        (	
+	                        SELECT count(1)  
+	                        FROM TrackedEvents T   
+	                        JOIN Users U ON T.UserID = U.UserID   
+	                        WHERE T.EventID = events.eventid   
+		                        AND U.Deleted = 0 
+		                        and T.showontimeline=1  
+                        ) as MemberCount, 
+                        (
+	                        SELECT count(1)  
+	                        FROM TrackedEvents T   
+	                        JOIN Users U   ON T.UserID = U.UserID   
+	                        WHERE T.EventID = events.eventid   
+		                        AND U.Deleted = 0 
+		                        and T.showontimeline=0 
+                        ) as FollowerCount  
+                        from events 
+                        inner join users on users.userid=events.userid   
+                        where 
+                        ( 
+                            events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) 
+                            and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-31,0)
+                        )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
+                            and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
+                        ORDER BY events.CreatedDate DESC ";
+                    break;
+            }
+
+            DbDataReader rdrLastSixMonth = cmd.ExecuteReader();
+            //    + " where convert(datetime,convert(varchar,events.lastupdateddate,102)) >=(select convert(datetime, convert(varchar,'" + dtLMnth + "',102))) "
+
+            if (rdrLastSixMonth == null)
+            {
+                return;
+            }
+            while (rdrLastSixMonth.Read())
+            {
+                var eventID = int.Parse(rdrLastSixMonth["EventID"].ToString());
+                var eventName = (string)rdrLastSixMonth["EventName"];
+                var fname = (string)rdrLastSixMonth["FirstName"];
+                var lname = (string)rdrLastSixMonth["LastName"];
+                var memCount = rdrLastSixMonth["MemberCount"].ToString();
+                var folCount = rdrLastSixMonth["FollowerCount"].ToString();
+                var eventHyperlink = new HyperLink
+                                         {
+                                             Text =
+                                                 GetSubString(eventName, 100) + " <span style=color:grey>" + fname + " " +
+                                                 lname + "</span>",
+                                             NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                                         };
+                eventHyperlink.Attributes.Add("class", "event");
+                PlaceHolderLastSixMonth.Controls.Add(eventHyperlink);
+                var ltEvent6 = new Literal();
+                var memberFollowerString = " - ";
+                if (memCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? memCount + " member " : memCount + " members ";
+                }
+                if (folCount != "0")
+                {
+                    memberFollowerString += memCount == "1" ? folCount + " follower " : folCount + " followers ";
+                }
+                ltEvent6.Text = "<span style=color:#cccccc>" + memberFollowerString + "</span>";
+                PlaceHolderLastSixMonth.Controls.Add(ltEvent6);
+                PlaceHolderLastSixMonth.Controls.Add(new LiteralControl("<br/>"));
+            }
+
+            rdrLastSixMonth.Close();
+        }
     }
-    private string GetSubString(string inputstr, Int32 length)
-    {
-        if (inputstr.Length > length)
-        {
-            return inputstr.Substring(0, length) + "...";
-        }
-        else
-        {
-            return inputstr;
-        }
 
+    private static string GetSubString(string inputstr, Int32 length)
+    {
+        return inputstr.Length > length ? inputstr.Substring(0, length) + "..." : inputstr;
     }
 }

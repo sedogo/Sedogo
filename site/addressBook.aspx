@@ -81,9 +81,10 @@
                         
                             <table width="80%" border="0" cellspacing="2" cellpadding="0">
                                 <tr>
+                                    <td valign="top" width="60"><asp:Image id="picThumbnailImage" runat="server" /></td>
                                     <td>
-                                        <p>Name: <asp:HyperLink ID="nameLabel" runat="server" CssClass="modal" /></p>
-                                        <p>Email: <asp:HyperLink ID="emailLabel" runat="server" CssClass="modal" /></p>
+                                        <asp:HyperLink ID="nameLabel" runat="server" CssClass="modal" /><br />
+                                        <asp:HyperLink ID="emailLabel" runat="server" CssClass="modal" />
                                     </td>
                                     <td align="right">
                                         <p>

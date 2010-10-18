@@ -376,7 +376,7 @@
             <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
             
             <div class="three-col">
-            <table border="0" cellspacing="0" cellpadding="0" align="right" width="300" style="margin-top:55px">
+            <table border="0" cellspacing="0" cellpadding="0" align="right" width="300" style="margin-top:75px">
                 <tr>
                     <td><a href="register.aspx" class="signuprollover" title="signup"><span 
                         class="displace">Signup</span></a></td> 

@@ -180,18 +180,57 @@ public partial class message : SedogoPage
             }
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
-            string eventPicThumbnail = row["eventPicThumbnail"].ToString();
-            if (eventPicThumbnail == "")
+            //string eventPicThumbnail = row["eventPicThumbnail"].ToString();
+            //if (eventPicThumbnail == "")
+            //{
+            //    eventPicThumbnailImage.ImageUrl = "./images/eventThumbnailBlank.png";
+            //}
+            //else
+            //{
+            //    eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+            //}
+            if (messageFromUser.profilePicThumbnail != "")
             {
-                eventPicThumbnailImage.ImageUrl = "./images/eventThumbnailBlank.png";
+                eventPicThumbnailImage.ImageUrl = "~/assets/profilePics/" + messageFromUser.profilePicThumbnail;
             }
             else
             {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                if (messageFromUser.avatarNumber > 0)
+                {
+                    eventPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + messageFromUser.avatarNumber.ToString() + "sm.gif";
+                }
+                else
+                {
+                    if (messageFromUser.gender == "M")
+                    {
+                        // 1,2,5
+                        int avatarID = 5;
+                        switch ((messageFromUser.userID % 6))
+                        {
+                            case 0: case 1: avatarID = 1; break;
+                            case 2: case 3: avatarID = 2; break;
+                        }
+                        eventPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
+                    else
+                    {
+                        // 3,4,6
+                        int avatarID = 6;
+                        switch ((messageFromUser.userID % 6))
+                        {
+                            case 0: case 1: avatarID = 3; break;
+                            case 2: case 3: avatarID = 4; break;
+                        }
+                        eventPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
+                    //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                }
+                eventPicThumbnailImage.Height = 50;
+                eventPicThumbnailImage.Width = 50;
             }
 
             Literal messageLabel = e.Item.FindControl("messageLabel") as Literal;
-            messageLabel.Text = row["MessageText"].ToString();
+            messageLabel.Text = row["MessageText"].ToString().Replace("\n", "<br/>");
 
             HyperLink sendReplyMessageButton = e.Item.FindControl("sendReplyMessageButton") as HyperLink;
             sendReplyMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + postedByUserID.ToString()
@@ -239,6 +278,16 @@ public partial class message : SedogoPage
             int userID = int.Parse(Session["loggedInUserID"].ToString());
             PopulateMessageList(userID);
         }
+        if (e.CommandName == "deleteButton")
+        {
+            int messageID = int.Parse(e.CommandArgument.ToString());
+
+            Message message = new Message(Session["loggedInUserFullName"].ToString(), messageID);
+            message.Delete();
+
+            int userID = int.Parse(Session["loggedInUserID"].ToString());
+            PopulateMessageList(userID);
+        }
     }
 
     //===============================================================
@@ -265,13 +314,54 @@ public partial class message : SedogoPage
             int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
             SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
 
+            Image threadPicThumbnailImage = e.Item.FindControl("threadPicThumbnailImage") as Image;
+            if (messageFromUser.profilePicThumbnail != "")
+            {
+                threadPicThumbnailImage.ImageUrl = "~/assets/profilePics/" + messageFromUser.profilePicThumbnail;
+            }
+            else
+            {
+                if (messageFromUser.avatarNumber > 0)
+                {
+                    threadPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + messageFromUser.avatarNumber.ToString() + "sm.gif";
+                }
+                else
+                {
+                    if (messageFromUser.gender == "M")
+                    {
+                        // 1,2,5
+                        int avatarID = 5;
+                        switch ((messageFromUser.userID % 6))
+                        {
+                            case 0: case 1: avatarID = 1; break;
+                            case 2: case 3: avatarID = 2; break;
+                        }
+                        threadPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
+                    else
+                    {
+                        // 3,4,6
+                        int avatarID = 6;
+                        switch ((messageFromUser.userID % 6))
+                        {
+                            case 0: case 1: avatarID = 3; break;
+                            case 2: case 3: avatarID = 4; break;
+                        }
+                        threadPicThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
+                    //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                }
+                threadPicThumbnailImage.Height = 50;
+                threadPicThumbnailImage.Width = 50;
+            }
+
             Literal threadUserNameLabel = e.Item.FindControl("threadUserNameLabel") as Literal;
 
             threadUserNameLabel.Text = "From: <a href=\"userTimeline.aspx?UID=" + postedByUserID.ToString() + "\" target=\"_top\">"
                 + messageFromUser.firstName + " " + messageFromUser.lastName + "</a> ";
 
             Literal threadMessageLabel = e.Item.FindControl("threadMessageLabel") as Literal;
-            threadMessageLabel.Text = row["MessageText"].ToString();
+            threadMessageLabel.Text = row["MessageText"].ToString().Replace("\n","<br/>");
         }
     }
 

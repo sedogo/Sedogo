@@ -260,7 +260,7 @@ BEGIN
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
-		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber,
 		U.ProfileText
 	FROM Messages M
 	LEFT OUTER JOIN Events E
@@ -300,7 +300,7 @@ BEGIN
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
-		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber,
 		U.ProfileText
 	FROM Messages M
 	LEFT OUTER JOIN Events E
@@ -340,7 +340,7 @@ BEGIN
 		E.StartDate, E.RangeStartDate, E.RangeEndDate, E.BeforeBirthday,
 		E.CategoryID, E.TimezoneID, E.EventPicFilename, E.EventPicThumbnail, E.EventPicPreview,
 		U.EmailAddress, U.FirstName, U.LastName, U.Gender, U.HomeTown,
-		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview,
+		U.Birthday, U.ProfilePicFilename, U.ProfilePicThumbnail, U.ProfilePicPreview, U.AvatarNumber,
 		U.ProfileText
 	FROM Messages M
 	LEFT OUTER JOIN Events E

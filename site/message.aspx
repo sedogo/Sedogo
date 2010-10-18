@@ -45,6 +45,21 @@
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="utils/validationFunctions.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+    function confirmDeleteMessage()
+    {
+        if (confirm('Are you sure you want to delete this message?'))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+</script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -100,7 +115,10 @@
                                                 OnItemCommand="threadMessagesRepeater_ItemCommand">
                                                 <ItemTemplate>
                                                 <tr>
-                                                    <td></td>
+                                                    <td colspan="2"><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" width="60"><asp:Image id="threadPicThumbnailImage" runat="server" /></td>
                                                     <td width="300">
                                                         <p style="margin-left:20px"><i><asp:Literal ID="threadUserNameLabel" runat="server" /></i><br />
                                                         <asp:Literal ID="threadMessageLabel" runat="server" /></p>
@@ -112,9 +130,11 @@
                                     </td>
                                     <td align="right" width="240">
                                         <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="button-sml" 
-                                            Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' />
-                                            <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 
+                                            Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
+                                            <p style="margin-top:10px"><asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="button-sml modal" 
                                             Text="send reply" /></p>
+                                            <p style="margin-top:10px"><asp:LinkButton ID="deleteButton" runat="server" CssClass="button-sml" OnClientClick="return confirmDeleteMessage()" 
+                                            Text="delete" CommandName="deleteButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
                                     </td>
                                 </tr>
                             </table>

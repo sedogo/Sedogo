@@ -196,10 +196,14 @@ public partial class addressBook : SedogoPage
                 // From the tracker list, and not in my address book
                 viewProfileButton.Visible = false;
                 sendMessageButton.Visible = false;
-                emailLabel.Text = "(Hidden)";
-                emailLabel.NavigateUrl = "#";
-                emailLabel.CssClass = "";
-                emailLabel.Enabled = false;
+                nameLabel.NavigateUrl = "#";
+                nameLabel.CssClass = "";
+                nameLabel.Enabled = false;
+                //emailLabel.Text = "(Hidden)";
+                //emailLabel.NavigateUrl = "#";
+                //emailLabel.CssClass = "";
+                //emailLabel.Enabled = false;
+                emailLabel.Visible = false;
                 editContactButton.Visible = false;
                 deleteContactButton.Visible = false;
 
@@ -209,18 +213,69 @@ public partial class addressBook : SedogoPage
             else
             {
                 // From address book
+                viewProfileButton.Visible = true;
+                sendMessageButton.Visible = true;
+                emailLabel.Visible = true;
+                editContactButton.Visible = true;
+                deleteContactButton.Visible = true;
+                
                 addToAddressBookButton.Visible = false;
             }
+
+            Image picThumbnailImage = e.Item.FindControl("picThumbnailImage") as Image;
 
             int userID = SedogoUser.GetUserIDFromEmailAddress(((AddressBookEntry)e.Item.DataItem)._emailAddress.ToString());
             if (userID > 0)
             {
                 viewProfileButton.NavigateUrl = "userProfile.aspx?UID=" + userID.ToString();
                 viewProfileButton.Visible = true;
+
+                SedogoUser addressBookUser = new SedogoUser("", userID);
+
+                if (addressBookUser.profilePicThumbnail != "")
+                {
+                    picThumbnailImage.ImageUrl = "~/assets/profilePics/" + addressBookUser.profilePicThumbnail;
+                }
+                else
+                {
+                    if (addressBookUser.avatarNumber > 0)
+                    {
+                        picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + addressBookUser.avatarNumber.ToString() + "sm.gif";
+                    }
+                    else
+                    {
+                        if (addressBookUser.gender == "M")
+                        {
+                            // 1,2,5
+                            int avatarID = 5;
+                            switch ((addressBookUser.userID % 6))
+                            {
+                                case 0: case 1: avatarID = 1; break;
+                                case 2: case 3: avatarID = 2; break;
+                            }
+                            picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            // 3,4,6
+                            int avatarID = 6;
+                            switch ((addressBookUser.userID % 6))
+                            {
+                                case 0: case 1: avatarID = 3; break;
+                                case 2: case 3: avatarID = 4; break;
+                            }
+                            picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    }
+                    picThumbnailImage.Height = 50;
+                    picThumbnailImage.Width = 50;
+                }
             }
             else
             {
                 viewProfileButton.Visible = false;
+                picThumbnailImage.ImageUrl = "~/images/avatars/avatar1sm.gif";
             }
 
             if (userID > 0)

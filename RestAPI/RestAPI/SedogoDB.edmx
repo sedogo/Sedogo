@@ -108,6 +108,7 @@
           <Parameter Name="LanguageID" Type="int" Mode="In" />
           <Parameter Name="TimezoneID" Type="int" Mode="In" />
           <Parameter Name="ProfileText" Type="nvarchar" Mode="In" />
+          <Parameter Name="AvatarNumber" Type="int" Mode="In" />
           <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
           <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
@@ -164,6 +165,9 @@
         <Function Name="spSelectNotAchievedEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
         </Function>
+        <Function Name="spSelectTrackedEventListByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
         <Function Name="spSelectUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
         </Function>
@@ -210,6 +214,7 @@
             <Parameter Name="LanguageID" Mode="In" Type="Int32" />
             <Parameter Name="TimezoneID" Mode="In" Type="Int32" />
             <Parameter Name="ProfileText" Mode="In" Type="String" />
+            <Parameter Name="AvatarNumber" Mode="In" Type="Int32" />
             <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
             <Parameter Name="CreatedByFullName" Mode="In" Type="String" />
             <Parameter Name="LastUpdatedDate" Mode="In" Type="DateTime" />
@@ -244,7 +249,7 @@
           <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spSelectTrackedEventListByUserID" ReturnType="Collection(sedogoDBModel.spSelectTrackedEventListByUserID_Result)">
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spSelectNotAchievedEventList" ReturnType="Collection(sedogoDBModel.spSelectNotAchievedEventList_Result)">
           <Parameter Name="UserID" Mode="In" Type="Int32" />
@@ -1019,6 +1024,37 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spSelectTrackedEventListByUserID" FunctionName="sedogoDBModel.Store.spSelectTrackedEventListByUserID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sedogoDBModel.spSelectTrackedEventListByUserID_Result">
+                <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShowOnTimeline" ColumnName="ShowOnTimeline" />
+                <ScalarProperty Name="JoinPending" ColumnName="JoinPending" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="DateType" ColumnName="DateType" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="RangeStartDate" ColumnName="RangeStartDate" />
+                <ScalarProperty Name="RangeEndDate" ColumnName="RangeEndDate" />
+                <ScalarProperty Name="BeforeBirthday" ColumnName="BeforeBirthday" />
+                <ScalarProperty Name="EventAchieved" ColumnName="EventAchieved" />
+                <ScalarProperty Name="EventAchievedDate" ColumnName="EventAchievedDate" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+                <ScalarProperty Name="EventPicFilename" ColumnName="EventPicFilename" />
+                <ScalarProperty Name="EventPicThumbnail" ColumnName="EventPicThumbnail" />
+                <ScalarProperty Name="EventPicPreview" ColumnName="EventPicPreview" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="MustDo" ColumnName="MustDo" />
+                <ScalarProperty Name="PrivateEvent" ColumnName="PrivateEvent" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

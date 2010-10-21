@@ -751,8 +751,7 @@ namespace RestAPI.Controllers
 
             //now userID is the user's identifier
 
-            System.Data.Objects.ObjectResult<spSelectTrackedEventListByUserID_Result> sr =
-                _db.spSelectTrackedEventListByUserID(userId);
+            var sr = _db.spSelectTrackedEventListByUserID(userId);
 
             List<Dictionary<string, object>> events = sr.Select(m => new EventModel
             {

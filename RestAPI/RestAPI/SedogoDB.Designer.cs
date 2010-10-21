@@ -226,13 +226,14 @@ namespace RestAPI
         /// <param name="languageID">No Metadata Documentation available.</param>
         /// <param name="timezoneID">No Metadata Documentation available.</param>
         /// <param name="profileText">No Metadata Documentation available.</param>
+        /// <param name="avatarNumber">No Metadata Documentation available.</param>
         /// <param name="createdDate">No Metadata Documentation available.</param>
         /// <param name="createdByFullName">No Metadata Documentation available.</param>
         /// <param name="lastUpdatedDate">No Metadata Documentation available.</param>
         /// <param name="lastUpdatedByFullName">No Metadata Documentation available.</param>
         /// <param name="facebookUserID">No Metadata Documentation available.</param>
         /// <param name="userID">No Metadata Documentation available.</param>
-        public int spAddUser(global::System.String emailAddress, global::System.String gUID, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.String homeTown, Nullable<global::System.DateTime> birthday, Nullable<global::System.Int32> countryID, Nullable<global::System.Int32> languageID, Nullable<global::System.Int32> timezoneID, global::System.String profileText, Nullable<global::System.DateTime> createdDate, global::System.String createdByFullName, Nullable<global::System.DateTime> lastUpdatedDate, global::System.String lastUpdatedByFullName, Nullable<global::System.Int64> facebookUserID, ObjectParameter userID)
+        public int spAddUser(global::System.String emailAddress, global::System.String gUID, global::System.String firstName, global::System.String lastName, global::System.String gender, global::System.String homeTown, Nullable<global::System.DateTime> birthday, Nullable<global::System.Int32> countryID, Nullable<global::System.Int32> languageID, Nullable<global::System.Int32> timezoneID, global::System.String profileText, Nullable<global::System.Int32> avatarNumber, Nullable<global::System.DateTime> createdDate, global::System.String createdByFullName, Nullable<global::System.DateTime> lastUpdatedDate, global::System.String lastUpdatedByFullName, Nullable<global::System.Int64> facebookUserID, ObjectParameter userID)
         {
             ObjectParameter emailAddressParameter;
             if (emailAddress != null)
@@ -344,6 +345,16 @@ namespace RestAPI
                 profileTextParameter = new ObjectParameter("ProfileText", typeof(global::System.String));
             }
     
+            ObjectParameter avatarNumberParameter;
+            if (avatarNumber.HasValue)
+            {
+                avatarNumberParameter = new ObjectParameter("AvatarNumber", avatarNumber);
+            }
+            else
+            {
+                avatarNumberParameter = new ObjectParameter("AvatarNumber", typeof(global::System.Int32));
+            }
+    
             ObjectParameter createdDateParameter;
             if (createdDate.HasValue)
             {
@@ -394,7 +405,7 @@ namespace RestAPI
                 facebookUserIDParameter = new ObjectParameter("FacebookUserID", typeof(global::System.Int64));
             }
     
-            return base.ExecuteFunction("spAddUser", emailAddressParameter, gUIDParameter, firstNameParameter, lastNameParameter, genderParameter, homeTownParameter, birthdayParameter, countryIDParameter, languageIDParameter, timezoneIDParameter, profileTextParameter, createdDateParameter, createdByFullNameParameter, lastUpdatedDateParameter, lastUpdatedByFullNameParameter, facebookUserIDParameter, userID);
+            return base.ExecuteFunction("spAddUser", emailAddressParameter, gUIDParameter, firstNameParameter, lastNameParameter, genderParameter, homeTownParameter, birthdayParameter, countryIDParameter, languageIDParameter, timezoneIDParameter, profileTextParameter, avatarNumberParameter, createdDateParameter, createdByFullNameParameter, lastUpdatedDateParameter, lastUpdatedByFullNameParameter, facebookUserIDParameter, userID);
         }
     
         /// <summary>

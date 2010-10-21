@@ -25,70 +25,6 @@
           <EntitySet Name="TrackedEvents" EntityType="SedogoDbModel.Store.TrackedEvents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserLoginHistory" EntityType="SedogoDbModel.Store.UserLoginHistory" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="SedogoDbModel.Store.Users" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_AddressBook_Users" Association="SedogoDbModel.Store.FK_AddressBook_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="AddressBook" EntitySet="AddressBook" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdministratorsLoginHistory_Administrators" Association="SedogoDbModel.Store.FK_AdministratorsLoginHistory_Administrators">
-            <End Role="Administrators" EntitySet="Administrators" />
-            <End Role="AdministratorsLoginHistory" EntitySet="AdministratorsLoginHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventAlerts_Events" Association="SedogoDbModel.Store.FK_EventAlerts_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="EventAlerts" EntitySet="EventAlerts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventComments_Events" Association="SedogoDbModel.Store.FK_EventComments_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="EventComments" EntitySet="EventComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventInvites_Events" Association="SedogoDbModel.Store.FK_EventInvites_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="EventInvites" EntitySet="EventInvites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventInvites_Users" Association="SedogoDbModel.Store.FK_EventInvites_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="EventInvites" EntitySet="EventInvites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventPictures_Events" Association="SedogoDbModel.Store.FK_EventPictures_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="EventPictures" EntitySet="EventPictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Events_Timezones" Association="SedogoDbModel.Store.FK_Events_Timezones">
-            <End Role="Timezones" EntitySet="Timezones" />
-            <End Role="Events" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Events_Users" Association="SedogoDbModel.Store.FK_Events_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Events" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SearchHistory_Users" Association="SedogoDbModel.Store.FK_SearchHistory_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="SearchHistory" EntitySet="SearchHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrackedEvents_Events" Association="SedogoDbModel.Store.FK_TrackedEvents_Events">
-            <End Role="Events" EntitySet="Events" />
-            <End Role="TrackedEvents" EntitySet="TrackedEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrackedEvents_Users" Association="SedogoDbModel.Store.FK_TrackedEvents_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="TrackedEvents" EntitySet="TrackedEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLoginHistory_Users" Association="SedogoDbModel.Store.FK_UserLoginHistory_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Countries" Association="SedogoDbModel.Store.FK_Users_Countries">
-            <End Role="Countries" EntitySet="Countries" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Languages" Association="SedogoDbModel.Store.FK_Users_Languages">
-            <End Role="Languages" EntitySet="Languages" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Timezones" Association="SedogoDbModel.Store.FK_Users_Timezones">
-            <End Role="Timezones" EntitySet="Timezones" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AddressBook">
           <Key>
@@ -362,8 +298,8 @@
           <Property Name="Gender" Type="nchar" Nullable="false" MaxLength="1" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DeletedDate" Type="datetime" />
-          <Property Name="CountryID" Type="int" />
-          <Property Name="LanguageID" Type="int" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="LanguageID" Type="int" Nullable="false" />
           <Property Name="LoginEnabled" Type="bit" Nullable="false" />
           <Property Name="UserPassword" Type="nvarchar" MaxLength="200" />
           <Property Name="FailedLoginCount" Type="int" Nullable="false" />
@@ -382,206 +318,8 @@
           <Property Name="TimezoneID" Type="int" Nullable="false" />
           <Property Name="EnableSendEmails" Type="bit" Nullable="false" />
           <Property Name="FacebookUserID" Type="bigint" />
+          <Property Name="AvatarNumber" Type="int" />
         </EntityType>
-        <Association Name="FK_AddressBook_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
-          <End Role="AddressBook" Type="SedogoDbModel.Store.AddressBook" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="AddressBook">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AdministratorsLoginHistory_Administrators">
-          <End Role="Administrators" Type="SedogoDbModel.Store.Administrators" Multiplicity="0..1" />
-          <End Role="AdministratorsLoginHistory" Type="SedogoDbModel.Store.AdministratorsLoginHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Administrators">
-              <PropertyRef Name="AdministratorID" />
-            </Principal>
-            <Dependent Role="AdministratorsLoginHistory">
-              <PropertyRef Name="AdministratorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventAlerts_Events">
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
-          <End Role="EventAlerts" Type="SedogoDbModel.Store.EventAlerts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventAlerts">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventComments_Events">
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
-          <End Role="EventComments" Type="SedogoDbModel.Store.EventComments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventComments">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventInvites_Events">
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
-          <End Role="EventInvites" Type="SedogoDbModel.Store.EventInvites" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventInvites">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventInvites_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="0..1" />
-          <End Role="EventInvites" Type="SedogoDbModel.Store.EventInvites" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="EventInvites">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EventPictures_Events">
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
-          <End Role="EventPictures" Type="SedogoDbModel.Store.EventPictures" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="EventPictures">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Events_Timezones">
-          <End Role="Timezones" Type="SedogoDbModel.Store.Timezones" Multiplicity="1" />
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Timezones">
-              <PropertyRef Name="TimezoneID" />
-            </Principal>
-            <Dependent Role="Events">
-              <PropertyRef Name="TimezoneID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Events_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Events">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SearchHistory_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
-          <End Role="SearchHistory" Type="SedogoDbModel.Store.SearchHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="SearchHistory">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrackedEvents_Events">
-          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
-          <End Role="TrackedEvents" Type="SedogoDbModel.Store.TrackedEvents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Events">
-              <PropertyRef Name="EventID" />
-            </Principal>
-            <Dependent Role="TrackedEvents">
-              <PropertyRef Name="EventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TrackedEvents_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
-          <End Role="TrackedEvents" Type="SedogoDbModel.Store.TrackedEvents" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="TrackedEvents">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserLoginHistory_Users">
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="0..1" />
-          <End Role="UserLoginHistory" Type="SedogoDbModel.Store.UserLoginHistory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="UserLoginHistory">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Countries">
-          <End Role="Countries" Type="SedogoDbModel.Store.Countries" Multiplicity="0..1" />
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Countries">
-              <PropertyRef Name="CountryID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="CountryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Languages">
-          <End Role="Languages" Type="SedogoDbModel.Store.Languages" Multiplicity="0..1" />
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Languages">
-              <PropertyRef Name="LanguageID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="LanguageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_Timezones">
-          <End Role="Timezones" Type="SedogoDbModel.Store.Timezones" Multiplicity="1" />
-          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Timezones">
-              <PropertyRef Name="TimezoneID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="TimezoneID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Function Name="SIDEBAR_SelectOtherEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="SIDEBAR$SelectOtherEvents" Schema="dbo">
-          <Parameter Name="EventId" Type="int" Mode="In" />
-        </Function>
-        <Function Name="SIDEBAR_SelectSimilarEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="SIDEBAR$SelectSimilarEvents" Schema="dbo">
-          <Parameter Name="SearchWord" Type="nvarchar" Mode="In" />
-          <Parameter Name="EventId" Type="int" Mode="In" />
-        </Function>
         <Function Name="spAddAddressBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
@@ -737,6 +475,7 @@
           <Parameter Name="LanguageID" Type="int" Mode="In" />
           <Parameter Name="TimezoneID" Type="int" Mode="In" />
           <Parameter Name="ProfileText" Type="nvarchar" Mode="In" />
+          <Parameter Name="AvatarNumber" Type="int" Mode="In" />
           <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
           <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
           <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
@@ -1073,6 +812,7 @@
         </Function>
         <Function Name="spSelectFullEventListIncludingAchievedByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="ShowPrivate" Type="bit" Mode="In" />
         </Function>
         <Function Name="spSelectHappeningNowEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spSelectHomePageEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -1104,6 +844,9 @@
         </Function>
         <Function Name="spSelectNotAchievedEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectOtherEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventId" Type="int" Mode="In" />
         </Function>
         <Function Name="spSelectPendingEventInviteCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EventID" Type="int" Mode="In" />
@@ -1144,6 +887,10 @@
         </Function>
         <Function Name="spSelectSentMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectSimilarEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchWord" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventId" Type="int" Mode="In" />
         </Function>
         <Function Name="spSelectTimezoneDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TimezoneID" Type="int" Mode="In" />
@@ -1324,6 +1071,7 @@
           <Parameter Name="TimezoneID" Type="int" Mode="In" />
           <Parameter Name="LoginEnabled" Type="bit" Mode="In" />
           <Parameter Name="EnableSendEmails" Type="bit" Mode="In" />
+          <Parameter Name="AvatarNumber" Type="int" Mode="In" />
           <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
           <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
           <Parameter Name="FacebookUserID" Type="bigint" Mode="In" />
@@ -1749,6 +1497,7 @@
           <NavigationProperty Name="UserLoginHistories" Relationship="SedogoDbModel.FK_UserLoginHistory_Users" FromRole="User" ToRole="UserLoginHistory" />
           <NavigationProperty Name="Events" Relationship="SedogoDbModel.FK_Events_Users" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="EventInvites" Relationship="SedogoDbModel.FK_EventInvites_Users" FromRole="User" ToRole="EventInvite" />
+          <Property Type="Int32" Name="AvatarNumber" />
         </EntityType>
         <Association Name="FK_AddressBook_Users">
           <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
@@ -2085,6 +1834,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SedogoDbModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AvatarNumber" ColumnName="AvatarNumber" />
                 <ScalarProperty Name="FacebookUserID" ColumnName="FacebookUserID" />
                 <ScalarProperty Name="EnableSendEmails" ColumnName="EnableSendEmails" />
                 <ScalarProperty Name="ProfileText" ColumnName="ProfileText" />
@@ -2229,8 +1979,6 @@
             </EndProperty>
             <Condition ColumnName="UserID" IsNull="false" />
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="SelectOtherEvents" FunctionName="SedogoDbModel.Store.SIDEBAR_SelectOtherEvents" />
-          <FunctionImportMapping FunctionImportName="SelectSimilarEvents" FunctionName="SedogoDbModel.Store.SIDEBAR_SelectSimilarEvents" />
           <AssociationSetMapping Name="FK_Events_Users" TypeName="SedogoDbModel.FK_Events_Users" StoreEntitySet="Events">
             <EndProperty Name="Event">
               <ScalarProperty Name="EventID" ColumnName="EventID" />
@@ -2248,6 +1996,8 @@
             </EndProperty>
             <Condition ColumnName="UserID" IsNull="false" />
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SelectOtherEvents" FunctionName="SedogoDbModel.Store.spSelectOtherEvents" />
+          <FunctionImportMapping FunctionImportName="SelectSimilarEvents" FunctionName="SedogoDbModel.Store.spSelectSimilarEvents" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -27,7 +27,7 @@
 [assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventInvites_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.User), "EventInvite", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventInvite))]
 
 // Original file name:
-// Generation date: 29.09.2010 15:25:19
+// Generation date: 21.10.2010 15:47:14
 namespace Sedogo.DAL
 {
     
@@ -6758,6 +6758,33 @@ namespace Sedogo.DAL
         partial void OnFacebookUserIDChanging(global::System.Nullable<long> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnFacebookUserIDChanged();
+        /// <summary>
+        /// There are no comments for property AvatarNumber in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<int> AvatarNumber
+        {
+            get
+            {
+                return this._AvatarNumber;
+            }
+            set
+            {
+                this.OnAvatarNumberChanging(value);
+                this.ReportPropertyChanging("AvatarNumber");
+                this._AvatarNumber = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("AvatarNumber");
+                this.OnAvatarNumberChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Nullable<int> _AvatarNumber;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnAvatarNumberChanging(global::System.Nullable<int> value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnAvatarNumberChanged();
         /// <summary>
         /// There are no comments for AddressBooks in the schema.
         /// </summary>

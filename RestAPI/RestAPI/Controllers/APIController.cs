@@ -470,7 +470,7 @@ namespace RestAPI.Controllers
                                     created = c.CreatedDate, 
                                     updated = c.LastUpdatedDate,
                                     read = (bool?)null
-                                })).OrderBy(x => x.created).ToList();
+                                })).OrderByDescending(x => x.created).ToList();
             var result =
                 messages.Select(
                     x =>
@@ -518,8 +518,9 @@ namespace RestAPI.Controllers
 
             //the event is available. Let's check its details
 
-            System.Data.Objects.ObjectResult<spSelectEventCommentsList_Result> sr = _db.spSelectEventCommentsList(eventId);
-            List<Dictionary<string, object>> comments = sr.Select(m => new CommentModel { 
+            var sr = _db.spSelectEventCommentsList(eventId);
+            var comments = sr.OrderByDescending(x => x.CreatedDate).Select(m => new CommentModel
+            { 
                         id = m.EventCommentID,
                         created = m.CreatedDate,
                         updated = m.LastUpdatedDate,
@@ -619,10 +620,9 @@ namespace RestAPI.Controllers
 
             //now userID is the user's identifier
 
-            System.Data.Objects.ObjectResult<spSelectNotAchievedEventList_Result> sr =
-                _db.spSelectNotAchievedEventList(userId);
+            var sr = _db.spSelectNotAchievedEventList(userId);
 
-            List<Dictionary<string, object>> events = sr.Select(m => new EventModel
+            var events = sr.OrderByDescending(x => x.CreatedDate).Select(m => new EventModel
             {
                 id = m.EventID,
                 created = m.CreatedDate,
@@ -685,10 +685,9 @@ namespace RestAPI.Controllers
 
             //now userID is the user's identifier
 
-            System.Data.Objects.ObjectResult<spSelectAchievedEventList_Result> sr =
-                _db.spSelectAchievedEventList(userId);
+            var sr = _db.spSelectAchievedEventList(userId);
 
-            List<Dictionary<string, object>> events = sr.Select(m => new EventModel {
+            var events = sr.OrderByDescending(x => x.CreatedDate).Select(m => new EventModel {
                     id = m.EventID,
                     created = m.CreatedDate,
                     updated = m.LastUpdatedDate,
@@ -753,7 +752,7 @@ namespace RestAPI.Controllers
 
             var sr = _db.spSelectTrackedEventListByUserID(userId);
 
-            List<Dictionary<string, object>> events = sr.Select(m => new EventModel
+            var events = sr.OrderByDescending(x => x.CreatedDate).Select(m => new EventModel
             {
                 id = m.EventID,
                 created = m.CreatedDate,

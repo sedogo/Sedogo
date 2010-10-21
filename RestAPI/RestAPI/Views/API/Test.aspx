@@ -824,7 +824,7 @@
                     $('#getEventsIdComments_resultDiv').html('');
 
                     $.ajax({
-                        url: 'http://nikita/sedogo/api/events/' + $('#getEventsIdComments_eventId').val() + '/comments/',
+                        url: '<%=Url.Action("Events", "API")%>/' + $('#getEventsIdComments_eventId').val() + '/comments/',
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))

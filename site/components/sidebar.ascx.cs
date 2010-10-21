@@ -29,6 +29,10 @@ using Sedogo.BusinessObjects;
 using System.Collections.Generic;
 using System.Linq;
 using Sedogo.DAL;
+using EventAlert = Sedogo.BusinessObjects.EventAlert;
+using EventInvite = Sedogo.BusinessObjects.EventInvite;
+using Message = Sedogo.BusinessObjects.Message;
+using TrackedEvent = Sedogo.BusinessObjects.TrackedEvent;
 
 
 public partial class sidebar : System.Web.UI.UserControl

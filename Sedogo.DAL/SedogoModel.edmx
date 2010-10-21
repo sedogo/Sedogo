@@ -1,0 +1,2375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SedogoDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="SedogoDbModelStoreContainer">
+          <EntitySet Name="AddressBook" EntityType="SedogoDbModel.Store.AddressBook" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Administrators" EntityType="SedogoDbModel.Store.Administrators" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AdministratorsLoginHistory" EntityType="SedogoDbModel.Store.AdministratorsLoginHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Countries" EntityType="SedogoDbModel.Store.Countries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventAlerts" EntityType="SedogoDbModel.Store.EventAlerts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventComments" EntityType="SedogoDbModel.Store.EventComments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventInvites" EntityType="SedogoDbModel.Store.EventInvites" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventPictures" EntityType="SedogoDbModel.Store.EventPictures" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Events" EntityType="SedogoDbModel.Store.Events" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="GlobalData" EntityType="SedogoDbModel.Store.GlobalData" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HomePageContent" EntityType="SedogoDbModel.Store.HomePageContent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Languages" EntityType="SedogoDbModel.Store.Languages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Messages" EntityType="SedogoDbModel.Store.Messages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SearchHistory" EntityType="SedogoDbModel.Store.SearchHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SentEmailHistory" EntityType="SedogoDbModel.Store.SentEmailHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Timezones" EntityType="SedogoDbModel.Store.Timezones" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TrackedEvents" EntityType="SedogoDbModel.Store.TrackedEvents" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserLoginHistory" EntityType="SedogoDbModel.Store.UserLoginHistory" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="SedogoDbModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AddressBook_Users" Association="SedogoDbModel.Store.FK_AddressBook_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AddressBook" EntitySet="AddressBook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdministratorsLoginHistory_Administrators" Association="SedogoDbModel.Store.FK_AdministratorsLoginHistory_Administrators">
+            <End Role="Administrators" EntitySet="Administrators" />
+            <End Role="AdministratorsLoginHistory" EntitySet="AdministratorsLoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventAlerts_Events" Association="SedogoDbModel.Store.FK_EventAlerts_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventAlerts" EntitySet="EventAlerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventComments_Events" Association="SedogoDbModel.Store.FK_EventComments_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventComments" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventInvites_Events" Association="SedogoDbModel.Store.FK_EventInvites_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventInvites" EntitySet="EventInvites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventInvites_Users" Association="SedogoDbModel.Store.FK_EventInvites_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EventInvites" EntitySet="EventInvites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPictures_Events" Association="SedogoDbModel.Store.FK_EventPictures_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventPictures" EntitySet="EventPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Timezones" Association="SedogoDbModel.Store.FK_Events_Timezones">
+            <End Role="Timezones" EntitySet="Timezones" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="SedogoDbModel.Store.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchHistory_Users" Association="SedogoDbModel.Store.FK_SearchHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SearchHistory" EntitySet="SearchHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedEvents_Events" Association="SedogoDbModel.Store.FK_TrackedEvents_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="TrackedEvents" EntitySet="TrackedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedEvents_Users" Association="SedogoDbModel.Store.FK_TrackedEvents_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="TrackedEvents" EntitySet="TrackedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLoginHistory_Users" Association="SedogoDbModel.Store.FK_UserLoginHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Countries" Association="SedogoDbModel.Store.FK_Users_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Languages" Association="SedogoDbModel.Store.FK_Users_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Timezones" Association="SedogoDbModel.Store.FK_Users_Timezones">
+            <End Role="Timezones" EntitySet="Timezones" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AddressBook">
+          <Key>
+            <PropertyRef Name="AddressBookID" />
+          </Key>
+          <Property Name="AddressBookID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Administrators">
+          <Key>
+            <PropertyRef Name="AdministratorID" />
+          </Key>
+          <Property Name="AdministratorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="AdministratorName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="LoginEnabled" Type="bit" Nullable="false" />
+          <Property Name="AdministratorPassword" Type="nvarchar" MaxLength="200" />
+          <Property Name="FailedLoginCount" Type="int" Nullable="false" />
+          <Property Name="PasswordExpiryDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="AdministratorsLoginHistory">
+          <Key>
+            <PropertyRef Name="AdministratorLoginHistoryID" />
+          </Key>
+          <Property Name="AdministratorLoginHistoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AdministratorID" Type="int" />
+          <Property Name="LoginStatus" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="LoginDate" Type="datetime" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="CountryCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DefaultCountry" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventAlerts">
+          <Key>
+            <PropertyRef Name="EventAlertID" />
+          </Key>
+          <Property Name="EventAlertID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="AlertDate" Type="datetime" />
+          <Property Name="AlertText" Type="nvarchar(max)" />
+          <Property Name="Completed" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="EventAlertGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReminderEmailSent" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventComments">
+          <Key>
+            <PropertyRef Name="EventCommentID" />
+          </Key>
+          <Property Name="EventCommentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="PostedByUserID" Type="int" Nullable="false" />
+          <Property Name="CommentText" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="EventCommentGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EventImageFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventImagePreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventVideoFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventVideoLink" Type="nvarchar" MaxLength="1000" />
+          <Property Name="EventLink" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EventInvites">
+          <Key>
+            <PropertyRef Name="EventInviteID" />
+          </Key>
+          <Property Name="EventInviteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="InviteAdditionalText" Type="nvarchar(max)" />
+          <Property Name="InviteEmailSent" Type="bit" Nullable="false" />
+          <Property Name="InviteEmailSentEmailAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="InviteEmailSentDate" Type="datetime" />
+          <Property Name="InviteAccepted" Type="bit" Nullable="false" />
+          <Property Name="InviteAcceptedDate" Type="datetime" />
+          <Property Name="InviteDeclined" Type="bit" Nullable="false" />
+          <Property Name="InviteDeclinedDate" Type="datetime" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EventPictures">
+          <Key>
+            <PropertyRef Name="EventPictureID" />
+          </Key>
+          <Property Name="EventPictureID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="PostedByUserID" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="ImageFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImageThumbnail" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImagePreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6005: The data type 'geography' is not supported; the column 'Coords' in table 'sedogoDb.dbo.Events' was excluded.
+      -->
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="EventPicFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventPicThumbnail" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventPicPreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="EventAchieved" Type="bit" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="DateType" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="RangeStartDate" Type="datetime" />
+          <Property Name="RangeEndDate" Type="datetime" />
+          <Property Name="BeforeBirthday" Type="int" />
+          <Property Name="PrivateEvent" Type="bit" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar(max)" />
+          <Property Name="MustDo" Type="bit" Nullable="false" />
+          <Property Name="CreatedFromEventID" Type="int" />
+          <Property Name="EventVenue" Type="nvarchar(max)" />
+          <Property Name="TimezoneID" Type="int" Nullable="false" />
+          <Property Name="EventGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ShowOnDefaultPage" Type="bit" Nullable="false" />
+          <Property Name="EventAchievedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GlobalData">
+          <Key>
+            <PropertyRef Name="GlobalDataID" />
+          </Key>
+          <Property Name="GlobalDataID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="KeyName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IntegerValue" Type="int" />
+          <Property Name="NumericValue" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DateValue" Type="datetime" />
+          <Property Name="StringValue" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="HomePageContent">
+          <Key>
+            <PropertyRef Name="HomePageContentID" />
+          </Key>
+          <Property Name="HomePageContentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="HomePageContent" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LanguageCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DefaultLanguage" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PostedByUserID" Type="int" Nullable="false" />
+          <Property Name="MessageText" Type="nvarchar(max)" />
+          <Property Name="MessageRead" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="MessageGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchHistoryID" />
+          </Key>
+          <Property Name="SearchHistoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SearchDate" Type="datetime" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SearchText" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="SearchHits" Type="int" />
+        </EntityType>
+        <EntityType Name="SentEmailHistory">
+          <Key>
+            <PropertyRef Name="SentEmailHistoryID" />
+          </Key>
+          <Property Name="SentEmailHistoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SentFrom" Type="nvarchar" MaxLength="200" />
+          <Property Name="SentTo" Type="nvarchar" MaxLength="200" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="SentDate" Type="datetime" />
+          <Property Name="LoggedInUserName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Timezones">
+          <Key>
+            <PropertyRef Name="TimezoneID" />
+          </Key>
+          <Property Name="TimezoneID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ShortCode" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="GMTOffset" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TrackedEvents">
+          <Key>
+            <PropertyRef Name="TrackedEventID" />
+          </Key>
+          <Property Name="TrackedEventID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ShowOnTimeline" Type="bit" Nullable="false" />
+          <Property Name="JoinPending" Type="bit" Nullable="false" />
+          <Property Name="TrackedEventGUID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLoginHistory">
+          <Key>
+            <PropertyRef Name="UserLoginHistoryID" />
+          </Key>
+          <Property Name="UserLoginHistoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="LoginStatus" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="LoginDate" Type="datetime" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Gender" Type="nchar" Nullable="false" MaxLength="1" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="CountryID" Type="int" />
+          <Property Name="LanguageID" Type="int" />
+          <Property Name="LoginEnabled" Type="bit" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="200" />
+          <Property Name="FailedLoginCount" Type="int" Nullable="false" />
+          <Property Name="PasswordExpiryDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="HomeTown" Type="nvarchar" MaxLength="200" />
+          <Property Name="Birthday" Type="datetime" />
+          <Property Name="ProfilePicFilename" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProfilePicThumbnail" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProfilePicPreview" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProfileText" Type="nvarchar" MaxLength="200" />
+          <Property Name="TimezoneID" Type="int" Nullable="false" />
+          <Property Name="EnableSendEmails" Type="bit" Nullable="false" />
+          <Property Name="FacebookUserID" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_AddressBook_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
+          <End Role="AddressBook" Type="SedogoDbModel.Store.AddressBook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AddressBook">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdministratorsLoginHistory_Administrators">
+          <End Role="Administrators" Type="SedogoDbModel.Store.Administrators" Multiplicity="0..1" />
+          <End Role="AdministratorsLoginHistory" Type="SedogoDbModel.Store.AdministratorsLoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Administrators">
+              <PropertyRef Name="AdministratorID" />
+            </Principal>
+            <Dependent Role="AdministratorsLoginHistory">
+              <PropertyRef Name="AdministratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventAlerts_Events">
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
+          <End Role="EventAlerts" Type="SedogoDbModel.Store.EventAlerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventAlerts">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventComments_Events">
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
+          <End Role="EventComments" Type="SedogoDbModel.Store.EventComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventComments">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventInvites_Events">
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
+          <End Role="EventInvites" Type="SedogoDbModel.Store.EventInvites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventInvites">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventInvites_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="0..1" />
+          <End Role="EventInvites" Type="SedogoDbModel.Store.EventInvites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="EventInvites">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventPictures_Events">
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
+          <End Role="EventPictures" Type="SedogoDbModel.Store.EventPictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventPictures">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Timezones">
+          <End Role="Timezones" Type="SedogoDbModel.Store.Timezones" Multiplicity="1" />
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timezones">
+              <PropertyRef Name="TimezoneID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="TimezoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SearchHistory_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
+          <End Role="SearchHistory" Type="SedogoDbModel.Store.SearchHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SearchHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedEvents_Events">
+          <End Role="Events" Type="SedogoDbModel.Store.Events" Multiplicity="1" />
+          <End Role="TrackedEvents" Type="SedogoDbModel.Store.TrackedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="TrackedEvents">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrackedEvents_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="1" />
+          <End Role="TrackedEvents" Type="SedogoDbModel.Store.TrackedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="TrackedEvents">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLoginHistory_Users">
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="0..1" />
+          <End Role="UserLoginHistory" Type="SedogoDbModel.Store.UserLoginHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLoginHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Countries">
+          <End Role="Countries" Type="SedogoDbModel.Store.Countries" Multiplicity="0..1" />
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="CountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Languages">
+          <End Role="Languages" Type="SedogoDbModel.Store.Languages" Multiplicity="0..1" />
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Timezones">
+          <End Role="Timezones" Type="SedogoDbModel.Store.Timezones" Multiplicity="1" />
+          <End Role="Users" Type="SedogoDbModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Timezones">
+              <PropertyRef Name="TimezoneID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="TimezoneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SIDEBAR_SelectOtherEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="SIDEBAR$SelectOtherEvents" Schema="dbo">
+          <Parameter Name="EventId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SIDEBAR_SelectSimilarEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="SIDEBAR$SelectSimilarEvents" Schema="dbo">
+          <Parameter Name="SearchWord" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spAddAddressBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="AddressBookID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddAdministrator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="AdministratorName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="AdministratorID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="DefaultCountry" Type="bit" Mode="In" />
+          <Parameter Name="CountryID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EventName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DateType" Type="nchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="RangeStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="RangeEndDate" Type="datetime" Mode="In" />
+          <Parameter Name="BeforeBirthday" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="PrivateEvent" Type="bit" Mode="In" />
+          <Parameter Name="CreatedFromEventID" Type="int" Mode="In" />
+          <Parameter Name="EventDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EventVenue" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="MustDo" Type="bit" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddEventAlert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="AlertDate" Type="datetime" Mode="In" />
+          <Parameter Name="AlertText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventAlertID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddEventComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="PostedByUserID" Type="int" Mode="In" />
+          <Parameter Name="EventImageFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventImagePreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventVideoLink" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventLink" Type="nvarchar" Mode="In" />
+          <Parameter Name="CommentText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventCommentID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddEventInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="GUID" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="InviteAdditionalText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="InviteEmailSent" Type="bit" Mode="In" />
+          <Parameter Name="InviteEmailSentEmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="InviteEmailSentDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventInviteID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddEventPicture" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="PostedByUserID" Type="int" Mode="In" />
+          <Parameter Name="ImageFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImageThumbnail" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImagePreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="Caption" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventPictureID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LanguageCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="DefaultLanguage" Type="bit" Mode="In" />
+          <Parameter Name="LanguageID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="PostedByUserID" Type="int" Mode="In" />
+          <Parameter Name="MessageText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="MessageID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddSearchHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchDate" Type="datetime" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="SearchHits" Type="int" Mode="In" />
+          <Parameter Name="SearchHistoryID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddSentEmailHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SentFrom" Type="nvarchar" Mode="In" />
+          <Parameter Name="SentTo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="Body" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SentDate" Type="datetime" Mode="In" />
+          <Parameter Name="LoggedInUserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="SentEmailHistoryID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddTimezone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShortCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="GMTOffset" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddTrackedEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="ShowOnTimeline" Type="bit" Mode="In" />
+          <Parameter Name="JoinPending" Type="bit" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="TrackedEventID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spAddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="GUID" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nchar" Mode="In" />
+          <Parameter Name="HomeTown" Type="nvarchar" Mode="In" />
+          <Parameter Name="Birthday" Type="datetime" Mode="In" />
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="ProfileText" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FacebookUserID" Type="bigint" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spCheckUserEventInviteExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteAddressBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AddressBookID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteAdministrator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEventAlert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventAlertID" Type="int" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEventComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventCommentID" Type="int" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEventInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventInviteID" Type="int" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteEventPicture" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventPictureID" Type="int" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MessageID" Type="int" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spDeleteTimezone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="ShortCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="GMTOffset" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteTrackedEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrackedEventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetAdministratorIDFromEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetCountryIDFromCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetCountryIDFromName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetDefaultCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spGetDefaultLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spGetEventInviteIDFromUserIDEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetLanguageIDFromCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetLanguageIDFromName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetUserIDFromEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetUserIDFromGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GUID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataAddDateValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataAddIntegerValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataAddNumericValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataAddStringValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataDeleteValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataGetDateValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataGetIntegerValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="IntegerValue" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spGlobalDataGetIntegerValueAndIncrement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="IntegerValue" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spGlobalDataGetNumericValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataGetStringValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataGetStringValue2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="StringValue" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="spGlobalDataSelectIntegerValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataUpdateDateValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataUpdateIntegerValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataUpdateNumericValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="spGlobalDataUpdateStringValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KeyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spIncrementAdministratorFailedLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spIncrementFailedLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spInsertAdministratorLoginHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+          <Parameter Name="LoginStatus" Type="nchar" Mode="In" />
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsertUserLoginHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="LoginStatus" Type="nchar" Mode="In" />
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spResetAdministratorFailedLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spResetFailedLoginCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSearchEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSearchEventsAdvanced" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EventName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventVenue" Type="nvarchar" Mode="In" />
+          <Parameter Name="OwnerName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="RecentlyAdded" Type="int" Mode="In" />
+          <Parameter Name="RecentlyUpdated" Type="int" Mode="In" />
+          <Parameter Name="DefinitlyDo" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="spSearchEventsByLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+          <Parameter Name="RadiusInMeters" Type="int" Mode="In" />
+          <Parameter Name="Start" Type="int" Mode="In" />
+          <Parameter Name="Count" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSearchLimitedEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchText" Type="nvarchar" Mode="In" />
+          <Parameter Name="Start" Type="int" Mode="In" />
+          <Parameter Name="Count" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSearchLimitedRandomEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Count" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAchievedEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAddressBookCountByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAddressBookDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AddressBookID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAddressBookList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAdministratorDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAdministratorList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectAdministratorPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectAdministratorsEventCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectAdministratorsEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectAlertsToSendByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectCountryDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectCountryList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectEventAlertCountPending" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertCountPendingByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventAlertID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertListPending" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventAlertListPendingByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCommentCountForEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCommentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventCommentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCommentsList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCountAchievedByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventCountNotAchievedByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInviteCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInviteCountByEventIDAndEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="InviteEmailSentEmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInviteDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventInviteID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInviteIDFromGUID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GUID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventInvitesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventListByFirstLetter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LetterFilter" Type="char" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventListIncludingAchieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventPictureID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureFirst" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureLast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureListTop18" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPictureNext" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="EventPictureID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventPicturePrevious" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="EventPictureID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectEventsWithPicturesList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectFullEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectFullEventListByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="ShowPrivate" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spSelectFullEventListIncludingAchieved" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectFullEventListIncludingAchievedByCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectHappeningNowEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectHomePageEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectJoinedEventCountByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectJoinedEventListByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectLanguageDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectLanguageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectLatestAchievedEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectLatestAchievedEventsFullList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectLatestEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectLatestUpdatedEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectMemberUserCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectMessageCountForEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectMessageDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MessageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectNotAchievedEventList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingEventInviteCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingInviteCountForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingInviteListForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingMemberRequestsByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingMemberRequestsByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingMemberUserCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectPendingMemberUserCountByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectReadMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectSearchHistoryDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchHistoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectSearchHistoryList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SearchHistoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectSearchHistoryPopularTop5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectSearchHistoryTop5" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectSentMessageCountForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectSentMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTimezoneDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTimezoneList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectTrackedEventCountByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackedEventDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrackedEventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackedEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackedEventIDFromEventIDUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackedEventListByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackingUserCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectTrackingUsersByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUnreadMessageCountForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUnreadMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUserDetailsByFacebookID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FacebookUserID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="spSelectUserList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectUserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectUsersWithLastName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LetterFilter" Type="char" Mode="In" />
+        </Function>
+        <Function Name="spUpdateAddressBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AddressBookID" Type="int" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateAdministrator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="AdministratorName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LoginEnabled" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateAdministratorPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AdministratorID" Type="int" Mode="In" />
+          <Parameter Name="AdministratorPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+          <Parameter Name="CountryName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="DefaultCountry" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="EventName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DateType" Type="nchar" Mode="In" />
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="RangeStartDate" Type="datetime" Mode="In" />
+          <Parameter Name="RangeEndDate" Type="datetime" Mode="In" />
+          <Parameter Name="BeforeBirthday" Type="int" Mode="In" />
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="PrivateEvent" Type="bit" Mode="In" />
+          <Parameter Name="CreatedFromEventID" Type="int" Mode="In" />
+          <Parameter Name="EventAchieved" Type="bit" Mode="In" />
+          <Parameter Name="EventAchievedDate" Type="datetime" Mode="In" />
+          <Parameter Name="EventDescription" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EventVenue" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="MustDo" Type="bit" Mode="In" />
+          <Parameter Name="ShowOnDefaultPage" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEventAlert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventAlertID" Type="int" Mode="In" />
+          <Parameter Name="AlertDate" Type="datetime" Mode="In" />
+          <Parameter Name="AlertText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Completed" Type="bit" Mode="In" />
+          <Parameter Name="ReminderEmailSent" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEventComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventCommentID" Type="int" Mode="In" />
+          <Parameter Name="CommentText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEventInvite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventInviteID" Type="int" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="InviteAdditionalText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="InviteEmailSent" Type="bit" Mode="In" />
+          <Parameter Name="InviteEmailSentEmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="InviteEmailSentDate" Type="datetime" Mode="In" />
+          <Parameter Name="InviteAccepted" Type="bit" Mode="In" />
+          <Parameter Name="InviteAcceptedDate" Type="datetime" Mode="In" />
+          <Parameter Name="InviteDeclined" Type="bit" Mode="In" />
+          <Parameter Name="InviteDeclinedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEventPics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventID" Type="int" Mode="In" />
+          <Parameter Name="EventPicFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventPicThumbnail" Type="nvarchar" Mode="In" />
+          <Parameter Name="EventPicPreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateEventPicture" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventPictureID" Type="int" Mode="In" />
+          <Parameter Name="ImageFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImageThumbnail" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImagePreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="Caption" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateLanguage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+          <Parameter Name="LanguageName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LanguageCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="DefaultLanguage" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spUpdateMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MessageID" Type="int" Mode="In" />
+          <Parameter Name="MessageText" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="MessageRead" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateTimezone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="ShortCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="GMTOffset" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUpdateTrackedEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TrackedEventID" Type="int" Mode="In" />
+          <Parameter Name="ShowOnTimeline" Type="bit" Mode="In" />
+          <Parameter Name="JoinPending" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+          <Parameter Name="HomeTown" Type="nvarchar" Mode="In" />
+          <Parameter Name="Birthday" Type="datetime" Mode="In" />
+          <Parameter Name="Gender" Type="nchar" Mode="In" />
+          <Parameter Name="ProfileText" Type="nvarchar" Mode="In" />
+          <Parameter Name="CountryID" Type="int" Mode="In" />
+          <Parameter Name="LanguageID" Type="int" Mode="In" />
+          <Parameter Name="TimezoneID" Type="int" Mode="In" />
+          <Parameter Name="LoginEnabled" Type="bit" Mode="In" />
+          <Parameter Name="EnableSendEmails" Type="bit" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+          <Parameter Name="FacebookUserID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="UserPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdateUserProfilePic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="ProfilePicFilename" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProfilePicThumbnail" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProfilePicPreview" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastUpdatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spVerifyAdministratorLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spVerifyUserLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmailAddress" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SedogoDbModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="SedogoDbEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="AddressBooks" EntityType="SedogoDbModel.AddressBook" />
+          <EntitySet Name="Administrators" EntityType="SedogoDbModel.Administrator" />
+          <EntitySet Name="AdministratorsLoginHistories" EntityType="SedogoDbModel.AdministratorsLoginHistory" />
+          <EntitySet Name="Countries" EntityType="SedogoDbModel.Country" />
+          <EntitySet Name="EventAlerts" EntityType="SedogoDbModel.EventAlert" />
+          <EntitySet Name="EventComments" EntityType="SedogoDbModel.EventComment" />
+          <EntitySet Name="EventInvites" EntityType="SedogoDbModel.EventInvite" />
+          <EntitySet Name="EventPictures" EntityType="SedogoDbModel.EventPicture" />
+          <EntitySet Name="Events" EntityType="SedogoDbModel.Event" />
+          <EntitySet Name="GlobalDatas" EntityType="SedogoDbModel.GlobalData" />
+          <EntitySet Name="HomePageContents" EntityType="SedogoDbModel.HomePageContent" />
+          <EntitySet Name="Languages" EntityType="SedogoDbModel.Language" />
+          <EntitySet Name="Messages" EntityType="SedogoDbModel.Message" />
+          <EntitySet Name="SearchHistories" EntityType="SedogoDbModel.SearchHistory" />
+          <EntitySet Name="SentEmailHistories" EntityType="SedogoDbModel.SentEmailHistory" />
+          <EntitySet Name="Timezones" EntityType="SedogoDbModel.Timezone" />
+          <EntitySet Name="TrackedEvents" EntityType="SedogoDbModel.TrackedEvent" />
+          <EntitySet Name="UserLoginHistories" EntityType="SedogoDbModel.UserLoginHistory" />
+          <EntitySet Name="Users" EntityType="SedogoDbModel.User" />
+          <AssociationSet Name="FK_AddressBook_Users" Association="SedogoDbModel.FK_AddressBook_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AddressBook" EntitySet="AddressBooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdministratorsLoginHistory_Administrators" Association="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators">
+            <End Role="Administrator" EntitySet="Administrators" />
+            <End Role="AdministratorsLoginHistory" EntitySet="AdministratorsLoginHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Countries" Association="SedogoDbModel.FK_Users_Countries">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventAlerts_Events" Association="SedogoDbModel.FK_EventAlerts_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventAlert" EntitySet="EventAlerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventComments_Events" Association="SedogoDbModel.FK_EventComments_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventComment" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventInvites_Events" Association="SedogoDbModel.FK_EventInvites_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventInvite" EntitySet="EventInvites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventPictures_Events" Association="SedogoDbModel.FK_EventPictures_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventPicture" EntitySet="EventPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Timezones" Association="SedogoDbModel.FK_Events_Timezones">
+            <End Role="Timezone" EntitySet="Timezones" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedEvents_Events" Association="SedogoDbModel.FK_TrackedEvents_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="TrackedEvent" EntitySet="TrackedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Languages" Association="SedogoDbModel.FK_Users_Languages">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SearchHistory_Users" Association="SedogoDbModel.FK_SearchHistory_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SearchHistory" EntitySet="SearchHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Timezones" Association="SedogoDbModel.FK_Users_Timezones">
+            <End Role="Timezone" EntitySet="Timezones" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrackedEvents_Users" Association="SedogoDbModel.FK_TrackedEvents_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="TrackedEvent" EntitySet="TrackedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLoginHistory_Users" Association="SedogoDbModel.FK_UserLoginHistory_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+          </AssociationSet>
+          <FunctionImport Name="SelectOtherEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
+          <Parameter Name="EventId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectSimilarEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
+            <Parameter Name="SearchWord" Mode="In" Type="String" />
+            <Parameter Name="EventId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="FK_Events_Users" Association="SedogoDbModel.FK_Events_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventInvites_Users" Association="SedogoDbModel.FK_EventInvites_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EventInvite" EntitySet="EventInvites" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="AddressBook">
+          <Key>
+            <PropertyRef Name="AddressBookID" />
+          </Key>
+          <Property Type="Int32" Name="AddressBookID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="FirstName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmailAddress" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_AddressBook_Users" FromRole="AddressBook" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="AdministratorID" />
+          </Key>
+          <Property Type="Int32" Name="AdministratorID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="AdministratorName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="DeletedDate" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="AdministratorPassword" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" />
+          <Property Type="DateTime" Name="LastLoginDate" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AdministratorsLoginHistories" Relationship="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" FromRole="Administrator" ToRole="AdministratorsLoginHistory" />
+        </EntityType>
+        <EntityType Name="AdministratorsLoginHistory">
+          <Key>
+            <PropertyRef Name="AdministratorLoginHistoryID" />
+          </Key>
+          <Property Type="Int32" Name="AdministratorLoginHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="LoginStatus" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="LoginDate" Nullable="false" />
+          <Property Type="String" Name="Source" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Administrator" Relationship="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" FromRole="AdministratorsLoginHistory" ToRole="Administrator" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Type="Int32" Name="CountryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="CountryName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CountryCode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="Boolean" Name="DefaultCountry" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Countries" FromRole="Country" ToRole="User" />
+        </EntityType>
+        <EntityType Name="EventAlert">
+          <Key>
+            <PropertyRef Name="EventAlertID" />
+          </Key>
+          <Property Type="Int32" Name="EventAlertID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="DateTime" Name="AlertDate" />
+          <Property Type="String" Name="AlertText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Completed" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="EventAlertGUID" Nullable="false" />
+          <Property Type="Boolean" Name="ReminderEmailSent" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventAlerts_Events" FromRole="EventAlert" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="EventComment">
+          <Key>
+            <PropertyRef Name="EventCommentID" />
+          </Key>
+          <Property Type="Int32" Name="EventCommentID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
+          <Property Type="String" Name="CommentText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="EventCommentGUID" Nullable="false" />
+          <Property Type="String" Name="EventImageFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventImagePreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventVideoFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventVideoLink" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventLink" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventComments_Events" FromRole="EventComment" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="EventInvite">
+          <Key>
+            <PropertyRef Name="EventInviteID" />
+          </Key>
+          <Property Type="Int32" Name="EventInviteID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="InviteAdditionalText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="InviteEmailSent" Nullable="false" />
+          <Property Type="String" Name="InviteEmailSentEmailAddress" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="InviteEmailSentDate" />
+          <Property Type="Boolean" Name="InviteAccepted" Nullable="false" />
+          <Property Type="DateTime" Name="InviteAcceptedDate" />
+          <Property Type="Boolean" Name="InviteDeclined" Nullable="false" />
+          <Property Type="DateTime" Name="InviteDeclinedDate" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventInvites_Events" FromRole="EventInvite" ToRole="Event" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_EventInvites_Users" FromRole="EventInvite" ToRole="User" />
+        </EntityType>
+        <EntityType Name="EventPicture">
+          <Key>
+            <PropertyRef Name="EventPictureID" />
+          </Key>
+          <Property Type="Int32" Name="EventPictureID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="String" Name="ImageFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageThumbnail" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImagePreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Caption" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventPictures_Events" FromRole="EventPicture" ToRole="Event" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Type="Int32" Name="EventID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="StartDate" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicThumbnail" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EventPicPreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="EventAchieved" Nullable="false" />
+          <Property Type="Int32" Name="CategoryID" />
+          <Property Type="String" Name="DateType" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="RangeStartDate" />
+          <Property Type="DateTime" Name="RangeEndDate" />
+          <Property Type="Int32" Name="BeforeBirthday" />
+          <Property Type="Boolean" Name="PrivateEvent" Nullable="false" />
+          <Property Type="String" Name="EventDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="MustDo" Nullable="false" />
+          <Property Type="Int32" Name="CreatedFromEventID" />
+          <Property Type="String" Name="EventVenue" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="EventGUID" Nullable="false" />
+          <Property Type="Boolean" Name="ShowOnDefaultPage" Nullable="false" />
+          <Property Type="DateTime" Name="EventAchievedDate" />
+          <NavigationProperty Name="EventAlerts" Relationship="SedogoDbModel.FK_EventAlerts_Events" FromRole="Event" ToRole="EventAlert" />
+          <NavigationProperty Name="EventComments" Relationship="SedogoDbModel.FK_EventComments_Events" FromRole="Event" ToRole="EventComment" />
+          <NavigationProperty Name="EventInvites" Relationship="SedogoDbModel.FK_EventInvites_Events" FromRole="Event" ToRole="EventInvite" />
+          <NavigationProperty Name="EventPictures" Relationship="SedogoDbModel.FK_EventPictures_Events" FromRole="Event" ToRole="EventPicture" />
+          <NavigationProperty Name="Timezone" Relationship="SedogoDbModel.FK_Events_Timezones" FromRole="Event" ToRole="Timezone" />
+          <NavigationProperty Name="TrackedEvents" Relationship="SedogoDbModel.FK_TrackedEvents_Events" FromRole="Event" ToRole="TrackedEvent" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_Events_Users" FromRole="Event" ToRole="User" />
+        </EntityType>
+        <EntityType Name="GlobalData">
+          <Key>
+            <PropertyRef Name="GlobalDataID" />
+          </Key>
+          <Property Type="Int32" Name="GlobalDataID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="KeyName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="IntegerValue" />
+          <Property Type="Decimal" Name="NumericValue" Precision="10" Scale="2" />
+          <Property Type="DateTime" Name="DateValue" />
+          <Property Type="String" Name="StringValue" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HomePageContent">
+          <Key>
+            <PropertyRef Name="HomePageContentID" />
+          </Key>
+          <Property Type="Int32" Name="HomePageContentID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="HomePageContent1" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Type="Int32" Name="LanguageID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="LanguageName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LanguageCode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="Boolean" Name="DefaultLanguage" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Languages" FromRole="Language" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Type="Int32" Name="MessageID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EventID" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
+          <Property Type="String" Name="MessageText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="MessageRead" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="MessageGUID" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchHistoryID" />
+          </Key>
+          <Property Type="Int32" Name="SearchHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="DateTime" Name="SearchDate" />
+          <Property Type="String" Name="SearchText" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="SearchHits" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_SearchHistory_Users" FromRole="SearchHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SentEmailHistory">
+          <Key>
+            <PropertyRef Name="SentEmailHistoryID" />
+          </Key>
+          <Property Type="Int32" Name="SentEmailHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="SentFrom" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SentTo" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Subject" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="SentDate" />
+          <Property Type="String" Name="LoggedInUserName" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Timezone">
+          <Key>
+            <PropertyRef Name="TimezoneID" />
+          </Key>
+          <Property Type="Int32" Name="TimezoneID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="ShortCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="GMTOffset" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="SedogoDbModel.FK_Events_Timezones" FromRole="Timezone" ToRole="Event" />
+          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Timezones" FromRole="Timezone" ToRole="User" />
+        </EntityType>
+        <EntityType Name="TrackedEvent">
+          <Key>
+            <PropertyRef Name="TrackedEventID" />
+          </Key>
+          <Property Type="Int32" Name="TrackedEventID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="Boolean" Name="ShowOnTimeline" Nullable="false" />
+          <Property Type="Boolean" Name="JoinPending" Nullable="false" />
+          <Property Type="Guid" Name="TrackedEventGUID" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_TrackedEvents_Events" FromRole="TrackedEvent" ToRole="Event" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_TrackedEvents_Users" FromRole="TrackedEvent" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserLoginHistory">
+          <Key>
+            <PropertyRef Name="UserLoginHistoryID" />
+          </Key>
+          <Property Type="Int32" Name="UserLoginHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="LoginStatus" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="LoginDate" Nullable="false" />
+          <Property Type="String" Name="Source" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_UserLoginHistory_Users" FromRole="UserLoginHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int32" Name="UserID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="DeletedDate" />
+          <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
+          <Property Type="String" Name="UserPassword" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
+          <Property Type="DateTime" Name="PasswordExpiryDate" />
+          <Property Type="DateTime" Name="LastLoginDate" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HomeTown" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Birthday" />
+          <Property Type="String" Name="ProfilePicFilename" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProfilePicThumbnail" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProfilePicPreview" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProfileText" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="EnableSendEmails" Nullable="false" />
+          <Property Type="Int64" Name="FacebookUserID" />
+          <NavigationProperty Name="AddressBooks" Relationship="SedogoDbModel.FK_AddressBook_Users" FromRole="User" ToRole="AddressBook" />
+          <NavigationProperty Name="Country" Relationship="SedogoDbModel.FK_Users_Countries" FromRole="User" ToRole="Country" />
+          <NavigationProperty Name="Language" Relationship="SedogoDbModel.FK_Users_Languages" FromRole="User" ToRole="Language" />
+          <NavigationProperty Name="SearchHistories" Relationship="SedogoDbModel.FK_SearchHistory_Users" FromRole="User" ToRole="SearchHistory" />
+          <NavigationProperty Name="Timezone" Relationship="SedogoDbModel.FK_Users_Timezones" FromRole="User" ToRole="Timezone" />
+          <NavigationProperty Name="TrackedEvents" Relationship="SedogoDbModel.FK_TrackedEvents_Users" FromRole="User" ToRole="TrackedEvent" />
+          <NavigationProperty Name="UserLoginHistories" Relationship="SedogoDbModel.FK_UserLoginHistory_Users" FromRole="User" ToRole="UserLoginHistory" />
+          <NavigationProperty Name="Events" Relationship="SedogoDbModel.FK_Events_Users" FromRole="User" ToRole="Event" />
+          <NavigationProperty Name="EventInvites" Relationship="SedogoDbModel.FK_EventInvites_Users" FromRole="User" ToRole="EventInvite" />
+        </EntityType>
+        <Association Name="FK_AddressBook_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
+          <End Type="SedogoDbModel.AddressBook" Role="AddressBook" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_AdministratorsLoginHistory_Administrators">
+          <End Type="SedogoDbModel.Administrator" Role="Administrator" Multiplicity="0..1" />
+          <End Type="SedogoDbModel.AdministratorsLoginHistory" Role="AdministratorsLoginHistory" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Users_Countries">
+          <End Type="SedogoDbModel.Country" Role="Country" Multiplicity="0..1" />
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EventAlerts_Events">
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="SedogoDbModel.EventAlert" Role="EventAlert" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EventComments_Events">
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="SedogoDbModel.EventComment" Role="EventComment" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EventInvites_Events">
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="SedogoDbModel.EventInvite" Role="EventInvite" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EventPictures_Events">
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="SedogoDbModel.EventPicture" Role="EventPicture" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Events_Timezones">
+          <End Type="SedogoDbModel.Timezone" Role="Timezone" Multiplicity="1" />
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_TrackedEvents_Events">
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="SedogoDbModel.TrackedEvent" Role="TrackedEvent" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Users_Languages">
+          <End Type="SedogoDbModel.Language" Role="Language" Multiplicity="0..1" />
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_SearchHistory_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
+          <End Type="SedogoDbModel.SearchHistory" Role="SearchHistory" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Users_Timezones">
+          <End Type="SedogoDbModel.Timezone" Role="Timezone" Multiplicity="1" />
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_TrackedEvents_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
+          <End Type="SedogoDbModel.TrackedEvent" Role="TrackedEvent" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_UserLoginHistory_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SedogoDbModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
+          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_EventInvites_Users">
+          <End Type="SedogoDbModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="SedogoDbModel.EventInvite" Role="EventInvite" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="SedogoDbModelStoreContainer" CdmEntityContainer="SedogoDbEntities">
+          <EntitySetMapping Name="AddressBooks">
+            <EntityTypeMapping TypeName="SedogoDbModel.AddressBook">
+              <MappingFragment StoreEntitySet="AddressBook">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AddressBookID" ColumnName="AddressBookID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="SedogoDbModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrators">
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="AdministratorPassword" ColumnName="AdministratorPassword" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="AdministratorName" ColumnName="AdministratorName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdministratorsLoginHistories">
+            <EntityTypeMapping TypeName="SedogoDbModel.AdministratorsLoginHistory">
+              <MappingFragment StoreEntitySet="AdministratorsLoginHistory">
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
+                <ScalarProperty Name="AdministratorLoginHistoryID" ColumnName="AdministratorLoginHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="SedogoDbModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="DefaultCountry" ColumnName="DefaultCountry" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventAlerts">
+            <EntityTypeMapping TypeName="SedogoDbModel.EventAlert">
+              <MappingFragment StoreEntitySet="EventAlerts">
+                <ScalarProperty Name="ReminderEmailSent" ColumnName="ReminderEmailSent" />
+                <ScalarProperty Name="EventAlertGUID" ColumnName="EventAlertGUID" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="AlertText" ColumnName="AlertText" />
+                <ScalarProperty Name="AlertDate" ColumnName="AlertDate" />
+                <ScalarProperty Name="EventAlertID" ColumnName="EventAlertID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventComments">
+            <EntityTypeMapping TypeName="SedogoDbModel.EventComment">
+              <MappingFragment StoreEntitySet="EventComments">
+                <ScalarProperty Name="EventLink" ColumnName="EventLink" />
+                <ScalarProperty Name="EventVideoLink" ColumnName="EventVideoLink" />
+                <ScalarProperty Name="EventVideoFilename" ColumnName="EventVideoFilename" />
+                <ScalarProperty Name="EventImagePreview" ColumnName="EventImagePreview" />
+                <ScalarProperty Name="EventImageFilename" ColumnName="EventImageFilename" />
+                <ScalarProperty Name="EventCommentGUID" ColumnName="EventCommentGUID" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+                <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventInvites">
+            <EntityTypeMapping TypeName="SedogoDbModel.EventInvite">
+              <MappingFragment StoreEntitySet="EventInvites">
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="InviteDeclinedDate" ColumnName="InviteDeclinedDate" />
+                <ScalarProperty Name="InviteDeclined" ColumnName="InviteDeclined" />
+                <ScalarProperty Name="InviteAcceptedDate" ColumnName="InviteAcceptedDate" />
+                <ScalarProperty Name="InviteAccepted" ColumnName="InviteAccepted" />
+                <ScalarProperty Name="InviteEmailSentDate" ColumnName="InviteEmailSentDate" />
+                <ScalarProperty Name="InviteEmailSentEmailAddress" ColumnName="InviteEmailSentEmailAddress" />
+                <ScalarProperty Name="InviteEmailSent" ColumnName="InviteEmailSent" />
+                <ScalarProperty Name="InviteAdditionalText" ColumnName="InviteAdditionalText" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventPictures">
+            <EntityTypeMapping TypeName="SedogoDbModel.EventPicture">
+              <MappingFragment StoreEntitySet="EventPictures">
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ImagePreview" ColumnName="ImagePreview" />
+                <ScalarProperty Name="ImageThumbnail" ColumnName="ImageThumbnail" />
+                <ScalarProperty Name="ImageFilename" ColumnName="ImageFilename" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="EventPictureID" ColumnName="EventPictureID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="SedogoDbModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="EventAchievedDate" ColumnName="EventAchievedDate" />
+                <ScalarProperty Name="ShowOnDefaultPage" ColumnName="ShowOnDefaultPage" />
+                <ScalarProperty Name="EventGUID" ColumnName="EventGUID" />
+                <ScalarProperty Name="EventVenue" ColumnName="EventVenue" />
+                <ScalarProperty Name="CreatedFromEventID" ColumnName="CreatedFromEventID" />
+                <ScalarProperty Name="MustDo" ColumnName="MustDo" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="PrivateEvent" ColumnName="PrivateEvent" />
+                <ScalarProperty Name="BeforeBirthday" ColumnName="BeforeBirthday" />
+                <ScalarProperty Name="RangeEndDate" ColumnName="RangeEndDate" />
+                <ScalarProperty Name="RangeStartDate" ColumnName="RangeStartDate" />
+                <ScalarProperty Name="DateType" ColumnName="DateType" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="EventAchieved" ColumnName="EventAchieved" />
+                <ScalarProperty Name="EventPicPreview" ColumnName="EventPicPreview" />
+                <ScalarProperty Name="EventPicThumbnail" ColumnName="EventPicThumbnail" />
+                <ScalarProperty Name="EventPicFilename" ColumnName="EventPicFilename" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlobalDatas">
+            <EntityTypeMapping TypeName="SedogoDbModel.GlobalData">
+              <MappingFragment StoreEntitySet="GlobalData">
+                <ScalarProperty Name="StringValue" ColumnName="StringValue" />
+                <ScalarProperty Name="DateValue" ColumnName="DateValue" />
+                <ScalarProperty Name="NumericValue" ColumnName="NumericValue" />
+                <ScalarProperty Name="IntegerValue" ColumnName="IntegerValue" />
+                <ScalarProperty Name="KeyName" ColumnName="KeyName" />
+                <ScalarProperty Name="GlobalDataID" ColumnName="GlobalDataID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomePageContents">
+            <EntityTypeMapping TypeName="SedogoDbModel.HomePageContent">
+              <MappingFragment StoreEntitySet="HomePageContent">
+                <ScalarProperty Name="HomePageContent1" ColumnName="HomePageContent" />
+                <ScalarProperty Name="HomePageContentID" ColumnName="HomePageContentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="SedogoDbModel.Language">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="DefaultLanguage" ColumnName="DefaultLanguage" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="SedogoDbModel.Message">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="MessageGUID" ColumnName="MessageGUID" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="MessageRead" ColumnName="MessageRead" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchHistories">
+            <EntityTypeMapping TypeName="SedogoDbModel.SearchHistory">
+              <MappingFragment StoreEntitySet="SearchHistory">
+                <ScalarProperty Name="SearchHits" ColumnName="SearchHits" />
+                <ScalarProperty Name="SearchText" ColumnName="SearchText" />
+                <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
+                <ScalarProperty Name="SearchHistoryID" ColumnName="SearchHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SentEmailHistories">
+            <EntityTypeMapping TypeName="SedogoDbModel.SentEmailHistory">
+              <MappingFragment StoreEntitySet="SentEmailHistory">
+                <ScalarProperty Name="LoggedInUserName" ColumnName="LoggedInUserName" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="SentTo" ColumnName="SentTo" />
+                <ScalarProperty Name="SentFrom" ColumnName="SentFrom" />
+                <ScalarProperty Name="SentEmailHistoryID" ColumnName="SentEmailHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timezones">
+            <EntityTypeMapping TypeName="SedogoDbModel.Timezone">
+              <MappingFragment StoreEntitySet="Timezones">
+                <ScalarProperty Name="GMTOffset" ColumnName="GMTOffset" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortCode" ColumnName="ShortCode" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrackedEvents">
+            <EntityTypeMapping TypeName="SedogoDbModel.TrackedEvent">
+              <MappingFragment StoreEntitySet="TrackedEvents">
+                <ScalarProperty Name="TrackedEventGUID" ColumnName="TrackedEventGUID" />
+                <ScalarProperty Name="JoinPending" ColumnName="JoinPending" />
+                <ScalarProperty Name="ShowOnTimeline" ColumnName="ShowOnTimeline" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLoginHistories">
+            <EntityTypeMapping TypeName="SedogoDbModel.UserLoginHistory">
+              <MappingFragment StoreEntitySet="UserLoginHistory">
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
+                <ScalarProperty Name="UserLoginHistoryID" ColumnName="UserLoginHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SedogoDbModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="FacebookUserID" ColumnName="FacebookUserID" />
+                <ScalarProperty Name="EnableSendEmails" ColumnName="EnableSendEmails" />
+                <ScalarProperty Name="ProfileText" ColumnName="ProfileText" />
+                <ScalarProperty Name="ProfilePicPreview" ColumnName="ProfilePicPreview" />
+                <ScalarProperty Name="ProfilePicThumbnail" ColumnName="ProfilePicThumbnail" />
+                <ScalarProperty Name="ProfilePicFilename" ColumnName="ProfilePicFilename" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="HomeTown" ColumnName="HomeTown" />
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="PasswordExpiryDate" ColumnName="PasswordExpiryDate" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_AddressBook_Users" TypeName="SedogoDbModel.FK_AddressBook_Users" StoreEntitySet="AddressBook">
+            <EndProperty Name="AddressBook">
+              <ScalarProperty Name="AddressBookID" ColumnName="AddressBookID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_AdministratorsLoginHistory_Administrators" TypeName="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" StoreEntitySet="AdministratorsLoginHistory">
+            <EndProperty Name="AdministratorsLoginHistory">
+              <ScalarProperty Name="AdministratorLoginHistoryID" ColumnName="AdministratorLoginHistoryID" />
+            </EndProperty>
+            <EndProperty Name="Administrator">
+              <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
+            </EndProperty>
+            <Condition ColumnName="AdministratorID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Users_Countries" TypeName="SedogoDbModel.FK_Users_Countries" StoreEntitySet="Users">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="Country">
+              <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+            </EndProperty>
+            <Condition ColumnName="CountryID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EventAlerts_Events" TypeName="SedogoDbModel.FK_EventAlerts_Events" StoreEntitySet="EventAlerts">
+            <EndProperty Name="EventAlert">
+              <ScalarProperty Name="EventAlertID" ColumnName="EventAlertID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EventComments_Events" TypeName="SedogoDbModel.FK_EventComments_Events" StoreEntitySet="EventComments">
+            <EndProperty Name="EventComment">
+              <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EventInvites_Events" TypeName="SedogoDbModel.FK_EventInvites_Events" StoreEntitySet="EventInvites">
+            <EndProperty Name="EventInvite">
+              <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EventPictures_Events" TypeName="SedogoDbModel.FK_EventPictures_Events" StoreEntitySet="EventPictures">
+            <EndProperty Name="EventPicture">
+              <ScalarProperty Name="EventPictureID" ColumnName="EventPictureID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Events_Timezones" TypeName="SedogoDbModel.FK_Events_Timezones" StoreEntitySet="Events">
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+            <EndProperty Name="Timezone">
+              <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_TrackedEvents_Events" TypeName="SedogoDbModel.FK_TrackedEvents_Events" StoreEntitySet="TrackedEvents">
+            <EndProperty Name="TrackedEvent">
+              <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Users_Languages" TypeName="SedogoDbModel.FK_Users_Languages" StoreEntitySet="Users">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="Language">
+              <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+            </EndProperty>
+            <Condition ColumnName="LanguageID" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_SearchHistory_Users" TypeName="SedogoDbModel.FK_SearchHistory_Users" StoreEntitySet="SearchHistory">
+            <EndProperty Name="SearchHistory">
+              <ScalarProperty Name="SearchHistoryID" ColumnName="SearchHistoryID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Users_Timezones" TypeName="SedogoDbModel.FK_Users_Timezones" StoreEntitySet="Users">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="Timezone">
+              <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_TrackedEvents_Users" TypeName="SedogoDbModel.FK_TrackedEvents_Users" StoreEntitySet="TrackedEvents">
+            <EndProperty Name="TrackedEvent">
+              <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_UserLoginHistory_Users" TypeName="SedogoDbModel.FK_UserLoginHistory_Users" StoreEntitySet="UserLoginHistory">
+            <EndProperty Name="UserLoginHistory">
+              <ScalarProperty Name="UserLoginHistoryID" ColumnName="UserLoginHistoryID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <Condition ColumnName="UserID" IsNull="false" />
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SelectOtherEvents" FunctionName="SedogoDbModel.Store.SIDEBAR_SelectOtherEvents" />
+          <FunctionImportMapping FunctionImportName="SelectSimilarEvents" FunctionName="SedogoDbModel.Store.SIDEBAR_SelectSimilarEvents" />
+          <AssociationSetMapping Name="FK_Events_Users" TypeName="SedogoDbModel.FK_Events_Users" StoreEntitySet="Events">
+            <EndProperty Name="Event">
+              <ScalarProperty Name="EventID" ColumnName="EventID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_EventInvites_Users" TypeName="SedogoDbModel.FK_EventInvites_Users" StoreEntitySet="EventInvites">
+            <EndProperty Name="EventInvite">
+              <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <Condition ColumnName="UserID" IsNull="false" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SedogoModel" ZoomLevel="86">
+        <EntityTypeShape EntityType="SedogoDbModel.AddressBook" Width="1.5" PointX="10.25" PointY="6.875" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="SedogoDbModel.Administrator" Width="1.5" PointX="7.75" PointY="1" Height="3.903300781249996" />
+        <EntityTypeShape EntityType="SedogoDbModel.AdministratorsLoginHistory" Width="1.5" PointX="10" PointY="2" Height="1.9802864583333282" />
+        <EntityTypeShape EntityType="SedogoDbModel.Country" Width="1.5" PointX="5.75" PointY="4.125" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventAlert" Width="1.5" PointX="5.25" PointY="8" Height="3.326396484374996" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventComment" Width="1.5" PointX="5.25" PointY="12.125" Height="3.903300781249996" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventInvite" Width="1.5" PointX="5.25" PointY="16.75" Height="4.480205078125" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventPicture" Width="1.5" PointX="5.25" PointY="22" Height="3.326396484374996" />
+        <EntityTypeShape EntityType="SedogoDbModel.Event" Width="1.5" PointX="3" PointY="13.125" Height="7.1724251302083317" />
+        <EntityTypeShape EntityType="SedogoDbModel.GlobalData" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="SedogoDbModel.HomePageContent" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="SedogoDbModel.Language" Width="1.5" PointX="5.75" PointY="1" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="SedogoDbModel.Message" Width="1.5" PointX="0.75" PointY="3.75" Height="3.3263964843750102" />
+        <EntityTypeShape EntityType="SedogoDbModel.SearchHistory" Width="1.5" PointX="10.25" PointY="9.625" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.SentEmailHistory" Width="1.5" PointX="2.75" PointY="3.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SedogoDbModel.Timezone" Width="1.5" PointX="0.75" PointY="15.625" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="SedogoDbModel.TrackedEvent" Width="1.5" PointX="8.25" PointY="15.375" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="SedogoDbModel.UserLoginHistory" Width="1.5" PointX="10.25" PointY="12.375" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.User" Width="1.5" PointX="8" PointY="7.125" Height="7.1724251302083246" />
+        <AssociationConnector Association="SedogoDbModel.FK_AddressBook_Users" >
+          <ConnectorPoint PointX="9.5" PointY="7.9901432291666694" />
+          <ConnectorPoint PointX="10.25" PointY="7.9901432291666694" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" >
+          <ConnectorPoint PointX="9.25" PointY="2.9901432291666641" />
+          <ConnectorPoint PointX="10" PointY="2.9901432291666641" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_Users_Countries" >
+          <ConnectorPoint PointX="7.03125" PointY="6.297587890624996" />
+          <ConnectorPoint PointX="7.03125" PointY="7.37434965022618" />
+          <ConnectorPoint PointX="8" PointY="7.37434965022618" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_EventAlerts_Events" >
+          <ConnectorPoint PointX="3.57812625" PointY="13.125" />
+          <ConnectorPoint PointX="3.57812625" PointY="9.663198242187498" />
+          <ConnectorPoint PointX="3.9869822916666666" PointY="9.663198242187498" />
+          <ConnectorPoint PointX="4.1536489583333331" PointY="9.663198242187498" />
+          <ConnectorPoint PointX="5.25" PointY="9.663198242187498" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_EventComments_Events" >
+          <ConnectorPoint PointX="4.5" PointY="14.576650390624998" />
+          <ConnectorPoint PointX="5.25" PointY="14.576650390624998" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_EventInvites_Events" >
+          <ConnectorPoint PointX="4.5" PointY="18.523712565104166" />
+          <ConnectorPoint PointX="5.25" PointY="18.523712565104166" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_EventPictures_Events" >
+          <ConnectorPoint PointX="3.75" PointY="20.297425130208332" />
+          <ConnectorPoint PointX="3.75" PointY="23.663198242187498" />
+          <ConnectorPoint PointX="5.25" PointY="23.663198242187498" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_Events_Timezones" >
+          <ConnectorPoint PointX="2.25" PointY="16.711293945312505" />
+          <ConnectorPoint PointX="3" PointY="16.711293945312505" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_TrackedEvents_Events" >
+          <ConnectorPoint PointX="4.5" PointY="16.389150390624998" />
+          <ConnectorPoint PointX="8.0104166666666661" PointY="16.389150390624998" />
+          <ConnectorPoint PointX="8.1770833333333339" PointY="16.389150390624998" />
+          <ConnectorPoint PointX="8.25" PointY="16.389150390624998" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_Users_Languages" >
+          <ConnectorPoint PointX="7.25" PointY="2.086293945312498" />
+          <ConnectorPoint PointX="7.5" PointY="2.086293945312498" />
+          <ConnectorPoint PointX="7.5" PointY="5.153300781249996" />
+          <ConnectorPoint PointX="8.75" PointY="5.153300781249996" />
+          <ConnectorPoint PointX="8.75" PointY="7.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_SearchHistory_Users" >
+          <ConnectorPoint PointX="9.5" PointY="10.615143229166662" />
+          <ConnectorPoint PointX="10.25" PointY="10.615143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_Users_Timezones" >
+          <ConnectorPoint PointX="1.5" PointY="15.625" />
+          <ConnectorPoint PointX="1.5" PointY="11.725698242187498" />
+          <ConnectorPoint PointX="3.4947929166666665" PointY="11.725698242187498" />
+          <ConnectorPoint PointX="3.6614595833333334" PointY="11.725698242187498" />
+          <ConnectorPoint PointX="3.9869822916666666" PointY="11.725698242187498" />
+          <ConnectorPoint PointX="4.1536489583333331" PointY="11.725698242187498" />
+          <ConnectorPoint PointX="8" PointY="11.725698242187498" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_TrackedEvents_Users" >
+          <ConnectorPoint PointX="8.875" PointY="14.682027994791666" />
+          <ConnectorPoint PointX="8.875" PointY="15.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_UserLoginHistory_Users" >
+          <ConnectorPoint PointX="9.5" PointY="13.365143229166662" />
+          <ConnectorPoint PointX="10.25" PointY="13.365143229166662" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_Events_Users" >
+          <ConnectorPoint PointX="8" PointY="7.6871773251130833" />
+          <ConnectorPoint PointX="4.070315625" PointY="7.6871773251130833" />
+          <ConnectorPoint PointX="4.070315625" PointY="13.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="SedogoDbModel.FK_EventInvites_Users" ManuallyRouted="false" >
+          <ConnectorPoint PointX="8.09375" PointY="14.682027994791666" />
+          <ConnectorPoint PointX="8.09375" PointY="19.612447916666667" />
+          <ConnectorPoint PointX="6.75" PointY="19.612447916666667" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

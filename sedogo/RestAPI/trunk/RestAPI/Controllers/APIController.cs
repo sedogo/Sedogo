@@ -470,7 +470,19 @@ namespace RestAPI.Controllers
                                     created = c.CreatedDate, 
                                     updated = c.LastUpdatedDate,
                                     read = (bool?)null
-                                })).OrderByDescending(x => x.created).ToList();
+                                }).Union
+                    (from i in _db.EventInvites
+                     where i.UserID == userId && !i.Deleted && !i.Event.Deleted
+                     select new
+                     {
+                         id = i.EventInviteID,
+                         eventId = (int?)i.EventID,
+                         user = i.UserID ?? 0,
+                         text = i.InviteAdditionalText,
+                         created = i.CreatedDate,
+                         updated = i.LastUpdatedDate,
+                         read = (bool?) null
+                     })).OrderByDescending(x => x.created).ToList();
             var result =
                 messages.Select(
                     x =>
@@ -837,16 +849,16 @@ namespace RestAPI.Controllers
 
             try
             {
-                var invite = new EventInvite(fullName)
-                                     {
-                                         emailAddress = email,
-                                         eventID = eventId ?? 0,
-                                         userID = currentUserID ?? 0,
-                                         inviteAdditionalText = inviteAdditionalText,
-                                         inviteEmailSent = inviteEmailSent ?? false,
-                                         inviteEmailSentEmailAddress = inviteEmailSentEmailAddress,
-                                         inviteEmailSentDate = inviteEmailSentDate ?? DateTime.Now,
-                                     };
+                var invite = new Sedogo.BusinessObjects.EventInvite(fullName)
+                                 {
+                                     emailAddress = email,
+                                     eventID = eventId ?? 0,
+                                     userID = currentUserID ?? 0,
+                                     inviteAdditionalText = inviteAdditionalText,
+                                     inviteEmailSent = inviteEmailSent ?? false,
+                                     inviteEmailSentEmailAddress = inviteEmailSentEmailAddress,
+                                     inviteEmailSentDate = inviteEmailSentDate ?? DateTime.Now,
+                                 };
                 invite.Add();
 
                 return Json(new { id = invite.eventInviteID });

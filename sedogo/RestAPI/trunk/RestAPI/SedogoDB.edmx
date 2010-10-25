@@ -7,6 +7,7 @@
     <Schema Namespace="sedogoDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="sedogoDBModelStoreContainer">
           <EntitySet Name="EventComments" EntityType="sedogoDBModel.Store.EventComments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EventInvites" EntityType="sedogoDBModel.Store.EventInvites" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Events" EntityType="sedogoDBModel.Store.Events" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Messages" EntityType="sedogoDBModel.Store.Messages" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrackedEvents" EntityType="sedogoDBModel.Store.TrackedEvents" store:Type="Tables" Schema="dbo" />
@@ -30,6 +31,29 @@
           <Property Name="EventVideoFilename" Type="nvarchar" MaxLength="200" />
           <Property Name="EventVideoLink" Type="nvarchar" MaxLength="1000" />
           <Property Name="EventLink" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="EventInvites">
+          <Key>
+            <PropertyRef Name="EventInviteID" />
+          </Key>
+          <Property Name="EventInviteID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="InviteAdditionalText" Type="nvarchar(max)" />
+          <Property Name="InviteEmailSent" Type="bit" Nullable="false" />
+          <Property Name="InviteEmailSentEmailAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="InviteEmailSentDate" Type="datetime" />
+          <Property Name="InviteAccepted" Type="bit" Nullable="false" />
+          <Property Name="InviteAcceptedDate" Type="datetime" />
+          <Property Name="InviteDeclined" Type="bit" Nullable="false" />
+          <Property Name="InviteDeclinedDate" Type="datetime" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
       warning 6005: The data type 'geography' is not supported; the column 'Coords' in table 'sedogoDb.dbo.Events' was excluded.
@@ -288,6 +312,11 @@
           <AssociationSet Name="EventTrackedEvent" Association="sedogoDBModel.EventTrackedEvent">
             <End Role="Event" EntitySet="Events" />
             <End Role="TrackedEvent" EntitySet="TrackedEvents" />
+          </AssociationSet>
+          <EntitySet Name="EventInvites" EntityType="sedogoDBModel.EventInvite" />
+          <AssociationSet Name="EventEventInvite" Association="sedogoDBModel.EventEventInvite">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventInvite" EntitySet="EventInvites" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="spSelectUserDetails_Result">
@@ -564,6 +593,7 @@
           <NavigationProperty Name="EventComments" Relationship="sedogoDBModel.EventEventComment" FromRole="Event" ToRole="EventComment" />
           <NavigationProperty Name="Messages" Relationship="sedogoDBModel.EventMessage" FromRole="Event" ToRole="Message" />
           <NavigationProperty Name="TrackedEvents" Relationship="sedogoDBModel.EventTrackedEvent" FromRole="Event" ToRole="TrackedEvent" />
+          <NavigationProperty Name="EventInvites" Relationship="sedogoDBModel.EventEventInvite" FromRole="Event" ToRole="EventInvite" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -629,6 +659,42 @@
               <PropertyRef Name="EventID" />
             </Principal>
             <Dependent Role="TrackedEvent">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EventInvite">
+          <Key>
+            <PropertyRef Name="EventInviteID" />
+          </Key>
+          <Property Type="Int32" Name="EventInviteID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="InviteAdditionalText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="InviteEmailSent" Nullable="false" />
+          <Property Type="String" Name="InviteEmailSentEmailAddress" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="InviteEmailSentDate" />
+          <Property Type="Boolean" Name="InviteAccepted" Nullable="false" />
+          <Property Type="DateTime" Name="InviteAcceptedDate" />
+          <Property Type="Boolean" Name="InviteDeclined" Nullable="false" />
+          <Property Type="DateTime" Name="InviteDeclinedDate" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
+          <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
+          <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Event" Relationship="sedogoDBModel.EventEventInvite" FromRole="EventInvite" ToRole="Event" />
+          </EntityType>
+        <Association Name="EventEventInvite">
+          <End Type="sedogoDBModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="sedogoDBModel.EventInvite" Role="EventInvite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventInvite">
               <PropertyRef Name="EventID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1055,6 +1121,30 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EventInvites">
+            <EntityTypeMapping TypeName="sedogoDBModel.EventInvite">
+              <MappingFragment StoreEntitySet="EventInvites">
+                <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="CreatedByFullName" ColumnName="CreatedByFullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="InviteDeclinedDate" ColumnName="InviteDeclinedDate" />
+                <ScalarProperty Name="InviteDeclined" ColumnName="InviteDeclined" />
+                <ScalarProperty Name="InviteAcceptedDate" ColumnName="InviteAcceptedDate" />
+                <ScalarProperty Name="InviteAccepted" ColumnName="InviteAccepted" />
+                <ScalarProperty Name="InviteEmailSentDate" ColumnName="InviteEmailSentDate" />
+                <ScalarProperty Name="InviteEmailSentEmailAddress" ColumnName="InviteEmailSentEmailAddress" />
+                <ScalarProperty Name="InviteEmailSent" ColumnName="InviteEmailSent" />
+                <ScalarProperty Name="InviteAdditionalText" ColumnName="InviteAdditionalText" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1091,6 +1181,11 @@
         <AssociationConnector Association="sedogoDBModel.EventTrackedEvent">
           <ConnectorPoint PointX="4.25" PointY="6.6439111328125" />
           <ConnectorPoint PointX="4.75" PointY="6.6439111328125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="sedogoDBModel.EventInvite" Width="1.5" PointX="7.375" PointY="0.75" Height="4.480205078125" />
+        <AssociationConnector Association="sedogoDBModel.EventEventInvite">
+          <ConnectorPoint PointX="4.25" PointY="4.8768522135416665" />
+          <ConnectorPoint PointX="7.375" PointY="4.8768522135416665" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -136,7 +136,7 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BusinessObjects\BusinessObjects.csproj">
+    <ProjectReference Include="..\..\..\BusinessObjects\trunk\BusinessObjects.csproj">
       <Project>{5E398C45-A480-4546-92DA-79DD26FADB8A}</Project>
       <Name>BusinessObjects</Name>
     </ProjectReference>

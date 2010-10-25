@@ -157,7 +157,7 @@ Hidden:
                 // or have been invited to it
                 if (sevent.privateEvent)
                 {
-                    int eventInviteCount = EventInvite.CheckUserEventInviteExists(sevent.eventID, currentUserID);
+                    int eventInviteCount = Sedogo.BusinessObjects.EventInvite.CheckUserEventInviteExists(sevent.eventID, currentUserID);
                     bool showOnTimeline = false;
                     if (trackedEventID > 0)
                     {

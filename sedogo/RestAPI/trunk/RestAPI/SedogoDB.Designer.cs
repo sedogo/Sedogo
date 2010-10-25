@@ -21,6 +21,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("sedogoDBModel", "EventEventComment", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RestAPI.Event), "EventComment", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RestAPI.EventComment), true)]
 [assembly: EdmRelationshipAttribute("sedogoDBModel", "EventMessage", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(RestAPI.Event), "Message", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RestAPI.Message), true)]
 [assembly: EdmRelationshipAttribute("sedogoDBModel", "EventTrackedEvent", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RestAPI.Event), "TrackedEvent", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RestAPI.TrackedEvent), true)]
+[assembly: EdmRelationshipAttribute("sedogoDBModel", "EventEventInvite", "Event", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(RestAPI.Event), "EventInvite", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(RestAPI.EventInvite), true)]
 
 #endregion
 
@@ -135,6 +136,22 @@ namespace RestAPI
             }
         }
         private ObjectSet<TrackedEvent> _TrackedEvents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<EventInvite> EventInvites
+        {
+            get
+            {
+                if ((_EventInvites == null))
+                {
+                    _EventInvites = base.CreateObjectSet<EventInvite>("EventInvites");
+                }
+                return _EventInvites;
+            }
+        }
+        private ObjectSet<EventInvite> _EventInvites;
 
         #endregion
         #region AddTo Methods
@@ -169,6 +186,14 @@ namespace RestAPI
         public void AddToTrackedEvents(TrackedEvent trackedEvent)
         {
             base.AddObject("TrackedEvents", trackedEvent);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the EventInvites EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToEventInvites(EventInvite eventInvite)
+        {
+            base.AddObject("EventInvites", eventInvite);
         }
 
         #endregion
@@ -1581,6 +1606,28 @@ namespace RestAPI
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sedogoDBModel", "EventEventInvite", "EventInvite")]
+        public EntityCollection<EventInvite> EventInvites
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<EventInvite>("sedogoDBModel.EventEventInvite", "EventInvite");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<EventInvite>("sedogoDBModel.EventEventInvite", "EventInvite", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2026,6 +2073,532 @@ namespace RestAPI
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Event>("sedogoDBModel.EventEventComment", "Event", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="sedogoDBModel", Name="EventInvite")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class EventInvite : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new EventInvite object.
+        /// </summary>
+        /// <param name="eventInviteID">Initial value of the EventInviteID property.</param>
+        /// <param name="gUID">Initial value of the GUID property.</param>
+        /// <param name="eventID">Initial value of the EventID property.</param>
+        /// <param name="emailAddress">Initial value of the EmailAddress property.</param>
+        /// <param name="inviteEmailSent">Initial value of the InviteEmailSent property.</param>
+        /// <param name="inviteAccepted">Initial value of the InviteAccepted property.</param>
+        /// <param name="inviteDeclined">Initial value of the InviteDeclined property.</param>
+        /// <param name="deleted">Initial value of the Deleted property.</param>
+        /// <param name="createdDate">Initial value of the CreatedDate property.</param>
+        /// <param name="createdByFullName">Initial value of the CreatedByFullName property.</param>
+        /// <param name="lastUpdatedDate">Initial value of the LastUpdatedDate property.</param>
+        /// <param name="lastUpdatedByFullName">Initial value of the LastUpdatedByFullName property.</param>
+        public static EventInvite CreateEventInvite(global::System.Int32 eventInviteID, global::System.String gUID, global::System.Int32 eventID, global::System.String emailAddress, global::System.Boolean inviteEmailSent, global::System.Boolean inviteAccepted, global::System.Boolean inviteDeclined, global::System.Boolean deleted, global::System.DateTime createdDate, global::System.String createdByFullName, global::System.DateTime lastUpdatedDate, global::System.String lastUpdatedByFullName)
+        {
+            EventInvite eventInvite = new EventInvite();
+            eventInvite.EventInviteID = eventInviteID;
+            eventInvite.GUID = gUID;
+            eventInvite.EventID = eventID;
+            eventInvite.EmailAddress = emailAddress;
+            eventInvite.InviteEmailSent = inviteEmailSent;
+            eventInvite.InviteAccepted = inviteAccepted;
+            eventInvite.InviteDeclined = inviteDeclined;
+            eventInvite.Deleted = deleted;
+            eventInvite.CreatedDate = createdDate;
+            eventInvite.CreatedByFullName = createdByFullName;
+            eventInvite.LastUpdatedDate = lastUpdatedDate;
+            eventInvite.LastUpdatedByFullName = lastUpdatedByFullName;
+            return eventInvite;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EventInviteID
+        {
+            get
+            {
+                return _EventInviteID;
+            }
+            set
+            {
+                if (_EventInviteID != value)
+                {
+                    OnEventInviteIDChanging(value);
+                    ReportPropertyChanging("EventInviteID");
+                    _EventInviteID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("EventInviteID");
+                    OnEventInviteIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _EventInviteID;
+        partial void OnEventInviteIDChanging(global::System.Int32 value);
+        partial void OnEventInviteIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String GUID
+        {
+            get
+            {
+                return _GUID;
+            }
+            set
+            {
+                OnGUIDChanging(value);
+                ReportPropertyChanging("GUID");
+                _GUID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("GUID");
+                OnGUIDChanged();
+            }
+        }
+        private global::System.String _GUID;
+        partial void OnGUIDChanging(global::System.String value);
+        partial void OnGUIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 EventID
+        {
+            get
+            {
+                return _EventID;
+            }
+            set
+            {
+                OnEventIDChanging(value);
+                ReportPropertyChanging("EventID");
+                _EventID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EventID");
+                OnEventIDChanged();
+            }
+        }
+        private global::System.Int32 _EventID;
+        partial void OnEventIDChanging(global::System.Int32 value);
+        partial void OnEventIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                OnUserIDChanging(value);
+                ReportPropertyChanging("UserID");
+                _UserID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserID");
+                OnUserIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UserID;
+        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EmailAddress
+        {
+            get
+            {
+                return _EmailAddress;
+            }
+            set
+            {
+                OnEmailAddressChanging(value);
+                ReportPropertyChanging("EmailAddress");
+                _EmailAddress = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EmailAddress");
+                OnEmailAddressChanged();
+            }
+        }
+        private global::System.String _EmailAddress;
+        partial void OnEmailAddressChanging(global::System.String value);
+        partial void OnEmailAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String InviteAdditionalText
+        {
+            get
+            {
+                return _InviteAdditionalText;
+            }
+            set
+            {
+                OnInviteAdditionalTextChanging(value);
+                ReportPropertyChanging("InviteAdditionalText");
+                _InviteAdditionalText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("InviteAdditionalText");
+                OnInviteAdditionalTextChanged();
+            }
+        }
+        private global::System.String _InviteAdditionalText;
+        partial void OnInviteAdditionalTextChanging(global::System.String value);
+        partial void OnInviteAdditionalTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean InviteEmailSent
+        {
+            get
+            {
+                return _InviteEmailSent;
+            }
+            set
+            {
+                OnInviteEmailSentChanging(value);
+                ReportPropertyChanging("InviteEmailSent");
+                _InviteEmailSent = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteEmailSent");
+                OnInviteEmailSentChanged();
+            }
+        }
+        private global::System.Boolean _InviteEmailSent;
+        partial void OnInviteEmailSentChanging(global::System.Boolean value);
+        partial void OnInviteEmailSentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String InviteEmailSentEmailAddress
+        {
+            get
+            {
+                return _InviteEmailSentEmailAddress;
+            }
+            set
+            {
+                OnInviteEmailSentEmailAddressChanging(value);
+                ReportPropertyChanging("InviteEmailSentEmailAddress");
+                _InviteEmailSentEmailAddress = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("InviteEmailSentEmailAddress");
+                OnInviteEmailSentEmailAddressChanged();
+            }
+        }
+        private global::System.String _InviteEmailSentEmailAddress;
+        partial void OnInviteEmailSentEmailAddressChanging(global::System.String value);
+        partial void OnInviteEmailSentEmailAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> InviteEmailSentDate
+        {
+            get
+            {
+                return _InviteEmailSentDate;
+            }
+            set
+            {
+                OnInviteEmailSentDateChanging(value);
+                ReportPropertyChanging("InviteEmailSentDate");
+                _InviteEmailSentDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteEmailSentDate");
+                OnInviteEmailSentDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _InviteEmailSentDate;
+        partial void OnInviteEmailSentDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnInviteEmailSentDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean InviteAccepted
+        {
+            get
+            {
+                return _InviteAccepted;
+            }
+            set
+            {
+                OnInviteAcceptedChanging(value);
+                ReportPropertyChanging("InviteAccepted");
+                _InviteAccepted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteAccepted");
+                OnInviteAcceptedChanged();
+            }
+        }
+        private global::System.Boolean _InviteAccepted;
+        partial void OnInviteAcceptedChanging(global::System.Boolean value);
+        partial void OnInviteAcceptedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> InviteAcceptedDate
+        {
+            get
+            {
+                return _InviteAcceptedDate;
+            }
+            set
+            {
+                OnInviteAcceptedDateChanging(value);
+                ReportPropertyChanging("InviteAcceptedDate");
+                _InviteAcceptedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteAcceptedDate");
+                OnInviteAcceptedDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _InviteAcceptedDate;
+        partial void OnInviteAcceptedDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnInviteAcceptedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean InviteDeclined
+        {
+            get
+            {
+                return _InviteDeclined;
+            }
+            set
+            {
+                OnInviteDeclinedChanging(value);
+                ReportPropertyChanging("InviteDeclined");
+                _InviteDeclined = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteDeclined");
+                OnInviteDeclinedChanged();
+            }
+        }
+        private global::System.Boolean _InviteDeclined;
+        partial void OnInviteDeclinedChanging(global::System.Boolean value);
+        partial void OnInviteDeclinedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> InviteDeclinedDate
+        {
+            get
+            {
+                return _InviteDeclinedDate;
+            }
+            set
+            {
+                OnInviteDeclinedDateChanging(value);
+                ReportPropertyChanging("InviteDeclinedDate");
+                _InviteDeclinedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("InviteDeclinedDate");
+                OnInviteDeclinedDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _InviteDeclinedDate;
+        partial void OnInviteDeclinedDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnInviteDeclinedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Deleted
+        {
+            get
+            {
+                return _Deleted;
+            }
+            set
+            {
+                OnDeletedChanging(value);
+                ReportPropertyChanging("Deleted");
+                _Deleted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Deleted");
+                OnDeletedChanged();
+            }
+        }
+        private global::System.Boolean _Deleted;
+        partial void OnDeletedChanging(global::System.Boolean value);
+        partial void OnDeletedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedDate
+        {
+            get
+            {
+                return _CreatedDate;
+            }
+            set
+            {
+                OnCreatedDateChanging(value);
+                ReportPropertyChanging("CreatedDate");
+                _CreatedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedDate");
+                OnCreatedDateChanged();
+            }
+        }
+        private global::System.DateTime _CreatedDate;
+        partial void OnCreatedDateChanging(global::System.DateTime value);
+        partial void OnCreatedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CreatedByFullName
+        {
+            get
+            {
+                return _CreatedByFullName;
+            }
+            set
+            {
+                OnCreatedByFullNameChanging(value);
+                ReportPropertyChanging("CreatedByFullName");
+                _CreatedByFullName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CreatedByFullName");
+                OnCreatedByFullNameChanged();
+            }
+        }
+        private global::System.String _CreatedByFullName;
+        partial void OnCreatedByFullNameChanging(global::System.String value);
+        partial void OnCreatedByFullNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastUpdatedDate
+        {
+            get
+            {
+                return _LastUpdatedDate;
+            }
+            set
+            {
+                OnLastUpdatedDateChanging(value);
+                ReportPropertyChanging("LastUpdatedDate");
+                _LastUpdatedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastUpdatedDate");
+                OnLastUpdatedDateChanged();
+            }
+        }
+        private global::System.DateTime _LastUpdatedDate;
+        partial void OnLastUpdatedDateChanging(global::System.DateTime value);
+        partial void OnLastUpdatedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String LastUpdatedByFullName
+        {
+            get
+            {
+                return _LastUpdatedByFullName;
+            }
+            set
+            {
+                OnLastUpdatedByFullNameChanging(value);
+                ReportPropertyChanging("LastUpdatedByFullName");
+                _LastUpdatedByFullName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("LastUpdatedByFullName");
+                OnLastUpdatedByFullNameChanged();
+            }
+        }
+        private global::System.String _LastUpdatedByFullName;
+        partial void OnLastUpdatedByFullNameChanging(global::System.String value);
+        partial void OnLastUpdatedByFullNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("sedogoDBModel", "EventEventInvite", "Event")]
+        public Event Event
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("sedogoDBModel.EventEventInvite", "Event").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("sedogoDBModel.EventEventInvite", "Event").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Event> EventReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Event>("sedogoDBModel.EventEventInvite", "Event");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Event>("sedogoDBModel.EventEventInvite", "Event", value);
                 }
             }
         }

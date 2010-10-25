@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Sedogo.BusinessObjects;
 
 namespace RestAPI.Models
 {
@@ -126,9 +123,9 @@ Hidden:
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public static EventInvite CreateInviteBO(InviteModel model)
+        public static Sedogo.BusinessObjects.EventInvite CreateInviteBO(InviteModel model)
         {
-            EventInvite inviteBO = new EventInvite(model.CreatedByFullName);
+            var inviteBO = new Sedogo.BusinessObjects.EventInvite(model.CreatedByFullName);
             if(!string.IsNullOrEmpty(model.text)) inviteBO.inviteAdditionalText = model.text;
             inviteBO.eventID = model.Event;
             if (model.user.HasValue) inviteBO.userID = model.user.Value;

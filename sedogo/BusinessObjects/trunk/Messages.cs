@@ -138,10 +138,6 @@ namespace Sedogo.BusinessObjects
                 cmd.Parameters.Add(param);
                 DbDataReader rdr = cmd.ExecuteReader();
                 rdr.Read();
-                if (!rdr.IsDBNull(rdr.GetOrdinal("ParentMessageID")))
-                {
-                    m_parentMessageID = int.Parse(rdr["ParentMessageID"].ToString());
-                }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
                 {
                     m_eventID = int.Parse(rdr["EventID"].ToString());

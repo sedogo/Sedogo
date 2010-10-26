@@ -10,4 +10,3 @@ C:\My\Programing\sedogo\BusinessObjects\bin\Debug\BusinessObjects.pdb
 C:\My\Programing\sedogo\BusinessObjects\bin\Debug\itextsharp.dll
 C:\My\Programing\sedogo\BusinessObjects\obj\Debug\BusinessObjects.dll
 C:\My\Programing\sedogo\BusinessObjects\bin\Debug\Newtonsoft.Json.dll
-C:\Development\Sedogo\BusinessObjects\bin\Debug\Newtonsoft.Json.dll

@@ -1,0 +1,27 @@
+/* CSS Document */
+
+
+.float_left {float:left;}
+.float_right {float:right;}
+.outer_div {width:976px; float:left;}
+.goal_cat_bg {background:url(../images/bg.jpg) repeat-x left top; float:left; width:974px; height:64px;border: solid 1px #CCCCCC;}
+.goal_cat_bg_col1 {width:170px; float:left; padding:12px 0 0 30px; height:56px; background:url(../images/bg-devider.jpg) no-repeat right 10px;}
+.goal_cat_bg_col2 {width:180px; float:left; padding:12px 0 0 0px; height:56px; background:url(../images/bg-devider.jpg) no-repeat right 10px;}
+.goal_cat_bg_col2 .zoom_minus{width:60px; float:left; text-align:right; padding:5px 0 0 0;}
+.goal_cat_bg_col2 .zoom_text{width:65px; float:left; text-align:center; padding:12px 0 0 0;}
+.goal_cat_bg_col2 .zoom_plus{width:55px; float:left; padding:5px 0 0 0;}
+.goal_cat_bg_col3 {width:498px; float:left; background:url(../images/bg-devider.jpg) no-repeat right 10px;}
+.arrow_strip {width:420px; margin:0 auto; padding:13px 0 0 0; }
+.arrow_previous {width:25px; float:left;}
+.arrow_next {width:25px; float:left;}
+/*.arrow_midbg {width:370px; float:left; background:url(../images/arrow_midbg.jpg) repeat-x; height:32px;}
+.arrow_midbg {width:370px; float:left; background:transparent; height:32px;}*/
+.arrow_midbg {width:368px; float:left; border:solid 1px #dedfde; height:30px; position:relative;}
+.inner_arrow_midbg{width: 368px; position: absolute; z-index: 1; height: 30px; overflow: hidden;}
+.goal_cat_bg_co14 {width:96px; float:left; text-align:center; padding:15px 0 0 0;}
+.timeline {float:left; width:946px; padding:0 14px; background-color:#e9fbff;color: #0cf;font-size: 18px; font-weight: bold;height: 27px; border-left: solid 1px #CCCCCC;border-right: solid 1px #CCCCCC;padding-top:3px;}
+.timelinelink
+{
+	font-size: 14px; 
+	font-weight:normal;
+}

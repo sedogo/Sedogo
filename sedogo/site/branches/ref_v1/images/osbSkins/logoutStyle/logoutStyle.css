@@ -1,0 +1,103 @@
+/*
+** Classes for new text only button style 
+**
+**
+** Replace all "blank" text entries with your new style name
+*/
+
+table.osb_logoutStyle
+    { 
+      /* set here real height of background images used in cells */
+      height:22px;
+      margin:0px; padding:0px;
+      overflow:visible;
+    }
+
+/* cells styles */
+
+table.osb_logoutStyle td.tr2td1
+    {
+      /* set here real height and width of background image */
+      width:21px;height:20px;
+      /* set here url of real background image */
+      background-image: url("../../../images/osbSkins/logoutStyle/logoutStyle_left.gif");
+    }
+
+table.osb_logoutStyle td.tr2td3,table.osb_logoutStyle td.tr2td2
+    {
+      /* set here real height of background image */
+      height:20px;
+      /* set here url of real background image */
+      background-image: url("../../../images/osbSkins/logoutStyle/logoutStyle_center.gif");
+      background-repeat:repeat-x;
+      /* set here font properties for inner text */
+      font-size:10px;font-family:verdana;font-weight:500;
+    }
+
+table.osb_logoutStyle td.tr2td4
+    {
+      /* set here real height and width of background image */
+      width:6px;height:20px;
+      /* set here url of real background image */
+      background-image: url("../../../images/osbSkins/logoutStyle/logoutStyle_right.gif");
+    }
+
+/* button's inner DIV */
+
+table.osb_logoutStyle div
+    { 
+      cursor:text;
+      margin:0px; padding:0px;
+      overflow:visible;
+    }
+
+/* button's inner TABLE */
+
+table.osb_logoutStyle table
+    { 
+      margin:0px; padding:0px;
+      cursor:pointer;
+      color:#000000;
+      overflow:visible;
+    }
+
+/* disabled button's inner TABLE */
+
+table.osb_logoutStyle table.disabled
+    { 
+      cursor:text;
+      color:#9FA9CC;
+    }
+
+/* hovered button's inner TABLE */
+
+table.osb_logoutStyle table.enabled_hover,table.osb_logoutStyle table.active_hover
+    { 
+      /* text color on hover */
+      color:#0000FF;
+    }
+
+/*
+table.osb_logoutStyle table.enabled_hover,table.osb_logoutStyle table.active_hover
+    { 
+      cursor:pointer;
+      margin:0px; padding:0px;
+      color:#0000FF;
+      overflow:visible;
+    }
+
+table.osb_logoutStyle table.enabled_pressed,table.osb_logoutStyle table.active_pressed
+    { 
+      margin:0px; padding:0px;
+      cursor:pointer;
+      color:#8000FF;
+      overflow:visible;
+    }
+*/
+
+/* rest cells */
+
+table.osb_logoutStyle table td
+    {
+      height:0px;
+    }

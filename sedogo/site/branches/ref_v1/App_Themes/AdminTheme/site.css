@@ -1,0 +1,102 @@
+﻿body
+{
+	color:#676767;
+	background-color:#ededed;
+	font:normal 11px Tahoma, Verdana, Helvetica, sans-serif;
+	font-size:11px;
+	margin:0px;
+	padding:10px 30px 30px 30px;
+	background-image:url(../../../images/gradient.jpg);
+	background-repeat:repeat-x;
+}
+form
+{
+	margin-top:0px;
+	margin-bottom:0px;
+}
+.dialogLabelText
+{
+	font:normal 11px Tahoma, Verdana, Helvetica, sans-serif;
+    font-size:11px;
+	color:#000000;
+    white-space:nowrap;
+}
+.dialogValueText
+{
+	font:normal 11px Tahoma, Verdana, Helvetica, sans-serif;
+    font-size:11px;
+	color:#000000;
+}
+.dialogLabelTextSmall
+{
+	font:normal 11px Tahoma, Verdana, Helvetica, sans-serif;
+    font-size:9px;
+	color:#000000;
+    white-space:nowrap;
+}
+.dialogValueTextSmall
+{
+	font:normal 9px Tahoma, Verdana, Helvetica, sans-serif;
+    font-size:11px;
+	color:#000000;
+}
+img
+{
+	border:0;
+}
+
+/* PageBody */
+.PageBody
+{
+	display:block;
+	clear:both;
+	padding:10pt 0px 10pt 0px;
+	/*border:solid 1px red; */
+}
+.GridContainer
+{
+	display:block;
+	clear:both;
+	padding:5pt 0px 5pt 0px;
+	/*border:solid 1px red; */
+}
+.DialogContainer
+{
+	display:block;
+	clear:both;
+	padding:5pt 0px 5pt 0px;
+	/*border:solid 1px red; */
+}
+.GridContainerHeader
+{
+	width:1000px;
+	height:32px;
+	font:bold 12px Arial,Helvetica,sans-serif;
+	color:#333;
+	line-height:30px;
+}
+.GridContainerHeader span
+{
+	padding:0 0 0 12px;
+	cursor:default;
+}
+
+/* Buttons */
+.ButtonsContainer
+{
+	display:block;
+	clear:both;
+	padding:10pt 0px 10pt 0px;
+	/*border:solid 1px red; */
+}
+.FooterButton
+{
+	float:left;
+	margin:0pt 2px 0pt 8px;
+}
+.PageButton
+{
+	float:left;
+	margin:0pt 10px 0pt 0px;
+}
+

@@ -1,0 +1,30 @@
+
+#divouter-11 {
+/* Typical fixed height and fixed width example */
+width:974px; height:265px;  overflow-y: scroll; position:relative; overflow-x:hidden;border:solid 1px #CCCCCC;
+}
+
+#divouter-51 {
+/* Typical fixed height and fixed width example */
+width:974px; height:265px;  overflow-y: scroll; position:relative; overflow-x:hidden;border:solid 1px #CCCCCC;
+}
+
+#contentmain {
+/* Typical fixed height and fixed width example */
+height:218px;  overflow	: hidden; top:45px;
+}
+
+#contentmain1 {
+/* Typical fixed height and fixed width example */
+height:218px;  overflow	: hidden; top:45px;
+}
+
+#divouter-1 {
+/* Typical fixed height and fixed width example */
+width:974px; height:265px; position:relative; border:solid 1px #CCCCCC; overflow:hidden;
+}
+
+#divouter-5 {
+/* Typical fixed height and fixed width example */
+width:974px; height:265px;  position:relative; border:solid 1px #CCCCCC; overflow:hidden;
+}

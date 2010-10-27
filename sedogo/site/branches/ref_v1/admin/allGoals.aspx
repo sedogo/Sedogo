@@ -1,0 +1,38 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="allGoals.aspx.cs" Inherits="admin_allGoals" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    
+    All goals<br />
+    Goal count: <asp:Label ID="goalCountLabel" runat="server" /><br />
+    
+            <table width="80%" border="0" cellspacing="2" cellpadding="0">
+    <asp:Repeater ID="allGoalsRepeater" runat="server" 
+        OnItemDataBound="allGoalsRepeater_ItemDataBound"
+        OnItemCommand="allGoalsRepeater_ItemCommand">
+        <ItemTemplate>
+                <tr>
+                    <td>Goal: <asp:HyperLink ID="nameLabel" runat="server" Target="_blank" /></td>
+                    <td align="right">
+                        <asp:Hyperlink ID="deleteGoalButton"
+                            runat="server" CssClass="button-sml" Text="Delete goal" />
+                    </td>
+                </tr>
+        </ItemTemplate>
+    </asp:Repeater>
+            </table>
+    
+    <asp:Button runat="server" ID="cancelButton" text="Back" OnClick="cancelButton_Click"
+        CausesValidation="false" /><br />
+    
+    </div>
+    </form>
+</body>
+</html>

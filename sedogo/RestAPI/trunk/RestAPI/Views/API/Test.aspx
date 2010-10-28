@@ -752,6 +752,22 @@
                 </tr>
                 <tr>
                     <td>
+                        start
+                    </td>
+                    <td>
+                        <input type="text" id="cf_start" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        count
+                    </td>
+                    <td>
+                        <input type="text" id="cf_count" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                     </td>
                     <td>
                         <input type="button" value="Send" onclick="getUsersIdConsumption();" />
@@ -763,9 +779,23 @@
             <script type="text/javascript">
                 function getUsersIdConsumption() {
                     $('#getUsersIdConsumption_resultDiv').html('');
+                    var start = $('#cf_start').val();
+                    var count = $('#cf_count').val();
+
+                    var filter = '';
+                    if (start != "" || count != "") {
+                        filter = "?";
+                        if (start != "") {
+                            filter += "start=" + start;
+                            filter += "&";
+                        }
+                        if (count != "") {
+                            filter += "count=" + count;
+                        }
+                    }
 
                     $.ajax({
-                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdConsumption_userId').val() + '/consumption',
+                        url: '<%=Url.Action("Users", "API")%>/' + $('#getUsersIdConsumption_userId').val() + '/consumption' + filter,
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))

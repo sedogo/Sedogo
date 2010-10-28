@@ -403,6 +403,9 @@ namespace RestAPI.Controllers
             }
             #endregion
 
+            int start = GetStartIndex();
+            int count = GetEventsCount();
+
             JsonResult jr;
             int? ui = PrepareForUserMinimal(id, out jr);
             if (!ui.HasValue)
@@ -482,7 +485,7 @@ namespace RestAPI.Controllers
                          created = i.CreatedDate,
                          updated = i.LastUpdatedDate,
                          read = (bool?) null
-                     })).OrderByDescending(x => x.created).ToList();
+                     })).OrderByDescending(x => x.created).Skip(start).Take(count).ToList();
             var result =
                 messages.Select(
                     x =>
@@ -501,6 +504,33 @@ namespace RestAPI.Controllers
             
         }
 
+        /// <summary>
+        /// Gets the events count.
+        /// </summary>
+        /// <returns></returns>
+        private int GetEventsCount()
+        {
+            int count;
+            if (!int.TryParse(Request.QueryString["count"], out count))
+            {
+                count = 20;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Gets the start index.
+        /// </summary>
+        /// <returns></returns>
+        private int GetStartIndex()
+        {
+            int start;
+            if (!int.TryParse(Request.QueryString["start"], out start))
+            {
+                start = 0;
+            }
+            return start;
+        }
 
 
         /// <summary>

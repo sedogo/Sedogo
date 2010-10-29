@@ -1,4 +1,5 @@
 --Create Full-text index
+--commit test
 
 CREATE FULLTEXT CATALOG SedogoEventsCatalog;
 CREATE UNIQUE INDEX UQ_Events ON dbo.[Events](EventId);

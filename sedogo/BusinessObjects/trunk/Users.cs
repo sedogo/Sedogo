@@ -53,7 +53,7 @@ namespace Sedogo.BusinessObjects
     public class SedogoUser
     {
         private int         m_userID = -1;
-        private long         m_facebookUserID = -1;
+        private long        m_facebookUserID = -1;
         private string      m_GUID = "";
         private string      m_emailAddress = "";
         private string      m_firstName = "";
@@ -77,6 +77,7 @@ namespace Sedogo.BusinessObjects
         private DateTime    m_passwordExpiryDate = DateTime.MinValue;
         private DateTime    m_lastLoginDate = DateTime.MinValue;
         private Boolean     m_enableSendEmails = true;
+        private Boolean     m_firstLogin = false;
         private DateTime    m_createdDate = DateTime.MinValue;
         private string      m_createdByFullName = "";
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
@@ -183,6 +184,11 @@ namespace Sedogo.BusinessObjects
         {
             get { return m_enableSendEmails; }
             set { m_enableSendEmails = value; }
+        }
+        public Boolean firstLogin
+        {
+            get { return m_firstLogin; }
+            set { m_firstLogin = value; }
         }
         public string userPassword
         {
@@ -372,6 +378,10 @@ namespace Sedogo.BusinessObjects
                 {
                     m_facebookUserID = long.Parse(rdr["FacebookUserID"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstLogin")))
+                {
+                    m_firstLogin = (Boolean)rdr["FirstLogin"];
+                }
                 rdr.Close();
             }
             catch (Exception ex)
@@ -523,8 +533,11 @@ namespace Sedogo.BusinessObjects
                 {
                     m_facebookUserID = long.Parse(rdr["FacebookUserID"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("FirstLogin")))
+                {
+                    m_firstLogin = (Boolean)rdr["FirstLogin"];
+                }
                 rdr.Close();
-                return true;
             }
             catch (Exception ex)
             {
@@ -536,6 +549,7 @@ namespace Sedogo.BusinessObjects
             {
                 conn.Close();
             }
+            return true;
         }
 
         //===============================================================
@@ -645,6 +659,36 @@ namespace Sedogo.BusinessObjects
             {
                 ErrorLog errorLog = new ErrorLog();
                 errorLog.WriteLog("SedogoUser", "Update", ex.Message, logMessageLevel.errorMessage);
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        //===============================================================
+        // Function: UpdateFirstLogin
+        //===============================================================
+        public void UpdateFirstLogin()
+        {
+            SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("spUpdateUserFirstLogin", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
+                cmd.Parameters.Add("@FirstLogin", SqlDbType.Bit).Value = true;
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("SedogoUser", "UpdateFirstLogin", ex.Message, logMessageLevel.errorMessage);
                 throw ex;
             }
             finally

@@ -84,10 +84,7 @@ public partial class timelineXML : System.Web.UI.Page
                 //    cmd.CommandText = "spSelectFullEventListByCategory";
                 //}
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
-                if (viewArchivedEvents == false)
-                {
-                    cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = true;
-                }
+                cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = true;
 
                 DbDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())

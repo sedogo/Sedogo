@@ -78,6 +78,7 @@
                     <p>Simply use the 'comment' box on your goal page to add photos, video or links — click on the little blue icons and you're away! Any friends who comment on your goal are free to add whatever they like too!</p>
                     <h2>Can I add video?</h2>
                     <p>Yes, all you need is a YouTube account. Just upload your video there and you can embed it into your 'comment' box on your goal page by clicking the blue video icon. Friends can add video this way as well.</p>
+                    <p>&nbsp;<br /><a href="default.aspx?Tour=Y">Take the tour</a></p>
 		        </div>
 
 		    </div>

@@ -168,6 +168,15 @@ public partial class _default : System.Web.UI.Page
             {
                 conn.Close();
             }
+
+            if (Request.QueryString["Tour"] != null)
+            {
+                if (Request.QueryString["Tour"].ToString() == "Y")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
+                        "$(document).ready(function() { showTour1(); });", true);
+                }
+            }
         }
     }
 

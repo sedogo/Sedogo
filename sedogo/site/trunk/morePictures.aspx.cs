@@ -201,6 +201,7 @@ public partial class morePictures : System.Web.UI.Page
                     }
                     imagesPlaceHolder.Controls.Add(new LiteralControl("<i><span style=\"font-size:80%\">" + createdDate.ToString("ddd d MMMM yyyy") + "</span></i><br/>"));
                     firstRow = false;
+                    columnNumber = 1;
                 }
                 loopDate = createdDate;
 

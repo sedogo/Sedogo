@@ -184,12 +184,12 @@ public partial class g_default : System.Web.UI.Page
                     userLink.Text = "<table><tr><td width=\"50\">";    // <div class=\"directory\">
                     if (eventPicThumbnail == "")
                     {
-                        userLink.Text += "<img src=\"../images/1x1trans.gif\" width=\"50\" height=\"1\" />";
+                        userLink.Text += "<img src=\"../images/1x1trans.gif\" width=\"50\" height=\"50\" />";
                         //userLink.Text += "<img src=\"../images/goalimage_small.jpg\" />";
                     }
                     else
                     {
-                        userLink.Text += "<img src=\"../assets/eventPics/" + eventPicThumbnail + "\" />";
+                        userLink.Text += "<div class=\"crop\"><img src=\"../assets/eventPics/" + eventPicThumbnail + "\" width=\"50\" /></div>";
                     }
                     userLink.Text += "</td><td>&nbsp;<a class=\"event\" href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a></td>";
                     userLink.Text += "</tr></table>";

@@ -110,10 +110,7 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                 cmd.CommandText = "spSelectFullEventListByCategory";
             }
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
-            if (viewArchivedEvents == false)
-            {
-                cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = true;
-            }
+            cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = true;
             //cmd.CommandText = "spSearchEvents";
             //cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
             //cmd.Parameters.Add("@SearchText", SqlDbType.NVarChar, 1000).Value = searchText;

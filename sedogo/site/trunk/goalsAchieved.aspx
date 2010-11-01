@@ -83,7 +83,7 @@
                                     <td width="400">
                                         <p>Goal: <asp:HyperLink ID="eventNameLabel" runat="server" /><br />
                                         Date: <asp:Label ID="eventDateLabel" runat="server" CssClass="blue" /><br />
-                                        Date achieved: <asp:Label ID="dateAchievedLabel" runat="server" CssClass="blue" /></p>
+                                        Achieved: <asp:Label ID="dateAchievedLabel" runat="server" CssClass="blue" /></p>
                                     </td>
                                 </tr>
                             </table>

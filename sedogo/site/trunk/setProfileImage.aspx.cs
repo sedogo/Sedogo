@@ -61,6 +61,11 @@ public partial class setProfileImage : System.Web.UI.Page
     //===============================================================
     public void saveButton_Click(object sender, EventArgs e)
     {
+        SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
+            int.Parse(Session["loggedInUserID"].ToString()));
+        user.firstLogin = false;
+        user.UpdateFirstLogin();
+
         if (profilePicFileUpload.PostedFile.ContentLength != 0)
         {
             int fileSizeBytes = profilePicFileUpload.PostedFile.ContentLength;
@@ -90,8 +95,6 @@ public partial class setProfileImage : System.Web.UI.Page
         }
         else
         {
-            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
-                int.Parse(Session["loggedInUserID"].ToString()));
             user.avatarNumber = int.Parse(avatarComboBox.SelectedValue);
             user.Update();
 

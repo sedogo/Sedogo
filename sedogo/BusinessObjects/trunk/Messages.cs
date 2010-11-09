@@ -137,46 +137,52 @@ namespace Sedogo.BusinessObjects
                 param.Value = m_messageID;
                 cmd.Parameters.Add(param);
                 DbDataReader rdr = cmd.ExecuteReader();
-                rdr.Read();
-                if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
+                if (rdr.Read())
                 {
-                    m_eventID = int.Parse(rdr["EventID"].ToString());
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
+                    {
+                        m_eventID = int.Parse(rdr["EventID"].ToString());
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                    {
+                        m_userID = int.Parse(rdr["UserID"].ToString());
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("PostedByUserID")))
+                    {
+                        m_postedByUserID = int.Parse(rdr["PostedByUserID"].ToString());
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("MessageText")))
+                    {
+                        m_messageText = (string) rdr["MessageText"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("MessageRead")))
+                    {
+                        m_messageRead = (Boolean) rdr["MessageRead"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
+                    {
+                        m_deleted = (Boolean) rdr["Deleted"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
+                    {
+                        m_createdDate = (DateTime) rdr["CreatedDate"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
+                    {
+                        m_createdByFullName = (string) rdr["CreatedByFullName"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedDate")))
+                    {
+                        m_lastUpdatedDate = (DateTime) rdr["LastUpdatedDate"];
+                    }
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
+                    {
+                        m_lastUpdatedByFullName = (string) rdr["LastUpdatedByFullName"];
+                    }
                 }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                else
                 {
-                    m_userID = int.Parse(rdr["UserID"].ToString());
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("PostedByUserID")))
-                {
-                    m_postedByUserID = int.Parse(rdr["PostedByUserID"].ToString());
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("MessageText")))
-                {
-                    m_messageText = (string)rdr["MessageText"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("MessageRead")))
-                {
-                    m_messageRead = (Boolean)rdr["MessageRead"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("Deleted")))
-                {
-                    m_deleted = (Boolean)rdr["Deleted"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
-                {
-                    m_createdDate = (DateTime)rdr["CreatedDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedByFullName")))
-                {
-                    m_createdByFullName = (string)rdr["CreatedByFullName"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedDate")))
-                {
-                    m_lastUpdatedDate = (DateTime)rdr["LastUpdatedDate"];
-                }
-                if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
-                {
-                    m_lastUpdatedByFullName = (string)rdr["LastUpdatedByFullName"];
+                    throw new IndexOutOfRangeException("There is no message with such ID.");
                 }
                 rdr.Close();
             }

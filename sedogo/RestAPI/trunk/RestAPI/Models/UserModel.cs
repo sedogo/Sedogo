@@ -86,7 +86,7 @@ Write only:
             if (!string.IsNullOrEmpty(homeTown))
                 rv.Add("homeTown", homeTown);
             if (birthday.HasValue)
-                rv.Add("birthday", Assistant.ConvertDateTime(birthday.Value));
+                rv.Add("birthday", Assistant.ConvertToString(birthday.Value));
             rv.Add("country", country);
             rv.Add("timezone", timezone);
             rv.Add("language", language);
@@ -159,7 +159,7 @@ Write only:
             {
                 try
                 {
-                    Birthday = Assistant.ConvertDateTime(birthday);
+                    Birthday = Assistant.ConvertToDateTime(birthday);
                 }
                 catch(Exception ex)
                 {   

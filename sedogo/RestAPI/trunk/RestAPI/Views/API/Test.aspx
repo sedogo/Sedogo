@@ -389,7 +389,7 @@
                     $('#getEventsId_resultDiv').html('');
 
                     $.ajax({
-                        url: '<%=Url.Action("Events", "API") %>' + $('#getEventsId_eventId').val(),
+                        url: '<%=Url.Action("Events", "API") %>/' + $('#getEventsId_eventId').val(),
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + $.base64Encode($('#login').val() + ":" + $('#pwd').val()))
@@ -447,7 +447,7 @@
                                 $('#messageResult').html(s);
                             }
                             else
-                                alert('not :' + result );
+                                alert('error :' + result.message );
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             var result = eval('(' + XMLHttpRequest.responseText + ')');

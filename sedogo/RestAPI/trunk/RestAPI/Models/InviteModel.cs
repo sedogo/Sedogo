@@ -60,9 +60,9 @@ Hidden:
             if (user.HasValue) rv.Add("user", user.Value);
             rv.Add("emailSent", emailSent);
             rv.Add("accepted", accepted);
-            if (acceptedOn.HasValue) rv.Add("acceptedOn", Assistant.ConvertDateTime(acceptedOn.Value));
+            if (acceptedOn.HasValue) rv.Add("acceptedOn", Assistant.ConvertToString(acceptedOn.Value));
             rv.Add("declined", declined);
-            if (declinedOn.HasValue) rv.Add("declinedOn", Assistant.ConvertDateTime(declinedOn.Value));
+            if (declinedOn.HasValue) rv.Add("declinedOn", Assistant.ConvertToString(declinedOn.Value));
             return rv;
         }
 

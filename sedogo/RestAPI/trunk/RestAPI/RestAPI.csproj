@@ -101,7 +101,7 @@
     <Content Include="Scripts\jquery.base64.js" />
     <Content Include="Scripts\json2.js" />
     <Content Include="Styles\Site.css" />
-    <Content Include="Views\API\HelloWorld.aspx" />
+    <Content Include="Views\API\ExceptionHandler.aspx" />
     <Content Include="Views\API\Test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

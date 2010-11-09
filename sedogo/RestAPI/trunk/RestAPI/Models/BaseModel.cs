@@ -23,8 +23,8 @@ namespace RestAPI.Models
         {
             Dictionary<string, object> rv = new Dictionary<string, object>();
             rv.Add("id", id);
-            rv.Add("created", Assistant.ConvertDateTime(created));
-            rv.Add("updated", Assistant.ConvertDateTime(updated));
+            rv.Add("created", Assistant.ConvertToString(created));
+            rv.Add("updated", Assistant.ConvertToString(updated));
 
             return rv;
         }

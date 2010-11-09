@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Text;
+using System.Web.Mvc;
 using System.Xml;    
 using System.Configuration;
 using System.IO;
@@ -17,7 +18,7 @@ namespace RestAPI
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static string ConvertDateTime(DateTime dt)
+        public static string ConvertToString(DateTime dt)
         {
             return XmlConvert.ToString(dt, XmlDateTimeSerializationMode.Local);
         }
@@ -27,7 +28,7 @@ namespace RestAPI
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DateTime? ConvertDateTime(string dt)
+        public static DateTime? ConvertToDateTime(string dt)
         {
             return XmlConvert.ToDateTime(dt, XmlDateTimeSerializationMode.Local);
         }
@@ -225,5 +226,18 @@ namespace RestAPI
             }
         }
 
+        public static Exception LastException { get; set; }
+
+        public static Exception GetLastException()
+        {
+            try
+            {
+                return LastException;
+            }
+            finally
+            {
+                LastException = null;
+            }
+        }
     }
 }

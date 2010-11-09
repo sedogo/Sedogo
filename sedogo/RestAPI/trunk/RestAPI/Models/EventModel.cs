@@ -100,11 +100,11 @@ Hidden:
             rv.Add("mustDo", mustDo);
             rv.Add("dateType", dateType);
             if (start.HasValue)
-                rv.Add("start", Assistant.ConvertDateTime(start.Value));
+                rv.Add("start", Assistant.ConvertToString(start.Value));
             if(rangeStart.HasValue)
-                rv.Add("rangeStart", Assistant.ConvertDateTime(rangeStart.Value));
+                rv.Add("rangeStart", Assistant.ConvertToString(rangeStart.Value));
             if (rangeEnd.HasValue)
-                rv.Add("rangeEnd", Assistant.ConvertDateTime(rangeEnd.Value));
+                rv.Add("rangeEnd", Assistant.ConvertToString(rangeEnd.Value));
             if (beforeBirthday.HasValue)
                 rv.Add("beforeBirthday", beforeBirthday.Value);
             rv.Add("achived", achieved);

@@ -22,9 +22,10 @@ namespace RestAPI.Controllers
             return Assistant.TryAuthenticate(Request, _db, role, out email, out currentUserID, out fullName);
         }
 
-        public ActionResult HelloWorld()
+        public ActionResult ExceptionHandler()
         {
-            var e = new Assistant.WriteLongException();
+            var e = Assistant.GetLastException();
+            var model = new Assistant.WriteLongException();
             try
             {
                 DateTime now = DateTime.Now;
@@ -50,9 +51,10 @@ namespace RestAPI.Controllers
             }
             catch (Exception ex)
             {
-                e.Ex = ex.Message;
+                e = ex;
             }
-            return View(e);
+            model.Ex = e.Message;
+            return Json(new {message=e.Message});
         }
 
         public ActionResult Index()
@@ -447,19 +449,19 @@ namespace RestAPI.Controllers
                               text = m.MessageText,
                               created = m.CreatedDate,
                               updated = m.LastUpdatedDate,
-                              read = (bool?)m.MessageRead
+                              read = (bool?) m.MessageRead
                           }).Union
                     (from c in _db.EventComments
                      where c.Event.UserID == userId && !c.Deleted && !c.Event.Deleted
                      select new
                                 {
                                     id = c.EventCommentID,
-                                    eventId = (int?)c.EventID,
+                                    eventId = (int?) c.EventID,
                                     user = c.PostedByUserID,
-                                    text = c.CommentText, 
+                                    text = c.CommentText,
                                     created = c.CreatedDate,
                                     updated = c.LastUpdatedDate,
-                                    read = (bool?)null
+                                    read = (bool?) null
                                 }).Union
                     (from c in _db.EventComments
                      join te in _db.TrackedEvents on c.EventID equals te.EventID
@@ -467,33 +469,45 @@ namespace RestAPI.Controllers
                      select new
                                 {
                                     id = c.EventCommentID,
-                                    eventId = (int?)c.EventID,
+                                    eventId = (int?) c.EventID,
                                     user = c.PostedByUserID,
-                                    text = c.CommentText, 
-                                    created = c.CreatedDate, 
+                                    text = c.CommentText,
+                                    created = c.CreatedDate,
                                     updated = c.LastUpdatedDate,
-                                    read = (bool?)null
+                                    read = (bool?) null
                                 }).Union
                     (from i in _db.EventInvites
                      where i.UserID == userId && !i.Deleted && !i.Event.Deleted
                      select new
-                     {
-                         id = i.EventInviteID,
-                         eventId = (int?)i.EventID,
-                         user = i.UserID ?? 0,
-                         text = i.InviteAdditionalText,
-                         created = i.CreatedDate,
-                         updated = i.LastUpdatedDate,
-                         read = (bool?) null
-                     })).OrderByDescending(x => x.created).Skip(start).Take(count).ToList();
+                                {
+                                    id = i.EventInviteID,
+                                    eventId = (int?) i.EventID,
+                                    user = i.UserID ?? 0,
+                                    text = i.InviteAdditionalText,
+                                    created = i.CreatedDate,
+                                    updated = i.LastUpdatedDate,
+                                    read = (bool?) null
+                                }).Union
+                    (from e in _db.Events
+                     where e.UserID == userId && !e.PrivateEvent && e.ShowOnDefaultPage
+                     select new
+                                {
+                                    id = e.EventID,
+                                    eventId = (int?) e.EventID,
+                                    user = e.UserID,
+                                    text = e.EventDescription,
+                                    created = e.CreatedDate,
+                                    updated = e.LastUpdatedDate,
+                                    read = (bool?) null
+                                })).OrderByDescending(x => x.created).Skip(start).Take(count).ToList();
             var result =
                 messages.Select(
                     x =>
                     new
                         {
                             x.id,
-                            created = x.created.ToString("u"),
-                            updated = x.updated.ToString("u"),
+                            created = Assistant.ConvertToString(x.created),
+                            updated = Assistant.ConvertToString(x.updated),
                             message = x.text,
                             _event = x.eventId,
                             x.user,
@@ -845,13 +859,21 @@ namespace RestAPI.Controllers
                 }
                 #endregion
 
-                new Sedogo.BusinessObjects.Message(fullName, id ?? 0) { messageRead = true }.Update();
+                try
+                {
+                    new Sedogo.BusinessObjects.Message(fullName, id ?? 0) { messageRead = true }.Update();
+                }
+                catch (IndexOutOfRangeException ex)
+                {
+                    Assistant.LastException = ex;
+                    return ExceptionHandler();
+                }
 
                 return Json(new {read = 1}, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return HelloWorld();
+                return ExceptionHandler();
             }
         }
 
@@ -895,7 +917,7 @@ namespace RestAPI.Controllers
             }
             catch
             {
-                return HelloWorld();
+                return ExceptionHandler();
             }
         }
 

@@ -107,10 +107,6 @@ public partial class search2 : SedogoPage
                 recentlyUpdated = int.Parse(Request.QueryString["EvRecentlyUpdated"].ToString());
             }
             string definitlyDo = "A";
-            if (Request.QueryString["EvDefinitlyDo"] != null)
-            {
-                definitlyDo = (string)Request.QueryString["EvDefinitlyDo"];
-            }
 
             Boolean viewArchivedEvents = false;
             if (Session["ViewArchivedEvents"] != null)
@@ -161,8 +157,7 @@ public partial class search2 : SedogoPage
             //}
             recentlyAddedDropDownList.SelectedValue = recentlyAdded.ToString();
             recentlyUpdatedDropDownList.SelectedValue = recentlyUpdated.ToString();
-            definitlyDoDropDownList.SelectedValue = definitlyDo;            
-
+            
             //what2.Text = searchText;
             if (eventNameText == "")
             {
@@ -367,7 +362,7 @@ public partial class search2 : SedogoPage
         //}
         int recentlyAdded = int.Parse(recentlyAddedDropDownList.SelectedValue);
         int recentlyUpdated = int.Parse(recentlyUpdatedDropDownList.SelectedValue);
-        string definitlyDo = definitlyDoDropDownList.SelectedValue;
+        string definitlyDo = "A";
 
         string url = "search2.aspx";
         url = url + "?EvName=" + eventName;

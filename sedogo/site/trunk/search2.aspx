@@ -451,15 +451,6 @@ function showhide(layer_ref)
                                             <asp:DropDownList ID="birthdayDropDownList" runat="server">
                                             </asp:DropDownList>
                                         </td>
-                                        <td>
-                                            Definitly do
-                                        </td>
-                                        <td>
-                                            <asp:DropDownList ID="definitlyDoDropDownList" runat="server">
-                                                <asp:ListItem Text="All" Value="A" />
-                                                <asp:ListItem Text="Definitly do" Value="D" />
-                                            </asp:DropDownList>
-                                        </td>
                                     </tr>
                     </tr>
                     <td colspan="6" style="padding-top: 5px">

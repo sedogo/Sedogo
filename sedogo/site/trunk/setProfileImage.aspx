@@ -50,8 +50,8 @@
             HeaderText="Please review the following errors:" />
     
 	    <div id="modal">
-            <h1>Set your profile image or Avatar</h1>
-            <p>Please update your profile by uploading an image to your profile, or by selecting one of the Avatar images below</p>
+            <h1>Choose your picture or Avatar</h1>
+            <p>Upload a picture of yourself. Or choose one of our Avatars.</p>
              <br />
              
              <table>

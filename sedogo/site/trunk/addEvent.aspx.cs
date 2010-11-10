@@ -48,7 +48,7 @@ public partial class addEvent : SedogoPage
             CalendarRangeEndDate.SelectedDate = DateTime.Now;
             PickerRangeEndDate.SelectedDate = DateTime.Now;
 
-            for (int age = userAgeYears; age <= 100; age++)
+            for (int age = userAgeYears; age <= 150; age++)
             {
                 birthdayDropDownList.Items.Add(new ListItem(age.ToString(), age.ToString()));
 

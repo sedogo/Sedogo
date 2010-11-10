@@ -40,7 +40,7 @@
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" target="_top">
     <div class="Dialog">
     
 	    <div id="modal">

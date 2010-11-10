@@ -53,6 +53,13 @@ public partial class setProfileImage : System.Web.UI.Page
             RadComboBoxItem avatarItem6 = new RadComboBoxItem("Avatar 6", "6");
             avatarItem6.ImageUrl = "/images/avatars/avatar6sm.gif";
             avatarComboBox.Items.Add(avatarItem6);
+
+            SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
+                int.Parse(Session["loggedInUserID"].ToString()));
+            if (user.avatarNumber > 0)
+            {
+                avatarComboBox.SelectedValue = user.avatarNumber.ToString();
+            }
         }
     }
 
@@ -63,8 +70,6 @@ public partial class setProfileImage : System.Web.UI.Page
     {
         SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(),
             int.Parse(Session["loggedInUserID"].ToString()));
-        user.firstLogin = false;
-        user.UpdateFirstLogin();
 
         if (profilePicFileUpload.PostedFile.ContentLength != 0)
         {

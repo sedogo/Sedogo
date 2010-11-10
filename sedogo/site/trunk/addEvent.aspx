@@ -110,7 +110,7 @@ function preSaveClick()
             
             <table border="0" cellspacing="0" cellpadding="2" width="400">
                 <tr>
-                    <td width="200">*Goal name</td>
+                    <td width="200">*I want to...</td>
                     <td width="200"><asp:TextBox runat="server"
                         ID="eventNameTextBox" Width="200px" MaxLength="200" />
                         <asp:RequiredFieldValidator ID="eventNameTextBoxValidator" runat="server"

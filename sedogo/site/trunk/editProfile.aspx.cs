@@ -173,6 +173,14 @@ public partial class editProfile : SedogoPage
             }
             profileImage.ToolTip = user.fullName + "'s profile picture";
 
+            if (Request.QueryString["Pwd"] != null)
+            {
+                if (Request.QueryString["Pwd"].ToString() == "N")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"changePassword.aspx?Pwd=N\");", true);
+                }
+            }
+
             SetFocus(firstNameTextBox);
         }
     }

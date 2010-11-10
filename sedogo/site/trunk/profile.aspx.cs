@@ -141,9 +141,12 @@ public partial class profile : SedogoPage
                 welcomeMessageDiv.Visible = false;
             }
 
-            if (user.profilePicFilename == "" && user.avatarNumber < 0)
+            if (user.firstLogin == true)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"setProfileImage.aspx\");", true);
+
+                user.firstLogin = false;
+                user.UpdateFirstLogin();
             }
 
             keepAliveIFrame.Attributes.Add("src", this.ResolveClientUrl("~/keepAlive.aspx"));

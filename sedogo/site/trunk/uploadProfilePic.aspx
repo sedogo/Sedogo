@@ -77,10 +77,10 @@
             <div class="buttons">
                 <asp:LinkButton 
                     ID="uploadProfilePicButton" runat="server" ToolTip="Upload picture" Text="Upload picture" 
-                    OnClick="uploadProfilePicButton_click" CssClass="button-sml" />
+                    OnClick="uploadProfilePicButton_click" CssClass="button-lrg" />
                 <asp:LinkButton 
                     ID="backButton" runat="server" ToolTip="Back to edit profile" Text="Back to edit profile" 
-                    OnClick="backButton_click" CssClass="button-sml" CausesValidation="false" />
+                    OnClick="backButton_click" CssClass="button-lrg" CausesValidation="false" />
             </div>
 
 		</div>

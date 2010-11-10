@@ -36,6 +36,14 @@ public partial class changePassword : SedogoPage
     {
         if (!IsPostBack)
         {
+            if (Request.QueryString["Pwd"] != null)
+            {
+                if (Request.QueryString["Pwd"].ToString() == "N")
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"The current password is not correct.\");", true);
+                }
+            }
+
             SetFocus(currentPasswordTextBox);
         }
     }
@@ -60,8 +68,10 @@ public partial class changePassword : SedogoPage
         }
         else
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"The current password is not correct.\");", true);
-            SetFocus(currentPasswordTextBox);
+            Response.Redirect("editProfile.aspx?Pwd=N");
+
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"The current password is not correct.\");", true);
+            //SetFocus(currentPasswordTextBox);
         }
     }
 }

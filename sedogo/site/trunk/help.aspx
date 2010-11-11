@@ -98,6 +98,7 @@
                     </div>
 
                     <a href="faq.aspx">See frequently asked questions here</a>
+                    <p>&nbsp;<br /><a href="default.aspx?Tour=Y">Take the tour</a></p>
 
 		        </div>
     			

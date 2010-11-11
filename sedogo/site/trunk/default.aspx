@@ -275,7 +275,7 @@
         }
     function changeClass(id, newClass)
     {
-        document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
+        //document.getElementById(id).className = newClass; //.setAttribute("class", newClass);
     }
     function showTour1()
     {
@@ -487,7 +487,7 @@
                         <tr>
                             <td><img src="images/iphoneLogo.jpg" /></td>
                             <td>&nbsp;</td>
-                            <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="#">Download here</a></p></td>
+                            <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="javascript:alert('Signup for Sedogo and we will let you know as soon as the app is available in the AppStore.');">Download here</a></p></td>
                         </tr>
                     </table>
                         

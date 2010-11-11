@@ -65,7 +65,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
                         case 0: case 1: avatarID = 1; break;
                         case 2: case 3: avatarID = 2; break;
                     }
-                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + ".gif";
                 }
                 else
                 {
@@ -76,7 +76,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
                         case 0: case 1: avatarID = 3; break;
                         case 2: case 3: avatarID = 4; break;
                     }
-                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + ".gif";
                 }
             }
         }

@@ -681,7 +681,7 @@ namespace Sedogo.BusinessObjects
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = m_userID;
-                cmd.Parameters.Add("@FirstLogin", SqlDbType.Bit).Value = true;
+                cmd.Parameters.Add("@FirstLogin", SqlDbType.Bit).Value = m_firstLogin;
 
                 cmd.ExecuteNonQuery();
             }

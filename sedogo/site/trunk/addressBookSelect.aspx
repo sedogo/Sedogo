@@ -62,10 +62,9 @@
                 <ItemTemplate>
                     <tr>
                         <td><p>Name: <asp:HyperLink ID="nameLabel" runat="server" /></p></td>
-                        <td><p>Email: <asp:HyperLink ID="emailLabel" runat="server" /></p></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
+                        <td><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>

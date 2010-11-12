@@ -88,9 +88,9 @@ public partial class addressBookSelect : System.Web.UI.Page
             nameLabel.NavigateUrl = "javascript:clickEntry('" + row["EmailAddress"].ToString() + "')";
             nameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
 
-            HyperLink emailLabel = e.Item.FindControl("emailLabel") as HyperLink;
-            emailLabel.NavigateUrl = "javascript:clickEntry('" + row["EmailAddress"].ToString() + "')";
-            emailLabel.Text = row["EmailAddress"].ToString();
+            //HyperLink emailLabel = e.Item.FindControl("emailLabel") as HyperLink;
+            //emailLabel.NavigateUrl = "javascript:clickEntry('" + row["EmailAddress"].ToString() + "')";
+            //emailLabel.Text = row["EmailAddress"].ToString();
 
             /*
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;

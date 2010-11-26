@@ -778,7 +778,7 @@ namespace Sedogo.BusinessObjects
                 cmd.CommandText = "spVerifyUserLogin";
                 DbParameter param = cmd.CreateParameter();
                 param.ParameterName = "@EmailAddress";
-                param.Value = emailAddress;
+                param.Value = emailAddress.Trim();
                 cmd.Parameters.Add(param);
                 DbDataReader rdr = cmd.ExecuteReader();
                 if (rdr.HasRows == false)
@@ -1129,7 +1129,7 @@ namespace Sedogo.BusinessObjects
 
                 SqlCommand cmd = new SqlCommand("spVerifyUserLogin", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = emailAddress;
+                cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 200).Value = emailAddress.Trim();
                 DbDataReader rdr = cmd.ExecuteReader();
                 if (rdr.HasRows == false)
                 {

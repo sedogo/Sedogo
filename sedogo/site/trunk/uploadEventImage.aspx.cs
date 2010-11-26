@@ -86,6 +86,10 @@ public partial class uploadEventImage : SedogoPage
 
             MiscUtils.CreateEventPicPreviews(Path.GetFileName(destPath), eventID);
 
+            // Update event to set last updated date
+            SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
+            sedogoEvent.Update();
+
             Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
         }
     }

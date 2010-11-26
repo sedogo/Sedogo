@@ -49,11 +49,37 @@ public partial class message : SedogoPage
             {
                 replyID = (string)Request.QueryString["ReplyID"];
             }
+            string replyMessageID = "";
+            if (Session["MessageID"] != null)
+            {
+                if ((string)Session["MessageID"] != "")
+                {
+                    replyMessageID = (string)Session["MessageID"];
+                }
+            }
+            Session["MessageID"] = null;
+
             if (replyID != "")
             {
                 SedogoEvent sEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), int.Parse(replyID));
 
                 string url = "sendUserMessage.aspx?UID=" + sEvent.userID.ToString() + "&EID=" + replyID.ToString();
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"" + url + "\");", true);
+            }
+            if (replyMessageID != "")
+            {
+                string eventID = "-1";
+                if (Session["EventID"] != null)
+                {
+                    if ((string)Session["EventID"] != "")
+                    {
+                        eventID = (string)Session["EventID"];
+                    }
+                }
+                Session["EventID"] = null;
+
+                string url = "sendUserMessage.aspx?UID=" + userID.ToString()
+                    + "&PMID=-1&MID=" + replyMessageID.ToString() + "&Redir=Messages";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"" + url + "\");", true);
             }
         }
@@ -153,9 +179,55 @@ public partial class message : SedogoPage
                 {
                     messageID = int.Parse(row["MessageID"].ToString());
                 }
+                int currentUserID = int.Parse(Session["loggedInUserID"].ToString());
 
                 int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
                 SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
+
+                int threadMessages = 0;
+                SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
+                try
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "spSelectThreadedMessageCount";
+                    cmd.Parameters.Add("@ParentMessageID", SqlDbType.Int).Value = messageID;
+                    DbDataReader rdr = cmd.ExecuteReader();
+                    if (rdr.HasRows == true)
+                    {
+                        rdr.Read();
+                        if (!rdr.IsDBNull(0))
+                        {
+                            threadMessages = int.Parse(rdr[0].ToString());
+                        }
+                    }
+                    rdr.Close();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog errorLog = new ErrorLog();
+                    errorLog.WriteLog("message", "messagesRepeater_ItemDataBound", ex.Message, logMessageLevel.errorMessage);
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+
+                if (postedByUserID == currentUserID
+                    && threadMessages == 0)
+                {
+                    // Do not show this repaeter item
+                    HtmlTable  messageRepeaterTable = e.Item.FindControl("messageRepeaterTable") as HtmlTable;
+                    HtmlGenericControl messageRepeaterSeperatorDiv = e.Item.FindControl("messageRepeaterSeperatorDiv") as HtmlGenericControl;
+                    messageRepeaterTable.Visible = false;
+                    messageRepeaterSeperatorDiv.Visible = false;
+                }
+                else
+                {
+                }
 
                 Literal eventNameLabel = e.Item.FindControl("eventNameLabel") as Literal;
                 Literal userNameLabel = e.Item.FindControl("userNameLabel") as Literal;
@@ -233,19 +305,27 @@ public partial class message : SedogoPage
 
                 Literal messageLabel = e.Item.FindControl("messageLabel") as Literal;
                 messageLabel.Text = row["MessageText"].ToString().Replace("\n", "<br/>");
+                messageLabel.Text += "<br/>&nbsp;";
 
                 HyperLink sendReplyMessageButton = e.Item.FindControl("sendReplyMessageButton") as HyperLink;
                 sendReplyMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + postedByUserID.ToString()
-                    + "&EID=" + eventID.ToString() + "&PMID=" + parentMessageID.ToString() + "&MID=" + messageID.ToString()
+                    + "&PMID=" + parentMessageID.ToString() + "&MID=" + messageID.ToString()
                     + "&Redir=Messages";
+
+                if (postedByUserID == currentUserID)
+                {
+                    // You cannot reply to messages sent by you
+                    sendReplyMessageButton.Visible = false;
+                    markAsReadButton.Visible = false;
+                }
 
                 Repeater threadMessagesRepeater = e.Item.FindControl("threadMessagesRepeater") as Repeater;
                 try
                 {
-                    SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+                    SqlConnection conn2 = new SqlConnection((string)Application["connectionString"]);
 
                     SqlCommand cmd = new SqlCommand();
-                    cmd.Connection = conn;
+                    cmd.Connection = conn2;
                     cmd.CommandText = "spSelectThreadedMessageList";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@ParentMessageID", SqlDbType.Int).Value = messageID;
@@ -317,6 +397,7 @@ public partial class message : SedogoPage
             {
                 eventID = int.Parse(row["EventID"].ToString());
             }
+            int currentUserID = int.Parse(Session["loggedInUserID"].ToString());
 
             int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
             SedogoUser messageFromUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), postedByUserID);
@@ -369,6 +450,11 @@ public partial class message : SedogoPage
 
             Literal threadMessageLabel = e.Item.FindControl("threadMessageLabel") as Literal;
             threadMessageLabel.Text = row["MessageText"].ToString().Replace("\n","<br/>");
+            threadMessageLabel.Text += "<br/>&nbsp;";
+
+            //if (postedByUserID == currentUserID)
+            //{
+            //}
         }
     }
 

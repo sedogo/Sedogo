@@ -83,9 +83,14 @@ public partial class sidebar : System.Web.UI.UserControl
                     viewArchivedEvents = (Boolean)Session["ViewArchivedEvents"];
                 }
 
-                userNameLabel.Text = user.fullName;
-
-                //profileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
+                if (user.fullName.Trim() != "")
+                {
+                    userNameLabel.Text = user.fullName;
+                }
+                else
+                {
+                    userNameLabel.Text = "&nbsp;";
+                }
 
                 if (user.profilePicThumbnail != "")
                 {
@@ -127,8 +132,8 @@ public partial class sidebar : System.Web.UI.UserControl
                     profileImage.Width = 50;
                 }
                 profileImage.ToolTip = user.fullName + "'s profile picture";
-                myProfileTextLabel.NavigateUrl = "~/userProfile.aspx?UID=" + userID
-                    ;
+                myProfileTextLabel.NavigateUrl = "~/userProfile.aspx?UID=" + userID;
+                //myProfileTextLabel.Text = user.profileText.Replace("\n", "<br/>");
 
                 int messageCount = Message.GetUnreadMessageCountForUser(userID);
                 if (messageCount == 1)

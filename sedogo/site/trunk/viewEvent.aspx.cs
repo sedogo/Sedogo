@@ -735,7 +735,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         outputText = outputText + "<br/>";
                     }
-                    outputText = outputText + "<a href=\"" + eventLink + "\">" + eventLink + "</a><br/>";
+                    outputText = outputText + "<a target=\"_blank\" href=\"" + eventLink + "\">" + eventLink + "</a><br/>";
                 }
                 if (currentUserID == eventUserID)
                 {

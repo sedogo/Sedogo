@@ -1,10 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="about.aspx.cs" Inherits="about" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="notActivated.aspx.cs" Inherits="notActivated" %>
+<%@ OutputCache Location="None" VaryByParam="None" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
-<%@ OutputCache Location="None" VaryByParam="None" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,7 +18,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>About : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>No such user : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -47,32 +47,34 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
     
-	    <div id="container">
-	        <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
-	        <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+	<div id="container">
+	    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	    <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
 
-		    <div id="other-content">
+		<div id="other-content">
+            
+			<div class="three-col">
 
-			    <div class="three-col">
-
-                    <h2>About Sedogo</h2>
-                    <br />&nbsp;
-                    <p>Sedogo is the future of social networking. Literally.</p>
-                    <p>Create tomorrow's goals for your life and connect with others to achieve them.</p>
-                    <p>&nbsp;</p>
-                    <a href="default.aspx">Return to home page</a>
-		        </div>
+                <h2>Account not yet activated</h2>
+                <br />&nbsp;
+                <p>Sorry, your account has not been activated yet. Please check your email for your activation message,
+                    or click <a href="lostActivation.aspx">here</a> to have it re-sent to you.</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <a href="default.aspx">Return to home page</a>
 
 		    </div>
-		    <Sedogo:FooterControl ID="footerControl" runat="server" />
+
 		</div>
-        <div id="modal-container">
-			<a href="#" class="close-modal"><img src="../images/close-modal.gif" title="Close window" alt="Close window" /></a>
-            <iframe frameborder="0"></iframe>
-        </div>
-        <div id="modal-background"></div>
+	    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	</div>
+    <div id="modal-container">
+		<a href="#" class="close-modal"><img src="../images/close-modal.gif" title="Close window" alt="Close window" /></a>
+        <iframe frameborder="0"></iframe>
+    </div>
+    <div id="modal-background"></div>
     
     </div>
     </form>

@@ -48,7 +48,7 @@
 	
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" defaultbutton="saveChangesButton">
     <div>
     
     <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    

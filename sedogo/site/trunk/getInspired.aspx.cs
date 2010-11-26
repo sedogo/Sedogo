@@ -39,10 +39,14 @@ public partial class getInspired : System.Web.UI.Page
             if (Session["loggedInUserID"] == null)
             {
                 getStartedLink.NavigateUrl = "register.aspx";
+                registerSignUpLink.NavigateUrl = "register.aspx";
             }
             else
             {
+                Session["PageRedirect"] = "AddEvent";
+
                 getStartedLink.NavigateUrl = "profile.aspx";
+                registerSignUpLink.NavigateUrl = "profile.aspx";
             }
         }
     }

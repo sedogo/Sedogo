@@ -4,10 +4,10 @@
 
 
     <li class="iphone" id="iPhoneDownload" runat="server"><asp:HyperLink ID="HyperLink1" runat="server"
-        ToolTip="Download iPhone app"><asp:Image ID="Image1" runat="server" 
+        ToolTip="Download iPhone app" NavigateUrl="http://itunes.apple.com/gb/app/sedogo/id403226892?mt=8" Target="_blank"><asp:Image ID="Image1" runat="server" 
         ImageUrl="~/images/iphonebannericon.jpg" /></asp:HyperLink></li>
     <li class="login" id="iPhoneAppLi" runat="server"><asp:HyperLink ID="HyperLink2" runat="server" 
-        NavigateUrl="javascript:alert('Signup for Sedogo and we will let you know as soon as the app is available in the AppStore.');" ToolTip="Download iPhone app" Text="Download iPhone app" /></li>
+         NavigateUrl="http://itunes.apple.com/gb/app/sedogo/id403226892?mt=8" Target="_blank" ToolTip="Download iPhone app" Text="Download iPhone app" /></li>
     <li class="login" id="loggedInAsLi" runat="server"><asp:Label ID="loggedInAsLabel" runat="server"></asp:Label></li>
     <li class="login" id="logoutLi" runat="server"><asp:HyperLink ID="logoutLink" runat="server" 
         NavigateUrl="~/logout.aspx" ToolTip="Logout" Text="Logout" /></li>

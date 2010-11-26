@@ -273,7 +273,7 @@ public partial class sendMessageToTrackers : SedogoPage
                         emailBodyCopy.AppendLine("				</tr>");
                         emailBodyCopy.AppendLine("				<tr>");
                         emailBodyCopy.AppendLine("					<td valign=\"top\"></td>");
-                        emailBodyCopy.AppendLine("					<td><a style=\"color:black\" href=\"" + replyURL + "\">Click here to reply to this message</a></td>");
+                        emailBodyCopy.AppendLine("					<td><a class=\"blue\" href=\"" + replyURL + "\">Click here to reply to this message</a></td>");
                         emailBodyCopy.AppendLine("				</tr>");
                         emailBodyCopy.AppendLine("			</table>");
                         emailBodyCopy.AppendLine("			<br /><br />");

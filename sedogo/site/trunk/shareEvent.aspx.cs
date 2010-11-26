@@ -87,6 +87,51 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
             goalNameLabel.Text = sedogoEvent.eventName;
             goalVenueLabel.Text = sedogoEvent.eventVenue;
             editedDateLabel.Text = sedogoEvent.lastUpdatedDate.ToString("dd MMMM yyyy");
+
+            string timelineColour = "#cd3301";
+            switch (sedogoEvent.categoryID)
+            {
+                case 1:
+                    timelineColour = "#cd3301";
+                    break;
+                case 2:
+                    timelineColour = "#ff0b0b";
+                    break;
+                case 3:
+                    timelineColour = "#ff6801";
+                    break;
+                case 4:
+                    timelineColour = "#ff8500";
+                    break;
+                case 5:
+                    timelineColour = "#d5b21a";
+                    break;
+                case 6:
+                    timelineColour = "#8dc406";
+                    break;
+                case 7:
+                    timelineColour = "#5b980c";
+                    break;
+                case 8:
+                    timelineColour = "#079abc";
+                    break;
+                case 9:
+                    timelineColour = "#5ab6cd";
+                    break;
+                case 10:
+                    timelineColour = "#8a67c1";
+                    break;
+                case 11:
+                    timelineColour = "#e54ecf";
+                    break;
+                case 12:
+                    timelineColour = "#a5369c";
+                    break;
+                case 13:
+                    timelineColour = "#a32672";
+                    break;
+            }
+            pageBannerBarDiv.Style.Add("background-color", timelineColour);
         }
     }
 

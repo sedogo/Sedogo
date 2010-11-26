@@ -138,7 +138,7 @@ public partial class forgotPassword : System.Web.UI.Page
         }
         else
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Reset password", "alert(\"No account with this email address was found.\");", true);
+            Response.Redirect("noSuchUser.aspx");
         }
     }
 }

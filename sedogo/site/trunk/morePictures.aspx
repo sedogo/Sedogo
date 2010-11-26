@@ -47,7 +47,7 @@
 
     <script type="text/javascript" src="js/main.js"></script>
 
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
 
     <script type="text/javascript">
     function addPicture()

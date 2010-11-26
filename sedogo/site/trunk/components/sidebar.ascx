@@ -29,8 +29,7 @@ function changeClass(id, newClass)
 <div class="one-col">
     <div style="width: 100%; float: left; border-bottom: 2px solid #0cf;" id="myProfileDiv" runat="server">
         <div style="float: left;">
-            <h2>
-                <asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" /></h2>
+            <h2><asp:HyperLink ID="myProfileTextLabel" runat="server" Text="My profile" /></h2>
         </div>
         <div style="padding: 4px; text-align: right; padding-top: 8px;">
             <asp:HyperLink ID="editProfileLink" NavigateUrl="~/editProfile.aspx" ToolTip="Edit profile"

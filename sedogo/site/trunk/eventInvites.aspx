@@ -44,7 +44,7 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -60,7 +60,7 @@
 
 			    <div class="three-col">
 
-                    <div class="page-banner-content">
+                    <div class="page-banner-content" id="pageBannerBarDiv" runat="server">
                         <div class="page-banner-header"><asp:Literal ID="eventTitleLabel" runat="server" /></div>
                         <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>

@@ -112,7 +112,7 @@ public partial class sendMessage : SedogoPage
             eventURL = eventURL + "?EID=" + eventID.ToString();
 
             string replyURL = gd.GetStringValue("SiteBaseURL");
-            replyURL = replyURL + "?ReplyID=" + eventID.ToString();
+            replyURL = replyURL + "?Redir=Messages&ReplyID=" + eventID.ToString();
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -148,7 +148,7 @@ public partial class sendMessage : SedogoPage
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("				<tr>");
             emailBodyCopy.AppendLine("					<td valign=\"top\"></td>");
-            emailBodyCopy.AppendLine("					<td><a style=\"color:black\" href=\"" + replyURL + "\">Click here to reply to this message</a></td>");
+            emailBodyCopy.AppendLine("					<td><a class=\"blue\" href=\"" + replyURL + "\">Click here to reply to this message</a></td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("			</table>");
             emailBodyCopy.AppendLine("			<br /><br />");

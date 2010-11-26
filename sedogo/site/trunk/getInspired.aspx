@@ -43,7 +43,7 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
 
     <style type="text/css">
         .itemTemplate
@@ -93,45 +93,75 @@
 				</div>
 				<div class="one-col">
 					<h2 class="col-header" style="margin-top: 12px; width: 160px">get inspired</h2>
-					<p class="teaser" style="font-size: 22px; line-height: 30px">What have you often vowed to do before you die? Travel the world? 
-                        Learn a language?<br />
-                        Write that novel?<br />
-                        Ghandi once said the future 
-                        depends on what we do in the present.</p>
+					<p class="teaser" style="font-size: 13px">Life's short. Why put off all the things you've always wanted to try?
+                        Whether you fancy <a target="_blank" class="blue sedogorollover" href="http://www.worldexpoditions.co.uk">going somewhere you've never been before</a>,
+                        <a target="_blank" class="blue sedogorollover" href="http://www.adventurecompay.co.uk">embarking on a new adventure</a>,
+                        <a target="_blank" class="blue sedogorollover" href="http://www.hotcourses.com">learning a new language</a> 
+                        or <a target="_blank" class="blue sedogorollover" href="http://www.justgiving.com">doing something worthwhile for charity</a>, it's never too late to get started.
+                        </p>
                     <br />
                     <br />
-					<p><asp:HyperLink ID="getStartedLink" runat="server" ToolTip="get started" 
-					    Text="get started" CssClass="button" /></p>
+					<p><asp:HyperLink ID="getStartedLink" runat="server" ToolTip="Sign up" 
+					    CssClass="signuprollover"><span 
+                        class="displace">Signup</span></asp:HyperLink></p>
 				</div>
 				<div class="one-col">
 					<h2 class="col-header" style="margin-top: 12px; border-color: #fff">&nbsp;</h2>
-					<p class="teaser" style="font-size: 13px; width: 220px">But it's not always easy, is it? Life often gets in the way. Well, 
-                        that's exactly why we launched Sedogo.  It's more than a diary of 
-                        planned goals, Sedogo is a way of connecting with people who can be 
-                        part of your future hopes and dreams, however big or small. Whether 
-                        it's bringing family and friends together to celebrate your next 
-                        birthday, or meeting strangers who, a year from now, you'll be 
-                        trusting with your life on the slopes of K2, sedogo really is the of 
-                        the future of social networking. Your future.</p>
+					<p class="teaser" style="font-size: 13px; width: 220px">
+					Why not have a look at these links too? Once you've found a goal, simply <asp:Hyperlink ID="registerSignUpLink" runat="server" Text="register it here" CssClass="blue" /> and you're away.<br />&nbsp;<br />
+					
+<a target="_blank" class="blue sedogorollover" href="http://www.actionforchildren.org.uk/events.aspx">Action for Children</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.ndcschallenges.org.uk/index.html">NDCS Challenges</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.ageuk.org.uk/get-involved/volunteer">Age UK</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.do-it.org.uk/wanttovolunteer">Do-it.org</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.volunteering.org.uk/IWantToVolunteer">Volunteering England</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.vso.org.uk/volunteer">VSO</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.barnardos.org.uk/get_involved/volunteering.htm">Banardos</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.justgiving.com">Justgiving</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.charitychallenge.com/index.html">Charity Challenge</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.adventurecompany.co.uk">Adventure Company</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.worldexpeditions.co.uk">World Expeditions</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.lastminute.com">Lastminute</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.open.ac.uk">The Open University</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.hotcourses.com">Hotcourses</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.redletterdays.co.uk">Redletterdays</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.musicskills.co.uk/play">Music Skills</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.bda.org.uk/Fun_Resources-i-661.html">BADA UK</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.sewingsupport.com/sewing-how-to/learn-to-sew.html">Sewing Support</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.sports-clubs.net">Sports Clubs</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.trailfinders.com">Trail Finders</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.british-sign.co.uk">British-Sign</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.learntodance.com">Learntodance</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.centrestageuk.com/da/104792">Centrestage</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.circusspace.co.uk">Circus Space</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.explore.co.uk">Explore</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.virginballoonflights.co.uk/main.asp">Virgin Balloon Flights</a>
+| <a target="_blank" class="blue sedogorollover" href="http://learntodive.co.uk">Learn to Dive</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.diabeteschallenge.org.uk">Diabetes UK</a>
+					</p>
+                        
 				</div>
 				<div class="one-col-end">
 					<h2 class="col-header" style="margin-top: 12px; width: 160px">goal suggestions</h2>
-					<p class="teaser" style="font-size: 13px"><strong>Need some help getting started? Here are a few ideas that might grab 
-                        you. Add as many as take your fancy. After all, you only get one life.</strong><br />
-                        &nbsp;<br />
+					<p class="teaser" style="font-size: 13px">
                         <span style="color: #0cf">
-	                        &gt; <a href="viewEvent.aspx?EID=395">Flight of fancy</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=658">Own an exotic pet</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=607">Watch the whole movie</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=15">Get high</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=638">Get behind the wheel</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=650">Cycle the round trip</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=34">Snowboard Mont Blanc</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=557">Do the Duke of Edinburgh</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=657">Do some DIY</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=578">Sweet music</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=741">Get into the swing</a><br />
-                            &gt; <a href="viewEvent.aspx?EID=523">Cycle to work</a>
+	                        <a class="sedogorollover" href="viewEvent.aspx?EID=395">Flight of fancy</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=607">Watch the whole movie</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=15">Get high</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=638">Get behind the wheel</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=650">Cycle the round trip</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=34">Snowboard Mont Blanc</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=557">Do the Duke of Edinburgh</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=509">Do some DIY</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=578">Sweet music</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=741">Get into the swing</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=523">Cycle to work</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=901">See the Inca Ruins</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=658">Own an exotic pet</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=897">Learn to sign</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=845">Find an old friend</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=232">Climb a Munroe</a><br />
+                            <a class="sedogorollover" href="viewEvent.aspx?EID=853">Add another string to your bow</a>
                         </span>
                         
                     </p>

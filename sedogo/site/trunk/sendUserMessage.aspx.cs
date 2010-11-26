@@ -36,7 +36,11 @@ public partial class sendUserMessage : SedogoPage
     {
         if (!IsPostBack)
         {
-            int eventID = int.Parse(Request.QueryString["EID"]);
+            int eventID = -1;
+            if (Request.QueryString["EID"] != null)
+            {
+                eventID = int.Parse(Request.QueryString["EID"]);
+            }
             int messageToUserID = int.Parse(Request.QueryString["UID"]);
 
             if( eventID > 0 )
@@ -94,7 +98,11 @@ public partial class sendUserMessage : SedogoPage
         }
         if (continueSending == true)
         {
-            int eventID = int.Parse(Request.QueryString["EID"]);
+            int eventID = -1;
+            if (Request.QueryString["EID"] != null)
+            {
+                eventID = int.Parse(Request.QueryString["EID"]);
+            }
             int messageToUserID = int.Parse(Request.QueryString["UID"]);
             int parentMessageID = -1;
             if( Request.QueryString["PMID"] != null )
@@ -121,6 +129,10 @@ public partial class sendUserMessage : SedogoPage
             message.messageText = messageText;
             if (parentMessageID > 0)
             {
+                Message parentMessage = new Message(Session["loggedInUserFullName"].ToString());
+                parentMessage.messageRead = false;
+                parentMessage.Update();
+
                 message.parentMessageID = parentMessageID;
             }
             else if (messageID > 0)
@@ -136,7 +148,14 @@ public partial class sendUserMessage : SedogoPage
             StringBuilder emailBodyCopy = new StringBuilder();
 
             string linkURL = gd.GetStringValue("SiteBaseURL");
-            linkURL = linkURL + "?Redir=Messages";
+            if (message.parentMessageID > 0)
+            {
+                linkURL = linkURL + "?Redir=Messages&MID=" + message.parentMessageID.ToString();
+            }
+            else
+            {
+                linkURL = linkURL + "?Redir=Messages&MID=" + message.messageID.ToString();
+            }
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -168,7 +187,7 @@ public partial class sendUserMessage : SedogoPage
             emailBodyCopy.AppendLine("					<td><p style=\"color:black\">" + messageText.Replace("\n", "<br/>") + "</p></td>");
             emailBodyCopy.AppendLine("				</tr>");
             emailBodyCopy.AppendLine("			</table>");
-            emailBodyCopy.AppendLine("			<p>To reply to this message, <a href=\"" + linkURL + "\">click here</a>.</p>");
+            emailBodyCopy.AppendLine("			<p>To reply to this message, <a class=\"blue\" href=\"" + linkURL + "\">click here</a>.</p>");
             emailBodyCopy.AppendLine("			<br /><br />");
             emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
             emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\">");

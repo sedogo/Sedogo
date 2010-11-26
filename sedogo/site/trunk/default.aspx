@@ -57,7 +57,7 @@
 
     <script type="text/javascript" src="js/main.js"></script>
 
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
 
     <script type="text/javascript">
         Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
@@ -487,7 +487,7 @@
                         <tr>
                             <td><img src="images/iphoneLogo.jpg" /></td>
                             <td>&nbsp;</td>
-                            <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="javascript:alert('Signup for Sedogo and we will let you know as soon as the app is available in the AppStore.');">Download here</a></p></td>
+                            <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="http://itunes.apple.com/gb/app/sedogo/id403226892?mt=8" target="_blank">Download here</a></p></td>
                         </tr>
                     </table>
                         
@@ -559,8 +559,7 @@
                     <h2 class="col-header">
                         Get inspired</h2>
                     <p class="teaser">
-                        Need help getting started? <a href="getInspired.aspx">See popular goal searches and
-                            get ideas</a></p>
+                        Need help getting started? <a href="getInspired.aspx">See some inspiring ideas here &gt;&gt;</a></p>
                     <div class="rotatorBackground">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
                             CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">

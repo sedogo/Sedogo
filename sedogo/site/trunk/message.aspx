@@ -44,7 +44,7 @@
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
 
 <script language="JavaScript" type="text/javascript">
     function confirmDeleteMessage()
@@ -99,7 +99,8 @@
                         OnItemCommand="messagesRepeater_ItemCommand">
                         <ItemTemplate>
                         
-                            <table width="600" border="0" cellspacing="2" cellpadding="0">
+                            <table width="600" border="0" cellspacing="2" cellpadding="0"
+                                id="messageRepeaterTable" runat="server">
                                 <tr>
                                     <td width="360">
                                         <table>
@@ -136,7 +137,8 @@
                                 </tr>
                             </table>
                             
-                            <div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div>
+                            <div class="pinstripe-divider" id="messageRepeaterSeperatorDiv" runat="server" 
+                                style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div>
 
                         </ItemTemplate>
                     </asp:Repeater>

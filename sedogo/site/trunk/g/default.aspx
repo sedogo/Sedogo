@@ -43,7 +43,7 @@
 	<script type="text/javascript" src="../js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="../js/jquery.corner.js"></script>
 	<script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../utils/validationFunctions.js"></script>
+    <script type="text/javascript" src="../js/validationFunctions.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">

@@ -280,7 +280,7 @@ public partial class addressBook : SedogoPage
 
             if (userID > 0)
             {
-                sendMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + userID.ToString() + "&EID=-1";
+                sendMessageButton.NavigateUrl = "sendUserMessage.aspx?UID=" + userID.ToString() + "&EID=-1&Redir=Messages";
                 sendMessageButton.Visible = true;
             }
             else

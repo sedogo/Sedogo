@@ -88,6 +88,58 @@ public partial class addressBookSelect : System.Web.UI.Page
             nameLabel.NavigateUrl = "javascript:clickEntry('" + row["EmailAddress"].ToString() + "')";
             nameLabel.Text = row["FirstName"].ToString() + " " + row["LastName"].ToString();
 
+            Image picThumbnailImage = e.Item.FindControl("picThumbnailImage") as Image;
+
+            int userID = SedogoUser.GetUserIDFromEmailAddress(row["EmailAddress"].ToString());
+            if (userID > 0)
+            {
+                SedogoUser addressBookUser = new SedogoUser("", userID);
+
+                if (addressBookUser.profilePicThumbnail != "")
+                {
+                    picThumbnailImage.ImageUrl = "~/assets/profilePics/" + addressBookUser.profilePicThumbnail;
+                }
+                else
+                {
+                    if (addressBookUser.avatarNumber > 0)
+                    {
+                        picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + addressBookUser.avatarNumber.ToString() + "sm.gif";
+                    }
+                    else
+                    {
+                        if (addressBookUser.gender == "M")
+                        {
+                            // 1,2,5
+                            int avatarID = 5;
+                            switch ((addressBookUser.userID % 6))
+                            {
+                                case 0: case 1: avatarID = 1; break;
+                                case 2: case 3: avatarID = 2; break;
+                            }
+                            picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        else
+                        {
+                            // 3,4,6
+                            int avatarID = 6;
+                            switch ((addressBookUser.userID % 6))
+                            {
+                                case 0: case 1: avatarID = 3; break;
+                                case 2: case 3: avatarID = 4; break;
+                            }
+                            picThumbnailImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                        }
+                        //profileImage.ImageUrl = "~/images/profile/blankProfile.jpg";
+                    }
+                    picThumbnailImage.Height = 50;
+                    picThumbnailImage.Width = 50;
+                }
+            }
+            else
+            {
+                picThumbnailImage.ImageUrl = "~/images/avatars/avatar1sm.gif";
+            }
+
             //HyperLink emailLabel = e.Item.FindControl("emailLabel") as HyperLink;
             //emailLabel.NavigateUrl = "javascript:clickEntry('" + row["EmailAddress"].ToString() + "')";
             //emailLabel.Text = row["EmailAddress"].ToString();

@@ -53,7 +53,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>Select address</h1>
+            <h1>Select person/friend?</h1>
     
             <div id="contactsDiv" runat="server">
             <table border="0" cellspacing="2" cellpadding="0">
@@ -61,10 +61,11 @@
                 OnItemDataBound="addressBookRepeater_ItemDataBound">
                 <ItemTemplate>
                     <tr>
-                        <td><p>Name: <asp:HyperLink ID="nameLabel" runat="server" /></p></td>
+                        <td valign="top" width="60"><asp:Image id="picThumbnailImage" runat="server" /></td>
+                        <td><p><asp:HyperLink ID="nameLabel" runat="server" /></p></td>
                     </tr>
                     <tr>
-                        <td><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
+                        <td colspan="2"><div class="pinstripe-divider" style="margin: 5px 0 5px 0; width: 430px">&nbsp;</div></td>
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>

@@ -1,6 +1,10 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="forgotPassword.aspx.cs" Inherits="forgotPassword" %>
-<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -40,33 +44,49 @@
 	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server" target="_top">
+    <form id="form1" runat="server">
     <div>
-
-	    <div id="modal">
-            <h1>Forgot your password?</h1>
-            <p>Enter your email address below and we will create a new password and email it to you</p>
-            <br />
-            <fieldset>
-                <ol>
-                    <li>
-                        <label for="">Email address</label>
-                        <asp:TextBox runat="server"
-                            ID="emailAddressTextBox" Width="200px" MaxLength="200" />
-                            <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
-                            runat="server" ControlToValidate="emailAddressTextBox" 
-                            ErrorMessage="The email address is not valid" 
-                            ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-                    </li>
-                </ol>
-            </fieldset>
-		</div>
     
-        <div class="buttons">
-            <asp:LinkButton 
-                ID="forgotPasswordButton" runat="server" ToolTip="Reset password" Text="Reset password" 
-                OnClick="forgotPasswordButton_click" CssClass="button-lrg" />
-        </div>
+    <asp:ScriptManager ID="scriptManager" runat="server"></asp:ScriptManager>    
+    
+	<div id="container">
+	    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	    <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+
+		<div id="other-content">
+            
+			<div class="three-col">
+
+                <h2>Forgot your password</h2>
+                <br />&nbsp;
+                <p>Enter your email address below and we will re-send your activation message</p>
+                <p>&nbsp;</p>
+                <p><asp:TextBox runat="server"
+                    ID="emailAddressTextBox" Width="200px" MaxLength="200" />
+                    <asp:RegularExpressionValidator id="emailAddressTextBoxValidator2" 
+                    runat="server" ControlToValidate="emailAddressTextBox" 
+                    ErrorMessage="The email address is not valid" 
+                    ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator></p>
+                <p>&nbsp;</p>
+                            
+                <p><asp:LinkButton 
+                    ID="forgotPasswordButton" runat="server" ToolTip="Reset password" Text="Reset password" 
+                    OnClick="forgotPasswordButton_click" CssClass="button-lrg" /></p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                                    
+                <a href="default.aspx">Return to home page</a>
+
+		    </div>
+
+		</div>
+	    <Sedogo:FooterControl ID="footerControl" runat="server" />
+	</div>
+    <div id="modal-container">
+		<a href="#" class="close-modal"><img src="../images/close-modal.gif" title="Close window" alt="Close window" /></a>
+        <iframe frameborder="0"></iframe>
+    </div>
+    <div id="modal-background"></div>
     
     </div>
     </form>

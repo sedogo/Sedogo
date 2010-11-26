@@ -136,7 +136,7 @@ public partial class login : System.Web.UI.Page
             // Delete the password cookie
             HttpCookie passwordCookie = new HttpCookie("SedogoLoginPassword");
             // Set the cookies value
-            passwordCookie.Value = "";
+            passwordCookie.Value = loginPassword;
 
             // Set the cookie to expire in 1 year
             passwordCookie.Expires = dtNow.AddYears(1);
@@ -223,10 +223,12 @@ public partial class login : System.Web.UI.Page
         //{
         if (checkResult == loginResults.loginFailed)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"Username or password is not correct.\");", true);
+            Response.Redirect("invalidLogin.aspx");
         }
         if (checkResult == loginResults.loginNotActivated)
         {
+            Response.Redirect("notActivated.aspx");
+
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This account has not yet been activated, please check your email.\");", true);
         }
         //}

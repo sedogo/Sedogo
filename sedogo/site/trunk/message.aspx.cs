@@ -78,7 +78,11 @@ public partial class message : SedogoPage
                 }
                 Session["EventID"] = null;
 
-                string url = "sendUserMessage.aspx?UID=" + userID.ToString()
+                Sedogo.BusinessObjects.Message replyToMessage = 
+                    new Sedogo.BusinessObjects.Message(Session["loggedInUserFullName"].ToString(), int.Parse(replyMessageID));
+                //SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), -1);
+
+                string url = "sendUserMessage.aspx?UID=" + replyToMessage.postedByUserID.ToString()
                     + "&PMID=-1&MID=" + replyMessageID.ToString() + "&Redir=Messages";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"" + url + "\");", true);
             }

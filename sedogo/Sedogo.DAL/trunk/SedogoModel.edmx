@@ -153,7 +153,7 @@
           <Property Name="Caption" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6005: The data type 'geography' is not supported; the column 'Coords' in table 'sedogoDb.dbo.Events' was excluded.
+      warning 6005: The data type 'geography' is not supported; the column 'Coords' in table 'sedogo4.dbo.Events' was excluded.
       -->
         <EntityType Name="Events">
           <Key>
@@ -231,6 +231,7 @@
           <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="LastUpdatedByFullName" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="MessageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ParentMessageID" Type="int" />
         </EntityType>
         <EntityType Name="SearchHistory">
           <Key>
@@ -319,6 +320,7 @@
           <Property Name="EnableSendEmails" Type="bit" Nullable="false" />
           <Property Name="FacebookUserID" Type="bigint" />
           <Property Name="AvatarNumber" Type="int" />
+          <Property Name="FirstLogin" Type="bit" />
         </EntityType>
         <Function Name="spAddAddressBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
@@ -422,6 +424,7 @@
           <Parameter Name="LanguageID" Type="int" Mode="InOut" />
         </Function>
         <Function Name="spAddMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentMessageID" Type="int" Mode="In" />
           <Parameter Name="EventID" Type="int" Mode="In" />
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="PostedByUserID" Type="int" Mode="In" />
@@ -829,6 +832,7 @@
         <Function Name="spSelectLatestAchievedEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spSelectLatestAchievedEventsFullList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spSelectLatestEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spSelectLatestEventsDefaultPage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spSelectLatestUpdatedEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spSelectMemberUserCountByEventID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EventID" Type="int" Mode="In" />
@@ -891,6 +895,12 @@
         <Function Name="spSelectSimilarEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SearchWord" Type="nvarchar" Mode="In" />
           <Parameter Name="EventId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectThreadedMessageCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentMessageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spSelectThreadedMessageList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParentMessageID" Type="int" Mode="In" />
         </Function>
         <Function Name="spSelectTimezoneDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TimezoneID" Type="int" Mode="In" />
@@ -1076,6 +1086,10 @@
           <Parameter Name="LastUpdatedByFullName" Type="nvarchar" Mode="In" />
           <Parameter Name="FacebookUserID" Type="bigint" Mode="In" />
         </Function>
+        <Function Name="spUpdateUserFirstLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="FirstLogin" Type="bit" Mode="In" />
+        </Function>
         <Function Name="spUpdateUserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="UserPassword" Type="nvarchar" Mode="In" />
@@ -1101,6 +1115,13 @@
     <edmx:ConceptualModels>
       <Schema Namespace="SedogoDbModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
         <EntityContainer Name="SedogoDbEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <FunctionImport Name="SelectOtherEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
+          <Parameter Name="EventId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectSimilarEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
+            <Parameter Name="SearchWord" Mode="In" Type="String" />
+            <Parameter Name="EventId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="AddressBooks" EntityType="SedogoDbModel.AddressBook" />
           <EntitySet Name="Administrators" EntityType="SedogoDbModel.Administrator" />
           <EntitySet Name="AdministratorsLoginHistories" EntityType="SedogoDbModel.AdministratorsLoginHistory" />
@@ -1120,87 +1141,16 @@
           <EntitySet Name="TrackedEvents" EntityType="SedogoDbModel.TrackedEvent" />
           <EntitySet Name="UserLoginHistories" EntityType="SedogoDbModel.UserLoginHistory" />
           <EntitySet Name="Users" EntityType="SedogoDbModel.User" />
-          <AssociationSet Name="FK_AddressBook_Users" Association="SedogoDbModel.FK_AddressBook_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="AddressBook" EntitySet="AddressBooks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AdministratorsLoginHistory_Administrators" Association="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators">
-            <End Role="Administrator" EntitySet="Administrators" />
-            <End Role="AdministratorsLoginHistory" EntitySet="AdministratorsLoginHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Countries" Association="SedogoDbModel.FK_Users_Countries">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventAlerts_Events" Association="SedogoDbModel.FK_EventAlerts_Events">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="EventAlert" EntitySet="EventAlerts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventComments_Events" Association="SedogoDbModel.FK_EventComments_Events">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="EventComment" EntitySet="EventComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventInvites_Events" Association="SedogoDbModel.FK_EventInvites_Events">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="EventInvite" EntitySet="EventInvites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventPictures_Events" Association="SedogoDbModel.FK_EventPictures_Events">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="EventPicture" EntitySet="EventPictures" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Events_Timezones" Association="SedogoDbModel.FK_Events_Timezones">
-            <End Role="Timezone" EntitySet="Timezones" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrackedEvents_Events" Association="SedogoDbModel.FK_TrackedEvents_Events">
-            <End Role="Event" EntitySet="Events" />
-            <End Role="TrackedEvent" EntitySet="TrackedEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Languages" Association="SedogoDbModel.FK_Users_Languages">
-            <End Role="Language" EntitySet="Languages" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SearchHistory_Users" Association="SedogoDbModel.FK_SearchHistory_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="SearchHistory" EntitySet="SearchHistories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_Timezones" Association="SedogoDbModel.FK_Users_Timezones">
-            <End Role="Timezone" EntitySet="Timezones" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TrackedEvents_Users" Association="SedogoDbModel.FK_TrackedEvents_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="TrackedEvent" EntitySet="TrackedEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserLoginHistory_Users" Association="SedogoDbModel.FK_UserLoginHistory_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
-          </AssociationSet>
-          <FunctionImport Name="SelectOtherEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
-          <Parameter Name="EventId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SelectSimilarEvents" EntitySet="Events" ReturnType="Collection(SedogoDbModel.Event)">
-            <Parameter Name="SearchWord" Mode="In" Type="String" />
-            <Parameter Name="EventId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <AssociationSet Name="FK_Events_Users" Association="SedogoDbModel.FK_Events_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Event" EntitySet="Events" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EventInvites_Users" Association="SedogoDbModel.FK_EventInvites_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="EventInvite" EntitySet="EventInvites" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AddressBook">
           <Key>
             <PropertyRef Name="AddressBookID" />
           </Key>
           <Property Type="Int32" Name="AddressBookID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
           <Property Type="String" Name="FirstName" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LastName" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EmailAddress" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_AddressBook_Users" FromRole="AddressBook" ToRole="User" />
         </EntityType>
         <EntityType Name="Administrator">
           <Key>
@@ -1220,17 +1170,16 @@
           <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
           <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AdministratorsLoginHistories" Relationship="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" FromRole="Administrator" ToRole="AdministratorsLoginHistory" />
         </EntityType>
         <EntityType Name="AdministratorsLoginHistory">
           <Key>
             <PropertyRef Name="AdministratorLoginHistoryID" />
           </Key>
           <Property Type="Int32" Name="AdministratorLoginHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="AdministratorID" />
           <Property Type="String" Name="LoginStatus" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Type="DateTime" Name="LoginDate" Nullable="false" />
           <Property Type="String" Name="Source" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Administrator" Relationship="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" FromRole="AdministratorsLoginHistory" ToRole="Administrator" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -1241,13 +1190,13 @@
           <Property Type="String" Name="CountryCode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
           <Property Type="Boolean" Name="DefaultCountry" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Countries" FromRole="Country" ToRole="User" />
         </EntityType>
         <EntityType Name="EventAlert">
           <Key>
             <PropertyRef Name="EventAlertID" />
           </Key>
           <Property Type="Int32" Name="EventAlertID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
           <Property Type="DateTime" Name="AlertDate" />
           <Property Type="String" Name="AlertText" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="Completed" Nullable="false" />
@@ -1258,13 +1207,13 @@
           <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="EventAlertGUID" Nullable="false" />
           <Property Type="Boolean" Name="ReminderEmailSent" Nullable="false" />
-          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventAlerts_Events" FromRole="EventAlert" ToRole="Event" />
         </EntityType>
         <EntityType Name="EventComment">
           <Key>
             <PropertyRef Name="EventCommentID" />
           </Key>
           <Property Type="Int32" Name="EventCommentID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
           <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
           <Property Type="String" Name="CommentText" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
@@ -1278,7 +1227,6 @@
           <Property Type="String" Name="EventVideoFilename" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EventVideoLink" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="EventLink" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventComments_Events" FromRole="EventComment" ToRole="Event" />
         </EntityType>
         <EntityType Name="EventInvite">
           <Key>
@@ -1286,6 +1234,8 @@
           </Key>
           <Property Type="Int32" Name="EventInviteID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="GUID" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" />
           <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="InviteAdditionalText" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="InviteEmailSent" Nullable="false" />
@@ -1300,14 +1250,13 @@
           <Property Type="String" Name="CreatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
           <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventInvites_Events" FromRole="EventInvite" ToRole="Event" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_EventInvites_Users" FromRole="EventInvite" ToRole="User" />
         </EntityType>
         <EntityType Name="EventPicture">
           <Key>
             <PropertyRef Name="EventPictureID" />
           </Key>
           <Property Type="Int32" Name="EventPictureID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
           <Property Type="Int32" Name="PostedByUserID" Nullable="false" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
           <Property Type="String" Name="ImageFilename" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -1318,13 +1267,13 @@
           <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
           <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Caption" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_EventPictures_Events" FromRole="EventPicture" ToRole="Event" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="EventID" />
           </Key>
           <Property Type="Int32" Name="EventID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
           <Property Type="String" Name="EventName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="StartDate" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
@@ -1346,16 +1295,10 @@
           <Property Type="Boolean" Name="MustDo" Nullable="false" />
           <Property Type="Int32" Name="CreatedFromEventID" />
           <Property Type="String" Name="EventVenue" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TimezoneID" Nullable="false" />
           <Property Type="Guid" Name="EventGUID" Nullable="false" />
           <Property Type="Boolean" Name="ShowOnDefaultPage" Nullable="false" />
           <Property Type="DateTime" Name="EventAchievedDate" />
-          <NavigationProperty Name="EventAlerts" Relationship="SedogoDbModel.FK_EventAlerts_Events" FromRole="Event" ToRole="EventAlert" />
-          <NavigationProperty Name="EventComments" Relationship="SedogoDbModel.FK_EventComments_Events" FromRole="Event" ToRole="EventComment" />
-          <NavigationProperty Name="EventInvites" Relationship="SedogoDbModel.FK_EventInvites_Events" FromRole="Event" ToRole="EventInvite" />
-          <NavigationProperty Name="EventPictures" Relationship="SedogoDbModel.FK_EventPictures_Events" FromRole="Event" ToRole="EventPicture" />
-          <NavigationProperty Name="Timezone" Relationship="SedogoDbModel.FK_Events_Timezones" FromRole="Event" ToRole="Timezone" />
-          <NavigationProperty Name="TrackedEvents" Relationship="SedogoDbModel.FK_TrackedEvents_Events" FromRole="Event" ToRole="TrackedEvent" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_Events_Users" FromRole="Event" ToRole="User" />
         </EntityType>
         <EntityType Name="GlobalData">
           <Key>
@@ -1384,7 +1327,6 @@
           <Property Type="String" Name="LanguageCode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
           <Property Type="Boolean" Name="DefaultLanguage" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Languages" FromRole="Language" ToRole="User" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -1402,6 +1344,7 @@
           <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
           <Property Type="String" Name="LastUpdatedByFullName" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="MessageGUID" Nullable="false" />
+          <Property Type="Int32" Name="ParentMessageID" />
         </EntityType>
         <EntityType Name="SearchHistory">
           <Key>
@@ -1409,9 +1352,9 @@
           </Key>
           <Property Type="Int32" Name="SearchHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="DateTime" Name="SearchDate" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
           <Property Type="String" Name="SearchText" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="SearchHits" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_SearchHistory_Users" FromRole="SearchHistory" ToRole="User" />
         </EntityType>
         <EntityType Name="SentEmailHistory">
           <Key>
@@ -1433,31 +1376,29 @@
           <Property Type="String" Name="ShortCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="GMTOffset" Nullable="false" />
-          <NavigationProperty Name="Events" Relationship="SedogoDbModel.FK_Events_Timezones" FromRole="Timezone" ToRole="Event" />
-          <NavigationProperty Name="Users" Relationship="SedogoDbModel.FK_Users_Timezones" FromRole="Timezone" ToRole="User" />
         </EntityType>
         <EntityType Name="TrackedEvent">
           <Key>
             <PropertyRef Name="TrackedEventID" />
           </Key>
           <Property Type="Int32" Name="TrackedEventID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="EventID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
           <Property Type="DateTime" Name="CreatedDate" Nullable="false" />
           <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" />
           <Property Type="Boolean" Name="ShowOnTimeline" Nullable="false" />
           <Property Type="Boolean" Name="JoinPending" Nullable="false" />
           <Property Type="Guid" Name="TrackedEventGUID" Nullable="false" />
-          <NavigationProperty Name="Event" Relationship="SedogoDbModel.FK_TrackedEvents_Events" FromRole="TrackedEvent" ToRole="Event" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_TrackedEvents_Users" FromRole="TrackedEvent" ToRole="User" />
         </EntityType>
         <EntityType Name="UserLoginHistory">
           <Key>
             <PropertyRef Name="UserLoginHistoryID" />
           </Key>
           <Property Type="Int32" Name="UserLoginHistoryID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="UserID" />
           <Property Type="String" Name="LoginStatus" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Type="DateTime" Name="LoginDate" Nullable="false" />
           <Property Type="String" Name="Source" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="SedogoDbModel.FK_UserLoginHistory_Users" FromRole="UserLoginHistory" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1471,6 +1412,8 @@
           <Property Type="String" Name="Gender" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" />
           <Property Type="DateTime" Name="DeletedDate" />
+          <Property Type="Int32" Name="CountryID" Nullable="false" />
+          <Property Type="Int32" Name="LanguageID" Nullable="false" />
           <Property Type="Boolean" Name="LoginEnabled" Nullable="false" />
           <Property Type="String" Name="UserPassword" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="FailedLoginCount" Nullable="false" />
@@ -1486,95 +1429,27 @@
           <Property Type="String" Name="ProfilePicThumbnail" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ProfilePicPreview" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ProfileText" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TimezoneID" Nullable="false" />
           <Property Type="Boolean" Name="EnableSendEmails" Nullable="false" />
           <Property Type="Int64" Name="FacebookUserID" />
-          <NavigationProperty Name="AddressBooks" Relationship="SedogoDbModel.FK_AddressBook_Users" FromRole="User" ToRole="AddressBook" />
-          <NavigationProperty Name="Country" Relationship="SedogoDbModel.FK_Users_Countries" FromRole="User" ToRole="Country" />
-          <NavigationProperty Name="Language" Relationship="SedogoDbModel.FK_Users_Languages" FromRole="User" ToRole="Language" />
-          <NavigationProperty Name="SearchHistories" Relationship="SedogoDbModel.FK_SearchHistory_Users" FromRole="User" ToRole="SearchHistory" />
-          <NavigationProperty Name="Timezone" Relationship="SedogoDbModel.FK_Users_Timezones" FromRole="User" ToRole="Timezone" />
-          <NavigationProperty Name="TrackedEvents" Relationship="SedogoDbModel.FK_TrackedEvents_Users" FromRole="User" ToRole="TrackedEvent" />
-          <NavigationProperty Name="UserLoginHistories" Relationship="SedogoDbModel.FK_UserLoginHistory_Users" FromRole="User" ToRole="UserLoginHistory" />
-          <NavigationProperty Name="Events" Relationship="SedogoDbModel.FK_Events_Users" FromRole="User" ToRole="Event" />
-          <NavigationProperty Name="EventInvites" Relationship="SedogoDbModel.FK_EventInvites_Users" FromRole="User" ToRole="EventInvite" />
           <Property Type="Int32" Name="AvatarNumber" />
+          <Property Type="Boolean" Name="FirstLogin" />
         </EntityType>
-        <Association Name="FK_AddressBook_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
-          <End Type="SedogoDbModel.AddressBook" Role="AddressBook" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_AdministratorsLoginHistory_Administrators">
-          <End Type="SedogoDbModel.Administrator" Role="Administrator" Multiplicity="0..1" />
-          <End Type="SedogoDbModel.AdministratorsLoginHistory" Role="AdministratorsLoginHistory" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Users_Countries">
-          <End Type="SedogoDbModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_EventAlerts_Events">
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="SedogoDbModel.EventAlert" Role="EventAlert" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_EventComments_Events">
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="SedogoDbModel.EventComment" Role="EventComment" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_EventInvites_Events">
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="SedogoDbModel.EventInvite" Role="EventInvite" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_EventPictures_Events">
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="SedogoDbModel.EventPicture" Role="EventPicture" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Events_Timezones">
-          <End Type="SedogoDbModel.Timezone" Role="Timezone" Multiplicity="1" />
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_TrackedEvents_Events">
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="1" />
-          <End Type="SedogoDbModel.TrackedEvent" Role="TrackedEvent" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Users_Languages">
-          <End Type="SedogoDbModel.Language" Role="Language" Multiplicity="0..1" />
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_SearchHistory_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
-          <End Type="SedogoDbModel.SearchHistory" Role="SearchHistory" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Users_Timezones">
-          <End Type="SedogoDbModel.Timezone" Role="Timezone" Multiplicity="1" />
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_TrackedEvents_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
-          <End Type="SedogoDbModel.TrackedEvent" Role="TrackedEvent" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_UserLoginHistory_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="SedogoDbModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_Events_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="1" />
-          <End Type="SedogoDbModel.Event" Role="Event" Multiplicity="*" />
-        </Association>
-        <Association Name="FK_EventInvites_Users">
-          <End Type="SedogoDbModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="SedogoDbModel.EventInvite" Role="EventInvite" Multiplicity="*" />
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
         <EntityContainerMapping StorageEntityContainer="SedogoDbModelStoreContainer" CdmEntityContainer="SedogoDbEntities">
+          <FunctionImportMapping FunctionImportName="SelectOtherEvents" FunctionName="SedogoDbModel.Store.spSelectOtherEvents" />
+          <FunctionImportMapping FunctionImportName="SelectSimilarEvents" FunctionName="SedogoDbModel.Store.spSelectSimilarEvents" />
           <EntitySetMapping Name="AddressBooks">
             <EntityTypeMapping TypeName="SedogoDbModel.AddressBook">
               <MappingFragment StoreEntitySet="AddressBook">
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="AddressBookID" ColumnName="AddressBookID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1605,6 +1480,7 @@
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
                 <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
+                <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
                 <ScalarProperty Name="AdministratorLoginHistoryID" ColumnName="AdministratorLoginHistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1633,6 +1509,7 @@
                 <ScalarProperty Name="Completed" ColumnName="Completed" />
                 <ScalarProperty Name="AlertText" ColumnName="AlertText" />
                 <ScalarProperty Name="AlertDate" ColumnName="AlertDate" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventAlertID" ColumnName="EventAlertID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1653,6 +1530,7 @@
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="CommentText" ColumnName="CommentText" />
                 <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1674,6 +1552,8 @@
                 <ScalarProperty Name="InviteEmailSent" ColumnName="InviteEmailSent" />
                 <ScalarProperty Name="InviteAdditionalText" ColumnName="InviteAdditionalText" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="GUID" ColumnName="GUID" />
                 <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
               </MappingFragment>
@@ -1692,6 +1572,7 @@
                 <ScalarProperty Name="ImageFilename" ColumnName="ImageFilename" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="PostedByUserID" ColumnName="PostedByUserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventPictureID" ColumnName="EventPictureID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1702,6 +1583,7 @@
                 <ScalarProperty Name="EventAchievedDate" ColumnName="EventAchievedDate" />
                 <ScalarProperty Name="ShowOnDefaultPage" ColumnName="ShowOnDefaultPage" />
                 <ScalarProperty Name="EventGUID" ColumnName="EventGUID" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
                 <ScalarProperty Name="EventVenue" ColumnName="EventVenue" />
                 <ScalarProperty Name="CreatedFromEventID" ColumnName="CreatedFromEventID" />
                 <ScalarProperty Name="MustDo" ColumnName="MustDo" />
@@ -1723,6 +1605,7 @@
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1761,6 +1644,7 @@
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="SedogoDbModel.Message">
               <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="ParentMessageID" ColumnName="ParentMessageID" />
                 <ScalarProperty Name="MessageGUID" ColumnName="MessageGUID" />
                 <ScalarProperty Name="LastUpdatedByFullName" ColumnName="LastUpdatedByFullName" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
@@ -1781,6 +1665,7 @@
               <MappingFragment StoreEntitySet="SearchHistory">
                 <ScalarProperty Name="SearchHits" ColumnName="SearchHits" />
                 <ScalarProperty Name="SearchText" ColumnName="SearchText" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SearchDate" ColumnName="SearchDate" />
                 <ScalarProperty Name="SearchHistoryID" ColumnName="SearchHistoryID" />
               </MappingFragment>
@@ -1817,6 +1702,8 @@
                 <ScalarProperty Name="ShowOnTimeline" ColumnName="ShowOnTimeline" />
                 <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1827,6 +1714,7 @@
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
                 <ScalarProperty Name="LoginStatus" ColumnName="LoginStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserLoginHistoryID" ColumnName="UserLoginHistoryID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1834,9 +1722,11 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="SedogoDbModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
                 <ScalarProperty Name="AvatarNumber" ColumnName="AvatarNumber" />
                 <ScalarProperty Name="FacebookUserID" ColumnName="FacebookUserID" />
                 <ScalarProperty Name="EnableSendEmails" ColumnName="EnableSendEmails" />
+                <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
                 <ScalarProperty Name="ProfileText" ColumnName="ProfileText" />
                 <ScalarProperty Name="ProfilePicPreview" ColumnName="ProfilePicPreview" />
                 <ScalarProperty Name="ProfilePicThumbnail" ColumnName="ProfilePicThumbnail" />
@@ -1852,6 +1742,8 @@
                 <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
                 <ScalarProperty Name="LoginEnabled" ColumnName="LoginEnabled" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
@@ -1863,141 +1755,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="FK_AddressBook_Users" TypeName="SedogoDbModel.FK_AddressBook_Users" StoreEntitySet="AddressBook">
-            <EndProperty Name="AddressBook">
-              <ScalarProperty Name="AddressBookID" ColumnName="AddressBookID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_AdministratorsLoginHistory_Administrators" TypeName="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" StoreEntitySet="AdministratorsLoginHistory">
-            <EndProperty Name="AdministratorsLoginHistory">
-              <ScalarProperty Name="AdministratorLoginHistoryID" ColumnName="AdministratorLoginHistoryID" />
-            </EndProperty>
-            <EndProperty Name="Administrator">
-              <ScalarProperty Name="AdministratorID" ColumnName="AdministratorID" />
-            </EndProperty>
-            <Condition ColumnName="AdministratorID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Users_Countries" TypeName="SedogoDbModel.FK_Users_Countries" StoreEntitySet="Users">
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-            <EndProperty Name="Country">
-              <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-            </EndProperty>
-            <Condition ColumnName="CountryID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_EventAlerts_Events" TypeName="SedogoDbModel.FK_EventAlerts_Events" StoreEntitySet="EventAlerts">
-            <EndProperty Name="EventAlert">
-              <ScalarProperty Name="EventAlertID" ColumnName="EventAlertID" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_EventComments_Events" TypeName="SedogoDbModel.FK_EventComments_Events" StoreEntitySet="EventComments">
-            <EndProperty Name="EventComment">
-              <ScalarProperty Name="EventCommentID" ColumnName="EventCommentID" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_EventInvites_Events" TypeName="SedogoDbModel.FK_EventInvites_Events" StoreEntitySet="EventInvites">
-            <EndProperty Name="EventInvite">
-              <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_EventPictures_Events" TypeName="SedogoDbModel.FK_EventPictures_Events" StoreEntitySet="EventPictures">
-            <EndProperty Name="EventPicture">
-              <ScalarProperty Name="EventPictureID" ColumnName="EventPictureID" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Events_Timezones" TypeName="SedogoDbModel.FK_Events_Timezones" StoreEntitySet="Events">
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-            <EndProperty Name="Timezone">
-              <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_TrackedEvents_Events" TypeName="SedogoDbModel.FK_TrackedEvents_Events" StoreEntitySet="TrackedEvents">
-            <EndProperty Name="TrackedEvent">
-              <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
-            </EndProperty>
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Users_Languages" TypeName="SedogoDbModel.FK_Users_Languages" StoreEntitySet="Users">
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-            <EndProperty Name="Language">
-              <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
-            </EndProperty>
-            <Condition ColumnName="LanguageID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_SearchHistory_Users" TypeName="SedogoDbModel.FK_SearchHistory_Users" StoreEntitySet="SearchHistory">
-            <EndProperty Name="SearchHistory">
-              <ScalarProperty Name="SearchHistoryID" ColumnName="SearchHistoryID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Users_Timezones" TypeName="SedogoDbModel.FK_Users_Timezones" StoreEntitySet="Users">
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-            <EndProperty Name="Timezone">
-              <ScalarProperty Name="TimezoneID" ColumnName="TimezoneID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_TrackedEvents_Users" TypeName="SedogoDbModel.FK_TrackedEvents_Users" StoreEntitySet="TrackedEvents">
-            <EndProperty Name="TrackedEvent">
-              <ScalarProperty Name="TrackedEventID" ColumnName="TrackedEventID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_UserLoginHistory_Users" TypeName="SedogoDbModel.FK_UserLoginHistory_Users" StoreEntitySet="UserLoginHistory">
-            <EndProperty Name="UserLoginHistory">
-              <ScalarProperty Name="UserLoginHistoryID" ColumnName="UserLoginHistoryID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-            <Condition ColumnName="UserID" IsNull="false" />
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_Events_Users" TypeName="SedogoDbModel.FK_Events_Users" StoreEntitySet="Events">
-            <EndProperty Name="Event">
-              <ScalarProperty Name="EventID" ColumnName="EventID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FK_EventInvites_Users" TypeName="SedogoDbModel.FK_EventInvites_Users" StoreEntitySet="EventInvites">
-            <EndProperty Name="EventInvite">
-              <ScalarProperty Name="EventInviteID" ColumnName="EventInviteID" />
-            </EndProperty>
-            <EndProperty Name="User">
-              <ScalarProperty Name="UserID" ColumnName="UserID" />
-            </EndProperty>
-            <Condition ColumnName="UserID" IsNull="false" />
-          </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="SelectOtherEvents" FunctionName="SedogoDbModel.Store.spSelectOtherEvents" />
-          <FunctionImportMapping FunctionImportName="SelectSimilarEvents" FunctionName="SedogoDbModel.Store.spSelectSimilarEvents" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2018,107 +1775,26 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="SedogoModel" ZoomLevel="86">
-        <EntityTypeShape EntityType="SedogoDbModel.AddressBook" Width="1.5" PointX="10.25" PointY="6.875" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="SedogoDbModel.Administrator" Width="1.5" PointX="7.75" PointY="1" Height="3.903300781249996" />
-        <EntityTypeShape EntityType="SedogoDbModel.AdministratorsLoginHistory" Width="1.5" PointX="10" PointY="2" Height="1.9802864583333282" />
-        <EntityTypeShape EntityType="SedogoDbModel.Country" Width="1.5" PointX="5.75" PointY="4.125" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="SedogoDbModel.EventAlert" Width="1.5" PointX="5.25" PointY="8" Height="3.326396484374996" />
-        <EntityTypeShape EntityType="SedogoDbModel.EventComment" Width="1.5" PointX="5.25" PointY="12.125" Height="3.903300781249996" />
-        <EntityTypeShape EntityType="SedogoDbModel.EventInvite" Width="1.5" PointX="5.25" PointY="16.75" Height="4.480205078125" />
-        <EntityTypeShape EntityType="SedogoDbModel.EventPicture" Width="1.5" PointX="5.25" PointY="22" Height="3.326396484374996" />
-        <EntityTypeShape EntityType="SedogoDbModel.Event" Width="1.5" PointX="3" PointY="13.125" Height="7.1724251302083317" />
-        <EntityTypeShape EntityType="SedogoDbModel.GlobalData" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="SedogoDbModel.HomePageContent" Width="1.5" PointX="2.75" PointY="0.75" Height="1.4033821614583246" />
-        <EntityTypeShape EntityType="SedogoDbModel.Language" Width="1.5" PointX="5.75" PointY="1" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="SedogoDbModel.Message" Width="1.5" PointX="0.75" PointY="3.75" Height="3.3263964843750102" />
-        <EntityTypeShape EntityType="SedogoDbModel.SearchHistory" Width="1.5" PointX="10.25" PointY="9.625" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="SedogoDbModel.SentEmailHistory" Width="1.5" PointX="2.75" PointY="3.75" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="SedogoDbModel.Timezone" Width="1.5" PointX="0.75" PointY="15.625" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="SedogoDbModel.TrackedEvent" Width="1.5" PointX="8.25" PointY="15.375" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="SedogoDbModel.UserLoginHistory" Width="1.5" PointX="10.25" PointY="12.375" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="SedogoDbModel.User" Width="1.5" PointX="8" PointY="7.125" Height="7.1724251302083246" />
-        <AssociationConnector Association="SedogoDbModel.FK_AddressBook_Users" >
-          <ConnectorPoint PointX="9.5" PointY="7.9901432291666694" />
-          <ConnectorPoint PointX="10.25" PointY="7.9901432291666694" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_AdministratorsLoginHistory_Administrators" >
-          <ConnectorPoint PointX="9.25" PointY="2.9901432291666641" />
-          <ConnectorPoint PointX="10" PointY="2.9901432291666641" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_Users_Countries" >
-          <ConnectorPoint PointX="7.03125" PointY="6.297587890624996" />
-          <ConnectorPoint PointX="7.03125" PointY="7.37434965022618" />
-          <ConnectorPoint PointX="8" PointY="7.37434965022618" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_EventAlerts_Events" >
-          <ConnectorPoint PointX="3.57812625" PointY="13.125" />
-          <ConnectorPoint PointX="3.57812625" PointY="9.663198242187498" />
-          <ConnectorPoint PointX="3.9869822916666666" PointY="9.663198242187498" />
-          <ConnectorPoint PointX="4.1536489583333331" PointY="9.663198242187498" />
-          <ConnectorPoint PointX="5.25" PointY="9.663198242187498" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_EventComments_Events" >
-          <ConnectorPoint PointX="4.5" PointY="14.576650390624998" />
-          <ConnectorPoint PointX="5.25" PointY="14.576650390624998" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_EventInvites_Events" >
-          <ConnectorPoint PointX="4.5" PointY="18.523712565104166" />
-          <ConnectorPoint PointX="5.25" PointY="18.523712565104166" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_EventPictures_Events" >
-          <ConnectorPoint PointX="3.75" PointY="20.297425130208332" />
-          <ConnectorPoint PointX="3.75" PointY="23.663198242187498" />
-          <ConnectorPoint PointX="5.25" PointY="23.663198242187498" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_Events_Timezones" >
-          <ConnectorPoint PointX="2.25" PointY="16.711293945312505" />
-          <ConnectorPoint PointX="3" PointY="16.711293945312505" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_TrackedEvents_Events" >
-          <ConnectorPoint PointX="4.5" PointY="16.389150390624998" />
-          <ConnectorPoint PointX="8.0104166666666661" PointY="16.389150390624998" />
-          <ConnectorPoint PointX="8.1770833333333339" PointY="16.389150390624998" />
-          <ConnectorPoint PointX="8.25" PointY="16.389150390624998" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_Users_Languages" >
-          <ConnectorPoint PointX="7.25" PointY="2.086293945312498" />
-          <ConnectorPoint PointX="7.5" PointY="2.086293945312498" />
-          <ConnectorPoint PointX="7.5" PointY="5.153300781249996" />
-          <ConnectorPoint PointX="8.75" PointY="5.153300781249996" />
-          <ConnectorPoint PointX="8.75" PointY="7.125" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_SearchHistory_Users" >
-          <ConnectorPoint PointX="9.5" PointY="10.615143229166662" />
-          <ConnectorPoint PointX="10.25" PointY="10.615143229166662" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_Users_Timezones" >
-          <ConnectorPoint PointX="1.5" PointY="15.625" />
-          <ConnectorPoint PointX="1.5" PointY="11.725698242187498" />
-          <ConnectorPoint PointX="3.4947929166666665" PointY="11.725698242187498" />
-          <ConnectorPoint PointX="3.6614595833333334" PointY="11.725698242187498" />
-          <ConnectorPoint PointX="3.9869822916666666" PointY="11.725698242187498" />
-          <ConnectorPoint PointX="4.1536489583333331" PointY="11.725698242187498" />
-          <ConnectorPoint PointX="8" PointY="11.725698242187498" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_TrackedEvents_Users" >
-          <ConnectorPoint PointX="8.875" PointY="14.682027994791666" />
-          <ConnectorPoint PointX="8.875" PointY="15.375" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_UserLoginHistory_Users" >
-          <ConnectorPoint PointX="9.5" PointY="13.365143229166662" />
-          <ConnectorPoint PointX="10.25" PointY="13.365143229166662" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_Events_Users" >
-          <ConnectorPoint PointX="8" PointY="7.6871773251130833" />
-          <ConnectorPoint PointX="4.070315625" PointY="7.6871773251130833" />
-          <ConnectorPoint PointX="4.070315625" PointY="13.125" />
-        </AssociationConnector>
-        <AssociationConnector Association="SedogoDbModel.FK_EventInvites_Users" ManuallyRouted="false" >
-          <ConnectorPoint PointX="8.09375" PointY="14.682027994791666" />
-          <ConnectorPoint PointX="8.09375" PointY="19.612447916666667" />
-          <ConnectorPoint PointX="6.75" PointY="19.612447916666667" />
-        </AssociationConnector>
+      <Diagram Name="SedogoModel" ZoomLevel="27">
+        <EntityTypeShape EntityType="SedogoDbModel.AddressBook" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.Administrator" Width="1.5" PointX="2.75" PointY="0.75" Height="3.7109993489583246" />
+        <EntityTypeShape EntityType="SedogoDbModel.AdministratorsLoginHistory" Width="1.5" PointX="4.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.Country" Width="1.5" PointX="4.75" PointY="3.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventAlert" Width="1.5" PointX="0.75" PointY="5.75" Height="3.3263964843750102" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventComment" Width="1.5" PointX="6.75" PointY="0.75" Height="3.9033007812500102" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventInvite" Width="1.5" PointX="2.75" PointY="6.75" Height="4.48020507812501" />
+        <EntityTypeShape EntityType="SedogoDbModel.EventPicture" Width="1.5" PointX="4.75" PointY="6.75" Height="3.3263964843750102" />
+        <EntityTypeShape EntityType="SedogoDbModel.Event" Width="1.5" PointX="6.75" PointY="5.75" Height="6.21091796875001" />
+        <EntityTypeShape EntityType="SedogoDbModel.GlobalData" Width="1.5" PointX="8.75" PointY="0.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="SedogoDbModel.HomePageContent" Width="1.5" PointX="8.75" PointY="3.75" Height="1.4033821614583246" />
+        <EntityTypeShape EntityType="SedogoDbModel.Language" Width="1.5" PointX="8.75" PointY="6.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.Message" Width="1.5" PointX="8.75" PointY="9.75" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="SedogoDbModel.SearchHistory" Width="1.5" PointX="10.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.SentEmailHistory" Width="1.5" PointX="10.75" PointY="3.75" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="SedogoDbModel.Timezone" Width="1.5" PointX="10.75" PointY="7.75" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="SedogoDbModel.TrackedEvent" Width="1.5" PointX="10.75" PointY="10.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="SedogoDbModel.UserLoginHistory" Width="1.5" PointX="12.75" PointY="0.75" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="SedogoDbModel.User" Width="1.5" PointX="0.75" PointY="12.75" Height="6.787822265624996" />
       </Diagram>
     </Diagrams>
   </Designer>

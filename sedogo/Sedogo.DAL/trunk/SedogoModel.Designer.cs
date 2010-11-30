@@ -9,25 +9,9 @@
 //------------------------------------------------------------------------------
 
 [assembly: global::System.Data.Objects.DataClasses.EdmSchemaAttribute()]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_AddressBook_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.User), "AddressBook", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.AddressBook))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_AdministratorsLoginHistory_Administrators", "Administrator", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.Administrator), "AdministratorsLoginHistory", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.AdministratorsLoginHistory))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_Users_Countries", "Country", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.Country), "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.User))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventAlerts_Events", "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Event), "EventAlert", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventAlert))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventComments_Events", "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Event), "EventComment", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventComment))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventInvites_Events", "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Event), "EventInvite", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventInvite))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventPictures_Events", "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Event), "EventPicture", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventPicture))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_Events_Timezones", "Timezone", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Timezone), "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.Event))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_TrackedEvents_Events", "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Event), "TrackedEvent", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.TrackedEvent))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_Users_Languages", "Language", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.Language), "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.User))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_SearchHistory_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.User), "SearchHistory", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.SearchHistory))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_Users_Timezones", "Timezone", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.Timezone), "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.User))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_TrackedEvents_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.User), "TrackedEvent", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.TrackedEvent))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_UserLoginHistory_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.User), "UserLoginHistory", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.UserLoginHistory))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_Events_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Sedogo.DAL.User), "Event", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.Event))]
-[assembly: global::System.Data.Objects.DataClasses.EdmRelationshipAttribute("SedogoDbModel", "FK_EventInvites_Users", "User", global::System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Sedogo.DAL.User), "EventInvite", global::System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Sedogo.DAL.EventInvite))]
 
 // Original file name:
-// Generation date: 21.10.2010 15:47:14
+// Generation date: 30.11.2010 2:10:42
 namespace Sedogo.DAL
 {
     
@@ -595,11 +579,13 @@ namespace Sedogo.DAL
         /// Create a new AddressBook object.
         /// </summary>
         /// <param name="addressBookID">Initial value of AddressBookID.</param>
+        /// <param name="userID">Initial value of UserID.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static AddressBook CreateAddressBook(int addressBookID)
+        public static AddressBook CreateAddressBook(int addressBookID, int userID)
         {
             AddressBook addressBook = new AddressBook();
             addressBook.AddressBookID = addressBookID;
+            addressBook.UserID = userID;
             return addressBook;
         }
         /// <summary>
@@ -629,6 +615,33 @@ namespace Sedogo.DAL
         partial void OnAddressBookIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnAddressBookIDChanged();
+        /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
         /// <summary>
         /// There are no comments for property FirstName in the schema.
         /// </summary>
@@ -710,45 +723,6 @@ namespace Sedogo.DAL
         partial void OnEmailAddressChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEmailAddressChanged();
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_AddressBook_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_AddressBook_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_AddressBook_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_AddressBook_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_AddressBook_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.Administrator in the schema.
@@ -1166,28 +1140,6 @@ namespace Sedogo.DAL
         partial void OnLastUpdatedByFullNameChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnLastUpdatedByFullNameChanged();
-        /// <summary>
-        /// There are no comments for AdministratorsLoginHistories in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_AdministratorsLoginHistory_Administrators", "AdministratorsLoginHistory")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<AdministratorsLoginHistory> AdministratorsLoginHistories
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<AdministratorsLoginHistory>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "AdministratorsLoginHistory");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<AdministratorsLoginHistory>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "AdministratorsLoginHistory", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.AdministratorsLoginHistory in the schema.
@@ -1242,6 +1194,33 @@ namespace Sedogo.DAL
         partial void OnAdministratorLoginHistoryIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnAdministratorLoginHistoryIDChanged();
+        /// <summary>
+        /// There are no comments for property AdministratorID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<int> AdministratorID
+        {
+            get
+            {
+                return this._AdministratorID;
+            }
+            set
+            {
+                this.OnAdministratorIDChanging(value);
+                this.ReportPropertyChanging("AdministratorID");
+                this._AdministratorID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("AdministratorID");
+                this.OnAdministratorIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Nullable<int> _AdministratorID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnAdministratorIDChanging(global::System.Nullable<int> value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnAdministratorIDChanged();
         /// <summary>
         /// There are no comments for property LoginStatus in the schema.
         /// </summary>
@@ -1323,45 +1302,6 @@ namespace Sedogo.DAL
         partial void OnSourceChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnSourceChanged();
-        /// <summary>
-        /// There are no comments for Administrator in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_AdministratorsLoginHistory_Administrators", "Administrator")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Administrator Administrator
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Administrator>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "Administrator").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Administrator>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "Administrator").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Administrator in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Administrator> AdministratorReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Administrator>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "Administrator");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Administrator>("SedogoDbModel.FK_AdministratorsLoginHistory_Administrators", "Administrator", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.Country in the schema.
@@ -1526,28 +1466,6 @@ namespace Sedogo.DAL
         partial void OnDefaultCountryChanging(bool value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnDefaultCountryChanged();
-        /// <summary>
-        /// There are no comments for Users in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Countries", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<User> Users
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<User>("SedogoDbModel.FK_Users_Countries", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<User>("SedogoDbModel.FK_Users_Countries", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.EventAlert in the schema.
@@ -1564,6 +1482,7 @@ namespace Sedogo.DAL
         /// Create a new EventAlert object.
         /// </summary>
         /// <param name="eventAlertID">Initial value of EventAlertID.</param>
+        /// <param name="eventID">Initial value of EventID.</param>
         /// <param name="completed">Initial value of Completed.</param>
         /// <param name="deleted">Initial value of Deleted.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
@@ -1573,10 +1492,11 @@ namespace Sedogo.DAL
         /// <param name="eventAlertGUID">Initial value of EventAlertGUID.</param>
         /// <param name="reminderEmailSent">Initial value of ReminderEmailSent.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static EventAlert CreateEventAlert(int eventAlertID, bool completed, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, global::System.Guid eventAlertGUID, bool reminderEmailSent)
+        public static EventAlert CreateEventAlert(int eventAlertID, int eventID, bool completed, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, global::System.Guid eventAlertGUID, bool reminderEmailSent)
         {
             EventAlert eventAlert = new EventAlert();
             eventAlert.EventAlertID = eventAlertID;
+            eventAlert.EventID = eventID;
             eventAlert.Completed = completed;
             eventAlert.Deleted = deleted;
             eventAlert.CreatedDate = createdDate;
@@ -1614,6 +1534,33 @@ namespace Sedogo.DAL
         partial void OnEventAlertIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventAlertIDChanged();
+        /// <summary>
+        /// There are no comments for property EventID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int EventID
+        {
+            get
+            {
+                return this._EventID;
+            }
+            set
+            {
+                this.OnEventIDChanging(value);
+                this.ReportPropertyChanging("EventID");
+                this._EventID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("EventID");
+                this.OnEventIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _EventID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanged();
         /// <summary>
         /// There are no comments for property AlertDate in the schema.
         /// </summary>
@@ -1884,45 +1831,6 @@ namespace Sedogo.DAL
         partial void OnReminderEmailSentChanging(bool value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnReminderEmailSentChanged();
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventAlerts_Events", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Event Event
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventAlerts_Events", "Event").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventAlerts_Events", "Event").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Event> EventReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventAlerts_Events", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Event>("SedogoDbModel.FK_EventAlerts_Events", "Event", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.EventComment in the schema.
@@ -1939,6 +1847,7 @@ namespace Sedogo.DAL
         /// Create a new EventComment object.
         /// </summary>
         /// <param name="eventCommentID">Initial value of EventCommentID.</param>
+        /// <param name="eventID">Initial value of EventID.</param>
         /// <param name="postedByUserID">Initial value of PostedByUserID.</param>
         /// <param name="deleted">Initial value of Deleted.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
@@ -1947,10 +1856,11 @@ namespace Sedogo.DAL
         /// <param name="lastUpdatedByFullName">Initial value of LastUpdatedByFullName.</param>
         /// <param name="eventCommentGUID">Initial value of EventCommentGUID.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static EventComment CreateEventComment(int eventCommentID, int postedByUserID, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, global::System.Guid eventCommentGUID)
+        public static EventComment CreateEventComment(int eventCommentID, int eventID, int postedByUserID, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, global::System.Guid eventCommentGUID)
         {
             EventComment eventComment = new EventComment();
             eventComment.EventCommentID = eventCommentID;
+            eventComment.EventID = eventID;
             eventComment.PostedByUserID = postedByUserID;
             eventComment.Deleted = deleted;
             eventComment.CreatedDate = createdDate;
@@ -1987,6 +1897,33 @@ namespace Sedogo.DAL
         partial void OnEventCommentIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventCommentIDChanged();
+        /// <summary>
+        /// There are no comments for property EventID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int EventID
+        {
+            get
+            {
+                return this._EventID;
+            }
+            set
+            {
+                this.OnEventIDChanging(value);
+                this.ReportPropertyChanging("EventID");
+                this._EventID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("EventID");
+                this.OnEventIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _EventID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanged();
         /// <summary>
         /// There are no comments for property PostedByUserID in the schema.
         /// </summary>
@@ -2338,45 +2275,6 @@ namespace Sedogo.DAL
         partial void OnEventLinkChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventLinkChanged();
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventComments_Events", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Event Event
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventComments_Events", "Event").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventComments_Events", "Event").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Event> EventReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventComments_Events", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Event>("SedogoDbModel.FK_EventComments_Events", "Event", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.EventInvite in the schema.
@@ -2394,6 +2292,7 @@ namespace Sedogo.DAL
         /// </summary>
         /// <param name="eventInviteID">Initial value of EventInviteID.</param>
         /// <param name="gUID">Initial value of GUID.</param>
+        /// <param name="eventID">Initial value of EventID.</param>
         /// <param name="emailAddress">Initial value of EmailAddress.</param>
         /// <param name="inviteEmailSent">Initial value of InviteEmailSent.</param>
         /// <param name="inviteAccepted">Initial value of InviteAccepted.</param>
@@ -2404,11 +2303,12 @@ namespace Sedogo.DAL
         /// <param name="lastUpdatedDate">Initial value of LastUpdatedDate.</param>
         /// <param name="lastUpdatedByFullName">Initial value of LastUpdatedByFullName.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static EventInvite CreateEventInvite(int eventInviteID, string gUID, string emailAddress, bool inviteEmailSent, bool inviteAccepted, bool inviteDeclined, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName)
+        public static EventInvite CreateEventInvite(int eventInviteID, string gUID, int eventID, string emailAddress, bool inviteEmailSent, bool inviteAccepted, bool inviteDeclined, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName)
         {
             EventInvite eventInvite = new EventInvite();
             eventInvite.EventInviteID = eventInviteID;
             eventInvite.GUID = gUID;
+            eventInvite.EventID = eventID;
             eventInvite.EmailAddress = emailAddress;
             eventInvite.InviteEmailSent = inviteEmailSent;
             eventInvite.InviteAccepted = inviteAccepted;
@@ -2474,6 +2374,60 @@ namespace Sedogo.DAL
         partial void OnGUIDChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnGUIDChanged();
+        /// <summary>
+        /// There are no comments for property EventID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int EventID
+        {
+            get
+            {
+                return this._EventID;
+            }
+            set
+            {
+                this.OnEventIDChanging(value);
+                this.ReportPropertyChanging("EventID");
+                this._EventID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("EventID");
+                this.OnEventIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _EventID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanged();
+        /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<int> UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Nullable<int> _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(global::System.Nullable<int> value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
         /// <summary>
         /// There are no comments for property EmailAddress in the schema.
         /// </summary>
@@ -2852,84 +2806,6 @@ namespace Sedogo.DAL
         partial void OnLastUpdatedByFullNameChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnLastUpdatedByFullNameChanged();
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventInvites_Events", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Event Event
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventInvites_Events", "Event").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventInvites_Events", "Event").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Event> EventReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventInvites_Events", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Event>("SedogoDbModel.FK_EventInvites_Events", "Event", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventInvites_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_EventInvites_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_EventInvites_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_EventInvites_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_EventInvites_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.EventPicture in the schema.
@@ -2946,6 +2822,7 @@ namespace Sedogo.DAL
         /// Create a new EventPicture object.
         /// </summary>
         /// <param name="eventPictureID">Initial value of EventPictureID.</param>
+        /// <param name="eventID">Initial value of EventID.</param>
         /// <param name="postedByUserID">Initial value of PostedByUserID.</param>
         /// <param name="deleted">Initial value of Deleted.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
@@ -2953,10 +2830,11 @@ namespace Sedogo.DAL
         /// <param name="lastUpdatedDate">Initial value of LastUpdatedDate.</param>
         /// <param name="lastUpdatedByFullName">Initial value of LastUpdatedByFullName.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static EventPicture CreateEventPicture(int eventPictureID, int postedByUserID, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName)
+        public static EventPicture CreateEventPicture(int eventPictureID, int eventID, int postedByUserID, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName)
         {
             EventPicture eventPicture = new EventPicture();
             eventPicture.EventPictureID = eventPictureID;
+            eventPicture.EventID = eventID;
             eventPicture.PostedByUserID = postedByUserID;
             eventPicture.Deleted = deleted;
             eventPicture.CreatedDate = createdDate;
@@ -2992,6 +2870,33 @@ namespace Sedogo.DAL
         partial void OnEventPictureIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventPictureIDChanged();
+        /// <summary>
+        /// There are no comments for property EventID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int EventID
+        {
+            get
+            {
+                return this._EventID;
+            }
+            set
+            {
+                this.OnEventIDChanging(value);
+                this.ReportPropertyChanging("EventID");
+                this._EventID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("EventID");
+                this.OnEventIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _EventID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanged();
         /// <summary>
         /// There are no comments for property PostedByUserID in the schema.
         /// </summary>
@@ -3262,45 +3167,6 @@ namespace Sedogo.DAL
         partial void OnCaptionChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnCaptionChanged();
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventPictures_Events", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Event Event
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventPictures_Events", "Event").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventPictures_Events", "Event").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Event> EventReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_EventPictures_Events", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Event>("SedogoDbModel.FK_EventPictures_Events", "Event", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.Event in the schema.
@@ -3317,6 +3183,7 @@ namespace Sedogo.DAL
         /// Create a new Event object.
         /// </summary>
         /// <param name="eventID">Initial value of EventID.</param>
+        /// <param name="userID">Initial value of UserID.</param>
         /// <param name="eventName">Initial value of EventName.</param>
         /// <param name="deleted">Initial value of Deleted.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
@@ -3327,13 +3194,15 @@ namespace Sedogo.DAL
         /// <param name="dateType">Initial value of DateType.</param>
         /// <param name="privateEvent">Initial value of PrivateEvent.</param>
         /// <param name="mustDo">Initial value of MustDo.</param>
+        /// <param name="timezoneID">Initial value of TimezoneID.</param>
         /// <param name="eventGUID">Initial value of EventGUID.</param>
         /// <param name="showOnDefaultPage">Initial value of ShowOnDefaultPage.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static Event CreateEvent(int eventID, string eventName, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, bool eventAchieved, string dateType, bool privateEvent, bool mustDo, global::System.Guid eventGUID, bool showOnDefaultPage)
+        public static Event CreateEvent(int eventID, int userID, string eventName, bool deleted, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, bool eventAchieved, string dateType, bool privateEvent, bool mustDo, int timezoneID, global::System.Guid eventGUID, bool showOnDefaultPage)
         {
             Event @event = new Event();
             @event.EventID = eventID;
+            @event.UserID = userID;
             @event.EventName = eventName;
             @event.Deleted = deleted;
             @event.CreatedDate = createdDate;
@@ -3344,6 +3213,7 @@ namespace Sedogo.DAL
             @event.DateType = dateType;
             @event.PrivateEvent = privateEvent;
             @event.MustDo = mustDo;
+            @event.TimezoneID = timezoneID;
             @event.EventGUID = eventGUID;
             @event.ShowOnDefaultPage = showOnDefaultPage;
             return @event;
@@ -3375,6 +3245,33 @@ namespace Sedogo.DAL
         partial void OnEventIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventIDChanged();
+        /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
         /// <summary>
         /// There are no comments for property EventName in the schema.
         /// </summary>
@@ -3943,6 +3840,33 @@ namespace Sedogo.DAL
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventVenueChanged();
         /// <summary>
+        /// There are no comments for property TimezoneID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int TimezoneID
+        {
+            get
+            {
+                return this._TimezoneID;
+            }
+            set
+            {
+                this.OnTimezoneIDChanging(value);
+                this.ReportPropertyChanging("TimezoneID");
+                this._TimezoneID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("TimezoneID");
+                this.OnTimezoneIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _TimezoneID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnTimezoneIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnTimezoneIDChanged();
+        /// <summary>
         /// There are no comments for property EventGUID in the schema.
         /// </summary>
         [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
@@ -4023,194 +3947,6 @@ namespace Sedogo.DAL
         partial void OnEventAchievedDateChanging(global::System.Nullable<global::System.DateTime> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnEventAchievedDateChanged();
-        /// <summary>
-        /// There are no comments for EventAlerts in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventAlerts_Events", "EventAlert")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<EventAlert> EventAlerts
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<EventAlert>("SedogoDbModel.FK_EventAlerts_Events", "EventAlert");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<EventAlert>("SedogoDbModel.FK_EventAlerts_Events", "EventAlert", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for EventComments in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventComments_Events", "EventComment")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<EventComment> EventComments
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<EventComment>("SedogoDbModel.FK_EventComments_Events", "EventComment");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<EventComment>("SedogoDbModel.FK_EventComments_Events", "EventComment", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for EventInvites in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventInvites_Events", "EventInvite")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<EventInvite> EventInvites
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<EventInvite>("SedogoDbModel.FK_EventInvites_Events", "EventInvite");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<EventInvite>("SedogoDbModel.FK_EventInvites_Events", "EventInvite", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for EventPictures in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventPictures_Events", "EventPicture")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<EventPicture> EventPictures
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<EventPicture>("SedogoDbModel.FK_EventPictures_Events", "EventPicture");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<EventPicture>("SedogoDbModel.FK_EventPictures_Events", "EventPicture", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for Timezone in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Events_Timezones", "Timezone")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Timezone Timezone
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Events_Timezones", "Timezone").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Events_Timezones", "Timezone").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Timezone in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Timezone> TimezoneReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Events_Timezones", "Timezone");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Timezone>("SedogoDbModel.FK_Events_Timezones", "Timezone", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for TrackedEvents in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_TrackedEvents_Events", "TrackedEvent")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<TrackedEvent> TrackedEvents
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<TrackedEvent>("SedogoDbModel.FK_TrackedEvents_Events", "TrackedEvent");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<TrackedEvent>("SedogoDbModel.FK_TrackedEvents_Events", "TrackedEvent", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Events_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_Events_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_Events_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_Events_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_Events_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.GlobalData in the schema.
@@ -4639,28 +4375,6 @@ namespace Sedogo.DAL
         partial void OnDefaultLanguageChanging(bool value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnDefaultLanguageChanged();
-        /// <summary>
-        /// There are no comments for Users in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Languages", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<User> Users
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<User>("SedogoDbModel.FK_Users_Languages", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<User>("SedogoDbModel.FK_Users_Languages", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.Message in the schema.
@@ -5026,6 +4740,33 @@ namespace Sedogo.DAL
         partial void OnMessageGUIDChanging(global::System.Guid value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnMessageGUIDChanged();
+        /// <summary>
+        /// There are no comments for property ParentMessageID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<int> ParentMessageID
+        {
+            get
+            {
+                return this._ParentMessageID;
+            }
+            set
+            {
+                this.OnParentMessageIDChanging(value);
+                this.ReportPropertyChanging("ParentMessageID");
+                this._ParentMessageID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("ParentMessageID");
+                this.OnParentMessageIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Nullable<int> _ParentMessageID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnParentMessageIDChanging(global::System.Nullable<int> value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnParentMessageIDChanged();
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.SearchHistory in the schema.
@@ -5042,12 +4783,14 @@ namespace Sedogo.DAL
         /// Create a new SearchHistory object.
         /// </summary>
         /// <param name="searchHistoryID">Initial value of SearchHistoryID.</param>
+        /// <param name="userID">Initial value of UserID.</param>
         /// <param name="searchText">Initial value of SearchText.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static SearchHistory CreateSearchHistory(int searchHistoryID, string searchText)
+        public static SearchHistory CreateSearchHistory(int searchHistoryID, int userID, string searchText)
         {
             SearchHistory searchHistory = new SearchHistory();
             searchHistory.SearchHistoryID = searchHistoryID;
+            searchHistory.UserID = userID;
             searchHistory.SearchText = searchText;
             return searchHistory;
         }
@@ -5106,6 +4849,33 @@ namespace Sedogo.DAL
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnSearchDateChanged();
         /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
+        /// <summary>
         /// There are no comments for property SearchText in the schema.
         /// </summary>
         [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
@@ -5159,45 +4929,6 @@ namespace Sedogo.DAL
         partial void OnSearchHitsChanging(global::System.Nullable<int> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnSearchHitsChanged();
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_SearchHistory_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_SearchHistory_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_SearchHistory_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_SearchHistory_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_SearchHistory_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.SentEmailHistory in the schema.
@@ -5547,50 +5278,6 @@ namespace Sedogo.DAL
         partial void OnGMTOffsetChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnGMTOffsetChanged();
-        /// <summary>
-        /// There are no comments for Events in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Events_Timezones", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<Event> Events
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<Event>("SedogoDbModel.FK_Events_Timezones", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<Event>("SedogoDbModel.FK_Events_Timezones", "Event", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for Users in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Timezones", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<User> Users
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<User>("SedogoDbModel.FK_Users_Timezones", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<User>("SedogoDbModel.FK_Users_Timezones", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.TrackedEvent in the schema.
@@ -5607,16 +5294,20 @@ namespace Sedogo.DAL
         /// Create a new TrackedEvent object.
         /// </summary>
         /// <param name="trackedEventID">Initial value of TrackedEventID.</param>
+        /// <param name="eventID">Initial value of EventID.</param>
+        /// <param name="userID">Initial value of UserID.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
         /// <param name="lastUpdatedDate">Initial value of LastUpdatedDate.</param>
         /// <param name="showOnTimeline">Initial value of ShowOnTimeline.</param>
         /// <param name="joinPending">Initial value of JoinPending.</param>
         /// <param name="trackedEventGUID">Initial value of TrackedEventGUID.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static TrackedEvent CreateTrackedEvent(int trackedEventID, global::System.DateTime createdDate, global::System.DateTime lastUpdatedDate, bool showOnTimeline, bool joinPending, global::System.Guid trackedEventGUID)
+        public static TrackedEvent CreateTrackedEvent(int trackedEventID, int eventID, int userID, global::System.DateTime createdDate, global::System.DateTime lastUpdatedDate, bool showOnTimeline, bool joinPending, global::System.Guid trackedEventGUID)
         {
             TrackedEvent trackedEvent = new TrackedEvent();
             trackedEvent.TrackedEventID = trackedEventID;
+            trackedEvent.EventID = eventID;
+            trackedEvent.UserID = userID;
             trackedEvent.CreatedDate = createdDate;
             trackedEvent.LastUpdatedDate = lastUpdatedDate;
             trackedEvent.ShowOnTimeline = showOnTimeline;
@@ -5651,6 +5342,60 @@ namespace Sedogo.DAL
         partial void OnTrackedEventIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnTrackedEventIDChanged();
+        /// <summary>
+        /// There are no comments for property EventID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int EventID
+        {
+            get
+            {
+                return this._EventID;
+            }
+            set
+            {
+                this.OnEventIDChanging(value);
+                this.ReportPropertyChanging("EventID");
+                this._EventID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("EventID");
+                this.OnEventIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _EventID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnEventIDChanged();
+        /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
         /// <summary>
         /// There are no comments for property CreatedDate in the schema.
         /// </summary>
@@ -5786,84 +5531,6 @@ namespace Sedogo.DAL
         partial void OnTrackedEventGUIDChanging(global::System.Guid value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnTrackedEventGUIDChanged();
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_TrackedEvents_Events", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Event Event
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_TrackedEvents_Events", "Event").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_TrackedEvents_Events", "Event").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Event in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Event> EventReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Event>("SedogoDbModel.FK_TrackedEvents_Events", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Event>("SedogoDbModel.FK_TrackedEvents_Events", "Event", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_TrackedEvents_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_TrackedEvents_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_TrackedEvents_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_TrackedEvents_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_TrackedEvents_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.UserLoginHistory in the schema.
@@ -5918,6 +5585,33 @@ namespace Sedogo.DAL
         partial void OnUserLoginHistoryIDChanging(int value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnUserLoginHistoryIDChanged();
+        /// <summary>
+        /// There are no comments for property UserID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<int> UserID
+        {
+            get
+            {
+                return this._UserID;
+            }
+            set
+            {
+                this.OnUserIDChanging(value);
+                this.ReportPropertyChanging("UserID");
+                this._UserID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("UserID");
+                this.OnUserIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private global::System.Nullable<int> _UserID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanging(global::System.Nullable<int> value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnUserIDChanged();
         /// <summary>
         /// There are no comments for property LoginStatus in the schema.
         /// </summary>
@@ -5999,45 +5693,6 @@ namespace Sedogo.DAL
         partial void OnSourceChanging(string value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnSourceChanged();
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_UserLoginHistory_Users", "User")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public User User
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_UserLoginHistory_Users", "User").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_UserLoginHistory_Users", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for User in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<User>("SedogoDbModel.FK_UserLoginHistory_Users", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<User>("SedogoDbModel.FK_UserLoginHistory_Users", "User", value);
-                }
-            }
-        }
     }
     /// <summary>
     /// There are no comments for SedogoDbModel.User in the schema.
@@ -6058,15 +5713,18 @@ namespace Sedogo.DAL
         /// <param name="emailAddress">Initial value of EmailAddress.</param>
         /// <param name="gender">Initial value of Gender.</param>
         /// <param name="deleted">Initial value of Deleted.</param>
+        /// <param name="countryID">Initial value of CountryID.</param>
+        /// <param name="languageID">Initial value of LanguageID.</param>
         /// <param name="loginEnabled">Initial value of LoginEnabled.</param>
         /// <param name="failedLoginCount">Initial value of FailedLoginCount.</param>
         /// <param name="createdDate">Initial value of CreatedDate.</param>
         /// <param name="createdByFullName">Initial value of CreatedByFullName.</param>
         /// <param name="lastUpdatedDate">Initial value of LastUpdatedDate.</param>
         /// <param name="lastUpdatedByFullName">Initial value of LastUpdatedByFullName.</param>
+        /// <param name="timezoneID">Initial value of TimezoneID.</param>
         /// <param name="enableSendEmails">Initial value of EnableSendEmails.</param>
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        public static User CreateUser(int userID, string gUID, string emailAddress, string gender, bool deleted, bool loginEnabled, int failedLoginCount, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, bool enableSendEmails)
+        public static User CreateUser(int userID, string gUID, string emailAddress, string gender, bool deleted, int countryID, int languageID, bool loginEnabled, int failedLoginCount, global::System.DateTime createdDate, string createdByFullName, global::System.DateTime lastUpdatedDate, string lastUpdatedByFullName, int timezoneID, bool enableSendEmails)
         {
             User user = new User();
             user.UserID = userID;
@@ -6074,12 +5732,15 @@ namespace Sedogo.DAL
             user.EmailAddress = emailAddress;
             user.Gender = gender;
             user.Deleted = deleted;
+            user.CountryID = countryID;
+            user.LanguageID = languageID;
             user.LoginEnabled = loginEnabled;
             user.FailedLoginCount = failedLoginCount;
             user.CreatedDate = createdDate;
             user.CreatedByFullName = createdByFullName;
             user.LastUpdatedDate = lastUpdatedDate;
             user.LastUpdatedByFullName = lastUpdatedByFullName;
+            user.TimezoneID = timezoneID;
             user.EnableSendEmails = enableSendEmails;
             return user;
         }
@@ -6299,6 +5960,60 @@ namespace Sedogo.DAL
         partial void OnDeletedDateChanging(global::System.Nullable<global::System.DateTime> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnDeletedDateChanged();
+        /// <summary>
+        /// There are no comments for property CountryID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int CountryID
+        {
+            get
+            {
+                return this._CountryID;
+            }
+            set
+            {
+                this.OnCountryIDChanging(value);
+                this.ReportPropertyChanging("CountryID");
+                this._CountryID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("CountryID");
+                this.OnCountryIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _CountryID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnCountryIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnCountryIDChanged();
+        /// <summary>
+        /// There are no comments for property LanguageID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int LanguageID
+        {
+            get
+            {
+                return this._LanguageID;
+            }
+            set
+            {
+                this.OnLanguageIDChanging(value);
+                this.ReportPropertyChanging("LanguageID");
+                this._LanguageID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("LanguageID");
+                this.OnLanguageIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _LanguageID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnLanguageIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnLanguageIDChanged();
         /// <summary>
         /// There are no comments for property LoginEnabled in the schema.
         /// </summary>
@@ -6705,6 +6420,33 @@ namespace Sedogo.DAL
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnProfileTextChanged();
         /// <summary>
+        /// There are no comments for property TimezoneID in the schema.
+        /// </summary>
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
+        [global::System.Runtime.Serialization.DataMemberAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public int TimezoneID
+        {
+            get
+            {
+                return this._TimezoneID;
+            }
+            set
+            {
+                this.OnTimezoneIDChanging(value);
+                this.ReportPropertyChanging("TimezoneID");
+                this._TimezoneID = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("TimezoneID");
+                this.OnTimezoneIDChanged();
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        private int _TimezoneID;
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnTimezoneIDChanging(int value);
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        partial void OnTimezoneIDChanged();
+        /// <summary>
         /// There are no comments for property EnableSendEmails in the schema.
         /// </summary>
         [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute(IsNullable=false)]
@@ -6786,253 +6528,31 @@ namespace Sedogo.DAL
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
         partial void OnAvatarNumberChanged();
         /// <summary>
-        /// There are no comments for AddressBooks in the schema.
+        /// There are no comments for property FirstLogin in the schema.
         /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_AddressBook_Users", "AddressBook")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
+        [global::System.Data.Objects.DataClasses.EdmScalarPropertyAttribute()]
         [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<AddressBook> AddressBooks
+        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
+        public global::System.Nullable<bool> FirstLogin
         {
             get
             {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<AddressBook>("SedogoDbModel.FK_AddressBook_Users", "AddressBook");
+                return this._FirstLogin;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<AddressBook>("SedogoDbModel.FK_AddressBook_Users", "AddressBook", value);
-                }
+                this.OnFirstLoginChanging(value);
+                this.ReportPropertyChanging("FirstLogin");
+                this._FirstLogin = global::System.Data.Objects.DataClasses.StructuralObject.SetValidValue(value);
+                this.ReportPropertyChanged("FirstLogin");
+                this.OnFirstLoginChanged();
             }
         }
-        /// <summary>
-        /// There are no comments for Country in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Countries", "Country")]
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Country Country
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Country>("SedogoDbModel.FK_Users_Countries", "Country").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Country>("SedogoDbModel.FK_Users_Countries", "Country").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Country in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
+        private global::System.Nullable<bool> _FirstLogin;
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Country> CountryReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Country>("SedogoDbModel.FK_Users_Countries", "Country");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Country>("SedogoDbModel.FK_Users_Countries", "Country", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for Language in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Languages", "Language")]
+        partial void OnFirstLoginChanging(global::System.Nullable<bool> value);
         [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Language Language
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Language>("SedogoDbModel.FK_Users_Languages", "Language").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Language>("SedogoDbModel.FK_Users_Languages", "Language").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Language in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Language> LanguageReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Language>("SedogoDbModel.FK_Users_Languages", "Language");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Language>("SedogoDbModel.FK_Users_Languages", "Language", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for SearchHistories in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_SearchHistory_Users", "SearchHistory")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<SearchHistory> SearchHistories
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<SearchHistory>("SedogoDbModel.FK_SearchHistory_Users", "SearchHistory");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<SearchHistory>("SedogoDbModel.FK_SearchHistory_Users", "SearchHistory", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for Timezone in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Users_Timezones", "Timezone")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public Timezone Timezone
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Users_Timezones", "Timezone").Value;
-            }
-            set
-            {
-                ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Users_Timezones", "Timezone").Value = value;
-            }
-        }
-        /// <summary>
-        /// There are no comments for Timezone in the schema.
-        /// </summary>
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityReference<Timezone> TimezoneReference
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedReference<Timezone>("SedogoDbModel.FK_Users_Timezones", "Timezone");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedReference<Timezone>("SedogoDbModel.FK_Users_Timezones", "Timezone", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for TrackedEvents in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_TrackedEvents_Users", "TrackedEvent")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<TrackedEvent> TrackedEvents
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<TrackedEvent>("SedogoDbModel.FK_TrackedEvents_Users", "TrackedEvent");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<TrackedEvent>("SedogoDbModel.FK_TrackedEvents_Users", "TrackedEvent", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for UserLoginHistories in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_UserLoginHistory_Users", "UserLoginHistory")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<UserLoginHistory> UserLoginHistories
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<UserLoginHistory>("SedogoDbModel.FK_UserLoginHistory_Users", "UserLoginHistory");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<UserLoginHistory>("SedogoDbModel.FK_UserLoginHistory_Users", "UserLoginHistory", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for Events in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_Events_Users", "Event")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<Event> Events
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<Event>("SedogoDbModel.FK_Events_Users", "Event");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<Event>("SedogoDbModel.FK_Events_Users", "Event", value);
-                }
-            }
-        }
-        /// <summary>
-        /// There are no comments for EventInvites in the schema.
-        /// </summary>
-        [global::System.Data.Objects.DataClasses.EdmRelationshipNavigationPropertyAttribute("SedogoDbModel", "FK_EventInvites_Users", "EventInvite")]
-        [global::System.CodeDom.Compiler.GeneratedCode("System.Data.Entity.Design.EntityClassGenerator", "4.0.0.0")]
-        [global::System.Xml.Serialization.XmlIgnoreAttribute()]
-        [global::System.Xml.Serialization.SoapIgnoreAttribute()]
-        [global::System.Runtime.Serialization.DataMemberAttribute()]
-        public global::System.Data.Objects.DataClasses.EntityCollection<EventInvite> EventInvites
-        {
-            get
-            {
-                return ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.GetRelatedCollection<EventInvite>("SedogoDbModel.FK_EventInvites_Users", "EventInvite");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((global::System.Data.Objects.DataClasses.IEntityWithRelationships)(this)).RelationshipManager.InitializeRelatedCollection<EventInvite>("SedogoDbModel.FK_EventInvites_Users", "EventInvite", value);
-                }
-            }
-        }
+        partial void OnFirstLoginChanged();
     }
 }

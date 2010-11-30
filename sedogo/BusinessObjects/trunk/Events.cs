@@ -57,8 +57,14 @@ namespace Sedogo.BusinessObjects
         private string      m_createdByFullName = "";
         private DateTime    m_lastUpdatedDate = DateTime.MinValue;
         private string      m_lastUpdatedByFullName = "";
+        private string      m_eventGUID = Guid.Empty.ToString();
 
         private string      m_loggedInUser = "";
+
+        public string eventGUID
+        {
+            get { return m_eventGUID; }
+        }
 
         public int eventID
         {
@@ -322,6 +328,10 @@ namespace Sedogo.BusinessObjects
                 if (!rdr.IsDBNull(rdr.GetOrdinal("LastUpdatedByFullName")))
                 {
                     m_lastUpdatedByFullName = (string)rdr["LastUpdatedByFullName"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("EventGUID")))
+                {
+                    m_eventGUID = rdr["EventGUID"].ToString();
                 }
                 rdr.Close();
             }

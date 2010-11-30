@@ -268,7 +268,7 @@ namespace Sedogo.BusinessObjects
                 rdr.Read();
                 if (!rdr.IsDBNull(rdr.GetOrdinal("GUID")))
                 {
-                    m_GUID = (string)rdr["GUID"];
+                    m_GUID = rdr["GUID"].ToString();
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
                 {
@@ -423,7 +423,7 @@ namespace Sedogo.BusinessObjects
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("GUID")))
                 {
-                    m_GUID = (string)rdr["GUID"];
+                    m_GUID = rdr["GUID"].ToString();
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
                 {

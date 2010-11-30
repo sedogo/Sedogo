@@ -180,7 +180,7 @@ namespace Sedogo.BusinessObjects
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("GUID")))
                 {
-                    m_eventInviteGUID = (string)rdr["GUID"];
+                    m_eventInviteGUID = rdr["GUID"].ToString();
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("EmailAddress")))
                 {

@@ -117,13 +117,13 @@ namespace RestAPI
             }
         }*/
 
-       /* protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-            HttpContext context = HttpContext.Current;
-            if (Request.HttpMethod == "POST" && string.IsNullOrEmpty(Request.ContentType))
-                Request.ContentType = "application/json; charset=utf-8"; 
+         protected void Application_BeginRequest(object sender, EventArgs e)
+         {
+             HttpContext context = HttpContext.Current;
+             //if (Request.HttpMethod == "POST" && string.IsNullOrEmpty(Request.ContentType))
+             //    Request.ContentType = "application/json; charset=utf-8"; 
                 
             
-        } */
+         } 
     }
 }

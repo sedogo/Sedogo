@@ -499,7 +499,31 @@ namespace RestAPI.Controllers
                                     created = e.CreatedDate,
                                     updated = e.LastUpdatedDate,
                                     read = (bool?) null
-                                })).OrderByDescending(x => x.created).Skip(start).Take(count).ToList();
+                                }).Union
+                    (from te in _db.TrackedEvents
+                     where te.Event.UserID == userId && !te.Event.Deleted && te.JoinPending
+                     select new
+                                {
+                                    id = te.TrackedEventID,
+                                    eventId = (int?) te.EventID,
+                                    user = te.UserID,
+                                    text = "Goal requested: " + te.Event.EventName,
+                                    created = te.CreatedDate,
+                                    updated = te.LastUpdatedDate,
+                                    read = (bool?) null
+                                }).Union
+                    (from te in _db.TrackedEvents
+                     where te.UserID == userId && !te.Event.Deleted && te.ShowOnTimeline
+                     select new
+                                {
+                                    id = te.TrackedEventID,
+                                    eventId = (int?) te.EventID,
+                                    user = te.Event.UserID,
+                                    text = "Group goal: " + te.Event.EventName,
+                                    created = te.CreatedDate,
+                                    updated = te.LastUpdatedDate,
+                                    read = (bool?) null
+                                })).Distinct().OrderByDescending(x => x.created).Skip(start).Take(count).ToList();
             var result =
                 messages.Select(
                     x =>

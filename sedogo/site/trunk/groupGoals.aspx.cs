@@ -115,7 +115,8 @@ public partial class groupGoals : SedogoPage
             }
             else
             {
-                eventImage.ImageUrl = "~/assets/eventPics/" + eventPicThumbnail;
+                var _event = new SedogoEvent(string.Empty, eventID);
+                eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail);
             }
         }
     }

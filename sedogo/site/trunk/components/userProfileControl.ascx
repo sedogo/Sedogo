@@ -1,5 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="userProfileControl.ascx.cs"
     Inherits="components_userProfileControl" %>
+<script runat="server">private void OnEventsDataBound(object sender, DataListItemEventArgs e)
+                       {
+                           if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                           {
+                               var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
+                               if (eventPic != null)
+                               {
+                                   eventPic.Src = ImageHelper.GetRelativeImagePath((int)DataBinder.Eval(e.Item.DataItem, "EventID"), DataBinder.Eval(e.Item.DataItem, "EventGUID").ToString(), ImageType.EventThumbnail);
+                               }
+                           }
+                       }</script>
 
 <script type="text/javascript">	
     function ShowHideDiv(divId)
@@ -38,7 +49,7 @@
             <td>
                 <table border="0">
                     <tr>
-                        <td><h2 class="blue"><asp:Label runat="server" ID="firstNameLabel" />'s profile</h2</td>
+                        <td><h2 class="blue"><asp:Label runat="server" ID="firstNameLabel" />'s profile</h2></td>
                         <td>&nbsp;&nbsp;</td>
                         <td style="padding-top:5px"><asp:Hyperlink ID="messageLink" runat="server" ImageUrl="~/images/messages.gif" /></td>
                         <td>&nbsp;&nbsp;</td>
@@ -137,7 +148,7 @@
             <td>
                 <div style="margin-left: 2px;">
                     <asp:DataList ID="dlMember" runat="server" RepeatColumns="12" RepeatDirection="Horizontal"
-                        DataKeyField="EventID">
+                        DataKeyField="EventID" OnItemDataBound="OnEventsDataBound">
                         <ItemTemplate>
                             <div>
                                 <div class="misc-pop-up" id="dmpop<%# DataBinder.Eval(Container.DataItem, "EventID") %>"
@@ -183,9 +194,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img src="assets/eventPics/<%# DataBinder.Eval(Container.DataItem, "EventPicThumbnail") %>"
+                                <img  runat="server" id="eventPic"
                                     alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                    onerror="this.src='images/grayRect.jpg'" onmouseover="ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "EventID") %>)" /></div>
+                                    onerror="this.src='images/grayRect.jpg'" onmouseover='ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "EventID") %>)' /></div>
                         </ItemTemplate>
                     </asp:DataList>
                 </div>

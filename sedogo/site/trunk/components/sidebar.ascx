@@ -76,6 +76,17 @@ function changeClass(id, newClass)
     </div>
     <div class="latestGoals">
         
+        <asp:Panel runat="server" ID="otherPanel">
+            <h2><asp:Label ID="otherGoalsTitle" runat="server" Text="Other" /></h2>
+            <asp:PlaceHolder ID="goalsOtherPlaceHolder" runat="server" />
+            <div class="pinstripe-divider"></div>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="similarPanel">
+            <h2><asp:Label ID="Label5" runat="server" Text="Similar" /></h2>
+            <asp:PlaceHolder ID="goalsSimilarPlaceHolder" runat="server" />
+            <div class="pinstripe-divider"></div>
+        </asp:Panel>
+
         <h2><asp:Label ID="Label1" runat="server" Text="Added" /></h2>
         <asp:PlaceHolder ID="goalsAddedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
@@ -91,17 +102,6 @@ function changeClass(id, newClass)
         <h2><asp:Label ID="Label4" runat="server" Text="Achieved" /></h2>
         <asp:PlaceHolder ID="goalsAchievedPlaceHolder" runat="server" />
         <div class="pinstripe-divider"></div>
-        
-        <asp:Panel runat="server" ID="similarPanel">
-            <h2><asp:Label ID="Label5" runat="server" Text="Similar" /></h2>
-            <asp:PlaceHolder ID="goalsSimilarPlaceHolder" runat="server" />
-            <div class="pinstripe-divider"></div>
-        </asp:Panel>
-        <asp:Panel runat="server" ID="otherPanel">
-            <h2><asp:Label ID="Label6" runat="server" Text="Other" /></h2>
-            <asp:PlaceHolder ID="goalsOtherPlaceHolder" runat="server" />
-            <div class="pinstripe-divider"></div>
-        </asp:Panel>
     </div>
     <p>
         &nbsp;</p>

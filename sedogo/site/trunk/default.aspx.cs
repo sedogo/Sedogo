@@ -271,10 +271,11 @@ public partial class _default : System.Web.UI.Page
             string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[13].ToString();
             //string profilePicThumbnail = ((DataRowView)e.Item.DataItem).Row.ItemArray[12].ToString();
             int userID = int.Parse(((DataRowView)e.Item.DataItem).Row.ItemArray[0].ToString());
+            string userGuid = (string)((DataRowView)e.Item.DataItem).Row.ItemArray[1];
 
             if (profilePicThumbnail != "")
             {
-                profilePicImage.ImageUrl = "assets/profilePics/" + profilePicThumbnail;
+                profilePicImage.ImageUrl = ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail);
             }
             else
             {

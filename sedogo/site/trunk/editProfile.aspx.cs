@@ -137,13 +137,13 @@ public partial class editProfile : SedogoPage
 
             if (user.profilePicThumbnail != "")
             {
-                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+                profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview); ;
             }
             else
             {
                 if (user.avatarNumber > 0)
                 {
-                    profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + "sm.gif";
+                    profileImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber + "sm.gif";
                 }
                 else
                 {

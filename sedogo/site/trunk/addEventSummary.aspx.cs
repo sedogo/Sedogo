@@ -107,7 +107,7 @@ public partial class addEventSummary : SedogoPage
         }
         else
         {
-            eventImage.ImageUrl = "~/assets/eventPics/" + sedogoEvent.eventPicPreview;
+            eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID, ImageType.EventPreview);
         }
     }
 

@@ -42,7 +42,7 @@ public partial class uploadProfilePic : SedogoPage
 
             if (user.profilePicThumbnail != "")
             {
-                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+                profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview);
             }
             else
             {
@@ -72,11 +72,20 @@ public partial class uploadProfilePic : SedogoPage
             destPath = MiscUtils.GetUniqueFileName(destPath);
             string savedFilename = Path.GetFileName(destPath);
 
+            if(!Directory.Exists(Path.GetDirectoryName(destPath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+            }
             profilePicFileUpload.PostedFile.SaveAs(destPath);
 
-            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), 
-                int.Parse(Session["loggedInUserID"].ToString()));
+            
+            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), int.Parse(Session["loggedInUserID"].ToString()));
+            
+            var user = new SedogoUser(string.Empty, int.Parse(Session["loggedInUserID"].ToString()));
 
+            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview, true);
+            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail, true);
+            
             if (status >= 0)
             {
                 Response.Redirect("profileRedirect.aspx");

@@ -94,7 +94,7 @@ public partial class sidebar : System.Web.UI.UserControl
 
                 if (user.profilePicThumbnail != "")
                 {
-                    profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
+                    profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail);
                 }
                 else
                 {
@@ -510,6 +510,7 @@ public partial class sidebar : System.Web.UI.UserControl
         {
             return;
         }
+
         using (var sedogoDbEntities = new SedogoDbEntities())
         {
             var events = sedogoDbEntities.SelectOtherEvents(EventId);
@@ -517,22 +518,27 @@ public partial class sidebar : System.Web.UI.UserControl
             {
                 return;
             }
+            bool flag = true;
             foreach (var @event in events)
             {
+                if (flag)
                 {
-                    var eventID = int.Parse(@event.EventID.ToString());
-                    var eventName = @event.EventName;
-
-                    var eventHyperlink = new HyperLink
-                    {
-                        Text = eventName,
-                        NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
-                    };
-                    goalsOtherPlaceHolder.Controls.Add(eventHyperlink);
-
-                    goalsOtherPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                    var user = new SedogoUser("", @event.UserID);
+                    otherGoalsTitle.Text = user.firstName + "'s goals";
+                    flag = false;
                 }
+                
+                var eventID = int.Parse(@event.EventID.ToString());
+                var eventName = @event.EventName;
 
+                var eventHyperlink = new HyperLink
+                {
+                    Text = eventName,
+                    NavigateUrl = "~/viewEvent.aspx?EID=" + eventID
+                };
+                goalsOtherPlaceHolder.Controls.Add(eventHyperlink);
+
+                goalsOtherPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
             }
         }
         var nSimilarHyperlink = new HyperLink

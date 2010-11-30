@@ -133,7 +133,8 @@ public partial class goalsAchieved : SedogoPage
             }
             else
             {
-                eventImage.ImageUrl = "~/assets/eventPics/" + eventPicThumbnail;
+                var _event = new SedogoEvent(string.Empty, eventID);
+                eventImage.ImageUrl = ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail));
             }
         }
     }

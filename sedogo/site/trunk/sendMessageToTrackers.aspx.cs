@@ -86,6 +86,7 @@ public partial class sendMessageToTrackers : SedogoPage
 
                 int trackedEventID = int.Parse(rdr["TrackedEventID"].ToString());
                 int userID = int.Parse(rdr["UserID"].ToString());
+                var userGuid = rdr["GUID"].ToString();
                 string firstName = (string)rdr["FirstName"];
                 string lastName = (string)rdr["LastName"];
                 string gender = (string)rdr["Gender"];
@@ -105,7 +106,7 @@ public partial class sendMessageToTrackers : SedogoPage
                 string profileImagePath = "./images/profile/blankProfile.jpg";
                 if (profilePicThumbnail != "")
                 {
-                    profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                    profileImagePath = ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail).Replace("~", ".");
                 }
                 else
                 {

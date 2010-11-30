@@ -106,7 +106,7 @@ public partial class userTimeline : SedogoPage
             userProfilePopupGoalsFollowedLabel.Text = TrackedEvent.GetTrackedEventCount(viewUserID).ToString();
             if (viewUser.profilePicThumbnail != "")
             {
-                userProfileThumbnailPic.ImageUrl = "~/assets/profilePics/" + viewUser.profilePicThumbnail;
+                userProfileThumbnailPic.ImageUrl = ImageHelper.GetRelativeImagePath(viewUser.userID, viewUser.GUID, ImageType.UserThumbnail);
             }
             else
             {

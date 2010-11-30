@@ -234,7 +234,7 @@ public partial class addressBook : SedogoPage
 
                 if (addressBookUser.profilePicThumbnail != "")
                 {
-                    picThumbnailImage.ImageUrl = "~/assets/profilePics/" + addressBookUser.profilePicThumbnail;
+                    picThumbnailImage.ImageUrl = ImageHelper.GetRelativeImagePath(addressBookUser.userID, addressBookUser.GUID, ImageType.UserThumbnail);
                 }
                 else
                 {

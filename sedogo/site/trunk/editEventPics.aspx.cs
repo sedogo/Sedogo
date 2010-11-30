@@ -164,6 +164,9 @@ public partial class editEventPics : System.Web.UI.Page
 
             int eventPictureID = int.Parse(row["EventPictureID"].ToString());
             int postedByUserID = int.Parse(row["PostedByUserID"].ToString());
+
+            int eventID = int.Parse(row["EventID"].ToString());
+
             string imageFilename = "";
             if (row["ImageFilename"] != "")
             {
@@ -193,7 +196,8 @@ public partial class editEventPics : System.Web.UI.Page
             }
             else
             {
-                eventImage.ImageUrl = "./assets/eventPics/" + imageThumbnail;
+                var _event = new SedogoEvent(string.Empty, eventID);
+                eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail).Replace("~", ".");
             }
 
             TextBox imageCaptionTextBox = e.Item.FindControl("imageCaptionTextBox") as TextBox;

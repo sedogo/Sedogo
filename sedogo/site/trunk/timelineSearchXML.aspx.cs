@@ -288,6 +288,8 @@ public partial class timelineSearchXML : System.Web.UI.Page
                 writer.WriteAttributeString("isDuration", "true");
                 writer.WriteAttributeString("title", eventName);
 
+                var _event = new SedogoEvent(string.Empty, eventID);
+
                 //* New
                 if (eventPicThumbnail == "")
                 {
@@ -295,7 +297,7 @@ public partial class timelineSearchXML : System.Web.UI.Page
                 }
                 else
                 {
-                    writer.WriteAttributeString("image", "./assets/eventPics/" + eventPicThumbnail);
+                    writer.WriteAttributeString("image", ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail)));
                 }
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");
                 //*

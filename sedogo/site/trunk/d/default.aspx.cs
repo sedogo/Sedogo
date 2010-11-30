@@ -169,6 +169,7 @@ public partial class d_default : System.Web.UI.Page
                     int avatarNumber = -1;
 
                     int userID = int.Parse(rdr["UserID"].ToString());
+                    string userGuid = rdr["GUID"].ToString();
                     if (!rdr.IsDBNull(rdr.GetOrdinal("FirstName")))
                     {
                         firstName = (string)rdr["FirstName"];
@@ -233,7 +234,7 @@ public partial class d_default : System.Web.UI.Page
                     }
                     else
                     {
-                        userLink.Text += "<img src=\"../assets/profilePics/" + profilePicThumbnail + "\" style=\"margin:0 1px 0 1px\" />";
+                        userLink.Text += "<img src=\"" + ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail).Replace("~", "..") + "\" style=\"margin:0 1px 0 1px\" />";
                     }
                     userLink.Text += "</td><td>&nbsp;</td><td>&nbsp;<br/>";
                     userLink.Text += "<a href=\"/publicProfile.aspx?UID=" + userID.ToString() + "\">" + firstName + " " + lastName + "</a>";

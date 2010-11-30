@@ -121,7 +121,8 @@ public partial class alert : SedogoPage
             }
             else
             {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                var _event = new SedogoEvent(Session["loggedInUserFullName"].ToString(), int.Parse(row["EventID"].ToString()));
+                eventPicThumbnailImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventPreview).Replace("~",".");
             }
         }
     }

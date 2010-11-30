@@ -121,7 +121,9 @@ public partial class eventPicDetails : System.Web.UI.Page
 
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
 
-            eventImage.ImageUrl = "~/assets/eventPics/" + eventPic.eventImagePreview;
+            SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
+
+            eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventPreview);
 
             GlobalData gd = new GlobalData("");
             string imageFile = gd.GetStringValue("FileStoreFolder") + @"\eventPics\" + eventPic.eventImagePreview;

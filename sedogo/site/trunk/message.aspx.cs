@@ -269,7 +269,7 @@ public partial class message : SedogoPage
                 //}
                 if (messageFromUser.profilePicThumbnail != "")
                 {
-                    eventPicThumbnailImage.ImageUrl = "~/assets/profilePics/" + messageFromUser.profilePicThumbnail;
+                    eventPicThumbnailImage.ImageUrl = ImageHelper.GetRelativeImagePath(messageFromUser.userID, messageFromUser.GUID, ImageType.UserThumbnail);
                 }
                 else
                 {
@@ -409,7 +409,7 @@ public partial class message : SedogoPage
             Image threadPicThumbnailImage = e.Item.FindControl("threadPicThumbnailImage") as Image;
             if (messageFromUser.profilePicThumbnail != "")
             {
-                threadPicThumbnailImage.ImageUrl = "~/assets/profilePics/" + messageFromUser.profilePicThumbnail;
+                threadPicThumbnailImage.ImageUrl = ImageHelper.GetRelativeImagePath(messageFromUser.userID, messageFromUser.GUID, ImageType.UserThumbnail);
             }
             else
             {

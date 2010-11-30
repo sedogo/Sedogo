@@ -189,9 +189,11 @@ public partial class g_default : System.Web.UI.Page
                     }
                     else
                     {
-                        userLink.Text += "<div class=\"crop\"><img src=\"../assets/eventPics/" + eventPicThumbnail + "\" width=\"50\" /></div>";
+                        var _event = new SedogoEvent(string.Empty, eventID);
+                        eventPicThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail));
+                        userLink.Text += "<div class=\"crop\"><img src=\"" + eventPicThumbnail + "\" width=\"50\" /></div>";
                     }
-                    userLink.Text += "</td><td>&nbsp;<a class=\"event\" href=\"/viewEvent.aspx?EID=" + eventID.ToString() + "\">" + eventName + "</a></td>";
+                    userLink.Text += "</td><td>&nbsp;<a class=\"event\" href=\"/viewEvent.aspx?EID=" + eventID + "\">" + eventName + "</a></td>";
                     userLink.Text += "</tr></table>";
 
                     goalPlaceHolder.Controls.Add(userLink);

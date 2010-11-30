@@ -78,7 +78,7 @@ namespace Sedogo.BusinessObjects
                 //cmd.CommandType = CommandType.StoredProcedure;
                 //cmd.CommandText = "spGetAllEnableUserDetails";
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "SELECT top 24 EventID,EventName, EventPicThumbnail, EventPicPreview "
+                cmd.CommandText = "SELECT top 24 EventID,EventName, EventPicThumbnail, EventPicPreview, EventGUID "
                     + "FROM Events "
                     + " WHERE UserID = " + userID.ToString() + " and Deleted = 0 ";
                 if( showPrivate == false )

@@ -359,7 +359,9 @@ public partial class components_eventsListControl : System.Web.UI.UserControl
                     }
                     else
                     {
-                        eventString.AppendLine("<img src=\"./assets/eventPics/" + eventPicThumbnail + "\" />");
+                        var _event = new SedogoEvent(string.Empty, eventID);
+
+                        eventString.AppendLine("<img src=\"" + ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail).Replace("~", ".") + "\" />");
                     }
                     eventString.AppendLine("</td>");
                     eventString.AppendLine("</tr></table>");

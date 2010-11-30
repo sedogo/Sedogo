@@ -1,5 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="viewEvent.aspx.cs" Inherits="viewEvent"
     EnableEventValidation="false" ValidateRequest="false" %>
+<%@ Import Namespace="Sedogo.BusinessObjects" %>
 
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
@@ -126,6 +127,21 @@
         
         }
     </script>
+  <script runat="server">private void OnImageDataBound(object sender, DataListItemEventArgs e)
+                         {
+                             if(e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
+                             {
+                                 var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
+                                 if (eventPic != null)
+                                 {
+                                     var eventID = int.Parse(DataBinder.Eval(e.Item.DataItem, "EventID").ToString());
+                                     var _event = new SedogoEvent(string.Empty, eventID);
+                                     eventPic.Src =
+                                         ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID,
+                                                                                     ImageType.EventThumbnail));
+                                 }
+                             }
+                         }</script>
 
 </head>
 <body onload="resetFlash()">
@@ -232,10 +248,10 @@
                                         <tr>
                                             <td>
                                                 <asp:DataList ID="dlImages" runat="server" RepeatColumns="12" RepeatDirection="Horizontal"
-                                                    DataKeyField="EventPictureID">
+                                                    DataKeyField="EventPictureID" OnItemDataBound="OnImageDataBound">
                                                     <ItemTemplate>
                                                         <div>
-                                                            <a href="morePictures.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>"><img src="assets/eventPics/<%# DataBinder.Eval(Container.DataItem, "ImageThumbnail") %>"
+                                                            <a href="morePictures.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>"><img runat="server" id="eventPic" 
                                                                 alt="" height="33" width="33" style="padding-bottom: 6px; padding-right: 6px;" /></a>
                                                         </div>
                                                     </ItemTemplate>

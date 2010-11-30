@@ -465,7 +465,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             }
             else
             {
-                eventImage.ImageUrl = "~/assets/eventPics/" + sedogoEvent.eventPicPreview;
+                eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
+                                                                       ImageType.EventPreview);
                 uploadEventImage.Text = "Edit picture";
             }
 
@@ -497,7 +498,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             string ImageUrl = ConfigurationManager.AppSettings["FacebookDefaultImageRelativePath"];
             if (!string.IsNullOrEmpty(sedogoEvent.eventPicPreview))
             {
-                ImageUrl = "~/assets/eventPics/" + sedogoEvent.eventPicPreview;
+                ImageUrl = ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
+                                                            ImageType.EventPreview);
             }
 
             AddFacebookMetaNoEncode("og:image", MiscUtils.GetAbsoluteUrl(ImageUrl));
@@ -592,10 +594,16 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string eventVideoLink = "";
                 string eventLink = "";
                 int avatarNumber = -1;
+                int userID = 0;
+                string userGuid = string.Empty;
 
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CommentText")))
                 {
                     commentText = (string)rdr["CommentText"];
+                }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("GUID")))
+                {
+                    userGuid = rdr["GUID"].ToString();
                 }
                 if (!rdr.IsDBNull(rdr.GetOrdinal("CreatedDate")))
                 {
@@ -649,14 +657,18 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 {
                     avatarNumber = int.Parse(rdr["AvatarNumber"].ToString());
                 }
+                if (!rdr.IsDBNull(rdr.GetOrdinal("UserID")))
+                {
+                    userID = int.Parse(rdr["UserID"].ToString());
+                }
                 string gender = (string)rdr["Gender"];
                 
                 commentText = Server.HtmlEncode(commentText);
                 string postedByUsername = firstName + " " + lastName;
-                string profileImage = "./images/profile/blankProfile.jpg";
+                string profileImage;
                 if (profilePicThumbnail != "")
                 {
-                    profileImage = "./assets/profilePics/" + profilePicThumbnail;
+                    profileImage = ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail).Replace("~", ".");
                 }
                 else
                 {
@@ -718,7 +730,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     {
                         outputText = outputText + "<br/>";
                     }
-                    outputText = outputText + "<img src=\"../assets/eventPics/" + eventImagePreview + "\" ";
+                    var sedogoEvent = new SedogoEvent(string.Empty, eventID);
+                    eventImagePreview =
+                        ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
+                                                                    ImageType.EventPreview));
+                    outputText = outputText + "<img src=\"" + eventImagePreview + "\" ";
                     outputText = outputText + " /><br/>";
                 }
                 if (eventVideoLink != "")
@@ -808,7 +824,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     string profileImagePath = "./images/profile/blankProfile.jpg";
                     if (profilePicThumbnail != "")
                     {
-                        profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                        var user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                        profileImagePath = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail).Replace("~", ".");
                     }
                     else
                     {
@@ -965,7 +982,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     string profileImagePath = "./images/profile/blankProfile.jpg";
                     if (profilePicThumbnail != "")
                     {
-                        profileImagePath = "./assets/profilePics/" + profilePicThumbnail;
+                        var user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                        profileImagePath = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail).Replace("~", ".");
                     }
                     else
                     {

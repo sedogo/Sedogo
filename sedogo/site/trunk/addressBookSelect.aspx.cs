@@ -97,7 +97,7 @@ public partial class addressBookSelect : System.Web.UI.Page
 
                 if (addressBookUser.profilePicThumbnail != "")
                 {
-                    picThumbnailImage.ImageUrl = "~/assets/profilePics/" + addressBookUser.profilePicThumbnail;
+                    picThumbnailImage.ImageUrl = ImageHelper.GetRelativeImagePath(addressBookUser.userID, addressBookUser.GUID, ImageType.UserThumbnail); ;
                 }
                 else
                 {

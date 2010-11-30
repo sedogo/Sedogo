@@ -46,7 +46,7 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
 
         if (user.profilePicThumbnail != "")
         {
-            profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicPreview;
+            profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview);
         }
         else
         {

@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "site_orig", ".", "{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "trunk", ".", "{6A2C2367-803F-42B1-ACBF-33EBEA4F957D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
-		ProjectReferences = "{B5C204AF-E52E-4494-8959-D9AF656B4105}|Sedogo.DAL.dll;"
+		ProjectReferences = "{B5C204AF-E52E-4494-8959-D9AF656B4105}|Sedogo.DAL.dll;{5E398C45-A480-4546-92DA-79DD26FADB8A}|BusinessObjects.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/site"
-		Debug.AspNetCompiler.PhysicalPath = "..\site_orig\"
+		Debug.AspNetCompiler.PhysicalPath = "..\trunk\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\site\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/site"
-		Release.AspNetCompiler.PhysicalPath = "..\site_orig\"
+		Release.AspNetCompiler.PhysicalPath = "..\trunk\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\site\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
@@ -22,9 +22,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "site_orig", ".", "{6A2C2367
 		VWDPort = "2286"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "..\BusinessObjects\BusinessObjects.csproj", "{5E398C45-A480-4546-92DA-79DD26FADB8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjects", "..\..\BusinessObjects\trunk\BusinessObjects.csproj", "{5E398C45-A480-4546-92DA-79DD26FADB8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sedogo.DAL", "..\Sedogo.DAL\Sedogo.DAL.csproj", "{B5C204AF-E52E-4494-8959-D9AF656B4105}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sedogo.DAL", "..\..\Sedogo.DAL\trunk\Sedogo.DAL.csproj", "{B5C204AF-E52E-4494-8959-D9AF656B4105}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

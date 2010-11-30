@@ -130,7 +130,8 @@ public partial class invite : SedogoPage
             }
             else
             {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                var _event = new SedogoEvent(string.Empty, eventID);
+                eventPicThumbnailImage.ImageUrl = ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail));
             }
         }
     }

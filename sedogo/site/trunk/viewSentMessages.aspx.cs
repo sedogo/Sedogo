@@ -105,16 +105,16 @@ public partial class viewSentMessages : SedogoPage
             {
                 int userID = int.Parse(row["UserID"].ToString());
                 SedogoUser messageToUser = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
-                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + userID.ToString() + "\" target=\"_top\">"
+                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + userID + "\" target=\"_top\">"
                     + messageToUser.firstName + " " + messageToUser.lastName + "</a> ";
                 eventNameLabel.Text = "";
             }
             else
             {
-                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + eventUserID.ToString() + "\" target=\"_top\">"
-                    + row["FirstName"].ToString() + " " + row["LastName"].ToString() + "</a> ";
-                eventNameLabel.Text = "Goal: <a href=\"viewEvent.aspx?EID=" + row["EventID"].ToString() + "\">" 
-                    + row["EventName"].ToString() + "</a>";
+                userNameLabel.Text = "To: <a href=\"userTimeline.aspx?UID=" + eventUserID + "\" target=\"_top\">"
+                    + row["FirstName"] + " " + row["LastName"] + "</a> ";
+                eventNameLabel.Text = "Goal: <a href=\"viewEvent.aspx?EID=" + row["EventID"] + "\">" 
+                    + row["EventName"] + "</a>";
             }
 
             Image eventPicThumbnailImage = e.Item.FindControl("eventPicThumbnailImage") as Image;
@@ -125,6 +125,11 @@ public partial class viewSentMessages : SedogoPage
             }
             else
             {
+                var eventID = int.Parse(row["EventID"].ToString());
+                var sedogoEvent = new SedogoEvent(string.Empty, eventID);
+                eventPicThumbnailImage.ImageUrl =
+                    ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
+                                                                ImageType.EventThumbnail));
                 eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
             }
 

@@ -32,20 +32,24 @@ public class ImageHelper
     /// <returns>Triplet{width, height, radius}</returns>
     public static Triplet<int, int, int> GetImageSize(ImageType type)
     {
+        GlobalData gd = new GlobalData("");
+        int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
+        int previewSize = gd.GetIntegerValue("PreviewSize");
+
         Triplet<int, int, int> dimensions;
         switch (type)
         {
             case ImageType.UserPreview: //1
-                dimensions = new Triplet<int, int, int>(370, 370, 0);
+                dimensions = new Triplet<int, int, int>(previewSize, previewSize, 0);
                 break;
             case ImageType.UserThumbnail: //2
-                dimensions = new Triplet<int, int, int>(50, 50, 0);
+                dimensions = new Triplet<int, int, int>(thumbnailSize, thumbnailSize, 0);
                 break;
             case ImageType.EventPreview: //3
-                dimensions = new Triplet<int, int, int>(370, 370, 0);
+                dimensions = new Triplet<int, int, int>(previewSize, previewSize, 0);
                 break;
             case ImageType.EventThumbnail: //4
-                dimensions = new Triplet<int, int, int>(50, 50, 0);
+                dimensions = new Triplet<int, int, int>(thumbnailSize, thumbnailSize, 0);
                 break;
             default:
                 dimensions = new Triplet<int, int, int>();

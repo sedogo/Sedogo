@@ -545,7 +545,7 @@ $",
 
             emailBodyCopy.AppendLine("			<p>" + broadcastEmailContent.Replace("\n", "<br/>") + "</p>");
 
-            emailBodyCopy.AppendLine("			<p>To login to Seodgo, <a href=\"" + linkURL + "\"><u>click here</u></a>.</p>");
+            emailBodyCopy.AppendLine("			<p>To log into Sedogo, <a href=\"" + linkURL + "\"><u>click here</u></a>.</p>");
             emailBodyCopy.AppendLine("			<br /><br />");
             emailBodyCopy.AppendLine("			<p>Regards</p><a href=\"http://www.sedogo.com\" class=\"blue\"><strong>The Sedogo Team.</strong></a><br />");
             emailBodyCopy.AppendLine("			<br /><br /><br /><a href=\"http://www.sedogo.com\">");

@@ -13,8 +13,8 @@
         NavigateUrl="~/logout.aspx" ToolTip="Logout" Text="Logout" /></li>
     <li id="facebookAuthLi" runat="server"><asp:HyperLink ID="facebookAuthLink" runat="server"
         ToolTip="Facebook Authentication"><asp:Image ID="facebookLoginImg" runat="server" ImageUrl="~/images/facebook-login-button.png" /></asp:HyperLink></li>
-    <li class="login" id="loginLI" runat="server"><asp:HyperLink ID="loginLink" runat="server" 
-        NavigateUrl="~/login.aspx" ToolTip="Login" Text="Login" CssClass="modal" /></li>
+    <li class="login" id="loginLI" runat="server"><asp:HyperLink ID="bannerLoginLink" runat="server" 
+        NavigateUrl="~/login.aspx" ToolTip="Login" Text="Login" /></li>
     <li class="sign-up" id="signUpLI" runat="server"><asp:HyperLink ID="registerLink" runat="server" 
         NavigateUrl="~/register.aspx" ToolTip="Sign up" Text="Sign up" /></li>
     <li class="help"><asp:HyperLink ID="helpLink" runat="server" 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="invalidLogin.aspx.cs" Inherits="invalidLogin" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="invalidLogin.aspx.cs" Inherits="invalidLogin" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
@@ -59,7 +59,7 @@
 
                 <h2>Invalid login</h2>
                 <br />&nbsp;
-                <p>Sorry, that email address or password is not recognised. Click <a href="login.aspx" class="modal">here</a> 
+                <p>Sorry, that email address or password is not recognised. Click <a href="login.aspx">here</a> 
                     to try again.</p>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>

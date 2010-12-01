@@ -114,6 +114,7 @@ public partial class editEventPics : System.Web.UI.Page
                     break;
             }
             pageBannerBarDiv.Style.Add("background-color", timelineColour);
+            addPictureLiteral.Text = "var url = 'addGoalPicture.aspx?EID=" + eventID.ToString() + "';";
 
             PopulateImages(eventID, userID);
         }
@@ -125,6 +126,7 @@ public partial class editEventPics : System.Web.UI.Page
     private void PopulateImages(int eventID, int userID)
     {
         DateTime loopDate = DateTime.MinValue;
+        int itemCount = 0;
 
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
@@ -141,6 +143,8 @@ public partial class editEventPics : System.Web.UI.Page
             da.Fill(ds);
             imagesRepeater.DataSource = ds;
             imagesRepeater.DataBind();
+
+            itemCount = imagesRepeater.Items.Count;
         }
         catch (Exception ex)
         {
@@ -149,6 +153,15 @@ public partial class editEventPics : System.Web.UI.Page
         finally
         {
             conn.Close();
+        }
+
+        if (itemCount == 0)
+        {
+            noPicsRow.Visible = true;
+        }
+        else
+        {
+            noPicsRow.Visible = false;
         }
     }
 

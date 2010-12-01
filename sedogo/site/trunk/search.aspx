@@ -230,17 +230,17 @@
     function viewUserTimeline(eventUserID)
     {
         //location.href = "userTimeline.aspx?UID=" + eventUserID;
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }
     function doSendMessage(srhUserID)
     {        
         //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }
     function doSendMessage(srhUserID)
     {
         //openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }
     </script>
 </head>

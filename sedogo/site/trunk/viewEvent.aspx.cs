@@ -433,6 +433,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 loginRegisterPanel.Visible = true;
 
                 loginLink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
+
+                HyperLink bannerLoginLink = FindControl("ctl00").FindControl("bannerLogin").FindControl("bannerLoginLink") as HyperLink;
+                bannerLoginLink.NavigateUrl = "~/login.aspx?EID=" + eventID.ToString();
             }
 
             SedogoUser eventOwner = new SedogoUser("", sedogoEvent.userID);

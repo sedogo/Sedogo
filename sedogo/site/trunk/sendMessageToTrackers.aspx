@@ -75,6 +75,7 @@
                     CaptchaImage-EnableCaptchaAudio="false" Display="Dynamic"
                     CaptchaImage-TextChars="LettersAndNumbers"
                     CaptchaImage-TextColor="Green"
+                    CaptchaTextBoxLabel="Enter the code and then click the Send button"
                 >
                 </telerik:RadCaptcha>
 

@@ -64,7 +64,7 @@
                     <p>you can now log in using your email address
                     and the password you entered when you signed up.</p>
                         
-                    <a href="../login.aspx" class="modal">Click here to go to the log in page</a>
+                    <a href="../login.aspx">Click here to go to the log in page</a>
 
 				</div>
 			</div>

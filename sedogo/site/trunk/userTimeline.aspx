@@ -236,7 +236,7 @@
 						startDate: sixMonthsAgo,
 						endDate: sixMonthsAgo,
                    		opacity: 50,
-                   		endLabel: "<asp:Literal id="timelineUserNameLiteral" runat="server" />'s timeline",
+                   		endLabel: "<asp:Literal id="timelineUserNameLiteral" runat="server" />",
                    		// theme:      theme,
                    		cssClass: 't-highlight2'
 					})
@@ -309,7 +309,10 @@
 	{
 	    document.getElementById ('divPSummary').style.display='none';
 	} 
-		
+    function doSendMessage(srhUserID)
+    {        
+        openModal("sendUserMessage.aspx?EID=-1&UID=" + srhUserID);
+    }    
     </script>
 
     <script type="text/JavaScript">

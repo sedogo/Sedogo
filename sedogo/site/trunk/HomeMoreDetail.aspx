@@ -218,7 +218,7 @@
     }
     function loginRedirect(eventID)
     {
-        openModal("login.aspx?EID=" + eventID);
+        location.href = "login.aspx?EID=" + eventID;
     }
     function openEvent(eventID) 
     {
@@ -226,7 +226,7 @@
     }
     function doAddEvent()
     {
-        openModal("login.aspx");
+        location.href = "login.aspx";
     }    
     </script>
 

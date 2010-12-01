@@ -6,12 +6,12 @@
     <script language="JavaScript" type="text/javascript">
     function loginRedirect(eventID)
     {
-        openModal("/login.aspx?EID=" + eventID);
+        window.location = "/login.aspx?EID=" + eventID;
     }
     function doLogin()
     {
         var form = document.forms[0];
-        openModal("/login.aspx?Redirect=AddEvent&Details=" + form.bannerAddFindControl_what.value);
+        window.location = "/login.aspx?Redirect=AddEvent&Details=" + form.bannerAddFindControl_what.value;
     }
     function doAddEvent()
     {

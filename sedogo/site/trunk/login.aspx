@@ -1,5 +1,12 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="login" %>
 <%@ OutputCache Location="None" VaryByParam="None" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="ComponentArt" Namespace="ComponentArt.Web.UI" Assembly="ComponentArt.Web.UI" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -48,13 +55,19 @@ function preSaveClick()
 </head>
 <body>
     <form id="form1" runat="server" target="_top">
+    <asp:ScriptManager ID="scriptManager" runat="server">
+    </asp:ScriptManager>
     <div>
-    
-        <asp:ValidationSummary runat="server" ID="validationSummary" 
-            ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
-            HeaderText="Please review the following errors:" />
-    
-	    <div id="modal">
+        <div id="container">
+	    <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
+	    <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            
+            <div class="three-col">
+
+            <asp:ValidationSummary runat="server" ID="validationSummary" 
+                ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+                HeaderText="Please review the following errors:" />
+
             <h1>Login</h1>
             <p>Enter your email address and password below to log in to your sedogo account</p>
              <br />
@@ -92,23 +105,34 @@ function preSaveClick()
                 </tr>
              </table>
 
-		</div>
-    
-        <div class="buttons">
+            <p>&nbsp;</p>
+            
             <asp:LinkButton 
                 ID="loginButton" runat="server" ToolTip="Log in" Text="Log in" 
                 OnClick="loginButton_Click" CssClass="button-lrg" OnClientClick="javascript:preSaveClick()" />
+                
+            <p><br />If you don't have a Sedogo account and wish to 
+                register, <a href="register.aspx" target="_top">please click here</a></p>
+                <br />
+		    <p><asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
+                    OnClick="forgotPasswordButton_click"
+                    CausesValidation="false" CssClass="underline-bold" /></p>
+		    <p><asp:LinkButton ID="lostActivationButton" runat="server" Text="Lost your activation email?" 
+                    OnClick="lostActivationButton_click"
+                    CausesValidation="false" CssClass="underline-bold" /></p>
+
+            </div>
+            
+            <Sedogo:FooterControl ID="footerControl" runat="server" />
         </div>
-    
-        <p><br />If you don't have a Sedogo account and wish to 
-            register, <a href="register.aspx" target="_top">please click here</a></p>
-            <br />
-		<p><asp:LinkButton ID="forgotPasswordButton" runat="server" Text="Forgotten password?" 
-                OnClick="forgotPasswordButton_click"
-                CausesValidation="false" CssClass="underline-bold" /></p>
-		<p><asp:LinkButton ID="lostActivationButton" runat="server" Text="Lost your activation email?" 
-                OnClick="lostActivationButton_click"
-                CausesValidation="false" CssClass="underline-bold" /></p>
+        <div id="modal-container">
+            <a href="#" class="close-modal">
+                <img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background">
+        </div>
+
     </div>
     </form>
 

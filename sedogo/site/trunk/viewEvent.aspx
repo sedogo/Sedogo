@@ -360,7 +360,7 @@
                                     <p>
                                         You must be logged in to view the full details or to add comments to this event.<br />
                                         <asp:HyperLink ID="loginLink" NavigateUrl="~/login.aspx" 
-                                        runat="server" Text="Click here to login" CssClass="modal" /><br />
+                                        runat="server" Text="Click here to login" /><br />
                                         or <asp:HyperLink ID="registerLink" NavigateUrl="~/register.aspx" 
                                         runat="server" Text="click here to register" /> if you are a new user</p>
                                 </div>
@@ -395,13 +395,13 @@
                                         </div>
                                     </div>
                                     <div ID="joinThisEventDiv" runat="server">
-                                        <asp:Image ID="joinThisEventImage" runat="server" ImageUrl="~/images/goalsfollowed.gif" />
+                                        <asp:Image ID="joinThisEventImage" runat="server" ImageUrl="~/images/requests.gif" />
                                         <asp:LinkButton ID="joinThisEventLink" runat="server" Text="Join" OnClick="joinThisEventLink_click"
                                             CssClass="underline-bold" /><br />
                                         &nbsp;
                                     </div>
                                     <div ID="trackThisEventDiv" runat="server">
-                                        <asp:Image ID="trackThisEventImage" runat="server" ImageUrl="~/images/requests.gif" />
+                                        <asp:Image ID="trackThisEventImage" runat="server" ImageUrl="~/images/goalsfollowed.gif" />
                                         <asp:LinkButton ID="trackThisEventLink" runat="server" Text="Follow" OnClick="trackThisEventLink_click"
                                             CssClass="underline-bold" /><br />
                                         &nbsp;

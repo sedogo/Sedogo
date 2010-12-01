@@ -60,7 +60,7 @@
                 <h2>Forgot your password</h2>
                 <br />&nbsp;
                 <p>Sorry, that email address isn't registered with Sedogo, would you like to 
-                    <a href="register.aspx">register now</a> or <a href="login.aspx" class="modal">login</a> with a different 
+                    <a href="register.aspx">register now</a> or <a href="login.aspx">login</a> with a different 
                     email address and password.</p>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>

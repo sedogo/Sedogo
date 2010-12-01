@@ -40,11 +40,11 @@
 	<script type="text/javascript" src="js/main.js"></script>
 	
 <script language="JavaScript" type="text/javascript">
-    function preSaveClick()
-    {
-        document.forms[0].target = "_top";
-    }
-</script>
+function preSaveClick()
+{
+    document.forms[0].target = "_top";
+}
+</script> 
 	
 </head>
 <body>
@@ -79,9 +79,11 @@
                                 ErrorMessage="The code entered is not valid"
                                 CaptchaImage-EnableCaptchaAudio="false" Display="Dynamic"
                                 CaptchaImage-TextChars="LettersAndNumbers"
-                                CaptchaImage-TextColor="Green"
+                                CaptchaImage-TextColor="Green" 
+                                CaptchaTextBoxLabel="Enter the code and then click the Send button"
                             >
                             </telerik:RadCaptcha>
+                            <p>then click the Send button</p>
                         </li>
                     </ol>
                 </fieldset>

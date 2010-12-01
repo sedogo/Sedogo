@@ -118,24 +118,24 @@ public partial class _default : System.Web.UI.Page
             {
                 if ((int)Session["EventInviteUserID"] > 0)
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+                    Response.Redirect("login.aspx");
                 }
                 else
                 {
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"register.aspx\");", true);
+                    Response.Redirect("register.aspx");
                 }
             }
             if ((string)Session["EventID"] != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+                Response.Redirect("login.aspx");
             }
             if ((string)Session["ReplyID"] != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+                Response.Redirect("login.aspx");
             }
             if ((string)Session["DefaultRedirect"] != "")
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "openModal(\"login.aspx\");", true);
+                Response.Redirect("login.aspx");
             }
 
             //DateTime timelineStartDate = DateTime.Now.AddMonths(8);

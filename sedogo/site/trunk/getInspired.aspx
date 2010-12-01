@@ -112,6 +112,7 @@
 					
 <a target="_blank" class="blue sedogorollover" href="http://www.actionforchildren.org.uk/events.aspx">Action for Children</a>
 | <a target="_blank" class="blue sedogorollover" href="http://www.ndcschallenges.org.uk/index.html">NDCS Challenges</a>
+| <a target="_blank" class="blue sedogorollover" href="http://www.leapanywhere.com">Leap Anywhere</a>
 | <a target="_blank" class="blue sedogorollover" href="http://www.ageuk.org.uk/get-involved/volunteer">Age UK</a>
 | <a target="_blank" class="blue sedogorollover" href="http://www.do-it.org.uk/wanttovolunteer">Do-it.org</a>
 | <a target="_blank" class="blue sedogorollover" href="http://www.volunteering.org.uk/IWantToVolunteer">Volunteering England</a>

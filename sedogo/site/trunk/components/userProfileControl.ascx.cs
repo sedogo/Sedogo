@@ -124,9 +124,8 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             registerLink.NavigateUrl = "~/register.aspx";
 
             messageLink.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
-            messageLink.CssClass = "modal";
             usersProfileNameLabel.NavigateUrl = "~/login.aspx?UID=" + userID.ToString();
-            usersProfileNameLabel.CssClass = "blue modal";
+            usersProfileNameLabel.CssClass = "blue";
         }
 
         userProfilePopupGoalsLabel.Text = SedogoEvent.GetEventCountNotAchieved(userID).ToString(); ;

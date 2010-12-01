@@ -124,7 +124,7 @@
                                 
                                 <table width="80%" border="0" cellspacing="2" cellpadding="0" style="margin:15px 0">
                                     <tr>
-                                        <td></td>
+                                        <td><p>Image</p></td>
                                         <td><p>Caption</p></td>
                                     </tr>
                                 <asp:Repeater ID="imagesRepeater" runat="server" OnItemDataBound="imagesRepeater_ItemDataBound"
@@ -145,6 +145,10 @@
 
                                     </ItemTemplate>
                                 </asp:Repeater>
+                                    <tr id="noPicsRow" runat="server">
+                                        <td colspan="2">&nbsp;<br />&nbsp;You have no pictures in this goal<br />
+                                        <a href="javascript:addPicture()">Click here</a> to add a picture<br />&nbsp;</td>
+                                    </tr>
                                 </table>
                                 
                             </td>

@@ -505,7 +505,18 @@ public partial class sidebar : System.Web.UI.UserControl
     /// </summary>
     private void CreateOtherEvents()
     {
-        otherPanel.Visible = IsSimilarVisible;
+
+        int uid;
+        if (IsSimilarVisible && Session["loggedInUserID"] != null && int.TryParse(Session["loggedInUserID"].ToString(), out uid) && uid > 0)
+        {
+            var currentEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), EventId);
+            otherPanel.Visible = IsSimilarVisible && userID != currentEvent.userID;
+        }
+        else
+        {
+            otherPanel.Visible = IsSimilarVisible;
+        } 
+
         if (!IsSimilarVisible)
         {
             return;

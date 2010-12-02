@@ -1,0 +1,39 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main"
+    MasterPageFile="Master.master" %>
+
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="Timelines" Src="~/components/Timelines.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<asp:Content runat="server" ContentPlaceHolderID="title">
+    <asp:ContentPlaceHolder runat="server" ID="title">
+        Create your future and connect with others to make it happen</asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="meta">
+    <asp:ContentPlaceHolder runat="server" ID="meta">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="head">
+    <asp:ContentPlaceHolder runat="server" ID="head">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="header">
+    <asp:ContentPlaceHolder runat="server" ID="header">
+    </asp:ContentPlaceHolder>
+    <Sedogo:Timelines runat="server" ID="timelines" />
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="content">
+    <Sedogo:SidebarControl runat="server" ID="sidebarControl" />
+    <asp:ContentPlaceHolder runat="server" ID="content">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="footer">
+    <asp:ContentPlaceHolder runat="server" ID="footer">
+    </asp:ContentPlaceHolder>
+</asp:Content>
+<asp:Content runat="server" ContentPlaceHolderID="signIn">
+    <asp:ContentPlaceHolder runat="server" ID="signIn">
+        <Sedogo:BannerLoginControl id="BannerLoginControl1" runat="server" />
+        <Sedogo:BannerAddFindControl id="bannerAddFindControl" runat="server" />
+    </asp:ContentPlaceHolder>
+</asp:Content>

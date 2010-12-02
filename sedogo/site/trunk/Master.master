@@ -1,0 +1,115 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="Master" %>
+
+<%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="GoogleAnalyticsControl" Src="~/components/googleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Sedogo" TagName="FooterControl" Src="~/components/footerControl.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <meta content="IE=7" http-equiv="X-UA-Compatible" />
+    <meta name="google-site-verification" content="9MltlA8eLNS_PsMbFJZM0zWmAAIKbVkimMAhAsczoLg" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="content-script-type" content="text/javascript" />
+    <meta http-equiv="content-style-type" content="text/css" />
+    <meta http-equiv="expires" content="never" />
+    <title>
+        <asp:ContentPlaceHolder runat="server" ID="title">
+            Create your future and connect with others to make it happen</asp:ContentPlaceHolder>
+    </title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="copyright" content="" />
+    <meta name="robots" content="" />
+    <meta name="MSSmartTagsPreventParsing" content="true" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <meta http-equiv="Cleartype" content="Cleartype" />
+    <asp:ContentPlaceHolder runat="server" ID="meta"></asp:ContentPlaceHolder>
+    <link id="Link1" runat="server" rel="stylesheet" href="~/css/main.css" />
+    <link id="Link2" runat="server" rel="stylesheet" href="~/css/style.css" />
+    <link id="Link3" runat="server" href="~/css/cadialog.css" rel="stylesheet" />
+    <!--[if gte IE 6]>
+		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
+	<![endif]-->
+    <!--[if IE]>
+		<link rel="stylesheet" href="css/main_ie.css" />
+	<![endif]-->
+    <link href="css/flexcrollstyles.css" rel="stylesheet" />
+    <link href="css/tutorsty.css" rel="stylesheet" />
+    <%--<script type="text/javascript" src='<%# this.ResolveUrl("~/js/DD_roundies_0.0.2a-min.js")%>'></script>
+    <script type="text/javascript" src="js/dom-drag.js"></script>
+    <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+    <script type="text/javascript" src="js/ui.dialog.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.livequery.js"></script>
+    <script type="text/javascript" src="js/jquery.corner.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="utils/validationFunctions.js"></script>
+    <script src="js/timeline/timeline_js/timeline-api.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/examples_modified.js"></script>--%>
+    <script type="text/javascript">
+        Timeline_ajax_url = "js/timeline/timeline_ajax/simile-ajax-api.js";
+        Timeline_urlPrefix = 'js/timeline/timeline_js/';
+        Timeline_parameters = 'bundle=true';
+    </script>
+    
+    <asp:ContentPlaceHolder runat="server" ID="head">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="defaultForm" runat="server">
+    <asp:ScriptManager ID="scriptManager" runat="server">
+        <CompositeScript>
+            <Scripts>
+                <asp:ScriptReference Path="~/js/DD_roundies_0.0.2a-min.js" />
+                <asp:ScriptReference Path="~/js/dom-drag.js" />
+                <asp:ScriptReference Path="~/js/jquery-1.3.2.min.js" />
+                <asp:ScriptReference Path="~/js/jquery-ui-1.7.2.custom.min.js" />
+                <asp:ScriptReference Path="~/js/ui.dialog.js" />
+                <asp:ScriptReference Path="~/js/jquery.cookie.js" />
+                <asp:ScriptReference Path="~/js/jquery.livequery.js" />
+                <asp:ScriptReference Path="~/js/jquery.corner.js" />
+                <asp:ScriptReference Path="~/js/main.js" />
+                <asp:ScriptReference Path="~/utils/validationFunctions.js" />
+                <asp:ScriptReference Path="~/js/timeline/timeline_js/timeline-api.js" />
+                <asp:ScriptReference Path="~/js/examples_modified.js" />
+            </Scripts>
+        </CompositeScript>
+    </asp:ScriptManager>
+    <div>
+        <div id="container">
+            <asp:ContentPlaceHolder runat="server" ID="signIn">
+                <Sedogo:BannerLoginControl ID="BannerLoginControl1" runat="server" />
+                <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
+            </asp:ContentPlaceHolder>
+            <asp:ContentPlaceHolder runat="server" ID="header"></asp:ContentPlaceHolder>
+            <div class="controls" id="controls">
+                <a href="#" class="close-controls">
+                    <img src="images/close-controls.gif" title="Close controls" alt="Close controls" /></a>
+            </div>
+            <div id="other-content">
+                <asp:ContentPlaceHolder runat="server" ID="content">
+                    <Sedogo:SidebarControl ID="sidebarControl" runat="server" />
+                </asp:ContentPlaceHolder>
+            </div>
+            <Sedogo:FooterControl ID="footerControl" runat="server" />
+        </div>
+        <div id="modal-container">
+            <a href="#" class="close-modal">
+                <img src="images/close-modal.gif" title="Close window" alt="Close window" /></a>
+            <iframe frameborder="0"></iframe>
+        </div>
+        <div id="modal-background">
+        </div>
+        <asp:ContentPlaceHolder runat="server" ID="footer">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <Sedogo:GoogleAnalyticsControl ID="googleAnalyticsControl" runat="server" />
+</body>
+</html>

@@ -51,6 +51,18 @@ public class ImageHelper
             case ImageType.EventThumbnail: //4
                 dimensions = new Triplet<int, int, int>(thumbnailSize, thumbnailSize, 0);
                 break;
+            case ImageType.EventCommentPreview: //5
+                dimensions = new Triplet<int, int, int>(previewSize, previewSize, 0);
+                break;
+            case ImageType.EventCommentThumbnail: //6
+                dimensions = new Triplet<int, int, int>(thumbnailSize, thumbnailSize, 0);
+                break;
+            case ImageType.EventPicturePreview: //7
+                dimensions = new Triplet<int, int, int>(previewSize, previewSize, 0);
+                break;
+            case ImageType.EventPictureThumbnail: //8
+                dimensions = new Triplet<int, int, int>(thumbnailSize, thumbnailSize, 0);
+                break;
             default:
                 dimensions = new Triplet<int, int, int>();
                 break;
@@ -72,6 +84,10 @@ public class ImageHelper
                 return "profilePics";
             case ImageType.EventPreview:
             case ImageType.EventThumbnail:
+            case ImageType.EventCommentPreview:
+            case ImageType.EventCommentThumbnail:
+            case ImageType.EventPicturePreview:
+            case ImageType.EventPictureThumbnail:
                 return "eventPics";
             default:
                 return "default";

@@ -2,7 +2,7 @@
     Inherits="components_userProfileControl" %>
 <script runat="server">private void OnEventsDataBound(object sender, DataListItemEventArgs e)
                        {
-                           if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                           if (e.Item.DataItem != null && e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                            {
                                var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
                                if (eventPic != null)

@@ -736,7 +736,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     var sedogoEvent = new SedogoEvent(string.Empty, eventID);
                     eventImagePreview =
                         ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
-                                                                    ImageType.EventPreview));
+                                                                    ImageType.EventCommentPreview));
                     outputText = outputText + "<img src=\"" + eventImagePreview + "\" ";
                     outputText = outputText + " /><br/>";
                 }

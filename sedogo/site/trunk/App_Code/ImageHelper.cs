@@ -97,7 +97,7 @@ public class ImageHelper
         var virtPath = "~/" + Path.Combine(Path.Combine(Path.Combine("assets", GetSubdir(imageType)), guid.Substring(0, 2)), guid.Substring(2, 2)).Replace("\\", "/");
         var imageSrc = dimensions.IsEmpty()
                            ? string.Empty
-                           : GetRelativeImagePath(id, physPath, virtPath, dimensions.First, dimensions.Second, dimensions.Third, overrideImage, ref resultWidth, ref resultHeight);
+                           : GetRelativeImagePath(id, imageType, physPath, virtPath, dimensions.First, dimensions.Second, dimensions.Third, overrideImage, ref resultWidth, ref resultHeight);
         return imageSrc;
     }
 
@@ -129,16 +129,17 @@ public class ImageHelper
     }
 
 
-    private static string GetRelativeImagePath(int id, string physPath, string virtPath, int width, int height, bool overrideImage)
+    private static string GetRelativeImagePath(int id, ImageType imageType, string physPath, string virtPath, int width, int height, bool overrideImage)
     {
         int w = 1, h = 1;
-        return GetRelativeImagePath(id, physPath, virtPath, width, height, 0, overrideImage, ref w, ref h);
+        return GetRelativeImagePath(id, imageType, physPath, virtPath, width, height, 0, overrideImage, ref w, ref h);
     }
 
     /// <summary>
     /// Gets the image SRC.
     /// </summary>
     /// <param name="id">The id.</param>
+    /// <param name="imageType">Type of the image.</param>
     /// <param name="physPath">The subdir.</param>
     /// <param name="virtPath">The virt path.</param>
     /// <param name="width">The width.</param>
@@ -146,12 +147,12 @@ public class ImageHelper
     /// <param name="radius">The radius.</param>
     /// <param name="overrideImage">if set to <c>true</c> [override image].</param>
     /// <returns></returns>
-    private static string GetRelativeImagePath(int id, string physPath, string virtPath, int width, int height, int radius, bool overrideImage)
+    private static string GetRelativeImagePath(int id, ImageType imageType, string physPath, string virtPath, int width, int height, int radius, bool overrideImage)
     {
         try
         {
             int w = 1, h = 1;
-            return GetRelativeImagePath(id, physPath, virtPath, width, height, radius, overrideImage, ref w, ref h);
+            return GetRelativeImagePath(id, imageType, physPath, virtPath, width, height, radius, overrideImage, ref w, ref h);
         }
         catch (Exception ex)
         {
@@ -269,7 +270,7 @@ public class ImageHelper
     /// <param name="resultWidth">width of the resized image</param>
     /// <param name="resultHeight">Height of the resized image</param>
     /// <returns></returns>
-    private static string GetRelativeImagePath(int id, string physPath, string virtPath, int width, int height, int radius, bool overrideImage, ref int resultWidth, ref int resultHeight)
+    private static string GetRelativeImagePath(int id, ImageType imageType, string physPath, string virtPath, int width, int height, int radius, bool overrideImage, ref int resultWidth, ref int resultHeight)
     {
         HttpServerUtility server = HttpContext.Current.Server;
         DirectoryInfo dir = new DirectoryInfo(physPath);
@@ -307,7 +308,7 @@ public class ImageHelper
         if (image == null)
         {
             var repository = new ImageRepository();
-            var imagePath = repository.GetImagePath(id);
+            var imagePath = repository.GetImagePath(id, imageType);
             if (!string.IsNullOrEmpty(imagePath))
             {
                 imagePath = !Path.IsPathRooted(physPath)

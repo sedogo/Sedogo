@@ -422,7 +422,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 }
                 else
                 {
-                    writer.WriteAttributeString("image", ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail)));
+                    // PD 3/12/10 - Removed this because goal image was being repeated on all comments
+                    // instead of showing correct image
+                    writer.WriteAttributeString("image", "assets/eventPics/" + eventPicThumbnail);
+                    //writer.WriteAttributeString("image", ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail)));
                 }
                 //*
 

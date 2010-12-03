@@ -118,12 +118,12 @@ public partial class eventPicDetails : System.Web.UI.Page
             }
             pageBannerBarDiv.Style.Add("background-color", timelineColour);
 
-
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
-
-            SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
-
-            eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventPreview);
+            // PD 3/12/10 - Removed this because goal image was being repeated on all comments
+            // instead of showing correct image
+            eventImage.ImageUrl = "assets/eventPics/" + eventPic.eventImagePreview;
+            //SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
+            //eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventPreview);
 
             GlobalData gd = new GlobalData("");
             string imageFile = gd.GetStringValue("FileStoreFolder") + @"\eventPics\" + eventPic.eventImagePreview;

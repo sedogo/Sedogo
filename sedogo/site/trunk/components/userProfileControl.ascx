@@ -1,16 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="userProfileControl.ascx.cs"
     Inherits="components_userProfileControl" %>
-<script runat="server">private void OnEventsDataBound(object sender, DataListItemEventArgs e)
-                       {
-                           if (e.Item.DataItem != null && e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                           {
-                               var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
-                               if (eventPic != null)
-                               {
-                                   eventPic.Src = ImageHelper.GetRelativeImagePath((int)DataBinder.Eval(e.Item.DataItem, "EventID"), DataBinder.Eval(e.Item.DataItem, "EventGUID").ToString(), ImageType.EventThumbnail);
-                               }
-                           }
-                       }</script>
 
 <script type="text/javascript">	
     function ShowHideDiv(divId)
@@ -178,7 +167,7 @@
                                                         <%--<img width="25" height="25" alt="" src="assets/profilePics/<%# DataBinder.Eval(Container.DataItem, "ProfilePicThumbnail") %>"
                                                             onerror="this.src='images/profile/blankProfile.jpg'" /><br />--%>
                                                         <span class="blue" style="line-height: 22px;">
-                                                            <a href="viewEvent.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>">
+                                                            <a href='viewEvent.aspx?EID=<%# DataBinder.Eval(Container.DataItem, "EventID") %>'>
                                                             <%# DataBinder.Eval(Container.DataItem, "EventName")%></a>
                                                         </span>
                                                         <br />
@@ -196,7 +185,7 @@
                                 </div>
                                 <img  runat="server" id="eventPic"
                                     alt="" height="33" width="33" style="cursor: pointer; padding-bottom: 6px; padding-right: 6px;"
-                                    onerror="this.src='images/grayRect.jpg'" onmouseover='ShowHideDiv(<%# DataBinder.Eval(Container.DataItem, "EventID") %>)' /></div>
+                                    onerror="this.src='images/grayRect.jpg'" /></div>
                         </ItemTemplate>
                     </asp:DataList>
                 </div>

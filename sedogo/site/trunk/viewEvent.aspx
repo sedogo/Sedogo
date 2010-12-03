@@ -127,21 +127,6 @@
         
         }
     </script>
-  <script runat="server">private void OnImageDataBound(object sender, DataListItemEventArgs e)
-                         {
-                             if(e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
-                             {
-                                 var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
-                                 if (eventPic != null)
-                                 {
-                                     var eventID = int.Parse(DataBinder.Eval(e.Item.DataItem, "EventID").ToString());
-                                     var _event = new SedogoEvent(string.Empty, eventID);
-                                     eventPic.Src =
-                                         ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID,
-                                                                                     ImageType.EventThumbnail));
-                                 }
-                             }
-                         }</script>
 
 </head>
 <body onload="resetFlash()">

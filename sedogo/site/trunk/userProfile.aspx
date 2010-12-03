@@ -48,7 +48,6 @@
 	<script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/validationFunctions.js"></script>
     
-    
 	<script src="http://static.simile.mit.edu/ajax/api-2.2.0/simile-ajax-api.js" type="text/javascript"></script>
 </head>
 <body>

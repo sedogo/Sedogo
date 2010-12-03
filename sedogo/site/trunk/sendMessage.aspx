@@ -83,7 +83,6 @@ function preSaveClick()
                                 CaptchaTextBoxLabel="Enter the code and then click the Send button"
                             >
                             </telerik:RadCaptcha>
-                            <p>then click the Send button</p>
                         </li>
                     </ol>
                 </fieldset>

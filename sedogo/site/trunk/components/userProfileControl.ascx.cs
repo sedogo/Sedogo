@@ -163,4 +163,19 @@ public partial class components_userProfileControl : System.Web.UI.UserControl
             dlMember.DataBind();
         }
     }
+
+    protected void OnEventsDataBound(object sender, DataListItemEventArgs e)
+    {
+        if (e.Item.DataItem != null && e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            int eventID = (int)DataBinder.Eval(e.Item.DataItem, "EventID");
+
+            var eventPic = e.Item.FindControl("eventPic") as HtmlImage;
+            if (eventPic != null)
+            {
+                eventPic.Src = ImageHelper.GetRelativeImagePath(eventID, DataBinder.Eval(e.Item.DataItem, "EventGUID").ToString(), ImageType.EventThumbnail);
+            }
+            eventPic.Attributes.Add("onmouseover", "ShowHideDiv('" + eventID.ToString() + "')");
+        }
+    }
 }

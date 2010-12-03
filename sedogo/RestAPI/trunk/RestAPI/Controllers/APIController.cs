@@ -500,6 +500,18 @@ namespace RestAPI.Controllers
                                     updated = e.LastUpdatedDate,
                                     read = (bool?) null
                                 }).Union
+                    (from e in _db.Events
+                     where !e.Deleted && !e.PrivateEvent && !e.EventAchieved
+                     select new
+                                {
+                                    id = e.EventID,
+                                    eventId = (int?) e.EventID,
+                                    user = e.UserID,
+                                    text = e.EventDescription,
+                                    created = e.CreatedDate,
+                                    updated = e.LastUpdatedDate,
+                                    read = (bool?) null
+                                }).Union
                     (from te in _db.TrackedEvents
                      where te.Event.UserID == userId && !te.Event.Deleted && te.JoinPending
                      select new

@@ -128,6 +128,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             if (action == "DeleteComment")
             {
                 SedogoEventComment comment = new SedogoEventComment(loggedInUserName, eventCommentID);
+                var _event = new SedogoEvent(string.Empty, eventID);
+                ImageHelper.DeleteImage(eventCommentID, _event.eventGUID, ImageType.EventCommentPreview);
                 comment.Delete();
             }
 
@@ -671,10 +673,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string profileImage;
                 if (profilePicThumbnail != "")
                 {
-                    profileImage = "assets/profilePics/" + profilePicThumbnail;
+                    //profileImage = "assets/profilePics/" + profilePicThumbnail;
                     // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                     // instead of showing comment image
-                    //profileImage = ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail).Replace("~", ".");
+                    profileImage = ResolveUrl(ImageHelper.GetRelativeImagePath(userID, userGuid, ImageType.UserThumbnail));
                 }
                 else
                 {
@@ -737,10 +739,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                         outputText = outputText + "<br/>";
                     }
                     var sedogoEvent = new SedogoEvent(string.Empty, eventID);
-                    eventImagePreview = "/assets/eventPics/" + eventImagePreview;
-                    //eventImagePreview =
-                    //    ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
-                    //                                                ImageType.EventCommentPreview));
+                    //eventImagePreview = "/assets/eventPics/" + eventImagePreview;
+                    eventImagePreview =
+                        ResolveUrl(ImageHelper.GetRelativeImagePath(eventCommentID, sedogoEvent.eventGUID, ImageType.EventCommentPreview));
                     outputText = outputText + "<img src=\"" + eventImagePreview + "\" ";
                     outputText = outputText + " /><br/>";
                 }
@@ -1409,12 +1410,11 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 int eventID = int.Parse(DataBinder.Eval(e.Item.DataItem, "EventID").ToString());
                 string imageThumbnail = (string)DataBinder.Eval(e.Item.DataItem, "ImageThumbnail");
                 var _event = new SedogoEvent(string.Empty, eventID);
-                eventPic.Src = "assets/eventPics/" + imageThumbnail;
+                //eventPic.Src = "assets/eventPics/" + imageThumbnail;
                 // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                 // instead of showing correct image
-                //eventPic.Src =
-                //    ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID,
-                //                                                ImageType.EventThumbnail));
+                int eventPictureID = (int)DataBinder.Eval(e.Item.DataItem, "EventPictureID");
+                eventPic.Src = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, _event.eventGUID, ImageType.EventPictureThumbnail));
             }
         }
     }

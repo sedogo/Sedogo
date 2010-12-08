@@ -123,7 +123,10 @@ public partial class eventJoinRequests : SedogoPage
             }
             else
             {
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                //eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                eventPicThumbnailImage.ImageUrl =
+                    ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
+                                                                ImageType.EventThumbnail));
             }
         }
     }

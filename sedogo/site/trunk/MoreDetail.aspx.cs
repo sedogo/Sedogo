@@ -243,16 +243,11 @@ public partial class MoreDetail : SedogoPage
                                     ) as FollowerCount  
                                     from events 
                                     inner join users on users.userid=events.userid   
+                                    INNER JOIN FREETEXTTABLE([Events], EventName, '" + searchWord + @"') AS KEY_TBL ON events.EventID = KEY_TBL.[KEY] 
                                     where 
-                                    ( 
-	                                    ( 
-		                                    RangeStartDate <= getdate() and RangeEndDate >= getdate() 
-	                                    )  
-	                                    or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) 
-                                    ) and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                      and FREETEXT(EventName, '" +
-                        searchWord + @"') 
-                                    ORDER BY events.CreatedDate DESC ";
+                                        convert(datetime,convert(varchar(11),events.LastUpdatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102))
+                                        and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0 
+                                    ORDER BY KEY_TBL.RANK DESC ";
                 }
                 break;
             case "other":
@@ -278,13 +273,9 @@ public partial class MoreDetail : SedogoPage
                                     from events 
                                     inner join users on users.userid=events.userid   
                                     where 
-                                    ( 
-	                                    ( 
-		                                    RangeStartDate <= getdate() and RangeEndDate >= getdate() 
-	                                    )  
-	                                    or convert(varchar(11),StartDate,103) = convert(varchar(11),getdate(),103) 
-                                    ) and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                      and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
+                                        convert(datetime,convert(varchar(11),events.LastUpdatedDate,102)) = convert(datetime,convert(varchar(11),getdate(),102))
+                                        and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0
+                                        and events.UserId IN (SELECT UserID FROM Events WHERE EventId = " + eId + @")
                                     ORDER BY events.CreatedDate DESC ";
                 break;
         }
@@ -419,15 +410,14 @@ public partial class MoreDetail : SedogoPage
 		                                    and T.showontimeline=0 
                                     ) as FollowerCount  
                                     from events 
-                                    inner join users on users.userid=events.userid   
+                                    inner join users on users.userid=events.userid 
+                                    INNER JOIN FREETEXTTABLE([Events], EventName, '" + searchWord + @"') AS KEY_TBL ON events.EventID = KEY_TBL.[KEY]   
                                     where 
                                     ( 
                                         events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())- 7,0) 
                                         and events.LastUpdatedDate <= dateadd(hh,-(datepart(hh,getdate())+1),getdate()) 
                                     )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                        and FREETEXT(EventName, '" +
-                            searchWord + @"') 
-                                    ORDER BY events.CreatedDate DESC ";
+                                    ORDER BY KEY_TBL.RANK DESC";
                     }
                     break;
                 case "other":
@@ -585,15 +575,14 @@ public partial class MoreDetail : SedogoPage
 		                                    and T.showontimeline=0 
                                     ) as FollowerCount  
                                     from events 
-                                    inner join users on users.userid=events.userid   
+                                    inner join users on users.userid=events.userid 
+                                    INNER JOIN FREETEXTTABLE([Events], EventName, '" + searchWord + @"') AS KEY_TBL ON events.EventID = KEY_TBL.[KEY]     
                                     where 
                                     ( 
                                         events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-14,0) 
                                         and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-7,0) 
-                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                        and FREETEXT(EventName, '" +
-                            searchWord + @"') 
-                                    ORDER BY events.CreatedDate DESC ";
+                                    )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0 
+                                    ORDER BY KEY_TBL.RANK DESC";
                     }
                     break;
                 case "other":
@@ -755,15 +744,14 @@ public partial class MoreDetail : SedogoPage
 		                                    and T.showontimeline=0 
                                     ) as FollowerCount  
                                     from events 
-                                    inner join users on users.userid=events.userid   
+                                    inner join users on users.userid=events.userid  
+                                    INNER JOIN FREETEXTTABLE([Events], EventName, '" + searchWord + @"') AS KEY_TBL ON events.EventID = KEY_TBL.[KEY]      
                                     where 
                                     ( 
                                         events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-31,0)
                                         and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-14,0) 
                                     )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                        and FREETEXT(EventName, '" +
-                            searchWord + @"') 
-                                    ORDER BY events.CreatedDate DESC ";
+                                    ORDER BY KEY_TBL.RANK DESC";
                     }
                     break;
                 case "other":
@@ -927,14 +915,14 @@ public partial class MoreDetail : SedogoPage
 		                                    and T.showontimeline=0 
                                     ) as FollowerCount  
                                     from events 
-                                    inner join users on users.userid=events.userid   
+                                    inner join users on users.userid=events.userid
+                                    INNER JOIN FREETEXTTABLE([Events], EventName, '" + searchWord + @"') AS KEY_TBL ON events.EventID = KEY_TBL.[KEY]    
                                     where 
                                     ( 
                                         events.LastUpdatedDate >= dateadd(day,datediff(day,0,getdate())-182,0) 
                                         and events.LastUpdatedDate <= dateadd(day,datediff(day,0,getdate())-31,0)
                                     )   and events.deleted=0 and events.EventAchieved=0 and events.PrivateEvent=0  
-                                        and FREETEXT(EventName, '" + searchWord + @"') 
-                                    ORDER BY events.CreatedDate DESC ";
+                                    ORDER BY KEY_TBL.RANK DESC ";
                     }
                     break;
                 case "other":

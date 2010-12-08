@@ -416,17 +416,10 @@ public partial class timelineSearch2XML : System.Web.UI.Page
                 var _event = new SedogoEvent(string.Empty, eventID);
 
                 //* New
-                if (eventPicThumbnail == "")
-                {
-                    writer.WriteAttributeString("image", "./images/eventThumbnailBlank.png");
-                }
-                else
-                {
-                    // PD 3/12/10 - Removed this because goal image was being repeated on all comments
-                    // instead of showing correct image
-                    writer.WriteAttributeString("image", "assets/eventPics/" + eventPicThumbnail);
-                    //writer.WriteAttributeString("image", ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail)));
-                }
+                writer.WriteAttributeString("image",
+                                            eventPicThumbnail == ""
+                                                ? "./images/eventThumbnailBlank.png"
+                                                : ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail)));
                 //*
 
                 //writer.WriteAttributeString("image", "http://simile.mit.edu/images/csail-logo.gif");

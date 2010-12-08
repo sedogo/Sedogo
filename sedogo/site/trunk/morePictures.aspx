@@ -125,8 +125,7 @@
                                     <tr>
                                         <td><div style="float:right;margin:5px 5px">
                                         <asp:LinkButton ID="editPicsButton" runat="server" OnClick="editPicsButton_click"
-                                            Visible="false"
-                                            Text="Edit pictures" CssClass="underline-bold" />&nbsp;&nbsp;
+                                            Visible="false" Text="Edit pictures" CssClass="underline-bold" />&nbsp;&nbsp;
                                         <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:addPicture()"
                                             Text="Add picture" CssClass="underline-bold" />
                                         </div></td>

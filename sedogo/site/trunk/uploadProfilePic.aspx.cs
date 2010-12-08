@@ -43,8 +43,8 @@ public partial class uploadProfilePic : SedogoPage
             if (user.profilePicThumbnail != "")
             {
                 // PD 3/12/10 - Removed this because it shows the wrong image
-                //profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview);
-                profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
+                profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail);
+                //profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
             }
             else
             {
@@ -83,9 +83,9 @@ public partial class uploadProfilePic : SedogoPage
             int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), int.Parse(Session["loggedInUserID"].ToString()));
 
             // PD 3/12/10 - Removed due to server error on file upload
-            //var user = new SedogoUser(string.Empty, int.Parse(Session["loggedInUserID"].ToString()));
-            //ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview, true);
-            //ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail, true);
+            var user = new SedogoUser(string.Empty, int.Parse(Session["loggedInUserID"].ToString()));
+            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview, true);
+            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail, true);
             
             if (status >= 0)
             {

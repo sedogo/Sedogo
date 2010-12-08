@@ -95,8 +95,8 @@ public partial class sidebar : System.Web.UI.UserControl
                 if (user.profilePicThumbnail != "")
                 {
                     // PD 3/12/10 - Removed this because it shows the wrong image
-                    //profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail);
-                    profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
+                    profileImage.ImageUrl = ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail);
+                    //profileImage.ImageUrl = "~/assets/profilePics/" + user.profilePicThumbnail;
                 }
                 else
                 {

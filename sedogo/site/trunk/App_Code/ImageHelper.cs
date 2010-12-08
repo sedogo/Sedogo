@@ -288,77 +288,116 @@ public class ImageHelper
     /// <returns></returns>
     private static string GetRelativeImagePath(int id, ImageType imageType, string physPath, string virtPath, int width, int height, int radius, bool overrideImage, ref int resultWidth, ref int resultHeight)
     {
+        switch (imageType)
+        {
+            case ImageType.EventCommentPreview:
+            case ImageType.EventCommentThumbnail:
+                physPath = Path.Combine(physPath, "comments");
+                virtPath = string.Format("{0}/{1}", virtPath, "comments");
+                break;
+            case ImageType.EventPicturePreview:
+            case ImageType.EventPictureThumbnail:
+                physPath = Path.Combine(physPath, "pictures");
+                virtPath = string.Format("{0}/{1}", virtPath, "pictures");
+                break;
+        }
         HttpServerUtility server = HttpContext.Current.Server;
         DirectoryInfo dir = new DirectoryInfo(physPath);
         if (!dir.Exists)
         {
             dir.Create();
         }
-        var extensions = Extensions.Split(new[] { ';' });
+        var extensions = Extensions.Split(new[] {';'});
         var files = new List<FileInfo>();
         foreach (string s in extensions)
         {
             files.AddRange(dir.GetFiles(s));
         }
 
+        var repository = new ImageRepository();
+        string filename = repository.GetImagePath(id, imageType);
+        var thmName = Path.GetFileNameWithoutExtension(filename) + "_" + width + "_" + height + ".jpg";
+
         Image image = null;
         if (!overrideImage)
         {
             foreach (var file in files)
             {
-                Image img = Image.FromFile(file.FullName);
-
-                if (IsImageWithSameDimensionsExists(img, file.Name, height, width))
+                using (Image img = Image.FromFile(file.FullName))
                 {
-                    resultWidth = img.Width;
-                    resultHeight = img.Height;
-                    return string.Format("{0}/{1}", virtPath, file.Name);
-                }
-                if (Path.GetFileNameWithoutExtension(file.Name) == id.ToString())
-                {
-                    image = img;
+                    if (Path.GetFileNameWithoutExtension(file.Name) == thmName)
+                    {
+                        resultWidth = img.Width;
+                        resultHeight = img.Height;
+                        return string.Format("{0}/{1}", virtPath, file.Name);
+                    }
                 }
             }
         }
-
-        if (image == null)
+        if (string.IsNullOrEmpty(filename))
         {
-            var repository = new ImageRepository();
-            var imagePath = repository.GetImagePath(id, imageType);
-            if (!string.IsNullOrEmpty(imagePath))
+            return string.Format("{0}/{1}", virtPath, thmName);
+        }
+        string fullPath;
+        if (!Path.IsPathRooted(physPath))
+        {
+            fullPath =
+                server.MapPath("~\\" +
+                               Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(physPath)), filename));
+        }
+        else
+        {
+            if (imageType == ImageType.EventCommentPreview ||
+                imageType == ImageType.EventCommentThumbnail ||
+                imageType == ImageType.EventPicturePreview ||
+                imageType == ImageType.EventPictureThumbnail)
             {
-                imagePath = !Path.IsPathRooted(physPath)
-                                ? server.MapPath("~\\" +
-                                                 Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(physPath)),
-                                                              imagePath))
-                                : Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(physPath)), imagePath);
-                if (File.Exists(imagePath))
-                {
-                    image = Image.FromFile(imagePath);
-                }
-                else
-                {
-                    return string.Empty;
-                }
+                fullPath =
+                    Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(physPath))),
+                                 filename);
             }
             else
             {
-                return string.Empty;
+                fullPath = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(physPath)), filename);
             }
         }
-
-        Image thm = Resize(image, width, height, radius);
-        string thmName = id + "_" + width + "_" + height + ".jpg";
-        thm.Save(physPath + @"\" + thmName, ImageFormat.Jpeg);  //save as jpg only
-        resultWidth = thm.Width;
-        resultHeight = thm.Height;
+        if (!File.Exists(fullPath))
+        {
+            return string.Format("{0}/{1}", virtPath, thmName);
+        }
+        
+        using (var sourceImage = Image.FromFile(fullPath))
+        {
+            using (var targetImage = Resize(sourceImage, width, height, radius))
+            {
+                targetImage.Save(physPath + @"\" + thmName, ImageFormat.Jpeg); //save as jpg only
+                resultWidth = targetImage.Width;
+                resultHeight = targetImage.Height;
+            }
+        }
         return string.Format("{0}/{1}", virtPath, thmName);
+    }
+
+    private static string GetSuffix(ImageType imageType)
+    {
+        switch (imageType)
+        {
+            case ImageType.EventCommentPreview:
+            case ImageType.EventCommentThumbnail:
+                return "C";
+            case ImageType.EventPicturePreview:
+            case ImageType.EventPictureThumbnail:
+                return "P";
+            default:
+                return string.Empty;
+        }
     }
 
     private static bool IsImageWithSameDimensionsExists(Image img, string fileName, int height, int width)
     {
-        string[] nameParts = Path.GetFileNameWithoutExtension(fileName).Split(new[] { '_' },
-                                                                              StringSplitOptions.RemoveEmptyEntries);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+        string[] nameParts = fileNameWithoutExtension.Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
         return img.Height == height && img.Width == width ||
                nameParts.Length >= 3 &&
                nameParts[nameParts.Length - 2] == width.ToString() &&
@@ -531,5 +570,55 @@ public class ImageHelper
 
         grPhoto.Dispose();
         return bmPhoto;
+    }
+
+    public static void DeleteImage(int id, string guid, ImageType imageType)
+    {
+        var physPath =
+            Path.Combine(Path.Combine(Path.Combine(ImageCacheDirectory, GetSubdir(imageType)), guid.Substring(0, 2)),
+                         guid.Substring(2, 2));
+
+        switch (imageType)
+        {
+            case ImageType.EventCommentPreview:
+            case ImageType.EventCommentThumbnail:
+                physPath = Path.Combine(physPath, "comments");
+                break;
+            case ImageType.EventPicturePreview:
+            case ImageType.EventPictureThumbnail:
+                physPath = Path.Combine(physPath, "pictures");
+                break;
+        }
+
+        DirectoryInfo dir = new DirectoryInfo(physPath);
+        if (!dir.Exists)
+        {
+            dir.Create();
+        }
+        var extensions = Extensions.Split(new[] {';'});
+        var files = new List<FileInfo>();
+        foreach (string s in extensions)
+        {
+            files.AddRange(dir.GetFiles(s));
+        }
+
+        ImageRepository repository = new ImageRepository();
+        var imagePath = repository.GetImagePath(id, imageType);
+
+        foreach (var file in files)
+        {
+            var filename = Path.GetFileNameWithoutExtension(file.Name);
+            filename = filename.Substring(0, filename.Substring(0, filename.LastIndexOf("_")).LastIndexOf("_"));
+            if (filename == Path.GetFileNameWithoutExtension(imagePath))
+            {
+                file.Delete();
+            }
+        }
+
+        var imageFullPath = Path.Combine(Path.Combine(ImageCacheDirectory, GetSubdir(imageType)), imagePath);
+        if (File.Exists(imageFullPath))
+        {
+            File.Delete(imageFullPath);
+        }
     }
 }

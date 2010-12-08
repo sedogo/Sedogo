@@ -130,7 +130,7 @@ public partial class viewSentMessages : SedogoPage
                 eventPicThumbnailImage.ImageUrl =
                     ResolveUrl(ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
                                                                 ImageType.EventThumbnail));
-                eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
+                //eventPicThumbnailImage.ImageUrl = "./assets/eventPics/" + eventPicThumbnail;
             }
 
             Literal messageLabel = e.Item.FindControl("messageLabel") as Literal;

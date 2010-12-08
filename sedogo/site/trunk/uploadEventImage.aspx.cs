@@ -110,6 +110,8 @@ public partial class uploadEventImage : SedogoPage
         sedogoEvent.eventPicThumbnail = "";
         sedogoEvent.UpdateEventPic();
 
+        ImageHelper.DeleteImage(sedogoEvent.eventID, sedogoEvent.eventGUID, ImageType.EventPreview);
+
         Response.Redirect("viewEvent.aspx?EID=" + eventID.ToString());
     }
 }

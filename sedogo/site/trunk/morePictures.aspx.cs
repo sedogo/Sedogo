@@ -206,15 +206,16 @@ public partial class morePictures : System.Web.UI.Page
                 loopDate = createdDate;
 
                 var _event = new SedogoEvent(string.Empty, eventID);
+                var eventPicture = new SedogoEventPicture(string.Empty, eventPictureID);
 
                 // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                 // instead of showing correct image
-                //imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail));
-                imageThumbnail = "assets/eventPics/" + imageThumbnail;
+                imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPicture.eventPictureID, _event.eventGUID, ImageType.EventPictureThumbnail));
+                //imageThumbnail = "assets/eventPics/" + imageThumbnail;
 
                 imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:110px; float:left; margin:0 10px 20px 0\">"));
-                imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EID=" + eventID.ToString()
-                    + "&EPID=" + eventPictureID.ToString() + "\"><img src=\"" + imageThumbnail + "\"/></a>"));
+                imagesPlaceHolder.Controls.Add(new LiteralControl("<a href=\"eventPicDetails.aspx?EID=" + eventID
+                    + "&EPID=" + eventPictureID + "\"><img src=\"" + imageThumbnail + "\"/></a>"));
                 if( caption != "" )
                 {
                     if (caption.Length > 30)
@@ -311,10 +312,10 @@ public partial class morePictures : System.Web.UI.Page
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("</div>"));
                     // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                     // instead of showing correct image
-                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()
-                        + "\"><img width=\"100\" src=\"/assets/eventPics/" + loopEvent.eventPicThumbnail + "\"/></a>"));
                     //albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID.ToString()
-                    //    + "\"><img width=\"100\" src=\"" + ImageHelper.GetRelativeImagePath(loopEvent.eventID, loopEvent.eventGUID, ImageType.EventPreview) + "\"/></a>"));
+                      //  + "\"><img width=\"100\" src=\"/assets/eventPics/" + loopEvent.eventPicThumbnail + "\"/></a>"));
+                    albumnsPlaceHolder.Controls.Add(new LiteralControl("<a href=\"morePictures.aspx?EID=" + loopEventID
+                        + "\"><img width=\"100\" src=\"" + ResolveUrl(ImageHelper.GetRelativeImagePath(loopEvent.eventID, loopEvent.eventGUID, ImageType.EventPreview)) + "\"/></a>"));
                     albumnsPlaceHolder.Controls.Add(new LiteralControl("<span id=\"colourBar_" + loopEventID.ToString() + "\"><img src=\"/images/1x1trans.gif\" height=\"6px\" width=\"100px\" ></span> "));
                     if (loopEvent.eventAchieved == true)
                     {

@@ -121,9 +121,9 @@ public partial class eventPicDetails : System.Web.UI.Page
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
             // PD 3/12/10 - Removed this because goal image was being repeated on all comments
             // instead of showing correct image
-            eventImage.ImageUrl = "assets/eventPics/" + eventPic.eventImagePreview;
-            //SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
-            //eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventPreview);
+            //eventImage.ImageUrl = "assets/eventPics/" + eventPic.eventImagePreview;
+            SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
+            eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(eventPictureID, _event.eventGUID, ImageType.EventPicturePreview);
 
             GlobalData gd = new GlobalData("");
             string imageFile = gd.GetStringValue("FileStoreFolder") + @"\eventPics\" + eventPic.eventImagePreview;

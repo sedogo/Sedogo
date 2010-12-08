@@ -210,7 +210,7 @@ public partial class editEventPics : System.Web.UI.Page
             else
             {
                 var _event = new SedogoEvent(string.Empty, eventID);
-                eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail).Replace("~", ".");
+                eventImage.ImageUrl = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, _event.eventGUID, ImageType.EventPictureThumbnail));
             }
 
             TextBox imageCaptionTextBox = e.Item.FindControl("imageCaptionTextBox") as TextBox;
@@ -232,7 +232,7 @@ public partial class editEventPics : System.Web.UI.Page
             sedogoEvent.Update();
 
             SedogoEventPicture eventPic = new SedogoEventPicture((string)Application["connectionString"], eventPictureID);
-
+            ImageHelper.DeleteImage(eventPictureID, sedogoEvent.eventGUID, ImageType.EventPictureThumbnail);
             eventPic.Delete();
 
             Response.Redirect("editEventPics.aspx?EID=" + eventID.ToString());

@@ -28,13 +28,13 @@ public class ImageRepository
             case ImageType.EventCommentPreview:
             case ImageType.EventCommentThumbnail:
                 {
-                    var _event = _dataContext.EventComments.Where(x => x.EventID == id).FirstOrDefault();
+                    var _event = _dataContext.EventComments.Where(x => x.EventCommentID == id).FirstOrDefault();
                     return _event != null ? _event.EventImageFilename : string.Empty;
                 }
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
                 {
-                    var _event = _dataContext.EventPictures.Where(x => x.EventID == id).FirstOrDefault();
+                    var _event = _dataContext.EventPictures.Where(x => x.EventPictureID == id).FirstOrDefault();
                     return _event != null ? _event.ImageFilename : string.Empty;
                 }
             default:

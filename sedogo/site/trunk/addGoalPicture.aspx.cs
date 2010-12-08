@@ -71,6 +71,9 @@ public partial class addGoalPicture : SedogoPage
 
             if (status >= 0)
             {
+                ImageHelper.GetRelativeImagePath(status, sedogoEvent.eventGUID, ImageType.EventPreview, true);
+                ImageHelper.GetRelativeImagePath(status, sedogoEvent.eventGUID, ImageType.EventThumbnail, true);
+
                 Response.Redirect("morePictures.aspx?EID=" + eventID.ToString());
             }
             else

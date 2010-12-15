@@ -45,14 +45,14 @@ namespace Sedogo.BusinessObjects
 
         private string      m_loggedInUser = "";
 
+        public int messageID
+        {
+            get { return m_messageID; }
+        }
         public int parentMessageID
         {
             get { return m_parentMessageID; }
             set { m_parentMessageID = value; }
-        }
-        public int messageID
-        {
-            get { return m_messageID; }
         }
         public int eventID
         {
@@ -139,6 +139,10 @@ namespace Sedogo.BusinessObjects
                 DbDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("ParentMessageID")))
+                    {
+                        m_parentMessageID = int.Parse(rdr["ParentMessageID"].ToString());
+                    }
                     if (!rdr.IsDBNull(rdr.GetOrdinal("EventID")))
                     {
                         m_eventID = int.Parse(rdr["EventID"].ToString());
@@ -343,6 +347,94 @@ namespace Sedogo.BusinessObjects
             }
 
             return messageCount;
+        }
+
+        //===============================================================
+        // Function: GetThreadMessageCount
+        //===============================================================
+        public static int GetThreadMessageCount(int messageID)
+        {
+            int messageCount = 0;
+
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectGetThreadMessageCount";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@MessageID";
+                param.Value = messageID;
+                cmd.Parameters.Add(param);
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows == true)
+                {
+                    rdr.Read();
+                    messageCount = (int)rdr[0];
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("Message", "GetThreadMessageCount", ex.Message,
+                    logMessageLevel.errorMessage);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return messageCount;
+        }
+
+        //===============================================================
+        // Function: GetAltEmailUserID
+        //===============================================================
+        public static int GetAltEmailUserID(int parentMessageID, int userID)
+        {
+            int altEmailUserID = 0;
+
+            DbConnection conn = new SqlConnection(GlobalSettings.connectionString);
+            try
+            {
+                conn.Open();
+
+                DbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectGetAltEmailUserID";
+                DbParameter param = cmd.CreateParameter();
+                param.ParameterName = "@ParentMessageID";
+                param.Value = parentMessageID;
+                cmd.Parameters.Add(param);
+
+                DbParameter param2 = cmd.CreateParameter();
+                param2.ParameterName = "@UserID";
+                param2.Value = userID;
+                cmd.Parameters.Add(param2);
+
+                DbDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows == true)
+                {
+                    rdr.Read();
+                    altEmailUserID = (int)rdr[0];
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog errorLog = new ErrorLog();
+                errorLog.WriteLog("Message", "GetAltEmailUserID", ex.Message,
+                    logMessageLevel.errorMessage);
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return altEmailUserID;
         }
 
         //===============================================================

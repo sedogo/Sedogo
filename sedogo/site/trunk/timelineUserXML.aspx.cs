@@ -62,7 +62,8 @@ public partial class timelineUserXML : System.Web.UI.Page
 
             SqlCommand cmd = new SqlCommand("", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectFullEventListByCategory";
+            cmd.CommandText = "spSelectFullEventListIncludingAchievedByCategory";
+            //cmd.CommandText = "spSelectFullEventListByCategory";
             cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
             cmd.Parameters.Add("@ShowPrivate", SqlDbType.Bit).Value = false;
 

@@ -56,53 +56,77 @@
 	    openModal(url);
     }
     </script>
+    
+<style type="text/css">
 
-    <script language="javascript" type="text/javascript">
-        var state = 'none';
-        function showhide(layer_ref) {
-            if (state == 'block') {
-                state = 'none';
-            }
-            else {
-                state = 'block';
-            }
-            if (document.all) { //IS IE 4 or 5 (or 6 beta)
-                eval("document.all." + layer_ref + ".style.display = state");
-            }
-            if (document.layers) { //IS NETSCAPE 4 or below
-                document.layers[layer_ref].display = state;
-            }
-            if (document.getElementById && !document.all) {
-                hza = document.getElementById(layer_ref);
-                hza.style.display = state;
-            }
-        }
-        
-        function resetFlash() 
-	    {
-         var flash = document.getElementsByTagName('embed');        
-         if(flash.length > 0)
-          {
-            for(var i=0;i<flash.length;i++)
-            {
-                flash[i].setAttribute("width", "300px"); 
-                flash[i].setAttribute("height", "270px");       
-            }
-          }            
-        
-        }
-        function setColor(id, newColor)
-        {
-            document.getElementById(id).style.background = newColor;
-        }
-    </script>
+/* All Styles Optional */
+
+* {
+font-family:arial;
+font-size:10pt;
+}
+div#show3 {
+width:500px;
+text-align:left;
+}
+div#show3 table td, div#show4 table td {
+height:24px;
+}
+div#show3 table input,  div#show4 table input {
+outline-style:none;
+}
+.imageCaption
+{
+	position:relative;
+	top:-540px;
+	left:0px;
+}
+</style>
+<!--[if IE]>
+<style type="text/css">
+div#show3 table td, div#show4 table td {
+height:21px;
+}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+//If using image buttons as controls, Set image buttons' image preload here true
+//(use false for no preloading and for when using no image buttons as controls):
+var preload_ctrl_images=true;
+
+//And configure the image buttons' images here:
+var previmg='left.gif';
+var stopimg='stop.gif';
+var playimg='play.gif';
+var nextimg='right.gif';
+
+var slidesX=[]; //SECOND SLIDESHOW
+//configure the below images and descriptions to your own. 
+<asp:Literal id="sliderImagesLiteral" runat="server" />
+//optional properties for these images:
+slidesX.desc_prefix=''; //string prefix for image descriptions display
+slidesX.controls_top=1; //use for top controls
+slidesX.counter=0; //use to show image count
+slidesX.width=500; //use to set width of widest image if dimensions vary
+slidesX.height=500; //use to set height of tallest image if dimensions vary
+slidesX.no_auto=1; //use to make show completely user operated (no play button, starts in stopped mode)
+slidesX.use_alt=1; //use for descriptions as images alt attributes
+slidesX.use_title=1; //use for descriptions as images title attributes
+slidesX.nofade=1; //use for no fade-in, fade-out effect for this show
+slidesX.border=0; //set border width for images
+slidesX.border_color='#FFFFFF'; //set border color for images
+slidesX.no_controls=1;
+</script>
+<script src="js/swissarmy.js" type="text/javascript"></script>
 
 </head>
-<body onload="resetFlash()">
+<body>
     <form id="form1" runat="server">
     <div>
-        <asp:ScriptManager ID="scriptManager" runat="server">
-        </asp:ScriptManager>
+        <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+        </telerik:RadScriptManager>
+        
         <div id="container">
             <Sedogo:BannerLoginControl ID="bannerLogin" runat="server" />
             <Sedogo:BannerAddFindControl ID="bannerAddFindControl" runat="server" />
@@ -125,17 +149,24 @@
                                     <tr>
                                         <td>
                                         
-                                            <asp:LinkButton ID="previousButton" runat="server" Text="Previous" OnClick="previousButton_click" />
-                                            &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<asp:LinkButton ID="nextButton" runat="server" Text="Next" OnClick="nextButton_click" />
-                                        
+                                            <div id="nextBackButtons">
+                                            <a href="#" onclick="iss[0].changeimg(false, 'nav');">
+                                            Previous</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                            <a href="#" onclick="iss[0].changeimg(true, 'nav');">
+                                            Next</a>
+                                            </div>
+                                            <p>&nbsp;</p>
+        
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                         
-                                <asp:Image ID="eventImage" runat="server" /><br />
-                                <asp:Label ID="captionLabel" runat="server"></asp:Label>
-
+                                            <div id="show3"><script type="text/javascript">
+                                            new inter_slide(slidesX)
+                                            </script>
+                                            </div>
+                                        
                                         </td>
                                     </tr>    
                                 </table>

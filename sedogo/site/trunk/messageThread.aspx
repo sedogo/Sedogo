@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="message.aspx.cs" Inherits="message" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="messageThread.aspx.cs" Inherits="messageThread" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerLoginControl" Src="~/components/bannerLogin.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="SidebarControl" Src="~/components/sidebar.ascx" %>
 <%@ Register TagPrefix="Sedogo" TagName="BannerAddFindControl" Src="~/components/bannerAddFindControl.ascx" %>
@@ -78,22 +78,10 @@
 
                     <div class="page-banner-content">
                         <div class="page-banner-header">Messages</div>
-                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Home" 
+                        <div class="page-banner-backbutton"><asp:LinkButton id="backButton" runat="server" Text="Back" 
                             CssClass="page-banner-linkstyle" OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
             
-                    <div class="page-banner-buttons">
-                        <asp:LinkButton ID="viewArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                            Text="View read messages" OnClick="viewArchivedMessagesButton_click" />
-                        <asp:LinkButton ID="hideArchivedMessagesButton" runat="server" CssClass="button-sml" 
-                            Text="Hide read messages" OnClick="hideArchivedMessagesButton_click" />
-                    </div>
-                    <div class="clear-float"></div>
-                    
-                    <div id="noUnreadMessagesDiv" runat="server">
-                    <p>You have no unread messages.</p>
-                    </div>
-                    
                     <div id="messagesDiv" runat="server">
                     <asp:Repeater ID="messagesRepeater" runat="server" OnItemDataBound="messagesRepeater_ItemDataBound"
                         OnItemCommand="messagesRepeater_ItemCommand">
@@ -112,14 +100,8 @@
                                                     <asp:Literal ID="messageLabel" runat="server" /></p>
                                                 </td>
                                                 <td align="right" width="240">
-                                                    <p style="text-align:right"><asp:LinkButton ID="markAsReadButton" runat="server" CssClass="blue sedogorollover" 
-                                                        Text="mark as read" CommandName="markAsReadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /><br />
-                                                        <asp:Hyperlink ID="sendReplyMessageButton" runat="server" CssClass="blue sedogorollover modal" 
-                                                        Text="send reply" /><br />
-                                                        <asp:LinkButton ID="deleteButton" runat="server" CssClass="blue sedogorollover" OnClientClick="return confirmDeleteMessage()" 
-                                                        Text="delete" CommandName="deleteButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /><br />
-                                                        <asp:LinkButton ID="viewThreadButton" runat="server" CssClass="blue sedogorollover" 
-                                                        Text="view complete thread" CommandName="viewThreadButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MessageID") %>' /></p>
+                                                    <p style="text-align:right"><asp:Hyperlink ID="sendReplyMessageButton" runat="server" 
+                                                        CssClass="blue sedogorollover modal" Text="send reply" /></p>
                                                 </td>
                                             </tr>
                                         </table>

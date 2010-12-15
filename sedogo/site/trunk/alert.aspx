@@ -92,10 +92,11 @@
                                     </td>
                                     <td align="right">
                                         <p>
-                                        <asp:LinkButton ID="clearAlertButton" runat="server" CssClass="button-sml" 
-                                        Text="Clear Reminder" CommandName="clearAlertButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' />
+                                        <asp:LinkButton ID="clearAlertButton" runat="server" CssClass="blue sedogorollover" 
+                                        Text="Clear Reminder" CommandName="clearAlertButton" 
+                                        CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventAlertID") %>' /><br />
                                         <asp:Hyperlink ID="editAlertButton" 
-                                        runat="server" CssClass="button-sml modal" Text="Edit" />
+                                        runat="server" CssClass="blue sedogorollover modal" Text="Edit" />
                                         </p>
                                     </td>
                                 </tr>

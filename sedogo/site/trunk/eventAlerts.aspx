@@ -64,6 +64,10 @@ function popupCalendarAlertDate(image)
     <form id="form1" runat="server">
     <div>
     
+        <asp:ValidationSummary runat="server" ID="validationSummary" 
+            ShowMessageBox="true" ShowSummary="false" DisplayMode="BulletList"
+            HeaderText="Please review the following errors:" />
+    
         <div id="event-detail">
             <div class="right-col">
                 <h3 ID="currentAlertsHeader" runat="server">Reminders</h3>
@@ -142,7 +146,10 @@ function popupCalendarAlertDate(image)
                 </table>
                 
                 <asp:TextBox ID="newAlertTextBox" runat="server" TextMode="MultiLine"
-                    Width="300px" Rows="6" />
+                    Width="300px" Rows="6" /><asp:RequiredFieldValidator ID="firstNameTextBoxValidator" runat="server"
+                    ControlToValidate="newAlertTextBox" ErrorMessage="Reminder description is required"
+                    Display="None" SetFocusOnError="true">
+                    </asp:RequiredFieldValidator>
 
                 <p><asp:LinkButton ID="createAlertLink" runat="server" Text="Create reminder"
                     OnClick="createAlertLink_click" CssClass="button-sml" /></p>

@@ -280,27 +280,38 @@ public partial class _default : System.Web.UI.Page
             else
             {
                 SedogoUser user = new SedogoUser("", userID);
-                if (user.gender == "M")
+                if (user.avatarNumber > 0)
                 {
-                    // 1,2,5
-                    int avatarID = 5;
-                    switch ((userID % 6))
-                    {
-                        case 0: case 1: avatarID = 1; break;
-                        case 2: case 3: avatarID = 2; break;
-                    }
-                    profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    profilePicImage.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + "sm.gif";
                 }
                 else
                 {
-                    // 3,4,6
-                    int avatarID = 6;
-                    switch ((userID % 6))
+                    if (user.gender == "M")
                     {
-                        case 0: case 1: avatarID = 3; break;
-                        case 2: case 3: avatarID = 4; break;
+                        // 1,2,5
+                        int avatarID = 5;
+                        switch ((userID % 6))
+                        {
+                            case 0:
+                            case 1: avatarID = 1; break;
+                            case 2:
+                            case 3: avatarID = 2; break;
+                        }
+                        profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
                     }
-                    profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    else
+                    {
+                        // 3,4,6
+                        int avatarID = 6;
+                        switch ((userID % 6))
+                        {
+                            case 0:
+                            case 1: avatarID = 3; break;
+                            case 2:
+                            case 3: avatarID = 4; break;
+                        }
+                        profilePicImage.ImageUrl = "~/images/avatars/avatar" + avatarID.ToString() + "sm.gif";
+                    }
                 }
             }
             profilePicImage.Height = 33;

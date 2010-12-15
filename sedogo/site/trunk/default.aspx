@@ -490,10 +490,16 @@
                             <td valign="top"><p class="teaser">Get the Sedogo iPhone app. <a href="http://itunes.apple.com/gb/app/sedogo/id403226892?mt=8" target="_blank">Download here</a></p></td>
                         </tr>
                     </table>
-                        
-                    <div style="margin-top:20px">
-                    <asp:Literal ID="homePageContent" runat="server"></asp:Literal>
-                    </div>
+                    
+<div style="margin-top: 5px;">
+<table width="236" cellpadding="0" cellspacing="0" border="0">
+<tr style="background-color: #00CCFF;">
+		<td style="padding: 5px;"><a href="http://www.sedogo.com/viewEvent.aspx?EID=1114"><span style="font-size: 160%; color: white;"><b>What's stopping you?</b></span></a></td>
+	</tr>
+</table>
+<object width="236" height="158"><param name="movie" value="http://www.youtube.com/v/Jxq9I-5QzPk?fs=1&amp;hl=en_GB&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/Jxq9I-5QzPk?fs=1&amp;hl=en_GB&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="236" height="158"></embed></object>
+</div>
+
                 </div>
                 <div class="one-col">
                     <h2 class="col-header">
@@ -557,6 +563,7 @@
                     <div style="float: left; width: 100%; height: 216px;">
                         <div style="margin-left: 2px;">
                         
+<div style="margin-top: 20px;">
 <table cellspacing="0" cellpadding="0" width="230" style="border: 2px solid #CCCCCC;">
 	<tbody><tr style="background-color:#CCCCCC;">
 		<td style="padding: 5px;"><span style="font-size: 120%; color: white;"><b>Sedogo supports</b></span></td>
@@ -572,6 +579,7 @@
 		</td>
 	</tr>
 </tbody></table>
+</div>
                         
                         </div>
                     </div>
@@ -580,10 +588,17 @@
                     <h2 class="col-header">
                         Get inspired</h2>
                     <p class="teaser">
-                        Need help getting started? <a href="getInspired.aspx">See some inspiring ideas here &gt;&gt;</a></p>
+                        Need help getting started? <a href="getInspired.aspx">See some inspiring ideas here.</a></p>
                     <div class="rotatorBackground">
+                    
+                    <div style="margin-top:5px">
+                    <asp:Literal ID="homePageContent" runat="server"></asp:Literal>
+                    </div>
+                    
+                        <div style="margin-top: 5px;">
                         <telerik:RadRotator ID="eventRotator" runat="server" Width="232px" Height="216px"
-                            CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" ItemWidth="232">
+                            CssClass="horizontalRotator" RotatorType="FromCode" ItemHeight="216" 
+                            ItemWidth="232" Visible="false">
                             <ItemTemplate>
                                 <div class="itemTemplate">
                                     <a href="getInspired.aspx">
@@ -591,6 +606,8 @@
                                 </div>
                             </ItemTemplate>
                         </telerik:RadRotator>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

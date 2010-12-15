@@ -80,6 +80,26 @@
                     <p>Yes, all you need is a YouTube account. Just upload your video there and you can embed it into your 'comment' box on your goal page by clicking the blue video icon. Friends can add video this way as well.</p>
                     <h2>How do I change my password?</h2>
                     <p>Just log in with the one we sent you, then click 'Edit' next to your profile (top left). Then, underneath your profile picture, click 'change password'. It’s as easy as that.</p>
+                    <h2>What are group goals?</h2>
+                    <p>Group goals are goals you are a member of but did not create.</p>
+                    <h2>What does the creator of a group goal do?</h2>
+                    <p>If you create a goal for a group of people, you can choose who to accept as a member, message all members and add more photos to the goal details in addition to those added in comments.</p>
+                    <h2>What group goals are available to join?</h2>
+                    <p>Any goal is available as a group goal if the goal creator accepts you as a member.</p>
+                    <h2>How do I join a group goal?</h2>
+                    <p>To join a goal, view goal details and click "join" in right hand column. This will send the goal creator a request. If accepted, you will be notified and it will be added to your timeline. You will then be a member of that goal.</p>
+                    <h2>Why should I join a group goal?</h2>
+                    <p>A goal member will be kept up to date with any changes to the goal details.</p>
+                    <h2>Can anyone join my goals?</h2>
+                    <p>Another user must request to join your goal. You can choose to accept or decline these requests. Once they are members, you can still remove them from your goal membership if you want to. Of course, you can invite people you already know to join your goal.</p>
+                    <h2>How does following someone else's goal work?</h2>
+                    <p>If you're interested in a goal's progress you can click "follow". This will add the goal to your "goals followed" list, giving you easier access to it. As a follower of that goal, you will be notified of any progress, for example, if a comment is posted or if  a date is changed. If you follow a goal it will not be added to your timeline.</p>
+                    <h2>Can I just tell people about my goal?</h2>
+                    <p>You might not actually want people to join you on the goal, but simply keep them informed of your progress. In this case, you can simply share the goal with them and invite them to follow it.</p>
+                    <h2>How do I add friends to my "friends book"</h2>
+                    <p>If you already know them you can input their email addresses into your "friends book". Members you accept to join your goals will automatically be added to your "friends" address book, so that you can easily contact them via the website.</p>
+                    <h2>How do I access the addresses in my "friends book"</h2>
+                    <p>If you invite or share a goal, you'll see the "friends book" icon next to the email input area.</p>
                     <p>&nbsp;<br /><a href="default.aspx?Tour=Y">Take the tour</a></p>
 		        </div>
 

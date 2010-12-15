@@ -84,10 +84,18 @@ public partial class Master : System.Web.UI.MasterPage
 
         if ((string)Session["EventInviteGUID"] != "")
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
-                                                    (int)Session["EventInviteUserID"] > 0
-                                                        ? "openModal(\"login.aspx\");"
-                                                        : "openModal(\"register.aspx\");", true);
+            if ((int)Session["EventInviteUserID"] > 0)
+            {
+                Response.Redirect("login.aspx");
+            }
+            else
+            {
+                Response.Redirect("register.aspx");
+            }
+            //Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert",
+            //                                        (int)Session["EventInviteUserID"] > 0
+            //                                            ? "openModal(\"login.aspx\");"
+            //                                            : "openModal(\"register.aspx\");", true);
         }
         if ((string)Session["EventID"] != "")
         {

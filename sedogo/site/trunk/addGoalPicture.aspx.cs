@@ -34,10 +34,79 @@ public partial class addGoalPicture : SedogoPage
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        int userID = int.Parse(Session["loggedInUserID"].ToString());
-        int eventID = int.Parse(Request.QueryString["EID"]);
+        if (!IsPostBack)
+        {
+            int eventID = int.Parse(Request.QueryString["EID"]);
+            int userID = -1;
+            string loggedInUserName = "";
+            if (Session["loggedInUserID"] != null)
+            {
+                userID = int.Parse(Session["loggedInUserID"].ToString());
+                loggedInUserName = Session["loggedInUserFullName"].ToString();
+            }
 
-        SetFocus(goalPicFileUpload);
+            sidebarControl.userID = userID;
+            if (userID > 0)
+            {
+                SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
+                sidebarControl.user = user;
+                bannerAddFindControl.userID = userID;
+            }
+            else
+            {
+            }
+
+            SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
+            eventTitleLabel.Text = sedogoEvent.eventName;
+
+            //pageTitleUserName.Text = sedogoEvent.eventName + " pictures : Sedogo : Create your future and connect with others to make it happen";
+            string timelineColour = "#cd3301";
+            switch (sedogoEvent.categoryID)
+            {
+                case 1:
+                    timelineColour = "#cd3301";
+                    break;
+                case 2:
+                    timelineColour = "#ff0b0b";
+                    break;
+                case 3:
+                    timelineColour = "#ff6801";
+                    break;
+                case 4:
+                    timelineColour = "#ff8500";
+                    break;
+                case 5:
+                    timelineColour = "#d5b21a";
+                    break;
+                case 6:
+                    timelineColour = "#8dc406";
+                    break;
+                case 7:
+                    timelineColour = "#5b980c";
+                    break;
+                case 8:
+                    timelineColour = "#079abc";
+                    break;
+                case 9:
+                    timelineColour = "#5ab6cd";
+                    break;
+                case 10:
+                    timelineColour = "#8a67c1";
+                    break;
+                case 11:
+                    timelineColour = "#e54ecf";
+                    break;
+                case 12:
+                    timelineColour = "#a5369c";
+                    break;
+                case 13:
+                    timelineColour = "#a32672";
+                    break;
+            }
+            pageBannerBarDiv.Style.Add("background-color", timelineColour);
+
+            SetFocus(goalPicFileUpload);
+        }
     }
 
     //===============================================================
@@ -89,6 +158,7 @@ public partial class addGoalPicture : SedogoPage
     protected void backButton_click(object sender, EventArgs e)
     {
         int eventID = int.Parse(Request.QueryString["EID"]);
+
         Response.Redirect("morePictures.aspx?EID=" + eventID.ToString());
     }
 }

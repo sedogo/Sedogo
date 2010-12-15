@@ -49,14 +49,6 @@
 
     <script type="text/javascript" src="js/validationFunctions.js"></script>
 
-    <script type="text/javascript">
-    function addPicture()
-    {
-	    <asp:Literal id="addPictureLiteral" runat="server" />
-	    openModal(url);
-    }
-    </script>
-
     <script language="javascript" type="text/javascript">
         var state = 'none';
         function showhide(layer_ref) {
@@ -126,7 +118,7 @@
                                         <td><div style="float:right;margin:5px 5px">
                                         <asp:LinkButton ID="editPicsButton" runat="server" OnClick="editPicsButton_click"
                                             Visible="false" Text="Edit pictures" CssClass="underline-bold" />&nbsp;&nbsp;
-                                        <asp:HyperLink ID="uploadEventImage" runat="server" NavigateUrl="javascript:addPicture()"
+                                        <asp:LinkButton ID="uploadEventImage" runat="server" OnClick="addButton_click"
                                             Text="Add picture" CssClass="underline-bold" />
                                         </div></td>
                                     </tr>

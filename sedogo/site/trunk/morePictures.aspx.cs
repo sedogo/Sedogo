@@ -127,7 +127,6 @@ public partial class morePictures : System.Web.UI.Page
                 else
                 {
                     // Viewing own event
-                    addPictureLiteral.Text = "var url = 'addGoalPicture.aspx?EID=" + eventID.ToString() + "';";
                     uploadEventImage.Visible = true;
                     editPicsButton.Visible = true;
                     goalOwnerNameLabel.Text = "My goal albums";
@@ -361,5 +360,15 @@ public partial class morePictures : System.Web.UI.Page
         int eventID = int.Parse(Request.QueryString["EID"]);
 
         Response.Redirect("editEventPics.aspx?EID=" + eventID.ToString());
+    }
+
+    //===============================================================
+    // Function: addButton_click
+    //===============================================================
+    protected void addButton_click(object sender, EventArgs e)
+    {
+        int eventID = int.Parse(Request.QueryString["EID"]);
+
+        Response.Redirect("addGoalPicture.aspx?EID=" + eventID.ToString());
     }
 }

@@ -393,7 +393,7 @@
                                     </div>
                                     <div>
                                         <p style="margin-bottom: 5px;">
-                                            <img src="images/share.gif" alt="" />
+                                            <img src="images/share.gif" alt="" id="shareImage" runat="server" />
                                             <asp:LinkButton ID="shareButton" runat="server" Text="Share" CssClass="underline-bold"
                                                 OnClick="click_shareButton" /></p>
                                     </div>

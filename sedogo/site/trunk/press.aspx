@@ -57,11 +57,13 @@
             
 			<div class="three-col">
 
+<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/Jxq9I-5QzPk?fs=1&amp;hl=en_GB&amp;rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/Jxq9I-5QzPk?fs=1&amp;hl=en_GB&amp;rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
+<p>&nbsp;</p>
+
                 <h2>For press enquiries please contact:</h2>
-                <br />&nbsp;
-                <h2><b>Jacqueline Culleton</b></h2>
-                <h2>Email: <a href="mailto:sedogo@forster.co.uk">sedogo@forster.co.uk</a></h2>
-                <h2>Telephone: 020 7403 2230</h2>
+                <h2><b>Jacqueline Culleton</b> | 
+                Email: <a href="mailto:sedogo@forster.co.uk">sedogo@forster.co.uk</a> |
+                Telephone: 020 7403 2230</h2>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
                 <a href="default.aspx">Return to home page</a>

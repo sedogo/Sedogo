@@ -111,9 +111,9 @@ public partial class userTimeline : SedogoPage
             }
             else
             {
-                if (user.avatarNumber > 0)
+                if (viewUser.avatarNumber > 0)
                 {
-                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + user.avatarNumber.ToString() + "sm.gif";
+                    userProfileThumbnailPic.ImageUrl = "~/images/avatars/avatar" + viewUser.avatarNumber.ToString() + "sm.gif";
                 }
                 else
                 {
@@ -165,6 +165,12 @@ public partial class userTimeline : SedogoPage
             //searchButton1.Attributes.Add("onmouseout", "this.src='images/addButton.png'");
             //searchButton2.Attributes.Add("onmouseover", "this.src='images/searchButtonRollover.png'");
             //searchButton2.Attributes.Add("onmouseout", "this.src='images/searchButton.png'");
+
+            if (Session["SentUserMessage"] == "Y")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Your message has been sent');", true);
+                Session["SentUserMessage"] = "N";
+            }
         }
     }
 }

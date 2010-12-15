@@ -42,6 +42,21 @@ public partial class sendUserMessage : SedogoPage
                 eventID = int.Parse(Request.QueryString["EID"]);
             }
             int messageToUserID = int.Parse(Request.QueryString["UID"]);
+            int parentMessageID = -1;
+            if (Request.QueryString["PMID"] != null)
+            {
+                parentMessageID = int.Parse(Request.QueryString["PMID"]);
+            }
+            int messageID = -1;
+            if (Request.QueryString["MID"] != null)
+            {
+                messageID = int.Parse(Request.QueryString["MID"]);
+            }
+
+            if (int.Parse(Session["loggedInUserID"].ToString()) == messageToUserID)
+            {
+                messageToUserID = Message.GetAltEmailUserID(parentMessageID, messageToUserID);
+            }
 
             if( eventID > 0 )
             {
@@ -120,6 +135,11 @@ public partial class sendUserMessage : SedogoPage
                 redir = (string)Request.QueryString["Redir"];
             }
 
+            if (int.Parse(Session["loggedInUserID"].ToString()) == messageToUserID)
+            {
+                messageToUserID = Message.GetAltEmailUserID(parentMessageID, messageToUserID);
+            }
+
             string messageText = messageTextBox.Text;
 
             Message message = new Message(Session["loggedInUserFullName"].ToString());
@@ -129,9 +149,10 @@ public partial class sendUserMessage : SedogoPage
             message.messageText = messageText;
             if (parentMessageID > 0)
             {
-                Message parentMessage = new Message(Session["loggedInUserFullName"].ToString());
-                parentMessage.messageRead = false;
-                parentMessage.Update();
+                // Do not do this - it makes it read for the original recipient not the recipient of the threaded message
+                //Message parentMessage = new Message(Session["loggedInUserFullName"].ToString());
+                //parentMessage.messageRead = false;
+                //parentMessage.Update();
 
                 message.parentMessageID = parentMessageID;
             }
@@ -148,14 +169,14 @@ public partial class sendUserMessage : SedogoPage
             StringBuilder emailBodyCopy = new StringBuilder();
 
             string linkURL = gd.GetStringValue("SiteBaseURL");
-            if (message.parentMessageID > 0)
-            {
-                linkURL = linkURL + "?Redir=Messages&MID=" + message.parentMessageID.ToString();
-            }
-            else
-            {
+            //if (message.parentMessageID > 0)
+            //{
+            //    linkURL = linkURL + "?Redir=Messages&MID=" + message.parentMessageID.ToString();
+            //}
+            //else
+            //{
                 linkURL = linkURL + "?Redir=Messages&MID=" + message.messageID.ToString();
-            }
+            //}
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -242,6 +263,7 @@ public partial class sendUserMessage : SedogoPage
                     emailHistory.Add();
                 }
 
+                Session["SentUserMessage"] = "Y";
                 if (redir == "Messages")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Redirect",

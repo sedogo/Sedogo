@@ -118,9 +118,9 @@
                     <tr id="loginRow" runat="server">
                         <td colspan="3">
                             &nbsp;<br />
-                            To see more, <asp:Hyperlink runat="server" CssClass="modal" ID="loginLink"
+                            To see more, <asp:Hyperlink runat="server" ID="loginLink"
                                 Text="click here to login" /><br />or if you don't have a Sedogo account
-                                yet, <asp:Hyperlink runat="server" CssClass="modal" ID="registerLink"
+                                yet, <asp:Hyperlink runat="server" ID="registerLink"
                                 Text="click here to sign up" />
                         </td>
                     </tr>

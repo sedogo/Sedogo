@@ -46,7 +46,6 @@ public partial class eventPicDetails : System.Web.UI.Page
                 userID = int.Parse(Session["loggedInUserID"].ToString());
                 loggedInUserName = Session["loggedInUserFullName"].ToString();
             }
-            int eventPictureID = int.Parse(Request.QueryString["EPID"].ToString());
 
             sidebarControl.userID = userID;
             if (userID > 0)
@@ -54,9 +53,6 @@ public partial class eventPicDetails : System.Web.UI.Page
                 SedogoUser user = new SedogoUser(Session["loggedInUserFullName"].ToString(), userID);
                 sidebarControl.user = user;
                 bannerAddFindControl.userID = userID;
-            }
-            else
-            {
             }
 
             SedogoEvent sedogoEvent = new SedogoEvent(loggedInUserName, eventID);
@@ -125,180 +121,54 @@ public partial class eventPicDetails : System.Web.UI.Page
             SedogoEvent _event = new SedogoEvent(loggedInUserName, eventPic.eventID);
             eventImage.ImageUrl = ImageHelper.GetRelativeImagePath(eventPictureID, _event.eventGUID, ImageType.EventPicturePreview);
 
-            GlobalData gd = new GlobalData("");
-            string imageFile = gd.GetStringValue("FileStoreFolder") + @"\eventPics\" + eventPic.eventImagePreview;
-            //FileInfo imageFileInfo = new FileInfo(imageFile);
-            System.Drawing.Image sourceImage = System.Drawing.Image.FromFile(imageFile);
-            if (sourceImage.Height > 370)
+            SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
+            try
             {
-                eventImage.Height = 370;
-            }
-            captionLabel.Text = eventPic.caption;
+                conn.Open();
 
-            /*
-            if (userID > 0)
-            {
-                SedogoEvent sedogoEvent = new SedogoEvent("", eventID);
-                if (sedogoEvent.userID != userID)
+                SqlCommand cmd = new SqlCommand("", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "spSelectEventPictureList";
+                cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
+                DbDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
                 {
-                    // Viewing someone elses event
-                    captionTextBox.Visible = false;
-                    saveButton.Visible = false;
-                    deleteButton.Visible = false;
-                }
-                else
-                {
-                    // Viewing own event
-                    captionLabel.Text = "Caption: ";
-                    captionTextBox.Visible = true;
-                    captionTextBox.Text = eventPic.caption;
-                    saveButton.Visible = true;
-                    deleteButton.Visible = true;
-
-                    deleteButton.Attributes.Add("onclick", "if(confirm('Are you sure you want to delete this picture?')){document.forms[0].target = '_top';return true;}else{return false}");
-                }
-            }
-            else
-            {
-                // Not logged in
-                captionLabel.Text = eventPic.caption;
-                captionTextBox.Visible = false;
-                saveButton.Visible = false;
-                deleteButton.Visible = false;
-            }
-            */
-        }
-    }
-
-    //===============================================================
-    // Function: previousButton_click
-    //===============================================================
-    protected void previousButton_click(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-        int eventPictureID = int.Parse(Request.QueryString["EPID"].ToString());
-
-        int previousEventPicID = -1;
-
-        SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
-        try
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectEventPicturePrevious";
-            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
-            cmd.Parameters.Add("@EventPictureID", SqlDbType.Int).Value = eventPictureID;
-            DbDataReader rdr = cmd.ExecuteReader();
-            if (rdr.HasRows == true)
-            {
-                rdr.Read();
-                if (!rdr.IsDBNull(0))
-                {
-                    previousEventPicID = int.Parse(rdr[0].ToString());
-                }
-            }
-            rdr.Close();
-
-            if (previousEventPicID < 0)
-            {
-                SqlCommand cmdFirst = new SqlCommand("", conn);
-                cmdFirst.CommandType = CommandType.StoredProcedure;
-                cmdFirst.CommandText = "spSelectEventPictureLast";
-                cmdFirst.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
-                DbDataReader rdrFirst = cmdFirst.ExecuteReader();
-                if (rdrFirst.HasRows == true)
-                {
-                    rdrFirst.Read();
-                    if (!rdrFirst.IsDBNull(0))
+                    int eventPictureID = int.Parse(rdr["EventPictureID"].ToString());
+                    int postedByUserID = int.Parse(rdr["PostedByUserID"].ToString());
+                    string imageFilename = "";
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("ImageFilename")))
                     {
-                        previousEventPicID = int.Parse(rdrFirst[0].ToString());
+                        imageFilename = (string)rdr["ImageFilename"];
                     }
-                }
-                rdrFirst.Close();
-            }
-        }
-        catch (Exception ex)
-        {
-            ErrorLog errorLog = new ErrorLog();
-            errorLog.WriteLog("eventPicDetails", "previousButton_click", ex.Message, logMessageLevel.errorMessage);
-            throw ex;
-        }
-        finally
-        {
-            conn.Close();
-        }
-
-        if (previousEventPicID > 0)
-        {
-            Response.Redirect("eventPicDetails.aspx?EID=" + eventID.ToString() + "&EPID=" + previousEventPicID.ToString());
-        }
-    }
-
-    //===============================================================
-    // Function: nextButton_click
-    //===============================================================
-    protected void nextButton_click(object sender, EventArgs e)
-    {
-        int eventID = int.Parse(Request.QueryString["EID"]);
-        int eventPictureID = int.Parse(Request.QueryString["EPID"].ToString());
-
-        int nextPicID = -1;
-
-        SqlConnection conn = new SqlConnection(GlobalSettings.connectionString);
-        try
-        {
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "spSelectEventPictureNext";
-            cmd.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
-            cmd.Parameters.Add("@EventPictureID", SqlDbType.Int).Value = eventPictureID;
-            DbDataReader rdr = cmd.ExecuteReader();
-            if (rdr.HasRows == true)
-            {
-                rdr.Read();
-                if (!rdr.IsDBNull(0))
-                {
-                    nextPicID = int.Parse(rdr[0].ToString());
-                }
-            }
-            rdr.Close();
-
-            if (nextPicID < 0)
-            {
-                SqlCommand cmdFirst = new SqlCommand("", conn);
-                cmdFirst.CommandType = CommandType.StoredProcedure;
-                cmdFirst.CommandText = "spSelectEventPictureFirst";
-                cmdFirst.Parameters.Add("@EventID", SqlDbType.Int).Value = eventID;
-                DbDataReader rdrFirst = cmdFirst.ExecuteReader();
-                if (rdrFirst.HasRows == true)
-                {
-                    rdrFirst.Read();
-                    if (!rdrFirst.IsDBNull(0))
+                    string imagePreview = "";
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("ImagePreview")))
                     {
-                        nextPicID = int.Parse(rdrFirst[0].ToString());
+                        imagePreview = (string)rdr["ImagePreview"];
                     }
-                }
-                rdrFirst.Close();
-            }
-        }
-        catch (Exception ex)
-        {
-            ErrorLog errorLog = new ErrorLog();
-            errorLog.WriteLog("eventPicDetails", "nextButton_click", ex.Message, logMessageLevel.errorMessage);
-            throw ex;
-        }
-        finally
-        {
-            conn.Close();
-        }
+                    string imageThumbnail = "";
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("ImageThumbnail")))
+                    {
+                        imageThumbnail = (string)rdr["ImageThumbnail"];
+                    }
+                    string caption = "";
+                    if (!rdr.IsDBNull(rdr.GetOrdinal("Caption")))
+                    {
+                        caption = (string)rdr["Caption"];
+                    }
 
-        if (nextPicID > 0)
-        {
-            Response.Redirect("eventPicDetails.aspx?EID=" + eventID.ToString() + "&EPID=" + nextPicID.ToString());
+                    sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + "assets/eventPics/" + imagePreview + "\", \"" + caption + "\"];\n";
+                    imageCount++;
+                }
+                rdr.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 

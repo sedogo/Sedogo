@@ -331,7 +331,7 @@
                 Just click 'Add goal' at the top and you're away. If you can't think of one, why not 
                 make 'Adding a goal' your goal. It could be the very first goal you achieve 
                 (and the beginning of much greater things…).</p>
-                <a href="addEvent.aspx" class="modal">Add you're first goal here</a><p>&nbsp;</p></div>
+                <a href="addEvent.aspx" class="modal">Add your first goal here</a><p>&nbsp;</p></div>
                 <Sedogo:EventsListControl ID="eventsListControl" runat="server" />
             </div>
             <Sedogo:FooterControl ID="footerControl" runat="server" />

@@ -53,7 +53,7 @@
     <div>
     
 	    <div id="modal">
-            <h1>Select person/friend?</h1>
+            <h1>Select friends?</h1>
     
             <div id="contactsDiv" runat="server">
             <table border="0" cellspacing="2" cellpadding="0">

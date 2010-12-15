@@ -191,6 +191,8 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
             if (sedogoEvent.privateEvent == true)
             {
                 privateIcon.Visible = true;
+                shareButton.Visible = false;
+                shareImage.Visible = false;
             }
 
             if (userID > 0)
@@ -1087,6 +1089,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
         SedogoEvent sedogoEvent = new SedogoEvent(Session["loggedInUserFullName"].ToString(), eventID);
 
+        Boolean firstAlert = true;
         SqlConnection conn = new SqlConnection((string)Application["connectionString"]);
         try
         {
@@ -1106,7 +1109,13 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 string outputText = "<a href=\"eventAlerts.aspx?EID=" + eventID.ToString() + "\" class=\"modal\">"
                     + alertDate.ToString("ddd d MMMM yyyy") + "</a> ";
 
+                if (firstAlert == false)
+                {
+                    alertsPlaceHolder.Controls.Add(new LiteralControl("<br/>"));
+                }
                 alertsPlaceHolder.Controls.Add(new LiteralControl(outputText));
+
+                firstAlert = false;
             }
             rdr.Close();
         }

@@ -141,7 +141,7 @@ public partial class eventAlerts : SedogoPage
         DateTime alertDate = CalendarAlertDate.SelectedDate;
         string alertText = newAlertTextBox.Text;
 
-        EventAlert eventAlert = new EventAlert((string)Application["connectionString"]);
+        EventAlert eventAlert = new EventAlert(Session["loggedInUserFullName"].ToString());
         eventAlert.alertDate = alertDate;
         eventAlert.eventID = eventID;
         eventAlert.alertText = alertText;

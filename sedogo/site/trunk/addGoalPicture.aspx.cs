@@ -129,14 +129,23 @@ public partial class addGoalPicture : SedogoPage
 
             string originalFileName = Path.GetFileName(goalPicFileUpload.PostedFile.FileName);
             string destPath = Path.Combine(fileStoreFolder, originalFileName);
-            destPath = destPath.Replace(" ", "_");
-            destPath = MiscUtils.GetUniqueFileName(destPath);
-            string savedFilename = Path.GetFileName(destPath);
 
-            goalPicFileUpload.PostedFile.SaveAs(destPath);
+            int status = -1;
+            if ((goalPicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || goalPicFileUpload.PostedFile.ContentType == "image/gif"
+                || goalPicFileUpload.PostedFile.ContentType == "image/png")
+                && Path.GetExtension(destPath) != ""
+                )
+            {
+                destPath = destPath.Replace(" ", "_");
+                destPath = MiscUtils.GetUniqueFileName(destPath);
+                string savedFilename = Path.GetFileName(destPath);
 
-            int status = MiscUtils.CreateGoalPicPreviews(Path.GetFileName(destPath),
-                eventID, (string)Session["loggedInUserFullName"], userID, captionTextBox.Text);
+                goalPicFileUpload.PostedFile.SaveAs(destPath);
+
+                status = MiscUtils.CreateGoalPicPreviews(Path.GetFileName(destPath),
+                    eventID, (string)Session["loggedInUserFullName"], userID, captionTextBox.Text);
+            }
 
             if (status >= 0)
             {
@@ -147,7 +156,7 @@ public partial class addGoalPicture : SedogoPage
             }
             else
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This type of image is not supported, please choose another.\");", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This type of image is not supported or the file extension is missing, please choose another.\");", true);
             }
         }
     }

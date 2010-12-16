@@ -74,26 +74,34 @@ public partial class uploadProfilePic : SedogoPage
             destPath = MiscUtils.GetUniqueFileName(destPath);
             string savedFilename = Path.GetFileName(destPath);
 
-            if(!Directory.Exists(Path.GetDirectoryName(destPath)))
+            int status = -1;
+            if ( ( profilePicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || profilePicFileUpload.PostedFile.ContentType == "image/gif"
+                || profilePicFileUpload.PostedFile.ContentType == "image/png" )
+                && Path.GetExtension(destPath) != ""
+                )
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                if (!Directory.Exists(Path.GetDirectoryName(destPath)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                }
+                profilePicFileUpload.PostedFile.SaveAs(destPath);
+
+                status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), int.Parse(Session["loggedInUserID"].ToString()));
+
+                // PD 3/12/10 - Removed due to server error on file upload
+                var user = new SedogoUser(string.Empty, int.Parse(Session["loggedInUserID"].ToString()));
+                ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview, true);
+                ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail, true);
             }
-            profilePicFileUpload.PostedFile.SaveAs(destPath);
 
-            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath), int.Parse(Session["loggedInUserID"].ToString()));
-
-            // PD 3/12/10 - Removed due to server error on file upload
-            var user = new SedogoUser(string.Empty, int.Parse(Session["loggedInUserID"].ToString()));
-            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserPreview, true);
-            ImageHelper.GetRelativeImagePath(user.userID, user.GUID, ImageType.UserThumbnail, true);
-            
             if (status >= 0)
             {
                 Response.Redirect("profileRedirect.aspx");
             }
             else
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This type of image is not supported, please choose another.\");", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert(\"This type of image is not supported or the file extension is missing, please choose another.\");", true);
             }
         }
     }

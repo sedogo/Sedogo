@@ -1191,20 +1191,28 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
 
                     string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
                     string destPath = Path.Combine(fileStoreFolder, originalFileName);
-                    destPath = destPath.Replace(" ", "_");
-                    destPath = MiscUtils.GetUniqueFileName(destPath);
-                    string savedFilename = Path.GetFileName(destPath);
+                    int status = -1;
+                    if ((eventPicFileUpload.PostedFile.ContentType == "image/jpeg"
+                        || eventPicFileUpload.PostedFile.ContentType == "image/gif"
+                        || eventPicFileUpload.PostedFile.ContentType == "image/png")
+                        && Path.GetExtension(destPath) != ""
+                        )
+                    {
+                        destPath = destPath.Replace(" ", "_");
+                        destPath = MiscUtils.GetUniqueFileName(destPath);
+                        string savedFilename = Path.GetFileName(destPath);
 
-                    eventPicFileUpload.PostedFile.SaveAs(destPath);
+                        eventPicFileUpload.PostedFile.SaveAs(destPath);
 
-                    string savedFileName = "";
-                    string destFilename = "";
-                    string destPreviewFilename = "";
-                    MiscUtils.CreateEventCommentImagePreviews(Path.GetFileName(destPath),
-                        out savedFileName, out destFilename, out destPreviewFilename);
+                        string savedFileName = "";
+                        string destFilename = "";
+                        string destPreviewFilename = "";
+                        MiscUtils.CreateEventCommentImagePreviews(Path.GetFileName(destPath),
+                            out savedFileName, out destFilename, out destPreviewFilename);
 
-                    comment.eventImageFilename = Path.GetFileName(savedFileName);
-                    comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+                        comment.eventImageFilename = Path.GetFileName(savedFileName);
+                        comment.eventImagePreview = Path.GetFileName(destPreviewFilename);
+                    }
                 }
             }
             if (videoLinkText.Text != "")

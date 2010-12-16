@@ -131,13 +131,20 @@ public partial class addEventUploadPic : SedogoPage
 
             string originalFileName = Path.GetFileName(eventPicFileUpload.PostedFile.FileName);
             string destPath = Path.Combine(fileStoreFolder, originalFileName);
-            destPath = destPath.Replace(" ", "_");
-            destPath = MiscUtils.GetUniqueFileName(destPath);
-            string savedFilename = Path.GetFileName(destPath);
+            if ((eventPicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || eventPicFileUpload.PostedFile.ContentType == "image/gif"
+                || eventPicFileUpload.PostedFile.ContentType == "image/png")
+                && Path.GetExtension(destPath) != ""
+                )
+            {
+                destPath = destPath.Replace(" ", "_");
+                destPath = MiscUtils.GetUniqueFileName(destPath);
+                string savedFilename = Path.GetFileName(destPath);
 
-            eventPicFileUpload.PostedFile.SaveAs(destPath);
+                eventPicFileUpload.PostedFile.SaveAs(destPath);
 
-            MiscUtils.CreateEventPicPreviews(Path.GetFileName(destPath), eventID);
+                MiscUtils.CreateEventPicPreviews(Path.GetFileName(destPath), eventID);
+            }
         }
 
         DateTime alertDate = CalendarAlertDate.SelectedDate;

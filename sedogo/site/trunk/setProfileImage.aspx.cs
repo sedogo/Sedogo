@@ -80,14 +80,22 @@ public partial class setProfileImage : System.Web.UI.Page
 
             string originalFileName = Path.GetFileName(profilePicFileUpload.PostedFile.FileName);
             string destPath = Path.Combine(fileStoreFolder, originalFileName);
-            destPath = destPath.Replace(" ", "_");
-            destPath = MiscUtils.GetUniqueFileName(destPath);
-            string savedFilename = Path.GetFileName(destPath);
+            int status = -1;
+            if ((profilePicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || profilePicFileUpload.PostedFile.ContentType == "image/gif"
+                || profilePicFileUpload.PostedFile.ContentType == "image/png")
+                && Path.GetExtension(destPath) != ""
+                )
+            {
+                destPath = destPath.Replace(" ", "_");
+                destPath = MiscUtils.GetUniqueFileName(destPath);
+                string savedFilename = Path.GetFileName(destPath);
 
-            profilePicFileUpload.PostedFile.SaveAs(destPath);
+                profilePicFileUpload.PostedFile.SaveAs(destPath);
 
-            int status = MiscUtils.CreatePreviews(Path.GetFileName(destPath),
-                int.Parse(Session["loggedInUserID"].ToString()));
+                status = MiscUtils.CreatePreviews(Path.GetFileName(destPath),
+                    int.Parse(Session["loggedInUserID"].ToString()));
+            }
 
             if (status >= 0)
             {

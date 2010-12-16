@@ -408,7 +408,7 @@ namespace Sedogo.BusinessObjects
                     string dateString = "";
                     DateTime startDate = sedogoEvent.startDate;
 
-                    string emailSubject = "Sedogo alert for event " + sedogoEvent.eventName;
+                    string emailSubject = "Sedogo reminder for " + sedogoEvent.eventName;
 
                     MiscUtils.GetDateStringStartDate(user, sedogoEvent.dateType, sedogoEvent.rangeStartDate,
                         sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
@@ -431,7 +431,7 @@ namespace Sedogo.BusinessObjects
                     //emailBodyCopy.AppendLine("	<tr><td colspan=\"3\"><img src=\"http://www.sedogo.com/email-template/images/email-template_01.png\" width=\"692\" height=\"32\" alt=\"\"></td></tr>");
                     emailBodyCopy.AppendLine("	<tr><td style=\"background: #fff\" width=\"30\"></td>");
                     emailBodyCopy.AppendLine("		<td style=\"background: #fff\" width=\"632\">");
-                    emailBodyCopy.AppendLine("			<h1>This is a reminder for the following goal:</h1>");
+                    emailBodyCopy.AppendLine("			<h1>You asked to be reminded about:</h1>");
                     emailBodyCopy.AppendLine("			<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">");
                     emailBodyCopy.AppendLine("				<tr>");
                     emailBodyCopy.AppendLine("					<td width=\"60\">What:</td>");

@@ -150,6 +150,10 @@ public partial class eventPicDetails : System.Web.UI.Page
                         caption = (string)rdr["Caption"];
                     }
 
+                    var @event = new SedogoEvent(string.Empty, eventID);
+
+                    imagePreview = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, @event.eventGUID, ImageType.EventPicturePreview));
+
                     sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + "assets/eventPics/" + imagePreview + "\", \"" + caption + "\"];\n";
                     imageCount++;
                 }

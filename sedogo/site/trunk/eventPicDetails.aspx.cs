@@ -154,7 +154,7 @@ public partial class eventPicDetails : System.Web.UI.Page
 
                     imagePreview = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, @event.eventGUID, ImageType.EventPicturePreview));
 
-                    sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + "assets/eventPics/" + imagePreview + "\", \"" + caption + "\"];\n";
+                    sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + imagePreview + "\", \"" + caption + "\"];\n";
                     imageCount++;
                 }
                 rdr.Close();

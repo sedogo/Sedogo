@@ -75,7 +75,7 @@ function popupCalendarAlertDate(image)
             </div>
             <div class="left-col">
 		        <h1 style="">Reminders for <asp:Literal ID="eventTitleLabel" runat="server" /></h1>
-		        <p><asp:Label ID="eventDescriptionLabel" runat="server" /><br />
+		        <p><asp:Label ID="eventDescriptionLabel" runat="server" Visible="false" /><br />
 		        <i><asp:Label ID="eventOwnersNameLabel" runat="server" /></i><br />
 		        <asp:Label ID="eventDateLabel" runat="server" /></p>
 

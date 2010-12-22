@@ -217,6 +217,18 @@
     {
         document.getElementById(id).className = newClass; 
     }
+    function openEvent(eventID)
+    {
+        location.href = "viewEvent.aspx?EID=" + eventID;
+    }
+    function viewProfile(eventUserID)
+    {
+        location.href = "userProfile.aspx?UID=" + eventUserID;
+    }
+    function viewUserTimeline(eventUserID)
+    {
+        location.href = "userTimeline.aspx?UID=" + eventUserID;
+    }
     </script>
 
     <script type="text/JavaScript">

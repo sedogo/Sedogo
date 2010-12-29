@@ -204,12 +204,12 @@ public partial class morePictures : System.Web.UI.Page
                 }
                 loopDate = createdDate;
 
-                var _event = new SedogoEvent(string.Empty, eventID);
+                var @event = new SedogoEvent(string.Empty, eventID);
                 var eventPicture = new SedogoEventPicture(string.Empty, eventPictureID);
 
                 // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                 // instead of showing correct image
-                imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPicture.eventPictureID, _event.eventGUID, ImageType.EventPictureThumbnail));
+                imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPicture.eventPictureID, @event.eventGUID, ImageType.EventPicturePreview));
                 //imageThumbnail = "assets/eventPics/" + imageThumbnail;
 
                 imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:110px; float:left; margin:0 10px 20px 0\">"));

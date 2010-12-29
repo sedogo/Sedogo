@@ -79,9 +79,13 @@ public class ImageHelper
     {
         switch (imageType)
         {
+            case ImageType.UserOriginal: 
             case ImageType.UserPreview: 
             case ImageType.UserThumbnail:
                 return "profilePics";
+            case ImageType.EventCommentOriginal:
+            case ImageType.EventOriginal:
+            case ImageType.EventPictureOriginal:
             case ImageType.EventPreview:
             case ImageType.EventThumbnail:
             case ImageType.EventCommentPreview:
@@ -111,9 +115,7 @@ public class ImageHelper
         var dimensions = GetImageSize(imageType);
         var physPath = Path.Combine(Path.Combine(Path.Combine(ImageCacheDirectory, GetSubdir(imageType)), guid.Substring(0, 2)), guid.Substring(2, 2));
         var virtPath = "~/" + Path.Combine(Path.Combine(Path.Combine("assets", GetSubdir(imageType)), guid.Substring(0, 2)), guid.Substring(2, 2)).Replace("\\", "/");
-        var imageSrc = dimensions.IsEmpty()
-                           ? string.Empty
-                           : GetRelativeImagePath(id, imageType, physPath, virtPath, dimensions.First, dimensions.Second, dimensions.Third, overrideImage, ref resultWidth, ref resultHeight);
+        var imageSrc = GetRelativeImagePath(id, imageType, physPath, virtPath, dimensions.First, dimensions.Second, dimensions.Third, overrideImage, ref resultWidth, ref resultHeight);
         return imageSrc;
     }
 
@@ -337,6 +339,14 @@ public class ImageHelper
         if (string.IsNullOrEmpty(filename))
         {
             return string.Format("{0}/{1}", virtPath, thmName);
+        }
+        switch (imageType)
+        {
+            case ImageType.UserOriginal:
+            case ImageType.EventOriginal:
+            case ImageType.EventCommentOriginal:
+            case ImageType.EventPictureOriginal:
+                return string.Format("{0}/{1}", Path.GetDirectoryName(Path.GetDirectoryName(virtPath)), filename);
         }
         string fullPath;
         if (!Path.IsPathRooted(physPath))

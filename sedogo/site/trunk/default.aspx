@@ -562,24 +562,27 @@
                     </div>
                     <div style="float: left; width: 100%; height: 216px;">
                         <div style="margin-left: 2px;">
-                        
-<div style="margin-top: 20px;">
-<table cellspacing="0" cellpadding="0" width="230" style="border: 2px solid #CCCCCC;">
-	<tbody><tr style="background-color:#CCCCCC;">
-		<td style="padding: 5px;"><span style="font-size: 120%; color: white;"><b>Sedogo supports</b></span></td>
-	</tr>
-	<tr>
-		<td>
-			<table cellspacing="5" cellpadding="0" border="0">			
-				<tbody><tr>
-				    <td><a href="http://www.actionforchildren.org.uk/content/74/What-you-can-do"><img src="/images/AFC_Landscape_Generic_rgb20.jpg"></a></td>
-				    <td style="padding-top:32px"><span style="font-size: 80%;"><a style="color: rgb(153, 153, 153)" href="http://www.sedogo.com/viewEvent.aspx?EID=1114">Find out more &gt;</a></span></td>
-				</tr>
-			</tbody></table>
-		</td>
-	</tr>
-</tbody></table>
-</div>
+
+<style type="text/css">
+a.splanrollover 
+{
+	display: block;
+	width: 226px;
+	height: 100px;
+	text-decoration: none;
+	background: url("/images/SplanC.jpg");
+}
+a.splanrollover:hover 
+{
+	background-position: -226px 0;
+}
+</style>                        
+            <table border="0" cellspacing="0" cellpadding="0" style="margin-top:15px">
+                <tr>
+                    <td><a href="http://blog.sedogo.com/?p=179" class="splanrollover" title="Splan"><span 
+                        class="displace">Splan</span></a></td> 
+                </tr>
+            </table>
                         
                         </div>
                     </div>

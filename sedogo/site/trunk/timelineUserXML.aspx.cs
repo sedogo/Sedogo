@@ -145,7 +145,7 @@ public partial class timelineUserXML : System.Web.UI.Page
                     TimeSpan ts = timelineEndDate - timelineStartDate;
                     if (ts.Days < 28)
                     {
-                        timelineEndDate = startDate.AddDays(28);        // Add 28 days so it shows up
+                        timelineEndDate = rangeStartDate.AddDays(28);        // Add 28 days so it shows up
                     }
 
                     startDate = rangeStartDate;

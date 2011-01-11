@@ -53,7 +53,7 @@
     function addPicture()
     {
 	    <asp:Literal id="addPictureLiteral" runat="server" />
-	    openModal(url);
+	    window.location = url;
     }
     </script>
 
@@ -134,9 +134,9 @@
                                     <tr>
                                         <td><asp:Image id="eventImage" runat="server" /></td>
                                         <td><asp:TextBox ID="imageCaptionTextBox" runat="server" Width="200" MaxLength="200" /></td>
-                                        <td><asp:LinkButton ID="saveButton" runat="server" CssClass="button-sml" 
-                                            Text="Save caption" CommandName="saveButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventPictureID") %>' />
-                                            <asp:LinkButton ID="deleteButton" runat="server" CssClass="button-sml" 
+                                        <td><asp:LinkButton ID="saveButton" runat="server" CssClass="blue sedogorollover" 
+                                            Text="Save caption" CommandName="saveButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventPictureID") %>' /><br />
+                                            <asp:LinkButton ID="deleteButton" runat="server" CssClass="blue sedogorollover" 
                                             Text="Delete image" CommandName="deleteButton" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EventPictureID") %>' /></td>
                                     </tr>
                                     <tr>

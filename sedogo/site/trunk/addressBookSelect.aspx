@@ -14,7 +14,7 @@
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="pragma" content="no-cache" />
 
-	<title>Upload profile picture : Sedogo : Create your future and connect with others to make it happen</title>
+	<title>Select friend : Sedogo : Create your future and connect with others to make it happen</title>
 
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />

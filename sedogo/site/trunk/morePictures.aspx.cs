@@ -209,7 +209,7 @@ public partial class morePictures : System.Web.UI.Page
 
                 // PD 3/12/10 - Removed this because goal image was being repeated on all comments
                 // instead of showing correct image
-                imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPicture.eventPictureID, @event.eventGUID, ImageType.EventPicturePreview));
+                imageThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPicture.eventPictureID, @event.eventGUID, ImageType.EventPictureThumbnailSmall));
                 //imageThumbnail = "assets/eventPics/" + imageThumbnail;
 
                 imagesPlaceHolder.Controls.Add(new LiteralControl("<div style=\"width:110px; float:left; margin:0 10px 20px 0\">"));

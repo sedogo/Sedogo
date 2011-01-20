@@ -11,5 +11,6 @@
     UserOriginal = 9,
     EventOriginal = 10,
     EventCommentOriginal = 11,
-    EventPictureOriginal = 12
+    EventPictureOriginal = 12,
+    EventPictureThumbnailSmall = 13
 }

@@ -33,6 +33,7 @@ public class ImageRepository
                 }
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
+            case ImageType.EventPictureThumbnailSmall:
                 {
                     var _event = _dataContext.EventPictures.Where(x => x.EventPictureID == id).FirstOrDefault();
                     return _event != null ? _event.ImageFilename : string.Empty;

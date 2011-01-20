@@ -2,7 +2,7 @@
 
 <div id="footer" style="margin-bottom:20px">
 	<ul>
-		<li class="first">&copy; Sedogo Ltd 2008-2010</li>
+		<li class="first">&copy; Sedogo Ltd 2008-2011</li>
 		<li><asp:HyperLink ID="aboutLink" runat="server" NavigateUrl="~/about.aspx" ToolTip="About" Text="About" /></li>
 		<li><asp:HyperLink ID="faqLink" runat="server" NavigateUrl="~/faq.aspx" ToolTip="FAQ" Text="FAQ" /></li>
 		<li><asp:HyperLink ID="privacyLink" runat="server" NavigateUrl="~/privacy.aspx" ToolTip="Privacy Policy" Text="Privacy Policy" /></li>

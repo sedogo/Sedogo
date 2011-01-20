@@ -733,7 +733,9 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 }
                 outputText = outputText + "</p>";
                 outputText = outputText + createdDate.ToString("ddd d MMMM yyyy") + "<br/>"
-                    + "<span style=\"color:black\">" + commentText.Replace("\n", "<br/>") + "</span>";
+                    + "<div style=\"width:485px;overflow:auto\">"
+                    + "<span style=\"color:black\">" + commentText.Replace("\n", "<br/>") + "</span>"
+                    + "</div>";
                 if (eventImagePreview != "")
                 {
                     if (commentText != "")

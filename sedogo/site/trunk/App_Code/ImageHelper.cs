@@ -35,7 +35,7 @@ public class ImageHelper
         GlobalData gd = new GlobalData("");
         int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
         int previewSize = gd.GetIntegerValue("PreviewSize");
-        int thumbnailSizeSmall = 110;// gd.GetIntegerValue("ThumbnailSize");
+        int thumbnailSizeSmall = gd.GetIntegerValue("ThumbnailSizeSmall");//110 gd.GetIntegerValue("ThumbnailSize");
 
         Triplet<int, int, int> dimensions;
         switch (type)
@@ -324,22 +324,23 @@ public class ImageHelper
 
         var repository = new ImageRepository();
         string filename = repository.GetImagePath(id, imageType);
-        var thmName = Path.GetFileNameWithoutExtension(filename) + "_" + width + "_" + height + ".jpg";
+        string thmName = Path.GetFileNameWithoutExtension(filename) + "_" + width + "_" + height + ".jpg";
+        string thmNameWithoutExtension=Path.GetFileNameWithoutExtension(thmName);
 
-        Image image = null;
+
         if (!overrideImage)
         {
             foreach (var file in files)
             {
-                using (Image img = Image.FromFile(file.FullName))
+
                 {
-                    if (Path.GetFileNameWithoutExtension(file.Name) == thmName)
-                    {
+                    if (Path.GetFileNameWithoutExtension(file.Name) == thmNameWithoutExtension)
+                    {Image img = Image.FromFile(file.FullName);
                         resultWidth = img.Width;
                         resultHeight = img.Height;
                         return string.Format("{0}/{1}", virtPath, file.Name);
                     }
-                }
+              }
             }
         }
         if (string.IsNullOrEmpty(filename))

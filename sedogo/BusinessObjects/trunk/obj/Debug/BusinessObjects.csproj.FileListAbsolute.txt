@@ -10,3 +10,8 @@ C:\My\Programing\sedogo\BusinessObjects\bin\Debug\BusinessObjects.pdb
 C:\My\Programing\sedogo\BusinessObjects\bin\Debug\itextsharp.dll
 C:\My\Programing\sedogo\BusinessObjects\obj\Debug\BusinessObjects.dll
 C:\My\Programing\sedogo\BusinessObjects\bin\Debug\Newtonsoft.Json.dll
+C:\projects\sedogo\BusinessObjects\trunk\bin\Debug\BusinessObjects.dll
+C:\projects\sedogo\BusinessObjects\trunk\bin\Debug\BusinessObjects.pdb
+C:\projects\sedogo\BusinessObjects\trunk\obj\Debug\ResolveAssemblyReference.cache
+C:\projects\sedogo\BusinessObjects\trunk\obj\Debug\BusinessObjects.dll
+C:\projects\sedogo\BusinessObjects\trunk\obj\Debug\BusinessObjects.pdb

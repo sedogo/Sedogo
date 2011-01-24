@@ -152,7 +152,7 @@ public partial class eventPicDetails : System.Web.UI.Page
 
                     var @event = new SedogoEvent(string.Empty, eventID);
 
-                    imagePreview = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, @event.eventGUID, ImageType.EventPicturePreview));
+                    imagePreview = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, @event.eventGUID,ImageType.EventPictureThumbnailSlideShow));//  ImageType.EventPicturePreview));
 
                     sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + imagePreview + "\", \"" + caption.Replace('"',' ') + "\"];\n";
                     imageCount++;

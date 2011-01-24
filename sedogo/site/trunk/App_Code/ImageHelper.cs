@@ -36,6 +36,7 @@ public class ImageHelper
         int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
         int previewSize = gd.GetIntegerValue("PreviewSize");
         int thumbnailSizeSmall = gd.GetIntegerValue("ThumbnailSizeSmall");//110 gd.GetIntegerValue("ThumbnailSize");
+        int thumbnailSizeSlideShow = gd.GetIntegerValue("ThumbnailSizeSlideShow");
 
         Triplet<int, int, int> dimensions;
         switch (type)
@@ -67,6 +68,9 @@ public class ImageHelper
             case ImageType.EventPictureThumbnailSmall: //13
                 dimensions = new Triplet<int, int, int>(thumbnailSizeSmall, thumbnailSizeSmall, 0);
                 break;
+            case ImageType.EventPictureThumbnailSlideShow: //14
+                dimensions = new Triplet<int, int, int>(thumbnailSizeSlideShow, thumbnailSizeSlideShow, 0);
+                break;
             default:
                 dimensions = new Triplet<int, int, int>();
                 break;
@@ -97,6 +101,7 @@ public class ImageHelper
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
             case ImageType.EventPictureThumbnailSmall:
+            case ImageType.EventPictureThumbnailSlideShow:
                 return "eventPics";
             default:
                 return "default";
@@ -305,6 +310,7 @@ public class ImageHelper
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
             case ImageType.EventPictureThumbnailSmall:
+            case ImageType.EventPictureThumbnailSlideShow:
                 physPath = Path.Combine(physPath, "pictures");
                 virtPath = string.Format("{0}/{1}", virtPath, "pictures");
                 break;
@@ -368,7 +374,9 @@ public class ImageHelper
                 imageType == ImageType.EventCommentThumbnail ||
                 imageType == ImageType.EventPicturePreview ||
                 imageType == ImageType.EventPictureThumbnail ||
-                imageType == ImageType.EventPictureThumbnailSmall )
+                imageType == ImageType.EventPictureThumbnailSmall ||
+                imageType == ImageType.EventPictureThumbnailSlideShow
+                )
             {
                 fullPath =
                     Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(physPath))),
@@ -406,6 +414,7 @@ public class ImageHelper
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
             case ImageType.EventPictureThumbnailSmall:
+            case ImageType.EventPictureThumbnailSlideShow:
                 return "P";
             default:
                 return string.Empty;
@@ -606,6 +615,7 @@ public class ImageHelper
             case ImageType.EventPicturePreview:
             case ImageType.EventPictureThumbnail:
             case ImageType.EventPictureThumbnailSmall:
+            case ImageType.EventPictureThumbnailSlideShow:
                 physPath = Path.Combine(physPath, "pictures");
                 break;
         }

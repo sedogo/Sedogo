@@ -12,5 +12,6 @@
     EventOriginal = 10,
     EventCommentOriginal = 11,
     EventPictureOriginal = 12,
-    EventPictureThumbnailSmall = 13
+    EventPictureThumbnailSmall = 13,
+    EventPictureThumbnailSlideShow = 14
 }

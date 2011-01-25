@@ -75,7 +75,9 @@ public partial class uploadProfilePic : SedogoPage
             string savedFilename = Path.GetFileName(destPath);
 
             int status = -1;
+            
             if ( ( profilePicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || profilePicFileUpload.PostedFile.ContentType == "image/pjpeg"
                 || profilePicFileUpload.PostedFile.ContentType == "image/gif"
                 || profilePicFileUpload.PostedFile.ContentType == "image/png" )
                 && Path.GetExtension(destPath) != ""

@@ -1195,6 +1195,7 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                     string destPath = Path.Combine(fileStoreFolder, originalFileName);
                     int status = -1;
                     if ((eventPicFileUpload.PostedFile.ContentType == "image/jpeg"
+                        || eventPicFileUpload.PostedFile.ContentType == "image/pjpeg"
                         || eventPicFileUpload.PostedFile.ContentType == "image/gif"
                         || eventPicFileUpload.PostedFile.ContentType == "image/png")
                         && Path.GetExtension(destPath) != ""

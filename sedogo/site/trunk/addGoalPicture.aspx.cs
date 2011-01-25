@@ -132,6 +132,7 @@ public partial class addGoalPicture : SedogoPage
 
             int status = -1;
             if ((goalPicFileUpload.PostedFile.ContentType == "image/jpeg"
+                || goalPicFileUpload.PostedFile.ContentType == "image/pjpeg"
                 || goalPicFileUpload.PostedFile.ContentType == "image/gif"
                 || goalPicFileUpload.PostedFile.ContentType == "image/png")
                 && Path.GetExtension(destPath) != ""

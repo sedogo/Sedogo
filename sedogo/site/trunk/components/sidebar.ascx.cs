@@ -56,7 +56,7 @@ public partial class sidebar : System.Web.UI.UserControl
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        IsSimilarVisible = Request.Path.EndsWith("viewEvent.aspx");
+        IsSimilarVisible = true;// Request.Path.EndsWith("viewEvent.aspx");
         if (!IsPostBack)
         {
             int eventID;

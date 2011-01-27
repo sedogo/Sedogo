@@ -13,12 +13,12 @@
         var form = document.forms[0];
         window.location = "/login.aspx?Redirect=AddEvent&Details=" + form.bannerAddFindControl_what.value;
     }
-    function doAddEvent()
+   function doAddEvent()
     {
         var form = document.forms[0];
         openModal("/addEvent.aspx?Name=" + form.bannerAddFindControl_what.value);
     }
-    function checkAddButtonEnter(e)
+   function checkAddButtonEnter(e)
     {
         var characterCode;
         if (e && e.which) // NN4 specific code
@@ -80,7 +80,7 @@
                                     ValidationGroup="what2Group" Text="search goals or people" /></td>
                                 <td valign="top" style="padding-top:4px"><asp:ImageButton 
                                     ID="searchButton2" runat="server" OnClick="searchButton2_click" 
-                                    ImageUrl="~/images/searchButton.png" /></td>
+                                    ImageUrl="/images/searchButton.png" /></td>
                             </tr>
                         </table>
                         <asp:RegularExpressionValidator 

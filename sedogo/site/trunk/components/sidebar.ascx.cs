@@ -47,6 +47,13 @@ public partial class sidebar : System.Web.UI.UserControl
     /// 	<c>true</c> if this instance is similar visible; otherwise, <c>false</c>.
     /// </value>
     public bool IsSimilarVisible { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is other visible.
+    /// </summary>
+    /// <value>
+    /// 	<c>true</c> if this instance is other visible; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsOtherVisible { get; set; }
 
     //Changes By Chetan
     static readonly Random _random = new Random();
@@ -56,9 +63,10 @@ public partial class sidebar : System.Web.UI.UserControl
     //===============================================================
     protected void Page_Load(object sender, EventArgs e)
     {
-        IsSimilarVisible = true;// Request.Path.EndsWith("viewEvent.aspx");
+        
         if (!IsPostBack)
         {
+            IsOtherVisible = IsSimilarVisible = Request.QueryString["EID"] != null;// Request.Path.EndsWith("viewEvent.aspx");
             int eventID;
             if (Request.QueryString["EID"] != null && int.TryParse(Request.QueryString["EID"], out eventID) && eventID > 0)
             {
@@ -507,7 +515,11 @@ public partial class sidebar : System.Web.UI.UserControl
     /// </summary>
     private void CreateOtherEvents()
     {
-
+        otherPanel.Visible = IsOtherVisible;
+        if (!IsOtherVisible)
+        {
+            return;
+        }
         int uid;
         if (EventId > 0 && IsSimilarVisible && Session["loggedInUserID"] != null && int.TryParse(Session["loggedInUserID"].ToString(), out uid) && uid > 0)
         {

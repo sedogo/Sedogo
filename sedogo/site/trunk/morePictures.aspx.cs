@@ -37,6 +37,7 @@ public partial class morePictures : System.Web.UI.Page
         if (!IsPostBack)
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
+            if (eventID > 0) sidebarControl.EventId = eventID;
             int userID = -1;
             string loggedInUserName = "";
             if (Session["loggedInUserID"] != null)

@@ -351,7 +351,7 @@
                                 </div>
                                 <asp:PlaceHolder ID="commentsPlaceHolder" runat="server" />
                             </td>
-                            <td width="7px">
+                            <td width="25px">
                                 &nbsp;
                             </td>
                             <td width="200px">

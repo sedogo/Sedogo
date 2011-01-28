@@ -481,8 +481,8 @@ public class ImageHelper
         float nPercentH = ((float)height / sourceHeight);
         float nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
 
-        int destWidth = (int)(sourceWidth * nPercent);
-        int destHeight = (int)(sourceHeight * nPercent);
+        int destWidth = width;                                  // (int)(sourceWidth * nPercent);
+        int destHeight = width * sourceHeight / sourceWidth;    // (int)(sourceHeight * nPercent);
 
         Bitmap bitmap = new Bitmap(destWidth, destHeight,
                           PixelFormat.Format32bppArgb);

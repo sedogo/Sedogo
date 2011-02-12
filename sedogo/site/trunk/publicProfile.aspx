@@ -37,14 +37,15 @@
 		<link rel="stylesheet" href="css/main_ie.css" />
 	<![endif]-->
 
-	<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" src="../js/jquery-ui-1.7.2.custom.min.js"></script>
-	<script type="text/javascript" src="../js/ui.dialog.js"></script>
-	<script type="text/javascript" src="../js/jquery.cookie.js"></script>
-	<script type="text/javascript" src="../js/jquery.livequery.js"></script>
-	<script type="text/javascript" src="../js/jquery.corner.js"></script>
-	<script type="text/javascript" src="../js/main.js"></script>
-    <script type="text/javascript" src="../js/validationFunctions.js"></script>
+    <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/ui.dialog.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/jquery.livequery.js"></script>
+	<script type="text/javascript" src="js/jquery.corner.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/validationFunctions.js"></script>
     <script src="http://static.simile.mit.edu/ajax/api-2.2.0/simile-ajax-api.js" type="text/javascript"></script>
 </head>
 <body>

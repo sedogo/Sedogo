@@ -38,6 +38,7 @@
 		<link rel="stylesheet" href="css/main_lte-ie-6.css" />
 	<![endif]-->
 
+    <script type="text/javascript" src="js/DD_roundies_0.0.2a-min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>

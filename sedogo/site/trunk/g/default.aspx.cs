@@ -45,7 +45,7 @@ public partial class g_default : System.Web.UI.Page
             {
                 PopulateGoalNames(letterFilter);
             }
-
+            #region switch (letterFilter)
             switch (letterFilter)
             {
                 case "A":
@@ -127,7 +127,7 @@ public partial class g_default : System.Web.UI.Page
                     letterZLink.CssClass = "publicPageSelectedLetter";
                     break;
             }
-
+            #endregion
             if (Session["loggedInUserID"] != null)
             {
                 int userID = int.Parse(Session["loggedInUserID"].ToString());
@@ -184,14 +184,14 @@ public partial class g_default : System.Web.UI.Page
                     userLink.Text = "<table><tr><td width=\"50\">";    // <div class=\"directory\">
                     if (eventPicThumbnail == "")
                     {
-                        userLink.Text += "<img src=\"../images/1x1trans.gif\" width=\"50\" height=\"50\" />";
+                        userLink.Text += "<img src=\"../images/1x1trans.gif\" width=\"50\"  />";
                         //userLink.Text += "<img src=\"../images/goalimage_small.jpg\" />";
                     }
                     else
                     {
                         var _event = new SedogoEvent(string.Empty, eventID);
                         eventPicThumbnail = ResolveUrl(ImageHelper.GetRelativeImagePath(_event.eventID, _event.eventGUID, ImageType.EventThumbnail));
-                        userLink.Text += "<div class=\"crop\"><img src=\"" + eventPicThumbnail + "\" width=\"50\" /></div>";
+                        userLink.Text += "<div ><img src=\"" + eventPicThumbnail + "\" width=\"50\" /></div>";
                     }
                     userLink.Text += "</td><td>&nbsp;<a class=\"event\" href=\"/viewEvent.aspx?EID=" + eventID + "\">" + eventName + "</a></td>";
                     userLink.Text += "</tr></table>";

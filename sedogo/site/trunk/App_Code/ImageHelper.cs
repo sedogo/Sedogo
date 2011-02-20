@@ -456,6 +456,7 @@ public class ImageHelper
     /// <param name="width">Required width</param>
     /// <param name="height">Required heght</param>
     /// <returns>Image</returns>
+ /*
     public static Image Resize(Image image, int width, int height)
     {
         if (image == null) throw new ArgumentNullException("image");
@@ -476,11 +477,7 @@ public class ImageHelper
         const int sourceY = 0;
         const int destX = 0;
         const int destY = 0;
-
-        float nPercentW = ((float)width / sourceWidth);
-        float nPercentH = ((float)height / sourceHeight);
-        float nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
-
+        
         int destWidth = width;                                  // (int)(sourceWidth * nPercent);
         int destHeight = width * sourceHeight / sourceWidth;    // (int)(sourceHeight * nPercent);
 
@@ -498,6 +495,65 @@ public class ImageHelper
             new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
             GraphicsUnit.Pixel);
 
+        grPhoto.Dispose();
+        return bitmap;
+    }
+*/
+    /// <summary>
+    /// Resize image to specified size.
+    /// </summary>
+    /// <param name="image">Source image</param>
+    /// <param name="width">Required width</param>
+    /// <param name="height">Required heght</param>
+    /// <returns>Image</returns>
+    public static Image Resize(Image image, int width, int height)//;, bool crop)
+    {
+        if (image == null) throw new ArgumentNullException("image");
+
+        if (height == 0)
+        {
+            height = (int)(image.Height * width / (float)image.Width);
+        }
+
+        if (width == 0)
+        {
+            width = (int)(image.Width * height / (float)image.Height);
+        }
+
+        int sourceWidth = image.Width;
+        int sourceHeight = image.Height;
+        const int sourceX = 0;
+        const int sourceY = 0;
+        const int destX = 0;
+        const int destY = 0;
+        /*
+        float nPercentW = ((float)width / sourceWidth);
+        float nPercentH = ((float)height / sourceHeight);
+        float nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
+        */
+        int destWidth = width;                                  // (int)(sourceWidth * nPercent);
+        int destHeight = width;    // (int)(sourceHeight * nPercent);
+
+        Bitmap bitmap = new Bitmap(destWidth, destHeight,
+                          PixelFormat.Format32bppArgb);
+        bitmap.SetResolution(image.HorizontalResolution,
+                         image.VerticalResolution);
+
+        Graphics grPhoto = Graphics.FromImage(bitmap);
+        grPhoto.Clear(Color.Transparent);
+        grPhoto.InterpolationMode =
+                InterpolationMode.HighQualityBicubic;
+        
+        if(sourceWidth>sourceHeight)
+            grPhoto.DrawImage(image,
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle((sourceWidth-sourceHeight)/2, sourceY, sourceHeight, sourceHeight),
+                GraphicsUnit.Pixel);
+        else
+            grPhoto.DrawImage(image,
+                new Rectangle(destX, destY, destWidth, destHeight),
+                new Rectangle(sourceX, (sourceHeight-sourceWidth)/2, sourceWidth, sourceWidth),
+                GraphicsUnit.Pixel);
         grPhoto.Dispose();
         return bitmap;
     }

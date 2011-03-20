@@ -103,7 +103,7 @@ public partial class help : System.Web.UI.Page
         {
             smtp.Send(message);
 
-            SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+            SentEmailHistory emailHistory = new SentEmailHistory("");
             emailHistory.subject = "Sedogo help";
             emailHistory.body = emailBody.ToString();
             emailHistory.sentFrom = mailFromAddress;
@@ -112,7 +112,7 @@ public partial class help : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-            SentEmailHistory emailHistory = new SentEmailHistory(Session["loggedInUserFullName"].ToString());
+            SentEmailHistory emailHistory = new SentEmailHistory("");
             emailHistory.subject = "Sedogo help";
             emailHistory.body = ex.Message + " -------- " + emailBody.ToString();
             emailHistory.sentFrom = mailFromAddress;

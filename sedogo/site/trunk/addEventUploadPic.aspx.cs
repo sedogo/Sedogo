@@ -163,6 +163,9 @@ public partial class addEventUploadPic : SedogoPage
             PickerAlertDate.SelectedDate = DateTime.Now;
         }
 
+        SedogoEvent sedogoEvent = new SedogoEvent((string)Session["loggedInUserFullName"], eventID);
+        sedogoEvent.Update();
+
         Response.Redirect("addEventInvites.aspx?EID=" + eventID.ToString());
     }
 

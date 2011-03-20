@@ -148,9 +148,9 @@
                             <asp:LinkButton ID="backButton" runat="server" Text="Home" CssClass="page-banner-linkstyle"
                                 OnClick="backButton_click" CausesValidation="false" /></div>
                     </div>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                    <table width="730px" border="0" cellspacing="0" cellpadding="2" style="overflow:hidden; table-layout: fixed;">
                         <tr>
-                            <td width="485px">
+                            <td width="485px" style="overflow:hidden; table-layout: fixed;">
                                 <div style="float:right;margin:5px 5px"><asp:Image ID="privateIcon" 
                                     runat="server" ImageUrl="~/images/private.gif" Visible="false" /></div>
                                 <p style="font-style: italic; color: #ccc; margin: 10px 0 4px 0; font-size: 11px;

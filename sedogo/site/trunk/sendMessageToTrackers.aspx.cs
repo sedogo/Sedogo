@@ -235,7 +235,7 @@ public partial class sendMessageToTrackers : SedogoPage
                         StringBuilder emailBodyCopy = new StringBuilder();
 
                         string eventURL = gd.GetStringValue("SiteBaseURL");
-                        eventURL = eventURL + "?EID=" + eventID.ToString();
+                        eventURL = eventURL + "/viewEvent.aspx?EID=" + eventID.ToString();
 
                         string replyURL = gd.GetStringValue("SiteBaseURL");
                         replyURL = replyURL + "?MessageID=" + message.messageID.ToString();

@@ -268,7 +268,7 @@ public partial class shareEvent : System.Web.UI.Page     // Cannot be a SedogoPa
             StringBuilder emailBodyCopy = new StringBuilder();
 
             string eventURL = gd.GetStringValue("SiteBaseURL");
-            eventURL = eventURL + "?EID=" + eventID.ToString();
+            eventURL = eventURL + "/viewEvent.aspx?EID=" + eventID.ToString();
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");

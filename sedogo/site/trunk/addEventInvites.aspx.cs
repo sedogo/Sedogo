@@ -465,7 +465,7 @@ public partial class addEventInvites : SedogoPage
                         string inviteURL = gd.GetStringValue("SiteBaseURL");
                         inviteURL = inviteURL + "?EIG=" + newInvite.eventInviteGUID;
                         string eventURL = gd.GetStringValue("SiteBaseURL");
-                        eventURL = eventURL + "?EID=" + currentEvent.eventID.ToString();
+                        eventURL = eventURL + "/viewEvent.aspx?EID=" + currentEvent.eventID.ToString();
 
                         emailBodyCopy.AppendLine("<html>");
                         emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");

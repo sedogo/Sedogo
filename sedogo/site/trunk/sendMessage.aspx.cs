@@ -109,7 +109,7 @@ public partial class sendMessage : SedogoPage
 
             GlobalData gd = new GlobalData("");
             string eventURL = gd.GetStringValue("SiteBaseURL");
-            eventURL = eventURL + "?EID=" + eventID.ToString();
+            eventURL = eventURL + "/viewEvent.aspx?EID=" + eventID.ToString();
 
             string replyURL = gd.GetStringValue("SiteBaseURL");
             replyURL = replyURL + "?Redir=Messages&MessageID=" + message.messageID.ToString();

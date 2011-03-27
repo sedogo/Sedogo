@@ -446,7 +446,7 @@ namespace Sedogo.BusinessObjects
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
             string inviteURL = gd.GetStringValue("SiteBaseURL");
-            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+            inviteURL = inviteURL + "/viewEvent.aspx?EID=" + m_eventID.ToString();
 
             StringBuilder emailBodyCopy = new StringBuilder();
             emailBodyCopy.AppendLine("<html>");

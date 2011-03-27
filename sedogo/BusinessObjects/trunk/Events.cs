@@ -573,7 +573,7 @@ namespace Sedogo.BusinessObjects
                 m_rangeEndDate, m_beforeBirthday, ref dateString, ref startDate);
 
             string inviteURL = gd.GetStringValue("SiteBaseURL");
-            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+            inviteURL = inviteURL + "/viewEvent.aspx?EID=" + m_eventID.ToString();
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");
@@ -1787,7 +1787,7 @@ namespace Sedogo.BusinessObjects
                 sedogoEvent.rangeEndDate, sedogoEvent.beforeBirthday, ref dateString, ref startDate);
 
             string inviteURL = gd.GetStringValue("SiteBaseURL");
-            inviteURL = inviteURL + "?EID=" + m_eventID.ToString();
+            inviteURL = inviteURL + "/viewEvent.aspx?EID=" + m_eventID.ToString();
 
             emailBodyCopy.AppendLine("<html>");
             emailBodyCopy.AppendLine("<head><title></title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">");

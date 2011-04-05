@@ -132,6 +132,46 @@ namespace Sedogo.BusinessObjects
         }
 
         //===============================================================
+        // Function: CreatePreviews
+        // Description:
+        //===============================================================
+        public static int CreatePreviews(string fullFileName)
+        {
+            int returnStatus = -1;
+            string filename = Path.GetFileName(fullFileName);
+            string filePath = Path.GetFullPath(fullFileName);
+            GlobalData gd = new GlobalData("");
+            int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
+            int previewSize = gd.GetIntegerValue("PreviewSize");
+            string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
+            string fileStoreFolderTemp = fileStoreFolder + "\\temp";
+            string fileStoreFolderProfilePics = fileStoreFolder + "\\profilePics";
+            string thumbnailFileName = "";
+            string previewFileName = "";
+ //           File.Copy(fullFileName, Path.Combine(fileStoreFolderTemp, filename));
+            int thumbnailStatus = GenerateThumbnail(filePath,
+                filename, thumbnailSize, thumbnailSize, previewSize, previewSize,
+                out thumbnailFileName, out previewFileName);
+
+            if (thumbnailStatus > 0)
+            {
+                // Move the thumbnails to the /profilePics folder and update the user
+                string destFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, filename));
+                string destThumbnailFilename = MiscUtils.GetUniqueFileName(Path.Combine(filePath, thumbnailFileName));
+                string destPreviewFilename = MiscUtils.GetUniqueFileName(Path.Combine(filePath, previewFileName));
+
+                //File.Move(Path.Combine(fileStoreFolderTemp, filename), destFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, thumbnailFileName),
+                    destThumbnailFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, previewFileName),
+                    destPreviewFilename);
+                returnStatus = 0;
+            }
+
+            return returnStatus;
+        }
+
+        //===============================================================
         // Function: CreateEventPicPreviews
         // Description:
         //===============================================================
@@ -172,6 +212,45 @@ namespace Sedogo.BusinessObjects
                 sedogoEvent.eventPicThumbnail = Path.GetFileName(destThumbnailFilename);
                 sedogoEvent.UpdateEventPic();
 
+                returnStatus = 0;
+            }
+
+            return returnStatus;
+        }
+        //===============================================================
+        // Function: CreateEventPicPreviews
+        // Description:
+        //===============================================================
+        public static int CreateEventPicPreviews(string filename)
+        {
+            int returnStatus = -1;
+
+            GlobalData gd = new GlobalData("");
+            int thumbnailSize = gd.GetIntegerValue("ThumbnailSize");
+            int previewSize = gd.GetIntegerValue("PreviewSize");
+            string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
+            string fileStoreFolderTemp = fileStoreFolder + "\\temp";
+            string fileStoreFolderProfilePics = fileStoreFolder + "\\eventPics";
+            string thumbnailFileName = "";
+            string previewFileName = "";
+
+            int thumbnailStatus = GenerateThumbnail(fileStoreFolderTemp,
+                filename, thumbnailSize, thumbnailSize, previewSize, previewSize,
+                out thumbnailFileName, out previewFileName);
+
+            if (thumbnailStatus > 0)
+            {
+                // Move the thumbnails to the /profilePics folder and update the user
+                string destFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, filename));
+                string destThumbnailFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, thumbnailFileName));
+                string destPreviewFilename = MiscUtils.GetUniqueFileName(Path.Combine(fileStoreFolderProfilePics, previewFileName));
+
+                File.Move(Path.Combine(fileStoreFolderTemp, filename),
+                    destFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, thumbnailFileName),
+                    destThumbnailFilename);
+                File.Move(Path.Combine(fileStoreFolderTemp, previewFileName),
+                    destPreviewFilename);
                 returnStatus = 0;
             }
 
@@ -245,8 +324,8 @@ namespace Sedogo.BusinessObjects
             int returnStatus = -1;
 
             GlobalData gd = new GlobalData("");
-            int thumbnailSize = 100;    // gd.GetIntegerValue("ThumbnailSize");
-            int previewSize = 500;  // gd.GetIntegerValue("PreviewSize");
+            int thumbnailSize =  gd.GetIntegerValue("ThumbnailSize");//100;    
+            int previewSize =  gd.GetIntegerValue("PreviewSize");//500;  
             string fileStoreFolder = gd.GetStringValue("FileStoreFolder");
             string fileStoreFolderTemp = fileStoreFolder + "\\temp";
             string fileStoreFolderProfilePics = fileStoreFolder + "\\eventPics";

@@ -39,6 +39,7 @@ public partial class eventPicDetails : System.Web.UI.Page
         if (!IsPostBack)
         {
             int eventID = int.Parse(Request.QueryString["EID"]);
+            int eventPID = int.Parse(Request.QueryString["EPID"]);
             int userID = -1;
             string loggedInUserName = "";
             if (Session["loggedInUserID"] != null)
@@ -155,7 +156,9 @@ public partial class eventPicDetails : System.Web.UI.Page
                     imagePreview = ResolveUrl(ImageHelper.GetRelativeImagePath(eventPictureID, @event.eventGUID,ImageType.EventPictureThumbnailSlideShow));//  ImageType.EventPicturePreview));
 
                     sliderImagesLiteral.Text += "slidesX[" + imageCount.ToString() + "] = [\"" + imagePreview + "\", \"" + caption.Replace('"',' ') + "\"];\n";
-                    imageCount++;
+                imageCount++;  
+ //                   if(eventPictureID==eventPID)     sliderImagesLiteral.Text += "slidesX.jumpto="+imageCount+";\n";
+                    
                 }
                 rdr.Close();
             }

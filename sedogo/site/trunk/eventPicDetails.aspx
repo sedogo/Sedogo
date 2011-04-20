@@ -112,7 +112,7 @@ slidesX.desc_prefix=''; //string prefix for image descriptions display
 slidesX.controls_top=1; //use for top controls
 slidesX.counter=0; //use to show image count
 slidesX.width=730; //use to set width of widest image if dimensions vary
-slidesX.height=730; //use to set height of tallest image if dimensions vary
+//slidesX.height=730; //use to set height of tallest image if dimensions vary
 slidesX.no_auto=1; //use to make show completely user operated (no play button, starts in stopped mode)
 slidesX.use_alt=1; //use for descriptions as images alt attributes
 slidesX.use_title=1; //use for descriptions as images title attributes
@@ -120,6 +120,7 @@ slidesX.nofade=1; //use for no fade-in, fade-out effect for this show
 slidesX.border=0; //set border width for images
 slidesX.border_color='#FFFFFF'; //set border color for images
 slidesX.no_controls=1;
+//slidesX.jumpto=3; - doesn't work
 </script>
 <script src="js/swissarmy.js" type="text/javascript"></script>
 

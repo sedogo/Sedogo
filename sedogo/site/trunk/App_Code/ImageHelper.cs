@@ -223,7 +223,7 @@ public class ImageHelper
             return VirtualPathUtility.ToAbsolute("~/img/" + filename);
 
         var newEmptyImage = Resize(HttpContext.Current.Server.MapPath("~/img/placeholders/" + srcImageName),
-                                     dimensions.First, dimensions.Second, dimensions.Third, type != ImageType.EventPictureThumbnailSlideShow);
+                                     dimensions.First, dimensions.Second, dimensions.Third, type != ImageType.EventPictureThumbnailSlideShow, type);
 
         newEmptyImage.Save(HttpContext.Current.Server.MapPath("~/img/" + filename), ImageFormat.Png);
         return VirtualPathUtility.ToAbsolute("~/img/" + filename);
@@ -394,7 +394,7 @@ public class ImageHelper
         
         using (var sourceImage = Image.FromFile(fullPath))
         {
-            using (var targetImage = Resize(sourceImage, width, height, radius, imageType != ImageType.EventPictureThumbnailSlideShow))
+            using (var targetImage = Resize(sourceImage, width, height, radius, imageType != ImageType.EventPictureThumbnailSlideShow, imageType))
             {
                 targetImage.Save(physPath + @"\" + thmName, ImageFormat.Jpeg); //save as jpg only
                 resultWidth = targetImage.Width;
@@ -440,11 +440,11 @@ public class ImageHelper
     /// <param name="height">Required heght</param>
     /// <param name="radius">Radius of rounded corners</param>
     /// <returns>Image</returns>
-    public static Image Resize(string path, int width, int height, int radius, bool crop)
+    public static Image Resize(string path, int width, int height, int radius, bool crop, ImageType type)
     {
         if (File.Exists(path))
         {
-            return Resize(Image.FromFile(path), width, height, radius, crop);
+            return Resize(Image.FromFile(path), width, height, radius, crop, type);
         }
         throw new ArgumentException("Wrong path. The image does not exists", "path");
     }
@@ -463,7 +463,7 @@ public class ImageHelper
     /// <param name="width">Required width</param>
     /// <param name="height">Required heght</param>
     /// <returns>Image</returns>
-    public static Image Resize(Image image, int width, int height, bool crop)
+    public static Image Resize(Image image, int width, int height, bool crop, ImageType type)
     {
         if (image == null) throw new ArgumentNullException("image");
 
@@ -479,12 +479,20 @@ public class ImageHelper
 
         int sourceWidth = image.Width;
         int sourceHeight = image.Height;
-    
-        int destWidth = width;
-        int destHeight = crop ? width : height * sourceHeight / sourceWidth;
-
+        int destWidth, destHeight;
+        if (sourceWidth > sourceHeight)                    // Landscape
+        {
+            destWidth = width;
+            destHeight = (type==ImageType.EventPictureThumbnailSlideShow ? width : height) * sourceHeight / sourceWidth;
+        }
+        else                                          //Portrait
+        {
+            destWidth = type == ImageType.EventPictureThumbnailSlideShow ? width / 2 : width;
+            destHeight = (type == ImageType.EventPictureThumbnailSlideShow ? width / 2 : height) * sourceHeight / sourceWidth;
+        }
         Bitmap bitmap = new Bitmap(destWidth, destHeight,
                           PixelFormat.Format32bppArgb);
+        
         bitmap.SetResolution(image.HorizontalResolution,
                          image.VerticalResolution);
 
@@ -493,15 +501,15 @@ public class ImageHelper
         grPhoto.InterpolationMode =
                 InterpolationMode.HighQualityBicubic;
         
-        if(sourceWidth>sourceHeight)
+        if(sourceWidth>sourceHeight)                    // Landscape
             grPhoto.DrawImage(image,
                 new Rectangle(0, 0, destWidth, destHeight),
-                new Rectangle(crop?(sourceWidth-sourceHeight)/2:0, 0, crop?sourceHeight:sourceWidth, sourceHeight),
+                new Rectangle( 0, 0, sourceWidth, sourceHeight),
                 GraphicsUnit.Pixel);
-        else
+        else                                          //Portrait
             grPhoto.DrawImage(image,
                 new Rectangle(0, 0, destWidth, destHeight),
-                new Rectangle(0, crop?(sourceHeight-sourceWidth)/2:0, sourceWidth, crop?sourceWidth:sourceHeight),
+                new Rectangle(0, 0, sourceWidth, sourceHeight),
                 GraphicsUnit.Pixel);
         grPhoto.Dispose();
         return bitmap;
@@ -515,9 +523,9 @@ public class ImageHelper
     /// <param name="height">Required heght</param>
     /// <param name="radius">Radius of rounded corners</param>
     /// <returns>Image</returns>
-    public static Image Resize(Image image, int width, int height, int radius, bool crop)
+    public static Image Resize(Image image, int width, int height, int radius, bool crop, ImageType type)
     {
-        image = Resize(image, width, height, crop);
+        image = Resize(image, width, height, crop, type);
 
         if (radius == 0)
         {

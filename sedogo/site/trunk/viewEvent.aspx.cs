@@ -508,6 +508,10 @@ public partial class viewEvent : System.Web.UI.Page     // Cannot be a SedogoPag
                 ImageUrl = ImageHelper.GetRelativeImagePath(sedogoEvent.eventID, sedogoEvent.eventGUID,
                                                             ImageType.EventPreview);
             }
+            else
+            {
+                ImageUrl = "www.sedogo.com/images/iphoneLogo.jpg";
+            }
 
             AddFacebookMetaNoEncode("og:image", MiscUtils.GetAbsoluteUrl(ImageUrl));
 
